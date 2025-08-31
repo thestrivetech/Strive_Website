@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 const Home = () => {
   const handleGetStarted = () => {
-    window.location.href = "/contact";
+    window.location.href = "/get-started";
   };
 
   const handleWatchDemo = () => {
@@ -79,12 +79,7 @@ const Home = () => {
     <div className="pt-16">
       {/* Hero Section */}
       <HeroSection
-        title={
-          <>
-            Technology that makes your{" "}
-            <span className="text-primary">business operations</span> more efficient.
-          </>
-        }
+        title="Technology that makes your business operations more efficient."
         subtitle="One platform to help improve the productivity, efficiency, and profitability of your operations."
         onPrimaryClick={handleGetStarted}
         onSecondaryClick={handleWatchDemo}

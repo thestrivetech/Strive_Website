@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 const Resources = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   
-  const filters = ["All", "Blog Posts", "Whitepapers", "Case Studies", "Webinars"];
+  const filters = ["All", "Blog Posts", "Whitepapers", "Case Studies"];
   
   const featuredResource = {
     type: "FEATURED WHITEPAPER",
@@ -27,15 +27,6 @@ const Resources = () => {
       imageAlt: "Modern office workspace with digital transformation",
       metadata: "5 min read",
       date: "Jan 15, 2024"
-    },
-    {
-      type: "WEBINAR", 
-      title: "Data-Driven Decision Making in 2024",
-      description: "Learn how to leverage data analytics and business intelligence to make informed strategic decisions.",
-      imageUrl: "https://images.unsplash.com/photo-1560472355-536de3962603?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Professional business team meeting with data analytics",
-      metadata: "45 min",
-      date: "Available On-Demand"
     },
     {
       type: "WHITEPAPER",
@@ -65,13 +56,13 @@ const Resources = () => {
       date: "Dec 20, 2023"
     },
     {
-      type: "WEBINAR",
+      type: "BLOG POST",
       title: "Building a Culture of Innovation",
       description: "Strategies for fostering innovation and adaptability in rapidly changing business environments.",
       imageUrl: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
       imageAlt: "Modern office workspace with team collaboration and innovation",
-      metadata: "60 min",
-      date: "Live Event"
+      metadata: "6 min read",
+      date: "Latest Post"
     }
   ];
 

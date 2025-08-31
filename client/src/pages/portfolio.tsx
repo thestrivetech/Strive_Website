@@ -1,62 +1,84 @@
 import PortfolioCard from "@/components/ui/portfolio-card";
 
 const Portfolio = () => {
-  const portfolioItems = [
+  const demos = [
     {
-      category: "TECHNOLOGY",
-      title: "TechCorp Digital Transformation",
-      description: "Streamlined operations and increased efficiency by 40% through AI-powered automation.",
-      imageUrl: "https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Professional business team in modern office",
-      duration: "6 months",
+      category: "DEMO",
+      title: "AI Customer Service Bot",
+      description: "Interactive demo of our conversational AI that handles customer inquiries with 95% accuracy.",
+      imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "AI chatbot interface demonstration",
+      duration: "Live Demo",
     },
     {
-      category: "FINANCE",
-      title: "Global Financial Services",
-      description: "Implemented comprehensive risk management and compliance automation platform.",
-      imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Corporate building exterior with modern architecture",
-      duration: "8 months",
+      category: "DEMO",
+      title: "Predictive Analytics Engine",
+      description: "Real-time demonstration of our AI forecasting models predicting business trends and outcomes.",
+      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Analytics dashboard with predictive models",
+      duration: "Live Demo",
+    }
+  ];
+
+  const templates = [
+    {
+      category: "TEMPLATE",
+      title: "E-commerce Recommendation Engine",
+      description: "Pre-built AI template for personalized product recommendations with easy customization.",
+      imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "E-commerce recommendation system template",
+      duration: "Template",
     },
     {
-      category: "HEALTHCARE",
-      title: "MedHealth Analytics Platform",
-      description: "Revolutionized patient care with predictive analytics and automated workflows.",
-      imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Technology solutions workspace with multiple screens",
-      duration: "12 months",
+      category: "TEMPLATE",
+      title: "Document Processing AI",
+      description: "Ready-to-use template for intelligent document classification and data extraction.",
+      imageUrl: "https://images.unsplash.com/photo-1633409361618-c73427e4e206?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Document processing AI template interface",
+      duration: "Template",
     },
     {
-      category: "RETAIL",
-      title: "RetailMax Omnichannel Solution",
-      description: "Unified customer experience across all channels with AI-driven personalization.",
-      imageUrl: "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Business handshake meeting in professional setting",
-      duration: "10 months",
+      category: "TEMPLATE",
+      title: "Financial Fraud Detection",
+      description: "AI-powered template for real-time fraud detection and risk assessment in financial transactions.",
+      imageUrl: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Financial fraud detection system template",
+      duration: "Template",
+    }
+  ];
+
+  const prototypes = [
+    {
+      category: "PROTOTYPE",
+      title: "Voice-to-Code AI Assistant",
+      description: "Experimental prototype that converts natural language descriptions into working code.",
+      imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Voice-to-code AI assistant prototype",
+      duration: "Beta",
     },
     {
-      category: "MANUFACTURING",
-      title: "Industrial IoT Integration",
-      description: "Connected factory systems for real-time monitoring and predictive maintenance.",
-      imageUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Modern office workspace with collaborative team",
-      duration: "14 months",
+      category: "PROTOTYPE",
+      title: "Multi-Modal AI Platform",
+      description: "Next-generation AI platform processing text, images, and audio simultaneously.",
+      imageUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Multi-modal AI platform prototype interface",
+      duration: "Beta",
     },
     {
-      category: "LOGISTICS",
-      title: "LogiFlow Optimization",
-      description: "Optimized supply chain operations with AI-powered route planning and inventory management.",
-      imageUrl: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Technology solutions dashboard display",
-      duration: "9 months",
-    },
+      category: "PROTOTYPE",
+      title: "Autonomous Business Analyst",
+      description: "AI prototype that autonomously analyzes business metrics and provides strategic recommendations.",
+      imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Autonomous business analyst AI prototype",
+      duration: "Beta",
+    }
   ];
 
   const stats = [
-    { number: "150+", label: "Projects Completed" },
-    { number: "98%", label: "Client Satisfaction" },
-    { number: "45%", label: "Average Efficiency Gain" },
-    { number: "$2.5M", label: "Average Cost Savings" },
+    { number: "50+", label: "AI Models Deployed" },
+    { number: "25+", label: "Ready Templates" },
+    { number: "10+", label: "Beta Prototypes" },
+    { number: "99.2%", label: "Model Accuracy" },
   ];
 
   return (
@@ -68,28 +90,74 @@ const Portfolio = () => {
               className="text-4xl md:text-5xl font-bold mb-6"
               data-testid="text-portfolio-title"
             >
-              Our Portfolio
+              Demos, Templates & Prototypes
             </h1>
             <p 
               className="text-xl text-muted-foreground max-w-3xl mx-auto"
               data-testid="text-portfolio-subtitle"
             >
-              Discover how we've helped businesses across industries transform their operations and achieve exceptional results.
+              Explore our AI solutions in action through live demos, ready-to-use templates, and cutting-edge prototypes.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {portfolioItems.map((item, index) => (
-              <PortfolioCard
-                key={index}
-                category={item.category}
-                title={item.title}
-                description={item.description}
-                imageUrl={item.imageUrl}
-                imageAlt={item.imageAlt}
-                duration={item.duration}
-              />
-            ))}
+          {/* Demos Section */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center" data-testid="text-demos-title">
+              Live Demos
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {demos.map((item, index) => (
+                <PortfolioCard
+                  key={index}
+                  category={item.category}
+                  title={item.title}
+                  description={item.description}
+                  imageUrl={item.imageUrl}
+                  imageAlt={item.imageAlt}
+                  duration={item.duration}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Templates Section */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center" data-testid="text-templates-title">
+              Ready-to-Use Templates
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {templates.map((item, index) => (
+                <PortfolioCard
+                  key={index}
+                  category={item.category}
+                  title={item.title}
+                  description={item.description}
+                  imageUrl={item.imageUrl}
+                  imageAlt={item.imageAlt}
+                  duration={item.duration}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Prototypes Section */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center" data-testid="text-prototypes-title">
+              Future Prototypes
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {prototypes.map((item, index) => (
+                <PortfolioCard
+                  key={index}
+                  category={item.category}
+                  title={item.title}
+                  description={item.description}
+                  imageUrl={item.imageUrl}
+                  imageAlt={item.imageAlt}
+                  duration={item.duration}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Stats Section */}
@@ -99,13 +167,13 @@ const Portfolio = () => {
                 className="text-3xl md:text-4xl font-bold mb-4"
                 data-testid="text-stats-title"
               >
-                Results That Matter
+                AI Innovation by the Numbers
               </h2>
               <p 
                 className="text-xl text-muted-foreground"
                 data-testid="text-stats-subtitle"
               >
-                Our portfolio speaks for itself with measurable business outcomes.
+                Our AI solutions deliver measurable impact across industries.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">

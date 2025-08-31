@@ -50,14 +50,23 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:flex items-center">
+          {/* CTA and Login Buttons */}
+          <div className="hidden md:flex items-center space-x-3">
             <Button 
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
-              data-testid="button-get-started"
+              variant="ghost"
+              className="text-foreground hover:text-primary hover:bg-transparent"
+              data-testid="button-login"
             >
-              Get Started
+              Login
             </Button>
+            <Link href="/get-started">
+              <Button 
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+                data-testid="button-get-started"
+              >
+                Get Started
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu */}
@@ -88,12 +97,23 @@ const Navigation = () => {
                       {item.name}
                     </Link>
                   ))}
-                  <Button 
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 mt-4"
-                    data-testid="mobile-button-get-started"
-                  >
-                    Get Started
-                  </Button>
+                  <div className="space-y-3 mt-4">
+                    <Button 
+                      variant="ghost"
+                      className="w-full text-foreground hover:text-primary"
+                      data-testid="mobile-button-login"
+                    >
+                      Login
+                    </Button>
+                    <Link href="/get-started">
+                      <Button 
+                        className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                        data-testid="mobile-button-get-started"
+                      >
+                        Get Started
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>

@@ -5,12 +5,14 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navigation from "@/components/layout/navigation";
 import Footer from "@/components/layout/footer";
+import FloatingChat from "@/components/ui/floating-chat";
 import Home from "@/pages/home";
 import Portfolio from "@/pages/portfolio";
 import Solutions from "@/pages/solutions";
 import Resources from "@/pages/resources";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
+import GetStarted from "@/pages/get-started";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -25,10 +27,12 @@ function Router() {
           <Route path="/resources" component={Resources} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
+          <Route path="/get-started" component={GetStarted} />
           <Route component={NotFound} />
         </Switch>
       </main>
       <Footer />
+      <FloatingChat />
     </div>
   );
 }
