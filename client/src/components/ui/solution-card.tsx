@@ -12,7 +12,7 @@ interface SolutionCardProps {
 const SolutionCard = ({ icon, title, description, href, className }: SolutionCardProps) => {
   const handleClick = () => {
     if (href) {
-      window.open(href, '_blank');
+      window.location.href = href;
     }
   };
 

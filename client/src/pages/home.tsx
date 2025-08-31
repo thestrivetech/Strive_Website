@@ -2,6 +2,7 @@ import { Trophy, Shield, Brain, TrendingUp, Clock, Users, BarChart, Cog, Calcula
 import HeroSection from "@/components/ui/hero-section";
 import SolutionCard from "@/components/ui/solution-card";
 import ResourceCard from "@/components/ui/resource-card";
+import ROICalculator from "@/components/ui/roi-calculator";
 import { Button } from "@/components/ui/button";
 
 const Home = () => {
@@ -19,31 +20,37 @@ const Home = () => {
       icon: <Clock className="text-primary text-2xl" />,
       title: "Project Management",
       description: "Streamline your projects with AI-powered planning, tracking, and collaboration tools.",
+      href: "/solutions#ai-automation",
     },
     {
       icon: <BarChart className="text-primary text-2xl" />,
       title: "Business Intelligence",
       description: "Make data-driven decisions with advanced analytics and real-time insights.",
+      href: "/solutions#data-analytics",
     },
     {
       icon: <Cog className="text-primary text-2xl" />,
       title: "Process Automation",
       description: "Automate repetitive tasks and workflows to boost productivity and reduce errors.",
+      href: "/solutions#ai-automation",
     },
     {
       icon: <Users className="text-primary text-2xl" />,
       title: "Customer Management",
       description: "Build stronger relationships with comprehensive customer insights and engagement tools.",
+      href: "/solutions#data-analytics",
     },
     {
       icon: <Calculator className="text-primary text-2xl" />,
       title: "Financial Planning",
       description: "Optimize your financial performance with predictive modeling and smart budgeting.",
+      href: "/solutions#data-analytics",
     },
     {
       icon: <ShieldCheck className="text-primary text-2xl" />,
       title: "Security & Compliance",
       description: "Protect your business with enterprise-grade security and automated compliance monitoring.",
+      href: "/solutions#security-compliance",
     },
   ];
 
@@ -85,24 +92,8 @@ const Home = () => {
         onSecondaryClick={handleWatchDemo}
       />
 
-      {/* Award Banner */}
-      <section className="bg-card text-card-foreground py-4">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="text-sm md:text-base" data-testid="text-award-banner">
-              <Trophy className="inline h-4 w-4 text-primary mr-2" />
-              Strive wins #1 for Best Business Solutions Platform.{" "}
-              <a 
-                href="#" 
-                className="text-primary hover:underline"
-                data-testid="link-read-more"
-              >
-                Read more
-              </a>
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* ROI Calculator */}
+      <ROICalculator />
 
       {/* Integrated Platform Section */}
       <section className="py-16 md:py-24">
@@ -130,6 +121,7 @@ const Home = () => {
                 icon={solution.icon}
                 title={solution.title}
                 description={solution.description}
+                href={solution.href}
               />
             ))}
           </div>

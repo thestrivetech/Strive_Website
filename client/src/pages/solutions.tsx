@@ -1,4 +1,4 @@
-import { Bot, BarChart, Cloud, ShieldCheck, Check, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory } from "lucide-react";
+import { Bot, BarChart, Blocks, ShieldCheck, Eye, Check, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const Solutions = () => {
@@ -26,25 +26,36 @@ const Solutions = () => {
       ]
     },
     {
-      icon: <Cloud className="text-primary text-xl" />,
-      title: "Cloud Infrastructure",
-      description: "Scalable, secure, and reliable cloud solutions that grow with your business and ensure optimal performance.",
+      icon: <Blocks className="text-primary text-xl" />,
+      title: "Blockchain Solutions",
+      description: "Secure, transparent blockchain applications for supply chain, smart contracts, and decentralized systems.",
       features: [
-        "Cloud Migration",
-        "Infrastructure as Code",
-        "Auto-scaling Solutions",
-        "Disaster Recovery"
+        "Smart Contract Development",
+        "Supply Chain Tracking",
+        "Cryptocurrency Integration",
+        "Decentralized Applications"
       ]
     },
     {
       icon: <ShieldCheck className="text-primary text-xl" />,
-      title: "Security & Compliance",
-      description: "Comprehensive security solutions to protect your data, ensure compliance, and maintain customer trust.",
+      title: "Smart Business Solutions",
+      description: "Intelligent business automation and optimization systems that adapt and learn from your operations.",
       features: [
-        "Zero Trust Architecture",
-        "Compliance Management",
-        "Threat Detection",
-        "Identity Management"
+        "Automated Decision Making",
+        "Business Process Mining",
+        "Workflow Optimization",
+        "Performance Analytics"
+      ]
+    },
+    {
+      icon: <Eye className="text-primary text-xl" />,
+      title: "Threat Detection",
+      description: "Advanced cybersecurity monitoring and threat detection systems powered by AI and machine learning.",
+      features: [
+        "Real-time Monitoring",
+        "Anomaly Detection",
+        "Incident Response",
+        "Security Analytics"
       ]
     }
   ];
@@ -78,20 +89,24 @@ const Solutions = () => {
           </div>
 
           {/* Solution Categories */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-20">
             {mainSolutions.map((solution, index) => (
               <Card 
                 key={index} 
-                className="p-8"
+                id={solution.title.toLowerCase().replace(/\s+&\s+/g, "-").replace(/\s+/g, "-")}
+                className="p-8 group hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:border-primary/50 hover:-translate-y-1 relative overflow-hidden"
                 data-testid={`card-main-solution-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <CardContent className="p-0">
+                <CardContent className="p-0 relative z-10">
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+                  
                   <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mr-4">
+                    <div className="w-12 h-12 bg-primary/10 group-hover:bg-primary/20 rounded-xl flex items-center justify-center mr-4 transition-all duration-300 group-hover:scale-110">
                       {solution.icon}
                     </div>
                     <h2 
-                      className="text-2xl font-bold"
+                      className="text-2xl font-bold group-hover:text-primary transition-colors duration-300"
                       data-testid={`text-solution-title-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
                     >
                       {solution.title}
@@ -140,15 +155,15 @@ const Solutions = () => {
             {industrySolutions.map((industry, index) => (
               <Card 
                 key={index} 
-                className="p-6 text-center card-hover"
+                className="p-6 text-center group hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1 cursor-pointer"
                 data-testid={`card-industry-${industry.title.toLowerCase().replace(/\s+/g, "-")}`}
               >
                 <CardContent className="p-0">
-                  <div className="mb-4">
+                  <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
                     {industry.icon}
                   </div>
                   <h3 
-                    className="text-xl font-bold mb-3"
+                    className="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300"
                     data-testid={`text-industry-title-${industry.title.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     {industry.title}

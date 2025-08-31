@@ -13,6 +13,16 @@ import Resources from "@/pages/resources";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
 import GetStarted from "@/pages/get-started";
+import Login from "@/pages/login";
+import Privacy from "@/pages/privacy";
+import Terms from "@/pages/terms";
+import Cookies from "@/pages/cookies";
+import Healthcare from "@/pages/solutions/healthcare";
+import Financial from "@/pages/solutions/financial";
+import Manufacturing from "@/pages/solutions/manufacturing";
+import Retail from "@/pages/solutions/retail";
+import Technology from "@/pages/solutions/technology";
+import Education from "@/pages/solutions/education";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -28,6 +38,16 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
           <Route path="/get-started" component={GetStarted} />
+          <Route path="/login" component={Login} />
+          <Route path="/privacy" component={Privacy} />
+          <Route path="/terms" component={Terms} />
+          <Route path="/cookies" component={Cookies} />
+          <Route path="/solutions/healthcare" component={Healthcare} />
+          <Route path="/solutions/financial" component={Financial} />
+          <Route path="/solutions/manufacturing" component={Manufacturing} />
+          <Route path="/solutions/retail" component={Retail} />
+          <Route path="/solutions/technology" component={Technology} />
+          <Route path="/solutions/education" component={Education} />
           <Route component={NotFound} />
         </Switch>
       </main>

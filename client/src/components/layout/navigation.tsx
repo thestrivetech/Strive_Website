@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import logoImage from "@assets/logo&text_small.png";
 
 const Navigation = () => {
   const [location] = useLocation();
@@ -11,10 +18,18 @@ const Navigation = () => {
   const navItems = [
     { name: "Home", path: "/" },
     { name: "Portfolio", path: "/portfolio" },
-    { name: "Solutions", path: "/solutions" },
     { name: "Resources", path: "/resources" },
     { name: "About Us", path: "/about" },
     { name: "Contact", path: "/contact" },
+  ];
+
+  const industrySolutions = [
+    { name: "Healthcare", path: "/solutions/healthcare" },
+    { name: "Financial Services", path: "/solutions/financial" },
+    { name: "Manufacturing", path: "/solutions/manufacturing" },
+    { name: "Retail", path: "/solutions/retail" },
+    { name: "Technology", path: "/solutions/technology" },
+    { name: "Education", path: "/solutions/education" },
   ];
 
   const isActive = (path: string) => {
@@ -29,9 +44,12 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <div className="text-2xl font-bold text-primary" data-testid="logo">
-              Strive
-            </div>
+            <img 
+              src={logoImage} 
+              alt="Strive" 
+              className="h-10 w-auto"
+              data-testid="logo"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -48,17 +66,54 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+            
+            {/* Solutions Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger 
+                className={`nav-link text-foreground hover:text-primary transition-colors flex items-center ${
+                  isActive("/solutions") ? "active" : ""
+                }`}
+                data-testid="nav-solutions-dropdown"
+              >
+                Solutions
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="start">
+                <DropdownMenuItem asChild>
+                  <Link 
+                    href="/solutions" 
+                    className="flex w-full cursor-pointer"
+                    data-testid="dropdown-solutions-overview"
+                  >
+                    All Solutions
+                  </Link>
+                </DropdownMenuItem>
+                {industrySolutions.map((industry) => (
+                  <DropdownMenuItem key={industry.path} asChild>
+                    <Link 
+                      href={industry.path} 
+                      className="flex w-full cursor-pointer"
+                      data-testid={`dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
+                    >
+                      {industry.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* CTA and Login Buttons */}
           <div className="hidden md:flex items-center space-x-3">
-            <Button 
-              variant="ghost"
-              className="text-foreground hover:text-primary hover:bg-transparent"
-              data-testid="button-login"
-            >
-              Login
-            </Button>
+            <Link href="/login">
+              <Button 
+                variant="ghost"
+                className="text-foreground hover:text-primary hover:bg-transparent"
+                data-testid="button-login"
+              >
+                Login
+              </Button>
+            </Link>
             <Link href="/get-started">
               <Button 
                 className="bg-primary text-primary-foreground hover:bg-primary/90"
@@ -98,13 +153,16 @@ const Navigation = () => {
                     </Link>
                   ))}
                   <div className="space-y-3 mt-4">
-                    <Button 
-                      variant="ghost"
-                      className="w-full text-foreground hover:text-primary"
-                      data-testid="mobile-button-login"
-                    >
-                      Login
-                    </Button>
+                    <Link href="/login">
+                      <Button 
+                        variant="ghost"
+                        className="w-full text-foreground hover:text-primary"
+                        data-testid="mobile-button-login"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        Login
+                      </Button>
+                    </Link>
                     <Link href="/get-started">
                       <Button 
                         className="w-full bg-primary text-primary-foreground hover:bg-primary/90"

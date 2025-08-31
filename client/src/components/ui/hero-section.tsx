@@ -66,7 +66,7 @@ const HeroSection = ({
   return (
     <section className="hero-gradient min-h-screen flex items-center relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-[90vh]">
           {/* Left Content */}
           <div className="space-y-8 slide-in-left">
             <div className="space-y-6">
@@ -129,33 +129,33 @@ const HeroSection = ({
           </div>
 
           {/* Right Demo Video */}
-          <div className="space-y-6 slide-in-right">
+          <div className="space-y-8 slide-in-right">
             <div className="demo-video-container">
-              <div className="relative">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img 
                   src={demoVideos[currentDemo].thumbnail}
                   alt={demoVideos[currentDemo].title}
-                  className="w-full aspect-video object-cover"
+                  className="w-full aspect-video object-cover transform scale-105 hover:scale-100 transition-transform duration-500"
                   data-testid="demo-thumbnail"
                 />
                 
                 {/* Play/Pause Overlay */}
-                <div className="absolute inset-0 bg-black/20 flex items-center justify-center group">
+                <div className="absolute inset-0 bg-black/30 flex items-center justify-center group">
                   <button
                     onClick={togglePlayback}
-                    className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+                    className="w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 hover:bg-primary/90"
                     data-testid="button-demo-play"
                   >
                     {isPlaying ? (
                       <Pause className="text-primary-foreground w-6 h-6" />
                     ) : (
-                      <Play className="text-primary-foreground w-6 h-6 ml-1" />
+                      <Play className="text-primary-foreground w-8 h-8 ml-1" />
                     )}
                   </button>
                 </div>
 
                 {/* Video Info Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-8">
                   <div className="text-white">
                     <h3 
                       className="text-lg font-semibold mb-1"

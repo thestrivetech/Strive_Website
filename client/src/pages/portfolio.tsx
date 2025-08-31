@@ -1,48 +1,87 @@
 import PortfolioCard from "@/components/ui/portfolio-card";
+import { Bot, Code, Blocks } from "lucide-react";
 
 const Portfolio = () => {
-  const demos = [
+  const aiModels = [
     {
-      category: "DEMO",
-      title: "AI Customer Service Bot",
-      description: "Interactive demo of our conversational AI that handles customer inquiries with 95% accuracy.",
+      category: "AI MODELS",
+      title: "Natural Language Processing",
+      description: "Advanced NLP models for document analysis, sentiment detection, and automated content generation.",
       imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "AI chatbot interface demonstration",
+      imageAlt: "AI language processing demonstration",
       duration: "Live Demo",
     },
     {
-      category: "DEMO",
-      title: "Predictive Analytics Engine",
-      description: "Real-time demonstration of our AI forecasting models predicting business trends and outcomes.",
-      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Analytics dashboard with predictive models",
+      category: "AI MODELS",
+      title: "Computer Vision Solutions",
+      description: "Image recognition and analysis models for quality control, security, and automated inspection.",
+      imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Computer vision AI demonstration",
       duration: "Live Demo",
     }
   ];
 
-  const templates = [
+  const customSoftware = [
     {
-      category: "TEMPLATE",
-      title: "E-commerce Recommendation Engine",
-      description: "Pre-built AI template for personalized product recommendations with easy customization.",
-      imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "E-commerce recommendation system template",
-      duration: "Template",
+      category: "CUSTOM SOFTWARE",
+      title: "Enterprise Resource Planning",
+      description: "Fully customized ERP system tailored to manufacturing workflows and industry requirements.",
+      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Custom ERP software interface",
+      duration: "Live Demo",
     },
     {
-      category: "TEMPLATE",
-      title: "Document Processing AI",
-      description: "Ready-to-use template for intelligent document classification and data extraction.",
-      imageUrl: "https://images.unsplash.com/photo-1633409361618-c73427e4e206?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Document processing AI template interface",
-      duration: "Template",
-    },
-    {
-      category: "TEMPLATE",
-      title: "Financial Fraud Detection",
-      description: "AI-powered template for real-time fraud detection and risk assessment in financial transactions.",
+      category: "CUSTOM SOFTWARE",
+      title: "Financial Management Platform", 
+      description: "Bespoke financial software with real-time reporting, risk assessment, and compliance tracking.",
       imageUrl: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Financial fraud detection system template",
+      imageAlt: "Financial management software demo",
+      duration: "Live Demo",
+    }
+  ];
+
+  const blockchain = [
+    {
+      category: "BLOCKCHAIN",
+      title: "Supply Chain Transparency",
+      description: "Blockchain-based tracking system providing end-to-end supply chain visibility and verification.",
+      imageUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Blockchain supply chain tracking demo",
+      duration: "Live Demo",
+    },
+    {
+      category: "BLOCKCHAIN",
+      title: "Smart Contract Automation",
+      description: "Automated contract execution and payment systems reducing processing time by 90%.",
+      imageUrl: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Smart contract automation demo",
+      duration: "Live Demo",
+    }
+  ];
+
+  const webDesignTemplates = [
+    {
+      category: "WEB DESIGN",
+      title: "Modern E-commerce UI Kit",
+      description: "Complete UI/UX template with responsive design, product catalogs, and checkout flows.",
+      imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "E-commerce web design template",
+      duration: "Template",
+    },
+    {
+      category: "UI/UX DESIGN",
+      title: "SaaS Dashboard Templates",
+      description: "Professional dashboard designs with data visualization components and user management interfaces.",
+      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "SaaS dashboard UI template",
+      duration: "Template",
+    },
+    {
+      category: "WEB DESIGN",
+      title: "Corporate Website Templates", 
+      description: "Professional business website templates with modern layouts and conversion-optimized designs.",
+      imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Corporate website design template",
       duration: "Template",
     }
   ];
@@ -100,33 +139,86 @@ const Portfolio = () => {
             </p>
           </div>
 
-          {/* Demos Section */}
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center" data-testid="text-demos-title">
+          {/* Live Demos Section */}
+          <div className="mb-20">
+            <h2 className="text-3xl font-bold mb-12 text-center" data-testid="text-demos-title">
               Live Demos
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {demos.map((item, index) => (
-                <PortfolioCard
-                  key={index}
-                  category={item.category}
-                  title={item.title}
-                  description={item.description}
-                  imageUrl={item.imageUrl}
-                  imageAlt={item.imageAlt}
-                  duration={item.duration}
-                />
-              ))}
+            
+            {/* AI Models Column */}
+            <div className="mb-16">
+              <div className="flex items-center justify-center mb-8">
+                <Bot className="text-primary mr-3 h-8 w-8" />
+                <h3 className="text-2xl font-bold" data-testid="text-ai-models-title">AI Models</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {aiModels.map((item, index) => (
+                  <PortfolioCard
+                    key={index}
+                    category={item.category}
+                    title={item.title}
+                    description={item.description}
+                    imageUrl={item.imageUrl}
+                    imageAlt={item.imageAlt}
+                    duration={item.duration}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Custom Software Column */}
+            <div className="mb-16">
+              <div className="flex items-center justify-center mb-8">
+                <Code className="text-primary mr-3 h-8 w-8" />
+                <h3 className="text-2xl font-bold" data-testid="text-custom-software-title">Custom Software</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {customSoftware.map((item, index) => (
+                  <PortfolioCard
+                    key={index}
+                    category={item.category}
+                    title={item.title}
+                    description={item.description}
+                    imageUrl={item.imageUrl}
+                    imageAlt={item.imageAlt}
+                    duration={item.duration}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Blockchain Column */}
+            <div className="mb-16">
+              <div className="flex items-center justify-center mb-8">
+                <Blocks className="text-primary mr-3 h-8 w-8" />
+                <h3 className="text-2xl font-bold" data-testid="text-blockchain-title">Blockchain</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {blockchain.map((item, index) => (
+                  <PortfolioCard
+                    key={index}
+                    category={item.category}
+                    title={item.title}
+                    description={item.description}
+                    imageUrl={item.imageUrl}
+                    imageAlt={item.imageAlt}
+                    duration={item.duration}
+                  />
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Templates Section */}
+          {/* Web Design & UI/UX Templates Section */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center" data-testid="text-templates-title">
-              Ready-to-Use Templates
+              Web Design & UI/UX Templates
             </h2>
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+              Professional design templates and UI components ready for customization and implementation.
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {templates.map((item, index) => (
+              {webDesignTemplates.map((item, index) => (
                 <PortfolioCard
                   key={index}
                   category={item.category}

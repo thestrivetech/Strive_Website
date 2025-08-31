@@ -140,27 +140,27 @@ const Footer = () => {
             © {currentYear} Strive. All rights reserved.
           </div>
           <div className="flex space-x-6 text-sm">
-            <a 
-              href="#" 
+            <Link 
+              href="/privacy" 
               className="text-muted-foreground hover:text-primary transition-colors"
               data-testid="link-privacy"
             >
               Privacy Policy
-            </a>
-            <a 
-              href="#" 
+            </Link>
+            <Link 
+              href="/terms" 
               className="text-muted-foreground hover:text-primary transition-colors"
               data-testid="link-terms"
             >
               Terms of Service
-            </a>
-            <a 
-              href="#" 
+            </Link>
+            <Link 
+              href="/cookies" 
               className="text-muted-foreground hover:text-primary transition-colors"
               data-testid="link-cookies"
             >
               Cookie Policy
-            </a>
+            </Link>
           </div>
         </div>
       </div>
