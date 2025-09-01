@@ -129,7 +129,7 @@ const Home = () => {
       </section>
 
       {/* Customer Logos */}
-      <section className="py-16 bg-muted">
+      <section className="py-16 hero-gradient">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div 
@@ -157,10 +157,10 @@ const Home = () => {
             {customerLogos.map((logo, index) => (
               <div 
                 key={index}
-                className="flex items-center justify-center p-4 bg-background rounded-lg"
+                className="flex items-center justify-center p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/15 transition-all duration-300"
                 data-testid={`logo-${logo.toLowerCase()}-${index}`}
               >
-                <div className="text-2xl font-bold text-muted-foreground">
+                <div className="text-2xl font-bold text-white/90">
                   {logo}
                 </div>
               </div>
