@@ -53,7 +53,7 @@ const Cookies = () => {
                 <p className="text-muted-foreground">
                   If you have any questions about our Cookie Policy, please contact us at 
                   <a href="mailto:privacy@strive.com" className="text-primary hover:underline ml-1">
-                    privacy@strive.com
+                    contact@strivetech.ai
                   </a>
                 </p>
               </section>
