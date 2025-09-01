@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useAuth } from "@/lib/auth";
+import { useToast } from "@/hooks/use-toast";
 import logoImage from "@assets/logo&text.png";
 import healthcareIcon from "@assets/generated_images/Healthcare_industry_icon_f2723fd3.png";
 import financialIcon from "@assets/generated_images/Financial_services_icon_6bb00680.png";
@@ -20,6 +22,24 @@ const Navigation = () => {
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [portfolioOpen, setPortfolioOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast({
+        title: "Logged out",
+        description: "You have been successfully logged out.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Logout failed",
+        description: error.message || "Failed to logout",
+        variant: "destructive",
+      });
+    }
+  };
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -252,25 +272,51 @@ const Navigation = () => {
             </Link>
           </div>
 
-          {/* CTA and Login Buttons */}
+          {/* CTA and Authentication Buttons */}
           <div className="hidden md:flex items-center space-x-3">
-            <Link href="/login">
-              <Button 
-                variant="ghost"
-                className="text-foreground hover:text-primary hover:bg-transparent"
-                data-testid="button-login"
-              >
-                Login
-              </Button>
-            </Link>
-            <Link href="/get-started">
-              <Button 
-                className="bg-primary text-primary-foreground hover:bg-primary/90"
-                data-testid="button-get-started"
-              >
-                Get Started
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <Link href="/dashboard">
+                  <Button 
+                    variant="ghost"
+                    className="text-foreground hover:text-primary hover:bg-transparent"
+                    data-testid="button-dashboard"
+                  >
+                    <User className="mr-2 h-4 w-4" />
+                    {user?.username || 'Dashboard'}
+                  </Button>
+                </Link>
+                <Button 
+                  variant="outline"
+                  onClick={handleLogout}
+                  className="text-foreground hover:text-primary"
+                  data-testid="button-logout"
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button 
+                    variant="ghost"
+                    className="text-foreground hover:text-primary hover:bg-transparent"
+                    data-testid="button-login"
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/get-started">
+                  <Button 
+                    className="bg-primary text-primary-foreground hover:bg-primary/90"
+                    data-testid="button-get-started"
+                  >
+                    Get Started
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu */}
@@ -403,24 +449,55 @@ const Navigation = () => {
                     Contact
                   </Link>
                   <div className="space-y-3 mt-4">
-                    <Link href="/login">
-                      <Button 
-                        variant="ghost"
-                        className="w-full text-foreground hover:text-primary"
-                        data-testid="mobile-button-login"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        Login
-                      </Button>
-                    </Link>
-                    <Link href="/get-started">
-                      <Button 
-                        className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-                        data-testid="mobile-button-get-started"
-                      >
-                        Get Started
-                      </Button>
-                    </Link>
+                    {isAuthenticated ? (
+                      <>
+                        <Link href="/dashboard">
+                          <Button 
+                            variant="ghost"
+                            className="w-full text-foreground hover:text-primary"
+                            data-testid="mobile-button-dashboard"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            <User className="mr-2 h-4 w-4" />
+                            Dashboard
+                          </Button>
+                        </Link>
+                        <Button 
+                          variant="outline"
+                          className="w-full text-foreground hover:text-primary"
+                          onClick={() => {
+                            handleLogout();
+                            setMobileMenuOpen(false);
+                          }}
+                          data-testid="mobile-button-logout"
+                        >
+                          <LogOut className="mr-2 h-4 w-4" />
+                          Logout
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Link href="/login">
+                          <Button 
+                            variant="ghost"
+                            className="w-full text-foreground hover:text-primary"
+                            data-testid="mobile-button-login"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            Login
+                          </Button>
+                        </Link>
+                        <Link href="/get-started">
+                          <Button 
+                            className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                            data-testid="mobile-button-get-started"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            Get Started
+                          </Button>
+                        </Link>
+                      </>
+                    )}
                   </div>
                 </div>
               </SheetContent>

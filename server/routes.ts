@@ -4,6 +4,8 @@ import { storage } from "./storage";
 import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertUserSchema } from "@shared/schema";
 import { z } from "zod";
 import bcrypt from "bcrypt";
+import { supabase } from "./supabase";
+import { authenticateToken, generateToken, type AuthenticatedRequest } from "./auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -106,7 +108,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertUserSchema.parse(req.body);
       
-      // Check if username already exists
+      // Check if username already exists in our database
       const existingUser = await storage.getUserByUsername(validatedData.username);
       if (existingUser) {
         res.status(409).json({ 
@@ -115,20 +117,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         return;
       }
-      
-      // Hash password
+
+      // Create user with Supabase Auth
+      const { data, error } = await supabase.auth.signUp({
+        email: validatedData.email,
+        password: validatedData.password,
+        options: {
+          data: {
+            username: validatedData.username,
+          }
+        }
+      });
+
+      if (error) {
+        console.error('Supabase signup error:', error);
+        res.status(400).json({ 
+          success: false, 
+          message: error.message || "Failed to create account" 
+        });
+        return;
+      }
+
+      if (!data.user) {
+        res.status(400).json({ 
+          success: false, 
+          message: "Failed to create user" 
+        });
+        return;
+      }
+
+      // Store user info in our database for username lookup
       const hashedPassword = await bcrypt.hash(validatedData.password, 12);
       const user = await storage.createUser({
         ...validatedData,
-        password: hashedPassword,
+        password: hashedPassword, // Keep local backup for username lookup
       });
       
       res.json({ 
         success: true, 
-        message: "Account created successfully",
-        user: { id: user.id, username: user.username }
+        message: "Account created successfully! Please check your email for verification.",
+        user: { 
+          id: data.user.id, 
+          username: validatedData.username,
+          email: validatedData.email,
+          emailVerified: data.user.email_confirmed_at ? "true" : "false"
+        }
       });
     } catch (error) {
+      console.error('Signup error:', error);
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
           success: false, 
@@ -157,7 +193,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
       
-      // Find user
+      // Find user by username to get email
       const user = await storage.getUserByUsername(username);
       if (!user) {
         res.status(401).json({ 
@@ -166,26 +202,109 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         return;
       }
-      
-      // Check password
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
+
+      // Authenticate with Supabase using email
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: password,
+      });
+
+      if (error || !data.user) {
+        console.error('Supabase login error:', error);
         res.status(401).json({ 
           success: false, 
           message: "Invalid credentials" 
         });
         return;
       }
+
+      // Generate JWT token for client
+      const token = generateToken({
+        id: data.user.id,
+        email: data.user.email || '',
+        username: user.username
+      });
       
       res.json({ 
         success: true, 
         message: "Login successful",
-        user: { id: user.id, username: user.username }
+        user: { 
+          id: data.user.id, 
+          username: user.username, 
+          email: data.user.email,
+          emailVerified: data.user.email_confirmed_at ? "true" : "false"
+        },
+        token: token,
+        session: data.session
       });
     } catch (error) {
+      console.error('Login error:', error);
       res.status(500).json({ 
         success: false, 
         message: "Failed to login" 
+      });
+    }
+  });
+
+  // Get current user (protected route)
+  app.get("/api/auth/me", authenticateToken, async (req: AuthenticatedRequest, res) => {
+    try {
+      if (!req.user) {
+        res.status(401).json({ 
+          success: false, 
+          message: "User not authenticated" 
+        });
+        return;
+      }
+
+      // Get user details from our database
+      const user = await storage.getUserByUsername(req.user.username);
+      if (!user) {
+        res.status(404).json({ 
+          success: false, 
+          message: "User not found" 
+        });
+        return;
+      }
+
+      res.json({ 
+        success: true, 
+        user: { 
+          id: user.id, 
+          username: user.username, 
+          email: user.email,
+          emailVerified: user.emailVerified,
+          createdAt: user.createdAt
+        }
+      });
+    } catch (error) {
+      console.error('Get user error:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to get user information" 
+      });
+    }
+  });
+
+  // Logout user
+  app.post("/api/auth/logout", authenticateToken, async (req: AuthenticatedRequest, res) => {
+    try {
+      // Sign out from Supabase
+      const { error } = await supabase.auth.signOut();
+      
+      if (error) {
+        console.error('Supabase logout error:', error);
+      }
+
+      res.json({ 
+        success: true, 
+        message: "Logged out successfully" 
+      });
+    } catch (error) {
+      console.error('Logout error:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to logout" 
       });
     }
   });

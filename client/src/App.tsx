@@ -3,6 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthProvider } from "@/lib/auth";
 import Navigation from "@/components/layout/navigation";
 import Footer from "@/components/layout/footer";
 import FloatingChat from "@/components/ui/floating-chat";
@@ -15,6 +16,7 @@ import Contact from "@/pages/contact";
 import GetStarted from "@/pages/get-started";
 import Demo from "@/pages/demo";
 import Login from "@/pages/login";
+import Dashboard from "@/pages/dashboard";
 import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
 import Cookies from "@/pages/cookies";
@@ -47,6 +49,7 @@ function Router() {
           <Route path="/get-started" component={GetStarted} />
           <Route path="/demo" component={Demo} />
           <Route path="/login" component={Login} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/privacy" component={Privacy} />
           <Route path="/terms" component={Terms} />
           <Route path="/cookies" component={Cookies} />
@@ -74,10 +77,12 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

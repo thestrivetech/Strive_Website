@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useMutation } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { insertUserSchema } from "@shared/schema";
-import { apiRequest } from "@/lib/queryClient";
+import { useAuth } from "@/lib/auth";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -31,6 +31,15 @@ type SignupFormData = z.infer<typeof signupSchema>;
 const Login = () => {
   const [activeTab, setActiveTab] = useState("login");
   const { toast } = useToast();
+  const { login, signup, isAuthenticated, isLoading } = useAuth();
+  const [, setLocation] = useLocation();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      setLocation("/dashboard");
+    }
+  }, [isAuthenticated, setLocation]);
 
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -50,55 +59,40 @@ const Login = () => {
     },
   });
 
-  const loginMutation = useMutation({
-    mutationFn: async (data: LoginFormData) => {
-      return apiRequest("POST", "/api/auth/login", data);
-    },
-    onSuccess: () => {
+  const onLoginSubmit = async (data: LoginFormData) => {
+    try {
+      await login(data.username, data.password);
       toast({
         title: "Welcome back!",
         description: "You have successfully logged in.",
       });
-      // Redirect to dashboard or home
-      window.location.href = "/";
-    },
-    onError: (error: any) => {
+      setLocation("/dashboard");
+    } catch (error: any) {
       toast({
         title: "Login failed",
         description: error.message || "Invalid credentials",
         variant: "destructive",
       });
-    },
-  });
+    }
+  };
 
-  const signupMutation = useMutation({
-    mutationFn: async (data: Omit<SignupFormData, 'confirmPassword'>) => {
-      return apiRequest("POST", "/api/auth/signup", data);
-    },
-    onSuccess: () => {
+  const onSignupSubmit = async (data: SignupFormData) => {
+    try {
+      const { confirmPassword, ...signupData } = data;
+      await signup(signupData.username, signupData.email, signupData.password);
       toast({
         title: "Account created!",
         description: "Please check your email and click the verification link to activate your account.",
       });
       setActiveTab("login");
       signupForm.reset();
-    },
-    onError: (error: any) => {
+    } catch (error: any) {
       toast({
         title: "Signup failed", 
         description: error.message || "Failed to create account",
         variant: "destructive",
       });
-    },
-  });
-
-  const onLoginSubmit = (data: LoginFormData) => {
-    loginMutation.mutate(data);
-  };
-
-  const onSignupSubmit = (data: SignupFormData) => {
-    const { confirmPassword, ...signupData } = data;
-    signupMutation.mutate(signupData);
+    }
   };
 
   return (
@@ -159,10 +153,10 @@ const Login = () => {
                     <Button 
                       type="submit" 
                       className="w-full" 
-                      disabled={loginMutation.isPending}
+                      disabled={isLoading}
                       data-testid="button-submit-login"
                     >
-                      {loginMutation.isPending ? "Signing in..." : "Sign In"}
+                      {isLoading ? "Signing in..." : "Sign In"}
                     </Button>
                   </form>
                 </Form>
@@ -245,10 +239,10 @@ const Login = () => {
                     <Button 
                       type="submit" 
                       className="w-full" 
-                      disabled={signupMutation.isPending}
+                      disabled={isLoading}
                       data-testid="button-submit-signup"
                     >
-                      {signupMutation.isPending ? "Creating account..." : "Create Account"}
+                      {isLoading ? "Creating account..." : "Create Account"}
                     </Button>
                   </form>
                 </Form>
