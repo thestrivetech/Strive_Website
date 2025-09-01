@@ -6,8 +6,10 @@ This document outlines all necessary updates to transform the Strive website fro
 ---
 # Phase 0 #
 - Update Font selection and hieracrchy (refer to chat with Grok & Perplexity)
-- Maybe add perplexity AI browser as an API somewhere on the website to display the power of AI search?
-- 
+- Maybe add perplexity AI browser as an API somewhere on the website to display the power of AI search? - We could use perplexity to give additional case studies or other resources via a wrapped window (don't advertise their company) on the resources page
+- Create automated system in the future to where we have certain chat bots created that upload content to the resources section (Case studies, Blogs, and more) daily, every other day, or whatever timeline we want (very key to train the chat bots to only use high quality sources for case studies) - Make different chat bots that have different personalities when writing blog posts so all content won't look or read the same to the reader (give each bot a first name and that's it, use Sai as one of the blog writers as well, he could talk about his daily/weekly life as a chatbot lol)
+
+
 ## Phase 1: Critical Navigation & Brand Implementation
 
 ### 1.1 Login Authentication System
