@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import logoImage from "@assets/logo&text_small.png";
+import logoImage from "@assets/logo&text.png";
 
 const Navigation = () => {
   const [location] = useLocation();
