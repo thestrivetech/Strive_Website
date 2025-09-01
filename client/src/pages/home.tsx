@@ -91,12 +91,10 @@ const Home = () => {
         onPrimaryClick={handleGetStarted}
         onSecondaryClick={handleWatchDemo}
       />
-
       {/* ROI Calculator */}
       <ROICalculator />
-
       {/* Integrated Platform Section */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 bg-[#ffffffeb] text-[#f8fafc]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div 
@@ -127,7 +125,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* Customer Logos */}
       <section className="py-16 hero-gradient">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -168,7 +165,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* Resources Preview */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -202,7 +198,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-16 md:py-24 bg-card text-card-foreground">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
