@@ -14,7 +14,7 @@ const Privacy = () => {
               </p>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">1. Information We Collect</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">1. Information We Collect</h2>
                 <p className="text-muted-foreground mb-4">
                   We collect information you provide directly to us, such as when you create an account, 
                   submit a contact form, or subscribe to our newsletter. This may include your name, 
