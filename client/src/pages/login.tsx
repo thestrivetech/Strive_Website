@@ -116,7 +116,7 @@ const Login = () => {
                 <TabsTrigger value="signup" data-testid="tab-signup">Sign Up</TabsTrigger>
               </TabsList>
               
-              <TabsContent value="login" className="space-y-4">
+              <TabsContent value="login" className="space-y-4 min-h-[280px]">
                 <Form {...loginForm}>
                   <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4">
                     <FormField
@@ -166,7 +166,7 @@ const Login = () => {
                 </Form>
               </TabsContent>
               
-              <TabsContent value="signup" className="space-y-4">
+              <TabsContent value="signup" className="space-y-4 min-h-[280px]">
                 <Form {...signupForm}>
                   <form onSubmit={signupForm.handleSubmit(onSignupSubmit)} className="space-y-4">
                     <FormField
