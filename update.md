@@ -19,9 +19,10 @@ This document outlines all necessary updates to transform the Strive website fro
 - Add session management and protected routes
 - Create user dashboard/profile page (only available and viewable after sign up)
 
+* !!! - Everything above has been implemented - Just need to double check the "Users need to be approved by admin before account activation" process
 
-
-- Make two classes of users: "Client & Employee" - Need to make it to where new clients have to be approved for account creation when they sign up - Admin has to approve their sign up request via the "Admin Dashboard" which hasn't been created yet but will be accessible via a admin account on the backend of the website once the admin has logged in
+- Go into supabase and create a new "admin users" table for specifc admin access to the backend of the site - This will give access to all strive members to publish new case studies, update resource content, and to upload new content to the portfolio
+- Make two classes of users: "Client & Admin" - Need to make it to where new clients have to be approved for account creation when they sign up - Admin has to approve their sign up request via the "Admin Dashboard" which hasn't been created yet but will be accessible via a admin account on the backend of the website once the admin has logged in
 - Create test login credentials to test this functionality and to start designing the logged in user and employee experience
 - Add logout functionality to navigation once client is logged in
 - Store user state globally (Supabase Users Table which has already been created on the Supabase website)
