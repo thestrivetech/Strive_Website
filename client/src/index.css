@@ -116,12 +116,21 @@
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 100%;
+    left: -150%;
+    width: 50%;
     height: 100%;
-    background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%);
+    background: linear-gradient(
+      75deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.1) 15%, 
+      rgba(255, 255, 255, 0.6) 50%, 
+      rgba(255, 255, 255, 0.8) 52%, 
+      rgba(255, 255, 255, 0.1) 85%, 
+      transparent 100%
+    );
     animation: shine 15s infinite;
     pointer-events: none;
+    filter: blur(0.5px);
   }
 
   .roi-badge:nth-child(1)::before {
