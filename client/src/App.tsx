@@ -24,6 +24,12 @@ import Manufacturing from "@/pages/solutions/manufacturing";
 import Retail from "@/pages/solutions/retail";
 import Technology from "@/pages/solutions/technology";
 import Education from "@/pages/solutions/education";
+import AIAutomation from "@/pages/solutions/ai-automation";
+import DataAnalytics from "@/pages/solutions/data-analytics";
+import Blockchain from "@/pages/solutions/blockchain";
+import SmartBusiness from "@/pages/solutions/smart-business";
+import ComputerVision from "@/pages/solutions/computer-vision";
+import SecurityCompliance from "@/pages/solutions/security-compliance";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -50,6 +56,12 @@ function Router() {
           <Route path="/solutions/retail" component={Retail} />
           <Route path="/solutions/technology" component={Technology} />
           <Route path="/solutions/education" component={Education} />
+          <Route path="/solutions/ai-automation" component={AIAutomation} />
+          <Route path="/solutions/data-analytics" component={DataAnalytics} />
+          <Route path="/solutions/blockchain" component={Blockchain} />
+          <Route path="/solutions/smart-business" component={SmartBusiness} />
+          <Route path="/solutions/computer-vision" component={ComputerVision} />
+          <Route path="/solutions/security-compliance" component={SecurityCompliance} />
           <Route component={NotFound} />
         </Switch>
       </main>

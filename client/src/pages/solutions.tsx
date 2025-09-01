@@ -1,7 +1,34 @@
 import { Bot, BarChart, Blocks, ShieldCheck, Eye, Check, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "wouter";
 
 const Solutions = () => {
+  // URL mappings for main solutions
+  const getMainSolutionUrl = (title: string) => {
+    const urlMap: { [key: string]: string } = {
+      "AI & Automation": "/solutions/ai-automation",
+      "Data & Analytics": "/solutions/data-analytics",
+      "Blockchain Solutions": "/solutions/blockchain",
+      "Smart Business Solutions": "/solutions/smart-business",
+      "Computer Vision": "/solutions/computer-vision",
+      "Security & Compliance": "/solutions/security-compliance"
+    };
+    return urlMap[title] || "";
+  };
+
+  // URL mappings for industry solutions
+  const getIndustryUrl = (title: string) => {
+    const urlMap: { [key: string]: string } = {
+      "Healthcare": "/solutions/healthcare",
+      "Financial Services": "/solutions/financial",
+      "Manufacturing": "/solutions/manufacturing",
+      "Retail": "/solutions/retail",
+      "Technology": "/solutions/technology",
+      "Education": "/solutions/education"
+    };
+    return urlMap[title] || "";
+  };
+
   const mainSolutions = [
     {
       icon: <Bot className="text-primary text-xl" />,
@@ -102,12 +129,12 @@ const Solutions = () => {
           {/* Solution Categories */}
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-20">
             {mainSolutions.map((solution, index) => (
-              <Card 
-                key={index} 
-                id={solution.title.toLowerCase().replace(/\s+&\s+/g, "-").replace(/\s+/g, "-")}
-                className="p-8 group hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:border-primary/50 hover:-translate-y-1 relative overflow-hidden"
-                data-testid={`card-main-solution-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
-              >
+              <Link key={index} href={getMainSolutionUrl(solution.title)}>
+                <Card 
+                  id={solution.title.toLowerCase().replace(/\s+&\s+/g, "-").replace(/\s+/g, "-")}
+                  className="p-8 group hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:border-primary/50 hover:-translate-y-1 relative overflow-hidden cursor-pointer"
+                  data-testid={`card-main-solution-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
+                >
                 <CardContent className="p-0 relative z-10">
                   {/* Glow effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
@@ -142,7 +169,8 @@ const Solutions = () => {
                     ))}
                   </div>
                 </CardContent>
-              </Card>
+                </Card>
+              </Link>
             ))}
           </div>
 
@@ -164,11 +192,11 @@ const Solutions = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {industrySolutions.map((industry, index) => (
-              <Card 
-                key={index} 
-                className="p-6 text-center group hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1 cursor-pointer"
-                data-testid={`card-industry-${industry.title.toLowerCase().replace(/\s+/g, "-")}`}
-              >
+              <Link key={index} href={getIndustryUrl(industry.title)}>
+                <Card 
+                  className="p-6 text-center group hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1 cursor-pointer"
+                  data-testid={`card-industry-${industry.title.toLowerCase().replace(/\s+/g, "-")}`}
+                >
                 <CardContent className="p-0">
                   <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
                     {industry.icon}
@@ -186,7 +214,8 @@ const Solutions = () => {
                     {industry.description}
                   </p>
                 </CardContent>
-              </Card>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
