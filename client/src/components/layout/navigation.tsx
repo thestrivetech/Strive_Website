@@ -100,7 +100,7 @@ const Navigation = () => {
               </Link>
               
               {/* Hover Dropdown Content - 2 Columns */}
-              <div className={`absolute top-full left-0 mt-2 w-96 bg-background border border-border rounded-md shadow-lg transition-all duration-200 ${
+              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-background border border-border rounded-md shadow-lg transition-all duration-200 ${
                 solutionsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               }`}>
                 <div className="p-4 grid grid-cols-2 gap-2">
