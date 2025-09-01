@@ -233,7 +233,7 @@ const Home = () => {
               Find tailored solutions for your industry
             </h2>
             <p className="text-white/80 text-lg max-w-2xl mx-auto">
-              Select your industry to discover how our AI-powered solutions can transform your business operations.
+              Select your industry to discover how our AI-powered solutions can scale your business operations.
             </p>
           </div>
 
@@ -393,9 +393,9 @@ const Home = () => {
               className="bg-primary text-primary-foreground px-8 py-3 text-lg hover:bg-primary/90"
               size="lg"
               onClick={() => window.location.href = "/contact"}
-              data-testid="button-schedule-demo"
+              data-testid="button-schedule-consultation"
             >
-              Schedule a Demo
+              Schedule a Consultation
             </Button>
           </div>
         </div>
