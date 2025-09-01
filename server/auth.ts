@@ -29,25 +29,16 @@ export const authenticateToken = async (req: AuthenticatedRequest, res: Response
     // Verify JWT token
     const decoded = jwt.verify(token, JWT_SECRET) as any;
     
-    // Verify with Supabase
-    const { data: { user }, error } = await supabase.auth.getUser(token);
-    
-    if (error || !user) {
-      return res.status(401).json({ 
-        success: false, 
-        message: 'Invalid or expired token' 
-      });
-    }
-
-    // Add user info to request
+    // Add user info to request from decoded JWT
     req.user = {
-      id: user.id,
-      email: user.email || '',
-      username: decoded.username || ''
+      id: decoded.id,
+      email: decoded.email,
+      username: decoded.username
     };
 
     next();
   } catch (error) {
+    console.error('JWT verification error:', error);
     return res.status(403).json({ 
       success: false, 
       message: 'Invalid token' 
