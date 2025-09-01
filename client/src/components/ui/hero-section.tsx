@@ -78,11 +78,6 @@ const HeroSection = ({
           {/* Left Content */}
           <div className="space-y-8 slide-in-left">
             <div className="space-y-6">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-                <span className="text-primary text-sm font-medium" data-testid="hero-badge">
-                  AI Solutions Company
-                </span>
-              </div>
               
               <h1 
                 className="text-5xl md:text-7xl font-bold leading-tight"

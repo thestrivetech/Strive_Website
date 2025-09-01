@@ -17,7 +17,7 @@ interface Project {
   demoUrl: string;
   githubUrl: string;
   features: string[];
-  metrics: Record<string, string>;
+  metrics: Record<string, string | undefined>;
 }
 
 const Portfolio = () => {
