@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Facebook, Instagram, Linkedin, X } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -27,9 +27,9 @@ const Footer = () => {
               <a 
                 href="#" 
                 className="text-white/60 hover:text-white transition-colors"
-                data-testid="link-twitter"
+                data-testid="link-x"
               >
-                <Twitter className="h-5 w-5" />
+                <X className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
