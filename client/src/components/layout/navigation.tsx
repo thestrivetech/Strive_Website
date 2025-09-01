@@ -91,13 +91,12 @@ const Navigation = () => {
             >
               <Link
                 href="/solutions" 
-                className={`nav-link text-foreground hover:text-primary transition-colors flex items-center ${
+                className={`nav-link text-foreground hover:text-primary transition-colors ${
                   isActive("/solutions") ? "active" : ""
                 }`}
                 data-testid="nav-solutions-dropdown"
               >
                 Solutions
-                <ChevronDown className="ml-1 h-4 w-4" />
               </Link>
               
               {/* Hover Dropdown Content - 2 Columns */}
