@@ -180,7 +180,7 @@ const Solutions = () => {
           {/* Industry Solutions */}
           <div className="text-center mb-12">
             <h2 
-              className="text-3xl md:text-4xl font-bold mb-4"
+              className="text-3xl md:text-4xl font-bold mb-4 text-[#ff7e29]"
               data-testid="text-industry-title"
             >
               Industry-Specific Solutions
