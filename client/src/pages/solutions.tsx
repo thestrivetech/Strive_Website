@@ -147,14 +147,14 @@ const Solutions = () => {
                       {solution.icon}
                     </div>
                     <h2 
-                      className="text-2xl font-bold group-hover:text-primary transition-colors duration-300"
+                      className="text-2xl font-bold group-hover:text-[#ff7e29] transition-colors duration-300"
                       data-testid={`text-solution-title-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
                     >
                       {solution.title}
                     </h2>
                   </div>
                   <p 
-                    className="text-muted-foreground mb-6"
+                    className="text-muted-foreground group-hover:text-[#ff7e29] mb-6 transition-colors duration-300"
                     data-testid={`text-solution-description-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     {solution.description}
@@ -167,7 +167,7 @@ const Solutions = () => {
                         data-testid={`feature-${solution.title.toLowerCase().replace(/\s+/g, "-")}-${featureIndex}`}
                       >
                         <Check className="text-primary mr-3 h-4 w-4" />
-                        <span>{feature}</span>
+                        <span className="group-hover:text-[#ff7e29] transition-colors duration-300">{feature}</span>
                       </div>
                     ))}
                   </div>
