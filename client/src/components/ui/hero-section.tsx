@@ -141,7 +141,7 @@ const HeroSection = ({
                 />
                 
                 {/* Play/Pause Overlay */}
-                <div className="absolute inset-0 bg-black/30 flex items-center justify-center group">
+                <div className="absolute top-0 left-0 right-0 bottom-[10px] bg-black/30 flex items-center justify-center group">
                   <button
                     onClick={togglePlayback}
                     className="w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 hover:bg-primary/90"
