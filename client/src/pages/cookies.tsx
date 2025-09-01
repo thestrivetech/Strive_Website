@@ -24,11 +24,11 @@ const Cookies = () => {
 
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">2. Types of Cookies We Use</h2>
-                <div className="mb-4">
-                  <p className="text-[#ffffff] mb-2"><strong>Essential Cookies:</strong> Required for basic website functionality</p>
-                  <p className="text-[#ffffff] mb-2"><strong>Analytics Cookies:</strong> Help us understand how visitors interact with our website</p>
-                  <p className="text-[#ffffff] mb-2"><strong>Preference Cookies:</strong> Remember your settings and preferences</p>
-                  <p className="text-[#ffffff] mb-2"><strong>Marketing Cookies:</strong> Used to deliver relevant advertisements</p>
+                <div className="text-muted-foreground mb-4">
+                  <p className="text-muted-foreground"><strong>Essential Cookies:</strong> Required for basic website functionality</p>
+                  <p className="text-muted-foreground"><strong>Analytics Cookies:</strong> Help us understand how visitors interact with our website</p>
+                  <p className="text-muted-foreground"><strong>Preference Cookies:</strong> Remember your settings and preferences</p>
+                  <p className="text-muted-foreground"><strong>Marketing Cookies:</strong> Used to deliver relevant advertisements</p>
                 </div>
               </section>
 
