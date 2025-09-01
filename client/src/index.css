@@ -120,7 +120,7 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%);
-    animation: shine 6s infinite;
+    animation: shine 24s infinite;
     pointer-events: none;
   }
 
@@ -129,11 +129,11 @@
   }
 
   .roi-badge:nth-child(2)::before {
-    animation-delay: 2s;
+    animation-delay: 8s;
   }
 
   .roi-badge:nth-child(3)::before {
-    animation-delay: 4s;
+    animation-delay: 16s;
   }
 
   @keyframes shine {

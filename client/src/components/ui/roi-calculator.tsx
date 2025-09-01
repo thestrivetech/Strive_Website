@@ -214,7 +214,7 @@ const ROICalculator = () => {
                     <div className="text-2xl font-bold text-green-500" data-testid="text-total-roi">
                       {formatCurrency(calculatedROI)}
                     </div>
-                    <div className="text-sm text-white/70">
+                    <div className="text-sm text-muted-foreground">
                       Total ROI
                     </div>
                   </div>
@@ -224,7 +224,7 @@ const ROICalculator = () => {
                     <div className="text-2xl font-bold text-blue-500" data-testid="text-time-savings">
                       {timeSavings}%
                     </div>
-                    <div className="text-sm text-white/70">
+                    <div className="text-sm text-muted-foreground">
                       Time Savings
                     </div>
                   </div>
@@ -234,7 +234,7 @@ const ROICalculator = () => {
                     <div className="text-2xl font-bold text-primary" data-testid="text-annual-return">
                       {formatCurrency(annualReturn)}
                     </div>
-                    <div className="text-sm text-white/70">
+                    <div className="text-sm text-muted-foreground">
                       Annual Return
                     </div>
                   </div>
