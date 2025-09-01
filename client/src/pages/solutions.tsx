@@ -109,8 +109,11 @@ const Solutions = () => {
 
   return (
     <div className="pt-16">
-      <section className="pt-20 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pt-20 pb-16 bg-gradient-to-br from-[#ffffffeb] via-[#fff7f0] to-primary/20 relative overflow-hidden">
+        {/* Beautiful gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#ffffffeb] via-transparent to-primary/10 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent pointer-events-none"></div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h1 
               className="text-4xl md:text-5xl font-bold mb-6"
