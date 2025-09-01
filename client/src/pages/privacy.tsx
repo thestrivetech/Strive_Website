@@ -40,7 +40,7 @@ const Privacy = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">4. Data Security</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">4. Data Security</h2>
                 <p className="text-muted-foreground mb-4">
                   We implement appropriate security measures to protect your personal information against 
                   unauthorized access, alteration, disclosure, or destruction.
@@ -48,7 +48,7 @@ const Privacy = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">5. Contact Us</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">5. Contact Us</h2>
                 <p className="text-muted-foreground">
                   If you have any questions about this Privacy Policy, please contact us at 
                   <a href="mailto:privacy@strive.com" className="text-primary hover:underline ml-1">
