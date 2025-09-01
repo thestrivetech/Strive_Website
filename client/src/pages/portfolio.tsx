@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Bot, Code, Blocks, Brain, Database, Globe, Zap, Eye, Play, ExternalLink, X, Github, Monitor, Smartphone, ChevronRight, Filter } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 
 interface Project {
@@ -310,6 +310,9 @@ const Portfolio = () => {
           {selectedProject && (
             <>
               <DialogTitle className="sr-only">{selectedProject.title}</DialogTitle>
+              <DialogDescription className="sr-only">
+                Detailed view of {selectedProject.title} project including description, features, and performance metrics
+              </DialogDescription>
               <div className="relative">
                 <img 
                   src={selectedProject.imageUrl} 

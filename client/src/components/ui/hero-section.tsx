@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface HeroSectionProps {
   title: string;
@@ -21,6 +21,14 @@ const HeroSection = ({
 }: HeroSectionProps) => {
   const [currentDemo, setCurrentDemo] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+
+  const goToPreviousDemo = () => {
+    setCurrentDemo((prev) => (prev - 1 + demoVideos.length) % demoVideos.length);
+  };
+
+  const goToNextDemo = () => {
+    setCurrentDemo((prev) => (prev + 1) % demoVideos.length);
+  };
 
   const demoVideos = [
     {
@@ -129,7 +137,25 @@ const HeroSection = ({
           </div>
 
           {/* Right Demo Video */}
-          <div className="space-y-8 slide-in-right">
+          <div className="space-y-8 slide-in-right relative">
+            {/* Left Arrow */}
+            <button
+              onClick={goToPreviousDemo}
+              className="absolute left-[-60px] top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30 hover:scale-110"
+              data-testid="button-demo-prev"
+            >
+              <ChevronLeft className="w-6 h-6 text-primary" />
+            </button>
+            
+            {/* Right Arrow */}
+            <button
+              onClick={goToNextDemo}
+              className="absolute right-[-60px] top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30 hover:scale-110"
+              data-testid="button-demo-next"
+            >
+              <ChevronRight className="w-6 h-6 text-primary" />
+            </button>
+            
             <div className="demo-video-container">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img 
