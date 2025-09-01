@@ -104,7 +104,7 @@ const Home = () => {
               INTEGRATED BUSINESS PLATFORM
             </div>
             <h2 
-              className="text-3xl md:text-5xl font-bold mb-6"
+              className="text-3xl md:text-5xl font-bold mb-6 text-[#020a1c]"
               data-testid="text-platform-title"
             >
               A fully integrated suite of solutions, powered by industry leading AI.
