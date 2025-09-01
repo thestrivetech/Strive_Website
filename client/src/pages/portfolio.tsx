@@ -357,7 +357,7 @@ const Portfolio = () => {
                   <div>
                     <h3 className="text-lg font-semibold mb-3">Performance Metrics</h3>
                     <div className="space-y-2">
-                      {Object.entries(selectedProject.metrics).map(([key, value]: [string, string]) => (
+                      {Object.entries(selectedProject.metrics).map(([key, value]: [string, string | undefined]) => (
                         <div key={key} className="flex justify-between">
                           <span className="capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
                           <span className="font-semibold text-primary">{value}</span>

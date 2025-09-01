@@ -251,7 +251,7 @@ const Home = () => {
                 data-testid={`button-industry-${industry.id}`}
               >
                 <div className="flex flex-col items-center space-y-2">
-                  <div className={selectedIndustry === industry.id ? 'text-white' : 'text-primary'}>
+                  <div className={selectedIndustry === industry.id ? 'text-[#020a1c]' : 'text-primary'}>
                     {industry.icon}
                   </div>
                   <span className="text-sm font-medium">{industry.name}</span>
@@ -311,7 +311,7 @@ const Home = () => {
               className="text-3xl md:text-4xl font-bold mb-4 text-[#020a1c]"
               data-testid="text-resources-title"
             >
-              Discover what's new with Strive.
+              Discover what's new with Strive
             </h2>
             <a 
               href="/resources" 
