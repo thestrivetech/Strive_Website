@@ -122,7 +122,7 @@ const ROICalculator = () => {
   };
 
   return (
-    <section className="py-12 from-primary/5 to-orange-500/5 border-y border-border bg-[#ffffffeb] text-[#020a1c]">
+    <section className="py-12 from-primary/5 to-orange-500/5 bg-[#ffffffeb] text-[#020a1c]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
