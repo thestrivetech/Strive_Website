@@ -14,7 +14,7 @@ const Terms = () => {
               </p>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">1. Acceptance of Terms</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">1. Acceptance of Terms</h2>
                 <p className="text-muted-foreground mb-4">
                   By accessing and using Strive's services, you accept and agree to be bound by these 
                   Terms of Service. If you do not agree to these terms, please do not use our services.

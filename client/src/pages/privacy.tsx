@@ -51,8 +51,8 @@ const Privacy = () => {
                 <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">5. Contact Us</h2>
                 <p className="text-muted-foreground">
                   If you have any questions about this Privacy Policy, please contact us at 
-                  <a href="mailto:privacy@strive.com" className="text-primary hover:underline ml-1">
-                    privacy@strive.com
+                  <a href="mailto:contact@strivetech.ai" className="text-primary hover:underline ml-1">
+                    contact@strivetech.ai
                   </a>
                 </p>
               </section>
