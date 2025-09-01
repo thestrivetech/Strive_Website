@@ -132,7 +132,7 @@ const ROICalculator = () => {
                 ROI Calculator
               </h2>
             </div>
-            <p className="text-muted-foreground max-w-2xl mx-auto" data-testid="roi-calculator-subtitle">
+            <p className="max-w-2xl mx-auto text-[#020a1c]" data-testid="roi-calculator-subtitle">
               Discover your potential return on investment with Strive's solutions tailored to your industry
             </p>
           </div>
