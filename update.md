@@ -4,7 +4,10 @@
 This document outlines all necessary updates to transform the Strive website from its current 70% complete state to a professional $10,000 value business platform. Each section includes detailed implementation requirements, acceptance criteria, and technical specifications.
 
 ---
-
+# Phase 0 #
+- Update Font selection and hieracrchy (refer to chat with Grok & Perplexity)
+- Maybe add perplexity AI browser as an API somewhere on the website to display the power of AI search?
+- 
 ## Phase 1: Critical Navigation & Brand Implementation
 
 ### 1.1 Login Authentication System

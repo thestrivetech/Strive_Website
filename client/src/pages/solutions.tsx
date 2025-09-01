@@ -9,7 +9,7 @@ const Solutions = () => {
       "AI & Automation": "/solutions/ai-automation",
       "Data & Analytics": "/solutions/data-analytics",
       "Blockchain Solutions": "/solutions/blockchain",
-      "Smart Business Solutions": "/solutions/smart-business",
+      "Business Intelligence": "/solutions/business-intelligence",
       "Computer Vision": "/solutions/computer-vision",
       "Security & Compliance": "/solutions/security-compliance"
     };
@@ -65,7 +65,7 @@ const Solutions = () => {
     },
     {
       icon: <ShieldCheck className="text-primary text-xl" />,
-      title: "Smart Business Solutions",
+      title: "Business Intelligence",
       description: "Intelligent business automation and optimization systems that adapt and learn from your operations.",
       features: [
         "Automated Decision Making",
@@ -125,7 +125,7 @@ const Solutions = () => {
               className="text-xl text-muted-foreground max-w-3xl mx-auto"
               data-testid="text-solutions-subtitle"
             >
-              Comprehensive business solutions designed to transform your operations and drive sustainable growth.
+              Comprehensive AI solutions designed to transform your operations and drive sustainable growth.
             </p>
           </div>
 
@@ -140,7 +140,7 @@ const Solutions = () => {
                 >
                 <CardContent className="p-0 relative z-10">
                   {/* Glow effect */}
-                  <div className="absolute -inset-6 bg-gradient-to-br from-primary/8 via-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 rounded-lg"></div>
+                  <div className="absolute -inset-6 bg-gradient-to-br from-primary/8 via-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                   
                   <div className="flex items-center mb-6">
                     <div className="w-12 h-12 bg-primary/10 group-hover:bg-primary/20 rounded-xl flex items-center justify-center mr-4 transition-all duration-300 group-hover:scale-110">

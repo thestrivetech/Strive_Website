@@ -3,8 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 
-const SmartBusiness = () => {
-  const solutions = [
+const Business = () => {
+  const Intelligence = [
     {
       icon: <Settings className="text-primary text-xl" />,
       title: "Automated Decision Making",
@@ -39,7 +39,7 @@ const SmartBusiness = () => {
             <div className="flex items-center justify-center mb-6">
               <ShieldCheck className="text-primary mr-4 h-12 w-12" />
               <h1 className="text-4xl md:text-5xl font-bold" data-testid="text-smart-business-title">
-                Smart Business Solutions
+                Business Intelligence
               </h1>
             </div>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto" data-testid="text-smart-business-subtitle">
