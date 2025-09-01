@@ -43,13 +43,13 @@ const Solutions = () => {
     },
     {
       icon: <BarChart className="text-primary text-xl" />,
-      title: "Data & Analytics",
+      title: "Generative AI Solutions",
       description: "Transform raw data into actionable insights with advanced analytics platforms and real-time reporting capabilities.",
       features: [
-        "Real-time Dashboards",
-        "Business Intelligence",
-        "Data Visualization", 
-        "Advanced Reporting"
+        "Content Generation & Editing",
+        "Image & Video Synthesis",
+        "Code & App Prototyping", 
+        "Personalized Marketing Tools"
       ]
     },
     {
@@ -68,10 +68,11 @@ const Solutions = () => {
       title: "Business Intelligence",
       description: "Intelligent business automation and optimization systems that adapt and learn from your operations.",
       features: [
-        "Automated Decision Making",
-        "Business Process Mining",
+        "Real-time Dashboards",
         "Workflow Optimization",
-        "Performance Analytics"
+        "Data Analysis Visualization",
+        "Intelligent KPI Analysis",
+        "Advanced Reporting"
       ]
     },
     {
