@@ -186,11 +186,14 @@
     bottom: 2rem;
     right: 2rem;
     z-index: 1000;
+  }
+
+  .floating-chat button {
     box-shadow: 0 8px 32px hsla(24, 100%, 58%, 0.3);
     animation: pulse 2s infinite;
   }
 
-  .floating-chat:hover {
+  .floating-chat button:hover {
     animation: none;
     transform: scale(1.05);
   }
