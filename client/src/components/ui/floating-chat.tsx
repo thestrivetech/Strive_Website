@@ -44,9 +44,9 @@ const FloatingChat = () => {
     <>
       {/* Chat Button */}
       <div className="floating-chat">
-        <Button
+        <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-14 h-14 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg p-0 border-0 flex items-center justify-center overflow-hidden"
+          className="w-14 h-14 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg border-none outline-none flex items-center justify-center transition-all duration-200 cursor-pointer"
           data-testid="button-floating-chat"
         >
           {isOpen ? (
@@ -54,7 +54,7 @@ const FloatingChat = () => {
           ) : (
             <MessageCircle className="w-6 h-6" />
           )}
-        </Button>
+        </button>
       </div>
 
       {/* Chat Window */}
