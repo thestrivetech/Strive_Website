@@ -22,7 +22,7 @@ const Terms = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">2. Use of Services</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">2. Use of Services</h2>
                 <p className="text-muted-foreground mb-4">
                   You agree to use our services only for lawful purposes and in accordance with these 
                   Terms. You are prohibited from using our services to transmit harmful, offensive, 
@@ -31,7 +31,7 @@ const Terms = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">3. Intellectual Property</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">3. Intellectual Property</h2>
                 <p className="text-muted-foreground mb-4">
                   All content, features, and functionality on our platform are owned by Strive and are 
                   protected by copyright, trademark, and other intellectual property laws.
@@ -39,7 +39,7 @@ const Terms = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">4. Limitation of Liability</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">4. Limitation of Liability</h2>
                 <p className="text-muted-foreground mb-4">
                   Strive shall not be liable for any indirect, incidental, special, consequential, or 
                   punitive damages resulting from your use of our services.
@@ -47,7 +47,7 @@ const Terms = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">5. Changes to Terms</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">5. Changes to Terms</h2>
                 <p className="text-muted-foreground mb-4">
                   We reserve the right to modify these terms at any time. We will notify you of any 
                   material changes by posting the new Terms of Service on this page.
