@@ -3,18 +3,13 @@ import { Link, useLocation } from "wouter";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import logoImage from "@assets/logo&text.png";
 
 const Navigation = () => {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -71,7 +66,61 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
+            {/* Home */}
+            <Link
+              href="/"
+              className={`nav-link text-foreground hover:text-primary transition-colors ${
+                isActive("/") ? "active" : ""
+              }`}
+              data-testid="nav-home"
+            >
+              Home
+            </Link>
+            
+            {/* Solutions Dropdown with Hover */}
+            <div 
+              className="relative group"
+              onMouseEnter={() => setSolutionsOpen(true)}
+              onMouseLeave={() => setSolutionsOpen(false)}
+            >
+              <button 
+                className={`nav-link text-foreground hover:text-primary transition-colors flex items-center ${
+                  isActive("/solutions") ? "active" : ""
+                }`}
+                data-testid="nav-solutions-dropdown"
+              >
+                Solutions
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </button>
+              
+              {/* Hover Dropdown Content */}
+              <div className={`absolute top-full left-0 mt-2 w-56 bg-background border border-border rounded-md shadow-lg transition-all duration-200 ${
+                solutionsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+              }`}>
+                <div className="py-2">
+                  <Link 
+                    href="/solutions" 
+                    className="block px-4 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                    data-testid="dropdown-solutions-overview"
+                  >
+                    All Solutions
+                  </Link>
+                  {industrySolutions.map((industry) => (
+                    <Link 
+                      key={industry.path}
+                      href={industry.path} 
+                      className="block px-4 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                      data-testid={`dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
+                    >
+                      {industry.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Other Nav Items */}
+            {navItems.slice(1).map((item) => (
               <Link
                 key={item.path}
                 href={item.path}
@@ -83,41 +132,6 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
-            
-            {/* Solutions Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger 
-                className={`nav-link text-foreground hover:text-primary transition-colors flex items-center ${
-                  isActive("/solutions") ? "active" : ""
-                }`}
-                data-testid="nav-solutions-dropdown"
-              >
-                Solutions
-                <ChevronDown className="ml-1 h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="start">
-                <DropdownMenuItem asChild>
-                  <Link 
-                    href="/solutions" 
-                    className="flex w-full cursor-pointer"
-                    data-testid="dropdown-solutions-overview"
-                  >
-                    All Solutions
-                  </Link>
-                </DropdownMenuItem>
-                {industrySolutions.map((industry) => (
-                  <DropdownMenuItem key={industry.path} asChild>
-                    <Link 
-                      href={industry.path} 
-                      className="flex w-full cursor-pointer"
-                      data-testid={`dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    >
-                      {industry.name}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
 
           {/* CTA and Login Buttons */}
@@ -156,7 +170,47 @@ const Navigation = () => {
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] bg-background">
                 <div className="flex flex-col space-y-4 mt-8">
-                  {navItems.map((item) => (
+                  {/* Home */}
+                  <Link
+                    href="/"
+                    className={`text-foreground hover:text-primary transition-colors p-2 ${
+                      isActive("/") ? "text-primary font-medium" : ""
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    data-testid="mobile-nav-home"
+                  >
+                    Home
+                  </Link>
+                  
+                  {/* Solutions Group */}
+                  <div className="space-y-2">
+                    <Link
+                      href="/solutions"
+                      className={`text-foreground hover:text-primary transition-colors p-2 font-medium ${
+                        isActive("/solutions") ? "text-primary font-medium" : ""
+                      }`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      data-testid="mobile-nav-solutions"
+                    >
+                      Solutions
+                    </Link>
+                    <div className="pl-4 space-y-1">
+                      {industrySolutions.map((industry) => (
+                        <Link
+                          key={industry.path}
+                          href={industry.path}
+                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
+                          onClick={() => setMobileMenuOpen(false)}
+                          data-testid={`mobile-dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {industry.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Other Nav Items */}
+                  {navItems.slice(1).map((item) => (
                     <Link
                       key={item.path}
                       href={item.path}
