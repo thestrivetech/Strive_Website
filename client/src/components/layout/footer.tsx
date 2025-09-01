@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
-import xLogo from "@assets/image_1756699657047.png";
+import xLogo from "@assets/image_1756699789130.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
