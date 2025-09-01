@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,7 @@ import logoImage from "@assets/logo&text.png";
 const Navigation = () => {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -32,6 +33,18 @@ const Navigation = () => {
     { name: "Education", path: "/solutions/education" },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if we've scrolled past the hero section (roughly viewport height)
+      const scrollY = window.scrollY;
+      const heroSectionHeight = window.innerHeight * 0.9; // 90vh as per hero section
+      setIsScrolled(scrollY > heroSectionHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const isActive = (path: string) => {
     if (path === "/" && location === "/") return true;
     if (path !== "/" && location.startsWith(path)) return true;
@@ -39,7 +52,11 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
+      isScrolled 
+        ? 'hero-gradient border-white/20' 
+        : 'bg-background/95 backdrop-blur-md border-border'
+    }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
