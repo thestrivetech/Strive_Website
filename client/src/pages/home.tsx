@@ -166,7 +166,7 @@ const Home = () => {
         </div>
       </section>
       {/* Resources Preview */}
-      <section className="py-16 md:py-24 bg-[#ebeced]">
+      <section className="py-16 md:py-24 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 
@@ -199,7 +199,7 @@ const Home = () => {
         </div>
       </section>
       {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-[#ffffff] text-[#020a1c]">
+      <section className="py-16 md:py-24 text-[#020a1c] bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <div 
