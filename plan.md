@@ -1,7 +1,7 @@
 # Next.js Migration Plan
 
 ## Overview
-This document outlines the complete migration from React + Vite + Express to Next.js while preserving all existing functionality and maintaining the PostgreSQL database integration.
+This document outlines the complete migration from React + Vite to Next.js frontend while maintaining a separate Express.js backend and migrating from PostgreSQL to Supabase.
 
 ## Current Architecture
 - **Frontend**: React + TypeScript + Vite
@@ -13,32 +13,82 @@ This document outlines the complete migration from React + Vite + Express to Nex
 
 ## Target Architecture
 - **Frontend**: Next.js 14+ (App Router) + React + TypeScript
-- **Backend**: Next.js API Routes + Express.js (hybrid approach)
-- **Database**: PostgreSQL with Drizzle ORM (unchanged)
+- **Backend**: Express.js + TypeScript (separate from Next.js)
+- **Database**: Supabase PostgreSQL with Drizzle ORM
 - **Styling**: Tailwind CSS + Radix UI (unchanged)
 - **Routing**: Next.js App Router
 - **State Management**: TanStack Query (unchanged)
 
 ## Migration Strategy
 
-### Phase 1: Project Setup and Configuration
+### Phase 1: Supabase Database Setup
 
-#### Step 1.1: Install Next.js Dependencies
+#### Step 1.1: Install Supabase Dependencies
 ```bash
-npm install next@latest react@latest react-dom@latest
-npm install -D @types/node
+npm install @supabase/supabase-js
+npm uninstall @neondatabase/serverless
 ```
 
-#### Step 1.2: Create Next.js Configuration
-Create `next.config.js`:
+#### Step 1.2: Create Supabase Project
+1. Go to [supabase.com](https://supabase.com) and create new project
+2. Get your project URL and anon key from project settings
+3. Add environment variables to Replit Secrets:
+   - `SUPABASE_URL`: Your project URL
+   - `SUPABASE_ANON_KEY`: Your anon key
+   - `SUPABASE_SERVICE_ROLE_KEY`: Service role key (for server operations)
+
+#### Step 1.3: Update Database Configuration
+Update `drizzle.config.ts`:
+```typescript
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  schema: "./shared/schema.ts",
+  out: "./drizzle",
+  dialect: "postgresql",
+  dbCredentials: {
+    url: process.env.SUPABASE_DATABASE_URL!,
+  },
+});
+```
+
+Update `server/storage.ts`:
+```typescript
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
+
+const connectionString = process.env.SUPABASE_DATABASE_URL!;
+const client = postgres(connectionString);
+export const db = drizzle(client);
+```
+
+### Phase 2: Frontend Migration to Next.js
+
+#### Step 2.1: Create New Next.js Frontend
+```bash
+mkdir frontend
+cd frontend
+npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"
+```
+
+#### Step 2.2: Install Dependencies for Frontend
+```bash
+cd frontend
+npm install @tanstack/react-query @radix-ui/react-accordion @radix-ui/react-alert-dialog @radix-ui/react-aspect-ratio @radix-ui/react-avatar @radix-ui/react-checkbox @radix-ui/react-collapsible @radix-ui/react-context-menu @radix-ui/react-dialog @radix-ui/react-dropdown-menu @radix-ui/react-hover-card @radix-ui/react-label @radix-ui/react-menubar @radix-ui/react-navigation-menu @radix-ui/react-popover @radix-ui/react-progress @radix-ui/react-radio-group @radix-ui/react-scroll-area @radix-ui/react-select @radix-ui/react-separator @radix-ui/react-slider @radix-ui/react-slot @radix-ui/react-switch @radix-ui/react-tabs @radix-ui/react-toast @radix-ui/react-toggle @radix-ui/react-toggle-group @radix-ui/react-tooltip class-variance-authority clsx cmdk date-fns embla-carousel-react framer-motion input-otp lucide-react next-themes react-day-picker react-hook-form react-icons react-resizable-panels recharts tailwind-merge tailwindcss-animate vaul zod @hookform/resolvers zod-validation-error
+```
+
+#### Step 2.3: Update Next.js Configuration
+Create `frontend/next.config.js`:
 ```javascript
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
-  typescript: {
-    tsconfigPath: './tsconfig.json',
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:5001/api/:path*',
+      },
+    ]
   },
   images: {
     domains: [],
@@ -48,121 +98,166 @@ const nextConfig = {
 module.exports = nextConfig
 ```
 
-#### Step 1.3: Update TypeScript Configuration
-Modify `tsconfig.json` for Next.js:
-```json
-{
-  "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "es6"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@shared/*": ["./shared/*"]
-    }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
-}
-```
-
-#### Step 1.4: Update Package Scripts
-Modify `package.json` scripts:
+#### Step 2.4: Update Package Scripts for Frontend
+Create `frontend/package.json` scripts:
 ```json
 {
   "scripts": {
-    "dev": "next dev -p 5000",
+    "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "next start -p 5000",
-    "lint": "next lint",
-    "db:push": "drizzle-kit push"
+    "start": "next start -p 3000",
+    "lint": "next lint"
   }
 }
 ```
 
-### Phase 2: Directory Structure Reorganization
+### Phase 3: Directory Structure Reorganization
 
-#### Step 2.1: Create Next.js App Directory Structure
+#### Step 3.1: New Project Structure
 ```
-src/
-├── app/
-│   ├── globals.css
-│   ├── layout.tsx
-│   ├── page.tsx
-│   ├── portfolio/
-│   │   └── page.tsx
-│   ├── solutions/
-│   │   ├── page.tsx
-│   │   ├── healthcare/
-│   │   │   └── page.tsx
-│   │   ├── financial/
-│   │   │   └── page.tsx
-│   │   └── [other solution pages]/
-│   ├── about/
-│   │   └── page.tsx
-│   ├── contact/
-│   │   └── page.tsx
-│   ├── resources/
-│   │   └── page.tsx
-│   ├── get-started/
-│   │   └── page.tsx
-│   ├── login/
-│   │   └── page.tsx
-│   ├── privacy/
-│   │   └── page.tsx
-│   ├── terms/
-│   │   └── page.tsx
-│   ├── cookies/
-│   │   └── page.tsx
-│   ├── api/
-│   │   ├── contact/
-│   │   │   └── route.ts
-│   │   ├── newsletter/
-│   │   │   └── route.ts
-│   │   └── [other api routes]/
-│   └── not-found.tsx
-├── components/
-│   ├── layout/
-│   ├── ui/
-│   └── [existing components]
-├── lib/
-├── hooks/
-└── [other existing directories]
+project-root/
+├── frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── globals.css
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx
+│   │   │   ├── portfolio/
+│   │   │   │   └── page.tsx
+│   │   │   ├── solutions/
+│   │   │   │   ├── page.tsx
+│   │   │   │   ├── healthcare/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── [other solution pages]/
+│   │   │   ├── about/
+│   │   │   │   └── page.tsx
+│   │   │   ├── contact/
+│   │   │   │   └── page.tsx
+│   │   │   └── [other pages]/
+│   │   ├── components/
+│   │   ├── lib/
+│   │   └── hooks/
+│   ├── public/
+│   │   └── [assets moved from attached_assets/]
+│   ├── next.config.js
+│   ├── tailwind.config.ts
+│   └── package.json
+├── backend/
+│   ├── src/
+│   │   ├── index.ts
+│   │   ├── routes.ts
+│   │   └── storage.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── shared/
+│   └── schema.ts
+└── package.json (root - for workspace management)
 ```
 
-#### Step 2.2: Move and Restructure Files
-- Move `client/src/*` to `src/`
-- Convert existing pages to Next.js page components
-- Migrate components to use Next.js conventions
+#### Step 3.2: Move Files to New Structure
+- Move `client/src/components/*` to `frontend/src/components/`
+- Move `client/src/pages/*` to `frontend/src/app/` (convert to Next.js pages)
+- Move `server/*` to `backend/src/`
+- Move `attached_assets/*` to `frontend/public/`
 
-### Phase 3: Component Migration
+### Phase 4: Backend Updates
 
-#### Step 3.1: Create Root Layout
-Create `src/app/layout.tsx`:
+#### Step 4.1: Update Backend for Standalone Operation
+Update `backend/src/index.ts`:
+```typescript
+import express, { type Request, Response, NextFunction } from "express";
+import cors from "cors";
+import { registerRoutes } from "./routes";
+
+const app = express();
+
+// CORS for frontend on port 3000
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://your-frontend-domain.com'] 
+    : ['http://localhost:3000'],
+  credentials: true,
+}));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Logging middleware
+app.use((req, res, next) => {
+  const start = Date.now();
+  const path = req.path;
+  
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    if (path.startsWith("/api")) {
+      console.log(`${req.method} ${path} ${res.statusCode} in ${duration}ms`);
+    }
+  });
+  
+  next();
+});
+
+// Register API routes
+registerRoutes(app);
+
+// Error handling
+app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  const status = err.status || err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(status).json({ message });
+});
+
+const port = parseInt(process.env.PORT || '5001', 10);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Backend API serving on port ${port}`);
+});
+```
+
+#### Step 4.2: Update Backend Package.json
+Create `backend/package.json`:
+```json
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_ENV=development tsx src/index.ts",
+    "build": "esbuild src/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "start": "NODE_ENV=production node dist/index.js",
+    "db:push": "drizzle-kit push"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "cors": "^2.8.5",
+    "drizzle-orm": "^0.39.1",
+    "postgres": "^3.4.4",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/express": "4.17.21",
+    "@types/cors": "^2.8.17",
+    "@types/node": "20.16.11",
+    "esbuild": "^0.25.9",
+    "drizzle-kit": "^0.30.4",
+    "tsx": "^4.20.5",
+    "typescript": "^5.6.3"
+  }
+}
+```
+
+### Phase 5: Frontend Component Migration
+
+#### Step 5.1: Create Root Layout
+Create `frontend/src/app/layout.tsx`:
 ```tsx
-import { QueryClientProvider } from '@tanstack/react-query'
+'use client'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Toaster } from '@/components/ui/toaster'
 import Navigation from '@/components/layout/navigation'
 import Footer from '@/components/layout/footer'
 import FloatingChat from '@/components/ui/floating-chat'
-import { queryClient } from '@/lib/queryClient'
+import { useState } from 'react'
 import './globals.css'
 
 export default function RootLayout({
@@ -170,6 +265,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const [queryClient] = useState(() => new QueryClient())
+
   return (
     <html lang="en">
       <body>
@@ -190,13 +287,8 @@ export default function RootLayout({
 }
 ```
 
-#### Step 3.2: Convert Pages to Next.js Format
-Transform each page component:
-- Remove Wouter routing dependencies
-- Update imports to use Next.js conventions
-- Convert to Next.js page components
-
-Example for `src/app/page.tsx` (Home):
+#### Step 5.2: Convert Pages to Next.js Format
+Transform each page component. Example for `frontend/src/app/page.tsx`:
 ```tsx
 import Home from '@/components/pages/home'
 
@@ -205,198 +297,185 @@ export default function HomePage() {
 }
 ```
 
-#### Step 3.3: Update Navigation Component
-Modify navigation to use Next.js Link:
+#### Step 5.3: Update Navigation Component
+Update navigation to use Next.js Link:
 ```tsx
 import Link from 'next/link'
-// Replace Wouter Link with Next.js Link
+import { usePathname } from 'next/navigation'
+// Replace wouter imports and useLocation with usePathname
 ```
 
-### Phase 4: API Routes Migration
+### Phase 6: API Integration
 
-#### Step 4.1: Create Next.js API Routes
-Convert Express routes to Next.js API routes:
+#### Step 6.1: Create API Client for Frontend
+Create `frontend/src/lib/api.ts`:
+```typescript
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://your-backend-domain.com' 
+  : 'http://localhost:5001'
 
-Example `src/app/api/contact/route.ts`:
-```tsx
-import { NextRequest, NextResponse } from 'next/server'
-import { insertContactSubmission } from '@/lib/contact'
+export async function apiRequest(endpoint: string, options?: RequestInit) {
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+    credentials: 'include',
+    ...options,
+  })
+  
+  if (!response.ok) {
+    throw new Error(`API request failed: ${response.statusText}`)
+  }
+  
+  return response.json()
+}
+```
 
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json()
-    const result = await insertContactSubmission(body)
-    return NextResponse.json(result)
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
-    )
+#### Step 6.2: Update TanStack Query Hooks
+Update all query hooks to use the new API client:
+```typescript
+import { apiRequest } from '@/lib/api'
+
+export function useContactSubmission() {
+  return useMutation({
+    mutationFn: (data: ContactFormData) => 
+      apiRequest('/api/contact', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      }),
+  })
+}
+```
+
+### Phase 7: Deployment Configuration
+
+#### Step 7.1: Update Root Package.json for Workspace Management
+Create root `package.json`:
+```json
+{
+  "name": "fullstack-app",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd backend && npm run start",
+    "start:frontend": "cd frontend && npm run start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
 ```
 
-#### Step 4.2: Database Integration
-- Keep existing Drizzle ORM setup
-- Update database connection for Next.js environment
-- Maintain existing schema and migrations
-
-#### Step 4.3: Session Management
-Convert Express sessions to Next.js approach:
-- Use next-auth for authentication
-- Or implement custom session handling with cookies
-
-### Phase 5: Styling and Assets
-
-#### Step 5.1: Update Tailwind Configuration
-Modify `tailwind.config.ts` for Next.js:
-```typescript
-import type { Config } from 'tailwindcss'
-
-const config: Config = {
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
-  theme: {
-    extend: {
-      // Your existing theme extensions
-    },
-  },
-  plugins: [
-    // Your existing plugins
-  ],
-}
-export default config
-```
-
-#### Step 5.2: Move Assets
-- Move `attached_assets/` to `public/` directory
-- Update asset references to use Next.js Image component where appropriate
-
-### Phase 6: State Management and Data Fetching
-
-#### Step 6.1: Update TanStack Query Setup
-Create client component wrapper for providers:
-```tsx
-'use client'
-import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from '@/lib/queryClient'
-
-export function QueryProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
-  )
-}
-```
-
-#### Step 6.2: Server Components vs Client Components
-- Identify components that need 'use client' directive
-- Optimize data fetching with Server Components where possible
-- Keep existing TanStack Query for client-side state
-
-### Phase 7: Deployment Configuration
-
-#### Step 7.1: Update Replit Configuration
-Modify deployment settings for Next.js:
+#### Step 7.2: Update Replit Configuration
+Update `.replit`:
 ```toml
+modules = ["nodejs-20", "web", "bash"]
+run = "npm run dev"
+
 [deployment]
 deploymentTarget = "autoscale"
 run = ["npm", "start"]
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+
+[[ports]]
+localPort = 5001
+externalPort = 5001
+
+[env]
+PORT = "5001"
+FRONTEND_PORT = "3000"
 ```
 
-#### Step 7.2: Environment Variables
-- Ensure DATABASE_URL and other env vars are properly configured
-- Update any environment-specific configurations
+### Phase 8: Environment Configuration
 
-### Phase 8: Testing and Validation
+#### Step 8.1: Environment Variables Setup
+Backend `.env` (use Replit Secrets):
+```
+SUPABASE_DATABASE_URL=your_supabase_connection_string
+SUPABASE_URL=your_supabase_url
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+NODE_ENV=development
+```
 
-#### Step 8.1: Feature Testing Checklist
-- [ ] All pages render correctly
-- [ ] Navigation works properly
-- [ ] API endpoints function as expected
-- [ ] Database operations work
-- [ ] Contact forms submit successfully
-- [ ] Newsletter subscription works
-- [ ] Authentication flows (if implemented)
-- [ ] Responsive design maintained
-- [ ] SEO meta tags properly set
-
-#### Step 8.2: Performance Optimization
-- Implement Next.js Image optimization
-- Add proper loading states
-- Optimize bundle size
-- Configure caching strategies
+Frontend `.env.local`:
+```
+NEXT_PUBLIC_API_URL=http://localhost:5001
+```
 
 ### Phase 9: Migration Execution Steps
 
 #### Step 9.1: Pre-Migration Backup
-1. Create a backup of current codebase
-2. Document current functionality
-3. Test all existing features
+1. Create backup branch: `git checkout -b backup-vite-setup`
+2. Commit current state
+3. Create migration branch: `git checkout -b migrate-to-nextjs`
 
-#### Step 9.2: Gradual Migration
-1. **Day 1-2**: Setup Next.js configuration and directory structure
-2. **Day 3-4**: Migrate core layout and navigation components
-3. **Day 5-6**: Convert all page components
-4. **Day 7-8**: Migrate API routes and database integration
-5. **Day 9-10**: Update styling and asset references
-6. **Day 11-12**: Implement state management and data fetching
-7. **Day 13-14**: Testing, debugging, and optimization
+#### Step 9.2: Day-by-Day Migration Plan
+1. **Day 1**: Setup Supabase database and migrate data
+2. **Day 2**: Create Next.js frontend structure
+3. **Day 3**: Migrate components to Next.js
+4. **Day 4**: Setup standalone Express backend
+5. **Day 5**: Update API integration and routing
+6. **Day 6**: Test integration between frontend and backend
+7. **Day 7**: Update deployment configuration
+8. **Day 8**: Final testing and optimization
 
-#### Step 9.3: Post-Migration Tasks
-1. Update documentation
-2. Remove unused dependencies
-3. Clean up old files
-4. Update deployment configuration
-5. Performance testing and optimization
+#### Step 9.3: Testing Checklist
+- [ ] Frontend renders on localhost:3000
+- [ ] Backend API responds on localhost:5001
+- [ ] API calls from frontend to backend work
+- [ ] Database operations function correctly
+- [ ] All pages accessible via Next.js routing
+- [ ] Forms submit successfully
+- [ ] Authentication flows work
+- [ ] Deployment configuration works
 
-### Phase 10: Rollback Plan
+### Phase 10: Database Migration to Supabase
 
-#### Step 10.1: Rollback Strategy
-- Keep original codebase in separate branch
-- Document rollback procedures
-- Test rollback process before migration
+#### Step 10.1: Export Current Data
+```bash
+# Export from current PostgreSQL
+pg_dump $DATABASE_URL > backup.sql
+```
 
-#### Step 10.2: Risk Mitigation
-- Feature flags for gradual rollout
-- Database backup before schema changes
-- Monitoring and alerting setup
+#### Step 10.2: Import to Supabase
+1. Use Supabase dashboard SQL editor
+2. Run the schema migration
+3. Import data using Supabase tools
 
-## Dependencies to Remove
-- `wouter` (replaced by Next.js routing)
-- `vite` and related plugins (replaced by Next.js build system)
-- `@vitejs/plugin-react`
-- Vite-specific configurations
+#### Step 10.3: Update Connection Strings
+- Replace all PostgreSQL connection strings with Supabase URLs
+- Update environment variables
 
-## Dependencies to Add
-- `next`
-- `@next/font` (if using custom fonts)
-- `next-auth` (if implementing authentication)
-
-## Benefits of Migration
-1. **SEO Improvements**: Server-side rendering and static generation
-2. **Performance**: Automatic code splitting and optimization
-3. **Developer Experience**: Better tooling and conventions
-4. **Production Ready**: Built-in optimization and deployment features
-5. **Future Proof**: Aligned with React ecosystem direction
+## Benefits of This Architecture
+1. **Separation of Concerns**: Frontend and backend can be developed independently
+2. **Scalability**: Each service can be scaled separately
+3. **Modern Stack**: Latest Next.js with proven Express.js backend
+4. **Supabase Features**: Real-time subscriptions, built-in auth, file storage
+5. **Deployment Flexibility**: Can deploy frontend and backend to different services if needed
 
 ## Timeline Estimate
-- **Total Duration**: 2-3 weeks
-- **Development**: 10-14 days
-- **Testing**: 3-4 days
+- **Total Duration**: 1-2 weeks
+- **Development**: 8-10 days
+- **Testing**: 2-3 days
 - **Deployment**: 1-2 days
 
 ## Success Metrics
+- Frontend loads on port 3000
+- Backend API responds on port 5001
 - All existing functionality preserved
-- Page load times improved by 20%+
-- SEO scores improved
-- Developer productivity maintained or improved
-- Zero downtime deployment achieved
+- Database operations work with Supabase
+- Deployment successful on Replit
 
 ---
 
-This migration plan ensures a systematic approach to converting your React + Vite + Express application to Next.js while maintaining all existing functionality and improving performance and SEO capabilities.
+This migration plan provides a clear path to separate your frontend and backend while using modern technologies and Supabase as your database solution.
