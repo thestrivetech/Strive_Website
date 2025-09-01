@@ -1,7 +1,5 @@
 import PortfolioCard from "@/components/ui/portfolio-card";
-import { Bot, Code, Blocks, Sparkles, Zap, Star, ArrowRight, ExternalLink } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Bot, Code, Blocks } from "lucide-react";
 
 const Portfolio = () => {
   const aiModels = [
@@ -122,236 +120,171 @@ const Portfolio = () => {
     { number: "99.2%", label: "Model Accuracy" },
   ];
 
-  // Create compact portfolio badge component
-  const PortfolioBadge = ({ item, variant = "default" }: { item: any, variant?: "default" | "featured" | "prototype" }) => {
-    const variantStyles = {
-      default: "bg-white/5 hover:bg-white/10 border-white/10 hover:border-primary/30",
-      featured: "bg-gradient-to-br from-primary/20 to-blue-600/20 border-primary/30 hover:border-primary/50 shadow-lg shadow-primary/20",
-      prototype: "bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-purple-400/30 hover:border-purple-400/50 shadow-lg shadow-purple-500/20"
-    };
-
-    return (
-      <Card 
-        className={`group relative overflow-hidden backdrop-blur-sm border-2 transition-all duration-500 hover:scale-105 cursor-pointer ${variantStyles[variant]}`}
-        data-testid={`badge-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
-      >
-        <CardContent className="p-4">
-          <div className="flex items-center justify-between mb-2">
-            <Badge variant="secondary" className="text-xs font-semibold bg-primary/20 text-primary border-none">
-              {item.category}
-            </Badge>
-            <Badge variant="outline" className="text-xs">
-              {item.duration}
-            </Badge>
-          </div>
-          <h4 className="font-bold text-white text-sm mb-2 group-hover:text-primary transition-colors">
-            {item.title}
-          </h4>
-          <p className="text-white/70 text-xs leading-relaxed mb-3 line-clamp-2">
-            {item.description}
-          </p>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center text-primary text-xs font-medium group-hover:text-white transition-colors">
-              <span>View Demo</span>
-              <ExternalLink className="ml-1 h-3 w-3" />
-            </div>
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-              <ArrowRight className="h-4 w-4 text-primary" />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  };
-
   return (
     <div className="pt-16">
-      {/* Futuristic Header Section */}
-      <section className="pt-20 pb-20 hero-gradient relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-blue-600/10"></div>
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"></div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <section className="pt-20 pb-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div className="flex items-center justify-center mb-6">
-              <div className="p-3 bg-primary/20 rounded-2xl mr-4">
-                <Sparkles className="text-primary h-8 w-8" />
-              </div>
-              <h1 
-                className="text-4xl md:text-6xl font-bold text-white"
-                data-testid="text-portfolio-title"
-              >
-                Innovation Gallery
-              </h1>
-            </div>
+            <h1 
+              className="text-4xl md:text-5xl font-bold mb-6"
+              data-testid="text-portfolio-title"
+            >
+              Demos, Templates & Prototypes
+            </h1>
             <p 
-              className="text-xl text-white/80 max-w-4xl mx-auto mb-8"
+              className="text-xl text-muted-foreground max-w-3xl mx-auto"
               data-testid="text-portfolio-subtitle"
             >
-              Discover our cutting-edge AI solutions, live demonstrations, and future-ready prototypes that are shaping tomorrow's business landscape.
+              Explore our AI solutions in action through live demos, ready-to-use templates, and cutting-edge prototypes.
             </p>
-            <div className="flex items-center justify-center space-x-8 text-white/60">
-              <div className="flex items-center">
-                <Star className="h-4 w-4 mr-2" />
-                <span className="text-sm">50+ Live Demos</span>
-              </div>
-              <div className="flex items-center">
-                <Zap className="h-4 w-4 mr-2" />
-                <span className="text-sm">Real-time AI Processing</span>
-              </div>
-              <div className="flex items-center">
-                <Bot className="h-4 w-4 mr-2" />
-                <span className="text-sm">Next-Gen Prototypes</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-[#0a0f1c]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* Live Demos Section - Dynamic Masonry Layout */}
-          <div className="mb-32">
-            <div className="text-center mb-16">
-              <div className="flex items-center justify-center mb-4">
-                <Bot className="text-primary mr-3 h-8 w-8" />
-                <h2 className="text-4xl font-bold text-white" data-testid="text-demos-title">
-                  Live AI Demonstrations
-                </h2>
-              </div>
-              <p className="text-white/70 max-w-2xl mx-auto">
-                Experience our AI solutions in real-time with interactive demos and live processing capabilities.
-              </p>
-            </div>
-            
-            {/* Mixed AI Solutions Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mb-12">
-              {/* AI Models - Featured positioning */}
-              {aiModels.map((item, index) => (
-                <div key={`ai-${index}`} className={index === 0 ? "col-span-2 row-span-2" : ""}>
-                  <PortfolioBadge item={item} variant="featured" />
-                </div>
-              ))}
-              
-              {/* Custom Software - Mixed sizes */}
-              {customSoftware.map((item, index) => (
-                <div key={`software-${index}`} className={index === 1 ? "col-span-2" : ""}>
-                  <PortfolioBadge item={item} variant="default" />
-                </div>
-              ))}
-              
-              {/* Blockchain - Standard grid */}
-              {blockchain.map((item, index) => (
-                <PortfolioBadge key={`blockchain-${index}`} item={item} variant="default" />
-              ))}
-            </div>
           </div>
 
-          {/* Design Templates - Floating Cloud Layout */}
-          <div className="mb-32 relative">
-            <div className="text-center mb-16">
-              <div className="flex items-center justify-center mb-4">
-                <Code className="text-primary mr-3 h-8 w-8" />
-                <h2 className="text-4xl font-bold text-white" data-testid="text-templates-title">
-                  Design Templates & UI Kits
-                </h2>
-              </div>
-              <p className="text-white/70 max-w-2xl mx-auto">
-                Ready-to-deploy design systems and UI components crafted for modern applications.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {webDesignTemplates.map((item, index) => (
-                <div key={`template-${index}`} className="transform hover:rotate-1 transition-transform duration-500">
-                  <PortfolioBadge item={item} variant="default" />
-                </div>
-              ))}
-            </div>
-            
-            {/* Floating decoration */}
-            <div className="absolute -top-10 -right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse"></div>
-          </div>
-
-          {/* Future Prototypes - Spotlight Section */}
-          <div className="mb-32 relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-pink-500/10 rounded-3xl blur-3xl"></div>
-            <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
-              <div className="text-center mb-16">
-                <div className="flex items-center justify-center mb-4">
-                  <Sparkles className="text-purple-400 mr-3 h-8 w-8" />
-                  <h2 className="text-4xl font-bold text-white" data-testid="text-prototypes-title">
-                    Next-Generation Prototypes
-                  </h2>
-                </div>
-                <p className="text-white/70 max-w-2xl mx-auto">
-                  Experimental AI technologies pushing the boundaries of what's possible in business automation.
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {prototypes.map((item, index) => (
-                  <div key={`prototype-${index}`} className="transform hover:scale-105 transition-all duration-500">
-                    <PortfolioBadge item={item} variant="prototype" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Futuristic Stats Section */}
+          {/* Live Demos Section */}
           <div className="mb-20">
-            <div className="relative bg-gradient-to-br from-primary/20 via-blue-600/20 to-purple-600/20 backdrop-blur-sm rounded-3xl p-12 border border-primary/30 overflow-hidden">
-              {/* Animated background elements */}
-              <div className="absolute top-0 left-0 w-full h-full">
-                <div className="absolute top-10 left-10 w-32 h-32 bg-primary/10 rounded-full blur-2xl animate-pulse"></div>
-                <div className="absolute bottom-10 right-10 w-48 h-48 bg-blue-600/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+            <h2 className="text-3xl font-bold mb-12 text-center" data-testid="text-demos-title">
+              Live Demos
+            </h2>
+            
+            {/* AI Models Column */}
+            <div className="mb-16">
+              <div className="flex items-center justify-center mb-8">
+                <Bot className="text-primary mr-3 h-8 w-8" />
+                <h3 className="text-2xl font-bold" data-testid="text-ai-models-title">AI Models</h3>
               </div>
-              
-              <div className="relative text-center mb-12">
-                <div className="flex items-center justify-center mb-4">
-                  <Zap className="text-primary mr-3 h-8 w-8" />
-                  <h2 
-                    className="text-4xl md:text-5xl font-bold text-white"
-                    data-testid="text-stats-title"
-                  >
-                    Innovation Metrics
-                  </h2>
-                </div>
-                <p 
-                  className="text-xl text-white/80"
-                  data-testid="text-stats-subtitle"
-                >
-                  Real numbers from our AI-powered transformation initiatives.
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center relative">
-                {stats.map((stat, index) => (
-                  <div 
-                    key={index} 
-                    className="group"
-                    data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}
-                  >
-                    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 group-hover:border-primary/50 transition-all duration-300 group-hover:scale-105">
-                      <div 
-                        className="text-4xl md:text-5xl font-bold text-primary mb-2 group-hover:text-white transition-colors"
-                        data-testid={`text-stat-number-${index}`}
-                      >
-                        {stat.number}
-                      </div>
-                      <div 
-                        className="text-white/70 font-medium group-hover:text-white/90 transition-colors"
-                        data-testid={`text-stat-label-${index}`}
-                      >
-                        {stat.label}
-                      </div>
-                    </div>
-                  </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {aiModels.map((item, index) => (
+                  <PortfolioCard
+                    key={index}
+                    category={item.category}
+                    title={item.title}
+                    description={item.description}
+                    imageUrl={item.imageUrl}
+                    imageAlt={item.imageAlt}
+                    duration={item.duration}
+                  />
                 ))}
               </div>
+            </div>
+
+            {/* Custom Software Column */}
+            <div className="mb-16">
+              <div className="flex items-center justify-center mb-8">
+                <Code className="text-primary mr-3 h-8 w-8" />
+                <h3 className="text-2xl font-bold" data-testid="text-custom-software-title">Custom Software</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {customSoftware.map((item, index) => (
+                  <PortfolioCard
+                    key={index}
+                    category={item.category}
+                    title={item.title}
+                    description={item.description}
+                    imageUrl={item.imageUrl}
+                    imageAlt={item.imageAlt}
+                    duration={item.duration}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Blockchain Column */}
+            <div className="mb-16">
+              <div className="flex items-center justify-center mb-8">
+                <Blocks className="text-primary mr-3 h-8 w-8" />
+                <h3 className="text-2xl font-bold" data-testid="text-blockchain-title">Blockchain</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {blockchain.map((item, index) => (
+                  <PortfolioCard
+                    key={index}
+                    category={item.category}
+                    title={item.title}
+                    description={item.description}
+                    imageUrl={item.imageUrl}
+                    imageAlt={item.imageAlt}
+                    duration={item.duration}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Web Design & UI/UX Templates Section */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center" data-testid="text-templates-title">
+              Web Design & UI/UX Templates
+            </h2>
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+              Professional design templates and UI components ready for customization and implementation.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {webDesignTemplates.map((item, index) => (
+                <PortfolioCard
+                  key={index}
+                  category={item.category}
+                  title={item.title}
+                  description={item.description}
+                  imageUrl={item.imageUrl}
+                  imageAlt={item.imageAlt}
+                  duration={item.duration}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Prototypes Section */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center" data-testid="text-prototypes-title">
+              Future Prototypes
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {prototypes.map((item, index) => (
+                <PortfolioCard
+                  key={index}
+                  category={item.category}
+                  title={item.title}
+                  description={item.description}
+                  imageUrl={item.imageUrl}
+                  imageAlt={item.imageAlt}
+                  duration={item.duration}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Stats Section */}
+          <div className="mt-20 bg-muted rounded-2xl p-8 md:p-12">
+            <div className="text-center mb-12">
+              <h2 
+                className="text-3xl md:text-4xl font-bold mb-4"
+                data-testid="text-stats-title"
+              >
+                AI Innovation by the Numbers
+              </h2>
+              <p 
+                className="text-xl text-muted-foreground"
+                data-testid="text-stats-subtitle"
+              >
+                Our AI solutions deliver measurable impact across industries.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+              {stats.map((stat, index) => (
+                <div key={index} data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}>
+                  <div 
+                    className="text-4xl font-bold text-primary mb-2"
+                    data-testid={`text-stat-number-${index}`}
+                  >
+                    {stat.number}
+                  </div>
+                  <div 
+                    className="text-muted-foreground"
+                    data-testid={`text-stat-label-${index}`}
+                  >
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
