@@ -1,294 +1,398 @@
-import PortfolioCard from "@/components/ui/portfolio-card";
-import { Bot, Code, Blocks } from "lucide-react";
+import { useState } from "react";
+import { Bot, Code, Blocks, Brain, Database, Globe, Zap, Eye, Play, ExternalLink, X, Github, Monitor, Smartphone, ChevronRight, Filter } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+
+interface Project {
+  id: number;
+  title: string;
+  category: string;
+  type: string;
+  technologies: string[];
+  shortDescription: string;
+  fullDescription: string;
+  imageUrl: string;
+  demoUrl: string;
+  githubUrl: string;
+  features: string[];
+  metrics: Record<string, string>;
+}
 
 const Portfolio = () => {
-  const aiModels = [
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState("all");
+
+  const projects = [
     {
-      category: "AI MODELS",
-      title: "Natural Language Processing",
-      description: "Advanced NLP models for document analysis, sentiment detection, and automated content generation.",
-      imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "AI language processing demonstration",
-      duration: "Live Demo",
+      id: 1,
+      title: "Neural Language Assistant",
+      category: "AI Agent",
+      type: "demo",
+      technologies: ["GPT-4", "React", "Node.js", "Python"],
+      shortDescription: "Advanced conversational AI that understands context and provides intelligent responses across multiple domains.",
+      fullDescription: "A sophisticated AI assistant powered by state-of-the-art language models, capable of understanding nuanced conversations, maintaining context across long interactions, and providing expert-level assistance in various fields including business analysis, technical support, and creative writing.",
+      imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+      demoUrl: "https://demo.strive.ai/neural-assistant",
+      githubUrl: "https://github.com/strive-ai/neural-assistant",
+      features: ["Multi-turn conversations", "Domain expertise", "Context retention", "Real-time responses"],
+      metrics: { "Accuracy": "94.2%", "Response Time": "1.2s", "User Satisfaction": "4.8/5" }
     },
     {
-      category: "AI MODELS",
-      title: "Computer Vision Solutions",
-      description: "Image recognition and analysis models for quality control, security, and automated inspection.",
-      imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Computer vision AI demonstration",
-      duration: "Live Demo",
+      id: 2,
+      title: "Computer Vision Analytics",
+      category: "AI Model",
+      type: "demo",
+      technologies: ["TensorFlow", "OpenCV", "Python", "FastAPI"],
+      shortDescription: "Real-time image and video analysis for quality control, object detection, and automated inspection systems.",
+      fullDescription: "A comprehensive computer vision platform that processes visual data in real-time, providing accurate object detection, quality assessment, and anomaly detection. Perfect for manufacturing, security, and retail applications.",
+      imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+      demoUrl: "https://demo.strive.ai/computer-vision",
+      githubUrl: "https://github.com/strive-ai/cv-analytics",
+      features: ["Real-time processing", "Multi-object detection", "Quality scoring", "Anomaly detection"],
+      metrics: { "Accuracy": "97.8%", "Processing Speed": "30fps", "Detection Rate": "99.1%" }
+    },
+    {
+      id: 3,
+      title: "RAG Knowledge System",
+      category: "RAG Solution",
+      type: "prototype",
+      technologies: ["LangChain", "Vector DB", "FastAPI", "React"],
+      shortDescription: "Retrieval-Augmented Generation system that combines your knowledge base with AI for accurate, contextual responses.",
+      fullDescription: "An intelligent knowledge management system that ingests documents, creates semantic embeddings, and provides AI-powered search and question-answering capabilities. Ideal for enterprise knowledge bases, customer support, and research applications.",
+      imageUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+      demoUrl: "https://demo.strive.ai/rag-system",
+      githubUrl: "https://github.com/strive-ai/rag-knowledge",
+      features: ["Document ingestion", "Semantic search", "Context-aware responses", "Multi-format support"],
+      metrics: { "Accuracy": "91.7%", "Retrieval Speed": "0.8s", "Document Capacity": "10M+" }
+    },
+    {
+      id: 4,
+      title: "Agentic Workflow Platform",
+      category: "Workflow",
+      type: "prototype",
+      technologies: ["Multi-Agent", "LangGraph", "Python", "Redis"],
+      shortDescription: "Orchestrated AI agents working together, each specialized in specific domains to solve complex business problems.",
+      fullDescription: "A revolutionary multi-agent system where specialized AI agents collaborate to handle complex workflows. Each agent is an expert in its domain, working together to deliver comprehensive solutions for business process automation.",
+      imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+      demoUrl: "https://demo.strive.ai/agentic-workflow",
+      githubUrl: "https://github.com/strive-ai/agentic-platform",
+      features: ["Multi-agent coordination", "Specialized expertise", "Task decomposition", "Quality assurance"],
+      metrics: { "Efficiency Gain": "85% faster", "Agent Count": "12", "Success Rate": "96.3%" }
+    },
+    {
+      id: 5,
+      title: "Smart Dashboard UI Kit",
+      category: "Template",
+      type: "template",
+      technologies: ["React", "TypeScript", "Tailwind", "Recharts"],
+      shortDescription: "Modern, responsive dashboard components with AI-powered insights and real-time data visualization.",
+      fullDescription: "A comprehensive UI kit featuring modern dashboard components, interactive charts, and AI-powered insights. Includes dark/light themes, responsive layouts, and customizable widgets for any business intelligence application.",
+      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+      demoUrl: "https://demo.strive.ai/dashboard-kit",
+      githubUrl: "https://github.com/strive-ai/dashboard-kit",
+      features: ["50+ Components", "Responsive design", "Dark/light themes", "Real-time updates"],
+      metrics: { "Components": "50+", "Themes": "2", "Responsive": "100%", "Performance Score": "95/100" }
+    },
+    {
+      id: 6,
+      title: "MCP Server Framework",
+      category: "Infrastructure",
+      type: "prototype",
+      technologies: ["Protocol", "TypeScript", "WebSocket", "Docker"],
+      shortDescription: "Model Context Protocol server enabling seamless AI model integration across different platforms and applications.",
+      fullDescription: "A robust MCP (Model Context Protocol) server that standardizes AI model communication, enabling easy integration of various AI models into your applications with consistent APIs and real-time capabilities.",
+      imageUrl: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+      demoUrl: "https://demo.strive.ai/mcp-server",
+      githubUrl: "https://github.com/strive-ai/mcp-framework",
+      features: ["Protocol standardization", "Multi-model support", "Real-time communication", "Easy integration"],
+      metrics: { "Models Supported": "25+", "Latency": "< 100ms", "Uptime": "99.9%" }
     }
   ];
 
-  const customSoftware = [
-    {
-      category: "CUSTOM SOFTWARE",
-      title: "Enterprise Resource Planning",
-      description: "Fully customized ERP system tailored to manufacturing workflows and industry requirements.",
-      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Custom ERP software interface",
-      duration: "Live Demo",
-    },
-    {
-      category: "CUSTOM SOFTWARE",
-      title: "Financial Management Platform", 
-      description: "Bespoke financial software with real-time reporting, risk assessment, and compliance tracking.",
-      imageUrl: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Financial management software demo",
-      duration: "Live Demo",
-    }
+  const filters = [
+    { id: "all", name: "All Projects", icon: <Globe className="h-4 w-4" /> },
+    { id: "AI Agent", name: "AI Agents", icon: <Bot className="h-4 w-4" /> },
+    { id: "AI Model", name: "AI Models", icon: <Brain className="h-4 w-4" /> },
+    { id: "RAG Solution", name: "RAG Solutions", icon: <Database className="h-4 w-4" /> },
+    { id: "Workflow", name: "Workflows", icon: <Zap className="h-4 w-4" /> },
+    { id: "Template", name: "Templates", icon: <Code className="h-4 w-4" /> },
+    { id: "Infrastructure", name: "Infrastructure", icon: <Blocks className="h-4 w-4" /> }
   ];
 
-  const blockchain = [
-    {
-      category: "BLOCKCHAIN",
-      title: "Supply Chain Transparency",
-      description: "Blockchain-based tracking system providing end-to-end supply chain visibility and verification.",
-      imageUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Blockchain supply chain tracking demo",
-      duration: "Live Demo",
-    },
-    {
-      category: "BLOCKCHAIN",
-      title: "Smart Contract Automation",
-      description: "Automated contract execution and payment systems reducing processing time by 90%.",
-      imageUrl: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Smart contract automation demo",
-      duration: "Live Demo",
-    }
-  ];
+  const filteredProjects = selectedFilter === "all" 
+    ? projects 
+    : projects.filter(project => project.category === selectedFilter);
 
-  const webDesignTemplates = [
-    {
-      category: "WEB DESIGN",
-      title: "Modern E-commerce UI Kit",
-      description: "Complete UI/UX template with responsive design, product catalogs, and checkout flows.",
-      imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "E-commerce web design template",
-      duration: "Template",
-    },
-    {
-      category: "UI/UX DESIGN",
-      title: "SaaS Dashboard Templates",
-      description: "Professional dashboard designs with data visualization components and user management interfaces.",
-      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "SaaS dashboard UI template",
-      duration: "Template",
-    },
-    {
-      category: "WEB DESIGN",
-      title: "Corporate Website Templates", 
-      description: "Professional business website templates with modern layouts and conversion-optimized designs.",
-      imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Corporate website design template",
-      duration: "Template",
-    }
-  ];
+  const getCategoryIcon = (category: string) => {
+    const iconMap: { [key: string]: JSX.Element } = {
+      "AI Agent": <Bot className="h-5 w-5" />,
+      "AI Model": <Brain className="h-5 w-5" />,
+      "RAG Solution": <Database className="h-5 w-5" />,
+      "Workflow": <Zap className="h-5 w-5" />,
+      "Template": <Code className="h-5 w-5" />,
+      "Infrastructure": <Blocks className="h-5 w-5" />
+    };
+    return iconMap[category] || <Globe className="h-5 w-5" />;
+  };
 
-  const prototypes = [
-    {
-      category: "PROTOTYPE",
-      title: "Voice-to-Code AI Assistant",
-      description: "Experimental prototype that converts natural language descriptions into working code.",
-      imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Voice-to-code AI assistant prototype",
-      duration: "Beta",
-    },
-    {
-      category: "PROTOTYPE",
-      title: "Multi-Modal AI Platform",
-      description: "Next-generation AI platform processing text, images, and audio simultaneously.",
-      imageUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Multi-modal AI platform prototype interface",
-      duration: "Beta",
-    },
-    {
-      category: "PROTOTYPE",
-      title: "Autonomous Business Analyst",
-      description: "AI prototype that autonomously analyzes business metrics and provides strategic recommendations.",
-      imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-      imageAlt: "Autonomous business analyst AI prototype",
-      duration: "Beta",
-    }
-  ];
-
-  const stats = [
-    { number: "50+", label: "AI Models Deployed" },
-    { number: "25+", label: "Ready Templates" },
-    { number: "10+", label: "Beta Prototypes" },
-    { number: "99.2%", label: "Model Accuracy" },
-  ];
+  const getTypeColor = (type: string) => {
+    const colorMap: { [key: string]: string } = {
+      "demo": "bg-green-500",
+      "prototype": "bg-blue-500", 
+      "template": "bg-purple-500"
+    };
+    return colorMap[type] || "bg-gray-500";
+  };
 
   return (
     <div className="pt-16">
-      <section className="pt-20 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+      {/* Hero Section with AI-themed animated background */}
+      <section className="py-20 hero-gradient relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 animate-pulse"></div>
+          <div className="absolute top-0 left-0 w-full h-full">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className={`absolute w-2 h-2 bg-primary rounded-full animate-ping opacity-60`}
+                style={{
+                  left: `${10 + i * 15}%`,
+                  top: `${20 + i * 10}%`,
+                  animationDelay: `${i * 0.5}s`,
+                  animationDuration: '3s'
+                }}
+              />
+            ))}
+          </div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-6">
+              <div className="relative">
+                <Brain className="text-primary h-16 w-16 animate-pulse" />
+                <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping"></div>
+              </div>
+            </div>
             <h1 
-              className="text-4xl md:text-5xl font-bold mb-6"
-              data-testid="text-portfolio-title"
+              className="text-5xl md:text-7xl font-bold mb-6 text-white"
+              data-testid="text-hero-title"
             >
-              Demos, Templates & Prototypes
+              Unleashing AI Solutions for Tomorrow
             </h1>
             <p 
-              className="text-xl text-muted-foreground max-w-3xl mx-auto"
-              data-testid="text-portfolio-subtitle"
+              className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
+              data-testid="text-hero-subtitle"
             >
-              Explore our AI solutions in action through live demos, ready-to-use templates, and cutting-edge prototypes.
+              Explore cutting-edge AI demos, production-ready templates, and revolutionary prototypes that showcase the future of intelligent business solutions.
             </p>
-          </div>
-
-          {/* Live Demos Section */}
-          <div className="mb-20">
-            <h2 className="text-3xl font-bold mb-12 text-center" data-testid="text-demos-title">
-              Live Demos
-            </h2>
-            
-            {/* AI Models Column */}
-            <div className="mb-16">
-              <div className="flex items-center justify-center mb-8">
-                <Bot className="text-primary mr-3 h-8 w-8" />
-                <h3 className="text-2xl font-bold" data-testid="text-ai-models-title">AI Models</h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {aiModels.map((item, index) => (
-                  <PortfolioCard
-                    key={index}
-                    category={item.category}
-                    title={item.title}
-                    description={item.description}
-                    imageUrl={item.imageUrl}
-                    imageAlt={item.imageAlt}
-                    duration={item.duration}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Custom Software Column */}
-            <div className="mb-16">
-              <div className="flex items-center justify-center mb-8">
-                <Code className="text-primary mr-3 h-8 w-8" />
-                <h3 className="text-2xl font-bold" data-testid="text-custom-software-title">Custom Software</h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {customSoftware.map((item, index) => (
-                  <PortfolioCard
-                    key={index}
-                    category={item.category}
-                    title={item.title}
-                    description={item.description}
-                    imageUrl={item.imageUrl}
-                    imageAlt={item.imageAlt}
-                    duration={item.duration}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Blockchain Column */}
-            <div className="mb-16">
-              <div className="flex items-center justify-center mb-8">
-                <Blocks className="text-primary mr-3 h-8 w-8" />
-                <h3 className="text-2xl font-bold" data-testid="text-blockchain-title">Blockchain</h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {blockchain.map((item, index) => (
-                  <PortfolioCard
-                    key={index}
-                    category={item.category}
-                    title={item.title}
-                    description={item.description}
-                    imageUrl={item.imageUrl}
-                    imageAlt={item.imageAlt}
-                    duration={item.duration}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Web Design & UI/UX Templates Section */}
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center" data-testid="text-templates-title">
-              Web Design & UI/UX Templates
-            </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Professional design templates and UI components ready for customization and implementation.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {webDesignTemplates.map((item, index) => (
-                <PortfolioCard
-                  key={index}
-                  category={item.category}
-                  title={item.title}
-                  description={item.description}
-                  imageUrl={item.imageUrl}
-                  imageAlt={item.imageAlt}
-                  duration={item.duration}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Prototypes Section */}
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center" data-testid="text-prototypes-title">
-              Future Prototypes
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {prototypes.map((item, index) => (
-                <PortfolioCard
-                  key={index}
-                  category={item.category}
-                  title={item.title}
-                  description={item.description}
-                  imageUrl={item.imageUrl}
-                  imageAlt={item.imageAlt}
-                  duration={item.duration}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Stats Section */}
-          <div className="mt-20 bg-muted rounded-2xl p-8 md:p-12">
-            <div className="text-center mb-12">
-              <h2 
-                className="text-3xl md:text-4xl font-bold mb-4"
-                data-testid="text-stats-title"
-              >
-                AI Innovation by the Numbers
-              </h2>
-              <p 
-                className="text-xl text-muted-foreground"
-                data-testid="text-stats-subtitle"
-              >
-                Our AI solutions deliver measurable impact across industries.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-              {stats.map((stat, index) => (
-                <div key={index} data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}>
-                  <div 
-                    className="text-4xl font-bold text-primary mb-2"
-                    data-testid={`text-stat-number-${index}`}
-                  >
-                    {stat.number}
-                  </div>
-                  <div 
-                    className="text-muted-foreground"
-                    data-testid={`text-stat-label-${index}`}
-                  >
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
+            <Button 
+              size="lg" 
+              className="bg-white text-primary hover:bg-white/90 px-8 py-4 text-lg font-semibold"
+              onClick={() => document.getElementById('showcase')?.scrollIntoView({ behavior: 'smooth' })}
+              data-testid="button-view-work"
+            >
+              View Our Work
+              <ChevronRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </section>
+
+      {/* Showcase Section */}
+      <section id="showcase" className="py-16 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Filter Navigation */}
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
+            {filters.map((filter) => (
+              <Button
+                key={filter.id}
+                variant={selectedFilter === filter.id ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelectedFilter(filter.id)}
+                className={`flex items-center gap-2 transition-all duration-300 ${
+                  selectedFilter === filter.id
+                    ? 'bg-primary text-white shadow-lg scale-105'
+                    : 'hover:bg-primary/10 hover:border-primary/50'
+                }`}
+                data-testid={`button-filter-${filter.id}`}
+              >
+                {filter.icon}
+                {filter.name}
+              </Button>
+            ))}
+          </div>
+
+          {/* Project Gallery */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map((project) => (
+              <Card 
+                key={project.id}
+                className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800"
+                onClick={() => setSelectedProject(project)}
+                data-testid={`card-project-${project.id}`}
+              >
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={project.imageUrl} 
+                    alt={project.title}
+                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                    data-testid={`img-project-${project.id}`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    <Badge className={`${getTypeColor(project.type)} text-white border-0`}>
+                      {project.type.toUpperCase()}
+                    </Badge>
+                  </div>
+                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex gap-2">
+                      <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
+                        <Play className="h-4 w-4" />
+                      </Button>
+                      <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
+                        <ExternalLink className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="text-primary">
+                      {getCategoryIcon(project.category)}
+                    </div>
+                    <span className="text-sm font-medium text-primary uppercase tracking-wide">
+                      {project.category}
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-muted-foreground mb-4 line-clamp-2">
+                    {project.shortDescription}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-1 mb-4">
+                    {project.technologies.slice(0, 3).map((tech, index) => (
+                      <Badge key={index} variant="secondary" className="text-xs">
+                        {tech}
+                      </Badge>
+                    ))}
+                    {project.technologies.length > 3 && (
+                      <Badge variant="secondary" className="text-xs">
+                        +{project.technologies.length - 3}
+                      </Badge>
+                    )}
+                  </div>
+                  
+                  <Button 
+                    className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300"
+                    variant="outline"
+                  >
+                    View Details
+                    <Eye className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Project Detail Modal */}
+      <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          {selectedProject && (
+            <>
+              <DialogTitle className="sr-only">{selectedProject.title}</DialogTitle>
+              <div className="relative">
+                <img 
+                  src={selectedProject.imageUrl} 
+                  alt={selectedProject.title}
+                  className="w-full h-64 object-cover rounded-lg"
+                />
+                <Button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-4 right-4 h-8 w-8 p-0"
+                  variant="secondary"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+              
+              <div className="p-6 space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="text-primary">
+                    {getCategoryIcon(selectedProject.category)}
+                  </div>
+                  <div>
+                    <h2 className="text-3xl font-bold">{selectedProject.title}</h2>
+                    <p className="text-muted-foreground">{selectedProject.category}</p>
+                  </div>
+                </div>
+                
+                <p className="text-lg leading-relaxed">{selectedProject.fullDescription}</p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">Key Features</h3>
+                    <ul className="space-y-2">
+                      {selectedProject.features.map((feature: string, index: number) => (
+                        <li key={index} className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">Performance Metrics</h3>
+                    <div className="space-y-2">
+                      {Object.entries(selectedProject.metrics).map(([key, value]: [string, string]) => (
+                        <div key={key} className="flex justify-between">
+                          <span className="capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+                          <span className="font-semibold text-primary">{value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Technology Stack</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.technologies.map((tech: string, index: number) => (
+                      <Badge key={index} variant="secondary" className="px-3 py-1">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="flex gap-4 pt-4">
+                  <Button className="flex-1" onClick={() => window.open(selectedProject.demoUrl, '_blank')}>
+                    <Play className="mr-2 h-4 w-4" />
+                    View Demo
+                  </Button>
+                  <Button variant="outline" onClick={() => window.open(selectedProject.githubUrl, '_blank')}>
+                    <Github className="mr-2 h-4 w-4" />
+                    View Code
+                  </Button>
+                  <Button variant="outline" onClick={() => window.location.href = '/contact'}>
+                    Get Started
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
