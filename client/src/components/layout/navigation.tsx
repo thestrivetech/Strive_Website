@@ -10,12 +10,16 @@ import manufacturingIcon from "@assets/generated_images/Manufacturing_industry_i
 import retailIcon from "@assets/generated_images/Retail_industry_icon_5c33f611.png";
 import technologyIcon from "@assets/generated_images/Technology_industry_icon_e199aae4.png";
 import educationIcon from "@assets/generated_images/Education_industry_icon_b1549875.png";
+import resourcesIcon from "@assets/generated_images/Business_resources_gradient_icons_b8398c2d.png";
+import portfolioIcon from "@assets/generated_images/Portfolio_categories_gradient_icons_d4012d22.png";
 
 const Navigation = () => {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [portfolioOpen, setPortfolioOpen] = useState(false);
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -32,6 +36,24 @@ const Navigation = () => {
     { name: "Retail", path: "/solutions/retail", icon: retailIcon },
     { name: "Technology", path: "/solutions/technology", icon: technologyIcon },
     { name: "Education", path: "/solutions/education", icon: educationIcon },
+  ];
+
+  const portfolioCategories = [
+    { name: "AI Models", path: "/portfolio#ai-models", icon: portfolioIcon },
+    { name: "Custom Software", path: "/portfolio#custom-software", icon: portfolioIcon },
+    { name: "Blockchain", path: "/portfolio#blockchain", icon: portfolioIcon },
+    { name: "Web Design", path: "/portfolio#web-design", icon: portfolioIcon },
+    { name: "UI/UX Design", path: "/portfolio#ui-ux", icon: portfolioIcon },
+    { name: "Prototypes", path: "/portfolio#prototypes", icon: portfolioIcon },
+  ];
+
+  const resourceTypes = [
+    { name: "Blog Posts", path: "/resources#blog", icon: resourcesIcon },
+    { name: "Whitepapers", path: "/resources#whitepapers", icon: resourcesIcon },
+    { name: "Case Studies", path: "/resources#case-studies", icon: resourcesIcon },
+    { name: "Webinars", path: "/resources#webinars", icon: resourcesIcon },
+    { name: "Guides", path: "/resources#guides", icon: resourcesIcon },
+    { name: "Tools", path: "/resources#tools", icon: resourcesIcon },
   ];
 
   useEffect(() => {
@@ -125,19 +147,109 @@ const Navigation = () => {
               </div>
             </div>
 
-            {/* Other Nav Items */}
-            {navItems.slice(1).map((item) => (
+            {/* Portfolio with Hover Dropdown */}
+            <div 
+              className="relative group"
+              onMouseEnter={() => setPortfolioOpen(true)}
+              onMouseLeave={() => setPortfolioOpen(false)}
+            >
               <Link
-                key={item.path}
-                href={item.path}
+                href="/portfolio"
                 className={`nav-link text-foreground hover:text-primary transition-colors ${
-                  isActive(item.path) ? "active" : ""
+                  isActive("/portfolio") ? "active" : ""
                 }`}
-                data-testid={`nav-${item.name.toLowerCase().replace(" ", "-")}`}
+                data-testid="nav-portfolio"
               >
-                {item.name}
+                Portfolio
               </Link>
-            ))}
+              
+              {/* Hover Dropdown Content - 2 Columns */}
+              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-background border border-border rounded-md shadow-lg transition-all duration-200 z-[200] ${
+                portfolioOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+              }`}>
+                <div className="p-6 grid grid-cols-2 gap-4">
+                  {portfolioCategories.map((category) => (
+                    <Link 
+                      key={category.path}
+                      href={category.path} 
+                      className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
+                      data-testid={`portfolio-dropdown-${category.name.toLowerCase().replace(/\s+/g, "-")}`}
+                    >
+                      <div className="flex-shrink-0">
+                        <img 
+                          src={category.icon} 
+                          alt={`${category.name} icon`}
+                          className="w-8 h-8 rounded-md shadow-sm group-hover:scale-105 transition-transform"
+                        />
+                      </div>
+                      <span className="font-medium text-left leading-tight">{category.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Resources with Hover Dropdown */}
+            <div 
+              className="relative group"
+              onMouseEnter={() => setResourcesOpen(true)}
+              onMouseLeave={() => setResourcesOpen(false)}
+            >
+              <Link
+                href="/resources"
+                className={`nav-link text-foreground hover:text-primary transition-colors ${
+                  isActive("/resources") ? "active" : ""
+                }`}
+                data-testid="nav-resources"
+              >
+                Resources
+              </Link>
+              
+              {/* Hover Dropdown Content - 2 Columns */}
+              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-background border border-border rounded-md shadow-lg transition-all duration-200 z-[200] ${
+                resourcesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+              }`}>
+                <div className="p-6 grid grid-cols-2 gap-4">
+                  {resourceTypes.map((resource) => (
+                    <Link 
+                      key={resource.path}
+                      href={resource.path} 
+                      className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
+                      data-testid={`resources-dropdown-${resource.name.toLowerCase().replace(/\s+/g, "-")}`}
+                    >
+                      <div className="flex-shrink-0">
+                        <img 
+                          src={resource.icon} 
+                          alt={`${resource.name} icon`}
+                          className="w-8 h-8 rounded-md shadow-sm group-hover:scale-105 transition-transform"
+                        />
+                      </div>
+                      <span className="font-medium text-left leading-tight">{resource.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Remaining Nav Items */}
+            <Link
+              href="/about"
+              className={`nav-link text-foreground hover:text-primary transition-colors ${
+                isActive("/about") ? "active" : ""
+              }`}
+              data-testid="nav-about-us"
+            >
+              About Us
+            </Link>
+            <Link
+              href="/contact"
+              className={`nav-link text-foreground hover:text-primary transition-colors ${
+                isActive("/contact") ? "active" : ""
+              }`}
+              data-testid="nav-contact"
+            >
+              Contact
+            </Link>
           </div>
 
           {/* CTA and Login Buttons */}
@@ -215,20 +327,81 @@ const Navigation = () => {
                     </div>
                   </div>
 
-                  {/* Other Nav Items */}
-                  {navItems.slice(1).map((item) => (
+                  {/* Portfolio Group */}
+                  <div className="space-y-2">
                     <Link
-                      key={item.path}
-                      href={item.path}
-                      className={`text-foreground hover:text-primary transition-colors p-2 ${
-                        isActive(item.path) ? "text-primary font-medium" : ""
+                      href="/portfolio"
+                      className={`text-foreground hover:text-primary transition-colors p-2 font-medium ${
+                        isActive("/portfolio") ? "text-primary font-medium" : ""
                       }`}
                       onClick={() => setMobileMenuOpen(false)}
-                      data-testid={`mobile-nav-${item.name.toLowerCase().replace(" ", "-")}`}
+                      data-testid="mobile-nav-portfolio"
                     >
-                      {item.name}
+                      Portfolio
                     </Link>
-                  ))}
+                    <div className="pl-4 space-y-1">
+                      {portfolioCategories.map((category) => (
+                        <Link
+                          key={category.path}
+                          href={category.path}
+                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
+                          onClick={() => setMobileMenuOpen(false)}
+                          data-testid={`mobile-portfolio-${category.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {category.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Resources Group */}
+                  <div className="space-y-2">
+                    <Link
+                      href="/resources"
+                      className={`text-foreground hover:text-primary transition-colors p-2 font-medium ${
+                        isActive("/resources") ? "text-primary font-medium" : ""
+                      }`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      data-testid="mobile-nav-resources"
+                    >
+                      Resources
+                    </Link>
+                    <div className="pl-4 space-y-1">
+                      {resourceTypes.map((resource) => (
+                        <Link
+                          key={resource.path}
+                          href={resource.path}
+                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
+                          onClick={() => setMobileMenuOpen(false)}
+                          data-testid={`mobile-resources-${resource.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {resource.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Remaining Nav Items */}
+                  <Link
+                    href="/about"
+                    className={`text-foreground hover:text-primary transition-colors p-2 ${
+                      isActive("/about") ? "text-primary font-medium" : ""
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    data-testid="mobile-nav-about-us"
+                  >
+                    About Us
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className={`text-foreground hover:text-primary transition-colors p-2 ${
+                      isActive("/contact") ? "text-primary font-medium" : ""
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    data-testid="mobile-nav-contact"
+                  >
+                    Contact
+                  </Link>
                   <div className="space-y-3 mt-4">
                     <Link href="/login">
                       <Button 
