@@ -57,9 +57,9 @@ const Navigation = () => {
       isScrolled 
         ? 'hero-gradient border-white/20' 
         : 'bg-background/95 backdrop-blur-md border-border'
-    }`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    }`} style={{ overflow: 'visible' }}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8" style={{ overflow: 'visible' }}>
+        <div className="flex justify-between items-center h-16" style={{ overflow: 'visible' }}>
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img 
@@ -71,7 +71,7 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8" style={{ overflow: 'visible' }}>
             {/* Home */}
             <Link
               href="/"
@@ -100,7 +100,7 @@ const Navigation = () => {
               </Link>
               
               {/* Hover Dropdown Content - 2 Columns */}
-              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl transition-all duration-200 z-[100] ${
+              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-background border border-border rounded-md shadow-lg transition-all duration-200 z-[200] ${
                 solutionsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               }`}>
                 <div className="p-6 grid grid-cols-2 gap-4">
@@ -108,7 +108,7 @@ const Navigation = () => {
                     <Link 
                       key={industry.path}
                       href={industry.path} 
-                      className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors rounded-lg group"
+                      className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
                       data-testid={`dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
                     >
                       <div className="flex-shrink-0">
