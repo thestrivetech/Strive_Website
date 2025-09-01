@@ -1,6 +1,7 @@
 import { Building2, TrendingUp, Shield, BarChart3, DollarSign, CreditCard } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 
 const Financial = () => {
   const solutions = [
@@ -73,9 +74,11 @@ const Financial = () => {
           </div>
 
           <div className="text-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-financial">
-              Get Started with Financial Solutions
-            </Button>
+            <Link href="/get-started">
+              <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-financial">
+                Get Started with Financial Solutions
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

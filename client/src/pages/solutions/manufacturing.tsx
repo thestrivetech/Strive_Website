@@ -1,6 +1,7 @@
 import { Factory, Cpu, BarChart3, Package, Wrench, Zap } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 
 const Manufacturing = () => {
   const solutions = [
@@ -73,9 +74,11 @@ const Manufacturing = () => {
           </div>
 
           <div className="text-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-manufacturing">
-              Get Started with Manufacturing Solutions
-            </Button>
+            <Link href="/get-started">
+              <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-manufacturing">
+                Get Started with Manufacturing Solutions
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

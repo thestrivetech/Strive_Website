@@ -1,6 +1,7 @@
 import { Heart, Activity, Shield, FileText, Calendar, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 
 const Healthcare = () => {
   const solutions = [
@@ -73,9 +74,11 @@ const Healthcare = () => {
           </div>
 
           <div className="text-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-healthcare">
-              Get Started with Healthcare Solutions
-            </Button>
+            <Link href="/get-started">
+              <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-healthcare">
+                Get Started with Healthcare Solutions
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

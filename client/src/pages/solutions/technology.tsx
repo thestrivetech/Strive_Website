@@ -1,6 +1,7 @@
 import { Laptop, Code2, Cloud, Zap, GitBranch, Server } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 
 const Technology = () => {
   const solutions = [
@@ -73,9 +74,11 @@ const Technology = () => {
           </div>
 
           <div className="text-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-technology">
-              Get Started with Technology Solutions
-            </Button>
+            <Link href="/get-started">
+              <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-technology">
+                Get Started with Technology Solutions
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

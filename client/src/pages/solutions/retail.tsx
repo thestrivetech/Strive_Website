@@ -1,6 +1,7 @@
 import { ShoppingCart, Users, BarChart3, Smartphone, Package, Target } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 
 const Retail = () => {
   const solutions = [
@@ -73,9 +74,11 @@ const Retail = () => {
           </div>
 
           <div className="text-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-retail">
-              Get Started with Retail Solutions
-            </Button>
+            <Link href="/get-started">
+              <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-retail">
+                Get Started with Retail Solutions
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
