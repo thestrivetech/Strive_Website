@@ -117,10 +117,10 @@ const HeroSection = ({
                 <button
                   key={index}
                   onClick={() => setCurrentDemo(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
+                  className={`w-4 h-4 rounded-full transition-all ${
                     index === currentDemo 
                       ? 'bg-primary scale-125' 
-                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                      : 'bg-purple-700 hover:bg-purple-600'
                   }`}
                   data-testid={`demo-dot-${index}`}
                 />
