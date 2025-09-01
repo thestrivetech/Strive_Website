@@ -30,7 +30,7 @@ Preferred communication style: Simple, everyday language.
 
 ## Data Storage Solutions
 
-**Database**: PostgreSQL configured as the primary database with Neon as the serverless provider (@neondatabase/serverless).
+**Database**: PostgreSQL database via Supabase with dual storage implementation supporting both in-memory (development) and Supabase (production) backends.
 
 **ORM**: Drizzle ORM provides type-safe database operations with schema-first approach. Database schemas define users, contact submissions, and newsletter subscriptions tables.
 
@@ -55,8 +55,10 @@ Preferred communication style: Simple, everyday language.
 
 ## Database and ORM
 
-- **PostgreSQL**: Primary database via Neon serverless platform
-- **Drizzle ORM**: Type-safe database toolkit with migrations
+- **Supabase**: Backend-as-a-Service providing PostgreSQL database with real-time capabilities
+- **@supabase/supabase-js**: Official Supabase client for authentication and real-time features
+- **Drizzle ORM**: Type-safe database toolkit with migrations connecting to Supabase
+- **postgres**: PostgreSQL client for direct database connections via Drizzle
 - **connect-pg-simple**: PostgreSQL session store for Express sessions
 
 ## Development Tools
