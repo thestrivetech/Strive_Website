@@ -209,32 +209,32 @@ const ROICalculator = () => {
                 </div>
 
                 <div className="grid grid-cols-1 gap-4">
-                  <div className="text-center p-4 bg-background rounded-lg">
-                    <DollarSign className="text-green-500 h-8 w-8 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-green-500" data-testid="text-total-roi">
+                  <div className="text-center p-4 hero-gradient roi-badge rounded-lg border border-white/20">
+                    <DollarSign className="text-white h-8 w-8 mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-white" data-testid="text-total-roi">
                       {formatCurrency(calculatedROI)}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-white/70">
                       Total ROI
                     </div>
                   </div>
 
-                  <div className="text-center p-4 bg-background rounded-lg">
-                    <Clock className="text-blue-500 h-8 w-8 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-blue-500" data-testid="text-time-savings">
+                  <div className="text-center p-4 hero-gradient roi-badge rounded-lg border border-white/20">
+                    <Clock className="text-white h-8 w-8 mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-white" data-testid="text-time-savings">
                       {timeSavings}%
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-white/70">
                       Time Savings
                     </div>
                   </div>
 
-                  <div className="text-center p-4 bg-background rounded-lg">
-                    <TrendingUp className="text-primary h-8 w-8 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-primary" data-testid="text-annual-return">
+                  <div className="text-center p-4 hero-gradient roi-badge rounded-lg border border-white/20">
+                    <TrendingUp className="text-white h-8 w-8 mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-white" data-testid="text-annual-return">
                       {formatCurrency(annualReturn)}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-white/70">
                       Annual Return
                     </div>
                   </div>
