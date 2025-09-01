@@ -13,6 +13,7 @@ import Resources from "@/pages/resources";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
 import GetStarted from "@/pages/get-started";
+import Demo from "@/pages/demo";
 import Login from "@/pages/login";
 import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
@@ -38,6 +39,7 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
           <Route path="/get-started" component={GetStarted} />
+          <Route path="/demo" component={Demo} />
           <Route path="/login" component={Login} />
           <Route path="/privacy" component={Privacy} />
           <Route path="/terms" component={Terms} />

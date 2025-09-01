@@ -57,6 +57,17 @@ const Solutions = () => {
         "Incident Response",
         "Security Analytics"
       ]
+    },
+    {
+      icon: <ShieldCheck className="text-primary text-xl" />,
+      title: "Security & Compliance",
+      description: "Comprehensive security frameworks and automated compliance monitoring to protect your business and meet regulatory requirements.",
+      features: [
+        "Regulatory Compliance Automation",
+        "Security Policy Management",
+        "Audit Trail & Reporting",
+        "Risk Assessment & Mitigation"
+      ]
     }
   ];
 

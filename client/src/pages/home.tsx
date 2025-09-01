@@ -11,8 +11,7 @@ const Home = () => {
   };
 
   const handleWatchDemo = () => {
-    // Placeholder for demo modal or video
-    alert("Demo video would open here");
+    window.location.href = "/demo";
   };
 
   const solutions = [
