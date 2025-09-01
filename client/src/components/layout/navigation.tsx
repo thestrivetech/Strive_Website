@@ -103,20 +103,22 @@ const Navigation = () => {
               <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-background border border-border rounded-md shadow-lg transition-all duration-200 ${
                 solutionsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               }`}>
-                <div className="p-4 grid grid-cols-2 gap-2">
+                <div className="p-6 grid grid-cols-2 gap-4">
                   {industrySolutions.map((industry) => (
                     <Link 
                       key={industry.path}
                       href={industry.path} 
-                      className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-md"
+                      className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
                       data-testid={`dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
                     >
-                      <img 
-                        src={industry.icon} 
-                        alt={`${industry.name} icon`}
-                        className="w-6 h-6 rounded"
-                      />
-                      <span className="font-medium">{industry.name}</span>
+                      <div className="flex-shrink-0">
+                        <img 
+                          src={industry.icon} 
+                          alt={`${industry.name} icon`}
+                          className="w-8 h-8 rounded-md shadow-sm group-hover:scale-105 transition-transform"
+                        />
+                      </div>
+                      <span className="font-medium text-left leading-tight">{industry.name}</span>
                     </Link>
                   ))}
                 </div>
