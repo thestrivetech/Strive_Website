@@ -119,8 +119,8 @@ const HeroSection = ({
                   onClick={() => setCurrentDemo(index)}
                   className={`w-4 h-4 rounded-full transition-all ${
                     index === currentDemo 
-                      ? 'bg-primary scale-125' 
-                      : 'bg-purple-700 hover:bg-purple-600'
+                      ? 'bg-orange-500 scale-125' 
+                      : 'bg-purple-800 hover:bg-purple-700'
                   }`}
                   data-testid={`demo-dot-${index}`}
                 />
