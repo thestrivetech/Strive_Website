@@ -199,7 +199,7 @@ const Home = () => {
         </div>
       </section>
       {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-card text-card-foreground">
+      <section className="py-16 md:py-24 bg-[#ffffff] text-[#020a1c]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <div 
