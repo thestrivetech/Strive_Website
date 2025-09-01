@@ -6,7 +6,11 @@ import { z } from "zod";
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
+  email: text("email").notNull().unique(),
   password: text("password").notNull(),
+  emailVerified: text("email_verified").notNull().default("false"),
+  verificationToken: text("verification_token"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const contactSubmissions = pgTable("contact_submissions", {
@@ -30,6 +34,7 @@ export const newsletterSubscriptions = pgTable("newsletter_subscriptions", {
 
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
+  email: true,
   password: true,
 });
 

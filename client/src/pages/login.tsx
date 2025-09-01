@@ -18,6 +18,7 @@ const loginSchema = z.object({
 });
 
 const signupSchema = insertUserSchema.extend({
+  email: z.string().email("Please enter a valid email address"),
   confirmPassword: z.string().min(6, "Password confirmation is required"),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
@@ -43,6 +44,7 @@ const Login = () => {
     resolver: zodResolver(signupSchema),
     defaultValues: {
       username: "",
+      email: "",
       password: "",
       confirmPassword: "",
     },
@@ -76,7 +78,7 @@ const Login = () => {
     onSuccess: () => {
       toast({
         title: "Account created!",
-        description: "You have successfully created your account.",
+        description: "Please check your email and click the verification link to activate your account.",
       });
       setActiveTab("login");
       signupForm.reset();
@@ -166,7 +168,7 @@ const Login = () => {
                 </Form>
               </TabsContent>
               
-              <TabsContent value="signup" className="space-y-4 min-h-[280px]">
+              <TabsContent value="signup" className="space-y-4 min-h-[350px]">
                 <Form {...signupForm}>
                   <form onSubmit={signupForm.handleSubmit(onSignupSubmit)} className="space-y-4">
                     <FormField
@@ -179,6 +181,24 @@ const Login = () => {
                             <Input 
                               placeholder="Choose a username" 
                               data-testid="input-signup-username"
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={signupForm.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email Address</FormLabel>
+                          <FormControl>
+                            <Input 
+                              type="email"
+                              placeholder="Enter your email address" 
+                              data-testid="input-signup-email"
                               {...field} 
                             />
                           </FormControl>
