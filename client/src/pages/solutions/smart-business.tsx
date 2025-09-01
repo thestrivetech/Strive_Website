@@ -3,8 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 
-const Business = () => {
-  const Intelligence = [
+const SmartBusiness = () => {
+  const solutions = [
     {
       icon: <Settings className="text-primary text-xl" />,
       title: "Automated Decision Making",
