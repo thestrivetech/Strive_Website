@@ -23,7 +23,7 @@ const Privacy = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">2. How We Use Your Information</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">2. How We Use Your Information</h2>
                 <p className="text-muted-foreground mb-4">
                   We use the information we collect to provide, maintain, and improve our services, 
                   communicate with you, respond to your inquiries, and send you updates about our 
@@ -32,7 +32,7 @@ const Privacy = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">3. Information Sharing</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">3. Information Sharing</h2>
                 <p className="text-muted-foreground mb-4">
                   We do not sell, trade, or otherwise transfer your personal information to third parties 
                   without your consent, except as described in this privacy policy or as required by law.
