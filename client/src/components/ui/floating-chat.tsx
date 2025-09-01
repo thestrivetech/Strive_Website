@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 const FloatingChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Array<{type: 'user' | 'bot', content: string, timestamp: Date}>>([
     {
       type: "bot" as const,
       content: "Hi! I'm Sai, your AI assistant. How can I help you learn more about Strive's AI solutions?",
@@ -46,7 +46,7 @@ const FloatingChat = () => {
       <div className="floating-chat">
         <Button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-14 h-14 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg"
+          className="w-14 h-14 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg p-0 border-0 flex items-center justify-center overflow-hidden"
           data-testid="button-floating-chat"
         >
           {isOpen ? (
