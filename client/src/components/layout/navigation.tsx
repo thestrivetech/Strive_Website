@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useLocation } from "wouter";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -13,7 +12,7 @@ import {
 import logoImage from "@assets/logo&text.png";
 
 const Navigation = () => {
-  const pathname = usePathname();
+  const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -34,8 +33,8 @@ const Navigation = () => {
   ];
 
   const isActive = (path: string) => {
-    if (path === "/" && pathname === "/") return true;
-    if (path !== "/" && pathname.startsWith(path)) return true;
+    if (path === "/" && location === "/") return true;
+    if (path !== "/" && location.startsWith(path)) return true;
     return false;
   };
 
@@ -46,7 +45,7 @@ const Navigation = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img 
-              src={logoImage.src} 
+              src={logoImage} 
               alt="Strive" 
               className="h-14 w-auto"
               data-testid="logo"

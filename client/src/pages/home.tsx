@@ -5,7 +5,16 @@ import ResourceCard from "@/components/ui/resource-card";
 import ROICalculator from "@/components/ui/roi-calculator";
 import { Button } from "@/components/ui/button";
 
-export default function HomePage() {
+const Home = () => {
+  const handleGetStarted = () => {
+    window.location.href = "/get-started";
+  };
+
+  const handleWatchDemo = () => {
+    // Placeholder for demo modal or video
+    alert("Demo video would open here");
+  };
+
   const solutions = [
     {
       icon: <Clock className="text-primary text-2xl" />,
@@ -79,8 +88,8 @@ export default function HomePage() {
       <HeroSection
         title="Technology that makes your business operations more efficient."
         subtitle="One platform to help improve the productivity, efficiency, and profitability of your operations."
-        onPrimaryClick={() => window.location.href = "/get-started"}
-        onSecondaryClick={() => alert("Demo video would open here")}
+        onPrimaryClick={handleGetStarted}
+        onSecondaryClick={handleWatchDemo}
       />
 
       {/* ROI Calculator */}
@@ -260,4 +269,6 @@ export default function HomePage() {
       </section>
     </div>
   );
-}
+};
+
+export default Home;
