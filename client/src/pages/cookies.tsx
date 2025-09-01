@@ -25,10 +25,10 @@ const Cookies = () => {
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">2. Types of Cookies We Use</h2>
                 <div className="text-muted-foreground mb-4">
-                  <p className="text-[#ffffff]"><strong>Essential Cookies:</strong> Required for basic website functionality</p>
-                  <p className="text-[#ffffff]"><strong>Analytics Cookies:</strong> Help us understand how visitors interact with our website</p>
-                  <p className="text-[#ffffff]"><strong>Preference Cookies:</strong> Remember your settings and preferences</p>
-                  <p className="text-[#ffffff]"><strong>Marketing Cookies:</strong> Used to deliver relevant advertisements</p>
+                  <p className="text-muted-foreground"><strong>Essential Cookies:</strong> Required for basic website functionality</p>
+                  <p className="text-muted-foreground"><strong>Analytics Cookies:</strong> Help us understand how visitors interact with our website</p>
+                  <p className="text-muted-foreground"><strong>Preference Cookies:</strong> Remember your settings and preferences</p>
+                  <p className="text-muted-foreground"><strong>Marketing Cookies:</strong> Used to deliver relevant advertisements</p>
                 </div>
               </section>
 
@@ -52,7 +52,7 @@ const Cookies = () => {
                 <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">5. Contact Us</h2>
                 <p className="text-muted-foreground">
                   If you have any questions about our Cookie Policy, please contact us at 
-                  <a href="mailto:privacy@strive.com" className="text-primary hover:underline ml-1">
+                  <a href="mailto:contact@strivetech.ai" className="text-primary hover:underline ml-1">
                     contact@strivetech.ai
                   </a>
                 </p>
