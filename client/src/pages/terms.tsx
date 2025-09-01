@@ -58,8 +58,8 @@ const Terms = () => {
                 <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">6. Contact Information</h2>
                 <p className="text-muted-foreground">
                   For questions about these Terms of Service, please contact us at 
-                  <a href="mailto:legal@strive.com" className="text-primary hover:underline ml-1">
-                    legal@strive.com
+                  <a href="mailto:contact@strivetech.ai" className="text-primary hover:underline ml-1">
+                    contact@strivetech.ai
                   </a>
                 </p>
               </section>
