@@ -49,13 +49,13 @@ const Solutions = () => {
     },
     {
       icon: <Eye className="text-primary text-xl" />,
-      title: "Threat Detection",
-      description: "Advanced cybersecurity monitoring and threat detection systems powered by AI and machine learning.",
+      title: "Computer Vision",
+      description: "Advanced AI-powered visual recognition and analysis systems that can interpret, analyze, and understand digital images and videos.",
       features: [
-        "Real-time Monitoring",
-        "Anomaly Detection",
-        "Incident Response",
-        "Security Analytics"
+        "Image Recognition & Classification",
+        "Object Detection & Tracking",
+        "Facial Recognition Systems",
+        "Threat Detection & Security Monitoring"
       ]
     },
     {
