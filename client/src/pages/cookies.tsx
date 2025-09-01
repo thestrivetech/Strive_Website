@@ -14,7 +14,7 @@ const Cookies = () => {
               </p>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">1. What Are Cookies</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">1. What Are Cookies</h2>
                 <p className="text-muted-foreground mb-4">
                   Cookies are small text files that are placed on your device when you visit our website. 
                   They help us provide you with a better user experience by remembering your preferences 

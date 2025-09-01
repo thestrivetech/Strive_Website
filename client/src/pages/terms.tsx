@@ -55,7 +55,7 @@ const Terms = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">6. Contact Information</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">6. Contact Information</h2>
                 <p className="text-muted-foreground">
                   For questions about these Terms of Service, please contact us at 
                   <a href="mailto:legal@strive.com" className="text-primary hover:underline ml-1">
