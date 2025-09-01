@@ -41,7 +41,7 @@ const Cookies = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">4. Third-Party Cookies</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">4. Third-Party Cookies</h2>
                 <p className="text-muted-foreground mb-4">
                   We may use third-party services that set cookies on your device. These services have 
                   their own privacy policies and cookie practices.
@@ -49,7 +49,7 @@ const Cookies = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">5. Contact Us</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">5. Contact Us</h2>
                 <p className="text-muted-foreground">
                   If you have any questions about our Cookie Policy, please contact us at 
                   <a href="mailto:privacy@strive.com" className="text-primary hover:underline ml-1">
