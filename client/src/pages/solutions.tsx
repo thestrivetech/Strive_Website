@@ -140,7 +140,7 @@ const Solutions = () => {
                 >
                 <CardContent className="p-0 relative z-10">
                   {/* Glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+                  <div className="absolute -inset-8 bg-gradient-to-br from-primary/8 via-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                   
                   <div className="flex items-center mb-6">
                     <div className="w-12 h-12 bg-primary/10 group-hover:bg-primary/20 rounded-xl flex items-center justify-center mr-4 transition-all duration-300 group-hover:scale-110">
