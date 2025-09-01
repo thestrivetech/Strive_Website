@@ -28,12 +28,12 @@ const Cookies = () => {
                   <p className="text-[#ffffff]"><strong>Essential Cookies:</strong> Required for basic website functionality</p>
                   <p className="text-[#ffffff]"><strong>Analytics Cookies:</strong> Help us understand how visitors interact with our website</p>
                   <p className="text-[#ffffff]"><strong>Preference Cookies:</strong> Remember your settings and preferences</p>
-                  <p className="mb-2"><strong>Marketing Cookies:</strong> Used to deliver relevant advertisements</p>
+                  <p className="text-[#ffffff]"><strong>Marketing Cookies:</strong> Used to deliver relevant advertisements</p>
                 </div>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">3. Managing Cookies</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#ffffff]">3. Managing Cookies</h2>
                 <p className="text-muted-foreground mb-4">
                   You can control and manage cookies through your browser settings. Please note that 
                   disabling certain cookies may affect the functionality of our website.
