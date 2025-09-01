@@ -4,6 +4,12 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import logoImage from "@assets/logo&text.png";
+import healthcareIcon from "@assets/generated_images/Healthcare_industry_icon_f2723fd3.png";
+import financialIcon from "@assets/generated_images/Financial_services_icon_6bb00680.png";
+import manufacturingIcon from "@assets/generated_images/Manufacturing_industry_icon_f22de001.png";
+import retailIcon from "@assets/generated_images/Retail_industry_icon_5c33f611.png";
+import technologyIcon from "@assets/generated_images/Technology_industry_icon_e199aae4.png";
+import educationIcon from "@assets/generated_images/Education_industry_icon_b1549875.png";
 
 const Navigation = () => {
   const [location] = useLocation();
@@ -20,12 +26,12 @@ const Navigation = () => {
   ];
 
   const industrySolutions = [
-    { name: "Healthcare", path: "/solutions/healthcare" },
-    { name: "Financial Services", path: "/solutions/financial" },
-    { name: "Manufacturing", path: "/solutions/manufacturing" },
-    { name: "Retail", path: "/solutions/retail" },
-    { name: "Technology", path: "/solutions/technology" },
-    { name: "Education", path: "/solutions/education" },
+    { name: "Healthcare", path: "/solutions/healthcare", icon: healthcareIcon },
+    { name: "Financial Services", path: "/solutions/financial", icon: financialIcon },
+    { name: "Manufacturing", path: "/solutions/manufacturing", icon: manufacturingIcon },
+    { name: "Retail", path: "/solutions/retail", icon: retailIcon },
+    { name: "Technology", path: "/solutions/technology", icon: technologyIcon },
+    { name: "Education", path: "/solutions/education", icon: educationIcon },
   ];
 
   useEffect(() => {
@@ -83,7 +89,8 @@ const Navigation = () => {
               onMouseEnter={() => setSolutionsOpen(true)}
               onMouseLeave={() => setSolutionsOpen(false)}
             >
-              <button 
+              <Link
+                href="/solutions" 
                 className={`nav-link text-foreground hover:text-primary transition-colors flex items-center ${
                   isActive("/solutions") ? "active" : ""
                 }`}
@@ -91,28 +98,26 @@ const Navigation = () => {
               >
                 Solutions
                 <ChevronDown className="ml-1 h-4 w-4" />
-              </button>
+              </Link>
               
-              {/* Hover Dropdown Content */}
-              <div className={`absolute top-full left-0 mt-2 w-56 bg-background border border-border rounded-md shadow-lg transition-all duration-200 ${
+              {/* Hover Dropdown Content - 2 Columns */}
+              <div className={`absolute top-full left-0 mt-2 w-96 bg-background border border-border rounded-md shadow-lg transition-all duration-200 ${
                 solutionsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               }`}>
-                <div className="py-2">
-                  <Link 
-                    href="/solutions" 
-                    className="block px-4 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                    data-testid="dropdown-solutions-overview"
-                  >
-                    All Solutions
-                  </Link>
+                <div className="p-4 grid grid-cols-2 gap-2">
                   {industrySolutions.map((industry) => (
                     <Link 
                       key={industry.path}
                       href={industry.path} 
-                      className="block px-4 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                      className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-md"
                       data-testid={`dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
                     >
-                      {industry.name}
+                      <img 
+                        src={industry.icon} 
+                        alt={`${industry.name} icon`}
+                        className="w-6 h-6 rounded"
+                      />
+                      <span className="font-medium">{industry.name}</span>
                     </Link>
                   ))}
                 </div>
