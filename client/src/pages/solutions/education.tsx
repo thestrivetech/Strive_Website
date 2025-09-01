@@ -1,6 +1,7 @@
 import { GraduationCap, BookOpen, Users, BarChart3, Video, Brain } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 
 const Education = () => {
   const solutions = [
@@ -73,9 +74,11 @@ const Education = () => {
           </div>
 
           <div className="text-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-education">
-              Get Started with Education Solutions
-            </Button>
+            <Link href="/get-started">
+              <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-education">
+                Get Started with Education Solutions
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
