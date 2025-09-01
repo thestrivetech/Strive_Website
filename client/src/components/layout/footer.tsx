@@ -1,6 +1,5 @@
 import { Link } from "wouter";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
-import xLogo from "@assets/image_1756699789130.png";
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -28,9 +27,9 @@ const Footer = () => {
               <a 
                 href="#" 
                 className="text-white/60 hover:text-white transition-colors"
-                data-testid="link-x"
+                data-testid="link-twitter"
               >
-                <img src={xLogo} alt="X" className="h-5 w-5 filter brightness-0 invert opacity-60 hover:opacity-100 transition-opacity" />
+                <Twitter className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
