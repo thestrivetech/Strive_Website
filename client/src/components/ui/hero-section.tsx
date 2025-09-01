@@ -136,7 +136,7 @@ const HeroSection = ({
                   src={demoVideos[currentDemo].thumbnail}
                   alt={demoVideos[currentDemo].title}
                   className="w-full object-cover transform scale-105 hover:scale-100 transition-transform duration-500"
-                  style={{ aspectRatio: '16/27' }}
+                  style={{ aspectRatio: '16/22' }}
                   data-testid="demo-thumbnail"
                 />
                 
