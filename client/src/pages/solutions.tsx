@@ -116,7 +116,7 @@ const Solutions = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h1 
-              className="text-4xl md:text-5xl font-bold mb-6"
+              className="text-4xl md:text-5xl font-bold mb-6 text-[#ff7e29]"
               data-testid="text-solutions-title"
             >
               Our Solutions
