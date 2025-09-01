@@ -47,7 +47,7 @@ const Navigation = () => {
             <img 
               src={logoImage} 
               alt="Strive" 
-              className="h-12 w-auto"
+              className="h-14 w-auto"
               data-testid="logo"
             />
           </Link>
