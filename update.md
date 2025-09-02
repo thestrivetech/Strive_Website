@@ -8,6 +8,7 @@ This document outlines all necessary updates to transform the Strive website fro
 - Update Font selection and hieracrchy (refer to chat with Grok & Perplexity)
 - Maybe add perplexity AI browser as an API somewhere on the website to display the power of AI search?
 - Fix ratios to work correctly for all screen sizes. Example: The demo presentation in the home hero section looks perfect in it's current layout but on other peoples screen it looks way too big.
+- Change hero section main gradientt color to white? 
 ## Phase 1: Critical Navigation & Brand Implementation
 
 ### 1.1 Login Authentication System
