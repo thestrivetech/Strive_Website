@@ -11,6 +11,7 @@ This document outlines all necessary updates to transform the Strive website fro
 - Change hero section main gradientt color to white?
 - Change icon spacing & make icons bigger on 3rd section on home page
 - Flip 3rd and 4th section on home page - The industry specific solutions need to be higher on the page
+- Add digital business cards to each co-founder/employee
 ## Phase 1: Critical Navigation & Brand Implementation
 
 ### 1.1 Login Authentication System
