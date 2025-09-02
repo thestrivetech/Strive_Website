@@ -1,0 +1,238 @@
+{
+  "project_meta": {
+    "name": "Business Portfolio Website",
+    "type": "Full-Stack Web Application",
+    "created": "2025-09-02",
+    "last_updated": "2025-09-02",
+    "version": "1.0.0",
+    "repository": {
+      "type": "git",
+      "main_branch": "main",
+      "current_branch": "main"
+    }
+  },
+  
+  "tech_stack": {
+    "frontend": {
+      "framework": "React 18",
+      "language": "TypeScript",
+      "bundler": "Vite",
+      "routing": "Wouter",
+      "state_management": "TanStack Query",
+      "styling": "Tailwind CSS",
+      "ui_components": "shadcn/ui, Radix UI",
+      "key_libraries": [
+        "react-hook-form",
+        "lucide-react",
+        "framer-motion",
+        "recharts"
+      ]
+    },
+    "backend": {
+      "framework": "Express.js",
+      "language": "TypeScript",
+      "orm": "Drizzle ORM",
+      "database": "PostgreSQL (Neon/Supabase)",
+      "authentication": "Passport.js (local strategy)",
+      "password_hashing": "bcrypt",
+      "session_management": "express-session",
+      "runtime": "Node.js with tsx"
+    },
+    "development": {
+      "type_checking": "TypeScript strict mode",
+      "dev_server": "Vite HMR",
+      "build_tool": "esbuild",
+      "package_manager": "npm"
+    }
+  },
+  
+  "architecture_patterns": {
+    "frontend_patterns": [
+      "Component-based architecture with shadcn/ui",
+      "Custom hooks in /client/src/hooks",
+      "Centralized API client with TanStack Query",
+      "Path aliasing: @/ for client/src, @shared for shared code",
+      "Page-based routing with Wouter"
+    ],
+    "backend_patterns": [
+      "RESTful API with /api prefix",
+      "Session-based authentication",
+      "Middleware for request logging",
+      "Drizzle ORM for type-safe database queries",
+      "Shared schema definitions in /shared",
+      "Environment-based configuration"
+    ],
+    "database_patterns": [
+      "Schema defined in /shared/schema.ts",
+      "Zod validation for insert schemas",
+      "UUID primary keys",
+      "Timestamp tracking (created_at, submitted_at)",
+      "Tables: users, contact_submissions, newsletter_subscriptions"
+    ]
+  },
+  
+  "project_structure": {
+    "key_directories": {
+      "/client": "Frontend React application",
+      "/server": "Backend Express application", 
+      "/shared": "Shared TypeScript definitions",
+      "/attached_assets": "Static images and media",
+      "/chat_logs": "Session documentation and context",
+      "/.claude": "AI assistant memory and configuration"
+    },
+    "important_files": {
+      "package.json": "Project dependencies and scripts",
+      "vite.config.ts": "Vite bundler configuration",
+      "tsconfig.json": "TypeScript configuration",
+      "drizzle.config.ts": "Database ORM configuration",
+      "CLAUDE.md": "AI assistant guidelines",
+      "chat_logs/SESSION_TEMPLATE.md": "Session logging template",
+      "chat_logs/CHANGELOG.md": "Project change history"
+    }
+  },
+  
+  "development_workflow": {
+    "commands": {
+      "dev": "npm run dev - Start development server",
+      "build": "npm run build - Build for production",
+      "start": "npm run start - Run production server",
+      "check": "npm run check - TypeScript type checking",
+      "db:push": "npm run db:push - Push database migrations"
+    },
+    "environment_variables": [
+      "DATABASE_URL - PostgreSQL connection string",
+      "PORT - Server port (default: 5000)",
+      "NODE_ENV - development/production"
+    ],
+    "ports": {
+      "development": 5000,
+      "production": "PORT env variable"
+    }
+  },
+  
+  "current_features": {
+    "pages": [
+      "Home - Landing page with hero section",
+      "Portfolio - Project showcase",
+      "Solutions - Industry-specific solutions",
+      "Resources - Educational content",
+      "About - Company information",
+      "Contact - Contact form with validation",
+      "Dashboard - Protected user area",
+      "Login - Authentication page"
+    ],
+    "api_endpoints": [
+      "POST /api/register - User registration",
+      "POST /api/login - User authentication",
+      "POST /api/logout - Session termination",
+      "GET /api/user - Get current user",
+      "POST /api/contact - Submit contact form",
+      "POST /api/newsletter - Newsletter subscription"
+    ],
+    "authentication": {
+      "type": "Session-based",
+      "strategy": "Passport local",
+      "password_hashing": "bcrypt",
+      "protected_routes": ["/dashboard"]
+    }
+  },
+  
+  "known_issues": [],
+  
+  "technical_debt": [],
+  
+  "session_history": [
+    {
+      "id": "INIT_001",
+      "date": "2025-09-02",
+      "type": "initialization",
+      "summary": "Created documentation structure and memory system",
+      "files_created": [
+        "CLAUDE.md",
+        "chat_logs/SESSION_TEMPLATE.md",
+        "chat_logs/CHANGELOG.md",
+        ".claude/memory.json"
+      ],
+      "decisions": [
+        "Established comprehensive documentation system",
+        "Created structured approach for session continuity",
+        "Defined memory schema for project context"
+      ]
+    }
+  ],
+  
+  "working_context": {
+    "last_session": "INIT_001",
+    "last_activity": "2025-09-02",
+    "current_focus": "Documentation and workflow setup",
+    "next_priorities": [],
+    "active_branch": "main",
+    "uncommitted_changes": [
+      "CLAUDE.md",
+      "chat_logs/",
+      ".claude/memory.json"
+    ]
+  },
+  
+  "code_conventions": {
+    "naming": {
+      "components": "PascalCase",
+      "files": "kebab-case for pages, PascalCase for components",
+      "variables": "camelCase",
+      "constants": "UPPER_SNAKE_CASE",
+      "database": "snake_case"
+    },
+    "imports": {
+      "order": [
+        "React/external libraries",
+        "Internal aliases (@/)",
+        "Relative imports",
+        "Style imports"
+      ],
+      "aliases": {
+        "@/": "client/src/",
+        "@shared/": "shared/",
+        "@assets/": "attached_assets/"
+      }
+    },
+    "typescript": {
+      "strict_mode": true,
+      "prefer_type_over_interface": false,
+      "explicit_return_types": "recommended"
+    }
+  },
+  
+  "important_patterns": {
+    "error_handling": "Consistent JSON error responses with status codes",
+    "validation": "Zod schemas for data validation",
+    "styling": "Tailwind CSS with cn() utility for class merging",
+    "components": "shadcn/ui component library patterns",
+    "state": "TanStack Query for server state",
+    "forms": "react-hook-form with Zod resolvers"
+  },
+  
+  "dependencies_context": {
+    "critical": [
+      "express - Web server",
+      "react - UI framework",
+      "drizzle-orm - Database ORM",
+      "passport - Authentication",
+      "@tanstack/react-query - Data fetching",
+      "vite - Build tool"
+    ],
+    "ui_components": [
+      "@radix-ui/* - Headless UI components",
+      "lucide-react - Icons",
+      "shadcn/ui - Component patterns"
+    ],
+    "utilities": [
+      "zod - Schema validation",
+      "bcrypt - Password hashing",
+      "clsx - Class name utilities",
+      "date-fns - Date manipulation"
+    ]
+  },
+  
+  "memory_version": "1.0.0",
+  "memory_schema_version": "1.0.0"
+}
