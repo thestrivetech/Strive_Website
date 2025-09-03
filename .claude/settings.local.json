@@ -74,7 +74,9 @@
       "Bash(npm run build:*)",
       "Bash(npm run:*)",
       "Bash(tsx:*)",
-      "Bash(npx tsx:*)"
+      "Bash(npx tsx:*)",
+      "Bash(node:*)",
+      "Bash(npx:*)"
     ],
     "deny": []
   },

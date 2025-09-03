@@ -229,6 +229,61 @@ Documentation Agent (Records ALL activities simultaneously)
 - **API Routes**: Express async handlers with proper error handling
 - **Database**: Use Drizzle schema types, avoid raw SQL
 
+## Workflow Rules & Documentation System
+
+### File Purpose Matrix
+**CRITICAL**: Each file has a specific purpose. Never mix file types or misuse documentation files.
+
+| File | Purpose | What Goes Here | What NOT to Put Here |
+|------|---------|----------------|---------------------|
+| **`memory.json`** | Central brain - rules and reminders ONLY | Workflow rules, file purposes, agent configs, coding standards | Task lists, session logs, completed items, progress tracking |
+| **`chat_logs/`** | Session work documentation | Detailed activities, decisions, context, handoff instructions | Rules, reminders, architecture definitions |
+| **`change_log.md`** | Code change tracking | All edits/deletions with before/after states for rollback | Session activities, task progress, discussions |
+| **`plan.md`** | Living implementation progress tracker | Current phase status, completed tasks, next priorities | Rules, completed session details, agent instructions |
+| **`updates/`** | Implementation blueprints | Strategic plans, architecture designs, roadmaps | Daily progress, session logs, temporary notes |
+| **`.claude/agents/`** | Agent-specific configurations | Agent roles, MCP tools, responsibilities | Session data, task tracking, implementation details |
+
+### Mandatory Workflow Actions
+
+#### Session Start Protocol
+1. **Read previous session's chat log** for complete context
+2. **Check plan.md** for current implementation progress  
+3. **Check change_log.md** for recent code changes
+4. **Use memory.json ONLY** for rules and reminders - NEVER as task list
+
+#### During Session Protocol  
+1. **Update plan.md immediately** when tasks are completed
+2. **Document ALL code changes** in change_log.md with rollback info
+3. **Use chat logs** for session documentation - NEVER memory.json
+4. **Never add task lists** or session details to memory.json
+
+#### Session End Protocol
+1. **Ensure plan.md** reflects all completed work
+2. **Verify change_log.md** has all code modifications  
+3. **Create comprehensive handoff** in session chat log
+4. **Memory.json remains unchanged** (brain content only)
+
+### Critical Reminders
+- **NEVER use memory.json as a task list or session log**
+- **NEVER leave plan.md outdated after completing tasks**
+- **ALWAYS document code changes in change_log.md**  
+- **ALWAYS check all 4 files at session start**: memory.json (rules), chat_logs (context), plan.md (progress), change_log.md (changes)
+- **Memory.json is the BRAIN** - it contains rules, not tasks or session data
+
+### Common Mistakes to Avoid
+- Adding `completed_session_X` arrays to memory.json
+- Adding `immediate_priorities` or task lists to memory.json  
+- Using memory.json for session timestamps or progress tracking
+- Forgetting to update plan.md when infrastructure is complete
+- Not documenting code changes with rollback information
+
+### Session Automation
+Use `npm run session:init` to run automated workflow compliance checking:
+- Verifies memory.json is properly structured as central brain
+- Checks for workflow violations and misused file purposes  
+- Validates documentation file status and updates
+- Provides session start guidance and critical reminders
+
 ## Critical Notes
 
 - **Environment Variables**: `DATABASE_URL` required for database connection
