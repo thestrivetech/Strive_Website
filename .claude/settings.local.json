@@ -68,7 +68,15 @@
       "Bash(claude mcp:*)",
       "WebSearch",
       "mcp__serena__activate_project",
-      "Bash(del \"C:\\Users\\zochr\\Desktop\\GitHub\\Strive_Website_Replit\\.claude\\agents\\evaluator.md\")"
+      "Bash(del \"C:\\Users\\zochr\\Desktop\\GitHub\\Strive_Website_Replit\\.claude\\agents\\evaluator.md\")",
+      "Bash(npm install:*)",
+      "Bash(npm run test:run:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run:*)",
+      "Bash(tsx:*)",
+      "Bash(npx tsx:*)",
+      "Bash(node:*)",
+      "Bash(npx:*)"
     ],
     "deny": []
   },
