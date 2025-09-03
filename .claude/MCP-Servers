@@ -1,0 +1,14 @@
+# Context7 #
+Claude Code Remote Server Connection
+CLI entry: claude mcp add --transport http context7 https://mcp.context7.com/mcp
+https://github.com/upstash/context7
+
+# SerenaMCP #
+
+https://github.com/oraios/serena
+
+# Playwright
+
+# GitHub
+
+# Figma MCP
