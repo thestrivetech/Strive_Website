@@ -1,3 +1,7 @@
-Update this memory file for specific project details and workflows
-Mention all agents and functionalities - Could possibly use the main Claude Code as the main main orchestrator? 
+Update this memory file for specific project details and workflows and things to remember at the start of every session. This memory file should act as a memory file
+for important file locations for claude and every file relevant to each agent since Claude is the main orchestrator and will be directing all subagents in every session and sometimes in parallel,
+specified agentic workflows, specific agent responsibilites, parallel agent workflows, chat log directory layout that gives context in each session
+to how the chat log system and changelog.md should be used - Claude, think of other imprtant context that needs to be located in here but don't make this file too big, we don't want
+to overload the context window at each session start since you have a lot of responsibilities on your plate that need to be done at a very high level. Accuracy is key.
+ 
 Making sure that all things are documented correctly is very key to accuracy and efficiency
