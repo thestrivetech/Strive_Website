@@ -23,11 +23,11 @@ NEVER: Implementation → Test
 ### 1.3 Test Coverage Requirements
 - **Minimum Coverage**: 80% for all modules
 - **Critical Path Coverage**: 100% for:
-  - Claude Code CLI integration
-  - File system operations
-  - WebSocket communication
-  - State management
-  - Error handling
+  - Authentication flows (Supabase integration)
+  - Contact form submissions and validation
+  - Database operations (Drizzle ORM)
+  - Business solution pages rendering
+  - State management and routing
 
 ### 1.4 Test File Structure
 ```typescript
@@ -105,17 +105,18 @@ Libraries: /vercel/next.js, /microsoft/TypeScript, /facebook/react
 ```
 
 ### 2.2 Context7 Requirements
-- **Before Writing Code**: Query Context7 for React 18, TypeScript, shadcn/ui, Express.js best practices
-- **During Development**: Reference Context7 documentation for current libraries
-- **Code Reviews**: Validate against Context7 patterns for modern web development
+- **Before Writing Code**: Query Context7 for React 18, TypeScript, shadcn/ui, Express.js, Drizzle ORM, Supabase best practices
+- **During Development**: Reference Context7 documentation for Vite, TailwindCSS, Wouter routing
+- **Code Reviews**: Validate against Context7 patterns for modern business website development
 
 ### 2.3 Context7 Integration Points
 ```typescript
 // ALWAYS prefix code generation with Context7 query
 // Examples for Strive Website:
-// Query: Context7 -> React 18 + TypeScript best practices for business website components
-// Query: Context7 -> Express.js + Drizzle ORM patterns for authentication
-// Query: Context7 -> shadcn/ui component customization patterns
+// Query: Context7 -> React 18 + TypeScript + shadcn/ui best practices for business components
+// Query: Context7 -> Express.js + Drizzle ORM + Supabase authentication patterns
+// Query: Context7 -> TailwindCSS + responsive design for business websites
+// Query: Context7 -> Vitest + React Testing Library for component testing
 // Then: Generate code following Context7 guidelines
 ```
 
@@ -123,13 +124,15 @@ Libraries: /vercel/next.js, /microsoft/TypeScript, /facebook/react
 
 ## 📋 Rule 3: Modular Architecture is MANDATORY
 
-### 3.1 File Size Limits
+### 3.1 File Size Limits (Based on Codebase Analysis)
 ```
-HARD LIMITS:
-- Component files: MAX 200 lines
-- Service files: MAX 300 lines
-- Test files: MAX 500 lines
-- Utility files: MAX 150 lines
+HARD LIMITS (Established from existing code patterns):
+- Small components: MAX 100 lines (e.g., SolutionCard - 47 lines)
+- Medium components: MAX 250 lines (e.g., HeroSection - 230 lines)
+- Large components/pages: MAX 500 lines (e.g., Home page - 408 lines)
+- Backend API files: MAX 350 lines (e.g., routes.ts - 315 lines)
+- Service/utility files: MAX 200 lines
+- Test files: MAX 400 lines
 
 If exceeding limits → MUST split into smaller modules
 ```
@@ -218,20 +221,22 @@ MAX_EMAIL_LENGTH, API_ENDPOINTS, SOLUTION_CATEGORIES
 // Cyclomatic Complexity: MAX 5
 // If complexity > 5 → MUST refactor
 
-// GOOD: Simple, testable functions
-function validateFile(file: FileNode): boolean {
-  if (!file) return false
-  if (!file.name) return false
-  if (file.size > MAX_SIZE) return false
+// GOOD: Simple, testable functions (following Strive Website patterns)
+function validateContactForm(data: ContactFormData): boolean {
+  if (!data.name || data.name.length < 2) return false
+  if (!data.email || !isValidEmail(data.email)) return false
+  if (!data.message || data.message.length < 10) return false
   return true
 }
 
 // BAD: Complex, hard to test
-function processFile(file) {
-  if (file) {
-    if (file.type === 'text') {
-      if (file.size < 1000) {
-        // ... 10 more nested ifs ❌
+function processContactSubmission(data) {
+  if (data) {
+    if (data.type === 'contact') {
+      if (data.name) {
+        if (data.email) {
+          // ... 10 more nested ifs ❌
+        }
       }
     }
   }
@@ -409,14 +414,15 @@ async function riskyOperation() {
 
 ## 📋 Rule 6: Performance Requirements
 
-### 6.1 Performance Budgets
+### 6.1 Performance Budgets (Strive Website Targets)
 ```
 MANDATORY LIMITS:
-- Initial Load: < 3 seconds
-- File Open: < 100ms
-- Typing Latency: < 50ms
-- Search Response: < 500ms
-- Build Size: < 2MB initial bundle
+- Initial Page Load: < 1.5 seconds
+- Route Navigation: < 200ms
+- Form Submission: < 1 second
+- Image Loading: < 2 seconds
+- Build Size: < 500KB initial bundle
+- Lighthouse Score: > 95
 ```
 
 ### 6.2 Optimization Rules

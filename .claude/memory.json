@@ -1,7 +1,565 @@
-Update this memory file for specific project details and workflows and things to remember at the start of every session. This memory file should act as a memory file
-for important file locations for claude and every file relevant to each agent since Claude is the main orchestrator and will be directing all subagents in every session and sometimes in parallel,
-specified agentic workflows, specific agent responsibilites, parallel agent workflows, chat log directory layout that gives context in each session
-to how the chat log system and changelog.md should be used - Claude, think of other imprtant context that needs to be located in here but don't make this file too big, we don't want
-to overload the context window at each session start since you have a lot of responsibilities on your plate that need to be done at a very high level. Accuracy is key.
- 
-Making sure that all things are documented correctly is very key to accuracy and efficiency
+{
+  "project": {
+    "name": "Strive Website",
+    "version": "1.0.0",
+    "description": "Modern React/TypeScript business website with Express backend, PostgreSQL database, and AI-powered features for Strive Tech company",
+    "type": "fullstack_business_website",
+    "status": "active_development",
+    "created": "2024-12-01",
+    "lastModified": "2025-01-03",
+    "repository": "https://github.com/strive/strive-website-replit"
+  },
+  
+  "architecture": {
+    "frontend": {
+      "framework": "React 18",
+      "language": "TypeScript 5",
+      "bundler": "Vite",
+      "routing": "Wouter",
+      "stateManagement": "TanStack Query",
+      "styling": "TailwindCSS",
+      "uiLibrary": "shadcn/ui (Radix UI)",
+      "iconLibrary": "Lucide React",
+      "testing": ["Vitest", "React Testing Library", "Playwright"]
+    },
+    "backend": {
+      "runtime": "Node.js 20",
+      "framework": "Express",
+      "language": "TypeScript 5",
+      "database": "PostgreSQL (Neon)",
+      "orm": "Drizzle ORM",
+      "authentication": "Supabase Auth",
+      "validation": "Zod"
+    },
+    "infrastructure": {
+      "hosting": "Replit Platform",
+      "database": "Neon PostgreSQL",
+      "auth": "Supabase",
+      "ci_cd": "GitHub Actions (pending setup)",
+      "monitoring": "Prometheus + Grafana (planned)"
+    }
+  },
+  
+  "@claude": {
+    "role": "main_orchestrator_quality_monitor",
+    "session_memory": {
+      "current_session": 3,
+      "chat_log_path": "chat_logs/orchestrator/session3.md",
+      "previous_session_path": "chat_logs/orchestrator/session2.md", 
+      "template_path": "chat_logs/templates/session_chat_log_template.md",
+      "implementation_blueprint": "updates/plan.md"
+    },
+    "critical_files_to_reference": [
+      ".claude/memory.json",
+      ".claude/agents/README.md", 
+      "docs/development/dev_rules.md",
+      "updates/plan.md"
+    ],
+    "documentation_standards": {
+      "chat_log_optimization": {
+        "avoid_over_documentation": true,
+        "focus_on_decisions_and_outcomes": true,
+        "include_context_for_handoff": true,
+        "time_based_activity_logging": true,
+        "quality_verification_checkpoints": true,
+        "concise_activity_descriptions": true,
+        "detailed_handoff_instructions": true
+      },
+      "session_management": {
+        "always_read_previous_session": true,
+        "verify_todo_completion": true,
+        "establish_clear_objectives": true,
+        "document_blocking_issues": true,
+        "prepare_handoff_instructions": true
+      }
+    },
+    "orchestration_patterns": {
+      "task_delegation": "analyze_requirements_then_delegate_parallel",
+      "quality_monitoring": "real_time_oversight_and_coaching", 
+      "session_continuity": "comprehensive_context_preservation",
+      "agent_coordination": "direct_communication_model"
+    },
+    "immediate_priorities": [
+      "Security middleware implementation (helmet + rate limiting)",
+      "Testing infrastructure setup (Vitest + Playwright)", 
+      "Session automation script creation",
+      "CI/CD pipeline configuration"
+    ]
+  },
+
+  "@frontend-architect": {
+    "role": "react_typescript_specialist", 
+    "critical_files": [
+      "client/src/components/ui/",
+      "client/src/pages/",
+      "docs/development/dev_rules.md"
+    ],
+    "mcp_tools": ["playwright", "context7"],
+    "tech_stack_memory": {
+      "framework": "React 18",
+      "language": "TypeScript 5",
+      "ui_library": "shadcn/ui (Radix UI)",
+      "styling": "TailwindCSS",
+      "state_management": "TanStack Query",
+      "routing": "Wouter"
+    },
+    "line_limits": {
+      "small_components": 100,
+      "medium_components": 250, 
+      "large_components": 500
+    },
+    "always_remember": [
+      "Use Context7 before writing any code",
+      "Follow TDD - tests first",
+      "Follow line limit standards from dev_rules.md",
+      "Use shadcn/ui components only"
+    ]
+  },
+
+  "@backend-architect": {
+    "role": "express_api_specialist",
+    "critical_files": [
+      "server/index.ts",
+      "server/routes.ts",
+      "server/auth.ts",
+      "docs/development/dev_rules.md"
+    ],
+    "mcp_tools": ["context7"],
+    "tech_stack_memory": {
+      "runtime": "Node.js 20",
+      "framework": "Express",
+      "database": "PostgreSQL (Neon)",
+      "orm": "Drizzle ORM",
+      "auth": "Supabase",
+      "validation": "Zod"
+    },
+    "line_limits": {
+      "backend_files": 350,
+      "utility_files": 200
+    },
+    "immediate_task": "Security middleware implementation (helmet + express-rate-limit)",
+    "always_remember": [
+      "Use Context7 before writing any code",
+      "Follow TDD methodology",
+      "Validate all inputs with Zod",
+      "Proper error handling and HTTP status codes"
+    ]
+  },
+
+  "@database-specialist": {
+    "role": "postgresql_drizzle_specialist",
+    "critical_files": [
+      "shared/schema.ts",
+      "server/storage.ts",
+      "docs/development/dev_rules.md"
+    ],
+    "mcp_tools": ["context7"],
+    "tech_stack_memory": {
+      "database": "Neon PostgreSQL",
+      "orm": "Drizzle ORM",
+      "auth_integration": "Supabase",
+      "schema_validation": "Zod + Drizzle"
+    },
+    "always_remember": [
+      "Use Context7 for PostgreSQL and Drizzle patterns",
+      "Optimize for serverless (Neon)",
+      "Follow schema evolution best practices",
+      "Integration with Supabase auth"
+    ]
+  },
+
+  "@devops-specialist": {
+    "role": "replit_deployment_specialist",
+    "critical_files": [
+      "package.json",
+      ".github/workflows/",
+      "docs/development/dev_rules.md"
+    ],
+    "mcp_tools": ["context7"],
+    "tech_stack_memory": {
+      "platform": "Replit",
+      "bundler": "Vite",
+      "build": "TypeScript + ESBuild",
+      "ci_cd": "GitHub Actions (pending setup)"
+    },
+    "immediate_task": "CI/CD pipeline setup with GitHub Actions",
+    "always_remember": [
+      "Use Context7 for deployment patterns",
+      "Replit-specific optimizations",
+      "Performance monitoring setup",
+      "Environment variable management"
+    ]
+  },
+
+  "@ui-ux": {
+    "role": "design_user_experience",
+    "critical_files": [
+      "client/src/components/ui/",
+      "docs/development/dev_rules.md"
+    ],
+    "mcp_tools": ["playwright", "context7", "serena"],
+    "design_system_memory": {
+      "ui_library": "shadcn/ui",
+      "design_tokens": "TailwindCSS",
+      "accessibility": "WCAG 2.1 AA",
+      "responsive": "Mobile-first"
+    },
+    "always_remember": [
+      "Use Context7 for design system patterns",
+      "Accessibility compliance required",
+      "Visual consistency across components",
+      "Mobile-first responsive design"
+    ]
+  },
+
+  "@test-architect": {
+    "role": "quality_assurance_tdd",
+    "critical_files": [
+      "docs/development/dev_rules.md",
+      "vitest.config.ts",
+      "client/src/**/__tests__/"
+    ],
+    "mcp_tools": ["context7"],
+    "testing_stack_memory": {
+      "unit_testing": "Vitest",
+      "component_testing": "React Testing Library",
+      "e2e_testing": "Playwright",
+      "coverage_target": 80
+    },
+    "immediate_task": "Testing infrastructure setup (Vitest + Playwright)",
+    "always_remember": [
+      "Use Context7 for testing patterns", 
+      "TDD mandatory - tests first",
+      "80% minimum coverage",
+      "Follow test structure from dev_rules.md"
+    ]
+  },
+
+  "@documentation-agent": {
+    "role": "session_and_knowledge_manager",
+    "critical_files": [
+      "chat_logs/orchestrator/",
+      ".claude/agents/README.md",
+      "docs/development/dev_rules.md"
+    ],
+    "session_management": {
+      "chat_log_optimization": true,
+      "avoid_redundancy": true,
+      "focus_on_key_decisions": true,
+      "maintain_handoff_quality": true
+    },
+    "always_remember": [
+      "Document decisions not obvious actions",
+      "Include context for session handoffs", 
+      "Maintain session continuity",
+      "Optimize for readability and efficiency"
+    ]
+  },
+
+  "agents": {
+    "main-claude-orchestrator": {
+      "role": "master_coordinator_and_quality_monitor",
+      "model": "opus",
+      "responsibilities": ["task_distribution", "quality_oversight", "session_continuity", "parallel_workflow_coordination", "agent_coaching"],
+      "mcp_tools": ["serena", "context7"],
+      "sla": "real_time_response",
+      "dependencies": [],
+      "status": "active"
+    },
+    "frontend-architect": {
+      "role": "react_typescript_specialist",
+      "model": "opus",
+      "responsibilities": ["react_development", "shadcn_ui_implementation", "state_management", "responsive_design"],
+      "mcp_tools": ["playwright", "context7"],
+      "sla": "4_hour_feature",
+      "dependencies": ["main-claude-orchestrator"],
+      "status": "active"
+    },
+    "backend-architect": {
+      "role": "express_api_specialist",
+      "model": "opus",
+      "responsibilities": ["api_development", "database_integration", "authentication", "server_logic"],
+      "mcp_tools": ["context7"],
+      "sla": "4_hour_feature",
+      "dependencies": ["main-claude-orchestrator"],
+      "status": "active"
+    },
+    "database-specialist": {
+      "role": "postgresql_drizzle_specialist",
+      "model": "sonnet",
+      "responsibilities": ["schema_design", "drizzle_orm", "database_optimization", "supabase_integration"],
+      "mcp_tools": ["context7"],
+      "sla": "6_hour_database_changes",
+      "dependencies": ["backend-architect"],
+      "status": "active"
+    },
+    "devops-specialist": {
+      "role": "replit_deployment_specialist",
+      "model": "sonnet",
+      "responsibilities": ["replit_deployment", "performance_optimization", "infrastructure_management", "ci_cd_setup"],
+      "mcp_tools": ["context7"],
+      "sla": "4_hour_deployment",
+      "dependencies": ["main-claude-orchestrator"],
+      "status": "active"
+    },
+    "ui-ux": {
+      "role": "design_user_experience",
+      "model": "sonnet",
+      "responsibilities": ["ui_design", "ux_optimization", "shadcn_design_systems", "accessibility", "visual_consistency"],
+      "mcp_tools": ["playwright", "context7", "serena"],
+      "sla": "6_hour_design",
+      "dependencies": ["frontend-architect"],
+      "status": "active"
+    },
+    "test-architect": {
+      "role": "quality_assurance_tdd",
+      "model": "opus",
+      "responsibilities": ["tdd_implementation", "vitest_setup", "playwright_e2e", "coverage_optimization"],
+      "mcp_tools": ["context7"],
+      "sla": "8_hour_test_suite",
+      "dependencies": ["frontend-architect", "backend-architect"],
+      "status": "active"
+    },
+    "documentation-agent": {
+      "role": "session_and_knowledge_manager",
+      "model": "sonnet",
+      "responsibilities": ["session_logging", "context_preservation", "technical_documentation", "workflow_continuity"],
+      "mcp_tools": [],
+      "sla": "1_hour_documentation",
+      "dependencies": ["all_agents"],
+      "status": "active"
+    }
+  },
+  
+  "workflows": {
+    "parallel_feature_development": {
+      "description": "7-agent parallel execution for full-stack features",
+      "steps": [
+        {"agent": "main-claude-orchestrator", "action": "analyze_requirements_and_delegate"},
+        {"parallel": [
+          {"agent": "frontend-architect", "action": "design_and_implement_ui"},
+          {"agent": "backend-architect", "action": "design_and_implement_api"},
+          {"agent": "database-specialist", "action": "schema_design_and_optimization"}
+        ]},
+        {"agent": "ui-ux", "action": "design_review_and_enhancement"},
+        {"agent": "test-architect", "action": "comprehensive_testing"},
+        {"agent": "devops-specialist", "action": "deployment_and_optimization"},
+        {"agent": "documentation-agent", "action": "document_all_changes"}
+      ],
+      "estimated_duration": "1_day_parallel"
+    },
+    "critical_infrastructure_setup": {
+      "description": "Security, testing, and automation implementation",
+      "steps": [
+        {"agent": "backend-architect", "action": "implement_security_middleware"},
+        {"agent": "test-architect", "action": "setup_testing_infrastructure"},
+        {"parallel": [
+          {"agent": "devops-specialist", "action": "setup_ci_cd_pipeline"},
+          {"agent": "main-claude-orchestrator", "action": "create_automation_scripts"}
+        ]},
+        {"agent": "documentation-agent", "action": "update_infrastructure_docs"}
+      ],
+      "estimated_duration": "2_days"
+    }
+  },
+  
+  "file_locations": {
+    "critical_files": {
+      "session_logs": "chat_logs/orchestrator/",
+      "agent_configs": ".claude/agents/",
+      "agent_docs": ".claude/agent_docs/",
+      "memory_system": ".claude/memory.json",
+      "development_rules": "docs/development/dev_rules.md",
+      "implementation_plan": "updates/plan.md"
+    },
+    "frontend_structure": {
+      "components": "client/src/components/ui/",
+      "pages": "client/src/pages/",
+      "hooks": "client/src/hooks/",
+      "lib": "client/src/lib/"
+    },
+    "backend_structure": {
+      "server_entry": "server/index.ts",
+      "routes": "server/routes.ts", 
+      "auth": "server/auth.ts",
+      "storage": "server/storage.ts",
+      "supabase": "server/supabase.ts"
+    },
+    "shared_structure": {
+      "schema": "shared/schema.ts",
+      "types": "shared/types.ts"
+    }
+  },
+  
+  "coding_patterns": {
+    "line_limits": {
+      "small_components": 100,
+      "medium_components": 250,
+      "large_components": 500,
+      "backend_files": 350,
+      "utility_files": 200
+    },
+    "typescript_standards": [
+      "Always use TypeScript strict mode",
+      "Define interfaces for all component props",
+      "Use Zod for runtime validation",
+      "Avoid 'any' types completely",
+      "Use proper async/await patterns"
+    ],
+    "react_patterns": [
+      "Functional components only",
+      "Custom hooks for shared logic", 
+      "shadcn/ui components for UI",
+      "TailwindCSS for styling",
+      "Proper cleanup in useEffect"
+    ],
+    "backend_patterns": [
+      "Express RESTful API design",
+      "Proper error handling and status codes",
+      "Zod validation for all inputs",
+      "Supabase for authentication",
+      "Drizzle ORM for database operations"
+    ]
+  },
+  
+  "quality_gates": {
+    "code_review": {
+      "required_checks": ["type_checking", "linting", "test_coverage", "security_scan"]
+    },
+    "test_coverage": {
+      "minimum": 80,
+      "critical_paths": 100
+    },
+    "performance": {
+      "page_load_time": 1500,
+      "lighthouse_score": 95,
+      "bundle_size": 500
+    },
+    "documentation": {
+      "session_continuity": 100,
+      "api_coverage": 90
+    }
+  },
+  
+  "session_context": {
+    "current_session": 3,
+    "last_update": "2025-01-03T23:45:00Z",
+    "session_status": "Foundation Phase COMPLETED",
+    "active_tasks": [
+      "critical_infrastructure_implementation"
+    ],
+    "completed_session_3": [
+      "Session chat log with perfect context preservation",
+      "Comprehensive codebase analysis (7 files, 1500+ lines)",
+      "Memory.json agent-specific sections (@claude format)",
+      "Agents README.md complete rewrite for 7-agent system",
+      "Dev_rules.md updated with actual line limits",
+      "Context7 MCP integration for all 4 pending agents"
+    ],
+    "completed_features": [
+      "Complete React/TypeScript frontend with shadcn/ui",
+      "Express backend with PostgreSQL and Supabase auth",
+      "Business solutions pages and portfolio",
+      "Contact forms and newsletter subscription",
+      "ROI calculator and industry solutions selector",
+      "7-agent parallel workflow system documentation",
+      "Agent-specific memory system with chat log optimization"
+    ],
+    "known_issues": [],
+    "immediate_priorities": [
+      "Security middleware implementation (helmet, rate limiting)",
+      "Testing infrastructure setup (Vitest, Playwright)",
+      "Automated session initialization script creation",
+      "CI/CD pipeline setup with GitHub Actions"
+    ]
+  },
+  
+  "performance_baseline": {
+    "current_metrics": {
+      "page_load_time": "unknown",
+      "lighthouse_score": "unknown", 
+      "bundle_size": "unknown",
+      "test_coverage": 0
+    },
+    "target_metrics": {
+      "page_load_time": 1500,
+      "lighthouse_score": 95,
+      "bundle_size": 500,
+      "test_coverage": 80
+    }
+  },
+  
+  "dependencies": {
+    "critical_frontend": [
+      "react@18.3.1",
+      "typescript@5.6.3",
+      "vite@5.4.19",
+      "tailwindcss@3.4.17"
+    ],
+    "critical_backend": [
+      "express@4.21.2", 
+      "drizzle-orm@0.39.3",
+      "@supabase/supabase-js@2.56.1",
+      "zod@3.24.2"
+    ],
+    "monitoring": {
+      "security_updates_needed": [],
+      "deprecated_packages": [],
+      "missing_dependencies": ["helmet", "express-rate-limit", "vitest", "@playwright/test"]
+    }
+  },
+  
+  "environment": {
+    "development": {
+      "port": 5000,
+      "database_url": "DATABASE_URL env var",
+      "supabase_config": "SUPABASE_URL and SUPABASE_ANON_KEY"
+    },
+    "production": {
+      "platform": "Replit",
+      "port": "process.env.PORT",
+      "database": "Neon PostgreSQL",
+      "auth": "Supabase"
+    }
+  },
+  
+  "agent_communication": {
+    "session_handoff_protocol": {
+      "required_context_files": [
+        "chat_logs/orchestrator/session[N].md",
+        "updates/plan.md",
+        ".claude/memory.json"
+      ],
+      "context_preservation": "100% session continuity required",
+      "task_tracking": "TodoWrite system for real-time progress"
+    },
+    "parallel_coordination": {
+      "simultaneous_agents": 3,
+      "communication_pattern": "direct_with_main_orchestrator",
+      "documentation_model": "continuous_parallel_recording",
+      "quality_monitoring": "real_time_oversight_and_coaching"
+    }
+  },
+  
+  "technical_debt": {
+    "immediate_attention": [
+      "Missing security middleware (helmet, rate limiting)",
+      "No testing infrastructure (0% coverage)",
+      "Missing CI/CD pipeline",
+      "Session automation script needed"
+    ],
+    "completed_session_3": [
+      "Context7 MCP integration for all agents - DONE",
+      "Agent memory system organization - DONE",
+      "Codebase analysis and line limits - DONE",
+      "Documentation system optimization - DONE"
+    ],
+    "planned_improvements": [
+      "Performance optimization with code splitting",
+      "Advanced monitoring and alerting",
+      "Database indexing and query optimization",
+      "Automated deployment pipelines"
+    ]
+  }
+}
+}

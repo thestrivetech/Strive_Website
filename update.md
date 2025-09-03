@@ -17,7 +17,7 @@ This document outlines all necessary updates to transform the Strive website fro
 - Maybe make "New Web Solutions" a service we provide?
 - Change "View Demo" to "Request Demo" on Prototype & Template cards that pop up on the screen when you click onto different portfolio previews.
 - Remove the extra "X" on the portfolio cards when they expand when clicked on
-- 
+- Important: Add AI security subject to Blogs and Case study to address concerns about AI (emphasize it being a tool). Make sure this is featured on the Resources page and maybe even the home page?
 ## Phase 1: Critical Navigation & Brand Implementation
 
 ### 1.1 Login Authentication System

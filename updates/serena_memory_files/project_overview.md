@@ -11,7 +11,7 @@ Professional AI consulting platform website showcasing Strive Tech's AI solution
 - **Future**: Planned migration to Supabase for real-time features and integrated auth
 
 ## Project Structure
-- StriveSite/ - Main application directory
+- Strive_WebSite_Replit/ - Main application directory
   - client/ - React frontend
   - server/ - Express backend  
   - shared/ - Shared TypeScript schemas
