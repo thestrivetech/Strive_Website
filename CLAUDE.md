@@ -66,28 +66,160 @@ npm run db:push      # Push schema changes to database using Drizzle
 ## Development Workflow
 
 ### Agent Coordination System
-The project uses a simplified 7-agent workflow system documented in `AGENT_WORKFLOW.md`:
+The project uses a sophisticated 7-agent parallel workflow system with continuous documentation and real-time quality oversight:
 
-- **Main Claude Code Session**: Project management, coordination, and quality evaluation
-- **Frontend Agent**: React/TypeScript UI development (with Playwright testing tools)
-- **Backend Agent**: API and server-side logic
-- **Database Agent**: Schema and query optimization
-- **DevOps Agent**: Deployment and infrastructure
-- **UI/UX Agent**: Design and user experience (with Playwright testing tools)
-- **Test Architect**: Testing strategy and implementation
-- **Documentation Agent**: Maintains project documentation
+```
+STRIVE WEBSITE - 7-AGENT PARALLEL WORKFLOW SYSTEM
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  🎯 MAIN CLAUDE CODE SESSION (Orchestrator)                                 │
+│  • Real-time monitoring and quality analysis of all agent activities        │
+│  • Strategic planning, task delegation, and resource allocation             │
+│  • Continuous improvement coaching and workflow optimization                 │
+│  • Performance analysis and bottleneck identification                       │
+│  • Serena MCP: Intelligent code search and analysis capabilities           │
+└───────────────────────────┬─────────────────────────────────────────────────┘
+                            │
+                    ┌───────┴───────┐
+                    │ PARALLEL TASK │
+                    │  DELEGATION   │
+                    └───────┬───────┘
+                            │
+    ┌───────────────────────┼───────────────────────┐
+    │                       │                       │
+    ▼                       ▼                       ▼
+┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
+│ 🎨 FRONTEND     │ │ ⚙️  BACKEND     │ │ 🗄️  DATABASE    │
+│ ARCHITECT       │ │ ARCHITECT       │ │ SPECIALIST      │
+│ • React/TypeScript│ • Express.js/API │ • PostgreSQL     │
+│ • shadcn/ui      │ • Authentication │ • Drizzle ORM    │
+│ • State Mgmt     │ • Server Logic   │ • Schema Design  │
+│ • Playwright MCP │ • Context7 MCP*  │ • Context7 MCP*  │
+│ • Context7 MCP   │                 │                 │
+└─────────────────┘ └─────────────────┘ └─────────────────┘
+          │                   │                   │
+          ▼                   ▼                   ▼
+┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
+│ 🚀 DEVOPS       │ │ 🎭 UI/UX AGENT  │ │ 🧪 TEST         │
+│ SPECIALIST      │ │                 │ │ ARCHITECT       │
+│ • Replit Deploy │ │ • User Experience│ • TDD Methodology│
+│ • Infrastructure│ │ • Visual Design  │ • E2E Testing    │
+│ • Performance   │ │ • Accessibility  │ • Quality Gates  │
+│ • Context7 MCP* │ │ • Playwright MCP │ • Context7 MCP*  │
+│                 │ │ • Context7 MCP   │                 │
+│                 │ │ • Serena MCP     │                 │
+└─────────────────┘ └─────────────────┘ └─────────────────┘
+          │                   │                   │
+          └───────────────────┼───────────────────┘
+                              │
+                              ▼
+                    ┌─────────────────┐
+                    │ 📚 DOCUMENTATION│
+                    │ AGENT           │
+                    │ • Session Logs  │
+                    │ • Process Track │
+                    │ • Knowledge Mgmt│
+                    │ • Context Preserv│
+                    └─────────────────┘
+                              ▲
+         ┌────────────────────┼────────────────────┐
+         │ CONTINUOUS PARALLEL DOCUMENTATION OF ALL AGENTS │
+         └────────────────────────────────────────────────┘
+
+* = Context7 MCP needs to be added to agent configuration
+```
+
+#### **Parallel Execution Model:**
+- **Simultaneous Operations**: Multiple agents work concurrently on different aspects
+- **Real-Time Documentation**: Documentation Agent records ALL agent activities in parallel
+- **Continuous Monitoring**: Main Claude provides ongoing quality oversight and coaching
+- **Dynamic Task Distribution**: Tasks delegated based on real-time capacity and priority
 
 ### Working with Agents
-1. Main Claude Code session analyzes requirements and delegates tasks directly
-2. Specialized subagents work on their domains with direct communication to main session
-3. Main Claude Code provides quality oversight (formerly handled by separate Evaluator)
-4. Use chat logs in `/chat_logs/` for agent communication tracking
-5. Follow the 5-phase workflow: Planning → Foundation → Features → Integration → Deployment
+
+#### **Parallel Execution Workflow:**
+1. **Task Analysis & Multi-Agent Delegation**: Main Claude analyzes requirements and delegates to multiple agents simultaneously
+2. **Concurrent Agent Operations**: Specialized agents work in parallel on their domains (Frontend + Backend + Database + DevOps + UI/UX + Testing)
+3. **Real-Time Documentation**: Documentation Agent continuously records ALL agent activities, decisions, and outputs in parallel
+4. **Continuous Quality Monitoring**: Main Claude provides ongoing analysis of agent performance, identifies bottlenecks, and coaches improvements
+5. **Dynamic Resource Allocation**: Tasks redistributed based on agent capacity, expertise overlap, and project priorities
+
+#### **Communication Patterns:**
+- **Main Claude ↔ All Agents**: Direct bidirectional communication for task delegation and progress reporting
+- **Documentation Agent ← All Agents**: Continuous recording of activities, decisions, and outputs
+- **Agents ↔ Agents**: Cross-functional collaboration when features span multiple domains
+- **Quality Feedback Loop**: Main Claude analyzes patterns and provides coaching for workflow optimization
+
+#### **Session Management:**
+- Use chat logs in `/chat_logs/` for comprehensive agent communication tracking
+- Documentation Agent maintains detailed session logs for perfect continuity
+- Follow adaptive workflow phases based on project needs: Planning → Parallel Development → Integration → Quality Gates → Deployment
 
 ### MCP Tools Available
-- **Serena MCP**: For intelligent code search and analysis (main orchestrator)
-- **Context7 MCP**: For library documentation (all coding agents)
-- **Playwright MCP**: For UI testing and validation (Frontend & UI/UX agents)
+
+#### **Current Tool Assignments:**
+- **Main Claude Code (Orchestrator)**: 
+  - Serena MCP: Intelligent code search and analysis capabilities
+- **Frontend Architect**: 
+  - Playwright MCP: UI testing and browser automation
+  - Context7 MCP: Library documentation for React/TypeScript/Vite
+- **UI/UX Agent**: 
+  - Playwright MCP: Visual testing and browser interaction
+  - Context7 MCP: Library documentation for design systems
+  - Serena MCP: Advanced code analysis capabilities
+- **Backend Architect**: *Context7 MCP needed for Express.js/Node.js documentation
+- **Database Specialist**: *Context7 MCP needed for PostgreSQL/Drizzle ORM documentation  
+- **DevOps Specialist**: *Context7 MCP needed for deployment and infrastructure documentation
+- **Test Architect**: *Context7 MCP needed for testing framework documentation
+- **Documentation Agent**: Context tracking and session management tools
+
+#### **Tool Usage Patterns:**
+- **Context7 MCP**: All coding agents should use for up-to-date library documentation and best practices
+- **Playwright MCP**: UI-focused agents use for visual testing and user interaction validation
+- **Serena MCP**: Main orchestrator and advanced agents use for intelligent code search and analysis
+
+*Note: Backend, Database, DevOps, and Test Architect agent configurations need Context7 MCP tools added
+
+### Agent Communication Flow & Coordination
+
+#### **Task Initiation & Delegation:**
+```
+User Request → Main Claude Analysis → Parallel Task Delegation
+                         ↓
+    ┌────────────────────┼────────────────────┐
+    ▼                    ▼                    ▼
+Frontend Architect   Backend Architect   Database Specialist
+    ▼                    ▼                    ▼
+UI/UX Agent         DevOps Specialist   Test Architect
+    ▼                    ▼                    ▼
+Documentation Agent (Records ALL activities simultaneously)
+```
+
+#### **Real-Time Coordination Patterns:**
+
+**1. Parallel Development Scenario:**
+- Main Claude delegates feature development to Frontend Architect, Backend Architect, and Database Specialist simultaneously
+- Documentation Agent begins recording all three development streams in parallel
+- UI/UX Agent collaborates with Frontend Architect on design implementation
+- Test Architect creates tests for both frontend and backend components concurrently
+- Main Claude monitors progress, identifies dependencies, and coaches optimization
+
+**2. Cross-Agent Collaboration:**
+- Backend API changes trigger Frontend Architect notification
+- Database schema updates prompt Backend Architect and Test Architect coordination
+- UI/UX design decisions influence both Frontend and Backend implementation
+- Documentation Agent tracks all inter-agent communications and decisions
+
+**3. Quality Oversight Loop:**
+- Main Claude continuously analyzes agent outputs and performance metrics
+- Identifies bottlenecks, redundancies, or missed requirements
+- Provides real-time coaching and resource reallocation
+- Documentation Agent records improvement patterns for future optimization
+
+#### **Session Continuity & Context Preservation:**
+- **Live Session**: All agents work with shared context and real-time coordination
+- **Session Handoff**: Documentation Agent provides comprehensive activity logs
+- **Context Recovery**: Main Claude can resume any session with complete agent status
+- **Performance Learning**: Patterns from previous sessions inform future task distribution
 
 ## Code Conventions
 
