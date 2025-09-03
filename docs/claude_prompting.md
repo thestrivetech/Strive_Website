@@ -3,7 +3,7 @@
 
 ## Overview
 
-This guide provides **project-specific prompting patterns** for effective communication with Claude agents working on **The Strive Tech AI consulting platform**. Our 8-agent development system requires precise, context-rich prompts to deliver high-quality AI business solutions.
+This guide provides **project-specific prompting patterns** for effective communication with Claude agents working on **The Strive Tech AI consulting platform**. Our 7-agent development system requires precise, context-rich prompts to deliver high-quality AI business solutions.
 
 ## 🎯 Core Prompting Principles
 
@@ -26,7 +26,7 @@ COMPATIBILITY REQUIREMENT: All development must support future migration
 ```
 
 ### **3. Agent Team Coordination**
-Specify which of the 8 agents should be involved:
+Specify which of the 7 agents should be involved:
 ```markdown
 PRIMARY AGENT: [Master Orchestrator/Frontend Architect/Backend Specialist/etc.]
 COORDINATION NEEDED: [List other agents that need to collaborate]
@@ -46,7 +46,7 @@ PROJECT: [Feature/Page name with AI consulting context]
 PRIORITY: [High/Medium/Low with business justification]
 
 COORDINATION REQUEST:
-- Analyze scope and create 8-agent development timeline
+- Analyze scope and create 7-agent development timeline
 - Identify dependencies across Frontend/Backend/Database/DevOps agents
 - Establish quality gates with Evaluator Agent
 - Coordinate session continuity with Documentation Agent
@@ -58,7 +58,7 @@ STRIVE TECH CONTEXT:
 - Client Standards: WCAG 2.1 AA, <2.5s load times, enterprise security
 
 DELIVERABLES:
-1. 8-agent task distribution matrix
+1. 7-agent task distribution matrix
 2. Development timeline with AI consulting milestones
 3. Risk mitigation strategy for AI service integration
 4. Daily coordination schedule optimized for agent collaboration
@@ -697,7 +697,7 @@ COMPREHENSIVE DOCUMENTATION FRAMEWORK:
    - Performance standards and business metrics correlation
 
 3. **Agent Coordination Documentation**:
-   - 8-agent team responsibilities and collaboration patterns
+   - 7-agent team responsibilities and collaboration patterns
    - Quality gate procedures and Evaluator Agent integration
    - Session continuity frameworks and context management
    - Communication protocols and escalation procedures
@@ -738,7 +738,7 @@ CONTINUITY PRIORITY: [Critical decisions/Active development/Quality gates]
 CONTEXT RECONSTRUCTION:
 1. **Project State Analysis**:
    - Review all agent context files for current development status
-   - Identify completed, in-progress, and blocked tasks across 8-agent team
+   - Identify completed, in-progress, and blocked tasks across 7-agent team
    - Assess quality gate status and Evaluator Agent feedback
    - Evaluate business requirement changes and client feedback integration
 
@@ -813,7 +813,7 @@ DELIVERABLES:
 ```markdown
 MULTI-AGENT COORDINATION - Strive Tech AI Consulting Platform
 COORDINATION SCENARIO: [Cross-agent dependency/Parallel development/Integration challenge]
-AGENTS INVOLVED: [List of 2-8 agents requiring coordination]
+AGENTS INVOLVED: [List of 2-7 agents requiring coordination]
 
 COORDINATION REQUEST:
 1. **Primary Agent**: [Lead agent with main responsibility]

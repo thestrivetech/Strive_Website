@@ -1,6 +1,6 @@
 # Strive Tech AI Consulting Platform - Claude Code Best Practices
 
-This guide provides best practices for using Claude Code with the Strive Tech AI consulting platform, featuring React 18, Express, Neon PostgreSQL, and the 8-agent development system.
+This guide provides best practices for using Claude Code with the Strive Tech AI consulting platform, featuring React 18, Express, Neon PostgreSQL, and the 7-agent development system.
 
 # 1. Customize your setup for AI Consulting Platform
 
@@ -51,7 +51,7 @@ Your home folder (~/.claude/CLAUDE.md), which applies it to all your claude sess
 When you run the /init command, Claude will automatically generate a CLAUDE.md for you.
 
 ## b. Tune your CLAUDE.md files for AI Consulting Context
-Your CLAUDE.md files become critical for maintaining the 8-agent development workflow and business context. Focus on:
+Your CLAUDE.md files become critical for maintaining the 7-agent development workflow and business context. Focus on:
 
 **Agent Coordination**: Document inter-agent communication patterns and handoff procedures
 **Database Evolution**: Keep current Neon PostgreSQL patterns and future Supabase migration plans
@@ -396,10 +396,10 @@ Headless mode can power automations triggered by GitHub events, such as when a n
 Claude Code can provide subjective code reviews beyond what traditional linting tools detect, identifying issues like typos, stale comments, misleading function or variable names, and more.
 
 # 6. Uplevel with multi-Claude workflows - 8-Agent Development System
-The Strive Tech AI consulting platform uses an 8-agent development system for maximum efficiency:
+The Strive Tech AI consulting platform uses a 7-agent development system for maximum efficiency:
 
 ## a. Specialist Agent Workflows - AI Consulting Platform Pattern
-Implement the proven 8-agent coordination model for enterprise-grade development:
+Implement the proven 7-agent coordination model for enterprise-grade development:
 
 **Frontend Architect + Database Specialist Coordination**:
 - Frontend Architect Claude: Implements TanStack Query patterns for DocuMaster AI state management
@@ -424,7 +424,7 @@ claude -p "Review DocuMaster AI data requirements in /project-context/agent-memo
 claude -p "Validate integration between frontend and database for DocuMaster AI. Ensure WCAG 2.1 AA compliance and <3s document generation performance."
 ```
 
-This 8-agent separation yields superior results for complex AI consulting platform features compared to single-agent development.
+This 7-agent separation yields superior results for complex AI consulting platform features compared to single-agent development.
 
 ## b. Have multiple checkouts of your repo
 Rather than waiting for Claude to complete each step, something many engineers at Anthropic do is:
@@ -434,7 +434,7 @@ Open each folder in separate terminal tabs
 Start Claude in each folder with different tasks
 Cycle through to check progress and approve/deny permission requests
 ## c. Use git worktrees for AI Consulting Platform Features
-Git worktrees enable parallel development of independent AI consulting platform features using the 8-agent system:
+Git worktrees enable parallel development of independent AI consulting platform features using the 7-agent system:
 
 **AI Service Parallel Development**: Run specialized agents on isolated features:
 ```bash
@@ -515,6 +515,6 @@ claude -p "Validate agent coordination patterns documented in /project-context/.
 - **Automated Quality Gates**: Ensure WCAG 2.1 AA and Core Web Vitals compliance
 - **Database Evolution Support**: Smooth Neon → Supabase migration preparation  
 - **Business Metrics Validation**: Automated >15% consultation conversion tracking
-- **Agent Coordination**: Seamless 8-agent development workflow management
+- **Agent Coordination**: Seamless 7-agent development workflow management
 
 For production AI consulting platform automation, use `--verbose` for debugging but disable in enterprise client-facing environments for cleaner output.

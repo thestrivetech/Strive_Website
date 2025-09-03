@@ -1,12 +1,12 @@
 # Human Workflow Guide for Strive Tech AI Agent Team
 
 ## Executive Summary
-This guide defines the human-agent collaboration workflow for **The Strive Tech AI consulting platform development**. Our **8-agent system** uses single-focus development principles to deliver high-quality AI business solutions with rigorous session continuity.
+This guide defines the human-agent collaboration workflow for **The Strive Tech AI consulting platform development**. Our **7-agent system** (Main Claude Code + 6 specialists) uses single-focus development principles to deliver high-quality AI business solutions with rigorous session continuity.
 
 ## Core Principles
 
 ### 🎯 **Single-Focus Development Philosophy**
-**Rule #1**: Work on ONE feature/page at a time until completion. This ensures maximum agent specialization and eliminates context switching inefficiencies across our 8-agent team.
+**Rule #1**: Work on ONE feature/page at a time until completion. This ensures maximum agent specialization and eliminates context switching inefficiencies across our 7-agent team.
 
 ### 🗄️ **Database Evolution Awareness**
 **Current**: Neon PostgreSQL + Drizzle ORM (production-ready)  
@@ -255,11 +255,11 @@ STRIVE TECH CONTEXT:
 - Tech Stack: React 18 + Express + Neon PostgreSQL + Drizzle ORM
 - Database Evolution: Current Neon production → Future Supabase migration
 
-Please review the attached plan.md file and coordinate our 8-agent team:
+Please review the attached plan.md file and coordinate our 7-agent team:
 
 AGENT COORDINATION TASKS:
 1. **Timeline Analysis**: Create development schedule with AI consulting milestones
-2. **Agent Assignment**: Distribute tasks across our 8-agent specializations:
+2. **Agent Assignment**: Distribute tasks across our 7-agent specializations:
    - UI/UX Designer: AI consulting user experience optimization
    - Frontend Architect: React + TypeScript implementation
    - Backend Specialist: Express API + AI service integration  
@@ -281,7 +281,7 @@ DELIVERABLES REQUIRED:
 1. **8-Agent Development Timeline** with AI consulting milestones
 2. **Agent Communication Matrix** for coordination protocols
 3. **Risk Mitigation Strategy** for AI platform specific challenges
-4. **Daily Standup Schedule** optimized for 8-agent coordination
+4. **Daily Standup Schedule** optimized for 7-agent coordination
 ```
 
 ### Step 2.2: AI Consulting Design Phase Initiation
@@ -328,7 +328,7 @@ COORDINATION SCHEDULE:
 - [ ] Review and approve AI consulting design deliverables
 - [ ] Update plan.md with any business requirement changes
 - [ ] Brief development agents on AI consulting priority features
-- [ ] Establish 8-agent communication schedule and coordination protocols
+- [ ] Establish 7-agent communication schedule and coordination protocols
 - [ ] Configure development environment access for AI service APIs
 - [ ] Set up monitoring tools for AI consulting performance tracking
 
@@ -337,7 +337,7 @@ COORDINATION SCHEDULE:
 AI CONSULTING DEVELOPMENT SPRINT KICKOFF
 Phase: [Frontend Architecture/Backend Development/Database Integration/Testing]
 Duration: [X days]
-Primary Agents: [List of agents from 8-agent team]
+Primary Agents: [List of agents from 7-agent team]
 
 SPRINT OBJECTIVES - AI CONSULTING FOCUS:
 1. [AI consulting objective with business success criteria]
@@ -431,7 +431,7 @@ AI CONSULTING MANUAL REVIEW:
 
 AGENT COORDINATION REVIEW (Master Orchestrator):
 ✓ Session Continuity: [Documentation Agent context preservation status]
-✓ Agent Communication: [8-agent coordination efficiency assessment]
+✓ Agent Communication: [7-agent coordination efficiency assessment]
 ✓ Timeline Adherence: [Milestone progress vs AI consulting deadlines]
 
 BLOCKERS/ISSUES REQUIRING RESOLUTION:
@@ -469,7 +469,7 @@ PRE-DEPLOYMENT VALIDATION (DevOps Specialist + Evaluator Agent):
 - [ ] Security clearance obtained (OWASP compliance + client data protection)
 - [ ] CDN and caching configured for AI consulting performance optimization
 - [ ] Monitoring systems active (performance + business metrics)
-- [ ] 8-agent team standing by for deployment support
+- [ ] 7-agent team standing by for deployment support
 
 DEPLOYMENT EXECUTION (DevOps Specialist Leadership):
 - [ ] Deployment initiated via automated pipeline
@@ -602,7 +602,7 @@ AI CONSULTING OPTIMIZATION OPPORTUNITIES:
 
 ### Development Efficiency (8-Agent Team Performance)
 - **Session Continuity Effectiveness**: Context reconstruction time <5 minutes
-- **Quality Gate Success Rate**: >95% first-attempt pass rate across all 8 agents
+- **Quality Gate Success Rate**: >95% first-attempt pass rate across all 7 agents
 - **AI Consulting Feature Delivery**: Features per sprint cycle meeting business deadlines
 - **Agent Coordination Efficiency**: Inter-agent communication effectiveness and conflict resolution speed
 
@@ -628,13 +628,13 @@ AI CONSULTING OPTIMIZATION OPPORTUNITIES:
 ## Implementation Roadmap for AI Consulting Workflow
 
 ### **Week 1-2: Foundation Establishment**
-- Deploy **Master Orchestrator** and **Documentation Agent** for 8-agent coordination
+- Deploy **Main Claude Code** and **Documentation Agent** for 7-agent coordination
 - Establish **AI consulting project brief** and **plan.md** templates
 - Implement **session continuity framework** with markdown context management
 - Begin **single-focus development** protocol implementation
 
 ### **Week 3-4: Agent Team Integration**
-- Full **8-agent team deployment** with specialized AI consulting roles
+- Full **7-agent team deployment** with specialized AI consulting roles
 - Implement **quality gate system** with Evaluator Agent leadership
 - Establish **daily monitoring routines** and escalation procedures
 - Deploy **database evolution strategy** with current Neon optimization
@@ -653,4 +653,4 @@ AI CONSULTING OPTIMIZATION OPPORTUNITIES:
 
 ---
 
-This comprehensive workflow ensures maximum efficiency from the 8-agent AI consulting development team while maintaining enterprise-grade quality standards, accessibility compliance, and business success metrics. The emphasis on session continuity, quality gates, and AI consulting business context provides sustainable, scalable development processes supporting both current Neon PostgreSQL operations and future Supabase platform enhancement.
+This comprehensive workflow ensures maximum efficiency from the 7-agent AI consulting development team while maintaining enterprise-grade quality standards, accessibility compliance, and business success metrics. The emphasis on session continuity, quality gates, and AI consulting business context provides sustainable, scalable development processes supporting both current Neon PostgreSQL operations and future Supabase platform enhancement.

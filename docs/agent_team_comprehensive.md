@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-This document outlines the **8-agent development system** powering The Strive Tech AI consulting platform. Our specialized agent team delivers high-quality, scalable AI solutions using modern web technologies with a focus on **session-to-session continuity** and **quality-driven development**.
+This document outlines the **7-agent development system** powering The Strive Tech AI consulting platform. Our specialized agent team delivers high-quality, scalable AI solutions using modern web technologies with a focus on **session-to-session continuity** and **quality-driven development**.
 
 ### 🎯 **Project Context**: AI-Powered Business Solutions Platform
 - **Industry Focus**: AI consulting, custom solutions, and business transformation
@@ -33,20 +33,20 @@ const supabase = createClient(url, key)
 - **State Reconstruction**: Automated context recovery procedures
 
 ### 3. **Quality-First Development**
-- **Evaluator Agent**: Continuous quality assessment and team coaching
+- **Main Claude Code**: Continuous quality assessment and team coaching
 - **TDD Approach**: Test-driven development with comprehensive coverage
 - **Performance Gates**: Core Web Vitals compliance and optimization
 - **Accessibility Standards**: WCAG 2.1 AA compliance mandatory
 
 ---
 
-## 🤖 Agent Team Structure (8 Agents)
+## 🤖 Agent Team Structure (7 Agents)
 
-### 1. **MASTER ORCHESTRATOR AGENT** 
-*Project Coordinator & Strategic Leadership (Opus Model)*
+### 1. **MAIN CLAUDE CODE SESSION (Orchestrator & Evaluator)** 
+*Project Coordinator, Strategic Leadership & Quality Oversight*
 
-**Primary Role**: Project coordination, resource allocation, and strategic decision-making  
-**Specialization**: Cross-agent communication, timeline management, quality oversight
+**Primary Role**: Project coordination, resource allocation, strategic decision-making, and quality evaluation  
+**Specialization**: Cross-agent communication, timeline management, quality oversight, performance analysis
 
 #### Core Responsibilities:
 - **Project Planning**: Break down complex AI consulting requirements into agent-specific tasks
@@ -54,12 +54,18 @@ const supabase = createClient(url, key)
 - **Quality Oversight**: Ensure all deliverables meet Strive Tech standards
 - **Timeline Management**: Monitor project progress and adjust priorities dynamically
 - **Session Orchestration**: Coordinate context handoffs and continuity management
+- **Performance Analysis**: Monitor system performance and optimization opportunities (formerly Evaluator)
+- **Code Quality Assessment**: Conduct comprehensive code reviews and technical debt analysis
+- **Team Coaching**: Provide feedback to agents for continuous improvement
+- **Compliance Validation**: Ensure adherence to accessibility, security, and business standards
 
 #### MCP Servers & Tools:
+- **Serena MCP**: Intelligent code search and analysis for main orchestrator
 - **GitHub MCP**: Project management, issues, milestones, PR coordination
 - **Context7 MCP**: Library documentation access for strategic decisions
-- **Project Management MCP**: Timeline tracking, resource allocation
-- **Communication MCP**: Inter-agent messaging and coordination
+- **Testing Frameworks MCP**: Jest, Playwright, and comprehensive test suites (formerly Evaluator tools)
+- **Performance Analysis MCP**: Web Vitals, load testing, optimization analysis
+- **Quality Metrics MCP**: Code complexity, coverage, and maintainability analysis
 
 #### Agent Prompt Template:
 ```
@@ -77,7 +83,7 @@ COORDINATION RESPONSIBILITIES:
 - Distribute tasks based on agent specializations and current workload
 - Monitor quality gates and ensure compliance before phase progression
 - Facilitate Documentation Agent for session-to-session continuity
-- Coordinate with Evaluator Agent for continuous quality assessment
+- Coordinate quality assessment using integrated evaluation capabilities
 - Maintain awareness of database evolution strategy and migration planning
 
 COMMUNICATION STYLE: Professional, decisive, strategic. Always provide complete 
@@ -242,39 +248,7 @@ Scalability: Auto-scaling based on AI consulting demand
 
 ---
 
-### 7. **EVALUATOR AGENT**
-*Quality Assurance, Performance Analysis & Team Coaching*
-
-**Primary Role**: Continuous quality assessment, performance optimization, and team improvement  
-**Specialization**: Code quality metrics, performance analysis, agent coordination coaching
-
-#### Core Responsibilities:
-- **Quality Gate Management**: Validate deliverables against Strive Tech standards
-- **Performance Analysis**: Monitor system performance and optimization opportunities
-- **Code Quality Assessment**: Technical debt analysis, maintainability scoring
-- **Team Coaching**: Provide feedback to agents for continuous improvement
-- **Compliance Validation**: Accessibility, security, and business requirement adherence
-
-#### MCP Servers & Tools:
-- **Testing Frameworks MCP**: Jest, Playwright, and comprehensive test suites
-- **Performance Analysis MCP**: Web Vitals, load testing, optimization analysis
-- **Quality Metrics MCP**: Code complexity, coverage, and maintainability analysis
-- **Compliance MCP**: Accessibility, security, and business standard validation
-
-#### Quality Gates Framework:
-```typescript
-interface QualityGates {
-  performance: 'Core Web Vitals compliance',
-  accessibility: 'WCAG 2.1 AA compliance',  
-  security: 'OWASP compliance',
-  testing: '>90% code coverage',
-  business: 'AI consulting requirements validation'
-}
-```
-
----
-
-### 8. **DOCUMENTATION AGENT**
+### 7. **DOCUMENTATION AGENT**
 *Knowledge Management & Session Continuity Specialist*
 
 **Primary Role**: **SESSION-TO-SESSION CONTINUITY**, technical documentation, knowledge management  
@@ -321,7 +295,7 @@ interface QualityGates {
 1. **Documentation Agent** reconstructs session context from markdown files
 2. **Master Orchestrator** reviews priorities and distributes daily tasks
 3. **Database Specialist** validates current schema state vs documented state
-4. **Evaluator Agent** reviews overnight automated test results and metrics
+4. **Main Claude Code** reviews overnight automated test results and metrics
 
 #### **Development Cycles (Continuous)**
 1. **Frontend Architect** & **Backend Specialist** work in parallel with continuous integration
@@ -330,14 +304,14 @@ interface QualityGates {
 4. **Database Specialist** manages schema changes and performance optimization
 
 #### **Quality Gates (Per Feature)**
-1. **Evaluator Agent** validates all deliverables against quality standards
+1. **Main Claude Code** validates all deliverables against quality standards
 2. **Security validation**, **performance benchmarks**, and **accessibility compliance**
 3. **Documentation Agent** updates context files with progress and decisions
 4. **Master Orchestrator** approves progression to next phase
 
 #### **Evening Review (5:00 PM)**
 1. **Documentation Agent** creates comprehensive session-handoff.md
-2. **Evaluator Agent** provides daily quality metrics and improvement recommendations
+2. **Main Claude Code** provides daily quality metrics and improvement recommendations
 3. **Master Orchestrator** plans next day's priorities and resource allocation
 4. **All agents** update individual memory files for session continuity
 
@@ -360,7 +334,7 @@ MANDATORY SESSION HANDOFF CHECKLIST:
 1. **Documentation Agent** loads and parses all context markdown files
 2. **Master Orchestrator** reconstructs project state and validates agent assignments
 3. **Database Specialist** validates current database state against documented state
-4. **Evaluator Agent** identifies any context gaps or inconsistencies
+4. **Main Claude Code** identifies any context gaps or inconsistencies
 5. **All agents** briefed on current session goals and constraints
 
 ---
@@ -456,7 +430,7 @@ Documentation: [Documentation, GitHub, Context Management, Search]
 - Establish **Database Specialist** with current Neon+Drizzle optimization
 
 ### **Phase 2: Quality & Design (Week 3-4)**
-- Integrate **Evaluator Agent** for quality gate implementation
+- Main Claude Code handles integrated quality gate implementation
 - Deploy **UI/UX Designer** for design system and accessibility compliance
 - Establish **DevOps Specialist** for automated deployment and monitoring
 
@@ -472,4 +446,4 @@ Documentation: [Documentation, GitHub, Context Management, Search]
 
 ---
 
-This comprehensive 8-agent system ensures efficient, high-quality development of The Strive Tech AI consulting platform while maintaining rigorous standards for performance, accessibility, and business success. The emphasis on session continuity and quality gates provides sustainable, scalable development processes that support both current operations and future enhancement.
+This comprehensive 7-agent system ensures efficient, high-quality development of The Strive Tech AI consulting platform while maintaining rigorous standards for performance, accessibility, and business success. The emphasis on session continuity and quality gates provides sustainable, scalable development processes that support both current operations and future enhancement.
