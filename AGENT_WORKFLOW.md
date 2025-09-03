@@ -21,7 +21,7 @@ The session prompt provides a complete activation checklist and establishes clea
 
 This system is designed to maximize efficiency, maintain code quality, and ensure seamless collaboration across your entire AI development team.
 
-## Master Orchestrator Agent
+## Master Orchestrator Agent - Main Claude Code Chat (Not a subagent)
 
 **Role**: Project Manager & Team Coordinator
 **Expertise**: 
@@ -78,7 +78,7 @@ This system is designed to maximize efficiency, maintain code quality, and ensur
 - **Collaborates with**: Frontend Agent, Evaluator Agent
 - **Tools**: Design systems, user research, prototyping
 
-### 6. **Evaluator Agent**
+### 6. **Evaluator Agent** - This will actually be the Main Orchestrators responsibility
 - **Focus**: Code quality, performance analysis, team coaching
 - **Collaborates with**: All agents, reports to Orchestrator
 - **Tools**: Analytics, testing frameworks, performance metrics
