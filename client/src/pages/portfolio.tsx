@@ -200,7 +200,6 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
-
       {/* Showcase Section */}
       <section id="showcase" className="py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -303,7 +302,6 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
-
       {/* Project Detail Modal */}
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
