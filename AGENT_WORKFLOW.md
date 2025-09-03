@@ -13,22 +13,23 @@ Phase 5: Deployment and monitoring (30 min)
 - Frontend ↔ Backend: API integration
 - Backend ↔ Database: Data layer optimization
 - DevOps: Infrastructure for all agents
-- Evaluator: Quality oversight for all agents
 - Documentation: Process tracking for all agents
-- Orchestrator: Strategic coordination of all agents
+- Main Claude Code: Strategic coordination and quality oversight for all agents
 
 The session prompt provides a complete activation checklist and establishes clear roles, responsibilities, and communication protocols. Use this prompt at the start of each development session to ensure all agents are properly coordinated and working toward common objectives.
 
 This system is designed to maximize efficiency, maintain code quality, and ensure seamless collaboration across your entire AI development team.
 
-## Master Orchestrator Agent
+## Main Claude Code Session (Orchestrator & Evaluator)
 
-**Role**: Project Manager & Team Coordinator
+**Role**: Project Manager, Team Coordinator & Quality Evaluator
 **Expertise**: 
 - Strategic project planning, resource allocation, and milestone tracking
 - Cross-agent coordination and communication management
 - Risk assessment, timeline optimization, and stakeholder alignment
 - Quality assurance oversight and deliverable validation
+- Performance analysis, code quality assessment, and team coaching
+- Compliance validation and testing coordination
 - Conflict resolution and team performance optimization
 - Decision-making authority and priority setting
 
@@ -45,8 +46,11 @@ This system is designed to maximize efficiency, maintain code quality, and ensur
    - Resolve blockers and conflicts
    - Adjust priorities based on changing requirements
 
-3. **Quality & Risk Management**
+3. **Quality & Risk Management** (formerly Evaluator responsibilities)
    - Ensure deliverable quality meets standards
+   - Conduct code reviews and performance analysis
+   - Monitor system performance and optimization opportunities
+   - Provide feedback to agents for continuous improvement
    - Identify and mitigate project risks
    - Coordinate testing and validation processes
    - Maintain project documentation
@@ -75,15 +79,10 @@ This system is designed to maximize efficiency, maintain code quality, and ensur
 
 ### 5. **UI/UX Design Agent**
 - **Focus**: User experience, visual design, accessibility
-- **Collaborates with**: Frontend Agent, Evaluator Agent
+- **Collaborates with**: Frontend Agent, Main Claude Orchestrator
 - **Tools**: Design systems, user research, prototyping
 
-### 6. **Evaluator Agent**
-- **Focus**: Code quality, performance analysis, team coaching
-- **Collaborates with**: All agents, reports to Orchestrator
-- **Tools**: Analytics, testing frameworks, performance metrics
-
-### 7. **Documentation Agent**
+### 6. **Documentation Agent**
 - **Focus**: Process documentation, knowledge management
 - **Collaborates with**: All agents
 - **Tools**: Markdown documentation, workflow tracking
@@ -91,9 +90,9 @@ This system is designed to maximize efficiency, maintain code quality, and ensur
 ## Optimal Workflow Process
 
 ### Phase 1: Project Initialization (30 minutes)
-1. **Orchestrator Agent** analyzes requirements and creates project plan
+1. **Main Claude Code** analyzes requirements and creates project plan
 2. **Documentation Agent** creates project structure and initial docs
-3. **Evaluator Agent** establishes success metrics and quality gates
+3. **Main Claude Code** establishes success metrics and quality gates
 4. **UI/UX Agent** creates initial design concepts and user flows
 
 ### Phase 2: Foundation Development (2-4 hours)
@@ -107,20 +106,20 @@ This system is designed to maximize efficiency, maintain code quality, and ensur
 2. **Frontend Agent** implements UI components
 3. **Backend Agent** develops corresponding API endpoints
 4. **Database Agent** optimizes queries and data operations
-5. **Evaluator Agent** conducts code reviews and testing
+5. **Main Claude Code** conducts code reviews and testing
 6. **Documentation Agent** updates process documentation
 
 ### Phase 4: Integration & Testing (1-2 hours)
 1. **DevOps Agent** manages deployment and environment setup
-2. **Evaluator Agent** coordinates comprehensive testing
+2. **Main Claude Code** coordinates comprehensive testing
 3. **All Agents** participate in integration testing
-4. **Orchestrator Agent** validates deliverables against requirements
+4. **Main Claude Code** validates deliverables against requirements
 
 ### Phase 5: Deployment & Monitoring (30 minutes)
 1. **DevOps Agent** executes deployment process
-2. **Evaluator Agent** monitors performance metrics
+2. **Main Claude Code** monitors performance metrics
 3. **Documentation Agent** finalizes deployment documentation
-4. **Orchestrator Agent** conducts project retrospective
+4. **Main Claude Code** conducts project retrospective
 
 ## Communication Protocols
 
@@ -131,10 +130,10 @@ This system is designed to maximize efficiency, maintain code quality, and ensur
 - **Next steps**: Planned work for current session
 
 ### Escalation Matrix:
-1. **Technical Issues**: Agent → Evaluator Agent → Orchestrator Agent
-2. **Resource Conflicts**: Agent → Orchestrator Agent
-3. **Quality Concerns**: Any Agent → Evaluator Agent → Orchestrator Agent
-4. **Timeline Risks**: Agent → Orchestrator Agent
+1. **Technical Issues**: Agent → Main Claude Code
+2. **Resource Conflicts**: Agent → Main Claude Code
+3. **Quality Concerns**: Agent → Main Claude Code
+4. **Timeline Risks**: Agent → Main Claude Code
 
 ## Success Metrics
 

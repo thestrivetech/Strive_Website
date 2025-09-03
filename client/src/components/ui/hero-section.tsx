@@ -83,7 +83,7 @@ const HeroSection = ({
                 className="text-5xl md:text-7xl font-bold leading-tight"
                 data-testid="hero-title"
               >
-                Custom <span className="gradient-text">AI Models</span> for Your Business
+                Custom <span className="gradient-text">AI Solutions</span> Built for Real World Performance
               </h1>
               
               <p 

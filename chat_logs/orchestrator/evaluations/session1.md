@@ -1,0 +1,1 @@
+This chat log will be used to document all evalutions of every subagent that did work in each session. Use it to notate areas for improvement so we can update and make the subagents better with time.

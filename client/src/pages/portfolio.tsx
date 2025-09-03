@@ -264,7 +264,7 @@ const Portfolio = () => {
                     <div className="text-primary">
                       {getCategoryIcon(project.category)}
                     </div>
-                    <span className="text-sm font-medium text-primary uppercase tracking-wide">
+                    <span className="text-sm font-medium uppercase tracking-wide text-[#020a1c]">
                       {project.category}
                     </span>
                   </div>

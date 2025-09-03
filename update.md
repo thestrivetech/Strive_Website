@@ -5,10 +5,19 @@ This document outlines all necessary updates to transform the Strive website fro
 
 ---
 # Phase 0 #
-- Update Font selection and hieracrchy (refer to chat with Grok & Perplexity)
-- Maybe add perplexity AI browser as an API somewhere on the website to display the power of AI search?
-- Fix ratios to work correctly for all screen sizes. Example: The demo presentation in the home hero section looks perfect in it's current layout but on other peoples screen it looks way too big.
-- Add digital business cards to each co-founder/employee
+- Update Font selection and hieracrchy (refer to chat with Grok & Perplexity - "Fonts" markdown file is in project directory)
+- Maybe add perplexity AI browser as an API somewhere on the website to display the power of AI search? - Definitely use perplexity as a "researcher" in the resources page automation system that will be built.
+- Fix ratios to work correctly for all screen sizes. Example: The demo presentation in the home hero section looks perfect in it's current layout but on other peoples screen it looks way too big and there's not enough empty space at the top and bottom of the demo presenation section (they have to scroll to see the entire demo preview section) - Make sure that mobile is configured to a different layout since the screen will be too small for how the current computer layout is configured (only change the mobile view/layout though and not the entire layout of the website, keep the layout but change the mobile layout if necessary)
+- Fix header 1 on Home hero section to fit better on all displays (looks cramped right now since we switched the wording)
+- Move "Solutions by Industry" to be the hero section on the "Solutions" page & Change badges in this section to where the Icons turn a different color when the user clicks on them instead of staying orange which currently blends together.
+- Change icons for dropdown menus (Use lucid Icons?)
+- Change brain icon on portfolio page to brain-circuit logo (both are lucid-react icons)
+- Add "Services" and service ligo to solutions page and maybe the portfolio page
+- Add "Traditional Web Solutions" to solutions page
+- Maybe make "New Web Solutions" a service we provide?
+- Change "View Demo" to "Request Demo" on Prototype & Template cards that pop up on the screen when you click onto different portfolio previews.
+- Remove the extra "X" on the portfolio cards when they expand when clicked on
+- 
 ## Phase 1: Critical Navigation & Brand Implementation
 
 ### 1.1 Login Authentication System
