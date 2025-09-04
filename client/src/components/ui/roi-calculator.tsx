@@ -240,17 +240,17 @@ const ROICalculator = () => {
                   </div>
                 </div>
                 
-                {/* Schedule Discovery Call Button */}
-                <div className="pt-4 border-t border-border">
-                  <button 
-                    onClick={() => window.location.href = "/get-started"}
-                    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200"
-                    data-testid="button-schedule-discovery-call"
-                  >
-                    Schedule Discovery Call
-                  </button>
-                </div>
               </CardContent>
+              {/* Schedule Discovery Call Button */}
+              <div className="p-4 border-t border-border mt-auto">
+                <button 
+                  onClick={() => window.location.href = "/get-started"}
+                  className="w-full hero-gradient text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30 hover:scale-105"
+                  data-testid="button-schedule-discovery-call"
+                >
+                  Schedule Discovery Call
+                </button>
+              </div>
             </Card>
 
             {/* Results */}
