@@ -243,8 +243,9 @@ const Solutions = () => {
                 <div className="flex flex-col items-center space-y-2">
                   <div 
                     style={{
-                      color: selectedIndustry === industry.id ? '#020a1c' : 'hsl(24, 100%, 58%)'
+                      color: selectedIndustry === industry.id ? '#020a1c !important' : 'hsl(24, 100%, 58%) !important'
                     }}
+                    className={selectedIndustry === industry.id ? 'force-dark-blue' : 'force-orange'}
                   >
                     {industry.icon}
                   </div>
