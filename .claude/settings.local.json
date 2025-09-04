@@ -88,7 +88,9 @@
       "WebFetch(domain:51de729c-bd38-455d-b593-3d576c21f424-00-knr49tw9vspk.kirk.replit.dev)",
       "Bash(npm search:*)",
       "Bash(source:*)",
-      "Bash(export PATH=\"/home/runner/workspace/.local/bin:$PATH\")"
+      "Bash(export PATH=\"/home/runner/workspace/.local/bin:$PATH\")",
+      "mcp__serena__read_file",
+      "mcp__serena__write_memory"
     ],
     "deny": []
   },
