@@ -72,22 +72,22 @@ const HeroSection = ({
   };
 
   return (
-    <section className="hero-gradient min-h-screen flex items-center relative py-8 lg:py-16">
+    <section className="hero-gradient min-h-[95vh] max-h-screen flex items-center relative py-4 lg:py-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[70vh] lg:min-h-[90vh]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center h-full max-h-[85vh]">
           {/* Left Content */}
           <div className="space-y-6 lg:space-y-8 slide-in-left">
             <div className="space-y-4 lg:space-y-6">
               
               <h1 
-                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
+                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight"
                 data-testid="hero-title"
               >
                 Custom <span className="gradient-text">AI Solutions</span> Built for Real World Performance
               </h1>
               
               <p 
-                className="text-lg sm:text-xl lg:text-2xl text-muted-foreground leading-relaxed"
+                className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed"
                 data-testid="hero-subtitle"
               >
                 {subtitle}
@@ -151,13 +151,13 @@ const HeroSection = ({
               <ChevronRight className="w-6 h-6 text-primary" />
             </button>
             
-            <div className="demo-video-container max-w-md lg:max-w-none mx-auto lg:mx-0">
+            <div className="demo-video-container max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-lg mx-auto lg:mx-0">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img 
                   src={demoVideos[currentDemo].thumbnail}
                   alt={demoVideos[currentDemo].title}
                   className="w-full object-cover transform scale-105 hover:scale-100 transition-transform duration-500"
-                  style={{ aspectRatio: '16/28' }}
+                  style={{ aspectRatio: '16/24' }}
                   data-testid="demo-thumbnail"
                 />
                 
