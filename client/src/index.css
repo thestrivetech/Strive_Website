@@ -79,6 +79,60 @@
   }
 }
 
+/* 3D Solution Ecosystem Animations */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotateY(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotateY(180deg);
+  }
+}
+
+@keyframes orbit {
+  from {
+    transform: rotateY(0deg) translateX(200px) rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg) translateX(200px) rotateY(-360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(24, 100%, 58%) 0%, hsl(250, 95%, 75%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
 @layer components {
   .hero-gradient {
     background: linear-gradient(135deg, hsl(222, 84%, 4.9%) 0%, hsl(250, 50%, 10%) 50%, hsl(222, 84%, 4.9%) 100%);
