@@ -1,15 +1,18 @@
 import { Switch, Route } from "wouter";
+import { Suspense, lazy } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/lib/auth";
-import Navigation from "@/components/layout/navigation";
-import Footer from "@/components/layout/footer";
-import FloatingChat from "@/components/ui/floating-chat";
 import ScrollToTop from "@/components/scroll-to-top";
-import { Suspense, lazy } from "react";
 import PageSkeleton from "@/components/ui/page-skeleton";
+import ErrorBoundary from "@/components/ui/error-boundary";
+
+// Lazy load layout components for better performance
+const Navigation = lazy(() => import("@/components/layout/navigation"));
+const Footer = lazy(() => import("@/components/layout/footer"));
+const FloatingChat = lazy(() => import("@/components/ui/floating-chat"));
 
 // Keep home page loaded immediately for best UX
 import Home from "@/pages/home";
@@ -47,7 +50,9 @@ function Router() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <ScrollToTop />
-      <Navigation />
+      <Suspense fallback={<div className="h-16 w-full bg-background border-b animate-pulse" />}>
+        <Navigation />
+      </Suspense>
       <main>
         <Suspense fallback={<PageSkeleton />}>
           <Switch>
@@ -80,22 +85,28 @@ function Router() {
           </Switch>
         </Suspense>
       </main>
-      <Footer />
-      <FloatingChat />
+      <Suspense fallback={<div className="h-20 w-full bg-muted/10 animate-pulse" />}>
+        <Footer />
+      </Suspense>
+      <Suspense fallback={null}>
+        <FloatingChat />
+      </Suspense>
     </div>
   );
 }
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Router />
+          </TooltipProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 

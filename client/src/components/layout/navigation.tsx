@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
+import LazyImage from "@/components/ui/lazy-image";
 import logoImage from "@assets/logo&text.png";
 import healthcareIcon from "@assets/generated_images/Healthcare_industry_icon_f2723fd3.png";
 import financialIcon from "@assets/generated_images/Financial_services_icon_6bb00680.png";
@@ -125,11 +126,11 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16" style={{ overflow: 'visible' }}>
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img 
+            <LazyImage 
               src={logoImage} 
               alt="Strive" 
               className="h-14 w-auto"
-              data-testid="logo"
+              loading="eager"
             />
           </Link>
 
