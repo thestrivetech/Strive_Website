@@ -20,7 +20,7 @@ const Solutions = () => {
   const filters = [
     { name: "All", icon: null },
     { name: "By Industry", icon: <Building2 className="h-4 w-4 mr-2" /> },
-    { name: "By Product & Service", icon: <Cog className="h-4 w-4 mr-2" /> },
+    { name: "Solution Type", icon: <Cog className="h-4 w-4 mr-2" /> },
   ];
 
   const industryOptions = [
@@ -125,7 +125,7 @@ const Solutions = () => {
     {
       id: 5,
       title: "AI & Automation",
-      category: "By Product & Service",
+      category: "Solution Type",
       type: "product",
       icon: <Bot className="text-primary text-xl" />,
       shortDescription: "Intelligent automation solutions powered by advanced AI and machine learning.",
@@ -144,7 +144,7 @@ const Solutions = () => {
     {
       id: 6,
       title: "Computer Vision",
-      category: "By Product & Service",
+      category: "Solution Type",
       type: "product",
       icon: <Eye className="text-primary text-xl" />,
       shortDescription: "Advanced AI-powered visual recognition and analysis systems.",
@@ -163,7 +163,7 @@ const Solutions = () => {
     {
       id: 7,
       title: "Predictive Analytics",
-      category: "By Product & Service",
+      category: "Solution Type",
       type: "product",
       icon: <BarChart className="text-primary text-xl" />,
       shortDescription: "Data-driven insights and forecasting for strategic business decisions.",
@@ -182,7 +182,7 @@ const Solutions = () => {
     {
       id: 8,
       title: "Cloud Infrastructure",
-      category: "By Product & Service",
+      category: "Solution Type",
       type: "product",
       icon: <Cloud className="text-primary text-xl" />,
       shortDescription: "Scalable cloud solutions for modern business infrastructure needs.",
@@ -200,7 +200,7 @@ const Solutions = () => {
     {
       id: 9,
       title: "Security & Compliance",
-      category: "By Product & Service",
+      category: "Solution Type",
       type: "product",
       icon: <ShieldCheck className="text-primary text-xl" />,
       shortDescription: "Comprehensive security frameworks and automated compliance monitoring.",
@@ -391,22 +391,22 @@ const Solutions = () => {
               </PopoverContent>
             </Popover>
 
-            {/* By Product & Service Dropdown */}
+            {/* Solution Type Dropdown */}
             <Popover open={productDropdownOpen} onOpenChange={setProductDropdownOpen}>
               <PopoverTrigger asChild>
                 <Button
-                  variant={activeFilter === "By Product & Service" ? "default" : "outline"}
+                  variant={activeFilter === "Solution Type" ? "default" : "outline"}
                   className={`flex items-center px-6 py-3 transition-all duration-200 ${
-                    activeFilter === "By Product & Service"
+                    activeFilter === "Solution Type"
                       ? "bg-primary text-white shadow-lg scale-105"
                       : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
                   }`}
                   data-testid="filter-by-product-service"
                 >
                   <Cog className="h-4 w-4 mr-2" />
-                  By Product & Service
+                  Solution Type
                   <Badge variant="secondary" className="ml-2 text-xs">
-                    {solutions.filter(solution => solution.category === "By Product & Service").length}
+                    {solutions.filter(solution => solution.category === "Solution Type").length}
                   </Badge>
                   <ChevronDown className="h-4 w-4 ml-2" />
                 </Button>
@@ -433,7 +433,7 @@ const Solutions = () => {
                           key={option.value}
                           value={option.value}
                           onSelect={() => {
-                            setActiveFilter("By Product & Service");
+                            setActiveFilter("Solution Type");
                             setProductDropdownOpen(false);
                             setProductSearch("");
                           }}
