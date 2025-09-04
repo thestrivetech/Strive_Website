@@ -245,7 +245,7 @@ const ROICalculator = () => {
               <div className="pt-4 mt-auto">
                 <button 
                   onClick={() => window.location.href = "/get-started"}
-                  className="w-full hero-gradient text-white font-semibold py-3 px-6 rounded-lg border-2 border-orange-500 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30 hover:scale-105 hover:border-orange-400"
+                  className="w-full bg-primary text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-primary/90 hover:shadow-lg transition-all duration-300"
                   data-testid="button-schedule-discovery-call"
                 >
                   Schedule Discovery Call
