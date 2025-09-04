@@ -7,6 +7,7 @@ import { AuthProvider } from "@/lib/auth";
 import Navigation from "@/components/layout/navigation";
 import Footer from "@/components/layout/footer";
 import FloatingChat from "@/components/ui/floating-chat";
+import ScrollToTop from "@/components/scroll-to-top";
 import { Suspense, lazy } from "react";
 import PageSkeleton from "@/components/ui/page-skeleton";
 
@@ -45,6 +46,7 @@ const NotFound = lazy(() => import("@/pages/not-found"));
 function Router() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <ScrollToTop />
       <Navigation />
       <main>
         <Suspense fallback={<PageSkeleton />}>
