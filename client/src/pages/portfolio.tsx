@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bot, Code, Blocks, Brain, Database, Globe, Zap, Eye, Play, ExternalLink, X, Github, Monitor, Smartphone, ChevronRight, Filter } from "lucide-react";
+import { Bot, Code, Blocks, Brain, BrainCircuit, Database, Globe, Zap, Eye, Play, ExternalLink, X, Github, Monitor, Smartphone, ChevronRight, Filter } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -172,7 +172,7 @@ const Portfolio = () => {
           <div className="text-center">
             <div className="flex items-center justify-center mb-6">
               <div className="relative">
-                <Brain className="text-primary h-16 w-16 animate-pulse" />
+                <BrainCircuit className="text-primary h-16 w-16 animate-pulse" />
                 <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping"></div>
               </div>
             </div>

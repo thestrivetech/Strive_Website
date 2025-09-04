@@ -10,7 +10,7 @@ This document outlines all necessary updates to transform the Strive website fro
 - Fix ratios to work correctly for all screen sizes. Example: The demo presentation in the home hero section looks perfect in it's current layout but on other peoples screen it looks way too big and there's not enough empty space at the top and bottom of the demo presenation section (they have to scroll to see the entire demo preview section) - Make sure that mobile is configured to a different layout since the screen will be too small for how the current computer layout is configured (only change the mobile view/layout though and not the entire layout of the website, keep the layout but change the mobile layout if necessary)
 - Fix header 1 on Home hero section to fit better on all displays (looks cramped right now since we switched the wording)
 - Move "Solutions by Industry" to be the hero section on the "Solutions" page & Change badges in this section to where the Icons turn a different color when the user clicks on them instead of staying orange which currently blends together.
-- Change icons for dropdown menus (Use lucid Icons that correspond with the subject or industry)
+- (DONE) Change icons for dropdown menus (Use lucid Icons that correspond with the subject or industry)
 - Change brain icon on portfolio page to brain-circuit logo (both are lucid-react icons)
 - Add "Services" and service ligo to solutions page and maybe the portfolio page
 - Add "Traditional Web Solutions" to solutions page
