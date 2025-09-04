@@ -80,7 +80,10 @@ Make the “Welcome to Strive” badge/card the same color and design of the web
 
 - Seems as if the subagents are also using the Serena MCP server which might be a bad thing or could be a good thing... It's probably slowing down their pace but if it helps them be more accurate then I don't mind. In order to make this better though, we could have the main orchestrator (claude) go through each task at the beginning of the session during the planning phase and specifically layout the paths of files and folders that the agents will be working with/in. If they need help finding something then they should ask claude (main orchestrator) - Or maybe we should create another subagent for this type of task/role?
 
-- 
+- Look at session chat log that was printed here: 2025-09-04-caveat-the-messages-below-were-generated-by-the-u.txt2025-09-04-caveat-the-messages-below-were-generated-by-the-u.txt
+
+- Session ended up not going too bad after Claude saved the day by fixing all of the agents mistakes...
+- A lot to improve on with the agents and overall agent team - Same goes for the workflow
 
 
 Claude plan: (Cant copy and paste from the Replit shell so I need to export the chat)
