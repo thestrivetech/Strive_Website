@@ -18,6 +18,7 @@ This document outlines all necessary updates to transform the Strive website fro
 - Change "View Demo" to "Request Demo" on Prototype & Template cards that pop up on the screen when you click onto different portfolio previews.
 - Remove the extra "X" on the portfolio cards when they expand when clicked on
 - Important: Add AI security subject to Blogs and Case study to address concerns about AI (emphasize it being a tool). Make sure this is featured on the Resources page and maybe even the home page?
+- Add: Since no clients, add a "Our Vision" timeline infographic to the "about us" (or the home page if the "Why Us" section doesn't fit the hype of a home page) page showing your startup's roadmap (created in Figma, exported as SVG). For standout: Embed a 3D model (using Three.js) of a abstract "solution ecosystem" that rotates on scroll.
 ## Phase 1: Critical Navigation & Brand Implementation
 
 ### 1.1 Login Authentication System

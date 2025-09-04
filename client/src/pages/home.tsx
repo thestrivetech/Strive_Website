@@ -1,4 +1,5 @@
 import { Trophy, Shield, Brain, TrendingUp, Clock, Users, BarChart, Cog, Calculator, ShieldCheck, Truck, Zap } from "lucide-react";
+import { LightBulbIcon, RocketLaunchIcon, CpuChipIcon, StarIcon } from "@heroicons/react/24/outline";
 import HeroSection from "@/components/ui/hero-section";
 import SolutionCard from "@/components/ui/solution-card";
 import ResourceCard from "@/components/ui/resource-card";
@@ -121,6 +122,130 @@ const Home = () => {
           </div>
         </div>
       </section>
+      {/* Why Us Section */}
+      <section className="py-16 hero-gradient relative overflow-hidden">
+        {/* Parallax Background Elements */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-48 h-48 bg-orange-500/10 rounded-full blur-2xl animate-pulse" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-primary/5 rounded-full blur-lg animate-pulse" style={{animationDelay: '4s'}}></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <div 
+              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
+              data-testid="text-why-us-label"
+            >
+              WHY CHOOSE STRIVE
+            </div>
+            <h2 
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white"
+              data-testid="text-why-us-title"
+            >
+              The Future of Business <span className="gradient-text">Starts Here</span>
+            </h2>
+            <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+              Don't just keep up with the competition—surpass them. Our cutting-edge AI solutions deliver measurable results that transform how you do business.
+            </p>
+          </div>
+
+          {/* Value Proposition Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Innovative Tech */}
+            <div className="group">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <LightBulbIcon className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-innovative-tech-title">
+                  Innovative Tech
+                </h3>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  Cutting-edge AI and automation technologies that keep you ahead of industry trends and competitor solutions.
+                </p>
+              </div>
+            </div>
+
+            {/* Scalable Solutions */}
+            <div className="group">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <RocketLaunchIcon className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-scalable-solutions-title">
+                  Scalable Solutions
+                </h3>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  Grow without limits. Our architecture scales seamlessly from startup to enterprise, adapting to your business needs.
+                </p>
+              </div>
+            </div>
+
+            {/* Future-Proof Design */}
+            <div className="group">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <CpuChipIcon className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-future-proof-title">
+                  Future-Proof Design
+                </h3>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  Built to evolve. Our solutions integrate emerging technologies, ensuring your investment remains valuable for years.
+                </p>
+              </div>
+            </div>
+
+            {/* Proven Results */}
+            <div className="group">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <StarIcon className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-proven-results-title">
+                  Proven Results
+                </h3>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  Track record of success. Our clients see 3x faster processing, 60% cost reduction, and 24/7 automated efficiency.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center mt-16">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-4xl mx-auto">
+              <h3 className="text-2xl font-bold text-white mb-4">
+                Ready to Transform Your Business?
+              </h3>
+              <p className="text-white/80 mb-6 text-lg">
+                Join industry leaders who've already made the switch to intelligent automation.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all"
+                  size="lg"
+                  onClick={() => window.location.href = "/contact"}
+                  data-testid="button-get-started-why-us"
+                >
+                  Get Started Today
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="border-white/30 text-white hover:bg-white/10 px-8 py-3 text-lg"
+                  size="lg"
+                  onClick={() => window.location.href = "/portfolio"}
+                  data-testid="button-view-portfolio"
+                >
+                  View Success Stories
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {/* Resources Preview */}
       <section className="py-16 md:py-24 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
