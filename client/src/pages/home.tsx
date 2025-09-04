@@ -91,9 +91,9 @@ const Home = () => {
       {/* ROI Calculator */}
       <ROICalculator />
       {/* Integrated Platform Section */}
-      <section className="py-16 md:py-24 bg-[#ffffffeb] text-[#f8fafc]">
+      <section className="mobile-section-spacing py-16 md:py-24 bg-[#ffffffeb] text-[#f8fafc]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="mobile-text-spacing text-center mb-12 sm:mb-16">
             <div 
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-section-label"
@@ -109,7 +109,7 @@ const Home = () => {
           </div>
 
           {/* Solution Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="mobile-card-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {solutions.map((solution, index) => (
               <SolutionCard
                 key={index}
@@ -123,7 +123,7 @@ const Home = () => {
         </div>
       </section>
       {/* Why Us Section */}
-      <section className="py-16 hero-gradient relative overflow-hidden">
+      <section className="mobile-section-spacing py-16 hero-gradient relative overflow-hidden">
         {/* Parallax Background Elements */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-10 left-10 w-32 h-32 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
@@ -132,7 +132,7 @@ const Home = () => {
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
+          <div className="mobile-text-spacing text-center mb-12 sm:mb-16">
             <div 
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-why-us-label"
@@ -151,7 +151,7 @@ const Home = () => {
           </div>
 
           {/* Value Proposition Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="mobile-card-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {/* Innovative Tech */}
             <div className="group">
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
@@ -214,7 +214,7 @@ const Home = () => {
           </div>
 
           {/* Call to Action */}
-          <div className="text-center mt-16">
+          <div className="text-center mt-12 sm:mt-16">
             <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-4xl mx-auto">
               <h3 className="text-2xl font-bold text-white mb-4">
                 Ready to Transform Your Business?
@@ -247,9 +247,9 @@ const Home = () => {
       </section>
       
       {/* Resources Preview */}
-      <section className="py-16 md:py-24 bg-[#ffffffeb]">
+      <section className="mobile-section-spacing py-16 md:py-24 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="mobile-text-spacing text-center mb-8 sm:mb-12">
             <h2 
               className="text-3xl md:text-4xl font-bold mb-4 text-[#020a1c]"
               data-testid="text-resources-title"
@@ -265,7 +265,7 @@ const Home = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="mobile-card-grid grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {resources.map((resource, index) => (
               <ResourceCard
                 key={index}
@@ -280,29 +280,31 @@ const Home = () => {
         </div>
       </section>
       {/* CTA Section */}
-      <section className="py-16 md:py-24 text-[#020a1c] bg-[#ffffffeb]">
+      <section className="mobile-section-spacing py-16 md:py-24 text-[#020a1c] bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <div 
-              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
-              data-testid="text-cta-label"
-            >
-              CONNECT WITH US
+            <div className="mobile-text-spacing">
+              <div 
+                className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
+                data-testid="text-cta-label"
+              >
+                CONNECT WITH US
+              </div>
+              <h2 
+                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6"
+                data-testid="text-cta-title"
+              >
+                We'd love to show you around
+              </h2>
+              <p 
+                className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8"
+                data-testid="text-cta-description"
+              >
+                With Strive you can streamline operations, automate processes, and drive growth with intelligent insights.
+              </p>
             </div>
-            <h2 
-              className="text-3xl md:text-4xl font-bold mb-6"
-              data-testid="text-cta-title"
-            >
-              We'd love to show you around
-            </h2>
-            <p 
-              className="text-xl text-muted-foreground mb-8"
-              data-testid="text-cta-description"
-            >
-              With Strive you can streamline operations, automate processes, and drive growth with intelligent insights.
-            </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="mobile-card-grid grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
               <div className="text-center">
                 <Shield className="text-primary text-3xl mb-4 mx-auto" />
                 <p 

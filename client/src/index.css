@@ -126,6 +126,13 @@
   }
 }
 
+/* Mobile viewport optimization */
+@media (max-width: 640px) {
+  .hero-gradient {
+    background: linear-gradient(135deg, hsl(222, 84%, 4.9%) 0%, hsl(250, 50%, 10%) 40%, hsl(222, 84%, 4.9%) 100%);
+  }
+}
+
 @layer components {
   .hero-gradient {
     background: linear-gradient(135deg, hsl(222, 84%, 4.9%) 0%, hsl(250, 50%, 10%) 50%, hsl(222, 84%, 4.9%) 100%);
@@ -312,6 +319,96 @@
   /* Prevent horizontal overflow only */
   body {
     min-width: 320px;
+  }
+
+  /* Mobile-specific optimizations */
+  @media (max-width: 640px) {
+    .hero-gradient {
+      min-height: 100vh;
+      padding-top: 1rem;
+      padding-bottom: 2rem;
+    }
+    
+    .hero-gradient .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    /* Better mobile typography */
+    .mobile-hero-title {
+      font-size: 1.875rem; /* 30px */
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    
+    .mobile-hero-subtitle {
+      font-size: 1rem; /* 16px */
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Mobile button optimizations */
+    .mobile-hero-buttons {
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .mobile-hero-button {
+      width: 100%;
+      padding: 0.875rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      min-height: 48px; /* Better touch target */
+    }
+    
+    /* Mobile demo dots */
+    .mobile-demo-dots {
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+    
+    .mobile-demo-dots button {
+      width: 12px;
+      height: 12px;
+      margin: 0 4px;
+    }
+    
+    /* Mobile demo container */
+    .mobile-demo-container {
+      max-width: 280px;
+      margin: 0 auto 1.5rem auto;
+    }
+    
+    /* Mobile navigation controls */
+    .mobile-nav-controls {
+      margin-top: 1rem;
+      padding: 0 1rem;
+    }
+    
+    /* Improved mobile section spacing */
+    .mobile-section-spacing {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+    
+    /* Mobile-friendly card grids */
+    .mobile-card-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    /* Better mobile text spacing */
+    .mobile-text-spacing h2 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      line-height: 1.3;
+    }
+    
+    .mobile-text-spacing p {
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
   }
 
 }

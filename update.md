@@ -22,6 +22,9 @@ This document outlines all necessary updates to transform the Strive website fro
 - Make sure that nav bar works consistently on all pages. Use the functionality that exists on the home page and match the other ones to it. The nav bar should be transparent/translucent until it reaches the end of the hero section and then it changes to the gradient color of the hero section.
 - Make sure to improve cards/badges on the solutions page - add visuals or something unique. Also try to keep modal system like on Portfolio and Solutions page where the card/badge gets bigger on the screen when clicked on.
 - Make sure that all cards/badges have a link to the actual page (if applicable) at the bottom of the pop out once clicked on. OR could make the pop out card have a long scroll ability to view full content of whatever the card/badge pertains to (this gives the social media feel that people are used to)
+- Change redundancy of "Industry Specific Solutions" on Solutions page. Need to replace bottom section to something else.
+- Change mobile layout to be formatted better
+- Change mobile nav bar (it's atrocious right now)
 
 !!!! Use the website-plan.md file in docs/ for a complete guide moving forward
 
