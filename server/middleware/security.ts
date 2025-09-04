@@ -4,23 +4,35 @@ import { body, validationResult } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
 
 // Rate limiting configuration optimized for Replit
-export const createRateLimiter = () => rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: {
-    error: 'Too many requests from this IP, please try again later.',
-    retryAfter: '15 minutes'
-  },
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  // Skip rate limiting entirely in development, partial skip in production
-  skip: (req: Request) => {
-    if (process.env.NODE_ENV === 'development') {
-      return true; // Skip all rate limiting in development
+export const createRateLimiter = () => {
+  // Detect if running in Replit environment
+  const isReplit = !!(process.env.REPL_ID || process.env.REPLIT_DB_URL || process.env.REPL_SLUG);
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  
+  // More permissive limits for development/Replit environments
+  const windowMs = (isDevelopment || isReplit) ? 1 * 60 * 1000 : 15 * 60 * 1000; // 1 min for dev, 15 min for prod
+  const maxRequests = (isDevelopment || isReplit) ? 1000 : 500; // 1000 for dev/Replit, 500 for prod
+  
+  return rateLimit({
+    windowMs,
+    max: maxRequests,
+    message: {
+      error: 'Too many requests from this IP, please try again later.',
+      retryAfter: windowMs < 60000 ? '1 minute' : '15 minutes'
+    },
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    // Skip rate limiting entirely in development or Replit, partial skip in production
+    skip: (req: Request) => {
+      // Always skip for development or Replit environments
+      if (isDevelopment || isReplit) {
+        return true; // Skip all rate limiting in development/Replit
+      }
+      // In production, skip for static assets
+      return req.url.startsWith('/assets/') || req.url.startsWith('/favicon');
     }
-    return req.url.startsWith('/assets/') || req.url.startsWith('/favicon');
-  }
-});
+  });
+};
 
 // Enhanced helmet configuration for Replit environment
 export const securityHeaders = helmet({

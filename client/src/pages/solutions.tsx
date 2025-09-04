@@ -1,8 +1,104 @@
-import { Bot, BarChart, Blocks, ShieldCheck, Eye, Check, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory } from "lucide-react";
+import { Bot, BarChart, Blocks, ShieldCheck, Eye, Check, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory, Building2, DollarSign, Home as HomeIcon, Scale } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { useState } from "react";
 
 const Solutions = () => {
+  const [selectedIndustry, setSelectedIndustry] = useState("healthcare");
+
+  const industries = [
+    {
+      id: "healthcare",
+      name: "Healthcare",
+      icon: <Building2 className="text-primary text-xl" />,
+      solutions: [
+        "AI-powered diagnostics and imaging analysis",
+        "Patient data management and EHR integration", 
+        "Automated compliance and regulatory reporting",
+        "Predictive analytics for patient outcomes"
+      ]
+    },
+    {
+      id: "finance",
+      name: "Finance",
+      icon: <DollarSign className="text-primary text-xl" />,
+      solutions: [
+        "Real-time fraud detection and prevention",
+        "Automated risk assessment and reporting",
+        "Algorithmic trading and portfolio optimization",
+        "Customer behavior analytics and personalization"
+      ]
+    },
+    {
+      id: "manufacturing",
+      name: "Manufacturing",
+      icon: <Factory className="text-primary text-xl" />,
+      solutions: [
+        "Predictive maintenance and equipment monitoring",
+        "Quality control automation with computer vision",
+        "Supply chain optimization and demand forecasting",
+        "Production workflow automation"
+      ]
+    },
+    {
+      id: "retail",
+      name: "Retail",
+      icon: <ShoppingCart className="text-primary text-xl" />,
+      solutions: [
+        "Customer analytics and personalized recommendations",
+        "Inventory management and demand prediction",
+        "Dynamic pricing optimization",
+        "Omnichannel customer experience automation"
+      ]
+    },
+    {
+      id: "technology",
+      name: "Technology",
+      icon: <Laptop className="text-primary text-xl" />,
+      solutions: [
+        "DevOps automation and CI/CD optimization",
+        "AI agent development and deployment",
+        "Cloud infrastructure and scaling solutions",
+        "Data pipeline automation and analytics"
+      ]
+    },
+    {
+      id: "education",
+      name: "Education",
+      icon: <GraduationCap className="text-primary text-xl" />,
+      solutions: [
+        "Learning analytics and student performance insights",
+        "Administrative workflow automation",
+        "Personalized learning path recommendations",
+        "Automated grading and assessment tools"
+      ]
+    },
+    {
+      id: "real-estate",
+      name: "Real Estate",
+      icon: <HomeIcon className="text-primary text-xl" />,
+      solutions: [
+        "Property valuation and market analysis",
+        "Automated property management workflows",
+        "Lead generation and customer relationship management",
+        "Market trend prediction and investment insights"
+      ]
+    },
+    {
+      id: "legal",
+      name: "Legal",
+      icon: <Scale className="text-primary text-xl" />,
+      solutions: [
+        "Document automation and contract analysis",
+        "Case management and workflow optimization",
+        "Legal research and precedent discovery",
+        "Compliance monitoring and risk assessment"
+      ]
+    }
+  ];
+
+  const selectedIndustryData = industries.find(industry => industry.id === selectedIndustry) || industries[0];
   // URL mappings for main solutions
   const getMainSolutionUrl = (title: string) => {
     const urlMap: { [key: string]: string } = {
@@ -110,6 +206,94 @@ const Solutions = () => {
 
   return (
     <div className="pt-16">
+      {/* Industry Solutions Selector Hero */}
+      <section className="py-16 hero-gradient">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div 
+              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
+              data-testid="text-industry-label"
+            >
+              SOLUTIONS BY INDUSTRY
+            </div>
+            <h2 
+              className="text-2xl md:text-3xl font-bold mb-4 text-white"
+              data-testid="text-industry-title"
+            >
+              Find tailored solutions for your industry
+            </h2>
+            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+              Select your industry to discover how our AI-powered solutions can scale your business operations.
+            </p>
+          </div>
+
+          {/* Industry Selector */}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-12">
+            {industries.map((industry) => (
+              <button
+                key={industry.id}
+                onClick={() => setSelectedIndustry(industry.id)}
+                className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+                  selectedIndustry === industry.id
+                    ? 'bg-primary border-primary text-white shadow-lg scale-105'
+                    : 'bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/15 hover:border-white/30'
+                }`}
+                data-testid={`button-industry-${industry.id}`}
+              >
+                <div className="flex flex-col items-center space-y-2">
+                  <div className={selectedIndustry === industry.id ? 'text-[#020a1c]' : 'text-primary'}>
+                    {industry.icon}
+                  </div>
+                  <span className="text-sm font-medium">{industry.name}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Selected Industry Solutions */}
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8">
+              <div className="flex items-center mb-6">
+                <div className="text-primary mr-4">
+                  {selectedIndustryData.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-white">
+                  {selectedIndustryData.name} Solutions
+                </h3>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {selectedIndustryData.solutions.map((solution, index) => (
+                  <div 
+                    key={index}
+                    className="flex items-start space-x-3 p-4 bg-white/5 rounded-lg"
+                    data-testid={`solution-${selectedIndustry}-${index}`}
+                  >
+                    <div className="text-primary mt-1">
+                      <BarChart className="h-5 w-5" />
+                    </div>
+                    <span className="text-white/90 text-sm leading-relaxed">
+                      {solution}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-8 text-center">
+                <Button 
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+                  size="lg"
+                  onClick={() => window.location.href = "/contact"}
+                  data-testid="button-get-started-industry"
+                >
+                  Get Started with {selectedIndustryData.name} Solutions
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       <section className="pt-20 pb-16 bg-gradient-to-br from-[#ffffffeb] via-[#fff7f0] to-primary/20 relative overflow-hidden">
         {/* Beautiful gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#ffffffeb] via-transparent to-primary/10 pointer-events-none"></div>

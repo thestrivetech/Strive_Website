@@ -79,7 +79,8 @@
       "Bash(npx:*)",
       "Read(//home/runner/**)",
       "Bash(command:*)",
-      "Bash(pip3 install:*)"
+      "Bash(pip3 install:*)",
+      "Bash(echo $NODE_ENV)"
     ],
     "deny": []
   },
