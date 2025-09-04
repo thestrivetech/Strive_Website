@@ -224,6 +224,7 @@ const GetStarted = () => {
                       value={contactData.firstName}
                       onChange={(e) => handleContactChange('firstName', e.target.value)}
                       className="bg-muted/20 border-muted/30"
+                      style={{ color: '#020a1c' }}
                       data-testid="input-first-name"
                       required
                     />
@@ -233,6 +234,7 @@ const GetStarted = () => {
                       value={contactData.lastName}
                       onChange={(e) => handleContactChange('lastName', e.target.value)}
                       className="bg-muted/20 border-muted/30"
+                      style={{ color: '#020a1c' }}
                       data-testid="input-last-name"
                       required
                     />
@@ -244,6 +246,7 @@ const GetStarted = () => {
                     value={contactData.phone}
                     onChange={(e) => handleContactChange('phone', e.target.value)}
                     className="bg-muted/20 border-muted/30"
+                    style={{ color: '#020a1c' }}
                     data-testid="input-phone"
                     required
                   />
@@ -254,6 +257,7 @@ const GetStarted = () => {
                     value={contactData.email}
                     onChange={(e) => handleContactChange('email', e.target.value)}
                     className="bg-muted/20 border-muted/30"
+                    style={{ color: '#020a1c' }}
                     data-testid="input-email"
                     required
                   />
@@ -264,6 +268,7 @@ const GetStarted = () => {
                     value={contactData.company}
                     onChange={(e) => handleContactChange('company', e.target.value)}
                     className="bg-muted/20 border-muted/30"
+                    style={{ color: '#020a1c' }}
                     data-testid="input-company"
                     required
                   />
