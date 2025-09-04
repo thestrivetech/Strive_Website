@@ -1,417 +1,498 @@
-import { Bot, BarChart, Blocks, ShieldCheck, Eye, Check, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory, Building2, DollarSign, Home as HomeIcon, Scale } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Bot, BarChart, Blocks, ShieldCheck, Eye, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory, Building2, DollarSign, Home as HomeIcon, Scale, Cloud, Cog, Target, Filter, Check } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Link } from "wouter";
-import { useState } from "react";
 
 const Solutions = () => {
-  const [selectedIndustry, setSelectedIndustry] = useState("healthcare");
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [selectedSolution, setSelectedSolution] = useState<any>(null);
+  
+  const filters = [
+    { name: "All", icon: null },
+    { name: "By Industry", icon: <Building2 className="h-4 w-4 mr-2" /> },
+    { name: "By Product & Service", icon: <Cog className="h-4 w-4 mr-2" /> },
+  ];
 
-  const industries = [
+  const solutions = [
+    // By Industry Solutions
     {
-      id: "healthcare",
-      name: "Healthcare",
-      icon: <Building2 className="text-primary text-xl" />,
-      solutions: [
+      id: 1,
+      title: "Healthcare Solutions",
+      category: "By Industry",
+      type: "industry",
+      industry: "Healthcare",
+      icon: <Heart className="text-primary text-xl" />,
+      shortDescription: "AI-powered healthcare solutions for patient care, diagnostics, and compliance.",
+      fullDescription: "Comprehensive healthcare solutions that leverage artificial intelligence to improve patient outcomes, streamline operations, and ensure regulatory compliance. Our healthcare suite includes advanced diagnostic tools, patient management systems, and automated compliance reporting.",
+      features: [
         "AI-powered diagnostics and imaging analysis",
-        "Patient data management and EHR integration", 
+        "Patient data management and EHR integration",
         "Automated compliance and regulatory reporting",
         "Predictive analytics for patient outcomes"
-      ]
+      ],
+      technologies: ["AI/ML", "Computer Vision", "NLP", "Data Analytics"],
+      hasDemo: false,
+      metrics: { "Efficiency Increase": "45%", "Cost Reduction": "30%", "Compliance Rate": "99.2%" }
     },
     {
-      id: "finance",
-      name: "Finance",
+      id: 2,
+      title: "Financial Services Solutions",
+      category: "By Industry",
+      type: "industry",
+      industry: "Finance",
       icon: <DollarSign className="text-primary text-xl" />,
-      solutions: [
+      shortDescription: "Advanced fintech solutions for fraud detection, risk management, and trading.",
+      fullDescription: "Revolutionary financial technology solutions that enhance security, optimize trading strategies, and provide deep customer insights. Our fintech platform combines real-time fraud detection with sophisticated risk assessment tools.",
+      features: [
         "Real-time fraud detection and prevention",
         "Automated risk assessment and reporting",
         "Algorithmic trading and portfolio optimization",
         "Customer behavior analytics and personalization"
-      ]
+      ],
+      technologies: ["Machine Learning", "Real-time Analytics", "Blockchain", "API Integration"],
+      hasDemo: false,
+      metrics: { "Fraud Detection": "99.7%", "Risk Reduction": "40%", "Processing Speed": "2.3s" }
     },
     {
-      id: "manufacturing",
-      name: "Manufacturing",
+      id: 3,
+      title: "Manufacturing Solutions",
+      category: "By Industry", 
+      type: "industry",
+      industry: "Manufacturing",
       icon: <Factory className="text-primary text-xl" />,
-      solutions: [
+      shortDescription: "Smart manufacturing solutions with predictive maintenance and quality control.",
+      fullDescription: "Intelligent manufacturing solutions that revolutionize production efficiency through predictive maintenance, automated quality control, and supply chain optimization. Transform your manufacturing operations with AI-powered insights.",
+      features: [
         "Predictive maintenance and equipment monitoring",
         "Quality control automation with computer vision",
         "Supply chain optimization and demand forecasting",
         "Production workflow automation"
-      ]
+      ],
+      technologies: ["IoT", "Computer Vision", "Predictive Analytics", "Automation"],
+      hasDemo: false,
+      metrics: { "Downtime Reduction": "60%", "Quality Improvement": "85%", "Cost Savings": "25%" }
     },
     {
-      id: "retail",
-      name: "Retail",
+      id: 4,
+      title: "Retail Solutions",
+      category: "By Industry",
+      type: "industry", 
+      industry: "Retail",
       icon: <ShoppingCart className="text-primary text-xl" />,
-      solutions: [
+      shortDescription: "Omnichannel retail solutions for customer analytics and inventory management.",
+      fullDescription: "Comprehensive retail solutions that enhance customer experience through personalized recommendations, optimize inventory management, and implement dynamic pricing strategies for maximum profitability.",
+      features: [
         "Customer analytics and personalized recommendations",
         "Inventory management and demand prediction",
         "Dynamic pricing optimization",
         "Omnichannel customer experience automation"
-      ]
+      ],
+      technologies: ["Customer Analytics", "AI Recommendations", "Inventory Optimization", "Dynamic Pricing"],
+      hasDemo: false,
+      metrics: { "Sales Increase": "35%", "Inventory Optimization": "50%", "Customer Satisfaction": "4.8/5" }
     },
+    // By Product & Service Solutions
     {
-      id: "technology",
-      name: "Technology",
-      icon: <Laptop className="text-primary text-xl" />,
-      solutions: [
-        "DevOps automation and CI/CD optimization",
-        "AI agent development and deployment",
-        "Cloud infrastructure and scaling solutions",
-        "Data pipeline automation and analytics"
-      ]
-    },
-    {
-      id: "education",
-      name: "Education",
-      icon: <GraduationCap className="text-primary text-xl" />,
-      solutions: [
-        "Learning analytics and student performance insights",
-        "Administrative workflow automation",
-        "Personalized learning path recommendations",
-        "Automated grading and assessment tools"
-      ]
-    },
-    {
-      id: "real-estate",
-      name: "Real Estate",
-      icon: <HomeIcon className="text-primary text-xl" />,
-      solutions: [
-        "Property valuation and market analysis",
-        "Automated property management workflows",
-        "Lead generation and customer relationship management",
-        "Market trend prediction and investment insights"
-      ]
-    },
-    {
-      id: "legal",
-      name: "Legal",
-      icon: <Scale className="text-primary text-xl" />,
-      solutions: [
-        "Document automation and contract analysis",
-        "Case management and workflow optimization",
-        "Legal research and precedent discovery",
-        "Compliance monitoring and risk assessment"
-      ]
-    }
-  ];
-
-  const selectedIndustryData = industries.find(industry => industry.id === selectedIndustry) || industries[0];
-  // URL mappings for main solutions
-  const getMainSolutionUrl = (title: string) => {
-    const urlMap: { [key: string]: string } = {
-      "AI & Automation": "/solutions/ai-automation",
-      "Data & Analytics": "/solutions/data-analytics",
-      "Blockchain Solutions": "/solutions/blockchain",
-      "Business Intelligence": "/solutions/business-intelligence",
-      "Computer Vision": "/solutions/computer-vision",
-      "Security & Compliance": "/solutions/security-compliance"
-    };
-    return urlMap[title] || "";
-  };
-
-  // URL mappings for industry solutions
-  const getIndustryUrl = (title: string) => {
-    const urlMap: { [key: string]: string } = {
-      "Healthcare": "/solutions/healthcare",
-      "Financial Services": "/solutions/financial",
-      "Manufacturing": "/solutions/manufacturing",
-      "Retail": "/solutions/retail",
-      "Technology": "/solutions/technology",
-      "Education": "/solutions/education"
-    };
-    return urlMap[title] || "";
-  };
-
-  const mainSolutions = [
-    {
-      icon: <Bot className="text-primary text-xl" />,
+      id: 5,
       title: "AI & Automation",
-      description: "Leverage artificial intelligence and automation to streamline processes, reduce costs, and improve decision-making across your organization.",
+      category: "By Product & Service",
+      type: "product",
+      icon: <Bot className="text-primary text-xl" />,
+      shortDescription: "Intelligent automation solutions powered by advanced AI and machine learning.",
+      fullDescription: "Comprehensive AI and automation platform that transforms business processes through intelligent process automation, machine learning models, and predictive analytics. Streamline operations while reducing costs and improving decision-making.",
       features: [
         "Intelligent Process Automation",
-        "Machine Learning Models", 
+        "Machine Learning Models",
         "Predictive Analytics",
         "Natural Language Processing"
-      ]
+      ],
+      technologies: ["GPT-4", "TensorFlow", "Python", "REST APIs"],
+      hasDemo: true,
+      demoType: "ChatBots",
+      metrics: { "Process Efficiency": "70%", "Error Reduction": "95%", "Cost Savings": "40%" }
     },
     {
-      icon: <BarChart className="text-primary text-xl" />,
-      title: "Generative AI Solutions",
-      description: "Transform raw data into actionable insights with advanced analytics platforms and real-time reporting capabilities.",
-      features: [
-        "Content Generation & Editing",
-        "Image & Video Synthesis",
-        "Code & App Prototyping", 
-        "Personalized Marketing Tools"
-      ]
-    },
-    {
-      icon: <Blocks className="text-primary text-xl" />,
-      title: "Blockchain Solutions",
-      description: "Secure, transparent blockchain applications for supply chain, smart contracts, and decentralized systems.",
-      features: [
-        "Smart Contract Development",
-        "Supply Chain Tracking",
-        "Cryptocurrency Integration",
-        "Decentralized Applications"
-      ]
-    },
-    {
-      icon: <ShieldCheck className="text-primary text-xl" />,
-      title: "Business Intelligence",
-      description: "Intelligent business automation and optimization systems that adapt and learn from your operations.",
-      features: [
-        "Real-time Dashboards",
-        "Workflow Optimization",
-        "Data Analysis Visualization",
-        "Intelligent KPI Analysis",
-        "Advanced Reporting"
-      ]
-    },
-    {
-      icon: <Eye className="text-primary text-xl" />,
+      id: 6,
       title: "Computer Vision",
-      description: "Advanced AI-powered visual recognition and analysis systems that can interpret, analyze, and understand digital images and videos.",
+      category: "By Product & Service",
+      type: "product",
+      icon: <Eye className="text-primary text-xl" />,
+      shortDescription: "Advanced AI-powered visual recognition and analysis systems.",
+      fullDescription: "Cutting-edge computer vision solutions that interpret, analyze, and understand digital images and videos. Perfect for quality control, security monitoring, and automated visual inspection across industries.",
       features: [
         "Image Recognition & Classification",
-        "Object Detection & Tracking",
+        "Object Detection & Tracking", 
         "Facial Recognition Systems",
         "Threat Detection & Security Monitoring"
-      ]
+      ],
+      technologies: ["OpenCV", "TensorFlow", "PyTorch", "YOLO"],
+      hasDemo: true,
+      demoType: "Computer Vision Models",
+      metrics: { "Accuracy": "97.8%", "Processing Speed": "30fps", "Detection Rate": "99.1%" }
     },
     {
-      icon: <ShieldCheck className="text-primary text-xl" />,
+      id: 7,
+      title: "Predictive Analytics",
+      category: "By Product & Service",
+      type: "product",
+      icon: <BarChart className="text-primary text-xl" />,
+      shortDescription: "Data-driven insights and forecasting for strategic business decisions.",
+      fullDescription: "Advanced predictive analytics platform that transforms raw data into actionable business insights. Leverage machine learning algorithms to forecast trends, identify opportunities, and make data-driven strategic decisions.",
+      features: [
+        "Advanced Statistical Modeling",
+        "Machine Learning Predictions",
+        "Real-time Data Processing",
+        "Interactive Dashboards"
+      ],
+      technologies: ["Python", "R", "Apache Spark", "Tableau"],
+      hasDemo: true,
+      demoType: "Predictive Models",
+      metrics: { "Prediction Accuracy": "94.2%", "Processing Time": "1.2s", "Data Points": "10M+" }
+    },
+    {
+      id: 8,
+      title: "Cloud Infrastructure",
+      category: "By Product & Service",
+      type: "product",
+      icon: <Cloud className="text-primary text-xl" />,
+      shortDescription: "Scalable cloud solutions for modern business infrastructure needs.",
+      fullDescription: "Robust cloud infrastructure solutions that provide scalable, secure, and cost-effective computing resources. Deploy, manage, and scale your applications with confidence using our comprehensive cloud platform.",
+      features: [
+        "Auto-scaling Infrastructure",
+        "Load Balancing & CDN",
+        "Database Management",
+        "Security & Compliance"
+      ],
+      technologies: ["AWS", "Docker", "Kubernetes", "Terraform"],
+      hasDemo: false,
+      metrics: { "Uptime": "99.9%", "Scalability": "Auto", "Cost Reduction": "35%" }
+    },
+    {
+      id: 9,
       title: "Security & Compliance",
-      description: "Comprehensive security frameworks and automated compliance monitoring to protect your business and meet regulatory requirements.",
+      category: "By Product & Service",
+      type: "product",
+      icon: <ShieldCheck className="text-primary text-xl" />,
+      shortDescription: "Comprehensive security frameworks and automated compliance monitoring.",
+      fullDescription: "Enterprise-grade security and compliance solutions that protect your business assets and ensure regulatory adherence. Automated monitoring, threat detection, and compliance reporting keep your organization secure.",
       features: [
         "Regulatory Compliance Automation",
-        "Security Policy Management",
+        "Security Policy Management", 
         "Audit Trail & Reporting",
         "Risk Assessment & Mitigation"
-      ]
+      ],
+      technologies: ["Security Frameworks", "Compliance Tools", "Monitoring Systems", "Risk Analytics"],
+      hasDemo: false,
+      metrics: { "Compliance Rate": "99.8%", "Threat Detection": "Real-time", "Risk Reduction": "65%" }
     }
   ];
+  
+  const filteredSolutions = activeFilter === "All" 
+    ? solutions 
+    : solutions.filter(solution => solution.category === activeFilter);
 
-  const industrySolutions = [
-    { icon: <Heart className="text-primary text-3xl" />, title: "Healthcare", description: "Patient management, compliance tracking, and telemedicine solutions." },
-    { icon: <Factory className="text-primary text-3xl" />, title: "Financial Services", description: "Risk management, regulatory compliance, and digital banking platforms." },
-    { icon: <Factory className="text-primary text-3xl" />, title: "Manufacturing", description: "IoT integration, supply chain optimization, and quality management." },
-    { icon: <ShoppingCart className="text-primary text-3xl" />, title: "Retail", description: "Omnichannel experiences, inventory management, and customer analytics." },
-    { icon: <Laptop className="text-primary text-3xl" />, title: "Technology", description: "DevOps acceleration, cloud-native development, and API management." },
-    { icon: <GraduationCap className="text-primary text-3xl" />, title: "Education", description: "Learning management systems, student analytics, and digital classrooms." }
-  ];
+  // Handle deep linking from Home page industry selector
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const industry = urlParams.get('industry');
+    
+    if (industry) {
+      // Find the industry solution by matching the industry ID
+      const industrySolution = solutions.find(solution => 
+        solution.type === 'industry' && 
+        solution.industry?.toLowerCase() === industry.toLowerCase()
+      );
+      
+      if (industrySolution) {
+        // Set filter to By Industry and auto-open the modal
+        setActiveFilter("By Industry");
+        setSelectedSolution(industrySolution);
+        
+        // Clean the URL after opening the modal
+        window.history.replaceState(null, '', '/solutions');
+      }
+    }
+  }, []);
+
+  const handleViewDemo = (demoType: string) => {
+    // Close the modal first
+    setSelectedSolution(null);
+    
+    // Navigate based on demo type
+    switch (demoType) {
+      case "ChatBots":
+        // Open ChatBot demo - could be embedded or external
+        window.open('https://chat.openai.com', '_blank');
+        break;
+      case "Computer Vision Models":
+        // Open Computer Vision demo - could be embedded or external  
+        window.open('https://teachablemachine.withgoogle.com/models/eOXUP2LPq/', '_blank');
+        break;
+      case "Predictive Models":
+        // Open Predictive Analytics demo - could be embedded or external
+        window.open('https://www.kaggle.com/code/dansbecker/your-first-machine-learning-model', '_blank');
+        break;
+      default:
+        // Fallback to get started page
+        window.location.href = '/get-started';
+    }
+  };
 
   return (
-    <div className="pt-16">
-      {/* Industry Solutions Selector Hero */}
-      <section className="py-16 hero-gradient">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div 
-              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
-              data-testid="text-industry-label"
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="pt-20 pb-16 bg-gradient-to-br from-primary/5 via-background to-primary/10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-transparent to-background/60 pointer-events-none"></div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <h1 
+              className="text-4xl md:text-5xl font-bold mb-6 text-foreground"
+              data-testid="text-solutions-hero-title"
             >
-              SOLUTIONS BY INDUSTRY
-            </div>
-            <h2 
-              className="text-2xl md:text-3xl font-bold mb-4 text-white"
-              data-testid="text-industry-title"
+              AI-Powered Solutions for Every Industry
+            </h1>
+            <p 
+              className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8"
+              data-testid="text-solutions-hero-subtitle"
             >
-              Find tailored solutions for your industry
-            </h2>
-            <p className="text-white/80 text-lg max-w-2xl mx-auto">
-              Select your industry to discover how our AI-powered solutions can scale your business operations.
+              Discover comprehensive AI and automation solutions tailored to transform your business operations, drive efficiency, and accelerate growth across all industries.
             </p>
-          </div>
-
-          {/* Industry Selector */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-12">
-            {industries.map((industry) => (
-              <button
-                key={industry.id}
-                onClick={() => setSelectedIndustry(industry.id)}
-                className={`p-4 rounded-xl border-2 transition-all duration-300 ${
-                  selectedIndustry === industry.id
-                    ? 'bg-primary border-primary text-white shadow-lg scale-105'
-                    : 'bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/15 hover:border-white/30'
-                }`}
-                data-testid={`button-industry-${industry.id}`}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90"
+                data-testid="button-explore-solutions"
+                onClick={() => document.getElementById('solutions-grid')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                <div className="flex flex-col items-center space-y-2">
-                  <div 
-                    style={{
-                      color: selectedIndustry === industry.id ? '#020a1c' : 'hsl(24, 100%, 58%)'
-                    }}
-                  >
-                    {industry.icon}
-                  </div>
-                  <span className="text-sm font-medium">{industry.name}</span>
-                </div>
-              </button>
-            ))}
-          </div>
-
-          {/* Selected Industry Solutions */}
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8">
-              <div className="flex items-center mb-6">
-                <div className="text-primary mr-4">
-                  {selectedIndustryData.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-white">
-                  {selectedIndustryData.name} Solutions
-                </h3>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {selectedIndustryData.solutions.map((solution, index) => (
-                  <div 
-                    key={index}
-                    className="flex items-start space-x-3 p-4 bg-white/5 rounded-lg"
-                    data-testid={`solution-${selectedIndustry}-${index}`}
-                  >
-                    <div className="text-primary mt-1">
-                      <BarChart className="h-5 w-5" />
-                    </div>
-                    <span className="text-white/90 text-sm leading-relaxed">
-                      {solution}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="mt-8 text-center">
-                <Button 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
-                  size="lg"
-                  onClick={() => window.location.href = "/contact"}
-                  data-testid="button-get-started-industry"
-                >
-                  Get Started with {selectedIndustryData.name} Solutions
-                </Button>
-              </div>
+                Explore Solutions
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-primary text-primary hover:bg-primary hover:text-white"
+                data-testid="button-get-custom-solution"
+                onClick={() => window.location.href = '/get-started'}
+              >
+                Get Custom Solution
+              </Button>
             </div>
           </div>
         </div>
       </section>
       
-      <section className="pt-20 pb-16 bg-gradient-to-br from-[#ffffffeb] via-[#fff7f0] to-primary/20 relative overflow-hidden">
-        {/* Beautiful gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#ffffffeb] via-transparent to-primary/10 pointer-events-none"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent pointer-events-none"></div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <h1 
-              className="text-4xl md:text-5xl font-bold mb-6 text-[#ff7e29]"
-              data-testid="text-solutions-title"
-            >
-              Our Solutions
-            </h1>
-            <p 
-              className="text-xl text-muted-foreground max-w-3xl mx-auto"
-              data-testid="text-solutions-subtitle"
-            >
-              Comprehensive AI solutions designed to transform your operations and drive sustainable growth.
-            </p>
+      {/* Filter and Solutions Grid Section */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-background" id="solutions-grid">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+            {filters.map((filter) => (
+              <Button
+                key={filter.name}
+                variant={activeFilter === filter.name ? "default" : "outline"}
+                onClick={() => setActiveFilter(filter.name)}
+                className={`flex items-center px-6 py-3 transition-all duration-200 ${
+                  activeFilter === filter.name
+                    ? "bg-primary text-white shadow-lg scale-105"
+                    : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
+                }`}
+                data-testid={`filter-${filter.name.toLowerCase().replace(/\s+/g, "-")}`}
+              >
+                {filter.icon}
+                {filter.name}
+                {filter.name !== "All" && (
+                  <Badge variant="secondary" className="ml-2 text-xs">
+                    {solutions.filter(solution => solution.category === filter.name).length}
+                  </Badge>
+                )}
+              </Button>
+            ))}
           </div>
 
-          {/* Solution Categories */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-20">
-            {mainSolutions.map((solution, index) => (
-              <Link key={index} href={getMainSolutionUrl(solution.title)}>
-                <Card 
-                  id={solution.title.toLowerCase().replace(/\s+&\s+/g, "-").replace(/\s+/g, "-")}
-                  className="p-8 group hover:shadow-[0_0_80px_rgba(255,126,41,0.4)] transition-all duration-500 hover:border-primary/50 hover:-translate-y-1 relative overflow-hidden cursor-pointer"
-                  data-testid={`card-main-solution-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                <CardContent className="p-0 relative z-10">
-                  {/* Glow effect */}
-                  <div className="absolute -inset-6 bg-gradient-to-br from-primary/8 via-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
-                  
-                  <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 bg-primary/10 group-hover:bg-primary/20 rounded-xl flex items-center justify-center mr-4 transition-all duration-300 group-hover:scale-110">
+          {/* Solutions Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredSolutions.map((solution) => (
+              <Card
+                key={solution.id}
+                className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-2 hover:border-primary/50 overflow-hidden"
+                onClick={() => setSelectedSolution(solution)}
+                data-testid={`solution-card-${solution.id}`}
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="flex-shrink-0 mr-4">
                       {solution.icon}
                     </div>
-                    <h2 
-                      className="text-2xl font-bold group-hover:text-[#ff7e29] transition-colors duration-300"
-                      data-testid={`text-solution-title-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
-                    >
-                      {solution.title}
-                    </h2>
+                    <div className="flex-grow">
+                      <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                        {solution.title}
+                      </h3>
+                      <div className="flex gap-2 mt-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {solution.category}
+                        </Badge>
+                        {solution.hasDemo && (
+                          <Badge variant="default" className="text-xs bg-green-500">
+                            Demo Available
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <p 
-                    className="text-muted-foreground group-hover:text-[#ff7e29] mb-6 transition-colors duration-300"
-                    data-testid={`text-solution-description-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
-                  >
-                    {solution.description}
+                  
+                  <p className="text-muted-foreground mb-4 line-clamp-3">
+                    {solution.shortDescription}
                   </p>
-                  <div className="space-y-4">
-                    {solution.features.map((feature, featureIndex) => (
-                      <div 
-                        key={featureIndex} 
-                        className="flex items-center"
-                        data-testid={`feature-${solution.title.toLowerCase().replace(/\s+/g, "-")}-${featureIndex}`}
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {solution.technologies.slice(0, 3).map((tech, index) => (
+                      <Badge key={index} variant="outline" className="text-xs">
+                        {tech}
+                      </Badge>
+                    ))}
+                    {solution.technologies.length > 3 && (
+                      <Badge variant="outline" className="text-xs">
+                        +{solution.technologies.length - 3} more
+                      </Badge>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-primary hover:text-primary-foreground hover:bg-primary"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedSolution(solution);
+                      }}
+                    >
+                      Learn More
+                    </Button>
+                    {solution.hasDemo && (
+                      <Button 
+                        size="sm" 
+                        className="bg-green-500 hover:bg-green-600 text-white"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleViewDemo(solution.demoType);
+                        }}
                       >
-                        <Check className="text-primary mr-3 h-4 w-4" />
-                        <span className="group-hover:text-[#ff7e29] transition-colors duration-300">{feature}</span>
+                        View Demo
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Empty State */}
+          {filteredSolutions.length === 0 && (
+            <div className="text-center py-16">
+              <Filter className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-foreground mb-2">
+                No solutions found
+              </h3>
+              <p className="text-muted-foreground">
+                Try adjusting your filters to see more solutions.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+      
+      {/* Solution Modal */}
+      <Dialog open={!!selectedSolution} onOpenChange={() => setSelectedSolution(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto">
+          {selectedSolution && (
+            <>
+              <DialogTitle className="flex items-center gap-4 text-2xl font-bold mb-2">
+                {selectedSolution.icon}
+                {selectedSolution.title}
+              </DialogTitle>
+              <DialogDescription className="text-lg text-muted-foreground mb-6">
+                {selectedSolution.fullDescription}
+              </DialogDescription>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="text-lg font-semibold mb-4 text-foreground">Key Features</h4>
+                  <ul className="space-y-3">
+                    {selectedSolution.features.map((feature: string, index: number) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                        <span className="text-muted-foreground">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 className="text-lg font-semibold mb-4 text-foreground">Technologies</h4>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {selectedSolution.technologies.map((tech: string, index: number) => (
+                      <Badge key={index} variant="outline">{tech}</Badge>
+                    ))}
+                  </div>
+                  
+                  <h4 className="text-lg font-semibold mb-4 text-foreground">Performance Metrics</h4>
+                  <div className="space-y-3">
+                    {Object.entries(selectedSolution.metrics).map(([key, value]) => (
+                      <div key={key} className="flex justify-between items-center">
+                        <span className="text-muted-foreground">{key}</span>
+                        <span className="font-semibold text-primary">{value}</span>
                       </div>
                     ))}
                   </div>
-                </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-
-          {/* Industry Solutions */}
-          <div className="text-center mb-12">
-            <h2 
-              className="text-3xl md:text-4xl font-bold mb-4 text-[#ff7e29]"
-              data-testid="text-industry-title"
-            >
-              Industry-Specific Solutions
-            </h2>
-            <p 
-              className="text-xl text-muted-foreground"
-              data-testid="text-industry-subtitle"
-            >
-              Tailored solutions for your industry's unique challenges.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {industrySolutions.map((industry, index) => (
-              <Link key={index} href={getIndustryUrl(industry.title)}>
-                <Card 
-                  className="p-6 text-center group hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1 cursor-pointer"
-                  data-testid={`card-industry-${industry.title.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                <CardContent className="p-0">
-                  <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {industry.icon}
-                  </div>
-                  <h3 
-                    className="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300"
-                    data-testid={`text-industry-title-${industry.title.toLowerCase().replace(/\s+/g, "-")}`}
-                  >
-                    {industry.title}
-                  </h3>
-                  <p 
-                    className="text-muted-foreground"
-                    data-testid={`text-industry-description-${industry.title.toLowerCase().replace(/\s+/g, "-")}`}
-                  >
-                    {industry.description}
-                  </p>
-                </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+                </div>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-6 border-t">
+                {selectedSolution.hasDemo ? (
+                  <>
+                    <Button 
+                      size="lg" 
+                      className="flex-1 bg-green-500 hover:bg-green-600 text-white"
+                      onClick={() => handleViewDemo(selectedSolution.demoType)}
+                    >
+                      View {selectedSolution.demoType} Demo
+                    </Button>
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="flex-1 border-primary text-primary hover:bg-primary hover:text-white" 
+                      onClick={() => window.location.href = '/get-started'}
+                    >
+                      Request Custom Demo
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button 
+                      size="lg" 
+                      className="flex-1 bg-primary hover:bg-primary/90" 
+                      onClick={() => window.location.href = '/get-started'}
+                    >
+                      Request Demo
+                    </Button>
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="flex-1 border-primary text-primary hover:bg-primary hover:text-white" 
+                      onClick={() => window.location.href = '/contact'}
+                    >
+                      Contact Sales
+                    </Button>
+                  </>
+                )}
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

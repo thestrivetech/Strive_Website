@@ -5,6 +5,7 @@ import SolutionCard from "@/components/ui/solution-card";
 import ResourceCard from "@/components/ui/resource-card";
 import ROICalculator from "@/components/ui/roi-calculator";
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 
 const Home = () => {
   const handleGetStarted = () => {
@@ -90,6 +91,77 @@ const Home = () => {
       />
       {/* ROI Calculator */}
       <ROICalculator />
+      
+      {/* Industry Solutions Selector - Moved from Solutions Page */}
+      <section className="py-16 hero-gradient">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div 
+              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
+              data-testid="text-industry-label"
+            >
+              SOLUTIONS BY INDUSTRY
+            </div>
+            <h2 
+              className="text-2xl md:text-3xl font-bold mb-4 text-white"
+              data-testid="text-industry-title"
+            >
+              Find tailored solutions for your industry
+            </h2>
+            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+              Select your industry to discover how our AI-powered solutions can scale your business operations.
+            </p>
+          </div>
+
+          {/* Industry Selector */}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-12">
+            {[
+              { id: "healthcare", name: "Healthcare", icon: "🏥" },
+              { id: "finance", name: "Finance", icon: "💰" },
+              { id: "manufacturing", name: "Manufacturing", icon: "🏭" },
+              { id: "retail", name: "Retail", icon: "🛒" },
+              { id: "technology", name: "Technology", icon: "💻" },
+              { id: "education", name: "Education", icon: "🎓" },
+              { id: "real-estate", name: "Real Estate", icon: "🏠" },
+              { id: "legal", name: "Legal", icon: "⚖️" }
+            ].map((industry) => (
+              <Link
+                key={industry.id}
+                href={`/solutions?industry=${industry.id}`}
+                className="p-4 rounded-xl border-2 bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/15 hover:border-white/30 transition-all duration-300 hover:scale-105 text-center"
+                data-testid={`button-industry-${industry.id}`}
+              >
+                <div className="flex flex-col items-center space-y-2">
+                  <div className="text-2xl">{industry.icon}</div>
+                  <span className="text-sm font-medium">{industry.name}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center">
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold text-white mb-4">
+                Ready to Transform Your Industry?
+              </h3>
+              <p className="text-white/80 mb-6">
+                Explore our comprehensive solutions designed specifically for your business sector.
+              </p>
+              <Link href="/solutions">
+                <Button 
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+                  size="lg"
+                  data-testid="button-explore-solutions"
+                >
+                  Explore All Solutions
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {/* Integrated Platform Section */}
       <section className="py-12 sm:py-16 md:py-24 bg-[#ffffffeb] text-[#f8fafc]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
