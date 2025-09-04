@@ -9,7 +9,7 @@ This document outlines all necessary updates to transform the Strive website fro
 - Maybe add perplexity AI browser as an API somewhere on the website to display the power of AI search? - Definitely use perplexity as a "researcher" in the resources page automation system that will be built.
 - Fix ratios to work correctly for all screen sizes. Example: The demo presentation in the home hero section looks perfect in it's current layout but on other peoples screen it looks way too big and there's not enough empty space at the top and bottom of the demo presenation section (they have to scroll to see the entire demo preview section) - Make sure that mobile is configured to a different layout since the screen will be too small for how the current computer layout is configured (only change the mobile view/layout though and not the entire layout of the website, keep the layout but change the mobile layout if necessary)
 - Fix header 1 on Home hero section to fit better on all displays (looks cramped right now since we switched the wording)
-- Move "Solutions by Industry" to be the hero section on the "Solutions" page & Change badges in this section to where the Icons turn a different color when the user clicks on them instead of staying orange which currently blends together.
+- Change badges in the "Solutions" hero section section to where the Icons turn a different color when the user clicks on them instead of staying orange which currently blends together, use the dark blue that is used on the rest of the site.
 - (DONE) Change icons for dropdown menus (Use lucid Icons that correspond with the subject or industry)
 - Change brain icon on portfolio page to brain-circuit logo (both are lucid-react icons)
 - Add "Services" and service ligo to solutions page and maybe the portfolio page
@@ -19,6 +19,7 @@ This document outlines all necessary updates to transform the Strive website fro
 - Remove the extra "X" on the portfolio cards when they expand when clicked on
 - Important: Add AI security subject to Blogs and Case study to address concerns about AI (emphasize it being a tool). Make sure this is featured on the Resources page and maybe even the home page?
 - Let's get creative with the "About Us" page and get it up to par with the rest of the web pages since it's lacking in design. Be creative and update the look of the about us page to fit the other pages. Then... Since we don't have past clients, add a "Our Vision" timeline infographic to the "about us" (or the home page if the "Why Us" section doesn't fit the hype of a home page) page showing your startup's roadmap (created in Figma, exported as SVG). For standout: Embed a 3D model (using Three.js) of a abstract "solution ecosystem" that rotates on scroll.
+- Make sure that nav bar works consistently on all pages. Use the functionality that exists on the home page and match the other ones to it. The nav bar should be transparent/translucent until it reaches the end of the hero section and then it changes to the gradient color of the hero section.
 ## Phase 1: Critical Navigation & Brand Implementation
 
 ### 1.1 Login Authentication System
