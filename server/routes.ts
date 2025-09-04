@@ -118,51 +118,72 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      // Create user with Supabase Auth
-      const { data, error } = await supabase.auth.signUp({
-        email: validatedData.email,
-        password: validatedData.password,
-        options: {
-          data: {
-            username: validatedData.username,
-          }
-        }
-      });
-
-      if (error) {
-        console.error('Supabase signup error:', error);
-        res.status(400).json({ 
-          success: false, 
-          message: error.message || "Failed to create account" 
-        });
-        return;
-      }
-
-      if (!data.user) {
-        res.status(400).json({ 
-          success: false, 
-          message: "Failed to create user" 
-        });
-        return;
-      }
-
-      // Store user info in our database for username lookup
+      // Hash password
       const hashedPassword = await bcrypt.hash(validatedData.password, 12);
-      const user = await storage.createUser({
-        ...validatedData,
-        password: hashedPassword, // Keep local backup for username lookup
-      });
       
-      res.json({ 
-        success: true, 
-        message: "Account created successfully! Please check your email for verification.",
-        user: { 
-          id: data.user.id, 
-          username: validatedData.username,
+      if (supabase) {
+        // Create user with Supabase Auth
+        const { data, error } = await supabase.auth.signUp({
           email: validatedData.email,
-          emailVerified: data.user.email_confirmed_at ? "true" : "false"
+          password: validatedData.password,
+          options: {
+            data: {
+              username: validatedData.username,
+            }
+          }
+        });
+
+        if (error) {
+          console.error('Supabase signup error:', error);
+          res.status(400).json({ 
+            success: false, 
+            message: error.message || "Failed to create account" 
+          });
+          return;
         }
-      });
+
+        if (!data.user) {
+          res.status(400).json({ 
+            success: false, 
+            message: "Failed to create user" 
+          });
+          return;
+        }
+
+        // Store user info in our database for username lookup
+        const user = await storage.createUser({
+          ...validatedData,
+          password: hashedPassword,
+        });
+        
+        res.json({ 
+          success: true, 
+          message: "Account created successfully! Please check your email for verification.",
+          user: { 
+            id: data.user.id, 
+            username: validatedData.username,
+            email: validatedData.email,
+            emailVerified: data.user.email_confirmed_at ? "true" : "false"
+          }
+        });
+      } else {
+        // Use local database only
+        const user = await storage.createUser({
+          ...validatedData,
+          password: hashedPassword,
+        });
+        
+        res.json({ 
+          success: true, 
+          message: "Account created successfully!",
+          user: { 
+            id: user.id, 
+            username: user.username,
+            email: user.email,
+            emailVerified: "true" // Local accounts are auto-verified
+          }
+        });
+      }
     } catch (error) {
       console.error('Signup error:', error);
       if (error instanceof z.ZodError) {
@@ -203,40 +224,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      // Authenticate with Supabase using email
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: user.email,
-        password: password,
-      });
-
-      if (error || !data.user) {
-        console.error('Supabase login error:', error);
-        res.status(401).json({ 
-          success: false, 
-          message: "Invalid credentials" 
+      if (supabase) {
+        // Authenticate with Supabase using email
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: user.email,
+          password: password,
         });
-        return;
-      }
 
-      // Generate JWT token for client
-      const token = generateToken({
-        id: data.user.id,
-        email: data.user.email || '',
-        username: user.username
-      });
-      
-      res.json({ 
-        success: true, 
-        message: "Login successful",
-        user: { 
-          id: data.user.id, 
-          username: user.username, 
-          email: data.user.email,
-          emailVerified: data.user.email_confirmed_at ? "true" : "false"
-        },
-        token: token,
-        session: data.session
-      });
+        if (error || !data.user) {
+          console.error('Supabase login error:', error);
+          res.status(401).json({ 
+            success: false, 
+            message: "Invalid credentials" 
+          });
+          return;
+        }
+
+        // Generate JWT token for client
+        const token = generateToken({
+          id: data.user.id,
+          email: data.user.email || '',
+          username: user.username
+        });
+        
+        res.json({ 
+          success: true, 
+          message: "Login successful",
+          user: { 
+            id: data.user.id, 
+            username: user.username, 
+            email: data.user.email,
+            emailVerified: data.user.email_confirmed_at ? "true" : "false"
+          },
+          token: token,
+          session: data.session
+        });
+      } else {
+        // Use local authentication with bcrypt
+        const isValidPassword = await bcrypt.compare(password, user.password);
+        if (!isValidPassword) {
+          res.status(401).json({ 
+            success: false, 
+            message: "Invalid credentials" 
+          });
+          return;
+        }
+
+        // Generate JWT token for client
+        const token = generateToken({
+          id: user.id,
+          email: user.email,
+          username: user.username
+        });
+        
+        res.json({ 
+          success: true, 
+          message: "Login successful",
+          user: { 
+            id: user.id, 
+            username: user.username, 
+            email: user.email,
+            emailVerified: user.emailVerified
+          },
+          token: token
+        });
+      }
     } catch (error) {
       console.error('Login error:', error);
       res.status(500).json({ 
@@ -289,11 +341,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Logout user
   app.post("/api/auth/logout", authenticateToken, async (req: AuthenticatedRequest, res) => {
     try {
-      // Sign out from Supabase
-      const { error } = await supabase.auth.signOut();
-      
-      if (error) {
-        console.error('Supabase logout error:', error);
+      if (supabase) {
+        // Sign out from Supabase
+        const { error } = await supabase.auth.signOut();
+        
+        if (error) {
+          console.error('Supabase logout error:', error);
+        }
       }
 
       res.json({ 

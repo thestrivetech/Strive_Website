@@ -55,7 +55,7 @@ export const securityHeaders = helmet({
       objectSrc: ["'none'"],
       baseUri: ["'self'"],
       formAction: ["'self'"],
-      upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : undefined
+      ...(process.env.NODE_ENV === 'production' ? { upgradeInsecureRequests: [] } : {})
     },
   },
   // Additional security headers
