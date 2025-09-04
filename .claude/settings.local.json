@@ -80,7 +80,9 @@
       "Read(//home/runner/**)",
       "Bash(command:*)",
       "Bash(pip3 install:*)",
-      "Bash(echo $NODE_ENV)"
+      "Bash(echo $NODE_ENV)",
+      "Bash(echo \"REPL_ID: $REPL_ID\")",
+      "Bash(echo:*)"
     ],
     "deny": []
   },
