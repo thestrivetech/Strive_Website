@@ -76,26 +76,24 @@ const Navigation = () => {
   ];
 
   const portfolioPrototypes = [
-    { name: "Mobile Banking App", path: "/portfolio#banking-prototype", icon: <CreditCard className="h-5 w-5 text-primary" /> },
-    { name: "Healthcare Portal", path: "/portfolio#healthcare-prototype", icon: <Stethoscope className="h-5 w-5 text-primary" /> },
-    { name: "Smart Home IoT", path: "/portfolio#iot-prototype", icon: <Cpu className="h-5 w-5 text-primary" /> },
-    { name: "Manufacturing Dashboard", path: "/portfolio#manufacturing-prototype", icon: <Factory className="h-5 w-5 text-primary" /> },
+    { name: "Smart Business Suite", path: "/portfolio#smart-business-prototype", icon: <Building2 className="h-5 w-5 text-primary" /> },
+    { name: "AI Vision System", path: "/portfolio#ai-vision-prototype", icon: <Monitor className="h-5 w-5 text-primary" /> },
+    { name: "Logistics Optimizer", path: "/portfolio#logistics-prototype", icon: <Truck className="h-5 w-5 text-primary" /> },
+    { name: "Energy Management", path: "/portfolio#energy-prototype", icon: <Zap className="h-5 w-5 text-primary" /> },
   ];
 
   const portfolioTemplates = [
-    { name: "SaaS Landing Page", path: "/portfolio#saas-template", icon: <Monitor className="h-5 w-5 text-primary" /> },
-    { name: "Corporate Website", path: "/portfolio#corporate-template", icon: <Building2 className="h-5 w-5 text-primary" /> },
-    { name: "Blog & CMS", path: "/portfolio#blog-template", icon: <BookOpen className="h-5 w-5 text-primary" /> },
-    { name: "E-learning Platform", path: "/portfolio#learning-template", icon: <GraduationCap className="h-5 w-5 text-primary" /> },
+    { name: "CRM Template", path: "/portfolio#crm-template", icon: <Users className="h-5 w-5 text-primary" /> },
+    { name: "Dashboard Template", path: "/portfolio#dashboard-template", icon: <BarChart className="h-5 w-5 text-primary" /> },
+    { name: "E-learning Template", path: "/portfolio#elearning-template", icon: <BookOpen className="h-5 w-5 text-primary" /> },
+    { name: "Finance Template", path: "/portfolio#finance-template", icon: <Calculator className="h-5 w-5 text-primary" /> },
   ];
 
-  const resourceTypes = [
-    { name: "Blog Posts", path: "/resources#blog", icon: <BookOpen className="h-5 w-5 text-primary" /> },
-    { name: "Whitepapers", path: "/resources#whitepapers", icon: <FileText className="h-5 w-5 text-primary" /> },
-    { name: "Case Studies", path: "/resources#case-studies", icon: <BarChart3 className="h-5 w-5 text-primary" /> },
+  const resourcesCategories = [
+    { name: "Case Studies", path: "/resources#case-studies", icon: <FileText className="h-5 w-5 text-primary" /> },
+    { name: "Whitepapers", path: "/resources#whitepapers", icon: <BookOpen className="h-5 w-5 text-primary" /> },
     { name: "Webinars", path: "/resources#webinars", icon: <Video className="h-5 w-5 text-primary" /> },
-    { name: "Guides", path: "/resources#guides", icon: <Map className="h-5 w-5 text-primary" /> },
-    { name: "Tools", path: "/resources#tools", icon: <Settings className="h-5 w-5 text-primary" /> },
+    { name: "Industry Reports", path: "/resources#reports", icon: <BarChart3 className="h-5 w-5 text-primary" /> },
   ];
 
   useEffect(() => {
@@ -123,13 +121,287 @@ const Navigation = () => {
         : 'bg-background/95 backdrop-blur-md border-border'
     }`} style={{ overflow: 'visible' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8" style={{ overflow: 'visible' }}>
-        <div className="flex justify-between items-center h-16" style={{ overflow: 'visible' }}>
+        
+        {/* Mobile Layout */}
+        <div className="md:hidden flex items-center justify-between h-16">
+          {/* Left: Mobile Menu */}
+          <div className="flex items-center">
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-foreground hover:text-primary"
+                  data-testid="button-mobile-menu"
+                >
+                  <Menu className="h-6 w-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[300px] bg-background">
+                <div className="flex flex-col space-y-4 mt-8">
+                  {/* Home */}
+                  <Link
+                    href="/"
+                    className={`text-foreground hover:text-primary transition-colors p-2 ${
+                      isActive("/") ? "text-primary font-medium" : ""
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    data-testid="mobile-nav-home"
+                  >
+                    Home
+                  </Link>
+                  
+                  {/* Solutions Group */}
+                  <div className="space-y-2">
+                    <Link
+                      href="/solutions"
+                      className={`text-foreground hover:text-primary transition-colors p-2 font-medium ${
+                        isActive("/solutions") ? "text-primary font-medium" : ""
+                      }`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      data-testid="mobile-nav-solutions"
+                    >
+                      Solutions
+                    </Link>
+                    <div className="pl-4 space-y-1">
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                        By Industry
+                      </div>
+                      {byIndustry.map((industry) => (
+                        <Link
+                          key={industry.path}
+                          href={industry.path}
+                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
+                          onClick={() => setMobileMenuOpen(false)}
+                          data-testid={`mobile-dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {industry.name}
+                        </Link>
+                      ))}
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mt-3 mb-2">
+                        By Product & Service
+                      </div>
+                      {byProductService.map((service) => (
+                        <Link
+                          key={service.path}
+                          href={service.path}
+                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
+                          onClick={() => setMobileMenuOpen(false)}
+                          data-testid={`mobile-dropdown-${service.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {service.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Portfolio Group */}
+                  <div className="space-y-2">
+                    <Link
+                      href="/portfolio"
+                      className={`text-foreground hover:text-primary transition-colors p-2 font-medium ${
+                        isActive("/portfolio") ? "text-primary font-medium" : ""
+                      }`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      data-testid="mobile-nav-portfolio"
+                    >
+                      Portfolio
+                    </Link>
+                    <div className="pl-4 space-y-1">
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                        Demo's
+                      </div>
+                      {portfolioDemos.map((demo) => (
+                        <Link
+                          key={demo.path}
+                          href={demo.path}
+                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
+                          onClick={() => setMobileMenuOpen(false)}
+                          data-testid={`mobile-dropdown-${demo.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {demo.name}
+                        </Link>
+                      ))}
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mt-3 mb-2">
+                        Prototypes
+                      </div>
+                      {portfolioPrototypes.map((prototype) => (
+                        <Link
+                          key={prototype.path}
+                          href={prototype.path}
+                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
+                          onClick={() => setMobileMenuOpen(false)}
+                          data-testid={`mobile-dropdown-${prototype.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {prototype.name}
+                        </Link>
+                      ))}
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mt-3 mb-2">
+                        Templates
+                      </div>
+                      {portfolioTemplates.map((template) => (
+                        <Link
+                          key={template.path}
+                          href={template.path}
+                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
+                          onClick={() => setMobileMenuOpen(false)}
+                          data-testid={`mobile-dropdown-${template.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {template.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Resources Group */}
+                  <div className="space-y-2">
+                    <Link
+                      href="/resources"
+                      className={`text-foreground hover:text-primary transition-colors p-2 font-medium ${
+                        isActive("/resources") ? "text-primary font-medium" : ""
+                      }`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      data-testid="mobile-nav-resources"
+                    >
+                      Resources
+                    </Link>
+                    <div className="pl-4 space-y-1">
+                      {resourcesCategories.map((category) => (
+                        <Link
+                          key={category.path}
+                          href={category.path}
+                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
+                          onClick={() => setMobileMenuOpen(false)}
+                          data-testid={`mobile-dropdown-${category.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {category.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <Link
+                    href="/about"
+                    className={`text-foreground hover:text-primary transition-colors p-2 ${
+                      isActive("/about") ? "text-primary font-medium" : ""
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    data-testid="mobile-nav-about-us"
+                  >
+                    About Us
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className={`text-foreground hover:text-primary transition-colors p-2 ${
+                      isActive("/contact") ? "text-primary font-medium" : ""
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    data-testid="mobile-nav-contact"
+                  >
+                    Contact
+                  </Link>
+                  <div className="space-y-3 mt-4">
+                    {isAuthenticated ? (
+                      <>
+                        <Link href="/dashboard">
+                          <Button 
+                            variant="ghost"
+                            className="w-full text-foreground hover:text-primary"
+                            data-testid="mobile-button-dashboard"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            <User className="mr-2 h-4 w-4" />
+                            Dashboard
+                          </Button>
+                        </Link>
+                        <Button 
+                          variant="outline"
+                          className="w-full text-foreground hover:text-primary"
+                          onClick={() => {
+                            handleLogout();
+                            setMobileMenuOpen(false);
+                          }}
+                          data-testid="mobile-button-logout"
+                        >
+                          <LogOut className="mr-2 h-4 w-4" />
+                          Logout
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Link href="/login">
+                          <Button 
+                            variant="ghost"
+                            className="w-full text-foreground hover:text-primary"
+                            data-testid="mobile-button-login"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            Login
+                          </Button>
+                        </Link>
+                        <Link href="/get-started">
+                          <Button 
+                            className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                            data-testid="mobile-button-get-started"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            Get Started
+                          </Button>
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+          
+          {/* Center: Logo */}
+          <Link href="/" className="flex items-center absolute left-1/2 transform -translate-x-1/2">
+            <LazyImage 
+              src={logoImage} 
+              alt="Strive" 
+              className="h-14 w-auto max-w-[200px]"
+              loading="eager"
+            />
+          </Link>
+          
+          {/* Right: Login/User Icon */}
+          <div className="flex items-center">
+            {isAuthenticated ? (
+              <Link href="/dashboard">
+                <Button 
+                  variant="ghost"
+                  size="icon"
+                  className="text-foreground hover:text-primary"
+                  data-testid="mobile-button-user-icon"
+                >
+                  <User className="h-6 w-6" />
+                </Button>
+              </Link>
+            ) : (
+              <Link href="/login">
+                <Button 
+                  variant="ghost"
+                  size="sm"
+                  className="text-foreground hover:text-primary text-sm px-3"
+                  data-testid="mobile-button-login-nav"
+                >
+                  Login
+                </Button>
+              </Link>
+            )}
+          </div>
+        </div>
+        
+        {/* Desktop Layout */}
+        <div className="hidden md:flex justify-between items-center h-16" style={{ overflow: 'visible' }}>
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <LazyImage 
               src={logoImage} 
               alt="Strive" 
-              className="h-14 md:h-16 w-auto max-w-[200px] sm:max-w-none"
+              className="h-16 w-auto"
               loading="eager"
             />
           </Link>
@@ -217,29 +489,29 @@ const Navigation = () => {
               </div>
             </div>
 
-            {/* Portfolio with Hover Dropdown */}
+            {/* Portfolio Dropdown with Hover */}
             <div 
               className="relative group"
               onMouseEnter={() => setPortfolioOpen(true)}
               onMouseLeave={() => setPortfolioOpen(false)}
             >
               <Link
-                href="/portfolio"
+                href="/portfolio" 
                 className={`nav-link text-foreground hover:text-primary transition-colors ${
                   isActive("/portfolio") ? "active" : ""
                 }`}
-                data-testid="nav-portfolio"
+                data-testid="nav-portfolio-dropdown"
               >
                 Portfolio
               </Link>
               
-              {/* Hover Dropdown Content - Three Categories */}
-              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[600px] bg-background border border-border rounded-lg shadow-lg transition-all duration-200 z-[200] ${
+              {/* Hover Dropdown Content - Horizontal Three Column Style */}
+              <div className={`absolute top-full left-0 mt-2 w-[900px] bg-background border border-border rounded-lg shadow-lg transition-all duration-200 z-[200] ${
                 portfolioOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               }`}>
                 <div className="p-6">
-                  <div className="grid grid-cols-3 gap-6">
-                    {/* Demos Section */}
+                  <div className="grid grid-cols-3 gap-8">
+                    {/* Demo's Section */}
                     <div>
                       <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4 pl-2">
                         DEMO'S
@@ -250,12 +522,12 @@ const Navigation = () => {
                             key={demo.path}
                             href={demo.path} 
                             className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
-                            data-testid={`portfolio-dropdown-${demo.name.toLowerCase().replace(/\s+/g, "-")}`}
+                            data-testid={`dropdown-${demo.name.toLowerCase().replace(/\s+/g, "-")}`}
                           >
                             <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
                               {demo.icon}
                             </div>
-                            <span className="font-medium text-left leading-tight text-xs">{demo.name}</span>
+                            <span className="font-medium text-left leading-tight">{demo.name}</span>
                           </Link>
                         ))}
                       </div>
@@ -272,12 +544,12 @@ const Navigation = () => {
                             key={prototype.path}
                             href={prototype.path} 
                             className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
-                            data-testid={`portfolio-dropdown-${prototype.name.toLowerCase().replace(/\s+/g, "-")}`}
+                            data-testid={`dropdown-${prototype.name.toLowerCase().replace(/\s+/g, "-")}`}
                           >
                             <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
                               {prototype.icon}
                             </div>
-                            <span className="font-medium text-left leading-tight text-xs">{prototype.name}</span>
+                            <span className="font-medium text-left leading-tight">{prototype.name}</span>
                           </Link>
                         ))}
                       </div>
@@ -294,12 +566,12 @@ const Navigation = () => {
                             key={template.path}
                             href={template.path} 
                             className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
-                            data-testid={`portfolio-dropdown-${template.name.toLowerCase().replace(/\s+/g, "-")}`}
+                            data-testid={`dropdown-${template.name.toLowerCase().replace(/\s+/g, "-")}`}
                           >
                             <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
                               {template.icon}
                             </div>
-                            <span className="font-medium text-left leading-tight text-xs">{template.name}</span>
+                            <span className="font-medium text-left leading-tight">{template.name}</span>
                           </Link>
                         ))}
                       </div>
@@ -309,51 +581,53 @@ const Navigation = () => {
               </div>
             </div>
 
-            {/* Resources with Hover Dropdown */}
+            {/* Resources Dropdown with Hover */}
             <div 
               className="relative group"
               onMouseEnter={() => setResourcesOpen(true)}
               onMouseLeave={() => setResourcesOpen(false)}
             >
               <Link
-                href="/resources"
+                href="/resources" 
                 className={`nav-link text-foreground hover:text-primary transition-colors ${
                   isActive("/resources") ? "active" : ""
                 }`}
-                data-testid="nav-resources"
+                data-testid="nav-resources-dropdown"
               >
                 Resources
               </Link>
               
-              {/* Hover Dropdown Content - 2 Columns */}
-              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-background border border-border rounded-md shadow-lg transition-all duration-200 z-[200] ${
+              {/* Hover Dropdown Content - Simple Single Column */}
+              <div className={`absolute top-full left-0 mt-2 w-[280px] bg-background border border-border rounded-lg shadow-lg transition-all duration-200 z-[200] ${
                 resourcesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               }`}>
-                <div className="p-6 grid grid-cols-2 gap-4">
-                  {resourceTypes.map((resource) => (
-                    <Link 
-                      key={resource.path}
-                      href={resource.path} 
-                      className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
-                      data-testid={`resources-dropdown-${resource.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    >
-                      <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
-                        {resource.icon}
-                      </div>
-                      <span className="font-medium text-left leading-tight">{resource.name}</span>
-                    </Link>
-                  ))}
+                <div className="p-4">
+                  <div className="space-y-2">
+                    {resourcesCategories.map((category) => (
+                      <Link 
+                        key={category.path}
+                        href={category.path} 
+                        className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
+                        data-testid={`dropdown-${category.name.toLowerCase().replace(/\s+/g, "-")}`}
+                      >
+                        <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
+                          {category.icon}
+                        </div>
+                        <span className="font-medium text-left leading-tight">{category.name}</span>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Remaining Nav Items */}
+            {/* Other Navigation Items */}
             <Link
               href="/about"
               className={`nav-link text-foreground hover:text-primary transition-colors ${
                 isActive("/about") ? "active" : ""
               }`}
-              data-testid="nav-about-us"
+              data-testid="nav-about"
             >
               About Us
             </Link>
@@ -368,8 +642,8 @@ const Navigation = () => {
             </Link>
           </div>
 
-          {/* CTA and Authentication Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
+          {/* Desktop Auth Section */}
+          <div className="hidden md:flex items-center space-x-4">
             {isAuthenticated ? (
               <>
                 <Link href="/dashboard">
@@ -413,239 +687,6 @@ const Navigation = () => {
                 </Link>
               </>
             )}
-          </div>
-
-          {/* Mobile Menu */}
-          <div className="md:hidden">
-            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-foreground hover:text-primary"
-                  data-testid="button-mobile-menu"
-                >
-                  <Menu className="h-6 w-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] bg-background">
-                <div className="flex flex-col space-y-4 mt-8">
-                  {/* Home */}
-                  <Link
-                    href="/"
-                    className={`text-foreground hover:text-primary transition-colors p-2 ${
-                      isActive("/") ? "text-primary font-medium" : ""
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                    data-testid="mobile-nav-home"
-                  >
-                    Home
-                  </Link>
-                  
-                  {/* Solutions Group */}
-                  <div className="space-y-2">
-                    <Link
-                      href="/solutions"
-                      className={`text-foreground hover:text-primary transition-colors p-2 font-medium ${
-                        isActive("/solutions") ? "text-primary font-medium" : ""
-                      }`}
-                      onClick={() => setMobileMenuOpen(false)}
-                      data-testid="mobile-nav-solutions"
-                    >
-                      Solutions
-                    </Link>
-                    <div className="pl-4 space-y-1">
-                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-                        By Industry
-                      </div>
-                      {byIndustry.map((industry) => (
-                        <Link
-                          key={industry.path}
-                          href={industry.path}
-                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
-                          onClick={() => setMobileMenuOpen(false)}
-                          data-testid={`mobile-dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        >
-                          {industry.name}
-                        </Link>
-                      ))}
-                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mt-3 mb-2">
-                        By Product & Service
-                      </div>
-                      {byProductService.map((service) => (
-                        <Link
-                          key={service.path}
-                          href={service.path}
-                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
-                          onClick={() => setMobileMenuOpen(false)}
-                          data-testid={`mobile-dropdown-${service.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        >
-                          {service.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Portfolio Group */}
-                  <div className="space-y-2">
-                    <Link
-                      href="/portfolio"
-                      className={`text-foreground hover:text-primary transition-colors p-2 font-medium ${
-                        isActive("/portfolio") ? "text-primary font-medium" : ""
-                      }`}
-                      onClick={() => setMobileMenuOpen(false)}
-                      data-testid="mobile-nav-portfolio"
-                    >
-                      Portfolio
-                    </Link>
-                    <div className="pl-4 space-y-1">
-                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-                        Demo's
-                      </div>
-                      {portfolioDemos.map((demo) => (
-                        <Link
-                          key={demo.path}
-                          href={demo.path}
-                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
-                          onClick={() => setMobileMenuOpen(false)}
-                          data-testid={`mobile-portfolio-${demo.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        >
-                          {demo.name}
-                        </Link>
-                      ))}
-                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mt-3 mb-2">
-                        Prototypes
-                      </div>
-                      {portfolioPrototypes.map((prototype) => (
-                        <Link
-                          key={prototype.path}
-                          href={prototype.path}
-                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
-                          onClick={() => setMobileMenuOpen(false)}
-                          data-testid={`mobile-portfolio-${prototype.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        >
-                          {prototype.name}
-                        </Link>
-                      ))}
-                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mt-3 mb-2">
-                        Templates
-                      </div>
-                      {portfolioTemplates.map((template) => (
-                        <Link
-                          key={template.path}
-                          href={template.path}
-                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
-                          onClick={() => setMobileMenuOpen(false)}
-                          data-testid={`mobile-portfolio-${template.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        >
-                          {template.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Resources Group */}
-                  <div className="space-y-2">
-                    <Link
-                      href="/resources"
-                      className={`text-foreground hover:text-primary transition-colors p-2 font-medium ${
-                        isActive("/resources") ? "text-primary font-medium" : ""
-                      }`}
-                      onClick={() => setMobileMenuOpen(false)}
-                      data-testid="mobile-nav-resources"
-                    >
-                      Resources
-                    </Link>
-                    <div className="pl-4 space-y-1">
-                      {resourceTypes.map((resource) => (
-                        <Link
-                          key={resource.path}
-                          href={resource.path}
-                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
-                          onClick={() => setMobileMenuOpen(false)}
-                          data-testid={`mobile-resources-${resource.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        >
-                          {resource.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Remaining Nav Items */}
-                  <Link
-                    href="/about"
-                    className={`text-foreground hover:text-primary transition-colors p-2 ${
-                      isActive("/about") ? "text-primary font-medium" : ""
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                    data-testid="mobile-nav-about-us"
-                  >
-                    About Us
-                  </Link>
-                  <Link
-                    href="/contact"
-                    className={`text-foreground hover:text-primary transition-colors p-2 ${
-                      isActive("/contact") ? "text-primary font-medium" : ""
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                    data-testid="mobile-nav-contact"
-                  >
-                    Contact
-                  </Link>
-                  <div className="space-y-3 mt-4">
-                    {isAuthenticated ? (
-                      <>
-                        <Link href="/dashboard">
-                          <Button 
-                            variant="ghost"
-                            className="w-full text-foreground hover:text-primary"
-                            data-testid="mobile-button-dashboard"
-                            onClick={() => setMobileMenuOpen(false)}
-                          >
-                            <User className="mr-2 h-4 w-4" />
-                            Dashboard
-                          </Button>
-                        </Link>
-                        <Button 
-                          variant="outline"
-                          className="w-full text-foreground hover:text-primary"
-                          onClick={() => {
-                            handleLogout();
-                            setMobileMenuOpen(false);
-                          }}
-                          data-testid="mobile-button-logout"
-                        >
-                          <LogOut className="mr-2 h-4 w-4" />
-                          Logout
-                        </Button>
-                      </>
-                    ) : (
-                      <>
-                        <Link href="/login">
-                          <Button 
-                            variant="ghost"
-                            className="w-full text-foreground hover:text-primary"
-                            data-testid="mobile-button-login"
-                            onClick={() => setMobileMenuOpen(false)}
-                          >
-                            Login
-                          </Button>
-                        </Link>
-                        <Link href="/get-started">
-                          <Button 
-                            className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-                            data-testid="mobile-button-get-started"
-                            onClick={() => setMobileMenuOpen(false)}
-                          >
-                            Get Started
-                          </Button>
-                        </Link>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </SheetContent>
-            </Sheet>
           </div>
         </div>
       </div>
