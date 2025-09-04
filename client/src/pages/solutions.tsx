@@ -294,7 +294,8 @@ const Solutions = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                className="bg-primary hover:bg-primary/90"
+                variant="outline"
+                className="border-[#020a1c] text-white hover:bg-[#020a1c]/20"
                 data-testid="button-explore-solutions"
                 onClick={() => document.getElementById('solutions-grid')?.scrollIntoView({ behavior: 'smooth' })}
               >
@@ -303,7 +304,7 @@ const Solutions = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10"
+                className="border-orange-500 text-white hover:bg-orange-500/20"
                 data-testid="button-get-custom-solution"
                 onClick={() => window.location.href = '/get-started'}
               >
