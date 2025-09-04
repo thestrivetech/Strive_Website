@@ -239,6 +239,17 @@ const ROICalculator = () => {
                     ))}
                   </div>
                 </div>
+                
+                {/* Schedule Discovery Call Button */}
+                <div className="pt-4 border-t border-border">
+                  <button 
+                    onClick={() => window.location.href = "/get-started"}
+                    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200"
+                    data-testid="button-schedule-discovery-call"
+                  >
+                    Schedule Discovery Call
+                  </button>
+                </div>
               </CardContent>
             </Card>
 
@@ -257,16 +268,9 @@ const ROICalculator = () => {
                     <div className="text-2xl font-bold text-green-500" data-testid="text-total-roi">
                       {formatCurrency(calculatedROI)}
                     </div>
-                    <div className="text-sm text-muted-foreground mb-3">
+                    <div className="text-sm text-muted-foreground">
                       Total ROI
                     </div>
-                    <button 
-                      onClick={() => window.location.href = "/get-started"}
-                      className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 text-sm"
-                      data-testid="button-schedule-discovery-call"
-                    >
-                      Schedule Discovery Call
-                    </button>
                   </div>
 
                   <div className="text-center p-4 hero-gradient roi-badge rounded-lg border border-white/20">
