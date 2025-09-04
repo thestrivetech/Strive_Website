@@ -178,8 +178,8 @@ const ROICalculator = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
             {/* Calculator Controls */}
-            <Card className="p-4 md:p-6">
-              <CardContent className="space-y-6 p-0">
+            <Card className="p-4 md:p-6 flex flex-col">
+              <CardContent className="space-y-6 p-0 flex-grow">
                 <div>
                   <label className="text-sm font-medium mb-3 block">
                     Select Your Industry
@@ -239,13 +239,13 @@ const ROICalculator = () => {
                     ))}
                   </div>
                 </div>
-                
               </CardContent>
-              {/* Schedule Discovery Call Button */}
-              <div className="p-4 border-t border-border mt-auto">
+              
+              {/* Schedule Discovery Call Button - Bottom aligned */}
+              <div className="pt-4 mt-auto">
                 <button 
                   onClick={() => window.location.href = "/get-started"}
-                  className="w-full hero-gradient text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30 hover:scale-105"
+                  className="w-full hero-gradient text-white font-semibold py-3 px-6 rounded-lg border-2 border-orange-500 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30 hover:scale-105 hover:border-orange-400"
                   data-testid="button-schedule-discovery-call"
                 >
                   Schedule Discovery Call
