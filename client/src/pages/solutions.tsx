@@ -241,7 +241,11 @@ const Solutions = () => {
                 data-testid={`button-industry-${industry.id}`}
               >
                 <div className="flex flex-col items-center space-y-2">
-                  <div className={selectedIndustry === industry.id ? 'text-[#0f172a] !important' : 'text-[hsl(24,100%,58%)] !important'}>
+                  <div 
+                    style={{
+                      color: selectedIndustry === industry.id ? '#020a1c' : 'hsl(24, 100%, 58%)'
+                    }}
+                  >
                     {industry.icon}
                   </div>
                   <span className="text-sm font-medium">{industry.name}</span>
