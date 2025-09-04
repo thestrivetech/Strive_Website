@@ -294,8 +294,7 @@ const Solutions = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                variant="outline"
-                className="border-[#020a1c] text-white hover:bg-[#020a1c]/20"
+                className="bg-primary hover:bg-primary/90 border-2 border-[#020a1c]"
                 data-testid="button-explore-solutions"
                 onClick={() => document.getElementById('solutions-grid')?.scrollIntoView({ behavior: 'smooth' })}
               >
@@ -356,14 +355,11 @@ const Solutions = () => {
               </PopoverTrigger>
               <PopoverContent className="w-64 p-0" align="start">
                 <Command>
-                  <div className="flex items-center border-b px-3">
-                    <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
-                    <CommandInput 
-                      placeholder="Search industries..." 
-                      value={industrySearch}
-                      onValueChange={setIndustrySearch}
-                    />
-                  </div>
+                  <CommandInput 
+                    placeholder="Search industries..." 
+                    value={industrySearch}
+                    onValueChange={setIndustrySearch}
+                  />
                   <CommandList>
                     <CommandEmpty>No industries found.</CommandEmpty>
                     <CommandGroup>
@@ -414,14 +410,11 @@ const Solutions = () => {
               </PopoverTrigger>
               <PopoverContent className="w-64 p-0" align="start">
                 <Command>
-                  <div className="flex items-center border-b px-3">
-                    <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
-                    <CommandInput 
-                      placeholder="Search solutions..." 
-                      value={productSearch}
-                      onValueChange={setProductSearch}
-                    />
-                  </div>
+                  <CommandInput 
+                    placeholder="Search solutions..." 
+                    value={productSearch}
+                    onValueChange={setProductSearch}
+                  />
                   <CommandList>
                     <CommandEmpty>No products or services found.</CommandEmpty>
                     <CommandGroup>
