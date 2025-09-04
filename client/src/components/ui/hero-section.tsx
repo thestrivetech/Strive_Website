@@ -97,7 +97,11 @@ const HeroSection = ({
             <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
               <Button
                 onClick={onPrimaryClick}
-                className="w-full sm:w-auto bg-primary text-primary-foreground px-6 lg:px-8 py-3 lg:py-4 text-sm sm:text-base lg:text-lg hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all min-h-[48px]"
+                className="w-full sm:w-auto bg-primary text-primary-foreground px-6 lg:px-8 py-3 lg:py-4 text-sm sm:text-base lg:text-lg min-h-[48px] relative overflow-hidden group 
+                  hover:bg-primary/90 hover:scale-102 hover:shadow-xl hover:shadow-primary/30 
+                  active:scale-98
+                  shadow-lg transition-all duration-200 ease-out
+                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                 size="lg"
                 data-testid="button-hero-primary"
               >

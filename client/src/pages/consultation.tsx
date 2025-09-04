@@ -1,0 +1,309 @@
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CheckCircle, ArrowRight, Calendar, Clock, Phone, Video, MapPin, Users, Building, Target, Lightbulb, AlertCircle } from "lucide-react";
+
+const Consultation = () => {
+  const [step, setStep] = useState(1);
+  const [contactData, setContactData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    company: "",
+    phone: "",
+    communicationMethod: "google-meet"
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleInputChange = (field: string, value: string) => {
+    setContactData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmitContact = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Contact info submitted:", contactData);
+    setIsSubmitted(true);
+    setStep(2);
+  };
+
+  const isContactValid = () => {
+    return contactData.firstName && 
+           contactData.lastName && 
+           contactData.email && 
+           contactData.company && 
+           contactData.phone;
+  };
+
+  const communicationMethods = [
+    { id: "google-meet", name: "Google Meet", icon: <Video className="w-4 h-4" /> },
+    { id: "zoom", name: "Zoom", icon: <Video className="w-4 h-4" /> },
+    { id: "phone", name: "Phone Call", icon: <Phone className="w-4 h-4" /> },
+    { id: "in-person", name: "In-Person Meeting", icon: <MapPin className="w-4 h-4" /> }
+  ];
+
+  const renderStep = () => {
+    if (step === 1) {
+      return (
+        <div className="space-y-6">
+          <div className="text-center mb-8">
+            <Users className="w-16 h-16 text-primary mx-auto mb-4" />
+            <h2 className="text-2xl font-bold mb-2" data-testid="step-title">
+              Contact Information
+            </h2>
+            <p className="text-muted-foreground">
+              Tell us about yourself and your business needs
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium mb-2">First Name *</label>
+              <Input
+                type="text"
+                placeholder="John"
+                value={contactData.firstName}
+                onChange={(e) => handleInputChange('firstName', e.target.value)}
+                data-testid="input-first-name"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium mb-2">Last Name *</label>
+              <Input
+                type="text"
+                placeholder="Doe"
+                value={contactData.lastName}
+                onChange={(e) => handleInputChange('lastName', e.target.value)}
+                data-testid="input-last-name"
+              />
+            </div>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium mb-2">Business Email *</label>
+            <Input
+              type="email"
+              placeholder="john@company.com"
+              value={contactData.email}
+              onChange={(e) => handleInputChange('email', e.target.value)}
+              data-testid="input-email"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium mb-2">Company Name *</label>
+            <Input
+              type="text"
+              placeholder="Your Company"
+              value={contactData.company}
+              onChange={(e) => handleInputChange('company', e.target.value)}
+              data-testid="input-company"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium mb-2">Phone Number *</label>
+            <Input
+              type="tel"
+              placeholder="+1 (555) 123-4567"
+              value={contactData.phone}
+              onChange={(e) => handleInputChange('phone', e.target.value)}
+              data-testid="input-phone"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium mb-2">Preferred Communication Method</label>
+            <Select value={contactData.communicationMethod} onValueChange={(value) => handleInputChange('communicationMethod', value)}>
+              <SelectTrigger data-testid="select-communication-method">
+                <SelectValue placeholder="Select method" />
+              </SelectTrigger>
+              <SelectContent>
+                {communicationMethods.map((method) => (
+                  <SelectItem key={method.id} value={method.id}>
+                    <div className="flex items-center gap-2">
+                      {method.icon}
+                      {method.name}
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="space-y-6">
+        <div className="text-center mb-8">
+          <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-2" data-testid="step-title">
+            Contact Information Received!
+          </h2>
+          <p className="text-muted-foreground">
+            Now let's schedule your consultation
+          </p>
+        </div>
+        
+        {/* Calendly Embed */}
+        <div className="bg-card rounded-lg border">
+          <CardHeader>
+            <CardTitle className="text-center flex items-center justify-center gap-2">
+              <Calendar className="w-6 h-6 text-primary" />
+              Schedule Your Consultation
+            </CardTitle>
+            <p className="text-center text-muted-foreground">
+              Choose a convenient time for your 30-minute consultation
+            </p>
+          </CardHeader>
+          <CardContent>
+            {/* Calendly iframe placeholder */}
+            <div className="w-full h-96 bg-muted rounded-lg flex items-center justify-center border-2 border-dashed border-muted-foreground/20">
+              <div className="text-center space-y-4">
+                <Calendar className="w-12 h-12 text-primary mx-auto" />
+                <div>
+                  <h4 className="font-semibold">Calendly Integration</h4>
+                  <p className="text-sm text-muted-foreground max-w-md">
+                    Interactive calendar will be embedded here for meeting scheduling
+                  </p>
+                </div>
+                <div className="space-y-2 text-xs text-muted-foreground">
+                  <p>Communication Method: <span className="font-medium text-foreground">
+                    {communicationMethods.find(m => m.id === contactData.communicationMethod)?.name}
+                  </span></p>
+                  <p>Contact: <span className="font-medium text-foreground">{contactData.firstName} {contactData.lastName}</span></p>
+                  <p>Email: <span className="font-medium text-foreground">{contactData.email}</span></p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Meeting Details */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-center">
+              <div className="flex items-center justify-center space-x-2">
+                <Clock className="w-4 h-4 text-primary" />
+                <span className="text-sm">30 minutes</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <Users className="w-4 h-4 text-primary" />
+                <span className="text-sm">1-on-1 Session</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <Target className="w-4 h-4 text-primary" />
+                <span className="text-sm">Tailored Solutions</span>
+              </div>
+            </div>
+          </CardContent>
+        </div>
+        
+        {/* Next Steps Info */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <div className="flex items-start space-x-3">
+            <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <h4 className="font-semibold text-blue-900">Email Confirmations</h4>
+              <p className="text-sm text-blue-700 mt-1">
+                You'll receive email confirmations immediately after booking, plus reminders 24 hours and 1 hour before your meeting.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="pt-16 min-h-screen bg-gradient-to-br from-background to-background/80">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-2xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6" data-testid="consultation-title">
+              Schedule Your <span className="gradient-text">Consultation</span>
+            </h1>
+            <p className="text-xl text-muted-foreground">
+              Let's discuss how AI can transform your business. Book a free 30-minute consultation with our experts.
+            </p>
+          </div>
+
+          {/* Progress Indicator */}
+          <div className="mb-8">
+            <div className="flex items-center justify-center space-x-4 mb-4">
+              {[1, 2].map((stepNum) => (
+                <div
+                  key={stepNum}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
+                    stepNum <= step
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-muted-foreground'
+                  }`}
+                  data-testid={`step-indicator-${stepNum}`}
+                >
+                  {stepNum}
+                </div>
+              ))}
+            </div>
+            <div className="text-center text-sm text-muted-foreground">
+              Step {step} of 2: {step === 1 ? "Contact Information" : "Schedule Meeting"}
+            </div>
+          </div>
+
+          {/* Form Card */}
+          <Card className="bg-card border-border">
+            <CardContent className="p-8">
+              {step === 1 ? (
+                <form onSubmit={handleSubmitContact}>
+                  {renderStep()}
+                  
+                  {/* Submit Button */}
+                  <div className="flex justify-end pt-8">
+                    <Button
+                      type="submit"
+                      disabled={!isContactValid()}
+                      className="bg-primary text-primary-foreground hover:bg-primary/90 px-8"
+                      data-testid="button-proceed-to-scheduling"
+                    >
+                      Proceed to Scheduling
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </form>
+              ) : (
+                renderStep()
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Benefits Section */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="text-center p-6 rounded-lg bg-card/50 border">
+              <Lightbulb className="w-8 h-8 text-primary mx-auto mb-3" />
+              <h3 className="font-semibold mb-2">Expert Insights</h3>
+              <p className="text-sm text-muted-foreground">
+                Get personalized recommendations from our AI specialists
+              </p>
+            </div>
+            <div className="text-center p-6 rounded-lg bg-card/50 border">
+              <Target className="w-8 h-8 text-primary mx-auto mb-3" />
+              <h3 className="font-semibold mb-2">Tailored Solutions</h3>
+              <p className="text-sm text-muted-foreground">
+                Solutions designed specifically for your industry and needs
+              </p>
+            </div>
+            <div className="text-center p-6 rounded-lg bg-card/50 border">
+              <Building className="w-8 h-8 text-primary mx-auto mb-3" />
+              <h3 className="font-semibold mb-2">Implementation Roadmap</h3>
+              <p className="text-sm text-muted-foreground">
+                Clear next steps and timeline for your AI transformation
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Consultation;
