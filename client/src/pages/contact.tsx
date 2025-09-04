@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { MapPin, Phone, Mail, Clock, Calendar, Download, MessageCircle, ChevronDown, ChevronUp, Users } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Calendar, Download, MessageCircle, ChevronDown, ChevronUp, Users, Eye, FileText } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -22,6 +23,7 @@ const Contact = () => {
   });
   
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
 
   const contactInfo = [
     {
@@ -48,7 +50,7 @@ const Contact = () => {
 
   const quickActions = [
     { icon: <Calendar className="mr-2" />, text: "Request a Demo", action: "demo" },
-    { icon: <Download className="mr-2" />, text: "Download Brochure", action: "brochure" },
+    { icon: <Eye className="mr-2" />, text: "View Brochure", action: "brochure" },
     { icon: <MessageCircle className="mr-2" />, text: "Live Chat Support", action: "chat" }
   ];
 
@@ -108,12 +110,27 @@ const Contact = () => {
         toast({ title: "Demo scheduled!", description: "A calendar invite will be sent to your email." });
         break;
       case "brochure":
-        toast({ title: "Brochure downloading...", description: "Your download will start shortly." });
+        setIsBrochureModalOpen(true);
         break;
       case "chat":
         toast({ title: "Chat opening...", description: "Connecting you with our support team." });
         break;
     }
+  };
+
+  const handleDownloadBrochure = () => {
+    // Create a mock PDF download
+    const link = document.createElement('a');
+    link.href = 'data:application/pdf;base64,';
+    link.download = 'Strive-Business-Solutions-Brochure.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    toast({ 
+      title: "Brochure Downloaded!", 
+      description: "The Strive brochure has been downloaded to your device." 
+    });
   };
 
   const toggleFaq = (index: number) => {
@@ -393,6 +410,121 @@ const Contact = () => {
           </div>
         </div>
       </section>
+
+      {/* Brochure Modal */}
+      <Dialog open={isBrochureModalOpen} onOpenChange={setIsBrochureModalOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+              <FileText className="w-6 h-6 text-primary" />
+              Strive Business Solutions Brochure
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-8 py-6">
+            {/* Brochure Header */}
+            <div className="text-center space-y-4">
+              <div className="w-20 h-20 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center mx-auto">
+                <span className="text-3xl font-bold text-white">S</span>
+              </div>
+              <h2 className="text-3xl font-bold gradient-text">Strive</h2>
+              <p className="text-xl text-muted-foreground">Transforming Business Through AI Innovation</p>
+            </div>
+
+            {/* About Section */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">About Strive</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Strive is a leading provider of AI-powered business solutions, helping organizations across industries 
+                transform their operations, improve efficiency, and drive growth. Our comprehensive suite of services 
+                includes AI automation, data analytics, cloud infrastructure, and security compliance solutions.
+              </p>
+            </div>
+
+            {/* Services Grid */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">Our Solutions</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="border rounded-lg p-4 space-y-2">
+                  <h4 className="font-semibold text-primary">AI & Automation</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Intelligent process automation, machine learning models, and predictive analytics platforms.
+                  </p>
+                </div>
+                <div className="border rounded-lg p-4 space-y-2">
+                  <h4 className="font-semibold text-primary">Data Analytics</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Real-time dashboards, business intelligence platforms, and advanced data visualization.
+                  </p>
+                </div>
+                <div className="border rounded-lg p-4 space-y-2">
+                  <h4 className="font-semibold text-primary">Cloud Infrastructure</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Scalable cloud solutions, DevOps automation, and modern application architecture.
+                  </p>
+                </div>
+                <div className="border rounded-lg p-4 space-y-2">
+                  <h4 className="font-semibold text-primary">Security & Compliance</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Enterprise security, compliance monitoring, and data protection solutions.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Industries */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">Industries We Serve</h3>
+              <div className="flex flex-wrap gap-2">
+                {['Healthcare', 'Financial Services', 'Manufacturing', 'Retail', 'Technology', 'Education', 'Real Estate', 'Legal'].map((industry) => (
+                  <span key={industry} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                    {industry}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Contact Info */}
+            <div className="border-t pt-6 space-y-4">
+              <h3 className="text-xl font-semibold">Get Started Today</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-primary" />
+                    <span>+1 (555) 123-4567</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-primary" />
+                    <span>hello@strive.com</span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <span>123 Business District, Tech City, TC 12345</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-primary" />
+                    <span>Mon-Fri: 9:00 AM - 6:00 PM PST</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Download Button */}
+            <div className="flex justify-center pt-6 border-t">
+              <Button 
+                onClick={handleDownloadBrochure}
+                className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 text-white px-8 py-3 text-lg"
+                data-testid="button-download-brochure"
+              >
+                <Download className="w-5 h-5 mr-2" />
+                Download PDF Brochure
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
