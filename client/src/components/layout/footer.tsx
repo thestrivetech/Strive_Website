@@ -10,8 +10,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1 lg:col-span-2">
-            <div className="text-2xl font-bold mb-4 text-[#fa7f0c]" data-testid="footer-logo">
-              Strive
+            <div className="text-2xl font-bold mb-4 text-[#fa7f0c] logo-font" data-testid="footer-logo">
+              STRIVE
             </div>
             <p className="text-white/80 mb-6 max-w-md">
               Empowering businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.
@@ -137,7 +137,7 @@ const Footer = () => {
 
         <div className="border-t border-white/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-sm text-white/60 mb-4 md:mb-0" data-testid="text-copyright">
-            © {currentYear} Strive. All rights reserved.
+            © {currentYear} STRIVE. All rights reserved.
           </div>
           <div className="flex space-x-6 text-sm">
             <Link 
