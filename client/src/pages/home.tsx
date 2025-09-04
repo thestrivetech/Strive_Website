@@ -227,16 +227,6 @@ const Home = () => {
                   </Card>
                 ))}
               </div>
-              <div className="text-center mt-8">
-                <Link href="/solutions">
-                  <Button 
-                    className="bg-primary hover:bg-primary/90 text-white px-6 py-2"
-                    data-testid="button-view-all-solutions"
-                  >
-                    View All Solutions
-                  </Button>
-                </Link>
-              </div>
             </div>
           )}
 
