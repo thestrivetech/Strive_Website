@@ -72,32 +72,32 @@ const HeroSection = ({
   };
 
   return (
-    <section className="hero-gradient min-h-screen flex items-center relative">
+    <section className="hero-gradient min-h-screen flex items-center relative py-8 lg:py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-[90vh]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[70vh] lg:min-h-[90vh]">
           {/* Left Content */}
-          <div className="space-y-8 slide-in-left">
-            <div className="space-y-6">
+          <div className="space-y-6 lg:space-y-8 slide-in-left">
+            <div className="space-y-4 lg:space-y-6">
               
               <h1 
-                className="text-5xl md:text-7xl font-bold leading-tight"
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
                 data-testid="hero-title"
               >
                 Custom <span className="gradient-text">AI Solutions</span> Built for Real World Performance
               </h1>
               
               <p 
-                className="text-xl md:text-2xl text-muted-foreground leading-relaxed"
+                className="text-lg sm:text-xl lg:text-2xl text-muted-foreground leading-relaxed"
                 data-testid="hero-subtitle"
               >
                 {subtitle}
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
               <Button
                 onClick={onPrimaryClick}
-                className="bg-primary text-primary-foreground px-8 py-4 text-lg hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
+                className="bg-primary text-primary-foreground px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
                 size="lg"
                 data-testid="button-hero-primary"
               >
@@ -106,7 +106,7 @@ const HeroSection = ({
               <Button
                 onClick={onSecondaryClick}
                 variant="outline"
-                className="border-2 border-primary text-primary px-8 py-4 text-lg hover:bg-primary hover:text-primary-foreground transition-all"
+                className="border-2 border-primary text-primary px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg hover:bg-primary hover:text-primary-foreground transition-all"
                 size="lg"
                 data-testid="button-hero-secondary"
               >
@@ -132,32 +132,32 @@ const HeroSection = ({
           </div>
 
           {/* Right Demo Video */}
-          <div className="space-y-8 slide-in-right relative">
-            {/* Left Arrow */}
+          <div className="space-y-4 lg:space-y-8 slide-in-right relative mt-8 lg:mt-0">
+            {/* Left Arrow - Hidden on mobile */}
             <button
               onClick={goToPreviousDemo}
-              className="absolute left-[-60px] top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30 hover:scale-110"
+              className="hidden lg:block absolute left-[-60px] top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30 hover:scale-110"
               data-testid="button-demo-prev"
             >
               <ChevronLeft className="w-6 h-6 text-primary" />
             </button>
             
-            {/* Right Arrow */}
+            {/* Right Arrow - Hidden on mobile */}
             <button
               onClick={goToNextDemo}
-              className="absolute right-[-60px] top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30 hover:scale-110"
+              className="hidden lg:block absolute right-[-60px] top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30 hover:scale-110"
               data-testid="button-demo-next"
             >
               <ChevronRight className="w-6 h-6 text-primary" />
             </button>
             
-            <div className="demo-video-container">
+            <div className="demo-video-container max-w-md lg:max-w-none mx-auto lg:mx-0">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img 
                   src={demoVideos[currentDemo].thumbnail}
                   alt={demoVideos[currentDemo].title}
                   className="w-full object-cover transform scale-105 hover:scale-100 transition-transform duration-500"
-                  style={{ aspectRatio: '16/22' }}
+                  style={{ aspectRatio: '16/28' }}
                   data-testid="demo-thumbnail"
                 />
                 
@@ -165,28 +165,28 @@ const HeroSection = ({
                 <div className="absolute top-0 left-0 right-0 bottom-[10px] bg-black/30 flex items-center justify-center group">
                   <button
                     onClick={togglePlayback}
-                    className="w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 hover:bg-primary/90"
+                    className="w-16 h-16 lg:w-20 lg:h-20 bg-primary rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 hover:bg-primary/90"
                     data-testid="button-demo-play"
                   >
                     {isPlaying ? (
-                      <Pause className="text-primary-foreground w-6 h-6" />
+                      <Pause className="text-primary-foreground w-5 h-5 lg:w-6 lg:h-6" />
                     ) : (
-                      <Play className="text-primary-foreground w-8 h-8 ml-1" />
+                      <Play className="text-primary-foreground w-6 h-6 lg:w-8 lg:h-8 ml-1" />
                     )}
                   </button>
                 </div>
 
                 {/* Video Info Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-8">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4 lg:p-8">
                   <div className="text-white">
                     <h3 
-                      className="text-lg font-semibold mb-1"
+                      className="text-base lg:text-lg font-semibold mb-1"
                       data-testid="demo-title"
                     >
                       {demoVideos[currentDemo].title}
                     </h3>
                     <p 
-                      className="text-sm text-gray-300 mb-2"
+                      className="text-xs lg:text-sm text-gray-300 mb-2"
                       data-testid="demo-description"
                     >
                       {demoVideos[currentDemo].description}
@@ -214,7 +214,31 @@ const HeroSection = ({
               </div>
             </div>
 
-            <div className="text-center">
+            {/* Mobile Navigation Controls */}
+            <div className="flex lg:hidden items-center justify-center space-x-4 mt-4">
+              <button
+                onClick={goToPreviousDemo}
+                className="w-10 h-10 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30"
+                data-testid="button-demo-prev-mobile"
+              >
+                <ChevronLeft className="w-5 h-5 text-primary" />
+              </button>
+              <div className="text-center flex-1">
+                <p className="text-xs text-muted-foreground">
+                  Rotating demo • Auto-plays every 6 seconds
+                </p>
+              </div>
+              <button
+                onClick={goToNextDemo}
+                className="w-10 h-10 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30"
+                data-testid="button-demo-next-mobile"
+              >
+                <ChevronRight className="w-5 h-5 text-primary" />
+              </button>
+            </div>
+
+            {/* Desktop text */}
+            <div className="hidden lg:block text-center">
               <p className="text-sm text-muted-foreground">
                 Rotating demo • Auto-plays every 6 seconds
               </p>
