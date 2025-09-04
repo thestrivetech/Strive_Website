@@ -79,8 +79,8 @@ const Resources = () => {
 
   return (
     <div className="pt-16">
-      {/* Dark Hero Section */}
-      <section className="bg-slate-900 text-white py-20 relative overflow-hidden">
+      {/* Hero Section with Gradient Background */}
+      <section className="hero-gradient text-white py-20 relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div 
@@ -94,7 +94,7 @@ const Resources = () => {
               className="text-4xl md:text-6xl font-bold mb-6"
               data-testid="text-hero-title"
             >
-              Business <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">Intelligence</span> Hub
+              Business <span className="gradient-text">Intelligence</span> Hub
             </h1>
             <p 
               className="text-xl text-slate-300 max-w-3xl mx-auto"
@@ -134,14 +134,14 @@ const Resources = () => {
         </div>
       </section>
 
-      {/* Resource Library Section */}
-      <section className="py-16 bg-background">
+      {/* Resource Library Section - White Background */}
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4" data-testid="text-library-title">
-              Explore Our <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">Resource Library</span>
+            <h2 className="text-4xl font-bold mb-4 text-slate-800" data-testid="text-library-title">
+              Explore Our <span className="gradient-text">Resource Library</span>
             </h2>
-            <p className="text-muted-foreground text-lg" data-testid="text-library-subtitle">
+            <p className="text-slate-600 text-lg" data-testid="text-library-subtitle">
               Filter and discover the perfect resources for your business journey.
             </p>
           </div>
@@ -155,7 +155,7 @@ const Resources = () => {
                 className={`rounded-full flex items-center ${
                   activeFilter === filter.name 
                     ? "bg-orange-500 text-white hover:bg-orange-600" 
-                    : "bg-background text-foreground hover:bg-orange-500 hover:text-white border-border"
+                    : "bg-white text-slate-600 hover:bg-orange-500 hover:text-white border-slate-200"
                 }`}
                 onClick={() => setActiveFilter(filter.name)}
                 data-testid={`filter-${filter.name.toLowerCase().replace(/\s+/g, "-")}`}
@@ -167,7 +167,7 @@ const Resources = () => {
           </div>
 
           {/* Featured Resource */}
-          <div className="bg-white rounded-2xl overflow-hidden mb-16 shadow-lg">
+          <div className="bg-white rounded-2xl overflow-hidden mb-16 shadow-lg border border-slate-100">
             <div className="md:flex">
               <div className="md:w-1/2">
                 <div className="relative">
@@ -281,7 +281,7 @@ const Resources = () => {
               className="text-3xl md:text-4xl font-bold mb-4 text-slate-800"
               data-testid="text-newsletter-title"
             >
-              Stay Ahead of the <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">Curve</span>
+              Stay Ahead of the <span className="gradient-text">Curve</span>
             </h2>
             <p 
               className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto"
