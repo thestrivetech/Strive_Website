@@ -67,13 +67,25 @@ const Navigation = () => {
     { name: "Business Intelligence", path: "/solutions/business-intelligence", icon: <Target className="h-5 w-5 text-primary" /> },
   ];
 
-  const portfolioCategories = [
-    { name: "AI Models", path: "/portfolio#ai-models", icon: <Brain className="h-5 w-5 text-primary" /> },
-    { name: "Custom Software", path: "/portfolio#custom-software", icon: <Code className="h-5 w-5 text-primary" /> },
-    { name: "Blockchain", path: "/portfolio#blockchain", icon: <Link2 className="h-5 w-5 text-primary" /> },
-    { name: "Web Design", path: "/portfolio#web-design", icon: <Monitor className="h-5 w-5 text-primary" /> },
-    { name: "UI/UX Design", path: "/portfolio#ui-ux", icon: <Palette className="h-5 w-5 text-primary" /> },
-    { name: "Prototypes", path: "/portfolio#prototypes", icon: <Wrench className="h-5 w-5 text-primary" /> },
+  const portfolioDemos = [
+    { name: "AI Chat Assistant", path: "/portfolio#ai-chat-demo", icon: <Brain className="h-5 w-5 text-primary" /> },
+    { name: "E-commerce Platform", path: "/portfolio#ecommerce-demo", icon: <ShoppingCart className="h-5 w-5 text-primary" /> },
+    { name: "Data Visualization", path: "/portfolio#data-viz-demo", icon: <BarChart3 className="h-5 w-5 text-primary" /> },
+    { name: "Real-time Analytics", path: "/portfolio#analytics-demo", icon: <BarChart className="h-5 w-5 text-primary" /> },
+  ];
+
+  const portfolioPrototypes = [
+    { name: "Mobile Banking App", path: "/portfolio#banking-prototype", icon: <CreditCard className="h-5 w-5 text-primary" /> },
+    { name: "Healthcare Portal", path: "/portfolio#healthcare-prototype", icon: <Stethoscope className="h-5 w-5 text-primary" /> },
+    { name: "Smart Home IoT", path: "/portfolio#iot-prototype", icon: <Cpu className="h-5 w-5 text-primary" /> },
+    { name: "Manufacturing Dashboard", path: "/portfolio#manufacturing-prototype", icon: <Factory className="h-5 w-5 text-primary" /> },
+  ];
+
+  const portfolioTemplates = [
+    { name: "SaaS Landing Page", path: "/portfolio#saas-template", icon: <Monitor className="h-5 w-5 text-primary" /> },
+    { name: "Corporate Website", path: "/portfolio#corporate-template", icon: <Building2 className="h-5 w-5 text-primary" /> },
+    { name: "Blog & CMS", path: "/portfolio#blog-template", icon: <BookOpen className="h-5 w-5 text-primary" /> },
+    { name: "E-learning Platform", path: "/portfolio#learning-template", icon: <GraduationCap className="h-5 w-5 text-primary" /> },
   ];
 
   const resourceTypes = [
@@ -150,52 +162,54 @@ const Navigation = () => {
                 Solutions
               </Link>
               
-              {/* Hover Dropdown Content - Motive Style with Sections */}
-              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[500px] bg-background border border-border rounded-lg shadow-lg transition-all duration-200 z-[200] ${
+              {/* Hover Dropdown Content - Horizontal Motive Style */}
+              <div className={`absolute top-full left-0 mt-2 w-[700px] bg-background border border-border rounded-lg shadow-lg transition-all duration-200 z-[200] ${
                 solutionsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               }`}>
                 <div className="p-6">
-                  {/* By Industry Section */}
-                  <div className="mb-6">
-                    <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4 pl-2">
-                      BY INDUSTRY
-                    </h3>
-                    <div className="grid grid-cols-2 gap-3">
-                      {byIndustry.map((industry) => (
-                        <Link 
-                          key={industry.path}
-                          href={industry.path} 
-                          className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
-                          data-testid={`dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        >
-                          <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
-                            {industry.icon}
-                          </div>
-                          <span className="font-medium text-left leading-tight">{industry.name}</span>
-                        </Link>
-                      ))}
+                  <div className="grid grid-cols-2 gap-8">
+                    {/* By Industry Section */}
+                    <div>
+                      <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4 pl-2">
+                        BY INDUSTRY
+                      </h3>
+                      <div className="space-y-2">
+                        {byIndustry.map((industry) => (
+                          <Link 
+                            key={industry.path}
+                            href={industry.path} 
+                            className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
+                            data-testid={`dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
+                          >
+                            <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
+                              {industry.icon}
+                            </div>
+                            <span className="font-medium text-left leading-tight">{industry.name}</span>
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* By Product & Service Section */}
-                  <div>
-                    <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4 pl-2">
-                      BY PRODUCT & SERVICE
-                    </h3>
-                    <div className="grid grid-cols-2 gap-3">
-                      {byProductService.map((service) => (
-                        <Link 
-                          key={service.path}
-                          href={service.path} 
-                          className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
-                          data-testid={`dropdown-${service.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        >
-                          <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
-                            {service.icon}
-                          </div>
-                          <span className="font-medium text-left leading-tight">{service.name}</span>
-                        </Link>
-                      ))}
+                    {/* By Product & Service Section */}
+                    <div>
+                      <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4 pl-2">
+                        BY PRODUCT & SERVICE
+                      </h3>
+                      <div className="space-y-2">
+                        {byProductService.map((service) => (
+                          <Link 
+                            key={service.path}
+                            href={service.path} 
+                            className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
+                            data-testid={`dropdown-${service.name.toLowerCase().replace(/\s+/g, "-")}`}
+                          >
+                            <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
+                              {service.icon}
+                            </div>
+                            <span className="font-medium text-left leading-tight">{service.name}</span>
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -218,24 +232,78 @@ const Navigation = () => {
                 Portfolio
               </Link>
               
-              {/* Hover Dropdown Content - 2 Columns */}
-              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-background border border-border rounded-md shadow-lg transition-all duration-200 z-[200] ${
+              {/* Hover Dropdown Content - Three Categories */}
+              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[600px] bg-background border border-border rounded-lg shadow-lg transition-all duration-200 z-[200] ${
                 portfolioOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               }`}>
-                <div className="p-6 grid grid-cols-2 gap-4">
-                  {portfolioCategories.map((category) => (
-                    <Link 
-                      key={category.path}
-                      href={category.path} 
-                      className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
-                      data-testid={`portfolio-dropdown-${category.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    >
-                      <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
-                        {category.icon}
+                <div className="p-6">
+                  <div className="grid grid-cols-3 gap-6">
+                    {/* Demos Section */}
+                    <div>
+                      <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4 pl-2">
+                        DEMO'S
+                      </h3>
+                      <div className="space-y-2">
+                        {portfolioDemos.map((demo) => (
+                          <Link 
+                            key={demo.path}
+                            href={demo.path} 
+                            className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
+                            data-testid={`portfolio-dropdown-${demo.name.toLowerCase().replace(/\s+/g, "-")}`}
+                          >
+                            <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
+                              {demo.icon}
+                            </div>
+                            <span className="font-medium text-left leading-tight text-xs">{demo.name}</span>
+                          </Link>
+                        ))}
                       </div>
-                      <span className="font-medium text-left leading-tight">{category.name}</span>
-                    </Link>
-                  ))}
+                    </div>
+
+                    {/* Prototypes Section */}
+                    <div>
+                      <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4 pl-2">
+                        PROTOTYPES
+                      </h3>
+                      <div className="space-y-2">
+                        {portfolioPrototypes.map((prototype) => (
+                          <Link 
+                            key={prototype.path}
+                            href={prototype.path} 
+                            className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
+                            data-testid={`portfolio-dropdown-${prototype.name.toLowerCase().replace(/\s+/g, "-")}`}
+                          >
+                            <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
+                              {prototype.icon}
+                            </div>
+                            <span className="font-medium text-left leading-tight text-xs">{prototype.name}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Templates Section */}
+                    <div>
+                      <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4 pl-2">
+                        TEMPLATES
+                      </h3>
+                      <div className="space-y-2">
+                        {portfolioTemplates.map((template) => (
+                          <Link 
+                            key={template.path}
+                            href={template.path} 
+                            className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
+                            data-testid={`portfolio-dropdown-${template.name.toLowerCase().replace(/\s+/g, "-")}`}
+                          >
+                            <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
+                              {template.icon}
+                            </div>
+                            <span className="font-medium text-left leading-tight text-xs">{template.name}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -430,15 +498,46 @@ const Navigation = () => {
                       Portfolio
                     </Link>
                     <div className="pl-4 space-y-1">
-                      {portfolioCategories.map((category) => (
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                        Demo's
+                      </div>
+                      {portfolioDemos.map((demo) => (
                         <Link
-                          key={category.path}
-                          href={category.path}
+                          key={demo.path}
+                          href={demo.path}
                           className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
                           onClick={() => setMobileMenuOpen(false)}
-                          data-testid={`mobile-portfolio-${category.name.toLowerCase().replace(/\s+/g, "-")}`}
+                          data-testid={`mobile-portfolio-${demo.name.toLowerCase().replace(/\s+/g, "-")}`}
                         >
-                          {category.name}
+                          {demo.name}
+                        </Link>
+                      ))}
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mt-3 mb-2">
+                        Prototypes
+                      </div>
+                      {portfolioPrototypes.map((prototype) => (
+                        <Link
+                          key={prototype.path}
+                          href={prototype.path}
+                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
+                          onClick={() => setMobileMenuOpen(false)}
+                          data-testid={`mobile-portfolio-${prototype.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {prototype.name}
+                        </Link>
+                      ))}
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mt-3 mb-2">
+                        Templates
+                      </div>
+                      {portfolioTemplates.map((template) => (
+                        <Link
+                          key={template.path}
+                          href={template.path}
+                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
+                          onClick={() => setMobileMenuOpen(false)}
+                          data-testid={`mobile-portfolio-${template.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {template.name}
                         </Link>
                       ))}
                     </div>
