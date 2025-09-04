@@ -416,7 +416,7 @@ const Solutions = () => {
                   <div className="flex items-center border-b px-3">
                     <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
                     <CommandInput 
-                      placeholder="Search products & services..." 
+                      placeholder="Search solutions..." 
                       value={productSearch}
                       onValueChange={setProductSearch}
                     />
