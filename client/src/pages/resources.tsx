@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Download, FileText, BookOpen, BarChart3, Sparkles, Eye, X, ExternalLink, Clock, User, Calendar } from "lucide-react";
+import { Download, FileText, BookOpen, BarChart3, Sparkles, Eye, X, ExternalLink, Clock, User, Calendar, BrainCircuit, Play, CheckCircle, AlertCircle, Trophy, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -27,15 +27,53 @@ interface Resource {
   };
 }
 
+interface QuizQuestion {
+  id: number;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+}
+
+interface Quiz {
+  id: number;
+  title: string;
+  description: string;
+  topic: string;
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  questions: QuizQuestion[];
+  timeLimit: number; // in minutes
+  passingScore: number; // percentage
+}
+
+interface QuizResult {
+  score: number;
+  totalQuestions: number;
+  correctAnswers: number;
+  timeSpent: number;
+  passed: boolean;
+}
+
 const Resources = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
+  
+  // Quiz state
+  const [selectedQuiz, setSelectedQuiz] = useState<Quiz | null>(null);
+  const [isQuizModalOpen, setIsQuizModalOpen] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [userAnswers, setUserAnswers] = useState<number[]>([]);
+  const [quizStartTime, setQuizStartTime] = useState<number>(0);
+  const [quizResult, setQuizResult] = useState<QuizResult | null>(null);
+  const [showQuizResult, setShowQuizResult] = useState(false);
   
   const filters = [
     { name: "All", icon: null },
     { name: "Blog Posts", icon: <BookOpen className="h-4 w-4 mr-2" /> },
     { name: "Whitepapers", icon: <FileText className="h-4 w-4 mr-2" /> },
     { name: "Case Studies", icon: <BarChart3 className="h-4 w-4 mr-2" /> },
+    { name: "Quizzes", icon: <BrainCircuit className="h-4 w-4 mr-2" /> },
   ];
   
   const featuredResource = {
@@ -220,6 +258,466 @@ const Resources = () => {
     }
   ];
 
+  // Comprehensive AI Knowledge Quizzes
+  const quizzes: Quiz[] = [
+    {
+      id: 1,
+      title: "Machine Learning Fundamentals",
+      description: "Test your understanding of core machine learning concepts, algorithms, and applications.",
+      topic: "Machine Learning",
+      difficulty: "beginner",
+      timeLimit: 15,
+      passingScore: 70,
+      questions: [
+        {
+          id: 1,
+          question: "What is the primary difference between supervised and unsupervised learning?",
+          options: [
+            "Supervised learning uses labeled data, unsupervised learning finds patterns in unlabeled data",
+            "Supervised learning is faster than unsupervised learning",
+            "Supervised learning uses more data than unsupervised learning",
+            "There is no difference between them"
+          ],
+          correctAnswer: 0,
+          explanation: "Supervised learning uses labeled training data to learn mappings from inputs to outputs, while unsupervised learning finds hidden patterns in data without labels.",
+          difficulty: "beginner"
+        },
+        {
+          id: 2,
+          question: "Which algorithm is commonly used for classification tasks?",
+          options: [
+            "Linear Regression",
+            "Random Forest",
+            "K-means Clustering",
+            "Principal Component Analysis"
+          ],
+          correctAnswer: 1,
+          explanation: "Random Forest is a popular ensemble method used for both classification and regression tasks, known for its accuracy and ability to handle overfitting.",
+          difficulty: "beginner"
+        },
+        {
+          id: 3,
+          question: "What does 'overfitting' mean in machine learning?",
+          options: [
+            "The model is too simple",
+            "The model performs well on training data but poorly on new data",
+            "The model trains too quickly",
+            "The model uses too little data"
+          ],
+          correctAnswer: 1,
+          explanation: "Overfitting occurs when a model learns the training data too well, including noise and outliers, resulting in poor generalization to new, unseen data.",
+          difficulty: "beginner"
+        },
+        {
+          id: 4,
+          question: "What is cross-validation used for?",
+          options: [
+            "To increase training speed",
+            "To evaluate model performance and prevent overfitting",
+            "To clean the data",
+            "To visualize results"
+          ],
+          correctAnswer: 1,
+          explanation: "Cross-validation is a technique to assess how well a model will generalize to independent data by partitioning data and testing on different subsets.",
+          difficulty: "intermediate"
+        },
+        {
+          id: 5,
+          question: "Which metric is most appropriate for evaluating a highly imbalanced binary classification problem?",
+          options: [
+            "Accuracy",
+            "F1-Score",
+            "Mean Squared Error",
+            "R-squared"
+          ],
+          correctAnswer: 1,
+          explanation: "F1-Score balances precision and recall, making it ideal for imbalanced datasets where accuracy can be misleading.",
+          difficulty: "intermediate"
+        }
+      ]
+    },
+    {
+      id: 2,
+      title: "RAG: Retrieval-Augmented Generation",
+      description: "Explore RAG architecture, implementation strategies, and real-world applications.",
+      topic: "RAG",
+      difficulty: "intermediate",
+      timeLimit: 20,
+      passingScore: 75,
+      questions: [
+        {
+          id: 1,
+          question: "What is the primary purpose of Retrieval-Augmented Generation (RAG)?",
+          options: [
+            "To make language models faster",
+            "To combine retrieval of relevant information with text generation",
+            "To reduce model size",
+            "To eliminate the need for training data"
+          ],
+          correctAnswer: 1,
+          explanation: "RAG enhances language models by retrieving relevant external information and incorporating it into the generation process, improving accuracy and factual consistency.",
+          difficulty: "beginner"
+        },
+        {
+          id: 2,
+          question: "Which component is NOT typically part of a RAG system?",
+          options: [
+            "Vector database",
+            "Embedding model",
+            "Image classifier",
+            "Language model"
+          ],
+          correctAnswer: 2,
+          explanation: "RAG systems typically include vector databases for storage, embedding models for encoding, and language models for generation. Image classifiers are not standard RAG components.",
+          difficulty: "intermediate"
+        },
+        {
+          id: 3,
+          question: "What is the role of embeddings in RAG systems?",
+          options: [
+            "To compress the data",
+            "To convert text into numerical vectors for similarity search",
+            "To translate languages",
+            "To generate responses"
+          ],
+          correctAnswer: 1,
+          explanation: "Embeddings convert text into high-dimensional vectors that capture semantic meaning, enabling efficient similarity search for relevant document retrieval.",
+          difficulty: "intermediate"
+        },
+        {
+          id: 4,
+          question: "Which challenge is commonly addressed by RAG systems?",
+          options: [
+            "Slow inference speed",
+            "Hallucination in language models",
+            "High computational costs",
+            "Limited vocabulary size"
+          ],
+          correctAnswer: 1,
+          explanation: "RAG helps reduce hallucination by grounding language model responses in retrieved factual information from external knowledge sources.",
+          difficulty: "advanced"
+        },
+        {
+          id: 5,
+          question: "What is chunking in the context of RAG systems?",
+          options: [
+            "Dividing large documents into smaller, manageable pieces",
+            "Combining multiple responses",
+            "Reducing model parameters",
+            "Optimizing database queries"
+          ],
+          correctAnswer: 0,
+          explanation: "Chunking involves breaking down large documents into smaller segments that can be efficiently stored, indexed, and retrieved in RAG systems.",
+          difficulty: "intermediate"
+        }
+      ]
+    },
+    {
+      id: 3,
+      title: "Neural Networks & Deep Learning",
+      description: "Deep dive into neural network architectures, training techniques, and optimization methods.",
+      topic: "Neural Networks",
+      difficulty: "intermediate",
+      timeLimit: 25,
+      passingScore: 70,
+      questions: [
+        {
+          id: 1,
+          question: "What is a perceptron?",
+          options: [
+            "A type of activation function",
+            "The simplest form of artificial neural network",
+            "A deep learning framework",
+            "A data preprocessing technique"
+          ],
+          correctAnswer: 1,
+          explanation: "A perceptron is the fundamental building block of neural networks, consisting of a single neuron that takes inputs, applies weights, and produces an output.",
+          difficulty: "beginner"
+        },
+        {
+          id: 2,
+          question: "What is the vanishing gradient problem?",
+          options: [
+            "When gradients become too large during training",
+            "When gradients become too small to effectively update weights in deep networks",
+            "When the learning rate is too high",
+            "When there's insufficient training data"
+          ],
+          correctAnswer: 1,
+          explanation: "The vanishing gradient problem occurs when gradients become exponentially smaller as they propagate back through deep networks, making it difficult to train early layers.",
+          difficulty: "advanced"
+        },
+        {
+          id: 3,
+          question: "Which activation function helps mitigate the vanishing gradient problem?",
+          options: [
+            "Sigmoid",
+            "Tanh",
+            "ReLU",
+            "Linear"
+          ],
+          correctAnswer: 2,
+          explanation: "ReLU (Rectified Linear Unit) helps address vanishing gradients because it has a constant gradient of 1 for positive inputs, allowing gradients to flow more easily through deep networks.",
+          difficulty: "intermediate"
+        },
+        {
+          id: 4,
+          question: "What is backpropagation?",
+          options: [
+            "A forward pass through the network",
+            "An algorithm for calculating gradients and updating weights",
+            "A type of neural network architecture",
+            "A data augmentation technique"
+          ],
+          correctAnswer: 1,
+          explanation: "Backpropagation is the fundamental algorithm for training neural networks, calculating gradients by propagating errors backward through the network to update weights.",
+          difficulty: "intermediate"
+        },
+        {
+          id: 5,
+          question: "What is the purpose of dropout in neural networks?",
+          options: [
+            "To reduce training time",
+            "To prevent overfitting by randomly disabling neurons during training",
+            "To increase model accuracy",
+            "To reduce memory usage"
+          ],
+          correctAnswer: 1,
+          explanation: "Dropout is a regularization technique that randomly sets some neurons to zero during training, preventing the network from becoming too dependent on specific features.",
+          difficulty: "intermediate"
+        }
+      ]
+    },
+    {
+      id: 4,
+      title: "Natural Language Processing",
+      description: "Master NLP techniques, language models, and text processing methods.",
+      topic: "NLP",
+      difficulty: "intermediate",
+      timeLimit: 20,
+      passingScore: 75,
+      questions: [
+        {
+          id: 1,
+          question: "What is tokenization in NLP?",
+          options: [
+            "Converting text to numbers",
+            "Breaking text into individual words or subwords",
+            "Removing stop words",
+            "Translating between languages"
+          ],
+          correctAnswer: 1,
+          explanation: "Tokenization is the process of breaking down text into smaller units (tokens) such as words, subwords, or characters that can be processed by NLP models.",
+          difficulty: "beginner"
+        },
+        {
+          id: 2,
+          question: "What does TF-IDF stand for?",
+          options: [
+            "Text Frequency - Inverse Document Frequency",
+            "Term Frequency - Inverse Document Frequency",
+            "Token Frequency - Index Document Frequency",
+            "Text Format - Inverse Data Frequency"
+          ],
+          correctAnswer: 1,
+          explanation: "TF-IDF (Term Frequency-Inverse Document Frequency) is a numerical statistic used to reflect how important a word is to a document in a collection of documents.",
+          difficulty: "intermediate"
+        },
+        {
+          id: 3,
+          question: "Which technique is used to handle out-of-vocabulary words in modern NLP?",
+          options: [
+            "Word2Vec",
+            "Byte Pair Encoding (BPE)",
+            "Bag of Words",
+            "N-grams"
+          ],
+          correctAnswer: 1,
+          explanation: "Byte Pair Encoding (BPE) is a subword tokenization method that helps handle out-of-vocabulary words by breaking them into smaller, more frequent subword units.",
+          difficulty: "advanced"
+        },
+        {
+          id: 4,
+          question: "What is the attention mechanism in NLP?",
+          options: [
+            "A way to focus on relevant parts of input when generating output",
+            "A method for preprocessing text",
+            "A type of neural network layer",
+            "A technique for data augmentation"
+          ],
+          correctAnswer: 0,
+          explanation: "Attention mechanisms allow models to dynamically focus on different parts of the input sequence when generating each part of the output, improving performance on long sequences.",
+          difficulty: "advanced"
+        },
+        {
+          id: 5,
+          question: "What is named entity recognition (NER)?",
+          options: [
+            "Identifying the author of a text",
+            "Extracting and classifying named entities like people, places, organizations",
+            "Recognizing the language of a text",
+            "Counting word frequencies"
+          ],
+          correctAnswer: 1,
+          explanation: "Named Entity Recognition (NER) is the task of identifying and classifying named entities in text into predefined categories such as person names, locations, organizations, etc.",
+          difficulty: "intermediate"
+        }
+      ]
+    },
+    {
+      id: 5,
+      title: "AI Model Types & Architectures",
+      description: "Explore different AI model architectures, from transformers to diffusion models.",
+      topic: "Model Types",
+      difficulty: "advanced",
+      timeLimit: 30,
+      passingScore: 80,
+      questions: [
+        {
+          id: 1,
+          question: "What makes the Transformer architecture unique?",
+          options: [
+            "It uses only convolutional layers",
+            "It relies entirely on attention mechanisms without recurrence",
+            "It requires less training data",
+            "It works only with images"
+          ],
+          correctAnswer: 1,
+          explanation: "Transformers revolutionized NLP by using self-attention mechanisms exclusively, eliminating the need for recurrent or convolutional layers and enabling parallel processing.",
+          difficulty: "intermediate"
+        },
+        {
+          id: 2,
+          question: "What is the primary difference between BERT and GPT?",
+          options: [
+            "BERT is bidirectional, GPT is autoregressive",
+            "BERT is faster than GPT",
+            "BERT uses less memory than GPT",
+            "BERT works only with images"
+          ],
+          correctAnswer: 0,
+          explanation: "BERT uses bidirectional encoding to understand context from both directions, while GPT uses autoregressive generation, predicting the next token based on previous tokens.",
+          difficulty: "advanced"
+        },
+        {
+          id: 3,
+          question: "What is transfer learning in the context of large language models?",
+          options: [
+            "Moving models between computers",
+            "Using pre-trained models and fine-tuning them for specific tasks",
+            "Translating between languages",
+            "Converting models to different formats"
+          ],
+          correctAnswer: 1,
+          explanation: "Transfer learning involves taking a pre-trained model and adapting it to new tasks through fine-tuning, leveraging learned representations to improve performance with less data.",
+          difficulty: "intermediate"
+        },
+        {
+          id: 4,
+          question: "What are diffusion models primarily used for?",
+          options: [
+            "Text classification",
+            "Image and video generation",
+            "Speech recognition",
+            "Database optimization"
+          ],
+          correctAnswer: 1,
+          explanation: "Diffusion models are generative models that excel at creating high-quality images and videos by learning to reverse a noise-adding process.",
+          difficulty: "advanced"
+        },
+        {
+          id: 5,
+          question: "What is the purpose of the encoder-decoder architecture?",
+          options: [
+            "To increase model speed",
+            "To map input sequences to output sequences of potentially different lengths",
+            "To reduce memory usage",
+            "To handle only fixed-length inputs"
+          ],
+          correctAnswer: 1,
+          explanation: "Encoder-decoder architectures are designed for sequence-to-sequence tasks, where the encoder processes input and the decoder generates output of potentially different lengths.",
+          difficulty: "advanced"
+        }
+      ]
+    },
+    {
+      id: 6,
+      title: "AI Ethics & Real-World Applications",
+      description: "Understand AI ethics, bias, fairness, and practical business applications.",
+      topic: "AI Ethics",
+      difficulty: "intermediate",
+      timeLimit: 25,
+      passingScore: 75,
+      questions: [
+        {
+          id: 1,
+          question: "What is algorithmic bias?",
+          options: [
+            "When algorithms run slowly",
+            "Systematic and unfair discrimination in algorithmic decision-making",
+            "When algorithms use too much memory",
+            "Random errors in code"
+          ],
+          correctAnswer: 1,
+          explanation: "Algorithmic bias refers to systematic and unfair discrimination that can occur in algorithmic decision-making, often reflecting biases present in training data or design choices.",
+          difficulty: "beginner"
+        },
+        {
+          id: 2,
+          question: "Which principle is fundamental to responsible AI development?",
+          options: [
+            "Maximizing profit",
+            "Transparency and explainability",
+            "Fastest deployment",
+            "Minimum regulation"
+          ],
+          correctAnswer: 1,
+          explanation: "Transparency and explainability are crucial for responsible AI, allowing stakeholders to understand how AI systems make decisions and ensuring accountability.",
+          difficulty: "intermediate"
+        },
+        {
+          id: 3,
+          question: "What is the 'right to explanation' in AI ethics?",
+          options: [
+            "The right to know how AI systems make decisions that affect individuals",
+            "The right to appeal AI decisions",
+            "The right to opt out of AI systems",
+            "The right to access AI source code"
+          ],
+          correctAnswer: 0,
+          explanation: "The right to explanation refers to individuals' right to understand how automated decision-making systems that affect them work and reach their conclusions.",
+          difficulty: "intermediate"
+        },
+        {
+          id: 4,
+          question: "Which business application of AI has shown the highest ROI in recent studies?",
+          options: [
+            "Social media management",
+            "Predictive maintenance and supply chain optimization",
+            "Gaming applications",
+            "Personal assistants"
+          ],
+          correctAnswer: 1,
+          explanation: "Predictive maintenance and supply chain optimization have consistently shown high ROI by reducing downtime, optimizing inventory, and improving operational efficiency.",
+          difficulty: "advanced"
+        },
+        {
+          id: 5,
+          question: "What is federated learning?",
+          options: [
+            "Learning from federal databases",
+            "A decentralized approach where models are trained across multiple devices without centralizing data",
+            "Learning federal regulations",
+            "Government-controlled AI training"
+          ],
+          correctAnswer: 1,
+          explanation: "Federated learning enables training AI models across decentralized devices without sharing raw data, preserving privacy while enabling collaborative learning.",
+          difficulty: "advanced"
+        }
+      ]
+    }
+  ];
+
   const filteredResources = activeFilter === "All" 
     ? resources 
     : resources.filter(resource => {
@@ -228,6 +726,69 @@ const Resources = () => {
         if (activeFilter === "Case Studies") return resource.type === "CASE STUDY";
         return true;
       });
+
+  const filteredQuizzes = activeFilter === "Quizzes" ? quizzes : [];
+
+  // Quiz functionality
+  const startQuiz = (quiz: Quiz) => {
+    setSelectedQuiz(quiz);
+    setCurrentQuestionIndex(0);
+    setUserAnswers([]);
+    setQuizStartTime(Date.now());
+    setQuizResult(null);
+    setShowQuizResult(false);
+    setIsQuizModalOpen(true);
+  };
+
+  const handleQuizAnswer = (answerIndex: number) => {
+    const newAnswers = [...userAnswers];
+    newAnswers[currentQuestionIndex] = answerIndex;
+    setUserAnswers(newAnswers);
+  };
+
+  const nextQuestion = () => {
+    if (selectedQuiz && currentQuestionIndex < selectedQuiz.questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      finishQuiz();
+    }
+  };
+
+  const finishQuiz = () => {
+    if (!selectedQuiz) return;
+    
+    const correctAnswers = userAnswers.filter((answer, index) => 
+      answer === selectedQuiz.questions[index].correctAnswer
+    ).length;
+    
+    const score = Math.round((correctAnswers / selectedQuiz.questions.length) * 100);
+    const timeSpent = Math.round((Date.now() - quizStartTime) / 1000 / 60); // minutes
+    const passed = score >= selectedQuiz.passingScore;
+
+    const result: QuizResult = {
+      score,
+      totalQuestions: selectedQuiz.questions.length,
+      correctAnswers,
+      timeSpent,
+      passed
+    };
+
+    setQuizResult(result);
+    setShowQuizResult(true);
+  };
+
+  const resetQuiz = () => {
+    setCurrentQuestionIndex(0);
+    setUserAnswers([]);
+    setQuizResult(null);
+    setShowQuizResult(false);
+  };
+
+  const closeQuizModal = () => {
+    setIsQuizModalOpen(false);
+    setSelectedQuiz(null);
+    resetQuiz();
+  };
 
   const getTypeIcon = (type: string) => {
     const iconMap: { [key: string]: JSX.Element } = {
@@ -402,9 +963,97 @@ const Resources = () => {
             </div>
           </div>
 
+          {/* AI Knowledge Quizzes Section */}
+          {activeFilter === "Quizzes" && (
+            <div className="mb-16">
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                  AI Knowledge <span className="gradient-text">Quizzes</span>
+                </h3>
+                <p className="text-slate-600 text-lg">
+                  Test your AI expertise across different domains and difficulty levels.
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredQuizzes.map((quiz) => (
+                  <Card 
+                    key={quiz.id}
+                    className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-blue-900 to-purple-900"
+                    onClick={() => startQuiz(quiz)}
+                    data-testid={`card-quiz-${quiz.id}`}
+                  >
+                    <div className="relative overflow-hidden">
+                      <div className="h-48 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                        <div className="text-center text-white">
+                          <BrainCircuit className="w-16 h-16 mx-auto mb-4 opacity-80" />
+                          <div className="text-sm font-medium uppercase tracking-wide">
+                            {quiz.topic}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="absolute top-4 left-4">
+                        <Badge className={`${
+                          quiz.difficulty === 'beginner' ? 'bg-green-500' :
+                          quiz.difficulty === 'intermediate' ? 'bg-yellow-500' : 'bg-red-500'
+                        } text-white border-0 capitalize`}>
+                          {quiz.difficulty}
+                        </Badge>
+                      </div>
+                      <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="bg-white/90 backdrop-blur-sm rounded-full p-2">
+                          <Play className="h-5 w-5 text-blue-600" />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <CardContent className="p-6 text-white">
+                      <h4 className="text-xl font-bold mb-3 group-hover:text-blue-300 transition-colors">
+                        {quiz.title}
+                      </h4>
+                      <p className="text-slate-300 mb-4 text-sm leading-relaxed">
+                        {quiz.description}
+                      </p>
+                      
+                      <div className="flex items-center justify-between text-xs text-slate-400 mb-4">
+                        <div className="flex items-center gap-4">
+                          <div className="flex items-center gap-1">
+                            <Target className="h-3 w-3" />
+                            {quiz.questions.length} questions
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            {quiz.timeLimit} min
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Trophy className="h-3 w-3" />
+                          {quiz.passingScore}% to pass
+                        </div>
+                      </div>
+                      
+                      <Button 
+                        className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          startQuiz(quiz);
+                        }}
+                        data-testid={`button-start-quiz-${quiz.id}`}
+                      >
+                        <Play className="h-4 w-4 mr-2" />
+                        Start Quiz
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Resource Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredResources.map((resource) => (
+          {activeFilter !== "Quizzes" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredResources.map((resource) => (
               <Card 
                 key={resource.id}
                 className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-slate-900 to-slate-800"
@@ -486,7 +1135,8 @@ const Resources = () => {
                 </CardContent>
               </Card>
             ))}
-          </div>
+            </div>
+          )}
 
           {/* Newsletter Section */}
           <div className="bg-slate-100 rounded-2xl p-8 md:p-12 text-center mt-16">
@@ -655,6 +1305,228 @@ const Resources = () => {
                   </Button>
                   <Button variant="outline" onClick={() => window.location.href = '/contact'}>
                     Get Consulting
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Quiz Modal */}
+      <Dialog open={isQuizModalOpen} onOpenChange={closeQuizModal}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          {selectedQuiz && !showQuizResult && (
+            <>
+              <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+                <BrainCircuit className="w-6 h-6 text-blue-600" />
+                {selectedQuiz.title}
+              </DialogTitle>
+              
+              <div className="space-y-6">
+                {/* Quiz Progress */}
+                <div className="flex items-center justify-between bg-slate-50 rounded-lg p-4">
+                  <div className="flex items-center gap-4">
+                    <Badge className={`${
+                      selectedQuiz.difficulty === 'beginner' ? 'bg-green-500' :
+                      selectedQuiz.difficulty === 'intermediate' ? 'bg-yellow-500' : 'bg-red-500'
+                    } text-white capitalize`}>
+                      {selectedQuiz.difficulty}
+                    </Badge>
+                    <span className="text-sm text-slate-600">
+                      Question {currentQuestionIndex + 1} of {selectedQuiz.questions.length}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-slate-600">
+                    <Clock className="w-4 h-4" />
+                    {selectedQuiz.timeLimit} min limit
+                  </div>
+                </div>
+
+                {/* Progress Bar */}
+                <div className="w-full bg-slate-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${((currentQuestionIndex + 1) / selectedQuiz.questions.length) * 100}%` }}
+                  />
+                </div>
+
+                {/* Current Question */}
+                {selectedQuiz.questions[currentQuestionIndex] && (
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-semibold text-slate-800">
+                      {selectedQuiz.questions[currentQuestionIndex].question}
+                    </h3>
+                    
+                    <div className="space-y-3">
+                      {selectedQuiz.questions[currentQuestionIndex].options.map((option, index) => (
+                        <Button
+                          key={index}
+                          variant={userAnswers[currentQuestionIndex] === index ? "default" : "outline"}
+                          className={`w-full text-left justify-start p-4 h-auto ${
+                            userAnswers[currentQuestionIndex] === index 
+                              ? "bg-blue-600 text-white hover:bg-blue-700" 
+                              : "bg-white text-slate-700 hover:bg-blue-50 border-slate-200"
+                          }`}
+                          onClick={() => handleQuizAnswer(index)}
+                          data-testid={`button-quiz-option-${index}`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                              userAnswers[currentQuestionIndex] === index 
+                                ? "border-white bg-white" 
+                                : "border-slate-300"
+                            }`}>
+                              {userAnswers[currentQuestionIndex] === index && (
+                                <CheckCircle className="w-4 h-4 text-blue-600" />
+                              )}
+                            </div>
+                            <span className="text-sm">{option}</span>
+                          </div>
+                        </Button>
+                      ))}
+                    </div>
+
+                    {/* Navigation Buttons */}
+                    <div className="flex gap-4 pt-4">
+                      <Button
+                        variant="outline"
+                        onClick={closeQuizModal}
+                        className="flex-1"
+                        data-testid="button-quit-quiz"
+                      >
+                        Quit Quiz
+                      </Button>
+                      <Button
+                        onClick={nextQuestion}
+                        disabled={userAnswers[currentQuestionIndex] === undefined}
+                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                        data-testid="button-next-question"
+                      >
+                        {currentQuestionIndex === selectedQuiz.questions.length - 1 ? "Finish Quiz" : "Next Question"}
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
+
+          {/* Quiz Results */}
+          {selectedQuiz && showQuizResult && quizResult && (
+            <>
+              <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+                <Trophy className="w-6 h-6 text-yellow-500" />
+                Quiz Complete!
+              </DialogTitle>
+              
+              <div className="space-y-8">
+                {/* Score Display */}
+                <div className="text-center space-y-4">
+                  <div className={`text-6xl font-bold ${
+                    quizResult.passed ? "text-green-500" : "text-red-500"
+                  }`}>
+                    {quizResult.score}%
+                  </div>
+                  <div className={`text-xl font-semibold ${
+                    quizResult.passed ? "text-green-600" : "text-red-600"
+                  }`}>
+                    {quizResult.passed ? "🎉 Congratulations! You Passed!" : "📚 Keep Learning!"}
+                  </div>
+                  <p className="text-slate-600">
+                    You answered {quizResult.correctAnswers} out of {quizResult.totalQuestions} questions correctly
+                  </p>
+                </div>
+
+                {/* Performance Breakdown */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="text-center p-4 bg-slate-50 rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">
+                      {quizResult.score}%
+                    </div>
+                    <div className="text-sm text-slate-600">Final Score</div>
+                  </div>
+                  <div className="text-center p-4 bg-slate-50 rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">
+                      {quizResult.correctAnswers}/{quizResult.totalQuestions}
+                    </div>
+                    <div className="text-sm text-slate-600">Correct Answers</div>
+                  </div>
+                  <div className="text-center p-4 bg-slate-50 rounded-lg">
+                    <div className="text-2xl font-bold text-purple-600">
+                      {quizResult.timeSpent} min
+                    </div>
+                    <div className="text-sm text-slate-600">Time Spent</div>
+                  </div>
+                </div>
+
+                {/* Detailed Results */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Question Review</h3>
+                  <div className="space-y-3 max-h-64 overflow-y-auto">
+                    {selectedQuiz.questions.map((question, index) => {
+                      const userAnswer = userAnswers[index];
+                      const isCorrect = userAnswer === question.correctAnswer;
+                      
+                      return (
+                        <div key={index} className="border rounded-lg p-4">
+                          <div className="flex items-start gap-3">
+                            <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                              isCorrect ? "bg-green-100" : "bg-red-100"
+                            }`}>
+                              {isCorrect ? (
+                                <CheckCircle className="w-4 h-4 text-green-600" />
+                              ) : (
+                                <AlertCircle className="w-4 h-4 text-red-600" />
+                              )}
+                            </div>
+                            <div className="flex-1">
+                              <p className="font-medium text-sm mb-2">{question.question}</p>
+                              <div className="text-xs space-y-1">
+                                <div className={`${isCorrect ? "text-green-600" : "text-red-600"}`}>
+                                  Your answer: {question.options[userAnswer]}
+                                </div>
+                                {!isCorrect && (
+                                  <div className="text-green-600">
+                                    Correct answer: {question.options[question.correctAnswer]}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-4">
+                  <Button
+                    variant="outline"
+                    onClick={closeQuizModal}
+                    className="flex-1"
+                    data-testid="button-close-results"
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      resetQuiz();
+                      startQuiz(selectedQuiz);
+                    }}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                    data-testid="button-retake-quiz"
+                  >
+                    Retake Quiz
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => window.location.href = '/contact'}
+                    className="flex-1"
+                    data-testid="button-get-consulting"
+                  >
+                    Get AI Consulting
                   </Button>
                 </div>
               </div>
