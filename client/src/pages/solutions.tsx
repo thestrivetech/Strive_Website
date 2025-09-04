@@ -1,19 +1,46 @@
 import { useState, useEffect } from "react";
-import { Bot, BarChart, Blocks, ShieldCheck, Eye, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory, Building2, DollarSign, Home as HomeIcon, Scale, Cloud, Cog, Target, Filter, Check, Lightbulb } from "lucide-react";
+import { Bot, BarChart, Blocks, ShieldCheck, Eye, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory, Building2, DollarSign, Home as HomeIcon, Scale, Cloud, Cog, Target, Filter, Check, Lightbulb, ChevronDown, Search } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Input } from "@/components/ui/input";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Link } from "wouter";
 
 const Solutions = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedSolution, setSelectedSolution] = useState<any>(null);
+  const [industryDropdownOpen, setIndustryDropdownOpen] = useState(false);
+  const [productDropdownOpen, setProductDropdownOpen] = useState(false);
+  const [industrySearch, setIndustrySearch] = useState("");
+  const [productSearch, setProductSearch] = useState("");
   
   const filters = [
     { name: "All", icon: null },
     { name: "By Industry", icon: <Building2 className="h-4 w-4 mr-2" /> },
     { name: "By Product & Service", icon: <Cog className="h-4 w-4 mr-2" /> },
+  ];
+
+  const industryOptions = [
+    { value: "healthcare", label: "Healthcare", icon: <Heart className="h-4 w-4" /> },
+    { value: "finance", label: "Financial Services", icon: <DollarSign className="h-4 w-4" /> },
+    { value: "manufacturing", label: "Manufacturing", icon: <Factory className="h-4 w-4" /> },
+    { value: "retail", label: "Retail", icon: <ShoppingCart className="h-4 w-4" /> },
+    { value: "technology", label: "Technology", icon: <Laptop className="h-4 w-4" /> },
+    { value: "education", label: "Education", icon: <GraduationCap className="h-4 w-4" /> },
+    { value: "real-estate", label: "Real Estate", icon: <HomeIcon className="h-4 w-4" /> },
+    { value: "legal", label: "Legal", icon: <Scale className="h-4 w-4" /> }
+  ];
+
+  const productOptions = [
+    { value: "ai-automation", label: "AI & Automation", icon: <Bot className="h-4 w-4" /> },
+    { value: "computer-vision", label: "Computer Vision", icon: <Eye className="h-4 w-4" /> },
+    { value: "data-analytics", label: "Data Analytics", icon: <BarChart className="h-4 w-4" /> },
+    { value: "blockchain", label: "Blockchain Solutions", icon: <Blocks className="h-4 w-4" /> },
+    { value: "cloud-infrastructure", label: "Cloud Infrastructure", icon: <Cloud className="h-4 w-4" /> },
+    { value: "security-compliance", label: "Security & Compliance", icon: <ShieldCheck className="h-4 w-4" /> }
   ];
 
   const solutions = [
@@ -244,10 +271,7 @@ const Solutions = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="pt-20 pb-16 bg-gradient-to-br from-[#ffffffeb] via-[#fff7f0] to-primary/20 relative overflow-hidden">
-        {/* Beautiful gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#ffffffeb] via-transparent to-primary/10 pointer-events-none"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent pointer-events-none"></div>
+      <section className="pt-20 pb-16 hero-gradient relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center mb-6">
@@ -256,16 +280,16 @@ const Solutions = () => {
               </div>
             </div>
             <h1 
-              className="text-4xl md:text-5xl font-bold mb-6 text-[#ff7e29]"
+              className="text-4xl md:text-5xl font-bold mb-6 text-white"
               data-testid="text-solutions-hero-title"
             >
-              <span className="bg-gradient-to-r from-[#ff7e29] to-primary bg-clip-text text-transparent">AI-Powered Solutions</span> for Every Industry
+              <span className="bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent">AI-Powered Solutions</span> for Every Industry
             </h1>
             <p 
-              className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8"
+              className="text-xl text-white/80 max-w-3xl mx-auto mb-8"
               data-testid="text-solutions-hero-subtitle"
             >
-              Discover comprehensive <span className="bg-gradient-to-r from-primary to-[#ff7e29] bg-clip-text text-transparent font-semibold">AI and automation solutions</span> tailored to transform your business operations, drive efficiency, and accelerate growth across all industries.
+              Discover comprehensive <span className="bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent font-semibold">AI and automation solutions</span> tailored to transform your business operations, drive efficiency, and accelerate growth across all industries.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -279,7 +303,7 @@ const Solutions = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-primary text-primary hover:bg-primary hover:text-white"
+                className="border-white/30 text-white hover:bg-white/10"
                 data-testid="button-get-custom-solution"
                 onClick={() => window.location.href = '/get-started'}
               >
@@ -295,27 +319,135 @@ const Solutions = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Filter Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
-            {filters.map((filter) => (
-              <Button
-                key={filter.name}
-                variant={activeFilter === filter.name ? "default" : "outline"}
-                onClick={() => setActiveFilter(filter.name)}
-                className={`flex items-center px-6 py-3 transition-all duration-200 ${
-                  activeFilter === filter.name
-                    ? "bg-primary text-white shadow-lg scale-105"
-                    : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
-                }`}
-                data-testid={`filter-${filter.name.toLowerCase().replace(/\s+/g, "-")}`}
-              >
-                {filter.icon}
-                {filter.name}
-                {filter.name !== "All" && (
+            {/* All Filter */}
+            <Button
+              variant={activeFilter === "All" ? "default" : "outline"}
+              onClick={() => setActiveFilter("All")}
+              className={`flex items-center px-6 py-3 transition-all duration-200 ${
+                activeFilter === "All"
+                  ? "bg-primary text-white shadow-lg scale-105"
+                  : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
+              }`}
+              data-testid="filter-all"
+            >
+              All
+            </Button>
+
+            {/* By Industry Dropdown */}
+            <Popover open={industryDropdownOpen} onOpenChange={setIndustryDropdownOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={activeFilter === "By Industry" ? "default" : "outline"}
+                  className={`flex items-center px-6 py-3 transition-all duration-200 ${
+                    activeFilter === "By Industry"
+                      ? "bg-primary text-white shadow-lg scale-105"
+                      : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
+                  }`}
+                  data-testid="filter-by-industry"
+                >
+                  <Building2 className="h-4 w-4 mr-2" />
+                  By Industry
                   <Badge variant="secondary" className="ml-2 text-xs">
-                    {solutions.filter(solution => solution.category === filter.name).length}
+                    {solutions.filter(solution => solution.category === "By Industry").length}
                   </Badge>
-                )}
-              </Button>
-            ))}
+                  <ChevronDown className="h-4 w-4 ml-2" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-64 p-0" align="start">
+                <Command>
+                  <div className="flex items-center border-b px-3">
+                    <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+                    <CommandInput 
+                      placeholder="Search industries..." 
+                      value={industrySearch}
+                      onValueChange={setIndustrySearch}
+                    />
+                  </div>
+                  <CommandList>
+                    <CommandEmpty>No industries found.</CommandEmpty>
+                    <CommandGroup>
+                      {industryOptions
+                        .filter(option => 
+                          option.label.toLowerCase().includes(industrySearch.toLowerCase())
+                        )
+                        .map((option) => (
+                        <CommandItem
+                          key={option.value}
+                          value={option.value}
+                          onSelect={() => {
+                            setActiveFilter("By Industry");
+                            setIndustryDropdownOpen(false);
+                            setIndustrySearch("");
+                          }}
+                          className="flex items-center gap-2 cursor-pointer"
+                        >
+                          {option.icon}
+                          <span>{option.label}</span>
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+
+            {/* By Product & Service Dropdown */}
+            <Popover open={productDropdownOpen} onOpenChange={setProductDropdownOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={activeFilter === "By Product & Service" ? "default" : "outline"}
+                  className={`flex items-center px-6 py-3 transition-all duration-200 ${
+                    activeFilter === "By Product & Service"
+                      ? "bg-primary text-white shadow-lg scale-105"
+                      : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
+                  }`}
+                  data-testid="filter-by-product-service"
+                >
+                  <Cog className="h-4 w-4 mr-2" />
+                  By Product & Service
+                  <Badge variant="secondary" className="ml-2 text-xs">
+                    {solutions.filter(solution => solution.category === "By Product & Service").length}
+                  </Badge>
+                  <ChevronDown className="h-4 w-4 ml-2" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-64 p-0" align="start">
+                <Command>
+                  <div className="flex items-center border-b px-3">
+                    <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+                    <CommandInput 
+                      placeholder="Search products & services..." 
+                      value={productSearch}
+                      onValueChange={setProductSearch}
+                    />
+                  </div>
+                  <CommandList>
+                    <CommandEmpty>No products or services found.</CommandEmpty>
+                    <CommandGroup>
+                      {productOptions
+                        .filter(option => 
+                          option.label.toLowerCase().includes(productSearch.toLowerCase())
+                        )
+                        .map((option) => (
+                        <CommandItem
+                          key={option.value}
+                          value={option.value}
+                          onSelect={() => {
+                            setActiveFilter("By Product & Service");
+                            setProductDropdownOpen(false);
+                            setProductSearch("");
+                          }}
+                          className="flex items-center gap-2 cursor-pointer"
+                        >
+                          {option.icon}
+                          <span>{option.label}</span>
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
           </div>
 
           {/* Solutions Grid */}
