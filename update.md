@@ -20,6 +20,8 @@ This document outlines all necessary updates to transform the Strive website fro
 - Important: Add AI security subject to Blogs and Case study to address concerns about AI (emphasize it being a tool). Make sure this is featured on the Resources page and maybe even the home page?
 - Let's get creative with the "About Us" page and get it up to par with the rest of the web pages since it's lacking in design. Be creative and update the look of the about us page to fit the other pages. Then... Since we don't have past clients, add a "Our Vision" timeline infographic to the "about us" (or the home page if the "Why Us" section doesn't fit the hype of a home page) page showing your startup's roadmap (created in Figma, exported as SVG). For standout: Embed a 3D model (using Three.js) of a abstract "solution ecosystem" that rotates on scroll.
 - Make sure that nav bar works consistently on all pages. Use the functionality that exists on the home page and match the other ones to it. The nav bar should be transparent/translucent until it reaches the end of the hero section and then it changes to the gradient color of the hero section.
+- Make sure to improve cards/badges on the solutions page - add visuals or something unique. Also try to keep modal system like on Portfolio and Solutions page where the card/badge gets bigger on the screen when clicked on.
+- Make sure that all cards/badges have a link to the actual page (if applicable) at the bottom of the pop out once clicked on. OR could make the pop out card have a long scroll ability to view full content of whatever the card/badge pertains to (this gives the social media feel that people are used to)
 
 !!!! Use the website-plan.md file in docs/ for a complete guide moving forward
 
