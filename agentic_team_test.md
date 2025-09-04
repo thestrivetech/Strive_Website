@@ -85,5 +85,7 @@ Make the “Welcome to Strive” badge/card the same color and design of the web
 - Session ended up not going too bad after Claude saved the day by fixing all of the agents mistakes...
 - A lot to improve on with the agents and overall agent team - Same goes for the workflow
 
+- Need to go back and analyze everything that was actually implemented and changed on the website - Make sure to update the task list at the top of this file to see what needs to be done and also what was "fixed" but not actually fixed - PRIME EXAMPLE: THE NAV BAR IS WORSE NOW THAN WHAT IT WAS BEFORE 
+
 
 Claude plan: (Cant copy and paste from the Replit shell so I need to export the chat)
