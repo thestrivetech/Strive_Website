@@ -148,7 +148,7 @@ const Portfolio = () => {
 
   return (
     <div className="pt-16">
-      {/* Hero Section with AI-themed animated background */}
+      {/* Hero Section with AI-themed animated background - UPDATED */}
       <section className="py-20 hero-gradient relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 animate-pulse"></div>
@@ -177,16 +177,16 @@ const Portfolio = () => {
               </div>
             </div>
             <h1 
-              className="text-5xl md:text-7xl font-bold mb-6 text-white"
+              className="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight"
               data-testid="text-hero-title"
             >
-              Unleashing AI Solutions for Tomorrow
+              Strive presents <span className="gradient-text">cutting-edge</span> AI solutions
             </h1>
             <p 
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
               data-testid="text-hero-subtitle"
             >
-              Explore cutting-edge AI demos, production-ready templates, and revolutionary prototypes that showcase the future of intelligent business solutions.
+              Explore our comprehensive portfolio of <span className="gradient-text">innovative demos</span>, production-ready templates, and <span className="gradient-text">revolutionary prototypes</span> that showcase the future of intelligent business solutions.
             </p>
             <Button 
               size="lg" 
@@ -200,6 +200,7 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
+      
       {/* Showcase Section */}
       <section id="showcase" className="py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -263,12 +264,12 @@ const Portfolio = () => {
                     <div className="text-primary">
                       {getCategoryIcon(project.category)}
                     </div>
-                    <span className="text-sm font-medium uppercase tracking-wide text-[#020a1c]">
+                    <span className="text-sm font-medium uppercase tracking-wide text-orange-600">
                       {project.category}
                     </span>
                   </div>
                   
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
+                  <h3 className="text-xl font-bold mb-3 text-orange-600 group-hover:text-primary transition-colors duration-300">
                     {project.title}
                   </h3>
                   
@@ -302,6 +303,7 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
+      
       {/* Project Detail Modal */}
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">

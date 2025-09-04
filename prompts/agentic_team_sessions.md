@@ -1,0 +1,2 @@
+First test session prompt:
+This is our first complete agentic workflow session. Read this file and all files mentioned within it to gain complete context to what your role is and any additional information you need to delegate everything correctly and to make sure that all subagents are aware of their tasks, file paths,  development rules, additional documentation files, etc. You are the leader, the success of this session is on you. This is your task list for this session: agentic_team_test.md - Let's go     

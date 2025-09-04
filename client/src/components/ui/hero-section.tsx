@@ -15,7 +15,7 @@ const HeroSection = ({
   title,
   subtitle,
   primaryButtonText = "Get Started",
-  secondaryButtonText = "Watch Demo",
+  secondaryButtonText = "View Demos",
   onPrimaryClick,
   onSecondaryClick,
 }: HeroSectionProps) => {
@@ -140,7 +140,7 @@ const HeroSection = ({
             {/* Left Arrow - Hidden on mobile */}
             <button
               onClick={goToPreviousDemo}
-              className="hidden lg:block absolute left-[-60px] top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30 hover:scale-110"
+              className="hidden lg:block absolute left-[-60px] top-1/2 -translate-y-1/2 z-10 p-3 bg-primary/20 hover:bg-primary/40 flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30 hover:scale-110"
               data-testid="button-demo-prev"
             >
               <ChevronLeft className="w-6 h-6 text-primary" />
@@ -149,13 +149,13 @@ const HeroSection = ({
             {/* Right Arrow - Hidden on mobile */}
             <button
               onClick={goToNextDemo}
-              className="hidden lg:block absolute right-[-60px] top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30 hover:scale-110"
+              className="hidden lg:block absolute right-[-60px] top-1/2 -translate-y-1/2 z-10 p-3 bg-primary/20 hover:bg-primary/40 flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30 hover:scale-110"
               data-testid="button-demo-next"
             >
               <ChevronRight className="w-6 h-6 text-primary" />
             </button>
             
-            <div className="demo-video-container w-full max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-lg mx-auto lg:mx-0">
+            <div className="demo-video-container w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl mx-auto lg:mx-0">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5]">
                 <img 
                   src={demoVideos[currentDemo].thumbnail}

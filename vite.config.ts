@@ -7,16 +7,8 @@ import path from "path";
 export default defineConfig({
   plugins: [
     react(),
-    // Temporarily disabled runtime error overlay due to frame property issues
-    // runtimeErrorOverlay(),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
-      ? [
-          await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer(),
-          ),
-        ]
-      : []),
+    // Replit plugins temporarily disabled to fix loading issues
+    // Will be loaded conditionally when fixed
   ],
   resolve: {
     alias: {
@@ -35,5 +27,7 @@ export default defineConfig({
       strict: true,
       deny: ["**/.*"],
     },
+    host: "0.0.0.0",
+    port: 5173,
   },
 });

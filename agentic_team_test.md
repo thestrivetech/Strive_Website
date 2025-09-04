@@ -58,3 +58,29 @@ Create nav bar dropdown to list “Become a Partner, Community (discord and more
 Add forgot password selection
 Make the “Welcome to Strive” badge/card the same color and design of the websites hero section using the same gradient look.
 
+
+
+
+# SESSION ANALYSIS & RESULTS #
+- I can see that we need "research" agents (give internet browser MCP and Playwright? think of others and do research or ask claude for advice) that help each architect retrieve context7 library information because it's filling up their context window quickly. - Every single agent is using up a lot of their context window by searching and fetching from Context7 MCP, maybe we have multiple research agents that are spun up at the beginning of the agentic team workflow? Then after they grab all essential documentation that's needed for the session, they could store all of it in a markdown file and organize it to where each architect agent doesn't have to fetch everyting at once... Instead the "library" files that the research agents are creating are laid out in a way that aligns with their tasks for the session and when they will need specific things that are retrieved from context7... I don't know exactly, but I think it might be a step in the right directon possibly.
+
+- The Frontend architect is working solo on all frontend tasks at the moment. Maybe create multiple of these? Or get Claude to have the UI/UX agent work in parallel and simultaneously
+
+- Frontend architect reached 27+ tool uses fairly quickly
+
+- Need to implement a logging system to see exact actions being taken by each agent and by Claude (main orchestrator) to help improve them and to see what tools aren't necessary
+
+- Documentation agent isn't working in parallel with agents - It seems the same is true for the main orchestrator (claude)
+
+- Essential to have claude make an entire markdown file about this entire session to see why certain things were done and what exactly was happening for each agent during their workflows - Also have claude make recommendations on what to change or edit about each individual agent or what to change about the workflow in order to make it better overall
+
+- Can't see the preview of the website any longer in the preview tab of Replit at this point
+
+- There is now 886 lines of code in the client/pages/home file - Have claude explain this and to see why - It goes against the development rules but maybe there's good reason behind it and might have been necessary
+
+- Seems as if the subagents are also using the Serena MCP server which might be a bad thing or could be a good thing... It's probably slowing down their pace but if it helps them be more accurate then I don't mind. In order to make this better though, we could have the main orchestrator (claude) go through each task at the beginning of the session during the planning phase and specifically layout the paths of files and folders that the agents will be working with/in. If they need help finding something then they should ask claude (main orchestrator) - Or maybe we should create another subagent for this type of task/role?
+
+- 
+
+
+Claude plan: (Cant copy and paste from the Replit shell so I need to export the chat)

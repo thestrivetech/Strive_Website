@@ -52,15 +52,30 @@ const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Check if we've scrolled past the hero section (roughly viewport height)
-      const scrollY = window.scrollY;
-      const heroSectionHeight = window.innerHeight * 0.9; // 90vh as per hero section
-      setIsScrolled(scrollY > heroSectionHeight);
+      // Check if we've scrolled past ANY hero-gradient section on the page
+      const heroSections = document.querySelectorAll('.hero-gradient');
+      let shouldShowGradient = false;
+      
+      if (heroSections.length > 0) {
+        // Check the first hero section (usually the main one)
+        const firstHero = heroSections[0];
+        const rect = firstHero.getBoundingClientRect();
+        // Show gradient when the hero section's bottom edge passes the navbar
+        shouldShowGradient = rect.bottom <= 64; // 64px is roughly the navbar height
+      } else {
+        // Fallback: if no hero sections, show gradient after scrolling down a bit
+        shouldShowGradient = window.scrollY > 100;
+      }
+      
+      setIsScrolled(shouldShowGradient);
     };
 
+    // Initial check
+    handleScroll();
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location]); // Re-run when location changes
 
   const isActive = (path: string) => {
     if (path === "/" && location === "/") return true;

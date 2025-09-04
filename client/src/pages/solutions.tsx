@@ -25,19 +25,19 @@ const Solutions = () => {
 
   const industryOptions = [
     { value: "healthcare", label: "Healthcare", icon: <Heart className="h-4 w-4" /> },
-    { value: "finance", label: "Financial Services", icon: <DollarSign className="h-4 w-4" /> },
-    { value: "manufacturing", label: "Manufacturing", icon: <Factory className="h-4 w-4" /> },
+    { value: "finance", label: "Tech", icon: <DollarSign className="h-4 w-4" /> },
+    { value: "manufacturing", label: "Logistics", icon: <Factory className="h-4 w-4" /> },
     { value: "retail", label: "Retail", icon: <ShoppingCart className="h-4 w-4" /> },
     { value: "technology", label: "Technology", icon: <Laptop className="h-4 w-4" /> },
-    { value: "education", label: "Education", icon: <GraduationCap className="h-4 w-4" /> },
+    { value: "education", label: "Law", icon: <GraduationCap className="h-4 w-4" /> },
     { value: "real-estate", label: "Real Estate", icon: <HomeIcon className="h-4 w-4" /> },
     { value: "legal", label: "Legal", icon: <Scale className="h-4 w-4" /> }
   ];
 
   const productOptions = [
-    { value: "ai-automation", label: "AI & Automation", icon: <Bot className="h-4 w-4" /> },
+    { value: "ai-automation", label: "Natural Language Processing", icon: <Bot className="h-4 w-4" /> },
     { value: "computer-vision", label: "Computer Vision", icon: <Eye className="h-4 w-4" /> },
-    { value: "data-analytics", label: "Data Analytics", icon: <BarChart className="h-4 w-4" /> },
+    { value: "data-analytics", label: "Predictive Model", icon: <BarChart className="h-4 w-4" /> },
     { value: "blockchain", label: "Blockchain Solutions", icon: <Blocks className="h-4 w-4" /> },
     { value: "cloud-infrastructure", label: "Cloud Infrastructure", icon: <Cloud className="h-4 w-4" /> },
     { value: "security-compliance", label: "Security & Compliance", icon: <ShieldCheck className="h-4 w-4" /> }
@@ -124,7 +124,7 @@ const Solutions = () => {
     // By Product & Service Solutions
     {
       id: 5,
-      title: "AI & Automation",
+      title: "Natural Language Processing",
       category: "Solution Type",
       type: "product",
       icon: <Bot className="text-primary text-xl" />,
@@ -162,7 +162,7 @@ const Solutions = () => {
     },
     {
       id: 7,
-      title: "Predictive Analytics",
+      title: "Predictive Model",
       category: "Solution Type",
       type: "product",
       icon: <BarChart className="text-primary text-xl" />,

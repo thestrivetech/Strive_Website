@@ -18,7 +18,7 @@ const Home = () => {
   };
 
   const handleWatchDemo = () => {
-    window.location.href = "/demo";
+    window.location.href = "/portfolio?filter=demo";
   };
 
   const industrySpecificSolutions = {
@@ -74,37 +74,31 @@ const Home = () => {
 
   const solutions = [
     {
-      icon: <Clock className="text-primary text-2xl" />,
       title: "Project Management",
       description: "Streamline your projects with AI-powered planning, tracking, and collaboration tools.",
       href: "/solutions#ai-automation",
     },
     {
-      icon: <BarChart className="text-primary text-2xl" />,
-      title: "Business Intelligence",
+      title: "Business Intelligence", 
       description: "Make data-driven decisions with advanced analytics and real-time insights.",
       href: "/solutions#data-analytics",
     },
     {
-      icon: <Cog className="text-primary text-2xl" />,
       title: "Process Automation",
       description: "Automate repetitive tasks and workflows to boost productivity and reduce errors.",
       href: "/solutions#ai-automation",
     },
     {
-      icon: <Users className="text-primary text-2xl" />,
       title: "Customer Management",
       description: "Build stronger relationships with comprehensive customer insights and engagement tools.",
       href: "/solutions#data-analytics",
     },
     {
-      icon: <Calculator className="text-primary text-2xl" />,
       title: "Financial Planning",
       description: "Optimize your financial performance with predictive modeling and smart budgeting.",
       href: "/solutions#data-analytics",
     },
     {
-      icon: <ShieldCheck className="text-primary text-2xl" />,
       title: "Security & Compliance",
       description: "Protect your business with enterprise-grade security and automated compliance monitoring.",
       href: "/solutions#security-compliance",
@@ -135,7 +129,6 @@ const Home = () => {
     },
   ];
 
-
   return (
     <div className="pt-16">
       {/* Hero Section */}
@@ -145,23 +138,18 @@ const Home = () => {
         onPrimaryClick={handleGetStarted}
         onSecondaryClick={handleWatchDemo}
       />
+      
       {/* ROI Calculator */}
       <ROICalculator />
       
-      {/* Industry Solutions Selector - Moved from Solutions Page */}
+      {/* Industry Solutions Selector */}
       <section className="py-16 hero-gradient">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div 
-              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
-              data-testid="text-industry-label"
-            >
+            <div className="text-sm uppercase tracking-wide text-primary font-semibold mb-4">
               SOLUTIONS BY INDUSTRY
             </div>
-            <h2 
-              className="text-2xl md:text-3xl font-bold mb-4 text-white"
-              data-testid="text-industry-title"
-            >
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white">
               Find tailored solutions for your industry
             </h2>
             <p className="text-white/80 text-lg max-w-2xl mx-auto">
@@ -185,7 +173,6 @@ const Home = () => {
                 key={industry.id}
                 onClick={() => setSelectedIndustry(selectedIndustry === industry.id ? null : industry.id)}
                 className="p-4 rounded-xl border-2 bg-[#020a1c] backdrop-blur-sm border-orange-500 text-white hover:bg-[#020a1c]/90 hover:border-orange-400 transition-all duration-300 hover:scale-105 text-center shadow-lg hover:shadow-orange-500/20"
-                data-testid={`button-industry-${industry.id}`}
               >
                 <div className="flex flex-col items-center space-y-2">
                   <div className="text-2xl">{industry.icon}</div>
@@ -200,16 +187,7 @@ const Home = () => {
             <div className="mt-12">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold text-white mb-4">
-                  {[
-                    { id: "healthcare", name: "Healthcare" },
-                    { id: "finance", name: "Finance" },
-                    { id: "manufacturing", name: "Manufacturing" },
-                    { id: "retail", name: "Retail" },
-                    { id: "technology", name: "Technology" },
-                    { id: "education", name: "Education" },
-                    { id: "real-estate", name: "Real Estate" },
-                    { id: "legal", name: "Legal" }
-                  ].find(industry => industry.id === selectedIndustry)?.name} Solutions
+                  {selectedIndustry.charAt(0).toUpperCase() + selectedIndustry.slice(1).replace('-', ' ')} Solutions
                 </h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -240,11 +218,7 @@ const Home = () => {
                 Explore our comprehensive solutions designed specifically for your business sector.
               </p>
               <Link href="/solutions">
-                <Button 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
-                  size="lg"
-                  data-testid="button-explore-solutions"
-                >
+                <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3" size="lg">
                   Explore All Solutions
                 </Button>
               </Link>
@@ -257,118 +231,102 @@ const Home = () => {
       <section className="py-12 sm:py-16 md:py-24 bg-[#ffffffeb] text-[#f8fafc]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <div 
-              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
-              data-testid="text-section-label"
-            >
+            <div className="text-sm uppercase tracking-wide text-primary font-semibold mb-4">
               INTEGRATED BUSINESS PLATFORM
             </div>
-            <h2 
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 text-[#020a1c] leading-tight"
-              data-testid="text-platform-title"
-            >
-              A fully integrated suite of solutions, powered by industry leading AI.
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 text-[#020a1c] leading-tight">
+              A fully integrated suite of <span className="gradient-text">solutions</span>, powered by industry leading AI.
             </h2>
           </div>
 
-          {/* Solution Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {solutions.map((solution, index) => (
-              <SolutionCard
-                key={index}
-                icon={solution.icon}
-                title={solution.title}
-                description={solution.description}
-                href={solution.href}
-              />
+              <Link key={index} href={solution.href}>
+                <Card className="bg-white/90 backdrop-blur-sm border-gray-200/50 hover:bg-white hover:border-primary/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl card-hover group cursor-pointer h-full">
+                  <CardContent className="p-8 h-full flex flex-col">
+                    <div className="mb-4">
+                      <div className="w-12 h-1 bg-gradient-to-r from-primary to-orange-600 mb-4 group-hover:w-16 transition-all duration-300"></div>
+                      <h3 className="text-xl font-bold text-[#020a1c] mb-3 group-hover:text-primary transition-colors duration-300">
+                        {solution.title}
+                      </h3>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed text-sm flex-grow">
+                      {solution.description}
+                    </p>
+                    <div className="mt-6 text-primary font-medium text-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+                      Learn more →
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
       </section>
-      {/* Why Us Section */}
+      
+      {/* Why Choose Strive Section */}
       <section className="py-12 sm:py-16 hero-gradient relative overflow-hidden">
-        {/* Parallax Background Elements */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-48 h-48 bg-orange-500/10 rounded-full blur-2xl animate-pulse" style={{animationDelay: '2s'}}></div>
-          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-primary/5 rounded-full blur-lg animate-pulse" style={{animationDelay: '4s'}}></div>
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-48 h-48 bg-orange-500/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <div 
-              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
-              data-testid="text-why-us-label"
-            >
-              WHY CHOOSE STRIVE
-            </div>
-            <h2 
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white leading-tight"
-              data-testid="text-why-us-title"
-            >
-              The Future of Business <span className="gradient-text">Starts Here</span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white leading-tight">
+              Why Choose Strive
             </h2>
+            <div className="text-sm uppercase tracking-wide text-primary font-semibold mb-4">
+              The Future of Business Starts Here
+            </div>
             <p className="text-white/80 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
               Don't just keep up with the competition—surpass them. Our cutting-edge AI solutions deliver measurable results that transform how you do business.
             </p>
           </div>
 
-          {/* Value Proposition Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {/* Innovative Tech */}
             <div className="group">
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
                 <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <LightBulbIcon className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-innovative-tech-title">
-                  Innovative Tech
-                </h3>
+                <h3 className="text-xl font-bold text-white mb-4">Innovative Tech</h3>
                 <p className="text-white/80 text-sm leading-relaxed">
                   Cutting-edge AI and automation technologies that keep you ahead of industry trends and competitor solutions.
                 </p>
               </div>
             </div>
 
-            {/* Scalable Solutions */}
             <div className="group">
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
                 <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <RocketLaunchIcon className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-scalable-solutions-title">
-                  Scalable Solutions
-                </h3>
+                <h3 className="text-xl font-bold text-white mb-4">Scalable Solutions</h3>
                 <p className="text-white/80 text-sm leading-relaxed">
                   Grow without limits. Our architecture scales seamlessly from startup to enterprise, adapting to your business needs.
                 </p>
               </div>
             </div>
 
-            {/* Future-Proof Design */}
             <div className="group">
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
                 <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <CpuChipIcon className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-future-proof-title">
-                  Future-Proof Design
-                </h3>
+                <h3 className="text-xl font-bold text-white mb-4">Future-Proof Design</h3>
                 <p className="text-white/80 text-sm leading-relaxed">
                   Built to evolve. Our solutions integrate emerging technologies, ensuring your investment remains valuable for years.
                 </p>
               </div>
             </div>
 
-            {/* Proven Results */}
             <div className="group">
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
                 <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <StarIcon className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-proven-results-title">
-                  Proven Results
-                </h3>
+                <h3 className="text-xl font-bold text-white mb-4">Proven Results</h3>
                 <p className="text-white/80 text-sm leading-relaxed">
                   Track record of success. Our clients see 3x faster processing, 60% cost reduction, and 24/7 automated efficiency.
                 </p>
@@ -376,7 +334,6 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Call to Action */}
           <div className="text-center mt-8 sm:mt-12 lg:mt-16">
             <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-4xl mx-auto">
               <h3 className="text-2xl font-bold text-white mb-4">
@@ -386,22 +343,11 @@ const Home = () => {
                 Join industry leaders who've already made the switch to intelligent automation.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all"
-                  size="lg"
-                  onClick={() => window.location.href = "/contact"}
-                  data-testid="button-get-started-why-us"
-                >
+                <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all" size="lg" onClick={() => window.location.href = "/contact"}>
                   Get Started Today
                 </Button>
-                <Button 
-                  variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 px-8 py-3 text-lg"
-                  size="lg"
-                  onClick={() => window.location.href = "/portfolio"}
-                  data-testid="button-view-portfolio"
-                >
-                  View Success Stories
+                <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-3 text-lg" size="lg" onClick={() => window.location.href = "/about#team"}>
+                  Meet the Team
                 </Button>
               </div>
             </div>
@@ -413,17 +359,10 @@ const Home = () => {
       <section className="py-12 sm:py-16 md:py-24 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#020a1c] leading-tight"
-              data-testid="text-resources-title"
-            >
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#020a1c] leading-tight">
               Discover what's new with Strive
             </h2>
-            <a 
-              href="/resources" 
-              className="text-primary font-semibold hover:underline"
-              data-testid="link-all-resources"
-            >
+            <a href="/resources" className="text-primary font-semibold hover:underline">
               View all resources →
             </a>
           </div>
@@ -442,67 +381,83 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 md:py-24 text-[#020a1c] bg-[#ffffffeb]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <div 
-              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
-              data-testid="text-cta-label"
-            >
-              CONNECT WITH US
+      
+      {/* Connect With Us Section */}
+      <section className="py-16 md:py-20 hero-gradient relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-20 left-20 w-64 h-64 bg-primary/30 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white/10 rounded-full blur-2xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="text-sm uppercase tracking-wide text-primary font-semibold mb-4">
+                CONNECT WITH US
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">
+                We'd love to <span className="gradient-text">show you around</span>
+              </h2>
+              <p className="text-base md:text-lg lg:text-xl text-white/80 mb-8 leading-relaxed max-w-3xl mx-auto">
+                With Strive you can streamline operations, automate processes, and drive growth with intelligent insights.
+              </p>
             </div>
-            <h2 
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 leading-tight"
-              data-testid="text-cta-title"
-            >
-              We'd love to show you around
-            </h2>
-            <p 
-              className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 leading-relaxed"
-              data-testid="text-cta-description"
-            >
-              With Strive you can streamline operations, automate processes, and drive growth with intelligent insights.
-            </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-8 sm:mb-12">
-              <div className="text-center">
-                <Shield className="text-primary text-3xl mb-4 mx-auto" />
-                <p 
-                  className="text-muted-foreground"
-                  data-testid="text-benefit-compliance"
-                >
-                  Comply with industry standards and regulations.
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <div className="group">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center hover:bg-white/15 hover:border-primary/40 transition-all duration-300 hover:scale-[1.02]">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary/80 to-orange-500/80 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <Shield className="text-white text-2xl" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-3">
+                    Enterprise Security
+                  </h3>
+                  <p className="text-white/70 text-sm leading-relaxed">
+                    Comply with industry standards and regulations with enterprise-grade security protocols.
+                  </p>
+                </div>
               </div>
-              <div className="text-center">
-                <Brain className="text-primary text-3xl mb-4 mx-auto" />
-                <p 
-                  className="text-muted-foreground"
-                  data-testid="text-benefit-automation"
-                >
-                  Identify opportunities and automate decision-making.
-                </p>
+              
+              <div className="group">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center hover:bg-white/15 hover:border-primary/40 transition-all duration-300 hover:scale-[1.02]">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary/80 to-orange-500/80 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <Brain className="text-white text-2xl" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-3">
+                    Intelligent Automation
+                  </h3>
+                  <p className="text-white/70 text-sm leading-relaxed">
+                    Identify opportunities and automate decision-making with advanced AI algorithms.
+                  </p>
+                </div>
               </div>
-              <div className="text-center">
-                <TrendingUp className="text-primary text-3xl mb-4 mx-auto" />
-                <p 
-                  className="text-muted-foreground"
-                  data-testid="text-benefit-visibility"
-                >
-                  Improve visibility and automate operations.
-                </p>
+              
+              <div className="group">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center hover:bg-white/15 hover:border-primary/40 transition-all duration-300 hover:scale-[1.02]">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary/80 to-orange-500/80 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <TrendingUp className="text-white text-2xl" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-3">
+                    Operational Excellence
+                  </h3>
+                  <p className="text-white/70 text-sm leading-relaxed">
+                    Improve visibility and automate operations for maximum efficiency and growth.
+                  </p>
+                </div>
               </div>
             </div>
 
-            <Button 
-              className="bg-primary text-primary-foreground px-8 py-3 text-lg hover:bg-primary/90"
-              size="lg"
-              onClick={() => window.location.href = "/contact"}
-              data-testid="button-schedule-consultation"
-            >
-              Schedule a Consultation
-            </Button>
+            <div className="text-center">
+              <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-2xl mx-auto">
+                <p className="text-white/80 mb-6 text-lg">
+                  Ready to transform your business operations?
+                </p>
+                <Button className="bg-primary hover:bg-primary/90 text-white px-10 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300" size="lg" onClick={() => window.location.href = "/contact"}>
+                  Schedule a Consultation
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
