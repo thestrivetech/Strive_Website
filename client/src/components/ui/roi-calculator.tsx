@@ -3,11 +3,12 @@ import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calculator, TrendingUp, DollarSign, Clock } from "lucide-react";
+import { Calculator, TrendingUp, DollarSign, Clock, Stethoscope, CreditCard, ShoppingCart, Factory, Cpu } from "lucide-react";
 
 interface IndustryData {
   [key: string]: {
     name: string;
+    icon: JSX.Element;
     baseROI: number;
     services: {
       [key: string]: {
@@ -22,6 +23,7 @@ interface IndustryData {
 const industryData: IndustryData = {
   healthcare: {
     name: "Healthcare",
+    icon: <Stethoscope className="h-4 w-4" />,
     baseROI: 2.4,
     services: {
       automation: { name: "Process Automation", multiplier: 3.2, timeSaving: 35 },
@@ -32,6 +34,7 @@ const industryData: IndustryData = {
   },
   finance: {
     name: "Finance",
+    icon: <CreditCard className="h-4 w-4" />,
     baseROI: 3.1,
     services: {
       automation: { name: "Risk Assessment", multiplier: 3.8, timeSaving: 40 },
@@ -42,6 +45,7 @@ const industryData: IndustryData = {
   },
   retail: {
     name: "Retail",
+    icon: <ShoppingCart className="h-4 w-4" />,
     baseROI: 2.7,
     services: {
       automation: { name: "Inventory Management", multiplier: 2.9, timeSaving: 30 },
@@ -52,6 +56,7 @@ const industryData: IndustryData = {
   },
   manufacturing: {
     name: "Manufacturing", 
+    icon: <Factory className="h-4 w-4" />,
     baseROI: 3.3,
     services: {
       automation: { name: "Production Automation", multiplier: 4.1, timeSaving: 45 },
@@ -62,6 +67,7 @@ const industryData: IndustryData = {
   },
   technology: {
     name: "Technology",
+    icon: <Cpu className="h-4 w-4" />,
     baseROI: 3.6,
     services: {
       automation: { name: "DevOps Automation", multiplier: 3.7, timeSaving: 40 },
@@ -146,13 +152,17 @@ const ROICalculator = () => {
                     Select Your Industry
                   </label>
                   <Select value={selectedIndustry} onValueChange={setSelectedIndustry}>
-                    <SelectTrigger data-testid="select-industry">
+                    <SelectTrigger data-testid="select-industry" className="gap-2">
+                      {industryData[selectedIndustry]?.icon}
                       <SelectValue placeholder="Choose your industry" />
                     </SelectTrigger>
                     <SelectContent>
                       {Object.entries(industryData).map(([key, industry]) => (
-                        <SelectItem key={key} value={key}>
-                          {industry.name}
+                        <SelectItem key={key} value={key} className="gap-2">
+                          <div className="flex items-center gap-2">
+                            {industry.icon}
+                            <span>{industry.name}</span>
+                          </div>
                         </SelectItem>
                       ))}
                     </SelectContent>

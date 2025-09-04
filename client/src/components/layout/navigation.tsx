@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ChevronDown, User, LogOut } from "lucide-react";
+import { Menu, X, ChevronDown, User, LogOut, Stethoscope, CreditCard, Factory, ShoppingCart, Cpu, GraduationCap, Brain, Code, Link2, Monitor, Palette, Wrench, BookOpen, FileText, BarChart3, Video, Map, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/lib/auth";
@@ -50,30 +50,30 @@ const Navigation = () => {
   ];
 
   const industrySolutions = [
-    { name: "Healthcare", path: "/solutions/healthcare", icon: healthcareIcon },
-    { name: "Financial Services", path: "/solutions/financial", icon: financialIcon },
-    { name: "Manufacturing", path: "/solutions/manufacturing", icon: manufacturingIcon },
-    { name: "Retail", path: "/solutions/retail", icon: retailIcon },
-    { name: "Technology", path: "/solutions/technology", icon: technologyIcon },
-    { name: "Education", path: "/solutions/education", icon: educationIcon },
+    { name: "Healthcare", path: "/solutions/healthcare", icon: <Stethoscope className="h-5 w-5 text-primary" /> },
+    { name: "Financial Services", path: "/solutions/financial", icon: <CreditCard className="h-5 w-5 text-primary" /> },
+    { name: "Manufacturing", path: "/solutions/manufacturing", icon: <Factory className="h-5 w-5 text-primary" /> },
+    { name: "Retail", path: "/solutions/retail", icon: <ShoppingCart className="h-5 w-5 text-primary" /> },
+    { name: "Technology", path: "/solutions/technology", icon: <Cpu className="h-5 w-5 text-primary" /> },
+    { name: "Education", path: "/solutions/education", icon: <GraduationCap className="h-5 w-5 text-primary" /> },
   ];
 
   const portfolioCategories = [
-    { name: "AI Models", path: "/portfolio#ai-models", icon: portfolioIcon },
-    { name: "Custom Software", path: "/portfolio#custom-software", icon: portfolioIcon },
-    { name: "Blockchain", path: "/portfolio#blockchain", icon: portfolioIcon },
-    { name: "Web Design", path: "/portfolio#web-design", icon: portfolioIcon },
-    { name: "UI/UX Design", path: "/portfolio#ui-ux", icon: portfolioIcon },
-    { name: "Prototypes", path: "/portfolio#prototypes", icon: portfolioIcon },
+    { name: "AI Models", path: "/portfolio#ai-models", icon: <Brain className="h-5 w-5 text-primary" /> },
+    { name: "Custom Software", path: "/portfolio#custom-software", icon: <Code className="h-5 w-5 text-primary" /> },
+    { name: "Blockchain", path: "/portfolio#blockchain", icon: <Link2 className="h-5 w-5 text-primary" /> },
+    { name: "Web Design", path: "/portfolio#web-design", icon: <Monitor className="h-5 w-5 text-primary" /> },
+    { name: "UI/UX Design", path: "/portfolio#ui-ux", icon: <Palette className="h-5 w-5 text-primary" /> },
+    { name: "Prototypes", path: "/portfolio#prototypes", icon: <Wrench className="h-5 w-5 text-primary" /> },
   ];
 
   const resourceTypes = [
-    { name: "Blog Posts", path: "/resources#blog", icon: resourcesIcon },
-    { name: "Whitepapers", path: "/resources#whitepapers", icon: resourcesIcon },
-    { name: "Case Studies", path: "/resources#case-studies", icon: resourcesIcon },
-    { name: "Webinars", path: "/resources#webinars", icon: resourcesIcon },
-    { name: "Guides", path: "/resources#guides", icon: resourcesIcon },
-    { name: "Tools", path: "/resources#tools", icon: resourcesIcon },
+    { name: "Blog Posts", path: "/resources#blog", icon: <BookOpen className="h-5 w-5 text-primary" /> },
+    { name: "Whitepapers", path: "/resources#whitepapers", icon: <FileText className="h-5 w-5 text-primary" /> },
+    { name: "Case Studies", path: "/resources#case-studies", icon: <BarChart3 className="h-5 w-5 text-primary" /> },
+    { name: "Webinars", path: "/resources#webinars", icon: <Video className="h-5 w-5 text-primary" /> },
+    { name: "Guides", path: "/resources#guides", icon: <Map className="h-5 w-5 text-primary" /> },
+    { name: "Tools", path: "/resources#tools", icon: <Settings className="h-5 w-5 text-primary" /> },
   ];
 
   useEffect(() => {
@@ -153,12 +153,8 @@ const Navigation = () => {
                       className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
                       data-testid={`dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
                     >
-                      <div className="flex-shrink-0">
-                        <img 
-                          src={industry.icon} 
-                          alt={`${industry.name} icon`}
-                          className="w-8 h-8 rounded-md shadow-sm group-hover:scale-105 transition-transform"
-                        />
+                      <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
+                        {industry.icon}
                       </div>
                       <span className="font-medium text-left leading-tight">{industry.name}</span>
                     </Link>
@@ -195,12 +191,8 @@ const Navigation = () => {
                       className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
                       data-testid={`portfolio-dropdown-${category.name.toLowerCase().replace(/\s+/g, "-")}`}
                     >
-                      <div className="flex-shrink-0">
-                        <img 
-                          src={category.icon} 
-                          alt={`${category.name} icon`}
-                          className="w-8 h-8 rounded-md shadow-sm group-hover:scale-105 transition-transform"
-                        />
+                      <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
+                        {category.icon}
                       </div>
                       <span className="font-medium text-left leading-tight">{category.name}</span>
                     </Link>
@@ -237,12 +229,8 @@ const Navigation = () => {
                       className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
                       data-testid={`resources-dropdown-${resource.name.toLowerCase().replace(/\s+/g, "-")}`}
                     >
-                      <div className="flex-shrink-0">
-                        <img 
-                          src={resource.icon} 
-                          alt={`${resource.name} icon`}
-                          className="w-8 h-8 rounded-md shadow-sm group-hover:scale-105 transition-transform"
-                        />
+                      <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
+                        {resource.icon}
                       </div>
                       <span className="font-medium text-left leading-tight">{resource.name}</span>
                     </Link>

@@ -6,26 +6,19 @@ import { Request, Response, NextFunction } from 'express';
 // Rate limiting configuration optimized for Replit
 export const createRateLimiter = () => rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: process.env.NODE_ENV === 'development' ? 1000 : 100, // Much higher limit for development
+  max: 100, // limit each IP to 100 requests per windowMs
   message: {
     error: 'Too many requests from this IP, please try again later.',
     retryAfter: '15 minutes'
   },
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  // Skip successful requests to static assets and in development mode skip more liberally
+  // Skip rate limiting entirely in development, partial skip in production
   skip: (req: Request) => {
     if (process.env.NODE_ENV === 'development') {
-      return req.url.startsWith('/assets/') || req.url.startsWith('/favicon') || req.url.startsWith('/_next/');
+      return true; // Skip all rate limiting in development
     }
     return req.url.startsWith('/assets/') || req.url.startsWith('/favicon');
-  },
-  // In development, use a more permissive key generator
-  keyGenerator: (req: Request) => {
-    if (process.env.NODE_ENV === 'development') {
-      return 'development-key'; // Single key for all development requests
-    }
-    return req.ip; // Use IP in production
   }
 });
 

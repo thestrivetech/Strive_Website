@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MapPin, Phone, Mail, Clock, Calendar, Download, MessageCircle, ChevronDown, ChevronUp } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Calendar, Download, MessageCircle, ChevronDown, ChevronUp, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -213,7 +213,8 @@ const Contact = () => {
                   <div>
                     <label className="block text-sm font-medium mb-2">Company Size</label>
                     <Select value={formData.companySize} onValueChange={(value) => setFormData(prev => ({ ...prev, companySize: value }))}>
-                      <SelectTrigger data-testid="select-company-size">
+                      <SelectTrigger data-testid="select-company-size" className="gap-2">
+                        <Users className="h-4 w-4 text-muted-foreground" />
                         <SelectValue placeholder="Select size" />
                       </SelectTrigger>
                       <SelectContent>

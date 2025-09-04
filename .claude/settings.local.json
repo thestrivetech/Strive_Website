@@ -76,7 +76,10 @@
       "Bash(tsx:*)",
       "Bash(npx tsx:*)",
       "Bash(node:*)",
-      "Bash(npx:*)"
+      "Bash(npx:*)",
+      "Read(//home/runner/**)",
+      "Bash(command:*)",
+      "Bash(pip3 install:*)"
     ],
     "deny": []
   },
