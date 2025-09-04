@@ -47,7 +47,7 @@ const Contact = () => {
   ];
 
   const quickActions = [
-    { icon: <Calendar className="mr-2" />, text: "Schedule a Demo", action: "demo" },
+    { icon: <Calendar className="mr-2" />, text: "Request a Demo", action: "demo" },
     { icon: <Download className="mr-2" />, text: "Download Brochure", action: "brochure" },
     { icon: <MessageCircle className="mr-2" />, text: "Live Chat Support", action: "chat" }
   ];
