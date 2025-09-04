@@ -131,14 +131,6 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
-  .force-dark-blue svg {
-    color: #020a1c !important;
-  }
-  
-  .force-orange svg {
-    color: hsl(24, 100%, 58%) !important;
-  }
 }
 
 @layer components {
