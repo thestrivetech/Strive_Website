@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ChevronDown, User, LogOut, Stethoscope, CreditCard, Factory, ShoppingCart, Cpu, GraduationCap, Brain, Code, Link2, Monitor, Palette, Wrench, BookOpen, FileText, BarChart3, Video, Map, Settings } from "lucide-react";
+import { Menu, X, ChevronDown, User, LogOut, Stethoscope, CreditCard, Factory, ShoppingCart, Cpu, GraduationCap, Brain, Code, Link2, Monitor, Palette, Wrench, BookOpen, FileText, BarChart3, Video, Map, Settings, Building2, Truck, Zap, Cloud, Shield, Database, Cog, BarChart, Users, Calculator, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/lib/auth";
@@ -49,13 +49,22 @@ const Navigation = () => {
     { name: "Contact", path: "/contact" },
   ];
 
-  const industrySolutions = [
+  const byIndustry = [
     { name: "Healthcare", path: "/solutions/healthcare", icon: <Stethoscope className="h-5 w-5 text-primary" /> },
     { name: "Financial Services", path: "/solutions/financial", icon: <CreditCard className="h-5 w-5 text-primary" /> },
     { name: "Manufacturing", path: "/solutions/manufacturing", icon: <Factory className="h-5 w-5 text-primary" /> },
     { name: "Retail", path: "/solutions/retail", icon: <ShoppingCart className="h-5 w-5 text-primary" /> },
     { name: "Technology", path: "/solutions/technology", icon: <Cpu className="h-5 w-5 text-primary" /> },
     { name: "Education", path: "/solutions/education", icon: <GraduationCap className="h-5 w-5 text-primary" /> },
+  ];
+
+  const byProductService = [
+    { name: "AI & Automation", path: "/solutions/ai-automation", icon: <Brain className="h-5 w-5 text-primary" /> },
+    { name: "Data Analytics", path: "/solutions/data-analytics", icon: <BarChart className="h-5 w-5 text-primary" /> },
+    { name: "Cloud Infrastructure", path: "/solutions/cloud", icon: <Cloud className="h-5 w-5 text-primary" /> },
+    { name: "Security & Compliance", path: "/solutions/security", icon: <Shield className="h-5 w-5 text-primary" /> },
+    { name: "Process Optimization", path: "/solutions/process", icon: <Cog className="h-5 w-5 text-primary" /> },
+    { name: "Business Intelligence", path: "/solutions/business-intelligence", icon: <Target className="h-5 w-5 text-primary" /> },
   ];
 
   const portfolioCategories = [
@@ -141,24 +150,54 @@ const Navigation = () => {
                 Solutions
               </Link>
               
-              {/* Hover Dropdown Content - 2 Columns */}
-              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-background border border-border rounded-md shadow-lg transition-all duration-200 z-[200] ${
+              {/* Hover Dropdown Content - Motive Style with Sections */}
+              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[500px] bg-background border border-border rounded-lg shadow-lg transition-all duration-200 z-[200] ${
                 solutionsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               }`}>
-                <div className="p-6 grid grid-cols-2 gap-4">
-                  {industrySolutions.map((industry) => (
-                    <Link 
-                      key={industry.path}
-                      href={industry.path} 
-                      className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
-                      data-testid={`dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    >
-                      <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
-                        {industry.icon}
-                      </div>
-                      <span className="font-medium text-left leading-tight">{industry.name}</span>
-                    </Link>
-                  ))}
+                <div className="p-6">
+                  {/* By Industry Section */}
+                  <div className="mb-6">
+                    <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4 pl-2">
+                      BY INDUSTRY
+                    </h3>
+                    <div className="grid grid-cols-2 gap-3">
+                      {byIndustry.map((industry) => (
+                        <Link 
+                          key={industry.path}
+                          href={industry.path} 
+                          className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
+                          data-testid={`dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
+                            {industry.icon}
+                          </div>
+                          <span className="font-medium text-left leading-tight">{industry.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* By Product & Service Section */}
+                  <div>
+                    <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4 pl-2">
+                      BY PRODUCT & SERVICE
+                    </h3>
+                    <div className="grid grid-cols-2 gap-3">
+                      {byProductService.map((service) => (
+                        <Link 
+                          key={service.path}
+                          href={service.path} 
+                          className="flex items-center space-x-3 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors rounded-lg group"
+                          data-testid={`dropdown-${service.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          <div className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-105">
+                            {service.icon}
+                          </div>
+                          <span className="font-medium text-left leading-tight">{service.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -347,7 +386,10 @@ const Navigation = () => {
                       Solutions
                     </Link>
                     <div className="pl-4 space-y-1">
-                      {industrySolutions.map((industry) => (
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                        By Industry
+                      </div>
+                      {byIndustry.map((industry) => (
                         <Link
                           key={industry.path}
                           href={industry.path}
@@ -356,6 +398,20 @@ const Navigation = () => {
                           data-testid={`mobile-dropdown-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
                         >
                           {industry.name}
+                        </Link>
+                      ))}
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mt-3 mb-2">
+                        By Product & Service
+                      </div>
+                      {byProductService.map((service) => (
+                        <Link
+                          key={service.path}
+                          href={service.path}
+                          className="block text-sm text-muted-foreground hover:text-primary transition-colors p-1"
+                          onClick={() => setMobileMenuOpen(false)}
+                          data-testid={`mobile-dropdown-${service.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {service.name}
                         </Link>
                       ))}
                     </div>
