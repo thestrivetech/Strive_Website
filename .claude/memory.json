@@ -44,6 +44,7 @@
   "workflow_rules": {
     "file_purposes": {
       "memory.json": "Central brain - rules and reminders ONLY (not task lists or session logs)",
+      ".serena/memories": "Main Orchestrators brain and go to tool:(Serena MCP)",
       "chat_logs/": "Session work documentation with detailed activities and context",
       "change_log.md": "All code edits/deletions with before/after states for rollback capability",
       "plan.md": "Living implementation progress tracker - MUST update when tasks complete",
@@ -153,7 +154,7 @@
       "model": "sonnet",
       "responsibilities": ["session_logging", "context_preservation", "technical_documentation", "workflow_continuity"],
       "mcp_tools": [],
-      "critical_reminder": "Document in chat_logs/ - NEVER in memory.json"
+      "critical_reminder": "Document in chat_logs/ - NEVER in memory.json, only make suggestions to main-claude-orchestrator if something needs to be added to memory.json"
     }
   },
 
@@ -242,7 +243,7 @@
     "usage_protocol": {
       "session_initialization": [
         "mcp__serena__list_memories - Review available project intelligence",
-        "mcp__serena__read_memory - Consult specific memory files for context"
+        "mcp__serena__read_memory - Consult specific memory files for context & read chat logs for additional context"
       ],
       "development_workflow": [
         "mcp__serena__get_symbols_overview - Understand file structure",
@@ -266,8 +267,8 @@
   "environment": {
     "development": {
       "port": 5000,
-      "database_url": "DATABASE_URL env var",
-      "supabase_config": "SUPABASE_URL and SUPABASE_ANON_KEY"
+      "database_url": "DATABASE_URL env var (in .env)",
+      "supabase_config": "SUPABASE_URL and SUPABASE_ANON_KEY (in .env)",
     },
     "production": {
       "platform": "Replit",

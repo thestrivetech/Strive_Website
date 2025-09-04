@@ -18,7 +18,7 @@ This document serves as the comprehensive guide for the **Strive Website 7-Agent
 - **Role**: Master coordinator, quality monitor, and strategic planner
 - **Model**: Opus 4.1
 - **Status**: ✅ Active
-- **MCP Tools**: Serena (code analysis), Context7 (documentation)
+- **MCP Tools**: Serena USE THIS TOOL FOR MAINLY EVERYTHING (code analysis, task delegation), Context7 (documentation)
 - **Responsibilities**:
   - Task analysis and multi-agent delegation
   - Real-time quality monitoring and coaching
