@@ -74,30 +74,30 @@ const HeroSection = ({
   return (
     <section className="hero-gradient min-h-screen flex items-center relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center min-h-[80vh] py-6 sm:py-8 lg:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh] py-8 lg:py-12">
           {/* Left Content */}
-          <div className="space-y-4 sm:space-y-6 lg:space-y-8 slide-in-left">
-            <div className="space-y-3 sm:space-y-4 lg:space-y-6">
+          <div className="space-y-6 lg:space-y-8 slide-in-left">
+            <div className="space-y-4 lg:space-y-6">
               
               <h1 
-                className="mobile-hero-title sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-white"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-white"
                 data-testid="hero-title"
               >
                 Custom <span className="gradient-text">AI Solutions</span> Built for Real World Performance
               </h1>
               
               <p 
-                className="mobile-hero-subtitle sm:text-lg lg:text-xl text-muted-foreground leading-relaxed"
+                className="text-sm sm:text-base lg:text-lg xl:text-xl text-muted-foreground leading-relaxed"
                 data-testid="hero-subtitle"
               >
                 {subtitle}
               </p>
             </div>
             
-            <div className="mobile-hero-buttons flex flex-col sm:flex-row gap-3 lg:gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
               <Button
                 onClick={onPrimaryClick}
-                className="mobile-hero-button bg-primary text-primary-foreground px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
+                className="w-full sm:w-auto bg-primary text-primary-foreground px-6 lg:px-8 py-3 lg:py-4 text-sm sm:text-base lg:text-lg hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all min-h-[48px]"
                 size="lg"
                 data-testid="button-hero-primary"
               >
@@ -106,7 +106,7 @@ const HeroSection = ({
               <Button
                 onClick={onSecondaryClick}
                 variant="outline"
-                className="mobile-hero-button border-2 border-primary text-primary px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg hover:bg-primary hover:text-primary-foreground transition-all"
+                className="w-full sm:w-auto border-2 border-primary text-primary px-6 lg:px-8 py-3 lg:py-4 text-sm sm:text-base lg:text-lg hover:bg-primary hover:text-primary-foreground transition-all min-h-[48px]"
                 size="lg"
                 data-testid="button-hero-secondary"
               >
@@ -115,7 +115,7 @@ const HeroSection = ({
             </div>
 
             {/* Demo Navigation Dots */}
-            <div className="mobile-demo-dots flex items-center space-x-2 sm:space-x-3">
+            <div className="flex items-center justify-center lg:justify-start space-x-2 sm:space-x-3">
               {demoVideos.map((_, index) => (
                 <button
                   key={index}
@@ -132,7 +132,7 @@ const HeroSection = ({
           </div>
 
           {/* Right Demo Video */}
-          <div className="space-y-3 sm:space-y-4 lg:space-y-8 slide-in-right relative mt-6 sm:mt-8 lg:mt-0">
+          <div className="space-y-4 lg:space-y-8 slide-in-right relative mt-8 lg:mt-0">
             {/* Left Arrow - Hidden on mobile */}
             <button
               onClick={goToPreviousDemo}
@@ -151,7 +151,7 @@ const HeroSection = ({
               <ChevronRight className="w-6 h-6 text-primary" />
             </button>
             
-            <div className="mobile-demo-container demo-video-container max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-lg mx-auto lg:mx-0">
+            <div className="demo-video-container w-full max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-lg mx-auto lg:mx-0">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5]">
                 <img 
                   src={demoVideos[currentDemo].thumbnail}
@@ -214,7 +214,7 @@ const HeroSection = ({
             </div>
 
             {/* Mobile Navigation Controls */}
-            <div className="mobile-nav-controls flex lg:hidden items-center justify-center space-x-4 mt-3 sm:mt-4">
+            <div className="flex lg:hidden items-center justify-center space-x-4 mt-4">
               <button
                 onClick={goToPreviousDemo}
                 className="w-10 h-10 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30"
