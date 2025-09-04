@@ -295,52 +295,50 @@ const Contact = () => {
                 </CardContent>
               </Card>
 
-              {/* Office Image */}
-              <Card className="overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" 
-                  alt="Corporate building exterior with modern architecture"
-                  className="w-full h-48 object-cover"
-                  data-testid="img-office"
-                />
-                <CardContent className="p-6">
-                  <h3 
-                    className="text-xl font-bold mb-2"
-                    data-testid="text-visit-office-title"
-                  >
-                    Visit Our Office
-                  </h3>
-                  <p 
-                    className="text-muted-foreground"
-                    data-testid="text-visit-office-description"
-                  >
-                    Schedule a visit to our headquarters and meet our team in person. We'd love to show you our workspace and discuss your project over coffee.
-                  </p>
-                </CardContent>
-              </Card>
-
-              {/* Quick Actions */}
-              <Card className="p-8">
+              {/* Quick Actions - Enhanced */}
+              <Card className="bg-gradient-to-br from-primary/5 via-background to-primary/10 border-primary/20 p-8 shadow-xl">
                 <CardContent className="p-0">
-                  <h3 
-                    className="text-xl font-bold mb-6"
-                    data-testid="text-quick-actions-title"
-                  >
-                    Quick Actions
-                  </h3>
+                  <div className="text-center mb-6">
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <Calendar className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 
+                      className="text-2xl font-bold mb-2"
+                      data-testid="text-quick-actions-title"
+                    >
+                      Quick Actions
+                    </h3>
+                    <p className="text-muted-foreground">
+                      Get started immediately or explore our resources
+                    </p>
+                  </div>
+                  
                   <div className="space-y-4">
-                    {quickActions.map((action, index) => (
-                      <Button
-                        key={index}
-                        variant={index === 0 ? "default" : "outline"}
-                        className="w-full justify-center"
-                        onClick={() => handleQuickAction(action.action)}
-                        data-testid={`button-${action.action}`}
-                      >
-                        {action.icon}
-                        {action.text}
-                      </Button>
-                    ))}
+                    {/* Primary consultation button */}
+                    <Button
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-primary/20"
+                      onClick={() => window.location.href = '/consultation'}
+                      data-testid="button-schedule-consultation"
+                    >
+                      <Calendar className="mr-2 w-5 h-5" />
+                      Schedule a Consultation
+                    </Button>
+                    
+                    {/* Secondary actions */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {quickActions.map((action, index) => (
+                        <Button
+                          key={index}
+                          variant="outline"
+                          className="justify-center py-3 border-2 border-muted hover:border-primary/50 hover:bg-primary/5 transition-all duration-200"
+                          onClick={() => handleQuickAction(action.action)}
+                          data-testid={`button-${action.action}`}
+                        >
+                          {action.icon}
+                          {action.text}
+                        </Button>
+                      ))}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
