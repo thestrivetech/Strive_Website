@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Bot, BarChart, Blocks, ShieldCheck, Eye, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory, Building2, DollarSign, Home as HomeIcon, Scale, Cloud, Cog, Target, Filter, Check } from "lucide-react";
+import { Bot, BarChart, Blocks, ShieldCheck, Eye, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory, Building2, DollarSign, Home as HomeIcon, Scale, Cloud, Cog, Target, Filter, Check, Lightbulb } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -244,21 +244,28 @@ const Solutions = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="pt-20 pb-16 bg-gradient-to-br from-primary/5 via-background to-primary/10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-transparent to-background/60 pointer-events-none"></div>
+      <section className="pt-20 pb-16 bg-gradient-to-br from-[#ffffffeb] via-[#fff7f0] to-primary/20 relative overflow-hidden">
+        {/* Beautiful gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#ffffffeb] via-transparent to-primary/10 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent pointer-events-none"></div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
+            <div className="flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <Lightbulb className="h-8 w-8 text-white" />
+              </div>
+            </div>
             <h1 
-              className="text-4xl md:text-5xl font-bold mb-6 text-foreground"
+              className="text-4xl md:text-5xl font-bold mb-6 text-[#ff7e29]"
               data-testid="text-solutions-hero-title"
             >
-              AI-Powered Solutions for Every Industry
+              <span className="bg-gradient-to-r from-[#ff7e29] to-primary bg-clip-text text-transparent">AI-Powered Solutions</span> for Every Industry
             </h1>
             <p 
               className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8"
               data-testid="text-solutions-hero-subtitle"
             >
-              Discover comprehensive AI and automation solutions tailored to transform your business operations, drive efficiency, and accelerate growth across all industries.
+              Discover comprehensive <span className="bg-gradient-to-r from-primary to-[#ff7e29] bg-clip-text text-transparent font-semibold">AI and automation solutions</span> tailored to transform your business operations, drive efficiency, and accelerate growth across all industries.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -377,7 +384,7 @@ const Solutions = () => {
                         className="bg-green-500 hover:bg-green-600 text-white"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleViewDemo(solution.demoType);
+                          handleViewDemo(solution.demoType || "");
                         }}
                       >
                         View Demo
@@ -443,7 +450,7 @@ const Solutions = () => {
                     {Object.entries(selectedSolution.metrics).map(([key, value]) => (
                       <div key={key} className="flex justify-between items-center">
                         <span className="text-muted-foreground">{key}</span>
-                        <span className="font-semibold text-primary">{value}</span>
+                        <span className="font-semibold text-primary">{String(value)}</span>
                       </div>
                     ))}
                   </div>
@@ -456,7 +463,7 @@ const Solutions = () => {
                     <Button 
                       size="lg" 
                       className="flex-1 bg-green-500 hover:bg-green-600 text-white"
-                      onClick={() => handleViewDemo(selectedSolution.demoType)}
+                      onClick={() => handleViewDemo(selectedSolution.demoType || "")}
                     >
                       View {selectedSolution.demoType} Demo
                     </Button>

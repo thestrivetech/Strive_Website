@@ -3,7 +3,7 @@ import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calculator, TrendingUp, DollarSign, Clock, Stethoscope, CreditCard, ShoppingCart, Factory, Cpu } from "lucide-react";
+import { Calculator, TrendingUp, DollarSign, Clock, Stethoscope, CreditCard, ShoppingCart, Factory, Cpu, GraduationCap, Home as HomeIcon, Scale } from "lucide-react";
 
 interface IndustryData {
   [key: string]: {
@@ -74,6 +74,39 @@ const industryData: IndustryData = {
       analytics: { name: "Performance Analytics", multiplier: 3.9, timeSaving: 35 },
       ai: { name: "Smart Infrastructure", multiplier: 4.3, timeSaving: 50 },
       compliance: { name: "Security Automation", multiplier: 3.1, timeSaving: 25 },
+    },
+  },
+  education: {
+    name: "Education",
+    icon: <GraduationCap className="h-4 w-4" />,
+    baseROI: 2.8,
+    services: {
+      automation: { name: "Administrative Automation", multiplier: 2.9, timeSaving: 35 },
+      analytics: { name: "Learning Analytics", multiplier: 3.1, timeSaving: 30 },
+      ai: { name: "Personalized Learning", multiplier: 3.8, timeSaving: 45 },
+      compliance: { name: "Student Management", multiplier: 2.4, timeSaving: 20 },
+    },
+  },
+  "real-estate": {
+    name: "Real Estate",
+    icon: <HomeIcon className="h-4 w-4" />,
+    baseROI: 2.9,
+    services: {
+      automation: { name: "Property Management", multiplier: 3.0, timeSaving: 40 },
+      analytics: { name: "Market Analytics", multiplier: 3.2, timeSaving: 35 },
+      ai: { name: "Property Valuation", multiplier: 3.7, timeSaving: 50 },
+      compliance: { name: "Lead Management", multiplier: 2.7, timeSaving: 25 },
+    },
+  },
+  legal: {
+    name: "Legal",
+    icon: <Scale className="h-4 w-4" />,
+    baseROI: 3.2,
+    services: {
+      automation: { name: "Document Automation", multiplier: 3.4, timeSaving: 45 },
+      analytics: { name: "Case Analytics", multiplier: 3.0, timeSaving: 30 },
+      ai: { name: "Legal Research", multiplier: 4.0, timeSaving: 55 },
+      compliance: { name: "Compliance Monitoring", multiplier: 3.3, timeSaving: 25 },
     },
   },
 };
@@ -254,13 +287,22 @@ const ROICalculator = () => {
                   <p className="text-sm text-muted-foreground mb-4">
                     Based on {industryData[selectedIndustry]?.name} industry averages and selected solutions
                   </p>
-                  <button 
-                    onClick={() => window.location.href = "/contact"}
-                    className="text-primary font-semibold hover:underline"
-                    data-testid="button-get-detailed-analysis"
-                  >
-                    Get Detailed Analysis →
-                  </button>
+                  <div className="space-y-3">
+                    <button 
+                      onClick={() => window.location.href = "/get-started"}
+                      className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200"
+                      data-testid="button-schedule-discovery-call"
+                    >
+                      Schedule Discovery Call
+                    </button>
+                    <button 
+                      onClick={() => window.location.href = "/contact"}
+                      className="text-primary font-semibold hover:underline"
+                      data-testid="button-get-detailed-analysis"
+                    >
+                      Get Detailed Analysis →
+                    </button>
+                  </div>
                 </div>
               </CardContent>
             </Card>

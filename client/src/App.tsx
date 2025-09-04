@@ -24,6 +24,7 @@ const Resources = lazy(() => import("@/pages/resources"));
 const About = lazy(() => import("@/pages/about"));
 const Contact = lazy(() => import("@/pages/contact"));
 const GetStarted = lazy(() => import("@/pages/get-started"));
+const Onboarding = lazy(() => import("@/pages/onboarding"));
 const Demo = lazy(() => import("@/pages/demo"));
 const Login = lazy(() => import("@/pages/login"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
@@ -63,6 +64,7 @@ function Router() {
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
             <Route path="/get-started" component={GetStarted} />
+            <Route path="/onboarding" component={Onboarding} />
             <Route path="/demo" component={Demo} />
             <Route path="/login" component={Login} />
             <Route path="/dashboard" component={Dashboard} />

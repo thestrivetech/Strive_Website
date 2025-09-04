@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Trophy, Shield, Brain, TrendingUp, Clock, Users, BarChart, Cog, Calculator, ShieldCheck, Truck, Zap } from "lucide-react";
 import { LightBulbIcon, RocketLaunchIcon, CpuChipIcon, StarIcon } from "@heroicons/react/24/outline";
 import HeroSection from "@/components/ui/hero-section";
@@ -5,15 +6,70 @@ import SolutionCard from "@/components/ui/solution-card";
 import ResourceCard from "@/components/ui/resource-card";
 import ROICalculator from "@/components/ui/roi-calculator";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 
 const Home = () => {
+  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+
   const handleGetStarted = () => {
     window.location.href = "/get-started";
   };
 
   const handleWatchDemo = () => {
     window.location.href = "/demo";
+  };
+
+  const industrySpecificSolutions = {
+    healthcare: [
+      { name: "AI-powered diagnostics and imaging analysis", icon: "🔬", description: "Advanced medical imaging with AI pattern recognition" },
+      { name: "Patient data management and EHR integration", icon: "📋", description: "Seamless electronic health record management" },
+      { name: "Automated compliance and regulatory reporting", icon: "✅", description: "HIPAA compliant automated reporting systems" },
+      { name: "Predictive analytics for patient outcomes", icon: "📊", description: "Early intervention through predictive modeling" }
+    ],
+    finance: [
+      { name: "Real-time fraud detection and prevention", icon: "🛡️", description: "Advanced AI algorithms for fraud prevention" },
+      { name: "Automated risk assessment and reporting", icon: "📈", description: "Comprehensive risk analysis and compliance reporting" },
+      { name: "Algorithmic trading and portfolio optimization", icon: "💹", description: "AI-driven trading strategies and portfolio management" },
+      { name: "Customer behavior analytics and personalization", icon: "👤", description: "Deep customer insights for personalized services" }
+    ],
+    manufacturing: [
+      { name: "Predictive maintenance and equipment monitoring", icon: "🔧", description: "Prevent downtime with intelligent maintenance scheduling" },
+      { name: "Quality control automation with computer vision", icon: "👁️", description: "Automated quality inspection using AI vision" },
+      { name: "Supply chain optimization and demand forecasting", icon: "📦", description: "Optimize inventory and predict demand patterns" },
+      { name: "Production workflow automation", icon: "⚙️", description: "Streamline manufacturing processes with automation" }
+    ],
+    retail: [
+      { name: "Customer analytics and personalized recommendations", icon: "🎯", description: "AI-powered personalization for better customer experience" },
+      { name: "Inventory management and demand prediction", icon: "📊", description: "Smart inventory optimization and demand forecasting" },
+      { name: "Dynamic pricing optimization", icon: "💰", description: "Real-time pricing strategies based on market conditions" },
+      { name: "Omnichannel customer experience automation", icon: "🌐", description: "Seamless customer journey across all channels" }
+    ],
+    technology: [
+      { name: "DevOps automation and CI/CD optimization", icon: "🚀", description: "Automated deployment pipelines and infrastructure" },
+      { name: "AI agent development and deployment", icon: "🤖", description: "Custom AI agents for business automation" },
+      { name: "Cloud infrastructure and scaling solutions", icon: "☁️", description: "Auto-scaling cloud infrastructure management" },
+      { name: "Data pipeline automation and analytics", icon: "📈", description: "Automated data processing and business intelligence" }
+    ],
+    education: [
+      { name: "Learning analytics and student performance insights", icon: "📚", description: "Data-driven insights into student learning patterns" },
+      { name: "Administrative workflow automation", icon: "📋", description: "Streamline administrative processes and workflows" },
+      { name: "Personalized learning path recommendations", icon: "🎯", description: "AI-powered personalized education pathways" },
+      { name: "Automated grading and assessment tools", icon: "✏️", description: "Intelligent automated grading and feedback systems" }
+    ],
+    "real-estate": [
+      { name: "Property valuation and market analysis", icon: "🏠", description: "AI-powered property valuation and market insights" },
+      { name: "Automated property management workflows", icon: "🗂️", description: "Streamline property management operations" },
+      { name: "Lead generation and customer relationship management", icon: "📞", description: "Automated lead qualification and CRM integration" },
+      { name: "Market trend prediction and investment insights", icon: "📈", description: "Predictive analytics for real estate investments" }
+    ],
+    legal: [
+      { name: "Document automation and contract analysis", icon: "📄", description: "AI-powered document generation and contract review" },
+      { name: "Case management and workflow optimization", icon: "⚖️", description: "Streamlined case management and legal workflows" },
+      { name: "Legal research and precedent discovery", icon: "🔍", description: "AI-assisted legal research and case law analysis" },
+      { name: "Compliance monitoring and risk assessment", icon: "🛡️", description: "Automated compliance monitoring and risk management" }
+    ]
   };
 
   const solutions = [
@@ -125,22 +181,67 @@ const Home = () => {
               { id: "real-estate", name: "Real Estate", icon: "🏠" },
               { id: "legal", name: "Legal", icon: "⚖️" }
             ].map((industry) => (
-              <Link
+              <button
                 key={industry.id}
-                href={`/solutions?industry=${industry.id}`}
-                className="p-4 rounded-xl border-2 bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/15 hover:border-white/30 transition-all duration-300 hover:scale-105 text-center"
+                onClick={() => setSelectedIndustry(selectedIndustry === industry.id ? null : industry.id)}
+                className="p-4 rounded-xl border-2 bg-[#020a1c] backdrop-blur-sm border-orange-500 text-white hover:bg-[#020a1c]/90 hover:border-orange-400 transition-all duration-300 hover:scale-105 text-center shadow-lg hover:shadow-orange-500/20"
                 data-testid={`button-industry-${industry.id}`}
               >
                 <div className="flex flex-col items-center space-y-2">
                   <div className="text-2xl">{industry.icon}</div>
                   <span className="text-sm font-medium">{industry.name}</span>
                 </div>
-              </Link>
+              </button>
             ))}
           </div>
 
+          {/* Industry-Specific Solutions */}
+          {selectedIndustry && industrySpecificSolutions[selectedIndustry as keyof typeof industrySpecificSolutions] && (
+            <div className="mt-12">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  {[
+                    { id: "healthcare", name: "Healthcare" },
+                    { id: "finance", name: "Finance" },
+                    { id: "manufacturing", name: "Manufacturing" },
+                    { id: "retail", name: "Retail" },
+                    { id: "technology", name: "Technology" },
+                    { id: "education", name: "Education" },
+                    { id: "real-estate", name: "Real Estate" },
+                    { id: "legal", name: "Legal" }
+                  ].find(industry => industry.id === selectedIndustry)?.name} Solutions
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {industrySpecificSolutions[selectedIndustry as keyof typeof industrySpecificSolutions].map((solution, index) => (
+                  <Card key={index} className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
+                    <CardContent className="p-6 text-center">
+                      <div className="text-3xl mb-4">{solution.icon}</div>
+                      <h4 className="text-white font-semibold mb-2 text-sm leading-tight">
+                        {solution.name}
+                      </h4>
+                      <p className="text-white/70 text-xs leading-relaxed">
+                        {solution.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              <div className="text-center mt-8">
+                <Link href="/solutions">
+                  <Button 
+                    className="bg-primary hover:bg-primary/90 text-white px-6 py-2"
+                    data-testid="button-view-all-solutions"
+                  >
+                    View All Solutions
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          )}
+
           {/* Call to Action */}
-          <div className="text-center">
+          <div className="text-center mt-12">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-2xl mx-auto">
               <h3 className="text-2xl font-bold text-white mb-4">
                 Ready to Transform Your Industry?
