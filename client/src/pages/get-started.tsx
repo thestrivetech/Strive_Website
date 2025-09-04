@@ -130,7 +130,8 @@ const GetStarted = () => {
                   placeholder="Please specify your industry"
                   value={customIndustry}
                   onChange={(e) => setCustomIndustry(e.target.value)}
-                  className="bg-card/80 border-muted/20 text-white placeholder:text-muted-foreground"
+                  className="bg-card/80 border-muted/20 placeholder:text-muted-foreground"
+                  style={{ color: '#020a1c' }}
                   data-testid="input-custom-industry"
                 />
               </div>
@@ -139,7 +140,11 @@ const GetStarted = () => {
             <Button
               onClick={handleNextStep}
               disabled={!isStep1Valid()}
-              className="bg-muted text-muted-foreground hover:bg-muted/80 px-12 py-6 text-lg rounded-full font-medium"
+              className={`px-12 py-6 text-lg rounded-full font-medium transition-colors duration-200 ${
+                isStep1Valid() 
+                  ? 'bg-orange-500 text-white hover:bg-orange-600' 
+                  : 'bg-muted text-muted-foreground hover:bg-muted/80'
+              }`}
               data-testid="button-step1-next"
             >
               Next
