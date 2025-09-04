@@ -72,9 +72,9 @@ const HeroSection = ({
   };
 
   return (
-    <section className="hero-gradient min-h-[95vh] max-h-screen flex items-center relative py-4 lg:py-8">
+    <section className="hero-gradient min-h-screen flex items-center relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center h-full max-h-[85vh]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh] py-8 lg:py-12">
           {/* Left Content */}
           <div className="space-y-6 lg:space-y-8 slide-in-left">
             <div className="space-y-4 lg:space-y-6">
@@ -152,12 +152,11 @@ const HeroSection = ({
             </button>
             
             <div className="demo-video-container max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-lg mx-auto lg:mx-0">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5]">
                 <img 
                   src={demoVideos[currentDemo].thumbnail}
                   alt={demoVideos[currentDemo].title}
-                  className="w-full object-cover transform scale-105 hover:scale-100 transition-transform duration-500"
-                  style={{ aspectRatio: '16/24' }}
+                  className="w-full h-full object-cover transform scale-105 hover:scale-100 transition-transform duration-500"
                   data-testid="demo-thumbnail"
                 />
                 

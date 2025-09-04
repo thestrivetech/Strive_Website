@@ -76,6 +76,7 @@
   
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 }
 
@@ -123,13 +124,6 @@
   50% {
     opacity: 1;
     transform: scale(1.2);
-  }
-  
-  .gradient-text {
-    background: linear-gradient(135deg, hsl(24, 100%, 58%) 0%, hsl(250, 95%, 75%) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
 }
 
@@ -307,5 +301,94 @@
     overflow: hidden;
     box-shadow: 0 20px 60px hsla(0, 0%, 0%, 0.4);
     background: linear-gradient(135deg, hsl(217, 32%, 17%) 0%, hsl(222, 84%, 5.9%) 100%);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(24, 100%, 58%) 0%, hsl(250, 95%, 75%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Responsive Design Fixes */
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      max-width: 640px;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      max-width: 768px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 1024px;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container {
+      max-width: 1280px;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .container {
+      max-width: 1536px;
+    }
+  }
+
+  /* Prevent horizontal overflow */
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    min-width: 320px;
+  }
+
+  /* Hero section mobile fixes */
+  @media (max-width: 1023px) {
+    .hero-gradient {
+      min-height: 100vh;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .demo-video-container {
+      max-width: 280px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero-gradient {
+      min-height: 100svh;
+    }
+
+    .demo-video-container {
+      max-width: 240px;
+    }
   }
 }

@@ -128,7 +128,7 @@ const ROICalculator = () => {
   };
 
   return (
-    <section className="py-12 from-primary/5 to-orange-500/5 bg-[#ffffffeb] text-[#020a1c]">
+    <section className="py-8 md:py-12 from-primary/5 to-orange-500/5 bg-[#ffffffeb] text-[#020a1c] overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
@@ -143,9 +143,9 @@ const ROICalculator = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
             {/* Calculator Controls */}
-            <Card className="p-6">
+            <Card className="p-4 md:p-6">
               <CardContent className="space-y-6 p-0">
                 <div>
                   <label className="text-sm font-medium mb-3 block">
@@ -192,7 +192,7 @@ const ROICalculator = () => {
                   <label className="text-sm font-medium mb-3 block">
                     Select Solutions
                   </label>
-                  <div className="grid grid-cols-1 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
                     {industryData[selectedIndustry] && Object.entries(industryData[selectedIndustry].services).map(([key, service]) => (
                       <Badge
                         key={key}
@@ -210,7 +210,7 @@ const ROICalculator = () => {
             </Card>
 
             {/* Results */}
-            <Card className="p-6 bg-gradient-to-br from-primary/5 to-orange-500/5">
+            <Card className="p-4 md:p-6 bg-gradient-to-br from-primary/5 to-orange-500/5">
               <CardContent className="space-y-6 p-0">
                 <div className="text-center">
                   <h3 className="text-lg font-semibold mb-4" data-testid="results-title">
