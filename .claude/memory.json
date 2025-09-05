@@ -49,14 +49,19 @@
       "change_log.md": "All code edits/deletions with before/after states for rollback capability",
       "plan.md": "Living implementation progress tracker - MUST update when tasks complete",
       "updates/": "Implementation blueprints and strategic plans",
-      ".claude/agents/": "Agent-specific configurations and responsibilities"
+      ".claude/agents/": "Agent-specific configurations and responsibilities",
+      "prompts/ORCHESTRATOR_SESSION_START_V3.md": "Complete session start blueprint - YOUR PRIMARY GUIDE",
+      "updates/agentic_team_plan.md": "Current implementation progress and roadmap",
+      ".claude/workflows/agent_task_template.md": "Standardized task assignment format"
     },
     "mandatory_actions": {
       "session_start": [
+        "MANDATORY: Read prompts/ORCHESTRATOR_SESSION_START_V3.md FIRST - it's your complete guide",
         "MANDATORY: Read Serena memory files for instant project intelligence",
         "Read previous session's chat log for context",
-        "Check plan.md for current implementation progress",
+        "Check updates/agentic_team_plan.md for implementation progress",
         "Check change_log.md for recent code changes",
+        "Run: node scripts/session_start.js for automated health checks",
         "Use memory.json ONLY for rules and reminders - NEVER as task list"
       ],
       "during_session": [
@@ -113,6 +118,44 @@
       "execution_team": 7,
       "monitoring_team": 2,
       "support_team": 2
+    },
+    "session_start_checklist": {
+      "phase_0_initialization": [
+        "Read prompts/ORCHESTRATOR_SESSION_START_V3.md - Your complete blueprint",
+        "Run: node scripts/session_start.js - Automated health checks",
+        "Create session directories in docs/session/",
+        "Backup critical files (home.tsx, vite.config.ts)"
+      ],
+      "phase_1_research": [
+        "Deploy ALL 3 research agents with Promise.all",
+        "Wait 8-10 minutes for documentation gathering",
+        "Verify /docs/session/ has frontend/backend/infrastructure docs",
+        "DO NOT proceed until research complete"
+      ],
+      "phase_2_task_prep": [
+        "Parse user's plan/update file for requirements",
+        "Use .claude/workflows/agent_task_template.md format",
+        "Categorize tasks: independent vs dependent",
+        "Create explicit task cards with Edit/MultiEdit requirements"
+      ],
+      "phase_3_execution": [
+        "Deploy Wave 1 agents with Promise.all (parallel)",
+        "Start execution-monitor (30-second checks)",
+        "Intervene if no changes in 2 minutes",
+        "Deploy component-extractor if files > 250 lines"
+      ],
+      "phase_4_verification": [
+        "Run git diff for ALL claimed changes",
+        "Check for corruption patterns",
+        "Verify build still passes",
+        "Ensure preview still works"
+      ],
+      "phase_5_completion": [
+        "Update agentic_team_plan.md with progress",
+        "Document all changes in change_log.md",
+        "Create session report in chat_logs/",
+        "Prepare handoff for next session"
+      ]
     }
   },
 

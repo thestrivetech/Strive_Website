@@ -1,42 +1,45 @@
 Fix nav bar for all pages (should be translucent/transparent in the hero section but then carry the hero section gradient color as soon as the nav bar hits the end of the hero section) - This code was edited last session but it actually broke the nav bar to where it flickers when scrolling.
 
 - Home Page - 
-Analyze the home page and see if icon usage is high. I personally think it is but I'm not an expert. If so, what could we do differently?
+
+First session task: Analyze the home page and see if icon usage is high. I personally think it is but I'm not an expert. If so, what could we do differently? --- This was updated in the first agentic team session but I want to rollback to what we had on the home page in the last session for the "Integrated Business Platform" section.
 
 
 
-1. The demo preview video section is too small now. Please increase the size by 1.25x. Also, the buttons for the arrows on the sides of the demo preview section are not formatted correctly either, we need to fix this. Additionally, I want to remove the circles around the arrows on these two buttons.
+1. The demo preview video section is still too small on big displays (I think it might look alright for smaller display screens/devices) even after we updated it in the last session, please make sure that it is. Also, the buttons for the arrows on the sides of the demo preview section are not formatted correctly either for bigger displays, we need to fix this. Additionally, I want to only have the side arrows on the left and right of the demo presentation section. I don't want anything around them like the boxes that are currently there. 
 
-2. Please change the "Watch Demos" to "View Demos" in the hero section of the home page which takes them to the demo filtered section in the portfolio.
+2. Please change the "Watch Demos" to "View Demos" in the hero section of the home page which takes them to the demo filtered section in the portfolio. - Completed in last session, looks good.
 
-3. Change the “Get Started” button to 
+3. The "Connect With Us" section at the bottom was updated in the last session but now it's too much. Just rollback to what was there before. 
 
-4. The "Connect With Us" section at the bottom of the page is pretty bland. It shouldn't stand out too much because it's at the bottom of the page and would also take away from the content section which is right above it. Let's make this section just look more visually appealing. 
+5.  After rolling back the "CONNECT WITH US" section at the bottom of the page, please make sure we change out the title of the cards/badges in this section to be more focused on company centered aspects of what it's like to work with us and what it's like to become a partner with strive. 
 
-5.  Change "View Success Stories" button to "Discover Solutions" which then takes the customer to the Solutions page
+6. Add discord icon to the footer on all pages which links to Strive's discord: https://discord.gg/q3djnrvP29 - This was implemented in the last session and it looks amazing.
 
-6. Add discord icon to the footer on all pages which links to Strive's discord: https://discord.gg/q3djnrvP29
+7. “Integrated Business Platform” section needs to be updated or changed. We could cater it to our app/website which gives customers the ability to be in the loop on their project status and oversight with daily snapshots on overall progress and visuals if applicable. - This was updated in the last session but I want to roll it back to what we had before. - After doing this, please use the existing modal (pop out system) that's used on all other pages on this sections cards/badges.
 
-7. “Integrated Business Platform” section needs to be updated or changed. We could cater it to our app/website which gives customers the ability to be in the loop on their project status and oversight with daily snapshots on overall progress and visuals if applicable.
-8. Make “Why Choose Strive” the main text so it pops out rather than being a secondary text 
-9. Change “View Success Stories” in Why Choose Strive to - Meet the Team
+8. Make “Why Choose Strive” the main text so it pops out rather than being a secondary text - Keep this part of this section the same even after this section is rolled back to it's previous state.
 
-4. The orange "Strive" in the footer section of the website needs to be changed to all caps and needs to be in the Mokoto font to match the logo. This needs to be done for the footer section on all pages 
+9. Change “View Success Stories” in Why Choose Strive to - Meet the Team - Completed in last session and is good to go - Just add a orange button outline and we're good to go. Make sure it matches the "View Demos" button at the top of the page
+
+10. The orange "Strive" logo/text in the footer and the nav bar section of the website needs to be changed to this logo (make sure that the appearance looks right formatting wise when you put this logo in):  ![alt text](STRIVE_orange_text_transparent_1500x1500.png)
 
 -Solutions Page-
 
-Need to change the “By Industry” and “Solution Type” badges to be more specific to the actual Industry (Healthcare, Tech, Logistics, Law, etc.) and the specific Solution Type (Natural Language Processing, Computer Vision, Predictive Model, etc.)
+- Need to change the “By Industry” and “Solution Type” badges/cards to be more specific to the actual Industry (Healthcare, Tech, Logistics, Law, etc.) and the specific Solution Type (Natural Language Processing, Computer Vision, Predictive Model, etc.) - This was attempted in last session but still needs to be done. I'm talking about the small text section underneath each cards/badges main title where it literally says either "By Industry" or "Solution Type" - This should be changed to actually be accurate to what type of industry or what type of solution the card/badge is talking about. 
+
 
 - Portfolio Page -
 
-Change text in the header to say something that fits the page. It’s a portfolio page. So maybe use “Strive presents…” Or just use the word presents or another word that would look and sound better since this is the text hook for the patch. We need to use the gradient design on keywords in this text header like we did on the Home and Portfolio Page
-Fix the badge/card title text color on all badges to be orange instead of white. It currently blends in with the badge/card color
+Change text in the header to say something that fits the page. It’s a portfolio page. So maybe use “Strive presents…” Or just use the word presents or another word that would look and sound better since this is the text hook for the patch. We need to use the gradient design on keywords in this text header like we did on the Home and Portfolio Page - This was done in last session and I like it for the most part but we need to only have gradient words in the main text header instead of both the main and sub header sections. 
+
+- Fix the badge/card title text color on all badges to be orange instead of white. It currently blends in with the badge/card color - This was done nicely in the last session, good job. Now all that we need to do is change the project type text color to dark blue (#020a1c) and to make sure that all card/badges match in formatting because currently, some of the cards/badges have their "View Details" button lower than others. Let's use the "Computer Vision Analytics" card/badge as the reference and make all other cards formatting and dimensions match that one. Please make sure not to change any of the content within the cards/badge, we are just changing the overall size of the badges to match along with the structuring and layout. 
 
 - Resources Page - 
 
-1. Remove "Knowledge Center" from the hero section and add the bookcase lucid icon in it’s place.
+1. Remove "Knowledge Center" from the hero section and add the bookcase lucid icon in it’s place. It should match what the brain-circuit icon in size (on portfolio page)
 
-2. Put
+2.
 
 (Completed and implemented on Consultation Page, make sure it works)Additionally, we need to have the Calendly window on a page for people to schedule meetings with us instead of going through the entire process of filling out information.
 OR, we could ask the user when they would like to meet in the Contact Us form which will automatically schedule them on the Calendly app -> they should receive a confirmation email with the meeting time and date and form of communication (Google Meet, Discord, Phone Call, Microsoft Teams?, etc.)
@@ -57,6 +60,12 @@ Create nav bar dropdown to list “Become a Partner, Community (discord and more
 
 Add forgot password selection
 Make the “Welcome to Strive” badge/card the same color and design of the websites hero section using the same gradient look.
+
+- Get Started Pages - 
+
+- Step 3 of 3 page: please make this card/badge color the same off white color that we use for every other area of white in the project (#ffffffeb) - After doing this, please make sure that this color of white is being used for any white backgorunds that are used. BACKGROUNDS SPECIFICALLY, NOT ANYTHING ELSE.
+
+- Step 3 of 3 page: make the "Last Step" text color the same as the gradient color that's used on all hero sections throughout the website. Additionally, change the button color to this gradient as well.
 
 
 
