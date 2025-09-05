@@ -453,49 +453,57 @@ const Solutions = () => {
             {filteredSolutions.map((solution) => (
               <Card
                 key={solution.id}
-                className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-2 hover:border-primary/50 overflow-hidden"
+                className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-2 hover:border-primary/50 overflow-hidden h-full flex flex-col"
                 onClick={() => setSelectedSolution(solution)}
                 data-testid={`solution-card-${solution.id}`}
               >
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="flex-shrink-0 mr-4">
+                <CardContent className="p-6 flex flex-col h-full">
+                  {/* Header Section */}
+                  <div className="flex items-start mb-6">
+                    <div className="flex-shrink-0 mr-4 mt-1">
                       {solution.icon}
                     </div>
-                    <div className="flex-grow">
-                      <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                    <div className="flex-grow min-w-0">
+                      <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight mb-3">
                         {solution.title}
                       </h3>
-                      <div className="flex gap-2 mt-2">
-                        <Badge variant="secondary" className="text-xs">
+                      <div className="flex gap-2">
+                        <Badge variant="secondary" className="text-xs px-2 py-1">
                           {solution.category}
                         </Badge>
                       </div>
                     </div>
                   </div>
                   
-                  <p className="text-muted-foreground mb-4 line-clamp-3">
-                    {solution.shortDescription}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {solution.technologies.slice(0, 3).map((tech, index) => (
-                      <Badge key={index} variant="outline" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
-                    {solution.technologies.length > 3 && (
-                      <Badge variant="outline" className="text-xs">
-                        +{solution.technologies.length - 3} more
-                      </Badge>
-                    )}
+                  {/* Description Section */}
+                  <div className="flex-grow mb-6">
+                    <p className="text-muted-foreground line-clamp-3 leading-relaxed">
+                      {solution.shortDescription}
+                    </p>
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  {/* Technologies Section */}
+                  <div className="mb-6">
+                    <div className="flex flex-wrap gap-2">
+                      {solution.technologies.slice(0, 3).map((tech, index) => (
+                        <Badge key={index} variant="outline" className="text-xs px-2 py-1">
+                          {tech}
+                        </Badge>
+                      ))}
+                      {solution.technologies.length > 3 && (
+                        <Badge variant="outline" className="text-xs px-2 py-1">
+                          +{solution.technologies.length - 3} more
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Action Buttons Section */}
+                  <div className="flex items-center justify-between gap-3 mt-auto pt-2">
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      className="text-primary hover:text-primary-foreground hover:bg-primary"
+                      className="text-primary hover:text-primary-foreground hover:bg-primary px-4 py-2"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedSolution(solution);
@@ -506,7 +514,7 @@ const Solutions = () => {
                     {solution.hasDemo && (
                       <Button 
                         size="sm" 
-                        className="bg-green-500 hover:bg-green-600 text-white"
+                        className="bg-green-500 hover:bg-green-600 text-white px-4 py-2"
                         onClick={(e) => {
                           e.stopPropagation();
                           handleViewDemo(solution.demoType || "");
