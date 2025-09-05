@@ -1,4 +1,4 @@
-Fix nav bar for all pages (should carry the hero section gradient color as soon as the nav bar passes the hero section)
+Fix nav bar for all pages (should be translucent/transparent in the hero section but then carry the hero section gradient color as soon as the nav bar hits the end of the hero section) - This code was edited last session but it actually broke the nav bar to where it flickers when scrolling.
 
 - Home Page - 
 Analyze the home page and see if icon usage is high. I personally think it is but I'm not an expert. If so, what could we do differently?
