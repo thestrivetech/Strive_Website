@@ -48,7 +48,7 @@ const Solutions = () => {
     {
       id: 1,
       title: "Healthcare Solutions",
-      category: "By Industry",
+      category: "Health",
       type: "industry",
       industry: "Healthcare",
       icon: <Heart className="text-primary text-xl" />,
@@ -67,7 +67,7 @@ const Solutions = () => {
     {
       id: 2,
       title: "Financial Services Solutions",
-      category: "By Industry",
+      category: "Financial",
       type: "industry",
       industry: "Finance",
       icon: <DollarSign className="text-primary text-xl" />,
@@ -86,7 +86,7 @@ const Solutions = () => {
     {
       id: 3,
       title: "Manufacturing Solutions",
-      category: "By Industry", 
+      category: "Manufacturing", 
       type: "industry",
       industry: "Manufacturing",
       icon: <Factory className="text-primary text-xl" />,
@@ -346,7 +346,7 @@ const Solutions = () => {
                   data-testid="filter-by-industry"
                 >
                   <Building2 className="h-4 w-4 mr-2" />
-                  By Industry
+                  Industry
                   <Badge variant="secondary" className="ml-2 text-xs">
                     {solutions.filter(solution => solution.category === "By Industry").length}
                   </Badge>
