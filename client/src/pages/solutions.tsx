@@ -19,7 +19,7 @@ const Solutions = () => {
   
   const filters = [
     { name: "All", icon: null },
-    { name: "By Industry", icon: <Building2 className="h-4 w-4 mr-2" /> },
+    { name: "Health", icon: <Building2 className="h-4 w-4 mr-2" /> },
     { name: "Solution Type", icon: <Cog className="h-4 w-4 mr-2" /> },
   ];
 
@@ -49,7 +49,7 @@ const Solutions = () => {
       id: 1,
       title: "Healthcare Solutions",
       category: "Health",
-      type: "industry",
+      type: "service",
       industry: "Healthcare",
       icon: <Heart className="text-primary text-xl" />,
       shortDescription: "AI-powered healthcare solutions for patient care, diagnostics, and compliance.",
@@ -68,7 +68,7 @@ const Solutions = () => {
       id: 2,
       title: "Financial Services Solutions",
       category: "Financial",
-      type: "industry",
+      type: "service",
       industry: "Finance",
       icon: <DollarSign className="text-primary text-xl" />,
       shortDescription: "Advanced fintech solutions for fraud detection, risk management, and trading.",
@@ -87,7 +87,7 @@ const Solutions = () => {
       id: 3,
       title: "Manufacturing Solutions",
       category: "Manufacturing", 
-      type: "industry",
+      type: "service",
       industry: "Manufacturing",
       icon: <Factory className="text-primary text-xl" />,
       shortDescription: "Smart manufacturing solutions with predictive maintenance and quality control.",
@@ -106,7 +106,7 @@ const Solutions = () => {
       id: 4,
       title: "Retail Solutions",
       category: "Retail",
-      type: "industry", 
+      type: "service", 
       industry: "Retail",
       icon: <ShoppingCart className="text-primary text-xl" />,
       shortDescription: "Omnichannel retail solutions for customer analytics and inventory management.",
@@ -136,7 +136,7 @@ const Solutions = () => {
         "Predictive Analytics",
         "Natural Language Processing"
       ],
-      technologies: ["GPT-4", "TensorFlow", "Python", "REST APIs"],
+      technologies: ["Strive Tech", "TensorFlow", "Python", "REST APIs"],
       hasDemo: true,
       demoType: "ChatBots",
       metrics: { "Process Efficiency": "70%", "Error Reduction": "95%", "Cost Savings": "40%" }
@@ -144,7 +144,7 @@ const Solutions = () => {
     {
       id: 6,
       title: "Threat Detection",
-      category: "Solution Type",
+      category: "Computer Vision",
       type: "product",
       icon: <Eye className="text-primary text-xl" />,
       shortDescription: "Advanced AI-powered visual recognition and analysis systems.",
@@ -162,8 +162,8 @@ const Solutions = () => {
     },
     {
       id: 7,
-      title: "Predictive Analytics",
-      category: "Solution Type",
+      title: "Football Score Prediction",
+      category: "Predictive Model",
       type: "product",
       icon: <BarChart className="text-primary text-xl" />,
       shortDescription: "Data-driven insights and forecasting for strategic business decisions.",
@@ -181,9 +181,9 @@ const Solutions = () => {
     },
     {
       id: 8,
-      title: "Cloud Infrastructure",
-      category: "Solution Type",
-      type: "product",
+      title: "Blockchain Solutions",
+      category: "Web3",
+      type: "service",
       icon: <Cloud className="text-primary text-xl" />,
       shortDescription: "Scalable cloud solutions for modern business infrastructure needs.",
       fullDescription: "Robust cloud infrastructure solutions that provide scalable, secure, and cost-effective computing resources. Deploy, manage, and scale your applications with confidence using our comprehensive cloud platform.",
@@ -219,6 +219,10 @@ const Solutions = () => {
   
   const filteredSolutions = activeFilter === "All" 
     ? solutions 
+    : activeFilter === "Health"
+    ? solutions.filter(solution => solution.type === "service")
+    : activeFilter === "Solution Type"
+    ? solutions.filter(solution => solution.type === "product")
     : solutions.filter(solution => solution.category === activeFilter);
 
   // Handle deep linking from Home page industry selector
@@ -234,8 +238,8 @@ const Solutions = () => {
       );
       
       if (industrySolution) {
-        // Set filter to By Industry and auto-open the modal
-        setActiveFilter("By Industry");
+        // Set filter to Health and auto-open the modal
+        setActiveFilter("Health");
         setSelectedSolution(industrySolution);
         
         // Clean the URL after opening the modal
@@ -337,18 +341,18 @@ const Solutions = () => {
             <Popover open={industryDropdownOpen} onOpenChange={setIndustryDropdownOpen}>
               <PopoverTrigger asChild>
                 <Button
-                  variant={activeFilter === "By Industry" ? "default" : "outline"}
+                  variant={activeFilter === "Health" ? "default" : "outline"}
                   className={`flex items-center px-6 py-3 transition-all duration-200 ${
-                    activeFilter === "By Industry"
+                    activeFilter === "Health"
                       ? "bg-primary text-white shadow-lg scale-105"
                       : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
                   }`}
                   data-testid="filter-by-industry"
                 >
                   <Building2 className="h-4 w-4 mr-2" />
-                  Industry
+                  Health
                   <Badge variant="secondary" className="ml-2 text-xs">
-                    {solutions.filter(solution => solution.category === "By Industry").length}
+                    {solutions.filter(solution => solution.type === "service").length}
                   </Badge>
                   <ChevronDown className="h-4 w-4 ml-2" />
                 </Button>
@@ -372,7 +376,7 @@ const Solutions = () => {
                           key={option.value}
                           value={option.value}
                           onSelect={() => {
-                            setActiveFilter("By Industry");
+                            setActiveFilter("Health");
                             setIndustryDropdownOpen(false);
                             setIndustrySearch("");
                           }}
@@ -403,7 +407,7 @@ const Solutions = () => {
                   <Cog className="h-4 w-4 mr-2" />
                   Solution Type
                   <Badge variant="secondary" className="ml-2 text-xs">
-                    {solutions.filter(solution => solution.category === "Solution Type").length}
+                    {solutions.filter(solution => solution.type === "product").length}
                   </Badge>
                   <ChevronDown className="h-4 w-4 ml-2" />
                 </Button>
@@ -466,11 +470,6 @@ const Solutions = () => {
                         <Badge variant="secondary" className="text-xs">
                           {solution.category}
                         </Badge>
-                        {solution.hasDemo && (
-                          <Badge variant="default" className="text-xs bg-green-500">
-                            Demo Available
-                          </Badge>
-                        )}
                       </div>
                     </div>
                   </div>
