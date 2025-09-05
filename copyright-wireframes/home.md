@@ -13,10 +13,10 @@ URL: /
 
 ## Hero Section
 ### Main Headline
-Technology that makes your business operations more efficient.
+Custom AI Solutions Built for Real World Performance
 
 ### Subheadline
-One platform to help improve the productivity, efficiency, and profitability of your operations.
+Unlock the power of artificial intelligence to transform your business operations, increase efficiency, and drive sustainable growth.
 
 ### Buttons
 - **Primary Button:** Get Started

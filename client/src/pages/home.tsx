@@ -140,8 +140,8 @@ const Home = () => {
     <div className="pt-16">
       {/* Hero Section */}
       <HeroSection
-        title="Technology that makes your business operations more efficient."
-        subtitle="One platform to help improve the productivity, efficiency, and profitability of your operations."
+        title="Custom AI Solutions Built for Real World Performance"
+        subtitle="Unlock the power of artificial intelligence to transform your business operations, increase efficiency, and drive sustainable growth."
         onPrimaryClick={handleGetStarted}
         onSecondaryClick={handleWatchDemo}
       />

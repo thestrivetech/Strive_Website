@@ -14,7 +14,7 @@ const Footer = () => {
               STRIVE
             </div>
             <p className="text-white/80 mb-6 max-w-md">
-              Empowering businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.
+              To empower businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.
             </p>
             <div className="flex space-x-4">
               <a 
