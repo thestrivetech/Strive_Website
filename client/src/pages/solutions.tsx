@@ -105,7 +105,7 @@ const Solutions = () => {
     {
       id: 4,
       title: "Retail Solutions",
-      category: "By Industry",
+      category: "Retail",
       type: "industry", 
       industry: "Retail",
       icon: <ShoppingCart className="text-primary text-xl" />,
@@ -124,8 +124,8 @@ const Solutions = () => {
     // By Product & Service Solutions
     {
       id: 5,
-      title: "AI & Automation",
-      category: "Solution Type",
+      title: "ChatBot",
+      category: "NLP",
       type: "product",
       icon: <Bot className="text-primary text-xl" />,
       shortDescription: "Intelligent automation solutions powered by advanced AI and machine learning.",
@@ -143,7 +143,7 @@ const Solutions = () => {
     },
     {
       id: 6,
-      title: "Computer Vision",
+      title: "Threat Detection",
       category: "Solution Type",
       type: "product",
       icon: <Eye className="text-primary text-xl" />,
