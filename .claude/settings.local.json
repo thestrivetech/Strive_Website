@@ -94,7 +94,13 @@
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
       "mcp__serena__replace_symbol_body",
-      "Bash(netstat:*)"
+      "Bash(netstat:*)",
+      "Bash(set NODE_ENV=development)",
+      "Bash(set DATABASE_URL=postgresql://dummy:dummy@localhost:5432/dummy)",
+      "Bash(set SUPABASE_URL=https://jbssvtgjkyzxfonxpbfj.supabase.co)",
+      "Bash(set:*)",
+      "Bash(dir /b .claudeagents*.md)",
+      "Bash(wsl:*)"
     ],
     "deny": []
   },

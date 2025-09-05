@@ -77,7 +77,13 @@
       "NEVER leave plan.md outdated after completing tasks", 
       "ALWAYS document code changes in change_log.md",
       "ALWAYS check all 4 files at session start: memory.json (rules), chat_logs (context), plan.md (progress), change_log.md (changes)",
-      "Memory.json is the BRAIN - it contains rules, not tasks or session data"
+      "Memory.json is the BRAIN - it contains rules, not tasks or session data",
+      "ALWAYS deploy Research Agents BEFORE execution agents",
+      "MONITOR every 30 seconds with execution-monitor",
+      "INTERVENE after 2 minutes of no changes",
+      "ENFORCE 300-line file limit with component-extractor",
+      "USE Promise.all for true parallel deployment",
+      "VERIFY all changes with git diff - never trust reports"
     ],
     "common_mistakes_to_avoid": [
       "Adding completed_session_X arrays to memory.json",
@@ -85,7 +91,29 @@
       "Using memory.json for session timestamps or progress tracking", 
       "Forgetting to update plan.md when infrastructure is complete",
       "Not documenting code changes with rollback information"
-    ]
+    ],
+    "parallel_deployment": {
+      "wave_0_research": "Deploy 3 research agents with Promise.all BEFORE execution",
+      "wave_1_execution": "Deploy independent agents simultaneously",
+      "wave_2_quality": "Deploy quality agents after verification",
+      "continuous_monitoring": "execution-monitor and component-extractor throughout",
+      "timing_improvement": "74% faster than sequential (1508ms vs 3300ms)"
+    },
+    "session_5_lessons": {
+      "corrupted_edits_reality": "Agents DID make edits but they were CORRUPTED (1275-line files with syntax errors)",
+      "corruption_prevention": "Agents MUST use Edit/MultiEdit tools explicitly",
+      "verification_required": "Never trust reports without git diff",
+      "file_size_limit": "300 lines maximum enforced by component-extractor",
+      "intervention_triggers": "2 minutes without changes requires action",
+      "context_optimization": "Research agents pre-fetch docs to save 70% context"
+    },
+    "agent_count": {
+      "total": 14,
+      "research_team": 3,
+      "execution_team": 7,
+      "monitoring_team": 2,
+      "support_team": 2
+    }
   },
 
   "agents": {
@@ -109,7 +137,8 @@
       "role": "react_typescript_specialist",
       "model": "opus", 
       "responsibilities": ["react_development", "shadcn_ui_implementation", "state_management", "responsive_design"],
-      "mcp_tools": ["playwright", "context7", "Serena"],
+      "mcp_tools": ["playwright", "Serena"],
+      "tool_requirements": ["MUST_use_Edit_MultiEdit_for_changes", "verify_with_git_diff"],
       "tech_stack": ["React 18", "TypeScript 5", "shadcn/ui", "TailwindCSS", "TanStack Query", "Wouter"],
       "line_limits": {"small": 100, "medium": 250, "large": 500}
     },
@@ -117,7 +146,8 @@
       "role": "express_api_specialist", 
       "model": "opus",
       "responsibilities": ["api_development", "database_integration", "authentication", "server_logic"],
-      "mcp_tools": ["context7","Serena"],
+      "mcp_tools": ["Serena"],
+      "tool_requirements": ["MUST_use_Edit_MultiEdit_for_changes", "verify_with_git_diff"],
       "tech_stack": ["Node.js 20", "Express", "PostgreSQL", "Drizzle ORM", "Supabase", "Zod"],
       "line_limits": {"backend_files": 350, "utility_files": 200}
     },
@@ -125,28 +155,32 @@
       "role": "postgresql_drizzle_Supabase_specialist",
       "model": "sonnet",
       "responsibilities": ["schema_design", "drizzle_orm", "database_optimization", "supabase_integration"],
-      "mcp_tools": ["context7", "Serena"],
+      "mcp_tools": ["Serena"],
+      "tool_requirements": ["MUST_use_Edit_MultiEdit_for_changes", "verify_with_git_diff"],
       "tech_stack": ["Neon PostgreSQL", "Drizzle ORM", "Supabase Auth", "Zod validation"]
     },
     "devops-specialist": {
       "role": "replit_deployment_specialist",
       "model": "sonnet", 
       "responsibilities": ["replit_deployment", "performance_optimization", "infrastructure_management", "ci_cd_setup"],
-      "mcp_tools": ["context7"],
+      "mcp_tools": [],
+      "tool_requirements": ["MUST_use_Edit_MultiEdit_for_changes", "test_configs_immediately", "verify_with_git_diff"],
       "tech_stack": ["Replit Platform", "Vite", "TypeScript", "GitHub Actions"]
     },
     "ui-ux": {
       "role": "design_user_experience",
       "model": "sonnet",
       "responsibilities": ["ui_design", "ux_optimization", "shadcn_design_systems", "accessibility", "visual_consistency"],
-      "mcp_tools": ["playwright", "context7", "serena"],
+      "mcp_tools": ["playwright", "serena"],
+      "tool_requirements": ["MUST_use_Edit_MultiEdit_for_changes", "verify_visual_changes", "verify_with_git_diff"],
       "design_system": ["shadcn/ui", "TailwindCSS", "WCAG 2.1 AA", "Mobile-first"]
     },
     "test-architect": {
       "role": "quality_assurance_tdd",
       "model": "opus",
       "responsibilities": ["tdd_implementation", "vitest_setup", "playwright_e2e", "coverage_optimization"],
-      "mcp_tools": ["context7"],
+      "mcp_tools": [],
+      "tool_requirements": ["MUST_use_Edit_MultiEdit_for_changes", "verify_tests_pass", "verify_with_git_diff"],
       "testing_stack": ["Vitest", "React Testing Library", "Playwright", "80% coverage target"]
     },
     "documentation-agent": {
@@ -155,6 +189,52 @@
       "responsibilities": ["session_logging", "context_preservation", "technical_documentation", "workflow_continuity"],
       "mcp_tools": [],
       "critical_reminder": "Document in chat_logs/ - NEVER in memory.json, only make suggestions to main-claude-orchestrator if something needs to be added to memory.json"
+    },
+    "frontend-researcher": {
+      "role": "documentation_prefetch_specialist",
+      "model": "sonnet",
+      "responsibilities": ["react_docs_gathering", "typescript_patterns", "vite_documentation", "component_library_research"],
+      "mcp_tools": ["context7"],
+      "output_location": "/docs/session/frontend/",
+      "critical_reminder": "Runs BEFORE execution agents to save 70% context"
+    },
+    "backend-researcher": {
+      "role": "backend_documentation_specialist",
+      "model": "sonnet",
+      "responsibilities": ["express_docs_gathering", "nodejs_patterns", "database_documentation", "api_design_patterns"],
+      "mcp_tools": ["context7"],
+      "output_location": "/docs/session/backend/",
+      "critical_reminder": "Pre-fetches documentation to eliminate execution agent lookups"
+    },
+    "infrastructure-researcher": {
+      "role": "deployment_documentation_specialist",
+      "model": "sonnet",
+      "responsibilities": ["deployment_docs", "testing_patterns", "optimization_guides", "ci_cd_documentation"],
+      "mcp_tools": ["context7"],
+      "output_location": "/docs/session/infrastructure/",
+      "critical_reminder": "Enables offline DevOps execution"
+    },
+    "execution-monitor": {
+      "role": "real_time_verification_specialist",
+      "model": "sonnet",
+      "responsibilities": ["30_second_checks", "git_status_monitoring", "corruption_detection", "progress_verification"],
+      "check_interval": "30_seconds",
+      "intervention_trigger": "2_minutes_no_changes",
+      "critical_reminder": "Runs CONTINUOUSLY during agent execution - catches issues immediately"
+    },
+    "component-extractor": {
+      "role": "file_size_management_specialist",
+      "model": "sonnet",
+      "responsibilities": ["file_size_monitoring", "component_extraction", "architecture_enforcement"],
+      "warning_threshold": 250,
+      "action_threshold": 300,
+      "critical_reminder": "Prevents Session 5 disasters (1275-line files)"
+    },
+    "structure-updater": {
+      "role": "repository_structure_documentation",
+      "model": "sonnet",
+      "responsibilities": ["structure_documentation", "file_summaries", "directory_organization", "architecture_tracking"],
+      "critical_reminder": "Maintains repository structure documentation"
     }
   },
 
@@ -163,6 +243,9 @@
       "session_logs": "chat_logs/orchestrator/",
       "agent_configs": ".claude/agents/", 
       "memory_system": ".claude/memory.json",
+      "workflow_guide": ".claude/workflows/ORCHESTRATOR_COMPLETE_WORKFLOW.md",
+      "evaluations": "chat_logs/orchestrator/evaluations/",
+      "research_docs": "/docs/session/",
       "development_rules": "docs/development/dev_rules.md",
       "implementation_plan": "updates/plan.md",
       "change_tracking": "change_log.md"

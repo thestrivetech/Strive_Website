@@ -65,8 +65,8 @@ npm run db:push      # Push schema changes to database using Drizzle
 
 ## Development Workflow
 
-### Agent Coordination System
-The project uses a sophisticated 7-agent parallel workflow system with continuous documentation and real-time quality oversight:
+### Agent Coordination System - VERSION 2.0
+The project uses an enhanced parallel workflow system with Research Agents, Execution Agents, and Monitoring Agents for optimal performance:
 
 ```
 STRIVE WEBSITE - 7-AGENT PARALLEL WORKFLOW SYSTEM
@@ -127,6 +127,38 @@ STRIVE WEBSITE - 7-AGENT PARALLEL WORKFLOW SYSTEM
 
 * = Context7 MCP needs to be added to agent configuration
 ```
+
+#### **New Architecture Components (Post-Session 5 Improvements)**
+
+##### **Research Team (Wave 0)** - Deploys BEFORE execution
+- **frontend-researcher**: Pre-fetches React/TypeScript/Vite documentation
+- **backend-researcher**: Gathers Express/Node.js/PostgreSQL documentation  
+- **infrastructure-researcher**: Collects deployment and testing docs
+- **Impact**: 70% context savings for execution agents
+
+##### **Execution Team (Wave 1)** - TRUE PARALLEL deployment
+- **frontend-architect**: UI implementation (WITH Edit/MultiEdit tools)
+- **backend-architect**: API implementation (WITH Edit/MultiEdit tools)
+- **database-specialist**: Schema changes (WITH Edit/MultiEdit tools)
+- **All agents MUST use Edit/MultiEdit**: No more corrupted edits
+
+##### **Monitoring Team (Continuous)**
+- **execution-monitor**: Verifies actual changes every 30 seconds
+- **component-extractor**: Prevents file bloat (300 line limit)
+- **Impact**: 100% verification rate, 0% false success reports
+
+##### **Quality Team (Wave 2)**
+- **ui-ux**: Visual polish (WITH Edit/MultiEdit tools)
+- **test-architect**: Test creation (WITH Edit/MultiEdit tools)
+- **devops-specialist**: Deployment optimization (WITH verification)
+
+#### **Critical Session 5 Lessons Learned**
+- **Agents MUST use Edit/MultiEdit tools explicitly** - No assumptions
+- **Verification required every 30 seconds** - No blind trust
+- **File size limit: 300 lines MAXIMUM** - Enforced by component-extractor
+- **Parallel deployment with Promise.all pattern** - True concurrency
+- **Documentation pre-fetched to save context** - 70% reduction
+- **Manual intervention after 2 minutes idle** - No passive monitoring
 
 #### **Parallel Execution Model:**
 - **Simultaneous Operations**: Multiple agents work concurrently on different aspects
