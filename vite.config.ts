@@ -1,8 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
-// Temporarily disabled to fix frame property error
-// import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
   plugins: [
@@ -27,7 +25,13 @@ export default defineConfig({
       strict: true,
       deny: ["**/.*"],
     },
-    host: "0.0.0.0",
+    host: "localhost",
     port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      }
+    },
   },
 });

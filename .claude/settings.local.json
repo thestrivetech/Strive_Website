@@ -100,7 +100,12 @@
       "Bash(set SUPABASE_URL=https://jbssvtgjkyzxfonxpbfj.supabase.co)",
       "Bash(set:*)",
       "Bash(dir /b .claudeagents*.md)",
-      "Bash(wsl:*)"
+      "Bash(wsl:*)",
+      "WebFetch(domain:www.atlassian.com)",
+      "WebFetch(domain:stackoverflow.com)",
+      "WebFetch(domain:docs.replit.com)",
+      "WebFetch(domain:vite.dev)",
+      "WebFetch(domain:notes.dt.in.th)"
     ],
     "deny": []
   },

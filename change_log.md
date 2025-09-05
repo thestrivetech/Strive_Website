@@ -5,6 +5,120 @@ Each agent will have a designated space within this file to document their chang
 This log is not for documenting new code, that's what the chat logs are for which is located here: C:\Users\zochr\Desktop\GitHub\Strive_Website_Replit\chat_logs
 This change log is specifically for edits made to existing code or deletions. All edits and deletions of any code should be documented here and also mentioned within the specific agents chat log that did the editing / changing
 
+# Agentic Team Session 2 - Production Test (2025-01-05)
+
+## Main Orchestrator Changes
+
+### File: client/src/components/layout/navigation.tsx
+**BEFORE** (line 87-91):
+```tsx
+<nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
+  isScrolled 
+    ? 'hero-gradient border-white/20' 
+    : 'bg-background/95 backdrop-blur-md border-border'
+}`}
+```
+
+**CHANGE**: Fixed nav bar flickering issue
+- Removed `bg-background/95` which caused flicker
+- Changed to `backdrop-blur-md border-white/10` for proper transparency
+
+**AFTER**:
+```tsx
+<nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
+  isScrolled 
+    ? 'hero-gradient border-white/20' 
+    : 'backdrop-blur-md border-white/10'
+}`}
+```
+
+**ROLLBACK**: Change back to `bg-background/95 backdrop-blur-md border-border`
+
+### File: client/src/components/ui/hero-section.tsx
+**BEFORE** (line 158):
+- Demo container: `max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl`
+- Arrow buttons: `p-3 bg-primary/20 hover:bg-primary/40 ... backdrop-blur-sm border border-primary/30`
+- Arrow icons: `w-6 h-6`
+
+**CHANGES**: 
+1. Increased demo preview size for large displays
+2. Removed background boxes from arrow buttons
+
+**AFTER**:
+- Demo container: `max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl`
+- Arrow buttons: `p-3 flex items-center justify-center` (no bg/border)
+- Arrow icons: `w-8 h-8 text-primary hover:text-primary/80`
+
+**ROLLBACK**: Revert container sizes and restore button backgrounds
+
+### File: client/src/components/layout/navigation.tsx & footer.tsx
+**BEFORE**: 
+- Logo import: `import logoImage from "@assets/logo&text.png"`
+- Footer: Text-based "STRIVE" logo
+
+**CHANGE**: Replaced with new orange transparent logo
+- Import: `import logoImage from "@assets/STRIVE_orange_text_transparent_1500x1500.png"`
+- Footer: Added image tag with logo
+
+**ROLLBACK**: Change imports back to original logo file
+
+### File: client/src/pages/chatbot.tsx (NEW FILE)
+**BEFORE**: File did not exist
+
+**CHANGE**: Created complete ChatBot "Sai" page
+- Full chat interface with message history
+- Quick action suggestions
+- Bot/User message styling
+- Placeholder responses (ready for API)
+- Added route in App.tsx
+
+**ROLLBACK**: Delete chatbot.tsx and remove route from App.tsx
+
+## UI/UX Agent Changes
+
+### File: client/src/pages/solutions.tsx
+**BEFORE**: Generic card descriptions like "By Industry" or "Solution Type"
+
+**CHANGES**: Updated to specific descriptions
+- Healthcare: "Healthcare Technology Solutions"
+- Financial Services: "Financial Services Technology"
+- Manufacturing: "Smart Manufacturing Solutions"
+- Retail: "Retail Digital Transformation"
+- Natural Language Processing, Computer Vision Analytics, etc.
+
+**ROLLBACK**: Revert to generic descriptions
+
+### File: client/src/pages/portfolio.tsx
+**BEFORE**: 
+- Sub-header with gradient: `<span className="gradient-text">`
+- Project type color: `text-orange-600`
+
+**CHANGES**:
+- Removed gradient from sub-header text
+- Changed project type to dark blue: `text-[#020a1c]`
+
+**ROLLBACK**: Restore gradient and orange color
+
+### File: client/src/pages/resources.tsx
+**BEFORE**: "Knowledge Center" text badge
+
+**CHANGE**: Replaced with BookOpen icon
+- Added: `<BookOpen className="text-primary h-16 w-16 animate-pulse" />`
+- Removed text badge
+
+**ROLLBACK**: Remove icon and restore text
+
+### File: client/src/pages/home.tsx
+**BEFORE**: Meet the Team button with white border
+- `border-white/30 text-white hover:bg-white/10`
+
+**CHANGE**: Added orange outline
+- `border-orange-500 text-white hover:bg-orange-500/10 hover:border-orange-400`
+
+**ROLLBACK**: Revert to white border styling
+
+---
+
 # Session 7 - Agent Configuration Fixes (2025-01-05)
 
 ## Critical Agent Tool Fixes

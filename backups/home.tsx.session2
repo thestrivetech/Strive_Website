@@ -346,7 +346,7 @@ const Home = () => {
                 <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all" size="lg" onClick={() => window.location.href = "/contact"}>
                   Get Started Today
                 </Button>
-                <Button variant="outline" className="border-orange-500 text-white hover:bg-orange-500/10 hover:border-orange-400 px-8 py-3 text-lg" size="lg" onClick={() => window.location.href = "/about#team"}>
+                <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-3 text-lg" size="lg" onClick={() => window.location.href = "/about#team"}>
                   Meet the Team
                 </Button>
               </div>

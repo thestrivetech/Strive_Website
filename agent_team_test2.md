@@ -141,3 +141,32 @@
 - Keep files under 300 lines (use component-extractor if needed)
 - Document all changes in change_log.md with rollback information
 - Update plan.md immediately when tasks complete
+
+
+# User Session Notes #
+
+- Might need to update Serena memory files - They haven't been updated since before the first agentic test session
+
+- @Claude Need to change port number for local session - Currently using the replit port number - Make claude create a separate config file for when running locally vs running on replit 
+
+- Change line limit rule to be more specific to making new files instead of editing existing files that already exceed the line limit - Need to create a more precise rule on this with exact rules on adding new code to existing files, new edits shouldnt exceed a certain limit - Stick to essential code edits and don't overbloat existing files.
+
+- Update development rules here with the above things in mind: C:\Users\zochr\Desktop\GitHub\Strive_Website_Replit\docs\development\dev_rules.md 
+
+- Agents still aren't being deployed at the same time - Parallel deployment still doesn't work and needs to be tweaked (get claudes feedback on why this is happening and what is needed to make it happen) - We might need to split the team into sub-teams and run the teams in separate terminal instances 
+
+- The researcher is taking forever - Need to adjust tools and see what's making the workflow slow
+
+- Research agents are documenting their findings in: C:\Users\zochr\Desktop\GitHub\Strive_Website_Replit\docs\session - I love this but we need to optimize this system to where the agents are making sure that the documentation for the specific session tasks are in the files (maybe a task for Orchestrator). If not, that's when the webfetch tool needs to be used to find session specific documentation for each agents tasks which is listed in each sessions plan/task list markdown file
+
+- Infrastructure agent is looking for Replit docs which isn't good because we're just using Replit to build the website, not host - READ BELOW
+
+- Need to update documentation to include SquareSpace being the hosting site
+
+- I'm not sure if the frontend-architect performed the rollbacks or not... It showed 0 tool uses and 0 tokens when it was doing "Rollback home sections" - If this is the case, we need to have the main orchestrator perform the rollbacks or create a rollback specific agent that is specifically created and built to perform rollbacks.
+
+- After the UI/UX agent finished, Claude started doig the work - Could have to do with the frontend-architect not being able to do anything since there were API errors occuring? - Look into this issue and see if this error was occuring on specific tasks. See what was causing it.
+
+- Look into Serena MCP tool stats to see what it does specifically - Might be a really cool feature to have in order to monitor tool usage (if it tracks all tool uses instead of just Serena)
+
+- Localport preview is broken at the end of the session - Told Claude to fix it, he created new folders and files trying to fix it but it didn't work - Read the end of the full chat log for full context and to see what was created so we can clean it up - Directory is getting overcrowded.

@@ -52,7 +52,7 @@ const Solutions = () => {
       type: "industry",
       industry: "Healthcare",
       icon: <Heart className="text-primary text-xl" />,
-      shortDescription: "AI-powered healthcare solutions for patient care, diagnostics, and compliance.",
+      shortDescription: "Healthcare Technology Solutions",
       fullDescription: "Comprehensive healthcare solutions that leverage artificial intelligence to improve patient outcomes, streamline operations, and ensure regulatory compliance. Our healthcare suite includes advanced diagnostic tools, patient management systems, and automated compliance reporting.",
       features: [
         "AI-powered diagnostics and imaging analysis",
@@ -71,7 +71,7 @@ const Solutions = () => {
       type: "industry",
       industry: "Finance",
       icon: <DollarSign className="text-primary text-xl" />,
-      shortDescription: "Advanced fintech solutions for fraud detection, risk management, and trading.",
+      shortDescription: "Financial Services Technology",
       fullDescription: "Revolutionary financial technology solutions that enhance security, optimize trading strategies, and provide deep customer insights. Our fintech platform combines real-time fraud detection with sophisticated risk assessment tools.",
       features: [
         "Real-time fraud detection and prevention",
@@ -90,7 +90,7 @@ const Solutions = () => {
       type: "industry",
       industry: "Manufacturing",
       icon: <Factory className="text-primary text-xl" />,
-      shortDescription: "Smart manufacturing solutions with predictive maintenance and quality control.",
+      shortDescription: "Smart Manufacturing Solutions",
       fullDescription: "Intelligent manufacturing solutions that revolutionize production efficiency through predictive maintenance, automated quality control, and supply chain optimization. Transform your manufacturing operations with AI-powered insights.",
       features: [
         "Predictive maintenance and equipment monitoring",
@@ -109,7 +109,7 @@ const Solutions = () => {
       type: "industry", 
       industry: "Retail",
       icon: <ShoppingCart className="text-primary text-xl" />,
-      shortDescription: "Omnichannel retail solutions for customer analytics and inventory management.",
+      shortDescription: "Retail Digital Transformation",
       fullDescription: "Comprehensive retail solutions that enhance customer experience through personalized recommendations, optimize inventory management, and implement dynamic pricing strategies for maximum profitability.",
       features: [
         "Customer analytics and personalized recommendations",
@@ -128,7 +128,7 @@ const Solutions = () => {
       category: "Solution Type",
       type: "product",
       icon: <Bot className="text-primary text-xl" />,
-      shortDescription: "Intelligent automation solutions powered by advanced AI and machine learning.",
+      shortDescription: "Natural Language Processing",
       fullDescription: "Comprehensive AI and automation platform that transforms business processes through intelligent process automation, machine learning models, and predictive analytics. Streamline operations while reducing costs and improving decision-making.",
       features: [
         "Intelligent Process Automation",
@@ -147,7 +147,7 @@ const Solutions = () => {
       category: "Solution Type",
       type: "product",
       icon: <Eye className="text-primary text-xl" />,
-      shortDescription: "Advanced AI-powered visual recognition and analysis systems.",
+      shortDescription: "Computer Vision Analytics",
       fullDescription: "Cutting-edge computer vision solutions that interpret, analyze, and understand digital images and videos. Perfect for quality control, security monitoring, and automated visual inspection across industries.",
       features: [
         "Image Recognition & Classification",
@@ -166,7 +166,7 @@ const Solutions = () => {
       category: "Solution Type",
       type: "product",
       icon: <BarChart className="text-primary text-xl" />,
-      shortDescription: "Data-driven insights and forecasting for strategic business decisions.",
+      shortDescription: "Predictive Modeling Solutions",
       fullDescription: "Advanced predictive analytics platform that transforms raw data into actionable business insights. Leverage machine learning algorithms to forecast trends, identify opportunities, and make data-driven strategic decisions.",
       features: [
         "Advanced Statistical Modeling",
@@ -185,7 +185,7 @@ const Solutions = () => {
       category: "Solution Type",
       type: "product",
       icon: <Cloud className="text-primary text-xl" />,
-      shortDescription: "Scalable cloud solutions for modern business infrastructure needs.",
+      shortDescription: "Cloud Infrastructure Services",
       fullDescription: "Robust cloud infrastructure solutions that provide scalable, secure, and cost-effective computing resources. Deploy, manage, and scale your applications with confidence using our comprehensive cloud platform.",
       features: [
         "Auto-scaling Infrastructure",
@@ -203,7 +203,7 @@ const Solutions = () => {
       category: "Solution Type",
       type: "product",
       icon: <ShieldCheck className="text-primary text-xl" />,
-      shortDescription: "Comprehensive security frameworks and automated compliance monitoring.",
+      shortDescription: "Security & Compliance Solutions",
       fullDescription: "Enterprise-grade security and compliance solutions that protect your business assets and ensure regulatory adherence. Automated monitoring, threat detection, and compliance reporting keep your organization secure.",
       features: [
         "Regulatory Compliance Automation",

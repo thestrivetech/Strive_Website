@@ -186,7 +186,7 @@ const Portfolio = () => {
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
               data-testid="text-hero-subtitle"
             >
-              Explore our comprehensive portfolio of <span className="gradient-text">innovative demos</span>, production-ready templates, and <span className="gradient-text">revolutionary prototypes</span> that showcase the future of intelligent business solutions.
+              Explore our comprehensive portfolio of innovative demos, production-ready templates, and revolutionary prototypes that showcase the future of intelligent business solutions.
             </p>
             <Button 
               size="lg" 
@@ -264,7 +264,7 @@ const Portfolio = () => {
                     <div className="text-primary">
                       {getCategoryIcon(project.category)}
                     </div>
-                    <span className="text-sm font-medium uppercase tracking-wide text-orange-600">
+                    <span className="text-sm font-medium uppercase tracking-wide text-[#020a1c]">
                       {project.category}
                     </span>
                   </div>

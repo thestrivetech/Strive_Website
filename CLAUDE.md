@@ -415,3 +415,7 @@ Use `npm run session:init` to run automated workflow compliance checking:
 - **Session Security**: Currently uses MemoryStore - upgrade for production
 - **Authentication**: Passport local strategy configured but needs proper user management implementation
 - **Deployment**: Configured for Replit platform with specific Vite plugins
+
+
+# User reminder for next session #
+- Look at scripts and see what they do to see which one we should be running when doing agentic team sessions

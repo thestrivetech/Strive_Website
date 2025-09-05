@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import logoImage from "@assets/STRIVE_orange_text_transparent_1500x1500.png";
 
 // Custom Discord Icon Component
 const DiscordIcon = ({ className }: { className?: string }) => (
@@ -24,8 +25,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1 lg:col-span-2">
-            <div className="text-2xl font-bold mb-4 text-[#fa7f0c] logo-font" data-testid="footer-logo">
-              STRIVE
+            <div className="mb-4" data-testid="footer-logo">
+              <img 
+                src={logoImage} 
+                alt="STRIVE" 
+                className="h-12 w-auto"
+              />
             </div>
             <p className="text-white/80 mb-6 max-w-md">
               Empowering businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.

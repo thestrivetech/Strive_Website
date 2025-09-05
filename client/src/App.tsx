@@ -23,6 +23,7 @@ const Solutions = lazy(() => import("@/pages/solutions"));
 const Resources = lazy(() => import("@/pages/resources"));
 const About = lazy(() => import("@/pages/about"));
 const Contact = lazy(() => import("@/pages/contact"));
+const ChatBot = lazy(() => import("@/pages/chatbot"));
 const GetStarted = lazy(() => import("@/pages/get-started"));
 const Consultation = lazy(() => import("@/pages/consultation"));
 const Onboarding = lazy(() => import("@/pages/onboarding"));
@@ -64,6 +65,7 @@ function Router() {
             <Route path="/resources" component={Resources} />
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
+            <Route path="/chatbot" component={ChatBot} />
             <Route path="/get-started" component={GetStarted} />
             <Route path="/consultation" component={Consultation} />
             <Route path="/onboarding" component={Onboarding} />

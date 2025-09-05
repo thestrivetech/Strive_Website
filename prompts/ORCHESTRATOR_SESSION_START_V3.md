@@ -398,6 +398,53 @@ echo "=== SESSION COMPLETE ==="
 - Session log created ✅
 ```
 
+### 📝 Session Chat Log Documentation (MANDATORY)
+
+**CRITICAL**: This step MUST be completed before ending any session!
+
+**Location**: `chat_logs/orchestrator/[session_name].md`
+
+**Required Content**:
+1. **Complete Timeline**: Every phase with timestamps and durations
+2. **Agent Deployments**: All attempts, successes, failures with details
+3. **File Modifications**: Every change with before/after code snippets
+4. **API Interactions**: Calls, responses, errors (especially 529s)
+5. **Manual Interventions**: Direct edits when agents fail
+6. **Verification Outputs**: All git diff and test results
+7. **Task Tracking**: Complete list with status and reasons
+8. **Decision Rationale**: Why tasks were prioritized/deferred
+9. **Lessons Learned**: What worked, what failed, improvements needed
+10. **Performance Metrics**: Time distribution, context usage, success rates
+
+**Format**: 
+- Detailed narrative with code blocks
+- Maintain full context for future sessions
+- Include all terminal outputs and error messages
+- Document fallback strategies used
+
+**Example Structure**:
+```markdown
+# Agentic Team Session [X] - Complete Session Log
+## Session Overview
+## Initial Task List
+## Phase 0: Initialization
+## Phase 1: Research Wave
+## Phase 2: Task Preparation
+## Phase 3: Execution Waves
+## Phase 4: Monitoring
+## Phase 5: Verification
+## Task Completion Summary
+## Lessons Learned
+## Performance Metrics
+## Next Session Priorities
+```
+
+**Why This Matters**:
+- Enables session continuity across different instances
+- Provides data for workflow optimization
+- Documents what actually happened vs. what was planned
+- Critical for debugging and improvement iterations
+
 ---
 
 ## 🚨 CRITICAL REMINDERS

@@ -6,7 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
 import LazyImage from "@/components/ui/lazy-image";
-import logoImage from "@assets/STRIVE_orange_text_transparent_1500x1500.png";
+import logoImage from "@assets/logo&text.png";
 import healthcareIcon from "@assets/generated_images/Healthcare_industry_icon_f2723fd3.png";
 import financialIcon from "@assets/generated_images/Financial_services_icon_6bb00680.png";
 import manufacturingIcon from "@assets/generated_images/Manufacturing_industry_icon_f22de001.png";
@@ -87,7 +87,7 @@ const Navigation = () => {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
       isScrolled 
         ? 'hero-gradient border-white/20' 
-        : 'backdrop-blur-md border-white/10'
+        : 'bg-background/95 backdrop-blur-md border-border'
     }`} style={{ overflow: 'visible' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8" style={{ overflow: 'visible' }}>
         

@@ -820,12 +820,11 @@ const Resources = () => {
       <section className="hero-gradient text-white py-20 relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div 
-              className="inline-flex items-center text-sm text-orange-400 uppercase tracking-wide font-semibold mb-6"
-              data-testid="text-knowledge-center-badge"
-            >
-              <Sparkles className="h-4 w-4 mr-2" />
-              KNOWLEDGE CENTER
+            <div className="flex items-center justify-center mb-6">
+              <div className="relative">
+                <BookOpen className="text-primary h-16 w-16 animate-pulse" />
+                <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping"></div>
+              </div>
             </div>
             <h1 
               className="text-4xl md:text-6xl font-bold mb-6"
