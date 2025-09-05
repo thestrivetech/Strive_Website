@@ -883,26 +883,6 @@ const Resources = () => {
             </p>
           </div>
 
-          {/* Resource Categories */}
-          <div className="flex flex-wrap gap-4 justify-center mb-12">
-            {filters.map((filter) => (
-              <Button
-                key={filter.name}
-                variant={activeFilter === filter.name ? "default" : "outline"}
-                className={`rounded-full flex items-center ${
-                  activeFilter === filter.name 
-                    ? "bg-orange-500 text-white hover:bg-orange-600" 
-                    : "bg-white text-slate-600 hover:bg-orange-500 hover:text-white border-slate-200"
-                }`}
-                onClick={() => setActiveFilter(filter.name)}
-                data-testid={`filter-${filter.name.toLowerCase().replace(/\s+/g, "-")}`}
-              >
-                {filter.icon}
-                {filter.name}
-              </Button>
-            ))}
-          </div>
-
           {/* Featured Resource */}
           <div className="bg-white rounded-2xl overflow-hidden mb-16 shadow-lg border border-slate-100">
             <div className="md:flex">
@@ -961,6 +941,26 @@ const Resources = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Resource Categories */}
+          <div className="flex flex-wrap gap-4 justify-center mb-12">
+            {filters.map((filter) => (
+              <Button
+                key={filter.name}
+                variant={activeFilter === filter.name ? "default" : "outline"}
+                className={`rounded-full flex items-center ${
+                  activeFilter === filter.name 
+                    ? "bg-orange-500 text-white hover:bg-orange-600" 
+                    : "bg-white text-slate-600 hover:bg-orange-500 hover:text-white border-slate-200"
+                }`}
+                onClick={() => setActiveFilter(filter.name)}
+                data-testid={`filter-${filter.name.toLowerCase().replace(/\s+/g, "-")}`}
+              >
+                {filter.icon}
+                {filter.name}
+              </Button>
+            ))}
           </div>
 
           {/* AI Knowledge Quizzes Section */}
