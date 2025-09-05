@@ -26,7 +26,11 @@ This document outlines all necessary updates to transform the Strive website fro
 - Change mobile layout to be formatted better
 - Change mobile nav bar (it's atrocious right now)
 
-!!!! Use the website-plan.md file in docs/ for a complete guide moving forward
+- !!! Need to make sure there isn't old code in any file or folder
+  - Example, the following folder has the old hero section text phrase: Strive_Website_Replit/client/src/pages
+/home.tsx 
+
+!!!! Use the website-plan.md file in docs/ for a complete guide moving forward to transitioning to next.js
 
 ## Phase 1: Critical Navigation & Brand Implementation
 
