@@ -35,7 +35,7 @@
 
 ### 4. Logo Update
 - Replace orange "Strive" logo/text in footer and nav bar
-- Use new logo: `STRIVE_orange_text_transparent_1500x1500.png`
+- Use new logo: attached_assets/`STRIVE_orange_text_transparent_1500x1500.png`
 - Ensure proper formatting/appearance
 
 ## Solutions Page
@@ -97,7 +97,7 @@
 - Decision needed: Single page with sections vs. separate pages vs. pop-out modals
   - For now let's do a single page layout with specific sections and then add the pop-out modals for any card/badges (this modal system is already being used on all other pages)
   - For the leadership cards/badges - When they pop out have an option for the user to get the specific Strive employees digital business card (QR code)
-- Very important to create a rollback point for this!!!!!
+- Very important to create a rollback point for this after this page is updated!!!!!
 
 ## Login Page
 

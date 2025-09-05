@@ -364,7 +364,7 @@ Documentation Agent (Records ALL activities simultaneously)
 | **`memory.json`** | Central brain - rules and reminders ONLY | Workflow rules, file purposes, agent configs, coding standards | Task lists, session logs, completed items, progress tracking |
 | **`chat_logs/`** | Session work documentation | Detailed activities, decisions, context, handoff instructions | Rules, reminders, architecture definitions |
 | **`change_log.md`** | Code change tracking | All edits/deletions with before/after states for rollback | Session activities, task progress, discussions |
-| **`plan.md`** | Living implementation progress tracker | Current phase status, completed tasks, next priorities | Rules, completed session details, agent instructions |
+| **`plan.md`** | Living implementation progress tracker | Current phase status, completed tasks, next priorities | Rules, completed session details, agent instructions | - Currently not using this for where we're at in the development process
 | **`updates/`** | Implementation blueprints | Strategic plans, architecture designs, roadmaps | Daily progress, session logs, temporary notes |
 | **`.claude/agents/`** | Agent-specific configurations | Agent roles, MCP tools, responsibilities | Session data, task tracking, implementation details |
 

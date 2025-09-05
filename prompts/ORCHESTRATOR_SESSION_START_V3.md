@@ -13,10 +13,10 @@
 ```markdown
 MANDATORY READ ORDER:
 1. .claude/memory.json                      # Central brain - rules and configurations
-2. .serena/memories/* (if using Serena)     # Project intelligence and patterns
-3. chat_logs/orchestrator/[latest].txt      # Previous session context
-4. change_log.md                             # Recent code changes with rollback info
-5. updates/agentic_team_plan.md             # Current implementation progress
+2. .serena/memories/*                       # Project intelligence and patterns
+3. chat_logs/orchestrator/[latest].txt      # Previous session context (not necessary in test_session_2)
+4. change_log.md                            # Recent code changes with rollback info
+5. updates/agentic_team_plan.md             # Current implementation progress of agentic team
 6. [User-provided plan/update file]         # Today's specific tasks
 ```
 
