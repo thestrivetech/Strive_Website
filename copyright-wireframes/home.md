@@ -24,25 +24,24 @@ Unlock the power of artificial intelligence to transform your business operation
 
 ## ROI Calculator Section
 ### Title
-Calculate Your ROI
+ROI Calculator
 
 ### Description
-See how much you could save with our AI-powered automation solutions. Enter your business metrics to get a personalized ROI estimate.
+Discover your potential return on investment with Strive's solutions tailored to your industry
 
 ### Calculator Form Fields
-- **Monthly Operational Costs ($):** Input field
-- **Number of Employees:** Input field
-- **Hours per Task (avg):** Input field
-- **Tasks per Day:** Input field
+- **Select Your Industry:** Dropdown (Healthcare, Finance, Retail, Manufacturing, Technology, Education, Real Estate, Legal)
+- **Investment Amount:** Slider ($10K - $1M)  
+- **Select Solutions:** Checkboxes based on industry (Process Automation, Data Analytics, AI Solutions, Compliance Tools, etc.)
 
-### Calculator Button
-Calculate ROI
 
 ### Results Display
-- Estimated Annual Savings
-- Time Saved Per Month
-- ROI Percentage
-- Payback Period
+- **Total ROI:** Dollar amount with green indicator
+- **Time Savings:** Percentage with clock indicator  
+- **Annual Return:** Dollar amount with trending indicator
+### Action Buttons
+- **Primary:** Schedule Discovery Call
+- **Secondary:** Get Detailed Analysis
 
 ## Industry Solutions Section
 ### Section Label
@@ -264,34 +263,33 @@ With Strive you can streamline operations, automate processes, and drive growth 
 Schedule a Consultation
 
 ## Footer
-### Company
+### Company Info Section
+- **Logo:** STRIVE
+- **Description:** To empower businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.
+- **Social Media Links:**
+  - LinkedIn
+  - Twitter  
+  - Facebook
+  - Instagram
+
+### Quick Links Section
+- Home
+- Portfolio
+- Solutions
+- Resources
 - About Us
-- Careers
-- Press
-- Partners
+- Contact
 
-### Products
-- AI Automation
-- Data Analytics
-- Business Intelligence
-- Security & Compliance
+### Contact Section
+- **Address:** 123 Business District
+- **Address Line 2:** Tech City, TC 12345
+- **Phone:** +1 (555) 123-4567
+- **Email:** hello@strive.com
 
-### Resources
-- Documentation
-- Blog
-- Case Studies
-- Support Center
-
-### Contact
-- Contact Sales
-- Support
-- hello@strive.com
-- 1-800-STRIVE
-
-### Legal
+### Legal Links
 - Privacy Policy
 - Terms of Service
 - Cookie Policy
 
 ### Copyright
-© 2024 Strive. All rights reserved.
+© 2025 STRIVE. All rights reserved.

@@ -90,34 +90,33 @@ If you have questions about our use of cookies, please contact us:
 - Address: 123 Business District, Tech City, TC 12345
 
 ## Footer
-### Company
+### Company Info Section
+- **Logo:** STRIVE
+- **Description:** To empower businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.
+- **Social Media Links:**
+  - LinkedIn
+  - Twitter  
+  - Facebook
+  - Instagram
+
+### Quick Links Section
+- Home
+- Portfolio
+- Solutions
+- Resources
 - About Us
-- Careers
-- Press
-- Partners
+- Contact
 
-### Products
-- AI Automation
-- Data Analytics
-- Business Intelligence
-- Security & Compliance
+### Contact Section
+- **Address:** 123 Business District
+- **Address Line 2:** Tech City, TC 12345
+- **Phone:** +1 (555) 123-4567
+- **Email:** hello@strive.com
 
-### Resources
-- Documentation
-- Blog
-- Case Studies
-- Support Center
-
-### Contact
-- Contact Sales
-- Support
-- hello@strive.com
-- 1-800-STRIVE
-
-### Legal
+### Legal Links
 - Privacy Policy
 - Terms of Service
 - Cookie Policy
 
 ### Copyright
-© 2024 Strive. All rights reserved.
+© 2025 STRIVE. All rights reserved.
