@@ -630,7 +630,7 @@ const Home = () => {
                 </Button>
                 <Button 
                   variant="outline"
-                  className="border-2 border-primary/30 text-[#020a1c] hover:bg-primary/5 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:border-primary/50 min-w-[200px]"
+                  className="border-2 border-primary/30 hover:bg-primary/5 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:border-primary/50 min-w-[200px] text-[#ff7033]"
                   size="lg"
                   onClick={() => window.location.href = "/portfolio"}
                   data-testid="button-view-case-studies"

@@ -207,5 +207,47 @@ const DiscordIcon = ({ className }: { className?: string }) => (
 />
 ```
 
+## Serena MCP Optimization (Token Reduction)
+
+### Problem
+- Serena MCP consuming 10k+ tokens for simple tasks
+- Large memory files (code_style_conventions.md = 224 lines/6KB)
+- Redundant memory reading on each operation
+
+### Implemented Optimizations
+
+#### 1. **Memory Restructuring**
+Created smaller, focused memory files:
+- `quick_reference.md` (20 lines) - Essential info only
+- `typescript_conventions.md` (16 lines) - TypeScript specific
+- `react_patterns.md` (15 lines) - React patterns
+- `backend_conventions.md` (16 lines) - Backend patterns
+- `styling_guide.md` (17 lines) - Styling rules
+- `file_locations.md` (21 lines) - Quick file paths
+- `memory_index.md` - Directory of all memories
+
+#### 2. **Configuration Optimizations**
+Updated `.serena/project.yml`:
+- Added ignored paths (node_modules, dist, build, etc.)
+- Excluded rarely used tools (8 tools removed)
+- Added initial prompt directing to use quick_reference first
+
+#### 3. **Infrastructure**
+- Created `.serena/cache/` directory for future caching
+- Updated `.serena/.gitignore` with cache and temp files
+- Backed up original memories to `.serena/memories.backup/`
+
+### Results
+- **Expected 70-80% token reduction** for simple tasks
+- **Faster response times** with smaller file reads
+- **Better organization** with focused memory files
+- Original memories preserved for complex tasks
+
+### Usage Guidelines
+1. Start with `quick_reference` memory for most tasks
+2. Use `memory_index` to find specific memories
+3. Access original large memories only when needed
+4. Use standard Edit/Read tools instead of Serena for simple edits
+
 ---
-*Session completed successfully with all requirements implemented*
+*Session completed successfully with all requirements implemented and Serena MCP optimized*
