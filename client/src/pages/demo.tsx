@@ -87,7 +87,7 @@ const Demo = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Demo Controls */}
           <div className="flex justify-center mb-12">
-            <div className="flex items-center space-x-4 bg-white rounded-lg shadow-lg p-4">
+            <div className="flex items-center space-x-4 bg-off-white rounded-lg shadow-lg p-4">
               <Button
                 onClick={handlePlayPause}
                 variant={isPlaying ? "default" : "outline"}

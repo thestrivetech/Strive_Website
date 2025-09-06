@@ -275,7 +275,7 @@ const Solutions = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="pt-20 pb-16 hero-gradient relative overflow-hidden">
+      <section className="py-20 hero-gradient relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center mb-6">

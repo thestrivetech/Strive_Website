@@ -190,7 +190,7 @@ const Portfolio = () => {
             </p>
             <Button 
               size="lg" 
-              className="bg-white text-primary hover:bg-white/90 px-8 py-4 text-lg font-semibold"
+              className="bg-off-white text-primary hover:bg-off-white/90 px-8 py-4 text-lg font-semibold"
               onClick={() => document.getElementById('showcase')?.scrollIntoView({ behavior: 'smooth' })}
               data-testid="button-view-work"
             >

@@ -11,7 +11,7 @@
   --card-foreground: hsl(210, 40%, 98%);
   --popover: hsl(222, 84%, 5.9%);
   --popover-foreground: hsl(210, 40%, 98%);
-  --primary: hsl(24, 100%, 58%);
+  --primary: hsl(18, 100%, 60%);
   --primary-foreground: hsl(222, 84%, 4.9%);
   --secondary: hsl(217, 32%, 17%);
   --secondary-foreground: hsl(210, 40%, 98%);
@@ -23,20 +23,20 @@
   --destructive-foreground: hsl(210, 40%, 98%);
   --border: hsl(217, 32%, 17%);
   --input: hsl(217, 32%, 17%);
-  --ring: hsl(24, 100%, 58%);
-  --chart-1: hsl(24, 100%, 58%);
+  --ring: hsl(18, 100%, 60%);
+  --chart-1: hsl(18, 100%, 60%);
   --chart-2: hsl(250, 95%, 75%);
   --chart-3: hsl(197, 100%, 45%);
   --chart-4: hsl(283, 100%, 65%);
   --chart-5: hsl(340, 75%, 55%);
   --sidebar: hsl(222, 84%, 4.9%);
   --sidebar-foreground: hsl(210, 40%, 98%);
-  --sidebar-primary: hsl(24, 100%, 58%);
+  --sidebar-primary: hsl(18, 100%, 60%);
   --sidebar-primary-foreground: hsl(222, 84%, 4.9%);
   --sidebar-accent: hsl(217, 32%, 17%);
   --sidebar-accent-foreground: hsl(210, 40%, 98%);
   --sidebar-border: hsl(217, 32%, 17%);
-  --sidebar-ring: hsl(24, 100%, 58%);
+  --sidebar-ring: hsl(18, 100%, 60%);
   --font-sans: 'Inter', sans-serif;
   --font-serif: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -50,7 +50,7 @@
   --card-foreground: hsl(210, 40%, 98%);
   --popover: hsl(222, 84%, 5.9%);
   --popover-foreground: hsl(210, 40%, 98%);
-  --primary: hsl(24, 100%, 58%);
+  --primary: hsl(18, 100%, 60%);
   --primary-foreground: hsl(222, 84%, 4.9%);
   --secondary: hsl(217, 32%, 17%);
   --secondary-foreground: hsl(210, 40%, 98%);
@@ -62,7 +62,7 @@
   --destructive-foreground: hsl(210, 40%, 98%);
   --border: hsl(217, 32%, 17%);
   --input: hsl(217, 32%, 17%);
-  --ring: hsl(24, 100%, 58%);
+  --ring: hsl(18, 100%, 60%);
 }
 
 @layer base {
@@ -140,6 +140,10 @@
 }
 
 @layer components {
+  .bg-off-white {
+    background-color: #ffffffeb;
+  }
+
   .hero-gradient {
     background: linear-gradient(135deg, hsl(222, 84%, 4.9%) 0%, hsl(250, 50%, 10%) 50%, hsl(222, 84%, 4.9%) 100%);
     position: relative;
@@ -153,7 +157,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(ellipse at top right, hsla(24, 100%, 58%, 0.1) 0%, transparent 50%),
+    background: radial-gradient(ellipse at top right, hsla(18, 100%, 60%, 0.1) 0%, transparent 50%),
                 radial-gradient(ellipse at bottom left, hsla(250, 95%, 75%, 0.1) 0%, transparent 50%);
     pointer-events: none;
   }

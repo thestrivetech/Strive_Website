@@ -97,7 +97,7 @@ const About = () => {
   return (
     <div className="pt-16">
       {/* Hero Section with Gradient */}
-      <section className="py-16 hero-gradient relative overflow-hidden">
+      <section className="py-20 hero-gradient relative overflow-hidden">
         {/* Parallax Background Elements */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-20 w-40 h-40 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
@@ -208,7 +208,7 @@ const About = () => {
       </section>
 
       {/* Our Vision Timeline */}
-      <section className="py-16 hero-gradient relative overflow-hidden">
+      <section className="py-20 hero-gradient relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div 
@@ -296,7 +296,7 @@ const About = () => {
                 className="group"
                 data-testid={`card-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                <div className="bg-off-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
                   <div className="w-20 h-20 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                     <div className="text-white text-2xl">
                       {item.icon}
@@ -348,7 +348,7 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
               <div key={index} className="group">
-                <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100 overflow-hidden">
+                <div className="bg-off-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100 overflow-hidden">
                   <div className="relative overflow-hidden">
                     <img 
                       src={member.imageUrl}

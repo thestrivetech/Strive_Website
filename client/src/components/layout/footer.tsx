@@ -1,5 +1,7 @@
 import { Link } from "wouter";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import LazyImage from "@/components/ui/lazy-image";
+import logoImage from "@assets/STRIVE_Orange_Text_Transparent_1483 x 320px.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,8 +12,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1 lg:col-span-2">
-            <div className="text-2xl font-bold mb-4 text-[#fa7f0c] logo-font" data-testid="footer-logo">
-              STRIVE
+            <div className="mb-4" data-testid="footer-logo">
+              <LazyImage 
+                src={logoImage} 
+                alt="Strive" 
+                className="h-12 w-auto"
+                loading="eager"
+              />
             </div>
             <p className="text-white/80 mb-6 max-w-md">
               To empower businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.

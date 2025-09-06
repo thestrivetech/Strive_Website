@@ -214,7 +214,7 @@ const GetStarted = () => {
               </p>
             </div>
             
-            <Card className="max-w-2xl mx-auto bg-white">
+            <Card className="max-w-2xl mx-auto bg-off-white">
               <CardContent className="p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

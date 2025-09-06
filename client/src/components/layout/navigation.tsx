@@ -6,7 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
 import LazyImage from "@/components/ui/lazy-image";
-import logoImage from "@assets/logo&text.png";
+import logoImage from "@assets/STRIVE_Orange_Text_Transparent_1483 x 320px.png";
 import healthcareIcon from "@assets/generated_images/Healthcare_industry_icon_f2723fd3.png";
 import financialIcon from "@assets/generated_images/Financial_services_icon_6bb00680.png";
 import manufacturingIcon from "@assets/generated_images/Manufacturing_industry_icon_f22de001.png";

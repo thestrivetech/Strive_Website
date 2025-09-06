@@ -884,7 +884,7 @@ const Resources = () => {
           </div>
 
           {/* Featured Resource */}
-          <div className="bg-white rounded-2xl overflow-hidden mb-16 shadow-lg border border-slate-100">
+          <div className="bg-off-white rounded-2xl overflow-hidden mb-16 shadow-lg border border-slate-100">
             <div className="md:flex">
               <div className="md:w-1/2">
                 <div className="relative">
@@ -952,7 +952,7 @@ const Resources = () => {
                 className={`rounded-full flex items-center ${
                   activeFilter === filter.name 
                     ? "bg-orange-500 text-white hover:bg-orange-600" 
-                    : "bg-white text-slate-600 hover:bg-orange-500 hover:text-white border-slate-200"
+                    : "bg-off-white text-slate-600 hover:bg-orange-500 hover:text-white border-slate-200"
                 }`}
                 onClick={() => setActiveFilter(filter.name)}
                 data-testid={`filter-${filter.name.toLowerCase().replace(/\s+/g, "-")}`}
@@ -1164,7 +1164,7 @@ const Resources = () => {
                 <Input
                   type="email"
                   placeholder="Enter your email address"
-                  className="flex-1 bg-white border-slate-200 text-slate-800 px-4 py-3 rounded-lg"
+                  className="flex-1 bg-off-white border-slate-200 text-slate-800 px-4 py-3 rounded-lg"
                   required
                   data-testid="input-newsletter-email"
                 />
@@ -1366,7 +1366,7 @@ const Resources = () => {
                           className={`w-full text-left justify-start p-4 h-auto ${
                             userAnswers[currentQuestionIndex] === index 
                               ? "bg-blue-600 text-white hover:bg-blue-700" 
-                              : "bg-white text-slate-700 hover:bg-blue-50 border-slate-200"
+                              : "bg-off-white text-slate-700 hover:bg-blue-50 border-slate-200"
                           }`}
                           onClick={() => handleQuizAnswer(index)}
                           data-testid={`button-quiz-option-${index}`}
@@ -1374,7 +1374,7 @@ const Resources = () => {
                           <div className="flex items-center gap-3">
                             <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                               userAnswers[currentQuestionIndex] === index 
-                                ? "border-white bg-white" 
+                                ? "border-off-white bg-off-white" 
                                 : "border-slate-300"
                             }`}>
                               {userAnswers[currentQuestionIndex] === index && (
