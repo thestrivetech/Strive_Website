@@ -340,6 +340,10 @@ const Solutions = () => {
               <PopoverTrigger asChild>
                 <Button
                   variant={activeFilter === "Health" ? "default" : "outline"}
+                  onClick={() => {
+                    // Toggle filter - if already active, reset to "All"
+                    setActiveFilter(activeFilter === "Health" ? "All" : "Health");
+                  }}
                   className={`flex items-center px-6 py-3 transition-all duration-200 ${
                     activeFilter === "Health"
                       ? "bg-primary text-white shadow-lg scale-105"
@@ -395,6 +399,10 @@ const Solutions = () => {
               <PopoverTrigger asChild>
                 <Button
                   variant={activeFilter === "Solution Type" ? "default" : "outline"}
+                  onClick={() => {
+                    // Toggle filter - if already active, reset to "All"
+                    setActiveFilter(activeFilter === "Solution Type" ? "All" : "Solution Type");
+                  }}
                   className={`flex items-center px-6 py-3 transition-all duration-200 ${
                     activeFilter === "Solution Type"
                       ? "bg-primary text-white shadow-lg scale-105"

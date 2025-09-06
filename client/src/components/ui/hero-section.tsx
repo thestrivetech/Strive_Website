@@ -97,7 +97,8 @@ const HeroSection = ({
             <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
               <Button
                 onClick={onPrimaryClick}
-                className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground px-6 lg:px-8 py-3 lg:py-4 text-sm sm:text-base lg:text-lg min-h-[48px] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground px-6 lg:px-8 py-3 lg:py-4 text-sm sm:text-base lg:text-lg min-h-[48px] relative overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105
+                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                 size="lg"
                 data-testid="button-hero-primary"
               >
@@ -136,7 +137,7 @@ const HeroSection = ({
             {/* Left Arrow - Hidden on mobile */}
             <button
               onClick={goToPreviousDemo}
-              className="hidden lg:block absolute left-[-90px] top-1/2 -translate-y-1/2 z-10 transition-all duration-300 hover:scale-125"
+              className="hidden lg:block absolute left-[-70px] xl:left-[-80px] 2xl:left-[-90px] top-1/2 -translate-y-1/2 z-10 transition-all duration-300 hover:scale-125"
               data-testid="button-demo-prev"
             >
               <ChevronLeft className="w-10 h-10 text-primary stroke-[2.5]" />
@@ -145,7 +146,7 @@ const HeroSection = ({
             {/* Right Arrow - Hidden on mobile */}
             <button
               onClick={goToNextDemo}
-              className="hidden lg:block absolute right-[-90px] top-1/2 -translate-y-1/2 z-10 transition-all duration-300 hover:scale-125"
+              className="hidden lg:block absolute right-[-70px] xl:right-[-80px] 2xl:right-[-90px] top-1/2 -translate-y-1/2 z-10 transition-all duration-300 hover:scale-125"
               data-testid="button-demo-next"
             >
               <ChevronRight className="w-10 h-10 text-primary stroke-[2.5]" />
