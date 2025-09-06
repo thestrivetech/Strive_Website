@@ -273,41 +273,62 @@ const Solutions = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#ffffffeb]">
-      {/* Hero Section */}
+    <div className="pt-16">
+      {/* Hero Section with AI-themed animated background */}
       <section className="py-20 hero-gradient relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 animate-pulse"></div>
+          <div className="absolute top-0 left-0 w-full h-full">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className={`absolute w-2 h-2 bg-primary rounded-full animate-ping opacity-60`}
+                style={{
+                  left: `${10 + i * 15}%`,
+                  top: `${20 + i * 10}%`,
+                  animationDelay: `${i * 0.5}s`,
+                  animationDuration: '3s'
+                }}
+              />
+            ))}
+          </div>
+        </div>
+        
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
+          <div className="text-center">
             <div className="flex items-center justify-center mb-6">
-              <Lightbulb className="h-16 w-16 text-primary" />
+              <div className="relative">
+                <Lightbulb className="text-primary h-16 w-16 animate-pulse" />
+                <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping"></div>
+              </div>
             </div>
             <h1 
-              className="text-4xl md:text-5xl font-bold mb-6 text-white"
+              className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-solutions-hero-title"
             >
-              <span className="bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent">AI-Powered Solutions</span> for Every Industry
+              AI-Powered Solutions for Every Industry
             </h1>
             <p 
-              className="text-xl text-white/80 max-w-3xl mx-auto mb-8"
+              className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
               data-testid="text-solutions-hero-subtitle"
             >
-              Discover comprehensive <span className="bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent font-semibold">AI and automation solutions</span> tailored to transform your business operations, drive efficiency, and accelerate growth across all industries.
+              Discover comprehensive AI and automation solutions tailored to transform your business operations, drive efficiency, and accelerate growth across all industries.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                className="bg-primary hover:bg-primary/90 border-2 border-[#020a1c]"
-                data-testid="button-explore-solutions"
+                className="bg-off-white text-primary hover:bg-off-white/90 px-8 py-4 text-lg font-semibold"
                 onClick={() => document.getElementById('solutions-grid')?.scrollIntoView({ behavior: 'smooth' })}
+                data-testid="button-explore-solutions"
               >
                 Explore Solutions
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-orange-500 text-white hover:bg-orange-500/20"
-                data-testid="button-get-custom-solution"
+                className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg font-semibold"
                 onClick={() => window.location.href = '/get-started'}
+                data-testid="button-get-custom-solution"
               >
                 Get Custom Solution
               </Button>

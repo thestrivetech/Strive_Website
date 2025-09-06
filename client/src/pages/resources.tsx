@@ -1089,63 +1089,60 @@ const Resources = () => {
 
   return (
     <div className="pt-16">
-      {/* Hero Section with Gradient Background */}
-      <section className="hero-gradient text-white py-20 relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div 
-              className="inline-flex items-center text-sm text-orange-400 uppercase tracking-wide font-semibold mb-6"
-              data-testid="text-knowledge-center-badge"
-            >
-              <Sparkles className="h-4 w-4 mr-2" />
-              KNOWLEDGE CENTER
+      {/* Hero Section with AI-themed animated background */}
+      <section className="py-20 hero-gradient relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 animate-pulse"></div>
+          <div className="absolute top-0 left-0 w-full h-full">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className={`absolute w-2 h-2 bg-primary rounded-full animate-ping opacity-60`}
+                style={{
+                  left: `${10 + i * 15}%`,
+                  top: `${20 + i * 10}%`,
+                  animationDelay: `${i * 0.5}s`,
+                  animationDuration: '3s'
+                }}
+              />
+            ))}
+          </div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-6">
+              <div className="relative">
+                <BookOpen className="text-primary h-16 w-16 animate-pulse" />
+                <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping"></div>
+              </div>
             </div>
             <h1 
-              className="text-4xl md:text-6xl font-bold mb-6"
+              className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-hero-title"
             >
-              Business <span className="gradient-text">Intelligence</span> Hub
+              Business Intelligence Hub
             </h1>
             <p 
-              className="text-xl text-slate-300 max-w-3xl mx-auto"
+              className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
               data-testid="text-hero-subtitle"
             >
               Unlock your potential with expert insights, cutting-edge research, and proven strategies from industry leaders.
             </p>
-          </div>
-
-          {/* Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-orange-400 mb-2" data-testid="text-stat-articles">
-                50+
-              </div>
-              <div className="text-slate-300" data-testid="text-stat-articles-label">
-                Expert Articles
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-orange-400 mb-2" data-testid="text-stat-downloads">
-                10K+
-              </div>
-              <div className="text-slate-300" data-testid="text-stat-downloads-label">
-                Downloads
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-orange-400 mb-2" data-testid="text-stat-success">
-                95%
-              </div>
-              <div className="text-slate-300" data-testid="text-stat-success-label">
-                Success Rate
-              </div>
-            </div>
+            <Button 
+              size="lg" 
+              className="bg-off-white text-primary hover:bg-off-white/90 px-8 py-4 text-lg font-semibold"
+              onClick={() => document.getElementById('resource-library')?.scrollIntoView({ behavior: 'smooth' })}
+              data-testid="button-explore-resources"
+            >
+              Explore Resources
+            </Button>
           </div>
         </div>
       </section>
 
       {/* Resource Library Section - White Background */}
-      <section className="py-16 bg-[#ffffffeb] shadow-lg">
+      <section id="resource-library" className="py-16 bg-[#ffffffeb] shadow-lg">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4 text-slate-800" data-testid="text-library-title">

@@ -96,7 +96,8 @@
       "mcp__serena__create_text_file",
       "Bash(touch:*)",
       "Read(//tmp/**)",
-      "Read(///**)"
+      "Read(///**)",
+      "Bash(fuser:*)"
     ],
     "deny": []
   },

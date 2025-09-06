@@ -96,55 +96,75 @@ const About = () => {
 
   return (
     <div className="pt-16">
-      {/* Hero Section with Gradient */}
+      {/* Hero Section with AI-themed animated background */}
       <section className="py-20 hero-gradient relative overflow-hidden">
-        {/* Parallax Background Elements */}
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-20 w-40 h-40 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-60 h-60 bg-orange-500/10 rounded-full blur-2xl animate-pulse" style={{animationDelay: '3s'}}></div>
-          <div className="absolute top-1/3 left-1/2 w-32 h-32 bg-primary/5 rounded-full blur-lg animate-pulse" style={{animationDelay: '6s'}}></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 animate-pulse"></div>
+          <div className="absolute top-0 left-0 w-full h-full">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className={`absolute w-2 h-2 bg-primary rounded-full animate-ping opacity-60`}
+                style={{
+                  left: `${10 + i * 15}%`,
+                  top: `${20 + i * 10}%`,
+                  animationDelay: `${i * 0.5}s`,
+                  animationDuration: '3s'
+                }}
+              />
+            ))}
+          </div>
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
-            <div 
-              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
-              data-testid="text-about-label"
-            >
-              ABOUT STRIVE
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-6">
+              <div className="relative">
+                <Users className="text-primary h-16 w-16 animate-pulse" />
+                <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping"></div>
+              </div>
             </div>
             <h1 
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white"
+              className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-about-title"
             >
-              Transforming Business Through <span className="gradient-text">Innovation</span>
+              Transforming Business Through Innovation
             </h1>
             <p 
-              className="text-white/80 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed"
+              className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
               data-testid="text-about-subtitle"
             >
               We're not just another tech company. We're visionaries building the future of business automation, one intelligent solution at a time.
             </p>
+            <Button 
+              size="lg" 
+              className="bg-off-white text-primary hover:bg-off-white/90 px-8 py-4 text-lg font-semibold"
+              onClick={() => document.getElementById('our-story')?.scrollIntoView({ behavior: 'smooth' })}
+              data-testid="button-learn-more"
+            >
+              Learn Our Story
+            </Button>
           </div>
-          
-          {/* Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
+        </div>
+      </section>
+
+      {/* Stats Section - Moved outside hero */}
+      <section className="py-12 bg-[#ffffffeb]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div 
                 key={index}
                 className="text-center group"
                 data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <div className="w-20 h-20 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <div 
-                    className="text-3xl font-bold text-white"
-                    data-testid={`text-stat-number-${index}`}
-                  >
-                    {stat.number}
-                  </div>
+                <div className="text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300" 
+                  data-testid={`text-stat-number-${index}`}
+                >
+                  {stat.number}
                 </div>
                 <div 
-                  className="text-white/80 font-medium"
+                  className="text-muted-foreground font-medium"
                   data-testid={`text-stat-label-${index}`}
                 >
                   {stat.label}
@@ -156,7 +176,7 @@ const About = () => {
       </section>
 
       {/* Company Story Section */}
-      <section className="py-16 md:py-24 bg-[#ffffffeb]">
+      <section id="our-story" className="py-16 md:py-24 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>

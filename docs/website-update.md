@@ -1,7 +1,7 @@
 ### Entire implementation list for the website ###
 
 
-# Entire Website #
+# Entire Website # All COMPLETED 
 - Fix nav bar for all pages (should be translucent/transparent in the hero section but then carry the hero section gradient color as soon as the nav bar hits the end of the hero section)
 
 - The orange "Strive" logo/text in the footer and the nav bar section of the website needs to be changed to this logo (make sure that the appearance looks right formatting wise when you put this logo in):  ![alt text](STRIVE_orange_text_transparent_1500x1500.png)
@@ -10,7 +10,10 @@
 
 - Please make sure that the off color of white (#ffffffeb) is being used for any white backgorunds that are used on the website. BACKGROUNDS SPECIFICALLY, NOT ANYTHING ELSE.
 
-- Make sure that each pages hero section (excluding the home page) aligns the same when users enter the page. The Home page is the only exception with how it takes up the whole screen when users first enter the site. 
+### Still need to reformat wording to achvieve what's mentioned below ###
+- Make sure that each pages hero section (excluding the home page) aligns the same when users enter the page. The Home page is the only exception with how it takes up the whole screen when users first enter the site.
+
+- Change the hero section buttons on all pages to match the home page buttons layout (maybe add some really unique white buttons with cool animations?)
 
 # Home Page # - ALL COMPLETED in Home Page section
 
