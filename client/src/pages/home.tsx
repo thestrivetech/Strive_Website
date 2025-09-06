@@ -165,7 +165,6 @@ const Home = () => {
       />
       {/* ROI Calculator */}
       <ROICalculator />
-      
       {/* Industry Solutions Selector - Moved from Solutions Page */}
       <section className="py-16 hero-gradient">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -270,7 +269,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-      
       {/* Integrated Platform Section */}
       <section className="py-12 sm:py-16 md:py-24 bg-[#ffffffeb] text-[#f8fafc]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -306,7 +304,7 @@ const Home = () => {
                       <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
                         {solution.icon}
                       </div>
-                      <h3 className="text-xl font-bold mb-4">
+                      <h3 className="text-xl font-bold text-[#f66936] mt-[8px] mb-[8px] ml-[0px] mr-[0px] pl-[0px] pr-[0px] pt-[0px] pb-[0px]">
                         {solution.title}
                       </h3>
                       <p className="text-muted-foreground mb-6">
@@ -495,7 +493,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-      
       {/* Resources Preview */}
       <section className="py-12 sm:py-16 md:py-24 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
