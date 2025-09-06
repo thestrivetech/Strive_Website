@@ -98,7 +98,7 @@ const Navigation = () => {
                     <LazyImage 
                       src={logoImage} 
                       alt="Strive" 
-                      className="h-12 w-auto mx-auto"
+              className="h-12 w-auto max-w-[240px] mx-auto"
                       loading="eager"
                     />
                   </div>
@@ -231,7 +231,7 @@ const Navigation = () => {
             <LazyImage 
               src={logoImage} 
               alt="Strive" 
-              className="h-10 w-auto max-w-[160px]"
+              className="h-10 w-auto max-w-[200px]"
               loading="eager"
             />
           </Link>
