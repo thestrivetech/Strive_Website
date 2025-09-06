@@ -15,40 +15,41 @@
 
 - Change the hero section buttons on all pages to match the home page buttons layout (maybe add some really unique white buttons with cool animations?)
 
-# Home Page # - ALL COMPLETED in Home Page section
+# Home Page # 
 
-1. The demo preview video section is still too small on big displays (I think it might look alright for smaller display screens/devices). 
-Also, the buttons for the arrows on the sides of the demo preview section are not formatted correctly either for bigger displays, we need to fix this. Make the arrows slightly thicker so the user can easily see them.
-  - After the arrows are adjusted, please adjust the layout of the hero section so there's more room  between the text section (left) and the demo preview section (right)
-  
-3. For the demo preview area, I want to only have the side arrows on the left and right of the demo preview section. I don't want anything around them like the circles that are currently there. 
+- Home page - The play/pause button in the demo preview should disappear after the user clicks the play button and the videos begin to play. Make sure the demos are paused whenever the user enters the website - Additionally 
 
-4. Please change the "Watch Demos" to "View Demos" in the hero section of the home page which takes them to the demo filtered section in the portfolio. - Completed in last session, looks good.
+- Home page - Change "YOUR PROJECT DASHBOARD" sections cards to white (just like the cards on the Portfolio page) & format the icons better
 
-5. The "Connect With Us" section at the bottom of home page needs to be revamped. Make it more appealing but don't go over the top.
+- Home page - Remove connect with us section but leave the bottom "Get Started In Just 15 minutes" card 
 
-6.  Please make sure to change out the title of the cards/badges in "Connect With Us" section to be more focused on company centered aspects of what it's like to work with us and what it's like to become a partner with strive. 
-
-7. Add discord icon to the footer on all pages which links to Strive's discord: https://discord.gg/q3djnrvP29 
-
-8. “Integrated Business Platform” section needs to be updated or changed. We could cater it to our app/website which gives customers the ability to be in the loop on their project status and oversight with daily snapshots on overall progress and visuals if applicable. - After doing this, please use the existing modal (pop out system) that's used on all other pages on this sections cards/badges.
-
-9. Make “Why Choose Strive” the main text so it pops out rather than being a secondary text 
-
-10. Change “View Success Stories” in Why Choose Strive to - "Meet the Team" Add a orange button outline to the button to match the "View Demos" button at the top of the page
-
+- Home page - update emoji icons in solutions by industry section that are used back to the lucid icons
 
 # Solutions Page #
 
+- Add things to make this page more simple for the user experience - Ask me before actually updating the page in a specific way
+
+- Fix filter display and button functionality and color scheme
+  - Filter dropdown menu sould only dropdown below the industry and solution type buttons - Currently it appears above the buttons if the users screen is above that section
+  - Once a filter button is selected for the user to choose a filter option, in order to go back to all, they should have to click the "All" button next to the other two filters
+  - "Industry" needs to be the default word on the industry filter button - Then it should change to the specific industry name when the user selects their industry to filter by
+  - Color of words and icons in both filter dropdown menus are fine but I want to make the word and icon color change to orange on hover.
+
+- Add text above the filter section that says something like, "Use the filter to find your  industry specific solution!"
+
+- Use gradient text color on the word "Every" in hero section
+
+- Change button colors in the hero section to match button scheme on home page
+
 - Create links to each technology badge that takes the user to the specific document that has been created to explain what each thing is. If it's an industry, take them to a case study that's been created about that specific industry - Make sure to create badge hover effects to so they will know they can click on them (unless this is too much, then we would just give them the option to click on the badges once the card is clicked on and it pops out) - Go ahead and make filler cards for these links on the Resources page
 
-- Change the Orange and white lightbulb icon to where it's just an orange lightbulb without the orange background - Should match the hero section icons on Portfolio Page and the Solutions page
+- Please change the h3 text color for all cards to be orange instead of white (it currently blends in)
 
 # Portfolio Page #
 
-- Please use the exact hero section design on the Portfolio page and add it to the following pages: Solutions, Resources, and About Me - After doing this, make the Solutions page lightbulb icon flash exactly like the brain circut icon on the portfolio page 
+- Please use the exact hero section design on the Portfolio page and add it to the following pages: Solutions, Resources, and About Me - After doing this, make the Solutions page lightbulb icon flash exactly like the brain circut icon on the portfolio page - Done? Looks like the slight sparkle/glimmer affect was removed?
 
-Change text in the header to say: "Strive presents cutting-edge AI solutions". Use the gradient design on the words "AI Solutions" in this text header section 
+Change text in the header to say: "Solutions that give you more time to do what you love". Use the gradient design on the words "AI Solutions" in this text header section 
 
 - Fix the badge/card title text color on all badges to be orange instead of white. It currently blends in with the badge/card color
 - 
@@ -56,10 +57,8 @@ Change text in the header to say: "Strive presents cutting-edge AI solutions". U
 
 # Resources Page #
 
-1. Remove "Knowledge Center" from the hero section and add the book-open-text lucid icon in it’s place. It should match what the brain-circuit icon in size (on portfolio page)
 
-2. Replace the statistics section in the hero section with a "Ready to Learn?" button
-
+-  Add another filter button - "Tools & Tech" with a wrench icon - This is where all technologies and tools that are mentioned on any card on the Portfolio page should be. All technology buttons should have a card in this new section and should be linked with it's certain badge on the Portfolio page
 
 # Contact Page #
 

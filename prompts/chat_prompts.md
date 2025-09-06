@@ -14,7 +14,7 @@ Haven't used yet Session start for pdp & pdp file implementation:
 
 
 Regular chat prompt for website edits without agents:
-Please understand the current stat of the website and layout. I need your help with updating it.
+Please understand the current state of the website and layout. I need your help with updating it. Read lines 18 through 26 in this file: docs/website-update.md - This is your task list for this session. Do your best and be great.
 
 Chat log creation:
 Create this sessions chat log please and record full context from this session - Put it here: chat_logs/website_updates/session2.md

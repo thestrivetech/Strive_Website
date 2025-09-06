@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Trophy, Shield, Brain, TrendingUp, Clock, Users, BarChart, Cog, Calculator, ShieldCheck, Truck, Zap, ChevronRight } from "lucide-react";
+import { 
+  Trophy, Shield, Brain, TrendingUp, Clock, Users, BarChart, Cog, Calculator, ShieldCheck, 
+  Truck, Zap, ChevronRight,
+  Heart, DollarSign, Factory, ShoppingCart, Monitor, GraduationCap, Home as HomeIcon, Scale,
+  Microscope, ClipboardList, CheckCircle, AlertTriangle, LineChart, UserCheck,
+  Wrench, Eye, Package, Settings, Target, Coins, Globe,
+  BookOpen, Clipboard, Award, PenTool, Building2, FileText, Search, ShieldAlert
+} from "lucide-react";
 import { LightBulbIcon, RocketLaunchIcon, CpuChipIcon, StarIcon } from "@heroicons/react/24/outline";
 import HeroSection from "@/components/ui/hero-section";
 import SolutionCard from "@/components/ui/solution-card";
@@ -32,52 +39,52 @@ const Home = () => {
 
   const industrySpecificSolutions = {
     healthcare: [
-      { name: "AI-powered diagnostics and imaging analysis", icon: "🔬", description: "Advanced medical imaging with AI pattern recognition" },
-      { name: "Patient data management and EHR integration", icon: "📋", description: "Seamless electronic health record management" },
-      { name: "Automated compliance and regulatory reporting", icon: "✅", description: "HIPAA compliant automated reporting systems" },
-      { name: "Predictive analytics for patient outcomes", icon: "📊", description: "Early intervention through predictive modeling" }
+      { name: "AI-powered diagnostics and imaging analysis", icon: <Microscope className="w-8 h-8" />, description: "Advanced medical imaging with AI pattern recognition" },
+      { name: "Patient data management and EHR integration", icon: <ClipboardList className="w-8 h-8" />, description: "Seamless electronic health record management" },
+      { name: "Automated compliance and regulatory reporting", icon: <CheckCircle className="w-8 h-8" />, description: "HIPAA compliant automated reporting systems" },
+      { name: "Predictive analytics for patient outcomes", icon: <TrendingUp className="w-8 h-8" />, description: "Early intervention through predictive modeling" }
     ],
     finance: [
-      { name: "Real-time fraud detection and prevention", icon: "🛡️", description: "Advanced AI algorithms for fraud prevention" },
-      { name: "Automated risk assessment and reporting", icon: "📈", description: "Comprehensive risk analysis and compliance reporting" },
-      { name: "Algorithmic trading and portfolio optimization", icon: "💹", description: "AI-driven trading strategies and portfolio management" },
-      { name: "Customer behavior analytics and personalization", icon: "👤", description: "Deep customer insights for personalized services" }
+      { name: "Real-time fraud detection and prevention", icon: <Shield className="w-8 h-8" />, description: "Advanced AI algorithms for fraud prevention" },
+      { name: "Automated risk assessment and reporting", icon: <TrendingUp className="w-8 h-8" />, description: "Comprehensive risk analysis and compliance reporting" },
+      { name: "Algorithmic trading and portfolio optimization", icon: <LineChart className="w-8 h-8" />, description: "AI-driven trading strategies and portfolio management" },
+      { name: "Customer behavior analytics and personalization", icon: <UserCheck className="w-8 h-8" />, description: "Deep customer insights for personalized services" }
     ],
     manufacturing: [
-      { name: "Predictive maintenance and equipment monitoring", icon: "🔧", description: "Prevent downtime with intelligent maintenance scheduling" },
-      { name: "Quality control automation with computer vision", icon: "👁️", description: "Automated quality inspection using AI vision" },
-      { name: "Supply chain optimization and demand forecasting", icon: "📦", description: "Optimize inventory and predict demand patterns" },
-      { name: "Production workflow automation", icon: "⚙️", description: "Streamline manufacturing processes with automation" }
+      { name: "Predictive maintenance and equipment monitoring", icon: <Wrench className="w-8 h-8" />, description: "Prevent downtime with intelligent maintenance scheduling" },
+      { name: "Quality control automation with computer vision", icon: <Eye className="w-8 h-8" />, description: "Automated quality inspection using AI vision" },
+      { name: "Supply chain optimization and demand forecasting", icon: <Package className="w-8 h-8" />, description: "Optimize inventory and predict demand patterns" },
+      { name: "Production workflow automation", icon: <Settings className="w-8 h-8" />, description: "Streamline manufacturing processes with automation" }
     ],
     retail: [
-      { name: "Customer analytics and personalized recommendations", icon: "🎯", description: "AI-powered personalization for better customer experience" },
-      { name: "Inventory management and demand prediction", icon: "📊", description: "Smart inventory optimization and demand forecasting" },
-      { name: "Dynamic pricing optimization", icon: "💰", description: "Real-time pricing strategies based on market conditions" },
-      { name: "Omnichannel customer experience automation", icon: "🌐", description: "Seamless customer journey across all channels" }
+      { name: "Customer analytics and personalized recommendations", icon: <Target className="w-8 h-8" />, description: "AI-powered personalization for better customer experience" },
+      { name: "Inventory management and demand prediction", icon: <BarChart className="w-8 h-8" />, description: "Smart inventory optimization and demand forecasting" },
+      { name: "Dynamic pricing optimization", icon: <Coins className="w-8 h-8" />, description: "Real-time pricing strategies based on market conditions" },
+      { name: "Omnichannel customer experience automation", icon: <Globe className="w-8 h-8" />, description: "Seamless customer journey across all channels" }
     ],
     technology: [
-      { name: "DevOps automation and CI/CD optimization", icon: "🚀", description: "Automated deployment pipelines and infrastructure" },
-      { name: "AI agent development and deployment", icon: "🤖", description: "Custom AI agents for business automation" },
-      { name: "Cloud infrastructure and scaling solutions", icon: "☁️", description: "Auto-scaling cloud infrastructure management" },
-      { name: "Data pipeline automation and analytics", icon: "📈", description: "Automated data processing and business intelligence" }
+      { name: "DevOps automation and CI/CD optimization", icon: <Zap className="w-8 h-8" />, description: "Automated deployment pipelines and infrastructure" },
+      { name: "AI agent development and deployment", icon: <Brain className="w-8 h-8" />, description: "Custom AI agents for business automation" },
+      { name: "Cloud infrastructure and scaling solutions", icon: <Globe className="w-8 h-8" />, description: "Auto-scaling cloud infrastructure management" },
+      { name: "Data pipeline automation and analytics", icon: <TrendingUp className="w-8 h-8" />, description: "Automated data processing and business intelligence" }
     ],
     education: [
-      { name: "Learning analytics and student performance insights", icon: "📚", description: "Data-driven insights into student learning patterns" },
-      { name: "Administrative workflow automation", icon: "📋", description: "Streamline administrative processes and workflows" },
-      { name: "Personalized learning path recommendations", icon: "🎯", description: "AI-powered personalized education pathways" },
-      { name: "Automated grading and assessment tools", icon: "✏️", description: "Intelligent automated grading and feedback systems" }
+      { name: "Learning analytics and student performance insights", icon: <BookOpen className="w-8 h-8" />, description: "Data-driven insights into student learning patterns" },
+      { name: "Administrative workflow automation", icon: <Clipboard className="w-8 h-8" />, description: "Streamline administrative processes and workflows" },
+      { name: "Personalized learning path recommendations", icon: <Target className="w-8 h-8" />, description: "AI-powered personalized education pathways" },
+      { name: "Automated grading and assessment tools", icon: <PenTool className="w-8 h-8" />, description: "Intelligent automated grading and feedback systems" }
     ],
     "real-estate": [
-      { name: "Property valuation and market analysis", icon: "🏠", description: "AI-powered property valuation and market insights" },
-      { name: "Automated property management workflows", icon: "🗂️", description: "Streamline property management operations" },
-      { name: "Lead generation and customer relationship management", icon: "📞", description: "Automated lead qualification and CRM integration" },
-      { name: "Market trend prediction and investment insights", icon: "📈", description: "Predictive analytics for real estate investments" }
+      { name: "Property valuation and market analysis", icon: <Building2 className="w-8 h-8" />, description: "AI-powered property valuation and market insights" },
+      { name: "Automated property management workflows", icon: <FileText className="w-8 h-8" />, description: "Streamline property management operations" },
+      { name: "Lead generation and customer relationship management", icon: <Users className="w-8 h-8" />, description: "Automated lead qualification and CRM integration" },
+      { name: "Market trend prediction and investment insights", icon: <TrendingUp className="w-8 h-8" />, description: "Predictive analytics for real estate investments" }
     ],
     legal: [
-      { name: "Document automation and contract analysis", icon: "📄", description: "AI-powered document generation and contract review" },
-      { name: "Case management and workflow optimization", icon: "⚖️", description: "Streamlined case management and legal workflows" },
-      { name: "Legal research and precedent discovery", icon: "🔍", description: "AI-assisted legal research and case law analysis" },
-      { name: "Compliance monitoring and risk assessment", icon: "🛡️", description: "Automated compliance monitoring and risk management" }
+      { name: "Document automation and contract analysis", icon: <FileText className="w-8 h-8" />, description: "AI-powered document generation and contract review" },
+      { name: "Case management and workflow optimization", icon: <Scale className="w-8 h-8" />, description: "Streamlined case management and legal workflows" },
+      { name: "Legal research and precedent discovery", icon: <Search className="w-8 h-8" />, description: "AI-assisted legal research and case law analysis" },
+      { name: "Compliance monitoring and risk assessment", icon: <ShieldAlert className="w-8 h-8" />, description: "Automated compliance monitoring and risk management" }
     ]
   };
 
@@ -183,14 +190,14 @@ const Home = () => {
           {/* Industry Selector */}
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-12">
             {[
-              { id: "healthcare", name: "Healthcare", icon: "🏥" },
-              { id: "finance", name: "Finance", icon: "💰" },
-              { id: "manufacturing", name: "Manufacturing", icon: "🏭" },
-              { id: "retail", name: "Retail", icon: "🛒" },
-              { id: "technology", name: "Technology", icon: "💻" },
-              { id: "education", name: "Education", icon: "🎓" },
-              { id: "real-estate", name: "Real Estate", icon: "🏠" },
-              { id: "legal", name: "Legal", icon: "⚖️" }
+              { id: "healthcare", name: "Healthcare", icon: <Heart className="w-8 h-8" /> },
+              { id: "finance", name: "Finance", icon: <DollarSign className="w-8 h-8" /> },
+              { id: "manufacturing", name: "Manufacturing", icon: <Factory className="w-8 h-8" /> },
+              { id: "retail", name: "Retail", icon: <ShoppingCart className="w-8 h-8" /> },
+              { id: "technology", name: "Technology", icon: <Monitor className="w-8 h-8" /> },
+              { id: "education", name: "Education", icon: <GraduationCap className="w-8 h-8" /> },
+              { id: "real-estate", name: "Real Estate", icon: <HomeIcon className="w-8 h-8" /> },
+              { id: "legal", name: "Legal", icon: <Scale className="w-8 h-8" /> }
             ].map((industry) => (
               <button
                 key={industry.id}
@@ -199,7 +206,7 @@ const Home = () => {
                 data-testid={`button-industry-${industry.id}`}
               >
                 <div className="flex flex-col items-center space-y-2">
-                  <div className="text-2xl">{industry.icon}</div>
+                  <div className="text-white">{industry.icon}</div>
                   <span className="text-sm font-medium">{industry.name}</span>
                 </div>
               </button>
@@ -227,7 +234,7 @@ const Home = () => {
                 {industrySpecificSolutions[selectedIndustry as keyof typeof industrySpecificSolutions].map((solution, index) => (
                   <Card key={index} className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
                     <CardContent className="p-6 text-center">
-                      <div className="text-3xl mb-4">{solution.icon}</div>
+                      <div className="text-white mb-4 flex justify-center">{solution.icon}</div>
                       <h4 className="text-white font-semibold mb-2 text-sm leading-tight">
                         {solution.name}
                       </h4>
@@ -292,7 +299,7 @@ const Home = () => {
               <Dialog key={index}>
                 <DialogTrigger asChild>
                   <Card 
-                    className="card-hover cursor-pointer transition-all duration-300 hover:shadow-lg"
+                    className="bg-white card-hover cursor-pointer transition-all duration-300 hover:shadow-lg"
                     data-testid={`card-solution-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     <CardContent className="p-8">
@@ -522,95 +529,10 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {/* Connect With Us Section - Enhanced */}
+      {/* Get Started Section */}
       <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-br from-[#ffffffeb] to-[#f8fafceb] relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-10 right-10 w-32 h-32 bg-primary/5 rounded-full blur-xl"></div>
-          <div className="absolute bottom-20 left-20 w-48 h-48 bg-orange-500/5 rounded-full blur-2xl"></div>
-          <div className="absolute top-1/2 right-1/3 w-24 h-24 bg-primary/3 rounded-full blur-lg"></div>
-        </div>
-        
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-5xl mx-auto">
-            {/* Header */}
-            <div className="text-center mb-12 lg:mb-16">
-              <div 
-                className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm uppercase tracking-wide text-primary font-semibold mb-6"
-                data-testid="text-cta-label"
-              >
-                <Zap className="w-4 h-4 mr-2" />
-                CONNECT WITH US
-              </div>
-              <h2 
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-[#020a1c] leading-tight"
-                data-testid="text-cta-title"
-              >
-                Ready to Transform Your Business?
-              </h2>
-              <p 
-                className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-8 leading-relaxed max-w-3xl mx-auto"
-                data-testid="text-cta-description"
-              >
-                Join hundreds of companies that have already revolutionized their operations with our AI-powered solutions. Let's discuss how we can accelerate your success.
-              </p>
-            </div>
-            
-            {/* Value Proposition Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-12 lg:mb-16">
-              <div className="group bg-white/60 backdrop-blur-sm border border-white/40 rounded-2xl p-6 text-center transition-all duration-300 hover:bg-white/80 hover:border-primary/20 hover:shadow-lg hover:scale-105">
-                <div className="w-14 h-14 bg-gradient-to-br from-primary to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Shield className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="font-semibold text-[#020a1c] mb-2">Partnership Security & Trust</h3>
-                <p 
-                  className="text-sm text-muted-foreground leading-relaxed"
-                  data-testid="text-benefit-compliance"
-                >
-                  Your data and ideas are protected with enterprise-grade security while we build a foundation of trust and transparency.
-                </p>
-              </div>
-              
-              <div className="group bg-white/60 backdrop-blur-sm border border-white/40 rounded-2xl p-6 text-center transition-all duration-300 hover:bg-white/80 hover:border-primary/20 hover:shadow-lg hover:scale-105">
-                <div className="w-14 h-14 bg-gradient-to-br from-primary to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Brain className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="font-semibold text-[#020a1c] mb-2">Collaborative Innovation</h3>
-                <p 
-                  className="text-sm text-muted-foreground leading-relaxed"
-                  data-testid="text-benefit-automation"
-                >
-                  Work directly with our expert team to co-create solutions tailored to your unique business challenges and goals.
-                </p>
-              </div>
-              
-              <div className="group bg-white/60 backdrop-blur-sm border border-white/40 rounded-2xl p-6 text-center transition-all duration-300 hover:bg-white/80 hover:border-primary/20 hover:shadow-lg hover:scale-105">
-                <div className="w-14 h-14 bg-gradient-to-br from-primary to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <TrendingUp className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="font-semibold text-[#020a1c] mb-2">Transparent Project Updates</h3>
-                <p 
-                  className="text-sm text-muted-foreground leading-relaxed"
-                  data-testid="text-benefit-visibility"
-                >
-                  Stay informed with daily progress snapshots, real-time dashboards, and clear communication throughout your project.
-                </p>
-              </div>
-              
-              <div className="group bg-white/60 backdrop-blur-sm border border-white/40 rounded-2xl p-6 text-center transition-all duration-300 hover:bg-white/80 hover:border-primary/20 hover:shadow-lg hover:scale-105">
-                <div className="w-14 h-14 bg-gradient-to-br from-primary to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Trophy className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="font-semibold text-[#020a1c] mb-2">Success-Driven Partnership</h3>
-                <p 
-                  className="text-sm text-muted-foreground leading-relaxed"
-                  data-testid="text-benefit-results"
-                >
-                  We measure our success by yours - dedicated support and continuous optimization to ensure lasting business impact.
-                </p>
-              </div>
-            </div>
-
             {/* Call to Action */}
             <div className="bg-gradient-to-br from-white/70 to-white/50 backdrop-blur-sm border border-white/60 rounded-3xl p-8 lg:p-10 text-center shadow-xl">
               <h3 className="text-xl lg:text-2xl font-bold text-[#020a1c] mb-4">
@@ -636,7 +558,7 @@ const Home = () => {
                   onClick={() => window.location.href = "/portfolio"}
                   data-testid="button-view-case-studies"
                 >
-                  View Case Studies
+                  View Our Work
                 </Button>
               </div>
               

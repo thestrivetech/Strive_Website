@@ -20,7 +20,8 @@ const HeroSection = ({
   onSecondaryClick,
 }: HeroSectionProps) => {
   const [currentDemo, setCurrentDemo] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const goToPreviousDemo = () => {
     setCurrentDemo((prev) => (prev - 1 + demoVideos.length) % demoVideos.length);
@@ -147,7 +148,11 @@ const HeroSection = ({
               
               {/* Demo Video Container */}
               <div className="demo-video-container w-full max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5]">
+                <div 
+                  className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5]"
+                  onMouseEnter={() => setIsHovering(true)}
+                  onMouseLeave={() => setIsHovering(false)}
+                >
                   <img 
                     src={demoVideos[currentDemo].thumbnail}
                     alt={demoVideos[currentDemo].title}
@@ -155,20 +160,24 @@ const HeroSection = ({
                     data-testid="demo-thumbnail"
                   />
                 
-                {/* Play/Pause Overlay */}
-                <div className="absolute top-0 left-0 right-0 bottom-[10px] bg-black/30 flex items-center justify-center group">
-                  <button
-                    onClick={togglePlayback}
-                    className="w-16 h-16 lg:w-20 lg:h-20 bg-primary rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 hover:bg-primary/90"
-                    data-testid="button-demo-play"
-                  >
-                    {isPlaying ? (
-                      <Pause className="text-primary-foreground w-5 h-5 lg:w-6 lg:h-6" />
-                    ) : (
-                      <Play className="text-primary-foreground w-6 h-6 lg:w-8 lg:h-8 ml-1" />
-                    )}
-                  </button>
-                </div>
+                {/* Play/Pause Overlay - Show when paused or when playing and hovering */}
+                {(!isPlaying || (isPlaying && isHovering)) && (
+                  <div className={`absolute top-0 left-0 right-0 bottom-[10px] flex items-center justify-center group transition-all duration-200 ${
+                    isPlaying && isHovering ? 'bg-black/20' : 'bg-black/30'
+                  }`}>
+                    <button
+                      onClick={togglePlayback}
+                      className="w-16 h-16 lg:w-20 lg:h-20 bg-primary rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 hover:bg-primary/90"
+                      data-testid="button-demo-play"
+                    >
+                      {isPlaying ? (
+                        <Pause className="text-primary-foreground w-5 h-5 lg:w-6 lg:h-6" />
+                      ) : (
+                        <Play className="text-primary-foreground w-6 h-6 lg:w-8 lg:h-8 ml-1" />
+                      )}
+                    </button>
+                  </div>
+                )}
 
                 {/* Video Info Overlay */}
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4 lg:p-8">
@@ -220,7 +229,11 @@ const HeroSection = ({
             
             {/* Mobile demo container for screens smaller than lg */}
             <div className="lg:hidden demo-video-container w-full max-w-md sm:max-w-lg mx-auto">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5]">
+              <div 
+                className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5]"
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+              >
                 <img 
                   src={demoVideos[currentDemo].thumbnail}
                   alt={demoVideos[currentDemo].title}
@@ -228,20 +241,24 @@ const HeroSection = ({
                   data-testid="demo-thumbnail-mobile"
                 />
                 
-                {/* Play/Pause Overlay */}
-                <div className="absolute top-0 left-0 right-0 bottom-[10px] bg-black/30 flex items-center justify-center group">
-                  <button
-                    onClick={togglePlayback}
-                    className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 hover:bg-primary/90"
-                    data-testid="button-demo-play-mobile"
-                  >
-                    {isPlaying ? (
-                      <Pause className="text-primary-foreground w-5 h-5" />
-                    ) : (
-                      <Play className="text-primary-foreground w-6 h-6 ml-1" />
-                    )}
-                  </button>
-                </div>
+                {/* Play/Pause Overlay - Show when paused or when playing and hovering */}
+                {(!isPlaying || (isPlaying && isHovering)) && (
+                  <div className={`absolute top-0 left-0 right-0 bottom-[10px] flex items-center justify-center group transition-all duration-200 ${
+                    isPlaying && isHovering ? 'bg-black/20' : 'bg-black/30'
+                  }`}>
+                    <button
+                      onClick={togglePlayback}
+                      className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 hover:bg-primary/90"
+                      data-testid="button-demo-play-mobile"
+                    >
+                      {isPlaying ? (
+                        <Pause className="text-primary-foreground w-5 h-5" />
+                      ) : (
+                        <Play className="text-primary-foreground w-6 h-6 ml-1" />
+                      )}
+                    </button>
+                  </div>
+                )}
 
                 {/* Video Info Overlay */}
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
