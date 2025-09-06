@@ -74,7 +74,7 @@ const HeroSection = ({
   return (
     <section className="hero-gradient min-h-screen flex items-center relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-20 items-center min-h-[80vh] py-8 lg:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 xl:gap-28 2xl:gap-32 items-center min-h-[80vh] py-8 lg:py-12">
           {/* Left Content */}
           <div className="space-y-6 lg:space-y-8 slide-in-left">
             <div className="space-y-4 lg:space-y-6">
@@ -140,22 +140,22 @@ const HeroSection = ({
             {/* Left Arrow - Hidden on mobile */}
             <button
               onClick={goToPreviousDemo}
-              className="hidden lg:block absolute left-[-70px] top-1/2 -translate-y-1/2 z-10 p-3 hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+              className="hidden lg:block absolute left-[-90px] top-1/2 -translate-y-1/2 z-10 transition-all duration-300 hover:scale-125"
               data-testid="button-demo-prev"
             >
-              <ChevronLeft className="w-8 h-8 text-primary stroke-[3]" />
+              <ChevronLeft className="w-10 h-10 text-primary stroke-[2.5]" />
             </button>
             
             {/* Right Arrow - Hidden on mobile */}
             <button
               onClick={goToNextDemo}
-              className="hidden lg:block absolute right-[-70px] top-1/2 -translate-y-1/2 z-10 p-3 hover:bg-primary/10 transition-all duration-300 hover:scale-110"
+              className="hidden lg:block absolute right-[-90px] top-1/2 -translate-y-1/2 z-10 transition-all duration-300 hover:scale-125"
               data-testid="button-demo-next"
             >
-              <ChevronRight className="w-8 h-8 text-primary stroke-[3]" />
+              <ChevronRight className="w-10 h-10 text-primary stroke-[2.5]" />
             </button>
             
-            <div className="demo-video-container w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl mx-auto lg:mx-0">
+            <div className="demo-video-container w-full max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl mx-auto lg:mx-0">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5]">
                 <img 
                   src={demoVideos[currentDemo].thumbnail}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Trophy, Shield, Brain, TrendingUp, Clock, Users, BarChart, Cog, Calculator, ShieldCheck, Truck, Zap } from "lucide-react";
+import { Trophy, Shield, Brain, TrendingUp, Clock, Users, BarChart, Cog, Calculator, ShieldCheck, Truck, Zap, ChevronRight } from "lucide-react";
 import { LightBulbIcon, RocketLaunchIcon, CpuChipIcon, StarIcon } from "@heroicons/react/24/outline";
 import HeroSection from "@/components/ui/hero-section";
 import SolutionCard from "@/components/ui/solution-card";
@@ -8,10 +8,19 @@ import ROICalculator from "@/components/ui/roi-calculator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Link } from "wouter";
 
 const Home = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+  const [selectedSolution, setSelectedSolution] = useState<any | null>(null);
 
   const handleGetStarted = () => {
     window.location.href = "/get-started";
@@ -142,6 +151,8 @@ const Home = () => {
       <HeroSection
         title="Custom AI Solutions Built for Real World Performance"
         subtitle="Unlock the power of artificial intelligence to transform your business operations, increase efficiency, and drive sustainable growth."
+        primaryButtonText="Get Started"
+        secondaryButtonText="View Demos"
         onPrimaryClick={handleGetStarted}
         onSecondaryClick={handleWatchDemo}
       />
@@ -261,26 +272,94 @@ const Home = () => {
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-section-label"
             >
-              INTEGRATED BUSINESS PLATFORM
+              YOUR PROJECT DASHBOARD
             </div>
             <h2 
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 text-[#020a1c] leading-tight"
               data-testid="text-platform-title"
             >
-              A fully integrated suite of solutions, powered by industry leading AI.
+              Stay Connected with Real-Time Project Insights & Daily Progress Updates
             </h2>
+            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              Our exclusive client portal gives you complete visibility into your project's progress with daily snapshots, 
+              visual updates, milestone tracking, and direct communication with your dedicated team - all in one secure platform.
+            </p>
           </div>
 
-          {/* Solution Cards */}
+          {/* Solution Cards with Modal */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {solutions.map((solution, index) => (
-              <SolutionCard
-                key={index}
-                icon={solution.icon}
-                title={solution.title}
-                description={solution.description}
-                href={solution.href}
-              />
+              <Dialog key={index}>
+                <DialogTrigger asChild>
+                  <Card 
+                    className="card-hover cursor-pointer transition-all duration-300 hover:shadow-lg"
+                    data-testid={`card-solution-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
+                  >
+                    <CardContent className="p-8">
+                      <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                        {solution.icon}
+                      </div>
+                      <h3 className="text-xl font-bold mb-4">
+                        {solution.title}
+                      </h3>
+                      <p className="text-muted-foreground mb-6">
+                        {solution.description}
+                      </p>
+                      <div className="flex items-center text-primary font-semibold">
+                        <span>View Details</span>
+                        <ChevronRight className="ml-1 h-4 w-4" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl flex items-center gap-3">
+                      <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                        {solution.icon}
+                      </div>
+                      {solution.title}
+                    </DialogTitle>
+                    <DialogDescription className="text-base mt-4">
+                      {solution.description}
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="mt-6 space-y-4">
+                    <div>
+                      <h4 className="font-semibold mb-2">Key Features:</h4>
+                      <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                        <li>Real-time project status updates and milestone tracking</li>
+                        <li>Visual progress indicators with completion percentages</li>
+                        <li>Direct messaging with your dedicated project team</li>
+                        <li>Document sharing and collaborative workspace</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-2">Benefits:</h4>
+                      <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                        <li>Complete transparency throughout your project lifecycle</li>
+                        <li>Faster decision-making with instant access to information</li>
+                        <li>Reduced communication overhead with centralized updates</li>
+                        <li>Historical tracking of all project changes and decisions</li>
+                      </ul>
+                    </div>
+                    <div className="flex gap-3 pt-4">
+                      <Button 
+                        onClick={() => window.location.href = "/contact"}
+                        className="bg-primary hover:bg-primary/90"
+                      >
+                        Request Demo
+                      </Button>
+                      <Button 
+                        variant="outline"
+                        onClick={() => window.location.href = solution.href}
+                      >
+                        Learn More
+                      </Button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             ))}
           </div>
         </div>
@@ -296,18 +375,18 @@ const Home = () => {
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <div 
-              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
-              data-testid="text-why-us-label"
-            >
-              WHY CHOOSE STRIVE
-            </div>
             <h2 
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white leading-tight"
               data-testid="text-why-us-title"
             >
-              The Future of Business <span className="gradient-text">Starts Here</span>
+              <span className="gradient-text">WHY CHOOSE STRIVE</span>
             </h2>
+            <div 
+              className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/90 mb-6"
+              data-testid="text-why-us-subtitle"
+            >
+              The Future of Business Starts Here
+            </div>
             <p className="text-white/80 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
               Don't just keep up with the competition—surpass them. Our cutting-edge AI solutions deliver measurable results that transform how you do business.
             </p>
@@ -396,12 +475,12 @@ const Home = () => {
                 </Button>
                 <Button 
                   variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 px-8 py-3 text-lg"
+                  className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-3 text-lg"
                   size="lg"
-                  onClick={() => window.location.href = "/portfolio"}
-                  data-testid="button-view-portfolio"
+                  onClick={() => window.location.href = "/about"}
+                  data-testid="button-meet-team"
                 >
-                  View Success Stories
+                  Meet the Team
                 </Button>
               </div>
             </div>
@@ -482,12 +561,12 @@ const Home = () => {
                 <div className="w-14 h-14 bg-gradient-to-br from-primary to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Shield className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="font-semibold text-[#020a1c] mb-2">Enterprise Security</h3>
+                <h3 className="font-semibold text-[#020a1c] mb-2">Partnership Security & Trust</h3>
                 <p 
                   className="text-sm text-muted-foreground leading-relaxed"
                   data-testid="text-benefit-compliance"
                 >
-                  Bank-grade security with full compliance across all industry standards and regulations.
+                  Your data and ideas are protected with enterprise-grade security while we build a foundation of trust and transparency.
                 </p>
               </div>
               
@@ -495,12 +574,12 @@ const Home = () => {
                 <div className="w-14 h-14 bg-gradient-to-br from-primary to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Brain className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="font-semibold text-[#020a1c] mb-2">Smart Automation</h3>
+                <h3 className="font-semibold text-[#020a1c] mb-2">Collaborative Innovation</h3>
                 <p 
                   className="text-sm text-muted-foreground leading-relaxed"
                   data-testid="text-benefit-automation"
                 >
-                  AI-powered decision making that identifies opportunities and automates complex workflows.
+                  Work directly with our expert team to co-create solutions tailored to your unique business challenges and goals.
                 </p>
               </div>
               
@@ -508,12 +587,12 @@ const Home = () => {
                 <div className="w-14 h-14 bg-gradient-to-br from-primary to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <TrendingUp className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="font-semibold text-[#020a1c] mb-2">Real-time Insights</h3>
+                <h3 className="font-semibold text-[#020a1c] mb-2">Transparent Project Updates</h3>
                 <p 
                   className="text-sm text-muted-foreground leading-relaxed"
                   data-testid="text-benefit-visibility"
                 >
-                  Complete operational visibility with predictive analytics and automated reporting.
+                  Stay informed with daily progress snapshots, real-time dashboards, and clear communication throughout your project.
                 </p>
               </div>
               
@@ -521,12 +600,12 @@ const Home = () => {
                 <div className="w-14 h-14 bg-gradient-to-br from-primary to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Trophy className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="font-semibold text-[#020a1c] mb-2">Proven Results</h3>
+                <h3 className="font-semibold text-[#020a1c] mb-2">Success-Driven Partnership</h3>
                 <p 
                   className="text-sm text-muted-foreground leading-relaxed"
                   data-testid="text-benefit-results"
                 >
-                  Average 3x efficiency gains and 60% cost reduction within the first 90 days.
+                  We measure our success by yours - dedicated support and continuous optimization to ensure lasting business impact.
                 </p>
               </div>
             </div>

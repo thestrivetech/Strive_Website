@@ -90,7 +90,8 @@
       "Bash(source:*)",
       "Bash(export PATH=\"/home/runner/workspace/.local/bin:$PATH\")",
       "mcp__serena__read_file",
-      "mcp__serena__write_memory"
+      "mcp__serena__write_memory",
+      "mcp__serena__replace_regex"
     ],
     "deny": []
   },
