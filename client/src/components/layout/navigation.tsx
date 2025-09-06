@@ -222,7 +222,7 @@ const Navigation = () => {
             <LazyImage 
               src={logoImage} 
               alt="Strive" 
-              className="h-14 w-auto max-w-[200px]"
+              className="h-10 w-auto max-w-[160px]"
               loading="eager"
             />
           </Link>
@@ -262,7 +262,7 @@ const Navigation = () => {
             <LazyImage 
               src={logoImage} 
               alt="Strive" 
-              className="h-16 w-auto"
+              className="h-10 w-auto"
               loading="eager"
             />
           </Link>
