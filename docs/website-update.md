@@ -86,5 +86,10 @@ Make the “Welcome to Strive” badge/card the same color and design of the web
 
 
 
-### Second list ###
+# Mobile Design List #
 
+- Make mobile specific design way more mobile centric - example: "What's New with Strive?" section should have a scroll feature where the different cards can be rotate horizontally
+
+- Make ROI calculator one card where the user can see everything
+
+- Remove demo preview dots in home page hero section
