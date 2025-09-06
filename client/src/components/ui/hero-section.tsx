@@ -74,7 +74,7 @@ const HeroSection = ({
   return (
     <section className="hero-gradient min-h-screen lg:flex lg:items-center relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-20 xl:gap-28 2xl:gap-32 lg:items-center lg:min-h-[80vh] pt-2 pb-4 sm:pt-4 sm:pb-6 lg:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-20 xl:gap-28 2xl:gap-32 lg:items-center lg:min-h-[80vh] pt-0 pb-4 sm:pt-2 sm:pb-6 lg:py-12">
           {/* Left Content */}
           <div className="space-y-6 lg:space-y-8 slide-in-left order-2 lg:order-1">
             <div className="space-y-4 lg:space-y-6">
