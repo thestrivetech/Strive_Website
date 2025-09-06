@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Download, FileText, BookOpen, BarChart3, Sparkles, Eye, X, ExternalLink, Clock, User, Calendar, BrainCircuit, Play, CheckCircle, AlertCircle, Trophy, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -67,6 +67,8 @@ const Resources = () => {
   const [quizStartTime, setQuizStartTime] = useState<number>(0);
   const [quizResult, setQuizResult] = useState<QuizResult | null>(null);
   const [showQuizResult, setShowQuizResult] = useState(false);
+  
+
   
   const filters = [
     { name: "All", icon: null },
@@ -255,8 +257,279 @@ const Resources = () => {
           "Launch pilot programs to test new ideas safely"
         ]
       }
+    },
+    // Technology Documentation Resources
+    {
+      id: 6,
+      type: "WHITEPAPER",
+      title: "AI & Machine Learning: Complete Guide", 
+      shortDescription: "Comprehensive overview of AI/ML technologies, implementation strategies, and business applications.",
+      fullDescription: "Artificial Intelligence and Machine Learning represent the cutting edge of computational technology, enabling systems to learn from data, identify patterns, and make decisions with minimal human intervention. This comprehensive guide covers deep learning, neural networks, natural language processing, and practical implementation strategies. Learn how AI/ML solutions leverage advanced algorithms to solve complex business challenges across industries, from healthcare diagnostics to financial fraud detection. Discover the core capabilities including real-time processing, predictive analytics, and intelligent automation that can transform your organization's operations.",
+      imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "AI and machine learning neural network visualization",
+      metadata: "Technology Guide",
+      date: "AI/ML",
+      author: "Strive Tech Team",
+      downloadCount: "3,450",
+      tags: ["AI/ML", "Deep Learning", "Neural Networks", "Predictive Analytics"],
+      content: {
+        keyPoints: [
+          "Deep learning with advanced neural networks for complex pattern recognition",
+          "Real-time data processing enabling instant decision-making",
+          "Predictive analytics for forecasting trends and behaviors",
+          "Natural language processing for human-computer interaction",
+          "Anomaly detection for fraud prevention and quality control"
+        ],
+        insights: [
+          "AI implementations show positive ROI within 8-12 months on average",
+          "Companies using AI see 45% improvement in operational efficiency",
+          "ML models improve accuracy by 20% with continuous learning"
+        ],
+        actionItems: [
+          "Assess your data infrastructure for AI readiness",
+          "Identify high-impact use cases for initial implementation",
+          "Develop a phased AI adoption roadmap",
+          "Invest in team training and change management"
+        ]
+      }
+    },
+    {
+      id: 7,
+      type: "WHITEPAPER",
+      title: "Computer Vision: Visual Intelligence",
+      shortDescription: "Enable machines to interpret and understand visual information for actionable business insights.",
+      fullDescription: "Computer Vision technology enables computers to derive meaningful information from digital images, videos, and other visual inputs. By applying machine learning models to visual data, systems can identify objects, detect anomalies, and make decisions based on visual analysis. This guide covers state-of-the-art deep learning models including CNNs, YOLO, and Transformer-based architectures. Learn about object detection, image classification, facial recognition, motion tracking, and OCR capabilities that can revolutionize quality control, security monitoring, and customer experiences across industries.",
+      imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Computer vision and image recognition technology",
+      metadata: "Technology Guide",
+      date: "Computer Vision",
+      author: "Strive Tech Team",
+      downloadCount: "2,890",
+      tags: ["Computer Vision", "Image Recognition", "Object Detection", "Visual AI"],
+      content: {
+        keyPoints: [
+          "Real-time object detection and tracking at 30+ FPS",
+          "99.1% accuracy in image classification tasks",
+          "Pixel-level image segmentation for precise analysis",
+          "OCR and text extraction from images and documents",
+          "Motion tracking for surveillance and sports analytics"
+        ],
+        insights: [
+          "Computer vision reduces quality inspection time by 80%",
+          "Visual AI improves security incident detection by 60%",
+          "Automated visual analysis cuts operational costs by 45%"
+        ],
+        actionItems: [
+          "Evaluate current visual data processing workflows",
+          "Identify areas for computer vision implementation",
+          "Plan pilot projects for proof of concept",
+          "Ensure proper data privacy and security measures"
+        ]
+      }
+    },
+    {
+      id: 8,
+      type: "WHITEPAPER",
+      title: "Natural Language Processing Mastery",
+      shortDescription: "Bridge human communication and machine understanding with advanced NLP technologies.",
+      fullDescription: "Natural Language Processing (NLP) enables computers to understand, interpret, and generate human language in valuable ways. This comprehensive guide explores transformer-based models including GPT, BERT, and custom language models for text understanding, generation, and translation. Discover how NLP powers conversational AI, sentiment analysis, document understanding, and content generation. Learn implementation strategies for chatbots, voice assistants, automated transcription, and multilingual support systems that enhance customer service and operational efficiency.",
+      imageUrl: "https://images.unsplash.com/photo-1626784215021-2e39ccf971cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Natural language processing and conversational AI",
+      metadata: "Technology Guide",
+      date: "NLP",
+      author: "Strive Tech Team",
+      downloadCount: "2,120",
+      tags: ["NLP", "Conversational AI", "Text Analytics", "Language Models"],
+      content: {
+        keyPoints: [
+          "Build intelligent chatbots with contextual understanding",
+          "Automatic translation across 100+ languages",
+          "Sentiment analysis for customer feedback insights",
+          "Document processing and information extraction",
+          "Voice-to-text transcription with high accuracy"
+        ],
+        insights: [
+          "NLP-powered chatbots reduce customer service costs by 30%",
+          "Automated document processing saves 70% of manual effort",
+          "Sentiment analysis improves customer satisfaction by 25%"
+        ],
+        actionItems: [
+          "Map current text and voice data workflows",
+          "Identify NLP use cases with highest ROI",
+          "Start with pilot chatbot or sentiment analysis project",
+          "Plan for multilingual support requirements"
+        ]
+      }
+    },
+    // Industry Case Studies
+    {
+      id: 9,
+      type: "CASE STUDY",
+      title: "Healthcare AI Transformation Success",
+      shortDescription: "Regional Medical Center achieved 45% faster diagnostics and 30% cost reduction with AI implementation.",
+      fullDescription: "This detailed case study examines how Regional Medical Center Network, spanning 12 hospitals with 3,500+ staff, revolutionized patient care through AI-powered healthcare solutions. Over 18 months, they deployed computer vision for medical imaging analysis, predictive analytics for patient risk assessment, and NLP for clinical documentation. The implementation resulted in 45% reduction in diagnostic time, 30% decrease in operational costs, 92% patient satisfaction score, and 60% reduction in readmission rates. Learn about their phased approach, staff training programs, and the critical success factors that made this transformation possible.",
+      imageUrl: "https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Healthcare technology and medical AI implementation",
+      metadata: "Healthcare",
+      date: "Success Story",
+      author: "Dr. Sarah Mitchell",
+      readTime: "10 min",
+      tags: ["Healthcare", "AI Implementation", "Patient Care", "Cost Reduction"],
+      content: {
+        keyPoints: [
+          "AI diagnostic system identified early-stage cancers human review might miss",
+          "Automated documentation reduced administrative burden by 70%",
+          "Predictive analytics prevented $2M in equipment failures",
+          "Unified data platform enabled comprehensive care coordination",
+          "Emergency room wait times reduced by 65%"
+        ],
+        insights: [
+          "Phased implementation approach minimizes risks and costs",
+          "Staff buy-in and training are critical for AI adoption success",
+          "Data quality improvements yield 40% better AI performance"
+        ],
+        actionItems: [
+          "Start with pilot program in single department",
+          "Invest heavily in staff training and change management",
+          "Establish clear success metrics before implementation",
+          "Create feedback loops for continuous improvement"
+        ]
+      }
+    },
+    {
+      id: 10,
+      type: "CASE STUDY",
+      title: "Financial Services: Fraud Detection Excellence",
+      shortDescription: "Major bank reduced fraud losses by 40% and improved detection speed by 10x with ML models.",
+      fullDescription: "Global Finance Corp, a leading financial institution, transformed their fraud detection capabilities using advanced machine learning models. The implementation included real-time transaction monitoring, behavioral analytics, and anomaly detection systems processing millions of transactions daily. Results included 99.7% fraud detection accuracy, 40% reduction in fraud losses, 10x faster threat identification, and 50% decrease in false positives. The case study details their journey from legacy rule-based systems to AI-powered fraud prevention, including challenges overcome and lessons learned.",
+      imageUrl: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Financial technology and fraud detection systems",
+      metadata: "Finance",
+      date: "Success Story",
+      author: "Michael Chen",
+      readTime: "8 min",
+      tags: ["Finance", "Fraud Detection", "Machine Learning", "Risk Management"],
+      content: {
+        keyPoints: [
+          "Real-time fraud detection across multiple channels",
+          "Behavioral analytics identify suspicious patterns instantly",
+          "ML models adapt to new fraud techniques automatically",
+          "Integration with existing banking systems seamless",
+          "Customer experience improved with fewer false declines"
+        ],
+        insights: [
+          "Combining multiple ML models improves accuracy by 35%",
+          "Real-time processing essential for fraud prevention",
+          "Continuous model retraining critical for effectiveness"
+        ],
+        actionItems: [
+          "Audit current fraud detection capabilities",
+          "Implement real-time transaction monitoring",
+          "Develop ML model ensemble for better accuracy",
+          "Create automated model retraining pipelines"
+        ]
+      }
+    },
+    {
+      id: 11,
+      type: "CASE STUDY",
+      title: "Manufacturing: Smart Factory Revolution",
+      shortDescription: "Manufacturing giant achieved 60% reduction in downtime through predictive maintenance and AI quality control.",
+      fullDescription: "TechManufacturing Inc. transformed their production facilities into smart factories using IoT sensors, computer vision, and predictive analytics. The comprehensive implementation included predictive maintenance preventing equipment failures, automated quality control with visual inspection, and supply chain optimization. Results show 60% reduction in unplanned downtime, 85% improvement in quality metrics, 25% cost savings, and 50% faster production cycles. This case study reveals their systematic approach to digital transformation and the technologies that enabled their success.",
+      imageUrl: "https://images.unsplash.com/photo-1565043666747-69f6646db940?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Smart manufacturing and Industry 4.0 technology",
+      metadata: "Manufacturing",
+      date: "Success Story",
+      author: "James Rodriguez",
+      readTime: "9 min",
+      tags: ["Manufacturing", "Predictive Maintenance", "Quality Control", "IoT"],
+      content: {
+        keyPoints: [
+          "IoT sensors monitor equipment health 24/7",
+          "Computer vision detects defects with 97% accuracy",
+          "Predictive models forecast maintenance needs 30 days ahead",
+          "Supply chain visibility improved end-to-end",
+          "Worker safety incidents reduced by 75%"
+        ],
+        insights: [
+          "IoT data quality crucial for predictive maintenance success",
+          "Computer vision ROI realized within 6 months",
+          "Cross-functional teams accelerate smart factory adoption"
+        ],
+        actionItems: [
+          "Deploy IoT sensors on critical equipment first",
+          "Implement computer vision for quality inspection",
+          "Build predictive maintenance models incrementally",
+          "Train workforce on new technologies continuously"
+        ]
+      }
+    },
+    {
+      id: 12,
+      type: "CASE STUDY",
+      title: "Retail: Personalization at Scale",
+      shortDescription: "E-commerce leader increased sales by 35% with AI-powered personalization and inventory optimization.",
+      fullDescription: "MegaRetail transformed their customer experience and operations using AI-driven personalization, dynamic pricing, and inventory optimization. The implementation included recommendation engines, customer behavior analytics, demand forecasting, and automated marketing campaigns. Achievements include 35% increase in sales, 50% improvement in inventory turnover, 4.8/5 customer satisfaction rating, and 40% reduction in marketing costs. Learn how they scaled personalization across millions of customers while optimizing their supply chain operations.",
+      imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Retail technology and e-commerce personalization",
+      metadata: "Retail",
+      date: "Success Story",
+      author: "Emily Watson",
+      readTime: "7 min",
+      tags: ["Retail", "Personalization", "E-commerce", "Customer Analytics"],
+      content: {
+        keyPoints: [
+          "AI recommendations drive 40% of total revenue",
+          "Dynamic pricing optimizes margins in real-time",
+          "Inventory optimization reduces stockouts by 60%",
+          "Personalized marketing increases conversion 3x",
+          "Omnichannel experience seamlessly integrated"
+        ],
+        insights: [
+          "Personalization ROI increases with data quality",
+          "Real-time inventory visibility essential for optimization",
+          "Customer privacy and personalization must balance"
+        ],
+        actionItems: [
+          "Implement recommendation engine for quick wins",
+          "Build unified customer data platform",
+          "Deploy dynamic pricing strategically",
+          "Create personalized marketing workflows"
+        ]
+      }
     }
   ];
+
+  // Handle navigation from Solutions page technology badges
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tech = urlParams.get('tech');
+    
+    if (tech) {
+      // Find and open the corresponding resource
+      const techResource = resources.find(resource => 
+        resource.tags?.some(tag => tag.toLowerCase() === tech.toLowerCase()) ||
+        resource.title.toLowerCase().includes(tech.toLowerCase())
+      );
+      
+      if (techResource) {
+        // Set appropriate filter based on resource type
+        if (techResource.type === "WHITEPAPER") {
+          setActiveFilter("Whitepapers");
+        } else if (techResource.type === "CASE STUDY") {
+          setActiveFilter("Case Studies");
+        }
+        
+        // Open the resource modal
+        setTimeout(() => {
+          setSelectedResource(techResource);
+        }, 500);
+      }
+      
+      // Clean the URL
+      window.history.replaceState(null, '', '/resources');
+    }
+  }, []);
 
   // Comprehensive AI Knowledge Quizzes
   const quizzes: Quiz[] = [

@@ -37,7 +37,7 @@ Also, the buttons for the arrows on the sides of the demo preview section are no
 
 # Solutions Page #
 
-- Create links to each technology badge that takes the user to the specific document that has been created to explain what each thing is. If it's an industry, take them to a case study that's been created about that specific industry - Make sure to create badge hover effects to so they will know they can click on them (unless this is too much, then we would just give them the option to click on the badges once the card is clicked on and it pops out)
+- Create links to each technology badge that takes the user to the specific document that has been created to explain what each thing is. If it's an industry, take them to a case study that's been created about that specific industry - Make sure to create badge hover effects to so they will know they can click on them (unless this is too much, then we would just give them the option to click on the badges once the card is clicked on and it pops out) - Go ahead and make filler cards for these links on the Resources page
 
 - Change the Orange and white lightbulb icon to where it's just an orange lightbulb without the orange background - Should match the hero section icons on Portfolio Page and the Solutions page
 

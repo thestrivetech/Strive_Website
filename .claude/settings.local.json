@@ -92,7 +92,8 @@
       "mcp__serena__read_file",
       "mcp__serena__write_memory",
       "mcp__serena__replace_regex",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "mcp__serena__create_text_file"
     ],
     "deny": []
   },

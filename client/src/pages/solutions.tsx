@@ -279,9 +279,7 @@ const Solutions = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
-                <Lightbulb className="h-8 w-8 text-white" />
-              </div>
+              <Lightbulb className="h-16 w-16 text-primary" />
             </div>
             <h1 
               className="text-4xl md:text-5xl font-bold mb-6 text-white"
@@ -486,12 +484,28 @@ const Solutions = () => {
                   <div className="mb-6">
                     <div className="flex flex-wrap gap-2">
                       {solution.technologies.slice(0, 3).map((tech, index) => (
-                        <Badge key={index} variant="outline" className="text-xs px-2 py-1">
+                        <Badge 
+                          key={index} 
+                          variant="outline" 
+                          className="text-xs px-2 py-1 cursor-pointer transition-all duration-200 hover:scale-105 hover:bg-primary hover:text-white hover:border-primary"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            // Navigate to resources page with filter
+                            window.location.href = `/resources?tech=${encodeURIComponent(tech)}`;
+                          }}
+                        >
                           {tech}
                         </Badge>
                       ))}
                       {solution.technologies.length > 3 && (
-                        <Badge variant="outline" className="text-xs px-2 py-1">
+                        <Badge 
+                          variant="outline" 
+                          className="text-xs px-2 py-1 cursor-pointer transition-all duration-200 hover:scale-105 hover:bg-primary hover:text-white hover:border-primary"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedSolution(solution);
+                          }}
+                        >
                           +{solution.technologies.length - 3} more
                         </Badge>
                       )}
@@ -574,7 +588,18 @@ const Solutions = () => {
                   <h4 className="text-lg font-semibold mb-4 text-foreground">Technologies</h4>
                   <div className="flex flex-wrap gap-2 mb-6">
                     {selectedSolution.technologies.map((tech: string, index: number) => (
-                      <Badge key={index} variant="outline">{tech}</Badge>
+                      <Badge 
+                        key={index} 
+                        variant="outline"
+                        className="cursor-pointer transition-all duration-200 hover:scale-105 hover:bg-primary hover:text-white hover:border-primary"
+                        onClick={() => {
+                          // Close modal and navigate to resources
+                          setSelectedSolution(null);
+                          window.location.href = `/resources?tech=${encodeURIComponent(tech)}`;
+                        }}
+                      >
+                        {tech}
+                      </Badge>
                     ))}
                   </div>
                   
