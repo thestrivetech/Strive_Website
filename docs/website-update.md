@@ -43,6 +43,8 @@ Also, the buttons for the arrows on the sides of the demo preview section are no
 
 # Portfolio Page #
 
+- Please use the exact hero section on the Portfolio page on the following pages: Solutions, Resources, and About Me - 
+
 Change text in the header to say: "Strive presents cutting-edge AI solutions". Use the gradient design on the words "AI Solutions" in this text header section 
 
 - Fix the badge/card title text color on all badges to be orange instead of white. It currently blends in with the badge/card color
@@ -53,7 +55,7 @@ Change text in the header to say: "Strive presents cutting-edge AI solutions". U
 
 1. Remove "Knowledge Center" from the hero section and add the book-open-text lucid icon in it’s place. It should match what the brain-circuit icon in size (on portfolio page)
 
-2.
+2. Replace the statistics section in the hero section with a "Ready to Learn?" button
 
 
 # Contact Page #

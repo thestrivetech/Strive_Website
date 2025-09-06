@@ -252,7 +252,7 @@ const Home = () => {
               </p>
               <Link href="/solutions">
                 <Button 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                   size="lg"
                   data-testid="button-explore-solutions"
                 >
@@ -346,12 +346,13 @@ const Home = () => {
                     <div className="flex gap-3 pt-4">
                       <Button 
                         onClick={() => window.location.href = "/contact"}
-                        className="bg-primary hover:bg-primary/90"
+                        className="bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                       >
                         Request Demo
                       </Button>
                       <Button 
                         variant="outline"
+                        className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white transition-all duration-300"
                         onClick={() => window.location.href = solution.href}
                       >
                         Learn More
@@ -466,7 +467,7 @@ const Home = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all"
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                   size="lg"
                   onClick={() => window.location.href = "/contact"}
                   data-testid="button-get-started-why-us"
@@ -475,7 +476,7 @@ const Home = () => {
                 </Button>
                 <Button 
                   variant="outline"
-                  className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-3 text-lg"
+                  className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-8 py-3 text-lg transition-all duration-300"
                   size="lg"
                   onClick={() => window.location.href = "/about"}
                   data-testid="button-meet-team"
