@@ -94,7 +94,9 @@
       "mcp__serena__replace_regex",
       "Bash(cat:*)",
       "mcp__serena__create_text_file",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Read(//tmp/**)",
+      "Read(///**)"
     ],
     "deny": []
   },

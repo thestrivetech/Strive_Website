@@ -12,7 +12,7 @@
 
 - Make sure that each pages hero section (excluding the home page) aligns the same when users enter the page. The Home page is the only exception with how it takes up the whole screen when users first enter the site. 
 
-# Home Page #
+# Home Page # - ALL COMPLETED in Home Page section
 
 1. The demo preview video section is still too small on big displays (I think it might look alright for smaller display screens/devices). 
 Also, the buttons for the arrows on the sides of the demo preview section are not formatted correctly either for bigger displays, we need to fix this. Make the arrows slightly thicker so the user can easily see them.
