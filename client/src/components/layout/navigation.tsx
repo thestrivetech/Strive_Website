@@ -91,13 +91,22 @@ const Navigation = () => {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] bg-background">
-                <div className="flex flex-col space-y-4 mt-8">
+              <SheetContent side="left" className="w-[320px] bg-gradient-to-br from-[#020a1c] to-[#0f172a] border-r border-primary/20">
+                <div className="flex flex-col space-y-1 mt-8">
+                  {/* Logo in mobile menu */}
+                  <div className="mb-8 text-center">
+                    <LazyImage 
+                      src={logoImage} 
+                      alt="Strive" 
+                      className="h-12 w-auto mx-auto"
+                      loading="eager"
+                    />
+                  </div>
                   {/* Home */}
                   <Link
                     href="/"
-                    className={`text-foreground hover:text-primary transition-colors p-2 ${
-                      isActive("/") ? "text-primary font-medium" : ""
+                    className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 ${
+                      isActive("/") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                     data-testid="mobile-nav-home"
@@ -108,8 +117,8 @@ const Navigation = () => {
                   {/* Solutions - Simple Link */}
                   <Link
                     href="/solutions"
-                    className={`text-foreground hover:text-primary transition-colors p-2 font-medium ${
-                      isActive("/solutions") ? "text-primary font-medium" : ""
+                    className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 font-medium ${
+                      isActive("/solutions") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                     data-testid="mobile-nav-solutions"
@@ -120,8 +129,8 @@ const Navigation = () => {
                   {/* Portfolio - Simple Link */}
                   <Link
                     href="/portfolio"
-                    className={`text-foreground hover:text-primary transition-colors p-2 font-medium ${
-                      isActive("/portfolio") ? "text-primary font-medium" : ""
+                    className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 font-medium ${
+                      isActive("/portfolio") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                     data-testid="mobile-nav-portfolio"
@@ -132,8 +141,8 @@ const Navigation = () => {
                   {/* Resources - Simple Link */}
                   <Link
                     href="/resources"
-                    className={`text-foreground hover:text-primary transition-colors p-2 font-medium ${
-                      isActive("/resources") ? "text-primary font-medium" : ""
+                    className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 font-medium ${
+                      isActive("/resources") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                     data-testid="mobile-nav-resources"
@@ -143,8 +152,8 @@ const Navigation = () => {
                   
                   <Link
                     href="/about"
-                    className={`text-foreground hover:text-primary transition-colors p-2 ${
-                      isActive("/about") ? "text-primary font-medium" : ""
+                    className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 ${
+                      isActive("/about") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                     data-testid="mobile-nav-about-us"
@@ -153,21 +162,21 @@ const Navigation = () => {
                   </Link>
                   <Link
                     href="/contact"
-                    className={`text-foreground hover:text-primary transition-colors p-2 ${
-                      isActive("/contact") ? "text-primary font-medium" : ""
+                    className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 ${
+                      isActive("/contact") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                     data-testid="mobile-nav-contact"
                   >
                     Contact
                   </Link>
-                  <div className="space-y-3 mt-4">
+                  <div className="space-y-3 mt-8 pt-6 border-t border-white/20">
                     {isAuthenticated ? (
                       <>
                         <Link href="/dashboard">
                           <Button 
                             variant="ghost"
-                            className="w-full text-foreground hover:text-primary"
+                            className="w-full bg-white/10 text-white hover:bg-primary hover:text-white transition-all duration-300 rounded-xl"
                             data-testid="mobile-button-dashboard"
                             onClick={() => setMobileMenuOpen(false)}
                           >
@@ -177,7 +186,7 @@ const Navigation = () => {
                         </Link>
                         <Button 
                           variant="outline"
-                          className="w-full text-foreground hover:text-primary"
+                          className="w-full bg-white/10 text-white hover:bg-red-500 hover:text-white transition-all duration-300 rounded-xl"
                           onClick={() => {
                             handleLogout();
                             setMobileMenuOpen(false);
@@ -193,7 +202,7 @@ const Navigation = () => {
                         <Link href="/login">
                           <Button 
                             variant="ghost"
-                            className="w-full text-foreground hover:text-primary"
+                            className="w-full bg-white/10 text-white hover:bg-primary hover:text-white transition-all duration-300 rounded-xl"
                             data-testid="mobile-button-login"
                             onClick={() => setMobileMenuOpen(false)}
                           >
@@ -202,7 +211,7 @@ const Navigation = () => {
                         </Link>
                         <Link href="/get-started">
                           <Button 
-                            className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                            className="w-full bg-primary text-white hover:bg-primary/90 transition-all duration-300 rounded-xl shadow-lg"
                             data-testid="mobile-button-get-started"
                             onClick={() => setMobileMenuOpen(false)}
                           >
