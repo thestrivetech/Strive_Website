@@ -76,7 +76,7 @@ const HeroSection = ({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 xl:gap-28 2xl:gap-32 items-center min-h-[80vh] py-8 lg:py-12">
           {/* Left Content */}
-          <div className="space-y-6 lg:space-y-8 slide-in-left">
+          <div className="space-y-6 lg:space-y-8 slide-in-left order-2 lg:order-1">
             <div className="space-y-4 lg:space-y-6">
               
               <h1 
@@ -133,7 +133,7 @@ const HeroSection = ({
           </div>
 
           {/* Right Demo Video */}
-          <div className="space-y-4 lg:space-y-8 slide-in-right mt-8 lg:mt-0">
+          <div className="space-y-4 lg:space-y-8 slide-in-right mt-8 lg:mt-0 order-1 lg:order-2">
             {/* Desktop Navigation Container */}
             <div className="hidden lg:flex items-center justify-center gap-4 xl:gap-6 2xl:gap-8">
               {/* Left Arrow */}
