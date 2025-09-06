@@ -43,7 +43,7 @@ Also, the buttons for the arrows on the sides of the demo preview section are no
 
 # Portfolio Page #
 
-- Please use the exact hero section design on the Portfolio page and add it to the following pages: Solutions, Resources, and About Me - 
+- Please use the exact hero section design on the Portfolio page and add it to the following pages: Solutions, Resources, and About Me - After doing this, make the Solutions page lightbulb icon flash exactly like the brain circut icon on the portfolio page 
 
 Change text in the header to say: "Strive presents cutting-edge AI solutions". Use the gradient design on the words "AI Solutions" in this text header section 
 
