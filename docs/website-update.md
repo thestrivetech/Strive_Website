@@ -14,23 +14,25 @@
 
 # Home Page #
 
-1. The demo preview video section is still too small on big displays (I think it might look alright for smaller display screens/devices) even after we updated it in the last session, please make sure that it is. Also, the buttons for the arrows on the sides of the demo preview section are not formatted correctly either for bigger displays, we need to fix this.
+1. The demo preview video section is still too small on big displays (I think it might look alright for smaller display screens/devices). 
+Also, the buttons for the arrows on the sides of the demo preview section are not formatted correctly either for bigger displays, we need to fix this. Make the arrows slightly thicker so the user can easily see them.
+  - After the arrows are adjusted, please adjust the layout of the hero section so there's more room  between the text section (left) and the demo preview section (right)
   
-2. For the demo preview area, I want to only have the side arrows on the left and right of the demo preview section. I don't want anything around them like the circles that are currently there. 
+3. For the demo preview area, I want to only have the side arrows on the left and right of the demo preview section. I don't want anything around them like the circles that are currently there. 
 
-3. Please change the "Watch Demos" to "View Demos" in the hero section of the home page which takes them to the demo filtered section in the portfolio. - Completed in last session, looks good.
+4. Please change the "Watch Demos" to "View Demos" in the hero section of the home page which takes them to the demo filtered section in the portfolio. - Completed in last session, looks good.
 
-4. The "Connect With Us" section at the bottom of home page needs to be revamped.
+5. The "Connect With Us" section at the bottom of home page needs to be revamped. Make it more appealing but don't go over the top.
 
-5.  Please make sure to change out the title of the cards/badges in "Connect With Us" section to be more focused on company centered aspects of what it's like to work with us and what it's like to become a partner with strive. 
+6.  Please make sure to change out the title of the cards/badges in "Connect With Us" section to be more focused on company centered aspects of what it's like to work with us and what it's like to become a partner with strive. 
 
-6. Add discord icon to the footer on all pages which links to Strive's discord: https://discord.gg/q3djnrvP29 
+7. Add discord icon to the footer on all pages which links to Strive's discord: https://discord.gg/q3djnrvP29 
 
-7. “Integrated Business Platform” section needs to be updated or changed. We could cater it to our app/website which gives customers the ability to be in the loop on their project status and oversight with daily snapshots on overall progress and visuals if applicable. - After doing this, please use the existing modal (pop out system) that's used on all other pages on this sections cards/badges.
+8. “Integrated Business Platform” section needs to be updated or changed. We could cater it to our app/website which gives customers the ability to be in the loop on their project status and oversight with daily snapshots on overall progress and visuals if applicable. - After doing this, please use the existing modal (pop out system) that's used on all other pages on this sections cards/badges.
 
-8. Make “Why Choose Strive” the main text so it pops out rather than being a secondary text 
+9. Make “Why Choose Strive” the main text so it pops out rather than being a secondary text 
 
-9. Change “View Success Stories” in Why Choose Strive to - "Meet the Team" Add a orange button outline to the button to match the "View Demos" button at the top of the page
+10. Change “View Success Stories” in Why Choose Strive to - "Meet the Team" Add a orange button outline to the button to match the "View Demos" button at the top of the page
 
 
 # Solutions Page #

@@ -74,7 +74,7 @@ const HeroSection = ({
   return (
     <section className="hero-gradient min-h-screen flex items-center relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh] py-8 lg:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-20 items-center min-h-[80vh] py-8 lg:py-12">
           {/* Left Content */}
           <div className="space-y-6 lg:space-y-8 slide-in-left">
             <div className="space-y-4 lg:space-y-6">
@@ -140,22 +140,22 @@ const HeroSection = ({
             {/* Left Arrow - Hidden on mobile */}
             <button
               onClick={goToPreviousDemo}
-              className="hidden lg:block absolute left-[-60px] top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30 hover:scale-110"
+              className="hidden lg:block absolute left-[-70px] top-1/2 -translate-y-1/2 z-10 p-3 hover:bg-primary/10 transition-all duration-300 hover:scale-110"
               data-testid="button-demo-prev"
             >
-              <ChevronLeft className="w-6 h-6 text-primary" />
+              <ChevronLeft className="w-8 h-8 text-primary stroke-[3]" />
             </button>
             
             {/* Right Arrow - Hidden on mobile */}
             <button
               onClick={goToNextDemo}
-              className="hidden lg:block absolute right-[-60px] top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-primary/20 hover:bg-primary/40 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-primary/30 hover:scale-110"
+              className="hidden lg:block absolute right-[-70px] top-1/2 -translate-y-1/2 z-10 p-3 hover:bg-primary/10 transition-all duration-300 hover:scale-110"
               data-testid="button-demo-next"
             >
-              <ChevronRight className="w-6 h-6 text-primary" />
+              <ChevronRight className="w-8 h-8 text-primary stroke-[3]" />
             </button>
             
-            <div className="demo-video-container w-full max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-lg mx-auto lg:mx-0">
+            <div className="demo-video-container w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl mx-auto lg:mx-0">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5]">
                 <img 
                   src={demoVideos[currentDemo].thumbnail}
