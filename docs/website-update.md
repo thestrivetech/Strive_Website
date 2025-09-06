@@ -1,12 +1,8 @@
 ### Entire implementation list for the website ###
 
 
-# Entire Website # All COMPLETED 
+# Entire Website # Mostly completed, needs review 
 - Fix nav bar for all pages (should be translucent/transparent in the hero section but then carry the hero section gradient color as soon as the nav bar hits the end of the hero section)
-
-- The orange "Strive" logo/text in the footer and the nav bar section of the website needs to be changed to this logo (make sure that the appearance looks right formatting wise when you put this logo in):  ![alt text](STRIVE_orange_text_transparent_1500x1500.png)
-
-- Make sure that the color of orange that's in the new logo is now the color of orange that's used on the entire website (only existing areas using orange, don't change another areas that's not using the color orange)
 
 - Please make sure that the off color of white (#ffffffeb) is being used for any white backgorunds that are used on the website. BACKGROUNDS SPECIFICALLY, NOT ANYTHING ELSE.
 
@@ -17,13 +13,11 @@
 
 # Home Page # 
 
-- Home page - The play/pause button in the demo preview should disappear after the user clicks the play button and the videos begin to play. Make sure the demos are paused whenever the user enters the website - Additionally 
+- Make the cards in the Project Dashboard section have the dark blue text for the text header and footer and then have the text color change to orange on hover
 
-- Home page - Change "YOUR PROJECT DASHBOARD" sections cards to white (just like the cards on the Portfolio page) & format the icons better
+- The solutions by industry section needs to be centered around pointing out specific industry pain points or struggles (do research to be specific and accurate) and then how we help or fix those things
 
-- Home page - Remove connect with us section but leave the bottom "Get Started In Just 15 minutes" card 
-
-- Home page - update emoji icons in solutions by industry section that are used back to the lucid icons
+- Change the "View Demo" button in the hero section to go to the portfio demo section - OR - Change it to "Request Free Demo" which takes them to the Request Demo page.
 
 # Solutions Page #
 
@@ -41,7 +35,7 @@
 
 - Change button colors in the hero section to match button scheme on home page
 
-- Create links to each technology badge that takes the user to the specific document that has been created to explain what each thing is. If it's an industry, take them to a case study that's been created about that specific industry - Make sure to create badge hover effects to so they will know they can click on them (unless this is too much, then we would just give them the option to click on the badges once the card is clicked on and it pops out) - Go ahead and make filler cards for these links on the Resources page
+- Create links to each technology badge that takes the user to the specific document that has been created to explain what each thing is. If it's an industry, take them to a case study that's been created about that specific industry - Make sure to create badge hover effects to so they will know they can click on them (unless this is too much, then we would just give them the option to click on the badges once the card is clicked on and it pops out) - Go ahead and make filler cards for these links on the Resources page in the Tech/tools filtered section
 
 - Please change the h3 text color for all cards to be orange instead of white (it currently blends in)
 
@@ -86,7 +80,13 @@ Make the “Welcome to Strive” badge/card the same color and design of the web
 
 - Step 3 of 3 page: make the "Last Step" text color the same as the gradient color that's used on all hero sections throughout the website. Additionally, change the button color to this gradient as well.
 
+# Request Demo Section #
 
+- Take out the hero section for this page, it's not a feature page so it's not needed
+
+- Use hero section gradient color for main text header on the page
+
+- Fix color layout of this page - 
 
 # Mobile Design List #
 
@@ -94,4 +94,5 @@ Make the “Welcome to Strive” badge/card the same color and design of the web
 
 - Make ROI calculator one card where the user can see everything
 
-- Remove demo preview dots in home page hero section
+- Remove demo preview dots in home page hero section (only remove them on mobile or smaller )
+

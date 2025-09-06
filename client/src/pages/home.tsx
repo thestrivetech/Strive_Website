@@ -297,20 +297,20 @@ const Home = () => {
               <Dialog key={index}>
                 <DialogTrigger asChild>
                   <Card 
-                    className="bg-white card-hover cursor-pointer transition-all duration-300 hover:shadow-lg"
+                    className="bg-white cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-105 border border-gray-100"
                     data-testid={`card-solution-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
                   >
-                    <CardContent className="p-8">
-                      <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                    <CardContent className="p-6 group">
+                      <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
                         {solution.icon}
                       </div>
-                      <h3 className="text-xl font-bold text-[#f66936] mt-[8px] mb-[8px] ml-[0px] mr-[0px] pl-[0px] pr-[0px] pt-[0px] pb-[0px]">
+                      <h3 className="text-xl font-bold text-[#020a1c] mb-3 transition-colors duration-300 group-hover:text-[#ff7033]">
                         {solution.title}
                       </h3>
-                      <p className="text-muted-foreground mb-6">
+                      <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
                         {solution.description}
                       </p>
-                      <div className="flex items-center text-primary font-semibold">
+                      <div className="flex items-center text-[#020a1c] font-semibold transition-colors duration-300 group-hover:text-[#ff7033]">
                         <span>View Details</span>
                         <ChevronRight className="ml-1 h-4 w-4" />
                       </div>
@@ -541,16 +541,17 @@ const Home = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 min-w-[200px]"
+                  variant="outline"
+                  className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[200px]"
                   size="lg"
-                  onClick={() => window.location.href = "/contact"}
-                  data-testid="button-schedule-consultation"
+                  onClick={() => window.location.href = "/demo"}
+                  data-testid="button-request-demo"
                 >
-                  Schedule Free Demo
+                  Request Free Demo
                 </Button>
                 <Button 
                   variant="outline"
-                  className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 min-w-[200px]"
+                  className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[200px]"
                   size="lg"
                   onClick={() => window.location.href = "/portfolio"}
                   data-testid="button-view-case-studies"

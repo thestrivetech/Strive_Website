@@ -113,17 +113,14 @@ const Portfolio = () => {
 
   const filters = [
     { id: "all", name: "All Projects", icon: <Globe className="h-4 w-4" /> },
-    { id: "AI Agent", name: "AI Agents", icon: <Bot className="h-4 w-4" /> },
-    { id: "AI Model", name: "AI Models", icon: <Brain className="h-4 w-4" /> },
-    { id: "RAG Solution", name: "RAG Solutions", icon: <Database className="h-4 w-4" /> },
-    { id: "Workflow", name: "Workflows", icon: <Zap className="h-4 w-4" /> },
-    { id: "Template", name: "Templates", icon: <Code className="h-4 w-4" /> },
-    { id: "Infrastructure", name: "Infrastructure", icon: <Blocks className="h-4 w-4" /> }
+    { id: "demo", name: "Demos", icon: <Play className="h-4 w-4" /> },
+    { id: "prototype", name: "Prototypes", icon: <Code className="h-4 w-4" /> },
+    { id: "template", name: "Templates", icon: <Blocks className="h-4 w-4" /> }
   ];
 
   const filteredProjects = selectedFilter === "all" 
     ? projects 
-    : projects.filter(project => project.category === selectedFilter);
+    : projects.filter(project => project.type === selectedFilter);
 
   const getCategoryIcon = (category: string) => {
     const iconMap: { [key: string]: JSX.Element } = {
@@ -214,7 +211,7 @@ const Portfolio = () => {
                 className={`flex items-center gap-2 transition-all duration-300 ${
                   selectedFilter === filter.id
                     ? 'bg-primary text-white shadow-lg scale-105'
-                    : 'hover:bg-primary/10 hover:border-primary/50'
+                    : 'border-primary/20 text-foreground hover:border-primary hover:text-primary hover:scale-105'
                 }`}
                 data-testid={`button-filter-${filter.id}`}
               >
