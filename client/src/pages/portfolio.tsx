@@ -201,7 +201,7 @@ const Portfolio = () => {
         </div>
       </section>
       {/* Showcase Section */}
-      <section id="showcase" className="py-16 bg-background">
+      <section id="showcase" className="py-16 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Filter Navigation */}
           <div className="flex flex-wrap justify-center gap-2 mb-12">

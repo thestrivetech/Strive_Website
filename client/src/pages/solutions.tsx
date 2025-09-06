@@ -273,7 +273,7 @@ const Solutions = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#ffffffeb]">
       {/* Hero Section */}
       <section className="py-20 hero-gradient relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -319,7 +319,7 @@ const Solutions = () => {
       </section>
       
       {/* Filter and Solutions Grid Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-background" id="solutions-grid">
+      <section className="py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]" id="solutions-grid">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Filter Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
