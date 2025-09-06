@@ -16,7 +16,7 @@ const Footer = () => {
               <LazyImage 
                 src={logoImage} 
                 alt="Strive" 
-                className="h-12 w-auto"
+                className="h-14 w-auto max-w-[200px]"
                 loading="eager"
               />
             </div>
