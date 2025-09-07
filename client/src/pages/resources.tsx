@@ -33,8 +33,8 @@ const Resources = () => {
     { name: "Blog Posts", icon: <BookOpen className="h-4 w-4 mr-2" /> },
     { name: "Whitepapers", icon: <FileText className="h-4 w-4 mr-2" /> },
     { name: "Case Studies", icon: <BarChart3 className="h-4 w-4 mr-2" /> },
-    { name: "Quizzes", icon: <BrainCircuit className="h-4 w-4 mr-2" /> },
     { name: "Tools & Tech", icon: <Wrench className="h-4 w-4 mr-2" /> },
+    { name: "Quizzes", icon: <BrainCircuit className="h-4 w-4 mr-2" /> },
   ];
   
   // featuredResource is now imported from @/data/featured
@@ -229,7 +229,7 @@ const Resources = () => {
               className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-hero-title"
             >
-              Business Intelligence Hub
+              Business <span className="gradient-text">Intelligence</span> Hub
             </h1>
             <p 
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
@@ -554,7 +554,7 @@ const Resources = () => {
               {filteredResources.map((resource) => (
               <Card 
                 key={resource.id}
-                className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-slate-900 to-slate-800"
+                className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800"
                 onClick={() => setSelectedResource(resource)}
                 data-testid={`card-resource-${resource.id}`}
               >
@@ -583,38 +583,38 @@ const Resources = () => {
                   </div>
                 </div>
                 
-                <CardContent className="p-6 text-white">
+                <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="text-orange-400">
+                    <div className="text-primary">
                       {getTypeIcon(resource.type)}
                     </div>
-                    <span className="text-sm font-medium uppercase tracking-wide text-orange-400">
+                    <span className="text-sm font-medium uppercase tracking-wide text-[#020a1c]">
                       {resource.type}
                     </span>
                   </div>
                   
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-orange-400 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-[#ff7033] mb-3 group-hover:text-primary transition-colors duration-300">
                     {resource.title}
                   </h3>
                   
-                  <p className="text-slate-300 mb-4 line-clamp-2">
+                  <p className="text-muted-foreground mb-4 line-clamp-2">
                     {resource.shortDescription}
                   </p>
                   
                   <div className="flex flex-wrap gap-1 mb-4">
                     {resource.tags.slice(0, 2).map((tag, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs bg-slate-700 text-slate-300">
+                      <Badge key={index} variant="secondary" className="text-xs">
                         {tag}
                       </Badge>
                     ))}
                     {resource.tags.length > 2 && (
-                      <Badge variant="secondary" className="text-xs bg-slate-700 text-slate-300">
+                      <Badge variant="secondary" className="text-xs">
                         +{resource.tags.length - 2}
                       </Badge>
                     )}
                   </div>
                   
-                  <div className="flex items-center justify-between text-sm text-slate-400">
+                  <div className="flex items-center justify-between text-sm text-muted-foreground">
                     <span data-testid={`text-resource-metadata-${resource.id}`}>
                       {resource.metadata}
                     </span>
@@ -624,7 +624,7 @@ const Resources = () => {
                   </div>
                   
                   <Button 
-                    className="w-full mt-4 group-hover:bg-orange-500 group-hover:text-white transition-all duration-300"
+                    className="w-full mt-4 group-hover:bg-primary group-hover:text-white transition-all duration-300"
                     variant="outline"
                   >
                     View Details
@@ -710,10 +710,10 @@ const Resources = () => {
                 />
                 <Button
                   onClick={() => setSelectedResource(null)}
-                  className="absolute top-4 right-4 h-8 w-8 p-0"
-                  variant="secondary"
+                  className="absolute top-4 right-4 h-10 w-10 p-0 bg-gray-800/80 hover:bg-gray-700/90 border-2 border-orange-500/50 hover:border-orange-500 rounded-lg transition-all duration-200"
+                  variant="ghost"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-5 w-5 text-white" />
                 </Button>
               </div>
               

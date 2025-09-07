@@ -161,9 +161,11 @@ const Portfolio = () => {
                   </div>
                   <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="flex gap-2">
-                      <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
-                        <Play className="h-4 w-4" />
-                      </Button>
+                      {project.type === 'demo' && (
+                        <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
+                          <Play className="h-4 w-4" />
+                        </Button>
+                      )}
                       <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
                         <ExternalLink className="h-4 w-4" />
                       </Button>
@@ -238,6 +240,13 @@ const Portfolio = () => {
                   alt={selectedProject.title}
                   className="w-full h-64 object-cover rounded-lg"
                 />
+                <Button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-4 right-4 h-10 w-10 p-0 bg-gray-800/80 hover:bg-gray-700/90 border-2 border-orange-500/50 hover:border-orange-500 rounded-lg transition-all duration-200"
+                  variant="ghost"
+                >
+                  <X className="h-5 w-5 text-white" />
+                </Button>
               </div>
               
               <div className="p-6 space-y-6">

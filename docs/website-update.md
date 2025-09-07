@@ -75,7 +75,7 @@ Need to fix “Schedule a Demo” button, it doesn’t go to any page. Make it g
 
 - Give users the ability to login via username or email instead of only by username
 
-- Also make users give their first and last name when they are creating an account
+- Also make users give their first and last name when they are creating an account / signing up
 
 # Schedule Consultation Page #
 
