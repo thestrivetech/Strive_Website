@@ -291,7 +291,7 @@ const Portfolio = () => {
                         className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
                         onClick={(e) => {
                           e.stopPropagation();
-                          window.location.href = `/resources#tools-tech-${tech.toLowerCase().replace(/\s+/g, '-')}`;
+                          window.location.href = `/resources?filter=tools-tech&tech=${encodeURIComponent(tech.toLowerCase())}`;
                         }}
                       >
                         {tech}
@@ -389,7 +389,7 @@ const Portfolio = () => {
                         variant="secondary" 
                         className="px-3 py-1 cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
                         onClick={() => {
-                          window.location.href = `/resources#tools-tech-${tech.toLowerCase().replace(/\s+/g, '-')}`;
+                          window.location.href = `/resources?filter=tools-tech&tech=${encodeURIComponent(tech.toLowerCase())}`;
                         }}
                       >
                         {tech}

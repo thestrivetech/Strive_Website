@@ -88,6 +88,589 @@ const Resources = () => {
     downloads: "2,543"
   };
 
+  // Technology Stack Cards - Extracted from Portfolio Projects
+  const technologyCards: Resource[] = [
+    // AI/ML Technologies
+    {
+      id: 101,
+      type: "TECH GUIDE",
+      title: "GPT-4 Integration",
+      shortDescription: "Advanced language model implementation for conversational AI and intelligent text processing.",
+      fullDescription: "GPT-4 represents the cutting edge of language model technology, offering unprecedented capabilities in natural language understanding and generation. This comprehensive guide covers integration strategies, API usage, fine-tuning approaches, and best practices for leveraging GPT-4 in production environments. Learn how to implement contextual conversations, automate content generation, and build intelligent assistants that understand nuanced human communication patterns.",
+      imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "GPT-4 AI language model visualization",
+      metadata: "AI/ML Stack",
+      date: "Latest Version",
+      author: "Strive AI Team",
+      readTime: "12 min",
+      tags: ["GPT-4", "Natural Language Processing", "AI Integration", "Language Models"],
+      content: {
+        keyPoints: [
+          "Advanced context understanding up to 128k tokens",
+          "Multimodal capabilities including text and image processing",
+          "Fine-tuning support for domain-specific applications",
+          "Robust safety measures and content filtering",
+          "Scalable API integration with cost optimization"
+        ],
+        insights: [
+          "GPT-4 reduces development time by 60% for NLP applications",
+          "Contextual understanding improves task completion rates by 85%",
+          "Fine-tuned models show 40% better domain-specific performance"
+        ],
+        actionItems: [
+          "Set up OpenAI API access and authentication",
+          "Design conversation flow and context management",
+          "Implement safety filters and response validation",
+          "Create monitoring and usage analytics dashboard"
+        ]
+      }
+    },
+    {
+      id: 102,
+      type: "TECH GUIDE",
+      title: "React Development",
+      shortDescription: "Modern React development with hooks, context, and performance optimization techniques.",
+      fullDescription: "React continues to be the leading frontend framework for building dynamic, interactive user interfaces. This comprehensive guide covers modern React development patterns including functional components, custom hooks, context API, state management, and performance optimization. Explore advanced techniques like code splitting, lazy loading, server-side rendering, and integration with TypeScript for type-safe development.",
+      imageUrl: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "React development environment",
+      metadata: "Frontend Framework",
+      date: "React 18+",
+      author: "Strive Frontend Team",
+      readTime: "14 min",
+      tags: ["React", "Frontend", "JavaScript", "TypeScript"],
+      content: {
+        keyPoints: [
+          "Component-based architecture with reusable UI elements",
+          "Hooks for state management and side effects",
+          "Virtual DOM for optimal rendering performance",
+          "Rich ecosystem with extensive third-party libraries",
+          "Strong TypeScript integration for type safety"
+        ],
+        insights: [
+          "React hooks reduce component complexity by 50%",
+          "Proper memoization improves rendering performance by 35%",
+          "TypeScript integration reduces runtime errors by 60%"
+        ],
+        actionItems: [
+          "Set up React project with Create React App or Vite",
+          "Master functional components and React hooks",
+          "Implement state management with Context API or Redux",
+          "Add TypeScript for enhanced development experience"
+        ]
+      }
+    },
+    {
+      id: 103,
+      type: "TECH GUIDE",
+      title: "Node.js Backend",
+      shortDescription: "Scalable server-side JavaScript development with Node.js runtime and ecosystem.",
+      fullDescription: "Node.js enables high-performance server-side JavaScript development with its event-driven, non-blocking I/O model. This comprehensive guide covers building RESTful APIs, handling asynchronous operations, implementing authentication and authorization, database integration, and deployment strategies. Explore advanced topics like clustering, worker threads, streams, and microservices architecture for enterprise-scale applications.",
+      imageUrl: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Node.js server development",
+      metadata: "Runtime Environment",
+      date: "Node.js 20+",
+      author: "Strive Backend Team",
+      readTime: "20 min",
+      tags: ["Node.js", "Backend", "JavaScript", "Server-side"],
+      content: {
+        keyPoints: [
+          "Event-driven, non-blocking I/O for high concurrency",
+          "Rich ecosystem with npm package management",
+          "Full-stack JavaScript development capabilities",
+          "Excellent performance for I/O intensive applications",
+          "Strong community support and extensive documentation"
+        ],
+        insights: [
+          "Node.js handles 10x more concurrent connections than traditional servers",
+          "Development efficiency increases with shared frontend/backend language",
+          "Microservices architecture scales better with Node.js lightweight runtime"
+        ],
+        actionItems: [
+          "Set up Node.js environment with version management",
+          "Build RESTful APIs with Express.js framework",
+          "Implement authentication and security middleware",
+          "Deploy applications using PM2 or container orchestration"
+        ]
+      }
+    },
+    {
+      id: 104,
+      type: "TECH GUIDE",
+      title: "Python Development",
+      shortDescription: "Versatile programming language for AI, web development, data science, and automation.",
+      fullDescription: "Python's simplicity and versatility make it the go-to language for AI development, data science, web applications, and automation. This guide covers modern Python development practices, including virtual environments, dependency management, testing frameworks, and deployment strategies. Explore popular frameworks like FastAPI, Django, and Flask, along with data science libraries like NumPy, Pandas, and Scikit-learn.",
+      imageUrl: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Python programming and data science",
+      metadata: "Programming Language",
+      date: "Python 3.11+",
+      author: "Strive Development Team",
+      readTime: "18 min",
+      tags: ["Python", "AI Development", "Data Science", "Web Development"],
+      content: {
+        keyPoints: [
+          "Clean, readable syntax ideal for rapid development",
+          "Extensive standard library and third-party packages",
+          "Dominant language for AI and machine learning",
+          "Strong support for web development and APIs",
+          "Excellent tools for data analysis and visualization"
+        ],
+        insights: [
+          "Python development speed is 3-4x faster than compiled languages",
+          "AI/ML projects using Python show 50% faster time-to-market",
+          "Python's versatility enables full-stack development with single language"
+        ],
+        actionItems: [
+          "Set up Python environment with virtual environments",
+          "Learn core libraries: NumPy, Pandas, Requests",
+          "Build APIs with FastAPI or Flask framework",
+          "Explore AI/ML libraries: TensorFlow, PyTorch, Scikit-learn"
+        ]
+      }
+    },
+    {
+      id: 105,
+      type: "TECH GUIDE",
+      title: "TensorFlow Framework",
+      shortDescription: "Complete machine learning framework for building, training, and deploying AI models at scale.",
+      fullDescription: "TensorFlow is Google's comprehensive open-source machine learning platform that enables the development of sophisticated AI applications. This guide covers everything from basic neural networks to advanced deep learning architectures, including CNNs, RNNs, and transformer models. Discover deployment strategies using TensorFlow Serving, mobile optimization with TensorFlow Lite, and distributed training techniques for handling large-scale datasets.",
+      imageUrl: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "TensorFlow machine learning framework",
+      metadata: "ML Framework",
+      date: "TensorFlow 2.x",
+      author: "Strive AI Team",
+      readTime: "15 min",
+      tags: ["TensorFlow", "Machine Learning", "Deep Learning", "Neural Networks"],
+      content: {
+        keyPoints: [
+          "Flexible architecture supporting research and production",
+          "Distributed training across multiple GPUs and TPUs",
+          "Comprehensive ecosystem including Keras, TF Serving, and TF Lite",
+          "Strong visualization and debugging tools with TensorBoard",
+          "Cross-platform deployment from cloud to edge devices"
+        ],
+        insights: [
+          "TensorFlow models achieve 30% faster training with optimized pipelines",
+          "TensorFlow Serving provides 99.9% uptime for production deployments",
+          "TensorFlow Lite reduces mobile app size by 75% compared to full models"
+        ],
+        actionItems: [
+          "Install TensorFlow and set up development environment",
+          "Build your first neural network with Keras API",
+          "Implement data preprocessing and augmentation pipelines",
+          "Deploy models using TensorFlow Serving or TF Lite"
+        ]
+      }
+    },
+    {
+      id: 106,
+      type: "TECH GUIDE",
+      title: "OpenCV Computer Vision",
+      shortDescription: "Comprehensive computer vision library for image processing and analysis applications.",
+      fullDescription: "OpenCV is the industry standard library for computer vision, offering powerful tools for image processing, object detection, facial recognition, and video analysis. This guide covers core OpenCV concepts, image manipulation techniques, feature detection algorithms, and integration with machine learning models. Learn to build applications for surveillance, quality control, medical imaging, and autonomous systems.",
+      imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "OpenCV computer vision processing",
+      metadata: "Computer Vision",
+      date: "OpenCV 4.x",
+      author: "Strive Vision Team",
+      readTime: "16 min",
+      tags: ["OpenCV", "Computer Vision", "Image Processing", "Object Detection"],
+      content: {
+        keyPoints: [
+          "Extensive image processing and filtering capabilities",
+          "Real-time object detection and tracking algorithms",
+          "Machine learning integration for intelligent vision systems",
+          "Cross-platform support for desktop and mobile development",
+          "Hardware acceleration with GPU and specialized processors"
+        ],
+        insights: [
+          "OpenCV reduces computer vision development time by 70%",
+          "Real-time processing achieves 60+ FPS on modern hardware",
+          "Pre-trained models provide 90%+ accuracy for common tasks"
+        ],
+        actionItems: [
+          "Install OpenCV and set up development environment",
+          "Learn basic image operations and transformations",
+          "Implement object detection with pre-trained models",
+          "Build real-time video processing applications"
+        ]
+      }
+    },
+    {
+      id: 107,
+      type: "TECH GUIDE",
+      title: "LangChain Framework",
+      shortDescription: "Powerful framework for building applications with large language models and external data sources.",
+      fullDescription: "LangChain revolutionizes how developers build LLM-powered applications by providing a comprehensive framework for chaining language models with external tools, APIs, and data sources. This guide explores advanced patterns including retrieval-augmented generation (RAG), agents with tool usage, memory management, and complex reasoning chains. Learn to build sophisticated AI applications that can interact with databases, APIs, and perform multi-step reasoning tasks.",
+      imageUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "LangChain framework architecture",
+      metadata: "LLM Framework",
+      date: "LangChain v0.1",
+      author: "Strive AI Team",
+      readTime: "18 min",
+      tags: ["LangChain", "LLM", "RAG", "AI Agents"],
+      content: {
+        keyPoints: [
+          "Modular components for chaining LLM operations",
+          "Built-in support for vector databases and embeddings",
+          "Agent framework for tool usage and API integration",
+          "Memory management for conversational contexts",
+          "Extensive library of pre-built chains and prompts"
+        ],
+        insights: [
+          "LangChain applications show 70% faster development cycles",
+          "RAG implementations improve answer accuracy by 45%",
+          "Agent-based architectures handle complex tasks 80% more effectively"
+        ],
+        actionItems: [
+          "Set up LangChain with your preferred LLM provider",
+          "Build a simple question-answering chain",
+          "Implement RAG with vector database integration",
+          "Create custom agents with external tool access"
+        ]
+      }
+    },
+    {
+      id: 108,
+      type: "TECH GUIDE",
+      title: "FastAPI Framework",
+      shortDescription: "Modern, high-performance Python web framework for building APIs with automatic documentation.",
+      fullDescription: "FastAPI is a modern, fast web framework for building APIs with Python, featuring automatic API documentation, type hints, and async support. This guide covers building RESTful APIs, implementing authentication, database integration with SQLAlchemy, background tasks, dependency injection, and deployment strategies. Learn advanced features like WebSocket support, custom middleware, and integration with AI/ML models for intelligent API endpoints.",
+      imageUrl: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "FastAPI web framework development",
+      metadata: "Web Framework",
+      date: "FastAPI 0.104+",
+      author: "Strive Backend Team",
+      readTime: "15 min",
+      tags: ["FastAPI", "Python", "API Development", "Web Framework"],
+      content: {
+        keyPoints: [
+          "Automatic API documentation with Swagger UI",
+          "High performance comparable to NodeJS and Go",
+          "Native async/await support for concurrent operations",
+          "Type hints for better IDE support and validation",
+          "Easy integration with databases and AI/ML models"
+        ],
+        insights: [
+          "FastAPI reduces API development time by 60%",
+          "Automatic documentation saves 40% of documentation effort",
+          "Type validation prevents 80% of common API errors"
+        ],
+        actionItems: [
+          "Set up FastAPI project with virtual environment",
+          "Create your first API endpoints with type annotations",
+          "Implement authentication and authorization",
+          "Deploy FastAPI applications with Docker and cloud services"
+        ]
+      }
+    },
+    {
+      id: 109,
+      type: "TECH GUIDE",
+      title: "Vector Database Technology",
+      shortDescription: "Specialized database for storing and querying high-dimensional vectors in AI applications.",
+      fullDescription: "Vector databases are essential for modern AI applications, providing efficient storage and similarity search capabilities for high-dimensional data like embeddings, images, and audio. This guide covers vector database concepts, popular solutions like Pinecone, Weaviate, and Qdrant, implementation strategies for RAG systems, and performance optimization techniques. Learn to build semantic search, recommendation systems, and AI-powered applications.",
+      imageUrl: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Vector database and AI embeddings",
+      metadata: "Database Technology",
+      date: "Vector DB 2024",
+      author: "Strive Data Team",
+      readTime: "14 min",
+      tags: ["Vector Database", "Embeddings", "AI", "Semantic Search"],
+      content: {
+        keyPoints: [
+          "Optimized storage for high-dimensional vector data",
+          "Fast similarity search using approximate nearest neighbor algorithms",
+          "Horizontal scaling for large-scale AI applications",
+          "Integration with embedding models and LLMs",
+          "Support for metadata filtering and hybrid search"
+        ],
+        insights: [
+          "Vector databases improve search relevance by 70% over keyword search",
+          "Query performance scales logarithmically with dataset size",
+          "RAG applications show 45% better answer quality with vector databases"
+        ],
+        actionItems: [
+          "Choose appropriate vector database for your use case",
+          "Design embedding strategy and indexing approach",
+          "Implement semantic search with vector similarity",
+          "Optimize query performance and scaling strategies"
+        ]
+      }
+    },
+    {
+      id: 110,
+      type: "TECH GUIDE",
+      title: "TypeScript Development",
+      shortDescription: "Type-safe JavaScript development with advanced TypeScript features and best practices.",
+      fullDescription: "TypeScript enhances JavaScript development by adding static type checking, advanced IDE support, and enterprise-grade tooling. This guide covers everything from basic type annotations to advanced features like generics, mapped types, conditional types, and declaration merging. Learn how to integrate TypeScript with popular frameworks, configure strict type checking, and leverage the type system for better code quality and developer productivity.",
+      imageUrl: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "TypeScript code development",
+      metadata: "Programming Language",
+      date: "TypeScript 5.x",
+      author: "Strive Development Team",
+      readTime: "16 min",
+      tags: ["TypeScript", "JavaScript", "Static Typing", "Development Tools"],
+      content: {
+        keyPoints: [
+          "Static type checking for catching errors at compile time",
+          "Advanced type system with generics and utility types",
+          "Excellent IDE support with IntelliSense and refactoring",
+          "Seamless integration with existing JavaScript codebases",
+          "Strong ecosystem support across frameworks and libraries"
+        ],
+        insights: [
+          "TypeScript reduces production bugs by 70%",
+          "Development productivity increases by 40% with proper typing",
+          "Code maintainability improves significantly in large codebases"
+        ],
+        actionItems: [
+          "Configure TypeScript compiler and strict mode",
+          "Learn interface and type definitions",
+          "Master generic types and advanced type patterns",
+          "Integrate TypeScript with your preferred framework"
+        ]
+      }
+    },
+    {
+      id: 111,
+      type: "TECH GUIDE",
+      title: "Tailwind CSS Framework",
+      shortDescription: "Utility-first CSS framework for rapid UI development with consistent design systems.",
+      fullDescription: "Tailwind CSS revolutionizes frontend styling with its utility-first approach, enabling rapid development of beautiful, responsive interfaces. This guide covers core concepts, customization techniques, component extraction patterns, and integration with popular frameworks. Learn to build consistent design systems, implement responsive layouts, create custom themes, and optimize for production with purging and minification strategies.",
+      imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Modern web design with Tailwind CSS",
+      metadata: "CSS Framework",
+      date: "Tailwind v3.x",
+      author: "Strive Design Team",
+      readTime: "10 min",
+      tags: ["Tailwind CSS", "CSS", "UI Design", "Frontend"],
+      content: {
+        keyPoints: [
+          "Utility-first approach for rapid prototyping and development",
+          "Highly customizable design system with configuration files",
+          "Responsive design utilities for mobile-first development",
+          "Built-in purging for optimized production builds",
+          "Extensive plugin ecosystem for extended functionality"
+        ],
+        insights: [
+          "Tailwind CSS reduces custom CSS writing by 80%",
+          "Design consistency improves across team members by 90%",
+          "Development speed increases by 50% with utility classes"
+        ],
+        actionItems: [
+          "Install and configure Tailwind CSS in your project",
+          "Learn core utility classes and responsive modifiers",
+          "Create custom component patterns with @apply directive",
+          "Set up purging for optimized production builds"
+        ]
+      }
+    },
+    {
+      id: 112,
+      type: "TECH GUIDE",
+      title: "Recharts Visualization",
+      shortDescription: "React charting library for creating beautiful, responsive data visualizations and dashboards.",
+      fullDescription: "Recharts is a composable React charting library built on D3.js components, providing a comprehensive solution for data visualization needs. This guide covers chart types, customization options, responsive design patterns, and integration with real-time data sources. Learn to create interactive dashboards, animate chart transitions, and implement custom chart components for business intelligence applications.",
+      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Data visualization with charts and graphs",
+      metadata: "Visualization Library",
+      date: "Recharts 2.x",
+      author: "Strive Data Viz Team",
+      readTime: "12 min",
+      tags: ["Recharts", "Data Visualization", "Charts", "React"],
+      content: {
+        keyPoints: [
+          "Declarative React components for various chart types",
+          "Responsive design with automatic resizing",
+          "Customizable themes and styling options",
+          "Animation support for smooth transitions",
+          "Integration with real-time data sources"
+        ],
+        insights: [
+          "Visual dashboards improve decision making by 65%",
+          "Interactive charts increase user engagement by 50%",
+          "Recharts reduces data visualization development time by 40%"
+        ],
+        actionItems: [
+          "Install Recharts and set up basic chart components",
+          "Create responsive charts with dynamic data",
+          "Implement custom styling and themes",
+          "Build interactive dashboard with multiple chart types"
+        ]
+      }
+    },
+    {
+      id: 113,
+      type: "TECH GUIDE",
+      title: "WebSocket Real-time Communication",
+      shortDescription: "Real-time bidirectional communication protocol for interactive web applications.",
+      fullDescription: "WebSocket technology enables real-time, bidirectional communication between clients and servers, perfect for building interactive applications like chat systems, live updates, collaborative tools, and real-time data streaming. This guide covers WebSocket protocol fundamentals, implementation patterns, scaling strategies, security considerations, and integration with popular frameworks and cloud services.",
+      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Real-time web communication",
+      metadata: "Communication Protocol",
+      date: "WebSocket Standard",
+      author: "Strive Network Team",
+      readTime: "12 min",
+      tags: ["WebSocket", "Real-time", "Communication", "Networking"],
+      content: {
+        keyPoints: [
+          "Full-duplex communication between client and server",
+          "Low latency for real-time applications",
+          "Persistent connections reducing overhead",
+          "Cross-platform support in all modern browsers",
+          "Scalable architecture for high-concurrency applications"
+        ],
+        insights: [
+          "WebSocket reduces latency by 50% compared to HTTP polling",
+          "Real-time features increase user engagement by 40%",
+          "WebSocket connections handle 10x more concurrent users efficiently"
+        ],
+        actionItems: [
+          "Implement basic WebSocket server and client",
+          "Build real-time chat or notification system",
+          "Add WebSocket support to existing REST APIs",
+          "Scale WebSocket applications with load balancing"
+        ]
+      }
+    },
+    {
+      id: 114,
+      type: "TECH GUIDE",
+      title: "Docker Containerization",
+      shortDescription: "Container platform for consistent deployment and scalable application architecture.",
+      fullDescription: "Docker revolutionizes application deployment by providing lightweight, portable containers that ensure consistency across development, testing, and production environments. This comprehensive guide covers Docker fundamentals, Dockerfile optimization, multi-stage builds, Docker Compose for multi-container applications, and integration with orchestration platforms like Kubernetes. Learn best practices for container security, image optimization, and CI/CD pipeline integration.",
+      imageUrl: "https://images.unsplash.com/photo-1605745341112-85968b19335a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Docker container technology",
+      metadata: "Containerization",
+      date: "Docker 24+",
+      author: "Strive DevOps Team",
+      readTime: "22 min",
+      tags: ["Docker", "Containerization", "DevOps", "Deployment"],
+      content: {
+        keyPoints: [
+          "Lightweight, portable containers for consistent deployments",
+          "Dockerfile for reproducible image building",
+          "Docker Compose for multi-container applications",
+          "Integration with CI/CD pipelines and orchestration",
+          "Strong security features and image scanning capabilities"
+        ],
+        insights: [
+          "Docker reduces deployment inconsistencies by 95%",
+          "Container startup time is 10x faster than virtual machines",
+          "Development environment setup time reduced by 80%"
+        ],
+        actionItems: [
+          "Install Docker and understand container basics",
+          "Create optimized Dockerfiles for your applications",
+          "Use Docker Compose for local development environments",
+          "Implement Docker in CI/CD pipelines for consistent deployments"
+        ]
+      }
+    },
+    {
+      id: 115,
+      type: "TECH GUIDE",
+      title: "Redis Cache System",
+      shortDescription: "In-memory data structure store for caching, session management, and real-time analytics.",
+      fullDescription: "Redis is a high-performance in-memory data structure store that serves as a database, cache, and message broker. This guide covers Redis fundamentals, data types, caching strategies, session management, pub/sub messaging, and clustering for high availability. Learn to implement Redis in web applications, optimize performance, and integrate with popular frameworks and cloud services.",
+      imageUrl: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Redis in-memory database",
+      metadata: "In-Memory Database",
+      date: "Redis 7+",
+      author: "Strive Infrastructure Team",
+      readTime: "16 min",
+      tags: ["Redis", "Caching", "In-Memory Database", "Performance"],
+      content: {
+        keyPoints: [
+          "Extremely fast in-memory data access and operations",
+          "Rich data types: strings, lists, sets, hashes, and more",
+          "Built-in replication and clustering for high availability",
+          "Pub/Sub messaging for real-time communication",
+          "Lua scripting for complex atomic operations"
+        ],
+        insights: [
+          "Redis improves application response time by 80%",
+          "Caching reduces database load by 90%",
+          "Session storage in Redis scales to millions of concurrent users"
+        ],
+        actionItems: [
+          "Set up Redis server and configure basic security",
+          "Implement caching layer for frequently accessed data",
+          "Use Redis for session storage and management",
+          "Explore advanced features like streams and modules"
+        ]
+      }
+    },
+    {
+      id: 116,
+      type: "TECH GUIDE",
+      title: "Multi-Agent Systems",
+      shortDescription: "Coordinated AI agent architecture for complex problem-solving and workflow automation.",
+      fullDescription: "Multi-agent systems represent the next evolution in AI architecture, where specialized agents work together to solve complex problems that single agents cannot handle effectively. This guide covers agent design patterns, communication protocols, coordination strategies, and implementation frameworks. Learn to build systems where agents collaborate, compete, and coordinate to achieve sophisticated objectives in domains like automated trading, smart cities, and distributed problem-solving.",
+      imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "Multi-agent AI system coordination",
+      metadata: "AI Architecture",
+      date: "Multi-Agent 2024",
+      author: "Strive AI Research Team",
+      readTime: "25 min",
+      tags: ["Multi-Agent", "AI Coordination", "Distributed AI", "Workflow Automation"],
+      content: {
+        keyPoints: [
+          "Specialized agents for domain-specific expertise",
+          "Coordination protocols for agent communication",
+          "Distributed problem-solving capabilities",
+          "Fault tolerance and self-healing architectures",
+          "Scalable deployment across multiple environments"
+        ],
+        insights: [
+          "Multi-agent systems improve complex task completion by 85%",
+          "Distributed agents provide 99.9% uptime through redundancy",
+          "Agent specialization increases accuracy by 60% over generalist approaches"
+        ],
+        actionItems: [
+          "Design agent roles and responsibilities",
+          "Implement agent communication and coordination",
+          "Build monitoring and orchestration systems",
+          "Deploy and scale multi-agent architectures"
+        ]
+      }
+    },
+    {
+      id: 117,
+      type: "TECH GUIDE",
+      title: "LangGraph Workflows",
+      shortDescription: "Graph-based framework for building stateful, multi-actor applications with LLMs.",
+      fullDescription: "LangGraph extends LangChain with graph-based workflows, enabling the creation of sophisticated multi-agent systems and stateful applications. This guide covers graph construction, state management, conditional logic, and agent coordination patterns. Learn to build complex AI workflows where multiple agents collaborate, make decisions, and maintain context across extended interactions for enterprise-scale AI applications.",
+      imageUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+      imageAlt: "LangGraph workflow visualization",
+      metadata: "Workflow Framework",
+      date: "LangGraph 2024",
+      author: "Strive AI Team",
+      readTime: "20 min",
+      tags: ["LangGraph", "Workflows", "State Management", "AI Orchestration"],
+      content: {
+        keyPoints: [
+          "Graph-based architecture for complex AI workflows",
+          "Built-in state management and persistence",
+          "Conditional routing and decision logic",
+          "Multi-agent coordination and communication",
+          "Visual workflow design and monitoring"
+        ],
+        insights: [
+          "Graph-based workflows improve task completion by 75%",
+          "Stateful applications maintain context 90% more effectively",
+          "Visual workflow design reduces development time by 50%"
+        ],
+        actionItems: [
+          "Design workflow graphs for your use cases",
+          "Implement state management and persistence",
+          "Build multi-step reasoning applications",
+          "Deploy and monitor graph-based workflows"
+        ]
+      }
+    }
+  ];
+
   const resources: Resource[] = [
     {
       id: 1,
@@ -501,36 +1084,57 @@ const Resources = () => {
     }
   ];
 
-  // Handle navigation from Solutions page technology badges
+  // Handle navigation from Portfolio and Solutions page technology badges
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
+    const filterParam = urlParams.get('filter');
     const tech = urlParams.get('tech');
     
+    // Handle filter parameter
+    if (filterParam === 'tools-tech') {
+      setActiveFilter('Tools & Tech');
+    }
+    
     if (tech) {
-      // Find and open the corresponding resource
-      const techResource = resources.find(resource => 
-        resource.tags?.some(tag => tag.toLowerCase() === tech.toLowerCase()) ||
-        resource.title.toLowerCase().includes(tech.toLowerCase())
+      // First check technology cards for portfolio navigation
+      const techCard = technologyCards.find(card => 
+        card.tags?.some(tag => tag.toLowerCase() === tech.toLowerCase()) ||
+        card.title.toLowerCase().includes(tech.toLowerCase())
       );
       
-      if (techResource) {
-        // Set appropriate filter based on resource type
-        if (techResource.type === "WHITEPAPER") {
-          setActiveFilter("Whitepapers");
-        } else if (techResource.type === "CASE STUDY") {
-          setActiveFilter("Case Studies");
-        }
-        
-        // Open the resource modal
+      if (techCard && filterParam === 'tools-tech') {
+        // Open the tech card modal
         setTimeout(() => {
-          setSelectedResource(techResource);
+          setSelectedResource(techCard);
         }, 500);
+      } else {
+        // Fallback: Find and open the corresponding resource
+        const techResource = resources.find(resource => 
+          resource.tags?.some(tag => tag.toLowerCase() === tech.toLowerCase()) ||
+          resource.title.toLowerCase().includes(tech.toLowerCase())
+        );
+        
+        if (techResource) {
+          // Set appropriate filter based on resource type
+          if (techResource.type === "WHITEPAPER") {
+            setActiveFilter("Whitepapers");
+          } else if (techResource.type === "CASE STUDY") {
+            setActiveFilter("Case Studies");
+          }
+          
+          // Open the resource modal
+          setTimeout(() => {
+            setSelectedResource(techResource);
+          }, 500);
+        }
       }
       
       // Clean the URL
-      window.history.replaceState(null, '', '/resources');
+      setTimeout(() => {
+        window.history.replaceState(null, '', '/resources');
+      }, 1000);
     }
-  }, []);
+  }, [technologyCards]);
 
   // Comprehensive AI Knowledge Quizzes
   const quizzes: Quiz[] = [
@@ -1001,6 +1605,8 @@ const Resources = () => {
         return true;
       });
 
+  const filteredTechCards = activeFilter === "Tools & Tech" ? technologyCards : [];
+
   const filteredQuizzes = activeFilter === "Quizzes" ? quizzes : [];
 
   // Quiz functionality
@@ -1332,8 +1938,116 @@ const Resources = () => {
             </div>
           )}
 
+          {/* Technology Cards Section */}
+          {activeFilter === "Tools & Tech" && (
+            <div className="mb-16">
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                  Technology <span className="gradient-text">Stack</span>
+                </h3>
+                <p className="text-slate-600 text-lg">
+                  Explore the cutting-edge technologies powering our solutions and learn how to implement them.
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredTechCards.map((tech) => (
+                  <Card 
+                    key={tech.id}
+                    className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-slate-900 to-slate-800"
+                    onClick={() => setSelectedResource(tech)}
+                    data-testid={`card-tech-${tech.id}`}
+                  >
+                    <div className="relative overflow-hidden">
+                      <img 
+                        src={tech.imageUrl} 
+                        alt={tech.imageAlt}
+                        className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                        data-testid={`img-tech-${tech.id}`}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute top-4 left-4">
+                        <Badge className="bg-blue-500 text-white border-0">
+                          {tech.type}
+                        </Badge>
+                      </div>
+                      <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="secondary" 
+                            className="h-8 w-8 p-0"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              // Navigate to portfolio with this tech filter
+                              window.location.href = '/portfolio';
+                            }}
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <CardContent className="p-6 text-white">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="text-blue-400">
+                          <Wrench className="h-5 w-5" />
+                        </div>
+                        <span className="text-sm font-medium uppercase tracking-wide text-blue-400">
+                          {tech.type}
+                        </span>
+                      </div>
+                      
+                      <h3 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                        {tech.title}
+                      </h3>
+                      
+                      <p className="text-slate-300 mb-4 line-clamp-2">
+                        {tech.shortDescription}
+                      </p>
+                      
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {tech.tags.slice(0, 2).map((tag, index) => (
+                          <Badge key={index} variant="secondary" className="text-xs bg-slate-700 text-slate-300">
+                            {tag}
+                          </Badge>
+                        ))}
+                        {tech.tags.length > 2 && (
+                          <Badge variant="secondary" className="text-xs bg-slate-700 text-slate-300">
+                            +{tech.tags.length - 2}
+                          </Badge>
+                        )}
+                      </div>
+                      
+                      <div className="flex items-center justify-between text-sm text-slate-400">
+                        <span data-testid={`text-tech-metadata-${tech.id}`}>
+                          {tech.metadata}
+                        </span>
+                        <span data-testid={`text-tech-date-${tech.id}`}>
+                          {tech.date}
+                        </span>
+                      </div>
+                      
+                      <Button 
+                        className="w-full mt-4 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300"
+                        variant="outline"
+                      >
+                        Learn More
+                        <Eye className="ml-2 h-4 w-4" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Resource Grid */}
-          {activeFilter !== "Quizzes" && (
+          {activeFilter !== "Quizzes" && activeFilter !== "Tools & Tech" && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredResources.map((resource) => (
               <Card 
