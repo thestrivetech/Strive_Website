@@ -1,0 +1,1 @@
+export { featuredResource } from './featured-whitepaper';

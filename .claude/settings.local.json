@@ -97,7 +97,9 @@
       "Bash(touch:*)",
       "Read(//tmp/**)",
       "Read(///**)",
-      "Bash(fuser:*)"
+      "Bash(fuser:*)",
+      "Bash(tree:*)",
+      "Bash(timeout 10 npm run dev)"
     ],
     "deny": []
   },
