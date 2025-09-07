@@ -19,7 +19,7 @@ import portfolioIcon from "@assets/generated_images/Portfolio_categories_gradien
 const Navigation = () => {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  // Navbar always shows gradient - no scroll detection needed
   // Removed dropdown state - simplified navigation
   const { user, isAuthenticated, logout } = useAuth();
   const { toast } = useToast();
@@ -44,23 +44,13 @@ const Navigation = () => {
     { name: "Home", path: "/" },
     { name: "Portfolio", path: "/portfolio" },
     { name: "Resources", path: "/resources" },
-    { name: "About Us", path: "/about" },
+    { name: "Company", path: "/about" },
     { name: "Contact", path: "/contact" },
   ];
 
   // Removed dropdown arrays - navigation simplified
 
-  useEffect(() => {
-    const handleScroll = () => {
-      // Check if we've scrolled past the hero section (roughly viewport height)
-      const scrollY = window.scrollY;
-      const heroSectionHeight = window.innerHeight * 0.9; // 90vh as per hero section
-      setIsScrolled(scrollY > heroSectionHeight);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Scroll effect removed - navbar always displays gradient
 
   const isActive = (path: string) => {
     if (path === "/" && location === "/") return true;
@@ -69,11 +59,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
-      isScrolled 
-        ? 'hero-gradient border-white/20' 
-        : 'bg-background/95 backdrop-blur-md border-border'
-    }`} style={{ overflow: 'visible' }}>
+    <nav className="fixed top-0 left-0 right-0 z-50 hero-gradient border-b border-white/20 shadow-lg" style={{ overflow: 'visible' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8" style={{ overflow: 'visible' }}>
         
         {/* Mobile Layout */}
@@ -158,7 +144,7 @@ const Navigation = () => {
                     onClick={() => setMobileMenuOpen(false)}
                     data-testid="mobile-nav-about-us"
                   >
-                    About Us
+                    Company
                   </Link>
                   <Link
                     href="/contact"
@@ -330,7 +316,7 @@ const Navigation = () => {
               }`}
               data-testid="nav-about"
             >
-              About Us
+              Company
             </Link>
             <Link
               href="/contact"

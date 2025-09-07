@@ -214,7 +214,7 @@ const GetStarted = () => {
               </p>
             </div>
             
-            <Card className="max-w-2xl mx-auto bg-off-white">
+            <Card className="max-w-2xl mx-auto" style={{ backgroundColor: '#ffffffeb' }}>
               <CardContent className="p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -223,8 +223,8 @@ const GetStarted = () => {
                       placeholder="First name"
                       value={contactData.firstName}
                       onChange={(e) => handleContactChange('firstName', e.target.value)}
-                      className="bg-muted/20 border-muted/30"
-                      style={{ color: '#020a1c' }}
+                      style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                      className="focus:ring-primary focus:border-primary"
                       data-testid="input-first-name"
                       required
                     />
@@ -233,8 +233,8 @@ const GetStarted = () => {
                       placeholder="Last name"
                       value={contactData.lastName}
                       onChange={(e) => handleContactChange('lastName', e.target.value)}
-                      className="bg-muted/20 border-muted/30"
-                      style={{ color: '#020a1c' }}
+                      style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                      className="focus:ring-primary focus:border-primary"
                       data-testid="input-last-name"
                       required
                     />
@@ -245,8 +245,8 @@ const GetStarted = () => {
                     placeholder="Phone number"
                     value={contactData.phone}
                     onChange={(e) => handleContactChange('phone', e.target.value)}
-                    className="bg-muted/20 border-muted/30"
-                    style={{ color: '#020a1c' }}
+                    style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                    className="focus:ring-primary focus:border-primary"
                     data-testid="input-phone"
                     required
                   />
@@ -256,8 +256,8 @@ const GetStarted = () => {
                     placeholder="Company email"
                     value={contactData.email}
                     onChange={(e) => handleContactChange('email', e.target.value)}
-                    className="bg-muted/20 border-muted/30"
-                    style={{ color: '#020a1c' }}
+                    style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                    className="focus:ring-primary focus:border-primary"
                     data-testid="input-email"
                     required
                   />
@@ -267,8 +267,8 @@ const GetStarted = () => {
                     placeholder="Company name"
                     value={contactData.company}
                     onChange={(e) => handleContactChange('company', e.target.value)}
-                    className="bg-muted/20 border-muted/30"
-                    style={{ color: '#020a1c' }}
+                    style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                    className="focus:ring-primary focus:border-primary"
                     data-testid="input-company"
                     required
                   />
@@ -282,7 +282,7 @@ const GetStarted = () => {
                     Submit
                   </Button>
                   
-                  <p className="text-sm text-muted-foreground text-center">
+                  <p className="text-sm text-center" style={{ color: '#020a1c' }}>
                     By clicking "Submit," I acknowledge receipt of the Strive{' '}
                     <a href="/privacy" className="text-primary hover:underline">
                       Privacy Policy

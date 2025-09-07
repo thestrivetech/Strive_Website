@@ -44,7 +44,7 @@ const Contact = () => {
     {
       icon: <Clock className="text-primary w-6" />,
       title: "Business Hours",
-      content: "Mon-Fri: 9:00 AM - 6:00 PM PST"
+      content: "Mon-Fri: 9:00 AM - 6:00 PM EST"
     }
   ];
 
@@ -139,7 +139,7 @@ const Contact = () => {
 
   return (
     <div className="pt-16">
-      <section className="pt-20 pb-16">
+      <section className="hero-gradient pt-20 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h1 
@@ -158,10 +158,11 @@ const Contact = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Contact Form */}
-            <Card className="p-8">
+            <Card className="p-8" style={{ backgroundColor: '#ffffffeb' }}>
               <CardContent className="p-0">
                 <h2 
                   className="text-2xl font-bold mb-6"
+                  style={{ color: '#020a1c' }}
                   data-testid="text-form-title"
                 >
                   Send us a message
@@ -169,68 +170,78 @@ const Contact = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium mb-2">First Name *</label>
+                      <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>First Name *</label>
                       <Input
                         type="text"
                         required
                         placeholder="John"
                         value={formData.firstName}
                         onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
+                        style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}
+                        className="focus:ring-primary focus:border-primary"
                         data-testid="input-first-name"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2">Last Name *</label>
+                      <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Last Name *</label>
                       <Input
                         type="text"
                         required
                         placeholder="Doe"
                         value={formData.lastName}
                         onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
+                        style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}
+                        className="focus:ring-primary focus:border-primary"
                         data-testid="input-last-name"
                       />
                     </div>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium mb-2">Business Email *</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Business Email *</label>
                     <Input
                       type="email"
                       required
                       placeholder="john@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                      style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}
+                      className="focus:ring-primary focus:border-primary"
                       data-testid="input-email"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Company Name *</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Name *</label>
                     <Input
                       type="text"
                       required
                       placeholder="Your Company"
                       value={formData.company}
                       onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
+                      style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}
+                      className="focus:ring-primary focus:border-primary"
                       data-testid="input-company"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Phone Number</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Phone Number</label>
                     <Input
                       type="tel"
                       placeholder="+1 (555) 123-4567"
                       value={formData.phone}
                       onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                      style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}
+                      className="focus:ring-primary focus:border-primary"
                       data-testid="input-phone"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Company Size</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Size</label>
                     <Select value={formData.companySize} onValueChange={(value) => setFormData(prev => ({ ...prev, companySize: value }))}>
-                      <SelectTrigger data-testid="select-company-size" className="gap-2">
+                      <SelectTrigger data-testid="select-company-size" className="gap-2" style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}>
                         <Users className="h-4 w-4 text-muted-foreground" />
                         <SelectValue placeholder="Select size" />
                       </SelectTrigger>
@@ -245,13 +256,15 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">How can we help? *</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>How can we help? *</label>
                     <Textarea
                       required
                       rows={4}
                       placeholder="Tell us about your project or business needs..."
                       value={formData.message}
                       onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                      style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}
+                      className="focus:ring-primary focus:border-primary"
                       data-testid="textarea-message"
                     />
                   </div>
@@ -262,8 +275,9 @@ const Contact = () => {
                       checked={formData.privacyConsent}
                       onCheckedChange={(checked) => setFormData(prev => ({ ...prev, privacyConsent: !!checked }))}
                       data-testid="checkbox-privacy"
+                      style={{ borderColor: '#ff7033' }}
                     />
-                    <label htmlFor="privacy" className="text-sm text-muted-foreground">
+                    <label htmlFor="privacy" className="text-sm" style={{ color: '#020a1c' }}>
                       I agree to Strive's{" "}
                       <a href="#" className="text-primary hover:underline" data-testid="link-privacy-policy">
                         Privacy Policy
@@ -286,10 +300,11 @@ const Contact = () => {
             {/* Contact Information */}
             <div className="space-y-8">
               {/* Contact Details */}
-              <Card className="p-8">
+              <Card className="p-8" style={{ backgroundColor: '#ffffffeb' }}>
                 <CardContent className="p-0">
                   <h3 
                     className="text-xl font-bold mb-6"
+                    style={{ color: '#020a1c' }}
                     data-testid="text-contact-info-title"
                   >
                     Contact Information
@@ -303,8 +318,8 @@ const Contact = () => {
                       >
                         {info.icon}
                         <div className="ml-4">
-                          <div className="font-medium">{info.title}</div>
-                          <div className="text-muted-foreground">{info.content}</div>
+                          <div className="font-medium" style={{ color: '#020a1c' }}>{info.title}</div>
+                          <div className="text-muted-foreground" style={{ color: '#666' }}>{info.content}</div>
                         </div>
                       </div>
                     ))}
@@ -313,7 +328,7 @@ const Contact = () => {
               </Card>
 
               {/* Quick Actions - Enhanced */}
-              <Card className="bg-gradient-to-br from-primary/5 via-background to-primary/10 border-primary/20 p-8 shadow-xl">
+              <Card className="p-8 shadow-xl" style={{ backgroundColor: '#ffffffeb', border: '1px solid #ff7033' }}>
                 <CardContent className="p-0">
                   <div className="text-center mb-6">
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -321,11 +336,12 @@ const Contact = () => {
                     </div>
                     <h3 
                       className="text-2xl font-bold mb-2"
+                      style={{ color: '#020a1c' }}
                       data-testid="text-quick-actions-title"
                     >
                       Quick Actions
                     </h3>
-                    <p className="text-muted-foreground">
+                    <p className="text-muted-foreground" style={{ color: '#666' }}>
                       Get started immediately or explore our resources
                     </p>
                   </div>
@@ -381,13 +397,13 @@ const Contact = () => {
 
             <div className="max-w-4xl mx-auto space-y-4">
               {faqs.map((faq, index) => (
-                <Card key={index} className="overflow-hidden">
+                <Card key={index} className="overflow-hidden" style={{ backgroundColor: '#ffffffeb' }}>
                   <button
                     className="w-full text-left p-6 flex items-center justify-between hover:bg-muted/50 transition-colors"
                     onClick={() => toggleFaq(index)}
                     data-testid={`button-faq-${index}`}
                   >
-                    <span className="font-medium" data-testid={`text-faq-question-${index}`}>
+                    <span className="font-medium" data-testid={`text-faq-question-${index}`} style={{ color: '#020a1c' }}>
                       {faq.question}
                     </span>
                     {expandedFaq === index ? (
@@ -398,7 +414,8 @@ const Contact = () => {
                   </button>
                   {expandedFaq === index && (
                     <div 
-                      className="px-6 pb-6 text-muted-foreground"
+                      className="px-6 pb-6"
+                      style={{ color: '#666' }}
                       data-testid={`text-faq-answer-${index}`}
                     >
                       {faq.answer}

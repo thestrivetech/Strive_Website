@@ -224,7 +224,7 @@ const Demo = () => {
                     <div className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <Label htmlFor="fullName">Full Name *</Label>
+                          <Label htmlFor="fullName" className="text-[#ff7033]">Full Name *</Label>
                           <Input
                             id="fullName"
                             value={formData.fullName}

@@ -99,9 +99,9 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
       <div className="w-full max-w-md">
         <Card className="shadow-lg">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold">Welcome to Strive</CardTitle>
-            <CardDescription>
+          <CardHeader className="text-center hero-gradient">
+            <CardTitle className="text-2xl font-bold text-white">Welcome to Strive</CardTitle>
+            <CardDescription className="text-gray-200">
               Sign in to your account or create a new one to get started
             </CardDescription>
           </CardHeader>
@@ -158,6 +158,11 @@ const Login = () => {
                     >
                       {isLoading ? "Signing in..." : "Sign In"}
                     </Button>
+                    <div className="text-center">
+                      <a href="#" className="text-sm text-primary hover:underline">
+                        Forgot Password?
+                      </a>
+                    </div>
                   </form>
                 </Form>
               </TabsContent>

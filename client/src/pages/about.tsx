@@ -136,14 +136,25 @@ const About = () => {
             >
               We're not just another tech company. We're visionaries building the future of business automation, one intelligent solution at a time.
             </p>
-            <Button 
-              size="lg" 
-              className="bg-off-white text-primary hover:bg-off-white/90 px-8 py-4 text-lg font-semibold"
-              onClick={() => document.getElementById('our-story')?.scrollIntoView({ behavior: 'smooth' })}
-              data-testid="button-learn-more"
-            >
-              Learn Our Story
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                onClick={() => document.getElementById('our-story')?.scrollIntoView({ behavior: 'smooth' })}
+                data-testid="button-learn-more"
+              >
+                Learn Our Story
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                onClick={() => window.location.href = '/contact'}
+                data-testid="button-join-team"
+              >
+                Join Our Team
+              </Button>
+            </div>
           </div>
         </div>
       </section>

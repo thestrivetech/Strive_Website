@@ -1129,14 +1129,25 @@ const Resources = () => {
             >
               Unlock your potential with expert insights, cutting-edge research, and proven strategies from industry leaders.
             </p>
-            <Button 
-              size="lg" 
-              className="bg-off-white text-primary hover:bg-off-white/90 px-8 py-4 text-lg font-semibold"
-              onClick={() => document.getElementById('resource-library')?.scrollIntoView({ behavior: 'smooth' })}
-              data-testid="button-explore-resources"
-            >
-              Explore Resources
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                onClick={() => document.getElementById('resource-library')?.scrollIntoView({ behavior: 'smooth' })}
+                data-testid="button-explore-resources"
+              >
+                Explore Resources
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                onClick={() => window.location.href = '/contact'}
+                data-testid="button-get-insights"
+              >
+                Get Expert Insights
+              </Button>
+            </div>
           </div>
         </div>
       </section>

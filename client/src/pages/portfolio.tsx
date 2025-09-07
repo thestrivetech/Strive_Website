@@ -185,15 +185,25 @@ const Portfolio = () => {
             >
               Explore cutting-edge AI demos, production-ready templates, and revolutionary prototypes that showcase the future of intelligent business solutions.
             </p>
-            <Button 
-              size="lg" 
-              className="bg-off-white text-primary hover:bg-off-white/90 px-8 py-4 text-lg font-semibold"
-              onClick={() => document.getElementById('showcase')?.scrollIntoView({ behavior: 'smooth' })}
-              data-testid="button-view-work"
-            >
-              View Our Work
-              <ChevronRight className="ml-2 h-5 w-5" />
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                onClick={() => document.getElementById('showcase')?.scrollIntoView({ behavior: 'smooth' })}
+                data-testid="button-view-work"
+              >
+                View Our Work
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                onClick={() => window.location.href = '/demo'}
+                data-testid="button-request-demo"
+              >
+                Request Demo
+              </Button>
+            </div>
           </div>
         </div>
       </section>

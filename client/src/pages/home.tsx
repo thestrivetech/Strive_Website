@@ -258,7 +258,7 @@ const Home = () => {
               </p>
               <Link href="/solutions">
                 <Button 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                   size="lg"
                   data-testid="button-explore-solutions"
                 >
@@ -351,7 +351,7 @@ const Home = () => {
                     <div className="flex gap-3 pt-4">
                       <Button 
                         onClick={() => window.location.href = "/contact"}
-                        className="bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                        className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                       >
                         Request Demo
                       </Button>
@@ -542,7 +542,7 @@ const Home = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button 
                   variant="outline"
-                  className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[200px]"
+                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[200px] relative overflow-hidden"
                   size="lg"
                   onClick={() => window.location.href = "/demo"}
                   data-testid="button-request-demo"
@@ -551,7 +551,7 @@ const Home = () => {
                 </Button>
                 <Button 
                   variant="outline"
-                  className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[200px]"
+                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[200px] relative overflow-hidden"
                   size="lg"
                   onClick={() => window.location.href = "/portfolio"}
                   data-testid="button-view-case-studies"

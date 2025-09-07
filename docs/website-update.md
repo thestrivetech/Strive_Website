@@ -2,52 +2,52 @@
 
 
 # Entire Website # Mostly completed, needs review 
-- Fix nav bar for all pages (should be translucent/transparent in the hero section but then carry the hero section gradient color as soon as the nav bar hits the end of the hero section)
+- Fix nav bar for all pages (should be translucent/transparent in the hero section but then carry the hero section gradient color as soon as the nav bar hits the end of the hero section) - It's still not turning to the gradient color until well after the end of the hero section.
 
-- Please make sure that the off color of white (#ffffffeb) is being used for any white backgorunds that are used on the website. BACKGROUNDS SPECIFICALLY, NOT ANYTHING ELSE.
+- Please make sure that the off color of white (#ffffffeb) is being used for any white backgorunds that are used on the website. BACKGROUNDS SPECIFICALLY, NOT ANYTHING ELSE, not cards, and not badges. Just page backgrounds
 
 ### Still need to reformat wording to achvieve what's mentioned below ###
 - Make sure that each pages hero section (excluding the home page) aligns the same when users enter the page. The Home page is the only exception with how it takes up the whole screen when users first enter the site.
 
-- Change the hero section buttons on all pages to match the home page buttons layout (maybe add some really unique white buttons with cool animations?)
+- Change the hero section buttons on all pages to match the home page buttons layout
+  - Use a gradient button for any page where the user is scheduling a demo, scheduling a consultation, requesting a demo, etc. 
 
 # Home Page # 
 
 - Make the cards in the Project Dashboard section have the dark blue text for the text header and footer and then have the text color change to orange on hover
 
-- The solutions by industry section needs to be centered around pointing out specific industry pain points or struggles (do research to be specific and accurate) and then how we help or fix those things
+- The solutions by industry section needs to be centered around pointing out specific industry pain points or struggles (do research to be specific and accurate) and then what solutions/products we provide to fix or help.
 
 - Change the "View Demo" button in the hero section to go to the portfio demo section - OR - Change it to "Request Free Demo" which takes them to the Request Demo page.
 
 # Solutions Page #
 
-- Add things to make this page more simple for the user experience - Ask me before actually updating the page in a specific way
+- Suggest ways to make this page more simple for the user experience and to provide clarity to each user since we want to priortize landing clients with this page and overall website - Put your recommendations into a markdown file inside of the Docs folder. Don't make any changes right now, just suggest things to add or change in the markdown file. DO THIS LAST AFTER EVERYTHING ELSE IN THIS FILE IS COMPLETE!
 
 - Fix filter display and button functionality and color scheme
   - Filter dropdown menu sould only dropdown below the industry and solution type buttons - Currently it appears above the buttons if the users screen is above that section
-  - Once a filter button is selected for the user to choose a filter option, in order to go back to all, they should have to click the "All" button next to the other two filters
+  - Once a filter button is selected for the user to choose a filter option, in order to go back to all, they should have to click the "All" button next to the other two filters - OR, they can click on their selected filter option as well to unselect it.
   - "Industry" needs to be the default word on the industry filter button - Then it should change to the specific industry name when the user selects their industry to filter by
+  - When a solution type is selected as a filter, that solution type should then show up on the filter button until it's unselected or the user clicks on a different thing to filter by
   - Color of words and icons in both filter dropdown menus are fine but I want to make the word and icon color change to orange on hover.
 
-- Add text above the filter section that says something like, "Use the filter to find your  industry specific solution!"
+- Add text above the filter section that says something like, "Use the filter to find your industry specific solution!"
 
 - Use gradient text color on the word "Every" in hero section
 
 - Change button colors in the hero section to match button scheme on home page
 
-- Create links to each technology badge that takes the user to the specific document that has been created to explain what each thing is. If it's an industry, take them to a case study that's been created about that specific industry - Make sure to create badge hover effects to so they will know they can click on them (unless this is too much, then we would just give them the option to click on the badges once the card is clicked on and it pops out) - Go ahead and make filler cards for these links on the Resources page in the Tech/tools filtered section
-
 - Please change the h3 text color for all cards to be orange instead of white (it currently blends in)
 
 # Portfolio Page #
 
-- Please use the exact hero section design on the Portfolio page and add it to the following pages: Solutions, Resources, and About Me - After doing this, make the Solutions page lightbulb icon flash exactly like the brain circut icon on the portfolio page - Done? Looks like the slight sparkle/glimmer affect was removed?
-
-Change text in the header to say: "Solutions that give you more time to do what you love". Use the gradient design on the words "AI Solutions" in this text header section 
+Change text in the header to say: "Solutions that give you more time to do what you love". Use the gradient design on the word "Time" in this text header section 
 
 - Fix the badge/card title text color on all badges to be orange instead of white. It currently blends in with the badge/card color
 - 
-- Change the project type text color to dark blue (#020a1c) and to make sure that all card/badges match in formatting because currently, some of the cards/badges have their "View Details" button lower than others. Let's use the "Computer Vision Analytics" card/badge as the reference and make all other cards formatting and dimensions match that one. Please make sure not to change any of the content within the cards/badge, we are just changing the overall size of the badges to match along with the structuring and layout. 
+- Change the project type text color to dark blue (#020a1c) and to make sure that all card/badges match in formatting because currently, some of the cards/badges have their "View Details" button lower than others. Let's use the "Computer Vision Analytics" card/badge as the reference and make all other cards formatting and dimensions match that one. Please make sure not to change any of the content within the cards/badge, we are just changing the overall size of the badges to match along with the structuring and layout.
+
+- THE FOLLOWING WAS DONE ON THE SOLTUIONS PAGE BUT NEEDED TO BE DONE ON THE PORTFOLIO PAGE - Create links to each technology badge that takes the user to the specific document that has been created to explain what each thing is. If it's a industry, take them to a case study that's been created about that specific industry  - Make filler cards for all technology badges mentioned on the Portfolio page (they are mentioned on each Portfolio card) these links on the Resources page in the Tech/tools filtered section - Please remove the technology pages from the solutions pages and lets come up with a different way to help users/clients understand each solution and solution type
 
 # Resources Page #
 
