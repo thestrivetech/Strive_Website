@@ -8,8 +8,8 @@ import { Card, CardContent } from "@/components/ui/card";
 
 // Import data from new modular structure
 import { Resource, technologyCards, resources } from "@/data/resources";
-import { Quiz, QuizQuestion, QuizResult, allQuizzes } from "@/data/quizzes";
-import { featuredResource } from "@/data/featured";
+import { Quiz, QuizQuestion, QuizResult, allQuizzes } from "@/data/resources/quizzes";
+import { featuredResource } from "@/data/resources/featured";
 
 // Types are now imported from the modular structure
 

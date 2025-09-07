@@ -1,8 +1,8 @@
-// Export all resources
+// Export all resources page data (includes technology, blog-posts, whitepapers, case-studies, quizzes, featured)
 export * from './resources';
 
-// Export all quizzes  
-export * from './quizzes';
+// Export all portfolio page data
+export * from './portfolio';
 
-// Export featured content
-export * from './featured';
+// Future page data exports will be added here:
+// export * from './solutions';

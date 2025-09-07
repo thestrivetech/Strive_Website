@@ -6,6 +6,8 @@ export * from './technology';
 export * from './blog-posts';
 export * from './whitepapers';
 export * from './case-studies';
+export * from './quizzes';
+export * from './featured';
 
 // Import aggregated arrays from each category
 import { technologyCards } from './technology';
