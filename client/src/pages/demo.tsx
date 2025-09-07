@@ -195,21 +195,16 @@ const Demo = () => {
                   </div>
                 ))}
               </div>
-              <div className="flex items-center">
-                {[
-                  { step: 1, label: "Contact Info" },
-                  { step: 2, label: "Business Details" },
-                  { step: 3, label: "Demo Preferences" }
-                ].map(({ step, label }) => (
-                  <div key={step} className="flex items-center flex-1">
-                    <div className="w-10 flex justify-center">
-                      <span className={`text-sm ${formStep >= step ? 'text-primary font-semibold' : 'text-gray-500'}`}>
-                        {label}
-                      </span>
-                    </div>
-                    {step < 3 && <div className="flex-1 mx-2" />}
-                  </div>
-                ))}
+              <div className="flex justify-between text-sm">
+                <span className={`text-center ${formStep >= 1 ? 'text-primary font-semibold' : 'text-gray-500'}`}>
+                  Contact Info
+                </span>
+                <span className={`text-center ${formStep >= 2 ? 'text-primary font-semibold' : 'text-gray-500'}`}>
+                  Business Details
+                </span>
+                <span className={`text-center ${formStep >= 3 ? 'text-primary font-semibold' : 'text-gray-500'}`}>
+                  Demo Preferences
+                </span>
               </div>
             </div>
 
