@@ -175,32 +175,25 @@ const Demo = () => {
           <div className="max-w-4xl mx-auto">
             {/* Progress Indicator */}
             <div className="mb-8">
-              <div className="flex items-center mb-4">
-                {[1, 2, 3].map((step) => (
-                  <div key={step} className="flex items-center flex-1">
-                    {step > 1 && (
-                      <div className={`
-                        h-1 flex-1 mr-2
-                        ${formStep > step - 1 ? 'bg-primary' : 'bg-gray-200'}
-                        transition-all duration-300
-                      `} />
-                    )}
-                    <div className={`
-                      w-10 h-10 rounded-full flex items-center justify-center font-semibold mx-auto
+              <div className="relative mb-4">
+                <div className="flex justify-between items-center">
+                  {[1, 2, 3].map((step) => (
+                    <div key={step} className={`
+                      w-10 h-10 rounded-full flex items-center justify-center font-semibold z-10 relative
                       ${formStep >= step ? 'bg-primary text-white' : 'bg-gray-200 text-gray-500'}
                       transition-all duration-300
                     `}>
                       {step}
                     </div>
-                    {step < 3 && (
-                      <div className={`
-                        h-1 flex-1 ml-2
-                        ${formStep > step ? 'bg-primary' : 'bg-gray-200'}
-                        transition-all duration-300
-                      `} />
-                    )}
-                  </div>
-                ))}
+                  ))}
+                </div>
+                {/* Progress line */}
+                <div className="absolute top-5 left-5 right-5 h-1 bg-gray-200">
+                  <div 
+                    className={`h-full bg-primary transition-all duration-300`}
+                    style={{ width: `${((formStep - 1) / 2) * 100}%` }}
+                  />
+                </div>
               </div>
               <div className="flex justify-between text-sm">
                 <span className={`text-center ${formStep >= 1 ? 'text-primary font-semibold' : 'text-gray-500'}`}>
