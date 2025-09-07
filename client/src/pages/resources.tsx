@@ -240,7 +240,8 @@ const Resources = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group
+                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                 onClick={() => document.getElementById('resource-library')?.scrollIntoView({ behavior: 'smooth' })}
                 data-testid="button-explore-resources"
               >
@@ -249,7 +250,7 @@ const Resources = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
                 onClick={() => window.location.href = '/contact'}
                 data-testid="button-get-insights"
               >
@@ -798,14 +799,14 @@ const Resources = () => {
                   </Button>
                   <Button 
                     variant="outline"
-                    className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-6 py-3 font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                    className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-6 py-3 font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
                   >
                     <ExternalLink className="mr-2 h-4 w-4" />
                     Share
                   </Button>
                   <Button 
                     variant="outline"
-                    className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-6 py-3 font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                    className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-6 py-3 font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
                     onClick={() => window.location.href = '/contact'}
                   >
                     Get Consulting

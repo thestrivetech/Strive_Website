@@ -1,54 +1,95 @@
 ### Entire implementation list for the website ###
 
 
-# Entire Website # Mostly completed, needs review 
+# Entire Website # 
+
+- Remove the outer "X" on all pop out cards - Move the inner "X" that exits the popout to where the smaller "X" currently is
+
+- Still contemplating whether or not we need dropdown menus for each page in the nav bar... If so, we can just have it take the user to that page with whatever they chose in the nav dropdown to be automatically filtered.
+
+- Change all hero section buttons (specifically the button on the right) to look exactly like the solutions button, "Explore Solutions" - This goes for the hover effect as well
+  - Add shimmer hover effect that's on the "Get Started" button in the hero section of the home page to all other primary buttons on the website(buttons on the left)
+
+- Add quick actions card on the Contact page to be a option and feature in Sai chatbox for users. - We need to change the quick action options for when it's in the chat window - The only one that needs to be changed is the "Customer Support" button - Replace this with "Request Demo" and then also add a "Get Custom Solution" button and a "Contact Us" button
+
+- See if it's possible to change the mouse cursor icon to something else when hovering? Specifically when users are selecting certain options on the demo request pages/cards
 
 # Home Page #
 
-- THE FOLLOWING WAS DONE ON THE SOLTUIONS PAGE BUT NEEDED TO BE DONE ON THE PORTFOLIO PAGE - Create links to each technology badge that takes the user to the specific document that has been created to explain what each thing is. If it's a industry, take them to a case study that's been created about that specific industry  - Make filler cards for all technology badges mentioned on the Portfolio page (they are mentioned on each Portfolio card) these links on the Resources page in the Tech/tools filtered section - Please remove the technology pages from the solutions pages and lets come up with a different way to help users/clients understand each solution and solution type
 
 # Solutions Page #
 
-- 
+- The button links are backwards - The get custom solution page should go to the "Get Started Page" (or we could create a custom solution request page) and the view solutions button should slide the screen down to view our solutions
+
+- Should we remove the "Solution Type" from the filter so the user can just filter by industry?
+
+- Add option to filter by "All Industries" by adding this option to the the industry dropdown menu - Do the same for Solution type
+
+- This page needs to be centered around presenting pain points and problems specific to each industry followed up by presenting solutions for all pain points and problem areas.
+
+- Change the card color to white to match all other card designs on other pages
+
+# Portfolio Page #
+
+- Please remove the play button icon from cards that aren't for Demos.
+
+- ALL POP OUT CARDS on each page: Please make the "X"  that's used to close the popout card more noticeable (I liked the original style that we had where the was a slightly grey and mostly translucent box that the "X" was in with a orange outline) - make sure the "X" isn't increased in size by a great amount please
 
 # Resources Page #
 
+- Move the Tools/Tech filter button to the left of the Quizzes filter button
 
--  Add another filter button - "Tools & Tech" with a wrench icon - This is where all technologies and tools that are mentioned on any card on the Portfolio page should be. All technology buttons should have a card in this new section and should be linked with it's certain badge on the Portfolio page
+- Decide whether or not each section of cards should have a different card color or if we should make all of them the same (except for quizzes, I like this being different since it's just now introduced - Maybe we should even advertise our quizzes on the home page)
+
+- Change the word "Intelligence" in hero section to the same gradient color used on all other hero section words 
+
+# Company Page # 
+
+- Create nav bar dropdown to list “Become a Partner, Community (discord and more), Meet the Team, etc. - Think of more areas and pages/sections to add to this page or part of the website - We need to decide whether to make this one entire page broken into different sections or to make it different pages (could make it one page with different pop out screens that go into more detail like on other pages)
 
 # Contact Page #
 
-- Change the background of this page to be the gradient design that’s used in all of the hero sections. Make the cards on this page an off white color (#ffffffeb) and the text box color to dark blue (#020a1c). Use the orange color as the text box outline. Make sure that the text color used on all badges/cards don’t blend in with the badge/card color. Make it visually appealing.
+- Please copy the card text box color scheme and style on the step 3 "Get Started" page - Do this for the Login and Sign up text boxes as well
 
-- In the Quick actions badge/card change the “Live Chat Support” link to open up a window with our ChatBot “Sai” - I will put this ChatBot file into the directory later today. For now just make the page and chat layout with Sai for filler content. Make this new chat page visually appealing as well.
+- Change text color that's above each text box to orange
+
+- Change "Get in touch" to "Let's Connect" and make the word "Connect" the same gradient color that is used for other words in hero sections across the site.
+
+- Supposedly the chatbot page was made in a earlier session but it's not linked to the "Live chat support" button on the Contact Page
 
 - Update the Schedule Consultation page to get more information from the user in regard to their business and what their business does.
 Need to fix “Schedule a Demo” button, it doesn’t go to any page. Make it go to the “Get started page” - Unless we want a different page specifically for demo requests so that way we know what the user is reaching out about (will provide more organization)
 
-- Change Business Hours to EST
+- Change Business Hours 8am to 8pm est
 
-# About Us Page # 
-Change to “Company”
-Create nav bar dropdown to list “Become a Partner, Community (discord and more), Meet the Team, etc. - Think of more areas and pages/sections to add to this page or part of the website - We need to decide whether to make this one entire page broken into different sections or to make it different pages (could make it one page with different pop out screens that go into more detail like on other pages)
+- "Schedule a Consultation" take out the "a" in this buttons text
+
+- Make "Schedule a Consultation" have the same shiny hover effect as the "Get Started" button on the home page hero section
+
+- Change "Ready to transform your business?" to "Ready to make your business Strive?" - Or something like that
+
+- Give all other buttons the same hover effects to the corresponding color scheme as the other buttons on the website
+
 
 # Login Page #
 
-Add forgot password selection
-Make the “Welcome to Strive” badge/card the same color and design of the websites hero section using the same gradient look.
+- Give users the ability to login via username or email instead of only by username
+
+- Also make users give their first and last name when they are creating an account
+
+# Schedule Consultation Page #
+
+- Make the background off white to match the other pages
 
 # Get Started Pages # 
 
-- Step 3 of 3 page: please make this card/badge color the same off white color that we use for every other area of white in the project (#ffffffeb) 
 
-- Step 3 of 3 page: make the "Last Step" text color the same as the gradient color that's used on all hero sections throughout the website. Additionally, change the button color to this gradient as well.
 
 # Request Demo Section #
 
-- Take out the hero section for this page, it's not a feature page so it's not needed
+- On step 2 card, we need to give the customer the option to type in their industry if they select "Other"
 
-- Use hero section gradient color for main text header on the page
-
-- Fix color layout of this page - 
+- On step 3 card, we need to add "Other" choice for the user to type in additional demo focus areas
 
 # Mobile Design List #
 

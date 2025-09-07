@@ -33,7 +33,15 @@ const Solutions = () => {
     { value: "technology", label: "Technology", icon: <Laptop className="h-4 w-4" /> },
     { value: "education", label: "Education", icon: <GraduationCap className="h-4 w-4" /> },
     { value: "real-estate", label: "Real Estate", icon: <HomeIcon className="h-4 w-4" /> },
-    { value: "legal", label: "Legal", icon: <Scale className="h-4 w-4" /> }
+    { value: "legal", label: "Legal", icon: <Scale className="h-4 w-4" /> },
+    { value: "logistics", label: "Logistics & Supply Chain", icon: <Factory className="h-4 w-4" /> },
+    { value: "hospitality", label: "Hospitality & Tourism", icon: <Building2 className="h-4 w-4" /> },
+    { value: "energy", label: "Energy & Utilities", icon: <Cog className="h-4 w-4" /> },
+    { value: "government", label: "Government & Public Sector", icon: <Building2 className="h-4 w-4" /> },
+    { value: "insurance", label: "Insurance", icon: <ShieldCheck className="h-4 w-4" /> },
+    { value: "automotive", label: "Automotive", icon: <Factory className="h-4 w-4" /> },
+    { value: "agriculture", label: "Agriculture", icon: <Building2 className="h-4 w-4" /> },
+    { value: "media", label: "Media & Entertainment", icon: <Laptop className="h-4 w-4" /> }
   ];
 
   const productOptions = [
@@ -42,7 +50,11 @@ const Solutions = () => {
     { value: "data-analytics", label: "Data Analytics", icon: <BarChart className="h-4 w-4" /> },
     { value: "blockchain", label: "Blockchain Solutions", icon: <Blocks className="h-4 w-4" /> },
     { value: "cloud-infrastructure", label: "Cloud Infrastructure", icon: <Cloud className="h-4 w-4" /> },
-    { value: "security-compliance", label: "Security & Compliance", icon: <ShieldCheck className="h-4 w-4" /> }
+    { value: "security-compliance", label: "Security & Compliance", icon: <ShieldCheck className="h-4 w-4" /> },
+    { value: "predictive-analytics", label: "Predictive Analytics", icon: <BarChart className="h-4 w-4" /> },
+    { value: "nlp", label: "Natural Language Processing", icon: <Bot className="h-4 w-4" /> },
+    { value: "iot-integration", label: "IoT Integration", icon: <Cog className="h-4 w-4" /> },
+    { value: "process-automation", label: "Process Automation", icon: <Cog className="h-4 w-4" /> }
   ];
 
   const solutions = [
@@ -54,7 +66,7 @@ const Solutions = () => {
       type: "service",
       industry: "Healthcare",
       icon: <Heart className="text-primary text-xl" />,
-      shortDescription: "AI-powered healthcare solutions for patient care, diagnostics, and compliance.",
+      shortDescription: "Struggling with patient data management and compliance? Our AI-powered healthcare solutions streamline diagnostics, improve patient care, and ensure regulatory compliance.",
       fullDescription: "Comprehensive healthcare solutions that leverage artificial intelligence to improve patient outcomes, streamline operations, and ensure regulatory compliance. Our healthcare suite includes advanced diagnostic tools, patient management systems, and automated compliance reporting.",
       features: [
         "AI-powered diagnostics and imaging analysis",
@@ -62,7 +74,7 @@ const Solutions = () => {
         "Automated compliance and regulatory reporting",
         "Predictive analytics for patient outcomes"
       ],
-      technologies: ["AI/ML", "Computer Vision", "NLP", "Data Analytics"],
+      technologies: ["AI & Automation", "Computer Vision", "Data Analytics", "Security & Compliance", "Predictive Analytics", "NLP"],
       hasDemo: false,
       metrics: { "Efficiency Increase": "45%", "Cost Reduction": "30%", "Compliance Rate": "99.2%" }
     },
@@ -73,7 +85,7 @@ const Solutions = () => {
       type: "service",
       industry: "Finance",
       icon: <DollarSign className="text-primary text-xl" />,
-      shortDescription: "Advanced fintech solutions for fraud detection, risk management, and trading.",
+      shortDescription: "Losing revenue to fraud and inefficient risk assessment? Transform your financial operations with AI-driven fraud detection, automated risk management, and intelligent trading solutions.",
       fullDescription: "Revolutionary financial technology solutions that enhance security, optimize trading strategies, and provide deep customer insights. Our fintech platform combines real-time fraud detection with sophisticated risk assessment tools.",
       features: [
         "Real-time fraud detection and prevention",
@@ -81,7 +93,7 @@ const Solutions = () => {
         "Algorithmic trading and portfolio optimization",
         "Customer behavior analytics and personalization"
       ],
-      technologies: ["Machine Learning", "Real-time Analytics", "Blockchain", "API Integration"],
+      technologies: ["AI & Automation", "Data Analytics", "Blockchain Solutions", "Security & Compliance", "Predictive Analytics", "Process Automation"],
       hasDemo: false,
       metrics: { "Fraud Detection": "99.7%", "Risk Reduction": "40%", "Processing Speed": "2.3s" }
     },
@@ -92,7 +104,7 @@ const Solutions = () => {
       type: "service",
       industry: "Manufacturing",
       icon: <Factory className="text-primary text-xl" />,
-      shortDescription: "Smart manufacturing solutions with predictive maintenance and quality control.",
+      shortDescription: "Facing costly downtime and quality issues? Our smart manufacturing solutions predict equipment failures, automate quality control, and optimize your entire production workflow.",
       fullDescription: "Intelligent manufacturing solutions that revolutionize production efficiency through predictive maintenance, automated quality control, and supply chain optimization. Transform your manufacturing operations with AI-powered insights.",
       features: [
         "Predictive maintenance and equipment monitoring",
@@ -100,7 +112,7 @@ const Solutions = () => {
         "Supply chain optimization and demand forecasting",
         "Production workflow automation"
       ],
-      technologies: ["IoT", "Computer Vision", "Predictive Analytics", "Automation"],
+      technologies: ["AI & Automation", "Computer Vision", "Data Analytics", "IoT Integration", "Predictive Analytics", "Process Automation"],
       hasDemo: false,
       metrics: { "Downtime Reduction": "60%", "Quality Improvement": "85%", "Cost Savings": "25%" }
     },
@@ -111,7 +123,7 @@ const Solutions = () => {
       type: "service", 
       industry: "Retail",
       icon: <ShoppingCart className="text-primary text-xl" />,
-      shortDescription: "Omnichannel retail solutions for customer analytics and inventory management.",
+      shortDescription: "Struggling with inventory management and customer retention? Our retail solutions optimize stock levels, predict customer behavior, and deliver personalized shopping experiences.",
       fullDescription: "Comprehensive retail solutions that enhance customer experience through personalized recommendations, optimize inventory management, and implement dynamic pricing strategies for maximum profitability.",
       features: [
         "Customer analytics and personalized recommendations",
@@ -119,7 +131,7 @@ const Solutions = () => {
         "Dynamic pricing optimization",
         "Omnichannel customer experience automation"
       ],
-      technologies: ["Customer Analytics", "AI Recommendations", "Inventory Optimization", "Dynamic Pricing"],
+      technologies: ["AI & Automation", "Data Analytics", "Computer Vision", "NLP", "Process Automation", "Predictive Analytics"],
       hasDemo: false,
       metrics: { "Sales Increase": "35%", "Inventory Optimization": "50%", "Customer Satisfaction": "4.8/5" }
     },
@@ -130,7 +142,7 @@ const Solutions = () => {
       category: "NLP",
       type: "product",
       icon: <Bot className="text-primary text-xl" />,
-      shortDescription: "Intelligent automation solutions powered by advanced AI and machine learning.",
+      shortDescription: "Overwhelmed by repetitive tasks and manual processes? Our intelligent chatbots automate customer service, streamline operations, and provide 24/7 support.",
       fullDescription: "Comprehensive AI and automation platform that transforms business processes through intelligent process automation, machine learning models, and predictive analytics. Streamline operations while reducing costs and improving decision-making.",
       features: [
         "Intelligent Process Automation",
@@ -138,7 +150,7 @@ const Solutions = () => {
         "Predictive Analytics",
         "Natural Language Processing"
       ],
-      technologies: ["Strive Tech", "TensorFlow", "Python", "REST APIs"],
+      technologies: ["Healthcare", "Finance", "Manufacturing", "Retail", "Technology", "Education", "Insurance"],
       hasDemo: true,
       demoType: "ChatBots",
       metrics: { "Process Efficiency": "70%", "Error Reduction": "95%", "Cost Savings": "40%" }
@@ -149,7 +161,7 @@ const Solutions = () => {
       category: "Computer Vision",
       type: "product",
       icon: <Eye className="text-primary text-xl" />,
-      shortDescription: "Advanced AI-powered visual recognition and analysis systems.",
+      shortDescription: "Missing critical security threats or quality defects? Our computer vision systems detect anomalies, monitor security, and ensure quality control with 99% accuracy.",
       fullDescription: "Cutting-edge computer vision solutions that interpret, analyze, and understand digital images and videos. Perfect for quality control, security monitoring, and automated visual inspection across industries.",
       features: [
         "Image Recognition & Classification",
@@ -157,7 +169,7 @@ const Solutions = () => {
         "Facial Recognition Systems",
         "Threat Detection & Security Monitoring"
       ],
-      technologies: ["OpenCV", "TensorFlow", "PyTorch", "YOLO"],
+      technologies: ["Healthcare", "Manufacturing", "Retail", "Automotive", "Logistics", "Government"],
       hasDemo: true,
       demoType: "Computer Vision Models",
       metrics: { "Accuracy": "97.8%", "Processing Speed": "30fps", "Detection Rate": "99.1%" }
@@ -168,7 +180,7 @@ const Solutions = () => {
       category: "Predictive Model",
       type: "product",
       icon: <BarChart className="text-primary text-xl" />,
-      shortDescription: "Data-driven insights and forecasting for strategic business decisions.",
+      shortDescription: "Can't predict market trends or customer behavior? Our predictive analytics platform forecasts outcomes, identifies opportunities, and drives data-driven decisions.",
       fullDescription: "Advanced predictive analytics platform that transforms raw data into actionable business insights. Leverage machine learning algorithms to forecast trends, identify opportunities, and make data-driven strategic decisions.",
       features: [
         "Advanced Statistical Modeling",
@@ -176,7 +188,7 @@ const Solutions = () => {
         "Real-time Data Processing",
         "Interactive Dashboards"
       ],
-      technologies: ["Python", "R", "Apache Spark", "Tableau"],
+      technologies: ["Finance", "Retail", "Manufacturing", "Healthcare", "Energy", "Agriculture"],
       hasDemo: true,
       demoType: "Predictive Models",
       metrics: { "Prediction Accuracy": "94.2%", "Processing Time": "1.2s", "Data Points": "10M+" }
@@ -187,7 +199,7 @@ const Solutions = () => {
       category: "Web3",
       type: "service",
       icon: <Cloud className="text-primary text-xl" />,
-      shortDescription: "Scalable cloud solutions for modern business infrastructure needs.",
+      shortDescription: "Concerned about transparency and security in transactions? Our blockchain solutions ensure immutable records, smart contracts, and decentralized trust.",
       fullDescription: "Robust cloud infrastructure solutions that provide scalable, secure, and cost-effective computing resources. Deploy, manage, and scale your applications with confidence using our comprehensive cloud platform.",
       features: [
         "Auto-scaling Infrastructure",
@@ -195,7 +207,7 @@ const Solutions = () => {
         "Database Management",
         "Security & Compliance"
       ],
-      technologies: ["AWS", "Docker", "Kubernetes", "Terraform"],
+      technologies: ["Finance", "Legal", "Real Estate", "Government", "Media", "Energy"],
       hasDemo: false,
       metrics: { "Uptime": "99.9%", "Scalability": "Auto", "Cost Reduction": "35%" }
     },
@@ -205,7 +217,7 @@ const Solutions = () => {
       category: "Solution Type",
       type: "product",
       icon: <ShieldCheck className="text-primary text-xl" />,
-      shortDescription: "Comprehensive security frameworks and automated compliance monitoring.",
+      shortDescription: "Worried about data breaches and compliance violations? Our security solutions provide real-time threat detection, automated compliance monitoring, and comprehensive risk mitigation.",
       fullDescription: "Enterprise-grade security and compliance solutions that protect your business assets and ensure regulatory adherence. Automated monitoring, threat detection, and compliance reporting keep your organization secure.",
       features: [
         "Regulatory Compliance Automation",
@@ -213,7 +225,7 @@ const Solutions = () => {
         "Audit Trail & Reporting",
         "Risk Assessment & Mitigation"
       ],
-      technologies: ["Security Frameworks", "Compliance Tools", "Monitoring Systems", "Risk Analytics"],
+      technologies: ["Healthcare", "Finance", "Manufacturing", "Retail", "Technology", "Education", "Insurance"],
       hasDemo: false,
       metrics: { "Compliance Rate": "99.8%", "Threat Detection": "Real-time", "Risk Reduction": "65%" }
     }
@@ -222,9 +234,13 @@ const Solutions = () => {
   const filteredSolutions = activeFilter === "All" 
     ? solutions 
     : activeFilter === "Health"
-    ? solutions.filter(solution => solution.type === "service")
+    ? selectedIndustry === "All Industries" 
+      ? solutions.filter(solution => solution.type === "service")
+      : solutions.filter(solution => solution.industry === selectedIndustry.replace("Financial Services", "Finance"))
     : activeFilter === "Solution Type"
-    ? solutions.filter(solution => solution.type === "product")
+    ? selectedSolutionType === "All Solutions"
+      ? solutions.filter(solution => solution.type === "product")
+      : solutions.filter(solution => solution.title.includes(selectedSolutionType.split(" ")[0]) || solution.category === "Solution Type")
     : solutions.filter(solution => solution.category === activeFilter);
 
   // Handle deep linking from Home page industry selector
@@ -319,18 +335,19 @@ const Solutions = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-                onClick={() => document.getElementById('solutions-grid')?.scrollIntoView({ behavior: 'smooth' })}
-                data-testid="button-explore-solutions"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group
+                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
+                onClick={() => window.location.href = '/get-started'}
+                data-testid="button-get-custom-solution"
               >
                 Get Custom Solution
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
-                onClick={() => window.location.href = '/get-started'}
-                data-testid="button-get-custom-solution"
+                className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                onClick={() => document.getElementById('solutions-grid')?.scrollIntoView({ behavior: 'smooth' })}
+                data-testid="button-explore-solutions"
               >
                 Explore Solutions
               </Button>
@@ -403,6 +420,21 @@ const Solutions = () => {
                   <CommandList>
                     <CommandEmpty>No industries found.</CommandEmpty>
                     <CommandGroup>
+                      <CommandItem
+                        value="all-industries"
+                        onSelect={() => {
+                          setActiveFilter("Health");
+                          setSelectedIndustry("All Industries");
+                          setIndustryDropdownOpen(false);
+                          setIndustrySearch("");
+                        }}
+                        className={`flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] ${
+                          selectedIndustry === "All Industries" ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
+                        }`}
+                      >
+                        <Building2 className="h-4 w-4" />
+                        <span>All Industries</span>
+                      </CommandItem>
                       {industryOptions
                         .filter(option => 
                           option.label.toLowerCase().includes(industrySearch.toLowerCase())
@@ -465,6 +497,21 @@ const Solutions = () => {
                   <CommandList>
                     <CommandEmpty>No products or services found.</CommandEmpty>
                     <CommandGroup>
+                      <CommandItem
+                        value="all-solutions"
+                        onSelect={() => {
+                          setActiveFilter("Solution Type");
+                          setSelectedSolutionType("All Solutions");
+                          setProductDropdownOpen(false);
+                          setProductSearch("");
+                        }}
+                        className={`flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] ${
+                          selectedSolutionType === "All Solutions" ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
+                        }`}
+                      >
+                        <Cog className="h-4 w-4" />
+                        <span>All Solutions</span>
+                      </CommandItem>
                       {productOptions
                         .filter(option => 
                           option.label.toLowerCase().includes(productSearch.toLowerCase())
@@ -499,27 +546,24 @@ const Solutions = () => {
             {filteredSolutions.map((solution) => (
               <Card
                 key={solution.id}
-                className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-2 hover:border-primary/50 overflow-hidden h-full flex flex-col"
+                className="group cursor-pointer bg-white transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-2 hover:border-primary/50 overflow-hidden h-full flex flex-col"
                 onClick={() => setSelectedSolution(solution)}
                 data-testid={`solution-card-${solution.id}`}
               >
                 <CardContent className="p-6 flex flex-col h-full">
                   {/* Header Section */}
-                  <div className="flex items-start mb-6">
-                    <div className="flex-shrink-0 mr-4 mt-1">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="text-primary">
                       {solution.icon}
                     </div>
-                    <div className="flex-grow min-w-0">
-                      <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight mb-3">
-                        {solution.title}
-                      </h3>
-                      <div className="flex gap-2">
-                        <Badge variant="secondary" className="text-xs px-2 py-1">
-                          {solution.category}
-                        </Badge>
-                      </div>
-                    </div>
+                    <span className="text-sm font-medium uppercase tracking-wide text-[#020a1c]">
+                      {solution.category}
+                    </span>
                   </div>
+                  
+                  <h3 className="text-xl font-bold text-[#ff7033] mb-3 group-hover:text-primary transition-colors duration-300">
+                    {solution.title}
+                  </h3>
                   
                   {/* Description Section */}
                   <div className="flex-grow mb-6">
@@ -534,8 +578,8 @@ const Solutions = () => {
                       {solution.technologies.slice(0, 3).map((tech, index) => (
                         <Badge 
                           key={index} 
-                          variant="outline" 
-                          className="text-xs px-2 py-1 cursor-pointer transition-all duration-200 hover:scale-105 hover:bg-primary hover:text-white hover:border-primary"
+                          variant="secondary" 
+                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
                           onClick={(e) => {
                             e.stopPropagation();
                             // Navigate to resources page with filter
@@ -547,8 +591,8 @@ const Solutions = () => {
                       ))}
                       {solution.technologies.length > 3 && (
                         <Badge 
-                          variant="outline" 
-                          className="text-xs px-2 py-1 cursor-pointer transition-all duration-200 hover:scale-105 hover:bg-primary hover:text-white hover:border-primary"
+                          variant="secondary" 
+                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedSolution(solution);
@@ -561,30 +605,19 @@ const Solutions = () => {
                   </div>
                   
                   {/* Action Buttons Section */}
-                  <div className="flex items-center justify-between gap-3 mt-auto pt-2">
+                  <div className="mt-auto pt-2">
                     <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      className="text-primary hover:text-primary-foreground hover:bg-primary px-4 py-2"
+                      className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300"
+                      variant="outline"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedSolution(solution);
                       }}
                     >
-                      Learn More
+                      View Details
+                      <Eye className="ml-2 h-4 w-4" />
                     </Button>
-                    {solution.hasDemo && (
-                      <Button 
-                        size="sm" 
-                        className="bg-green-500 hover:bg-green-600 text-white px-4 py-2"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleViewDemo(solution.demoType || "");
-                        }}
-                      >
-                        View Demo
-                      </Button>
-                    )}
+
                   </div>
                 </CardContent>
               </Card>

@@ -113,7 +113,8 @@ const Contact = () => {
         setIsBrochureModalOpen(true);
         break;
       case "chat":
-        toast({ title: "Chat opening...", description: "Connecting you with our support team." });
+        // Navigate to the full Sai chatbot page
+        window.location.href = '/chatbot';
         break;
     }
   };

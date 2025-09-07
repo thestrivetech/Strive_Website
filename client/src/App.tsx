@@ -32,6 +32,7 @@ const Dashboard = lazy(() => import("@/pages/dashboard"));
 const Privacy = lazy(() => import("@/pages/privacy"));
 const Terms = lazy(() => import("@/pages/terms"));
 const Cookies = lazy(() => import("@/pages/cookies"));
+const ChatBotSai = lazy(() => import("@/pages/chatbot-sai"));
 
 // Lazy load solution pages (most likely to be large)
 const Healthcare = lazy(() => import("@/pages/solutions/healthcare"));
@@ -73,6 +74,7 @@ function Router() {
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />
             <Route path="/cookies" component={Cookies} />
+            <Route path="/chatbot" component={ChatBotSai} />
             <Route path="/solutions/healthcare" component={Healthcare} />
             <Route path="/solutions/financial" component={Financial} />
             <Route path="/solutions/manufacturing" component={Manufacturing} />

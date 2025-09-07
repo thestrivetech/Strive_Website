@@ -442,7 +442,7 @@ const Demo = () => {
                           Select Your Preferred Demo Time
                         </Label>
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                          <div className="calendly-inline-widget" 
+                          <div className="calendly-inline-widget demo-cursor-pointer" 
                                data-url="https://calendly.com/strive-tech-demo/30min"
                                style={{ minWidth: '320px', height: '400px' }}>
                           </div>
@@ -479,7 +479,7 @@ const Demo = () => {
                     ) : (
                       <Button
                         type="submit"
-                        className="ml-auto text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg relative overflow-hidden group"
+                        className="ml-auto text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg relative overflow-hidden group demo-cursor-click"
                         style={{
                           background: 'linear-gradient(135deg, #ff7033 0%, #6b46c1 50%, #ff5420 100%)'
                         }}

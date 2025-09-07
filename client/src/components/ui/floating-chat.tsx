@@ -104,6 +104,45 @@ const FloatingChat = () => {
                   </div>
                 </div>
               ))}
+              
+              {/* Quick Actions - Show only if it's the first message */}
+              {messages.length === 1 && (
+                <div className="space-y-2 mt-4">
+                  <p className="text-xs text-muted-foreground">Quick Actions:</p>
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="text-xs"
+                      onClick={() => {
+                        window.location.href = '/demo';
+                      }}
+                    >
+                      Request Demo
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="text-xs"
+                      onClick={() => {
+                        window.location.href = '/solutions';
+                      }}
+                    >
+                      Get Custom Solution
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="text-xs"
+                      onClick={() => {
+                        window.location.href = '/contact';
+                      }}
+                    >
+                      Contact Us
+                    </Button>
+                  </div>
+                </div>
+              )}
             </CardContent>
 
             {/* Chat Input */}

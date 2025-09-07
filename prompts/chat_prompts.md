@@ -14,7 +14,10 @@ Haven't used yet Session start for pdp & pdp file implementation:
 
 
 Regular chat prompt for website edits without agents:
-Please understand the current state of the website and layout. I need your help with updating it. Read lines 18 through 26 in this file: docs/website-update.md - This is your task list for this session. Do your best and be great.
+Please understand the current state of the website and layout. I need your help with updating it. Read this file: chat_logs/website_updates/session10.md - This is your task list for this session along with your chat log where you need to keep full and complete context for the session. Use the existing task list to create a to-do list. Do your best and be great.
 
 Chat log creation:
 Create this sessions chat log please and record full context from this session - Put it here: chat_logs/website_updates/session2.md
+
+MCP server setup (put claude into sonnet model):
+Please read this file and only download the Serena MCP server: MCP_SETUP.md

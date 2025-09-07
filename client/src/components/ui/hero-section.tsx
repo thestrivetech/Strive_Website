@@ -108,7 +108,7 @@ const HeroSection = ({
               <Button
                 onClick={onSecondaryClick}
                 variant="outline"
-                className="w-full sm:w-auto border-2 border-[#ff7033] text-[#ff7033] px-6 lg:px-8 py-3 lg:py-4 text-sm sm:text-base lg:text-lg hover:bg-[#ff7033] hover:text-white transition-all duration-300 min-h-[48px]"
+                className="w-full sm:w-auto hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-6 lg:px-8 py-3 lg:py-4 text-sm sm:text-base lg:text-lg font-semibold rounded-xl transition-all duration-300 min-h-[48px] hover:scale-105 shadow-lg hover:shadow-xl"
                 size="lg"
                 data-testid="button-hero-secondary"
               >
