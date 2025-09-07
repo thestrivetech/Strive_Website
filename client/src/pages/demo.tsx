@@ -175,7 +175,7 @@ const Demo = () => {
           <div className="max-w-4xl mx-auto">
             {/* Progress Indicator */}
             <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center mb-4">
                 {[1, 2, 3].map((step) => (
                   <div key={step} className="flex items-center flex-1">
                     <div className={`
@@ -195,16 +195,21 @@ const Demo = () => {
                   </div>
                 ))}
               </div>
-              <div className="flex justify-between text-sm">
-                <span className={formStep >= 1 ? 'text-primary font-semibold' : 'text-gray-500'}>
-                  Contact Info
-                </span>
-                <span className={formStep >= 2 ? 'text-primary font-semibold' : 'text-gray-500'}>
-                  Business Details
-                </span>
-                <span className={formStep >= 3 ? 'text-primary font-semibold' : 'text-gray-500'}>
-                  Demo Preferences
-                </span>
+              <div className="flex items-center">
+                {[
+                  { step: 1, label: "Contact Info" },
+                  { step: 2, label: "Business Details" },
+                  { step: 3, label: "Demo Preferences" }
+                ].map(({ step, label }) => (
+                  <div key={step} className="flex items-center flex-1">
+                    <div className="w-10 flex justify-center">
+                      <span className={`text-sm ${formStep >= step ? 'text-primary font-semibold' : 'text-gray-500'}`}>
+                        {label}
+                      </span>
+                    </div>
+                    {step < 3 && <div className="flex-1 mx-2" />}
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -234,7 +239,7 @@ const Demo = () => {
                           />
                         </div>
                         <div>
-                          <Label htmlFor="email">Email Address *</Label>
+                          <Label htmlFor="email" className="text-[#ff7033]">Email Address *</Label>
                           <Input
                             id="email"
                             type="email"
@@ -248,7 +253,7 @@ const Demo = () => {
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <Label htmlFor="phone">Phone Number</Label>
+                          <Label htmlFor="phone" className="text-[#ff7033]">Phone Number</Label>
                           <Input
                             id="phone"
                             type="tel"
@@ -258,7 +263,7 @@ const Demo = () => {
                           />
                         </div>
                         <div>
-                          <Label htmlFor="companyName">Company Name *</Label>
+                          <Label htmlFor="companyName" className="text-[#ff7033]">Company Name *</Label>
                           <Input
                             id="companyName"
                             value={formData.companyName}
@@ -270,7 +275,7 @@ const Demo = () => {
                       </div>
                       
                       <div>
-                        <Label htmlFor="jobTitle">Job Title</Label>
+                        <Label htmlFor="jobTitle" className="text-[#ff7033]">Job Title</Label>
                         <Input
                           id="jobTitle"
                           value={formData.jobTitle}
@@ -286,7 +291,7 @@ const Demo = () => {
                     <div className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <Label htmlFor="industry">Industry *</Label>
+                          <Label htmlFor="industry" className="text-[#ff7033]">Industry *</Label>
                           <Select 
                             value={formData.industry} 
                             onValueChange={(value) => handleInputChange("industry", value)}
@@ -304,7 +309,7 @@ const Demo = () => {
                           </Select>
                         </div>
                         <div>
-                          <Label htmlFor="companySize">Company Size *</Label>
+                          <Label htmlFor="companySize" className="text-[#ff7033]">Company Size *</Label>
                           <Select 
                             value={formData.companySize} 
                             onValueChange={(value) => handleInputChange("companySize", value)}
@@ -324,7 +329,7 @@ const Demo = () => {
                       </div>
                       
                       <div>
-                        <Label>Current Challenges * (Select all that apply)</Label>
+                        <Label className="text-[#ff7033]">Current Challenges * (Select all that apply)</Label>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-3">
                           {challenges.map((challenge) => (
                             <div key={challenge} className="flex items-center space-x-2">
@@ -337,7 +342,7 @@ const Demo = () => {
                               />
                               <Label 
                                 htmlFor={challenge} 
-                                className="text-sm font-normal cursor-pointer"
+                                className="text-sm font-normal cursor-pointer text-[#020a1c]"
                               >
                                 {challenge}
                               </Label>
@@ -347,7 +352,7 @@ const Demo = () => {
                       </div>
                       
                       <div>
-                        <Label htmlFor="budgetRange">Budget Range</Label>
+                        <Label htmlFor="budgetRange" className="text-[#ff7033]">Budget Range</Label>
                         <Select 
                           value={formData.budgetRange} 
                           onValueChange={(value) => handleInputChange("budgetRange", value)}
@@ -371,7 +376,7 @@ const Demo = () => {
                   {formStep === 3 && (
                     <div className="space-y-6">
                       <div>
-                        <Label>Demo Focus Areas * (Select all that interest you)</Label>
+                        <Label className="text-[#ff7033]">Demo Focus Areas * (Select all that interest you)</Label>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
                           {demoFocusOptions.map((option) => (
                             <div key={option} className="flex items-center space-x-2">
@@ -384,7 +389,7 @@ const Demo = () => {
                               />
                               <Label 
                                 htmlFor={option} 
-                                className="text-sm font-normal cursor-pointer"
+                                className="text-sm font-normal cursor-pointer text-[#020a1c]"
                               >
                                 {option}
                               </Label>
@@ -395,7 +400,7 @@ const Demo = () => {
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <Label htmlFor="preferredDate">Preferred Date</Label>
+                          <Label htmlFor="preferredDate" className="text-[#ff7033]">Preferred Date</Label>
                           <Input
                             id="preferredDate"
                             type="date"
@@ -405,7 +410,7 @@ const Demo = () => {
                           />
                         </div>
                         <div>
-                          <Label htmlFor="preferredTime">Preferred Time</Label>
+                          <Label htmlFor="preferredTime" className="text-[#ff7033]">Preferred Time</Label>
                           <Select 
                             value={formData.preferredTime} 
                             onValueChange={(value) => handleInputChange("preferredTime", value)}
@@ -423,7 +428,7 @@ const Demo = () => {
                       </div>
                       
                       <div>
-                        <Label htmlFor="additionalRequirements">
+                        <Label htmlFor="additionalRequirements" className="text-[#ff7033]">
                           Additional Requirements or Questions
                         </Label>
                         <Textarea
