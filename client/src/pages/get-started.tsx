@@ -276,10 +276,15 @@ const GetStarted = () => {
                   <Button
                     type="submit"
                     disabled={!isStep3Valid()}
-                    className="w-full bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 text-white py-6 text-lg rounded-xl font-medium"
+                    className="w-full text-white py-6 text-lg rounded-xl font-medium transition-all duration-300 hover:scale-105 shadow-lg relative overflow-hidden group"
+                    style={{
+                      background: 'linear-gradient(135deg, #ff7033 0%, #6b46c1 50%, #ff5420 100%)'
+                    }}
                     data-testid="button-submit"
                   >
-                    Submit
+                    <span className="relative z-10">Submit</span>
+                    {/* Shimmer effect on hover */}
+                    <div className="absolute inset-0 -top-2 -bottom-2 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:opacity-100 transform -skew-x-12 group-hover:animate-shimmer pointer-events-none" />
                   </Button>
                   
                   <p className="text-sm text-center" style={{ color: '#020a1c' }}>
@@ -311,7 +316,7 @@ const GetStarted = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-background/90">
+    <div className="min-h-screen bg-[#ffffffeb]">
       {/* Dark overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
       

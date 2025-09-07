@@ -39,52 +39,52 @@ const Home = () => {
 
   const industrySpecificSolutions = {
     healthcare: [
-      { name: "AI-powered diagnostics and imaging analysis", icon: <Microscope className="w-8 h-8" />, description: "Advanced medical imaging with AI pattern recognition" },
-      { name: "Patient data management and EHR integration", icon: <ClipboardList className="w-8 h-8" />, description: "Seamless electronic health record management" },
-      { name: "Automated compliance and regulatory reporting", icon: <CheckCircle className="w-8 h-8" />, description: "HIPAA compliant automated reporting systems" },
-      { name: "Predictive analytics for patient outcomes", icon: <TrendingUp className="w-8 h-8" />, description: "Early intervention through predictive modeling" }
+      { name: "AI-powered diagnostics and imaging analysis", icon: <Microscope className="w-8 h-8" />, painPoint: "70% misdiagnosis rate in complex cases", description: "Reduce diagnostic errors by 85% with AI pattern recognition that analyzes medical imaging faster than human specialists" },
+      { name: "Patient data management and EHR integration", icon: <ClipboardList className="w-8 h-8" />, painPoint: "4+ hours daily on documentation", description: "Save 3 hours per day with automated EHR management and intelligent data entry systems" },
+      { name: "Automated compliance and regulatory reporting", icon: <CheckCircle className="w-8 h-8" />, painPoint: "$2.5M average HIPAA violation penalty", description: "Achieve 99.9% HIPAA compliance with automated monitoring and real-time violation prevention" },
+      { name: "Predictive analytics for patient outcomes", icon: <TrendingUp className="w-8 h-8" />, painPoint: "30% hospital readmission rates", description: "Reduce readmissions by 45% through AI-driven early intervention and risk prediction" }
     ],
     finance: [
-      { name: "Real-time fraud detection and prevention", icon: <Shield className="w-8 h-8" />, description: "Advanced AI algorithms for fraud prevention" },
-      { name: "Automated risk assessment and reporting", icon: <TrendingUp className="w-8 h-8" />, description: "Comprehensive risk analysis and compliance reporting" },
-      { name: "Algorithmic trading and portfolio optimization", icon: <LineChart className="w-8 h-8" />, description: "AI-driven trading strategies and portfolio management" },
-      { name: "Customer behavior analytics and personalization", icon: <UserCheck className="w-8 h-8" />, description: "Deep customer insights for personalized services" }
+      { name: "Real-time fraud detection and prevention", icon: <Shield className="w-8 h-8" />, painPoint: "$5.8 billion lost to fraud annually", description: "Block 95% of fraudulent transactions in real-time with AI that learns from millions of transaction patterns" },
+      { name: "Automated risk assessment and reporting", icon: <TrendingUp className="w-8 h-8" />, painPoint: "72 hours for manual risk analysis", description: "Complete comprehensive risk assessments in under 5 minutes with 99% accuracy" },
+      { name: "Algorithmic trading and portfolio optimization", icon: <LineChart className="w-8 h-8" />, painPoint: "60% of trades miss optimal timing", description: "Execute trades at perfect timing with AI that processes market data 1000x faster than humans" },
+      { name: "Customer behavior analytics and personalization", icon: <UserCheck className="w-8 h-8" />, painPoint: "85% customer churn due to poor service", description: "Reduce churn by 60% with predictive analytics that anticipate customer needs before they arise" }
     ],
     manufacturing: [
-      { name: "Predictive maintenance and equipment monitoring", icon: <Wrench className="w-8 h-8" />, description: "Prevent downtime with intelligent maintenance scheduling" },
-      { name: "Quality control automation with computer vision", icon: <Eye className="w-8 h-8" />, description: "Automated quality inspection using AI vision" },
-      { name: "Supply chain optimization and demand forecasting", icon: <Package className="w-8 h-8" />, description: "Optimize inventory and predict demand patterns" },
-      { name: "Production workflow automation", icon: <Settings className="w-8 h-8" />, description: "Streamline manufacturing processes with automation" }
+      { name: "Predictive maintenance and equipment monitoring", icon: <Wrench className="w-8 h-8" />, painPoint: "$50K/hour in unplanned downtime costs", description: "Reduce equipment failures by 75% with AI that predicts breakdowns 48 hours in advance" },
+      { name: "Quality control automation with computer vision", icon: <Eye className="w-8 h-8" />, painPoint: "3-5% defect rates in production", description: "Achieve 99.9% quality standards with computer vision that catches defects humans miss" },
+      { name: "Supply chain optimization and demand forecasting", icon: <Package className="w-8 h-8" />, painPoint: "30% excess inventory costs", description: "Cut inventory costs by 40% with AI demand forecasting accurate to within 2%" },
+      { name: "Production workflow automation", icon: <Settings className="w-8 h-8" />, painPoint: "45% production capacity underutilized", description: "Increase throughput by 35% with intelligent workflow optimization and automation" }
     ],
     retail: [
-      { name: "Customer analytics and personalized recommendations", icon: <Target className="w-8 h-8" />, description: "AI-powered personalization for better customer experience" },
-      { name: "Inventory management and demand prediction", icon: <BarChart className="w-8 h-8" />, description: "Smart inventory optimization and demand forecasting" },
-      { name: "Dynamic pricing optimization", icon: <Coins className="w-8 h-8" />, description: "Real-time pricing strategies based on market conditions" },
-      { name: "Omnichannel customer experience automation", icon: <Globe className="w-8 h-8" />, description: "Seamless customer journey across all channels" }
+      { name: "Customer analytics and personalized recommendations", icon: <Target className="w-8 h-8" />, painPoint: "Only 2% conversion rate average", description: "Triple conversion rates with AI personalization that shows each customer exactly what they want" },
+      { name: "Inventory management and demand prediction", icon: <BarChart className="w-8 h-8" />, painPoint: "20% stockout rate during peak times", description: "Eliminate stockouts with AI that predicts demand spikes 2 weeks in advance" },
+      { name: "Dynamic pricing optimization", icon: <Coins className="w-8 h-8" />, painPoint: "Losing 15% margin to price competition", description: "Maximize profits with real-time pricing that adjusts to market conditions instantly" },
+      { name: "Omnichannel customer experience automation", icon: <Globe className="w-8 h-8" />, painPoint: "67% cart abandonment rate", description: "Reduce abandonment by 50% with seamless cross-channel experience and smart retargeting" }
     ],
     technology: [
-      { name: "DevOps automation and CI/CD optimization", icon: <Zap className="w-8 h-8" />, description: "Automated deployment pipelines and infrastructure" },
-      { name: "AI agent development and deployment", icon: <Brain className="w-8 h-8" />, description: "Custom AI agents for business automation" },
-      { name: "Cloud infrastructure and scaling solutions", icon: <Globe className="w-8 h-8" />, description: "Auto-scaling cloud infrastructure management" },
-      { name: "Data pipeline automation and analytics", icon: <TrendingUp className="w-8 h-8" />, description: "Automated data processing and business intelligence" }
+      { name: "DevOps automation and CI/CD optimization", icon: <Zap className="w-8 h-8" />, painPoint: "40% developer time on deployment issues", description: "Deploy 10x faster with zero-downtime CI/CD that eliminates 90% of deployment failures" },
+      { name: "AI agent development and deployment", icon: <Brain className="w-8 h-8" />, painPoint: "$200K+ annual cost for repetitive tasks", description: "Save 80% on operational costs with AI agents that automate complex workflows 24/7" },
+      { name: "Cloud infrastructure and scaling solutions", icon: <Globe className="w-8 h-8" />, painPoint: "70% cloud resources underutilized", description: "Cut cloud costs by 50% with intelligent auto-scaling that matches demand perfectly" },
+      { name: "Data pipeline automation and analytics", icon: <TrendingUp className="w-8 h-8" />, painPoint: "5 days to generate business reports", description: "Get real-time insights with automated pipelines that process terabytes in minutes" }
     ],
     education: [
-      { name: "Learning analytics and student performance insights", icon: <BookOpen className="w-8 h-8" />, description: "Data-driven insights into student learning patterns" },
-      { name: "Administrative workflow automation", icon: <Clipboard className="w-8 h-8" />, description: "Streamline administrative processes and workflows" },
-      { name: "Personalized learning path recommendations", icon: <Target className="w-8 h-8" />, description: "AI-powered personalized education pathways" },
-      { name: "Automated grading and assessment tools", icon: <PenTool className="w-8 h-8" />, description: "Intelligent automated grading and feedback systems" }
+      { name: "Learning analytics and student performance insights", icon: <BookOpen className="w-8 h-8" />, painPoint: "40% student dropout rate", description: "Identify at-risk students 85% earlier with AI that analyzes learning patterns in real-time" },
+      { name: "Administrative workflow automation", icon: <Clipboard className="w-8 h-8" />, painPoint: "60% time on paperwork vs teaching", description: "Free up 5 hours daily for teaching by automating administrative tasks completely" },
+      { name: "Personalized learning path recommendations", icon: <Target className="w-8 h-8" />, painPoint: "One-size-fits-all curriculum fails 50%", description: "Improve outcomes by 70% with AI that creates unique learning paths for each student" },
+      { name: "Automated grading and assessment tools", icon: <PenTool className="w-8 h-8" />, painPoint: "2 weeks average grading turnaround", description: "Provide instant feedback with AI grading that's 95% accurate and available 24/7" }
     ],
     "real-estate": [
-      { name: "Property valuation and market analysis", icon: <Building2 className="w-8 h-8" />, description: "AI-powered property valuation and market insights" },
-      { name: "Automated property management workflows", icon: <FileText className="w-8 h-8" />, description: "Streamline property management operations" },
-      { name: "Lead generation and customer relationship management", icon: <Users className="w-8 h-8" />, description: "Automated lead qualification and CRM integration" },
-      { name: "Market trend prediction and investment insights", icon: <TrendingUp className="w-8 h-8" />, description: "Predictive analytics for real estate investments" }
+      { name: "Property valuation and market analysis", icon: <Building2 className="w-8 h-8" />, painPoint: "15% valuation errors cost millions", description: "Achieve 98% valuation accuracy with AI analyzing 500+ market factors instantly" },
+      { name: "Automated property management workflows", icon: <FileText className="w-8 h-8" />, painPoint: "30% vacancy rates from slow processing", description: "Fill properties 60% faster with automated screening and instant lease processing" },
+      { name: "Lead generation and customer relationship management", icon: <Users className="w-8 h-8" />, painPoint: "80% of leads never convert", description: "Triple conversion rates with AI that nurtures leads and identifies hot prospects automatically" },
+      { name: "Market trend prediction and investment insights", icon: <TrendingUp className="w-8 h-8" />, painPoint: "Missing 40% of investment opportunities", description: "Spot profitable opportunities 30 days earlier with predictive market analytics" }
     ],
     legal: [
-      { name: "Document automation and contract analysis", icon: <FileText className="w-8 h-8" />, description: "AI-powered document generation and contract review" },
-      { name: "Case management and workflow optimization", icon: <Scale className="w-8 h-8" />, description: "Streamlined case management and legal workflows" },
-      { name: "Legal research and precedent discovery", icon: <Search className="w-8 h-8" />, description: "AI-assisted legal research and case law analysis" },
-      { name: "Compliance monitoring and risk assessment", icon: <ShieldAlert className="w-8 h-8" />, description: "Automated compliance monitoring and risk management" }
+      { name: "Document automation and contract analysis", icon: <FileText className="w-8 h-8" />, painPoint: "20 hours per contract review", description: "Review contracts in 30 minutes with AI that catches risks humans miss 40% of the time" },
+      { name: "Case management and workflow optimization", icon: <Scale className="w-8 h-8" />, painPoint: "35% cases miss critical deadlines", description: "Never miss a deadline with automated workflows that track every case milestone" },
+      { name: "Legal research and precedent discovery", icon: <Search className="w-8 h-8" />, painPoint: "50+ hours on case research", description: "Find relevant precedents in seconds with AI that searches millions of cases instantly" },
+      { name: "Compliance monitoring and risk assessment", icon: <ShieldAlert className="w-8 h-8" />, painPoint: "$4M average compliance violation fine", description: "Maintain 100% compliance with real-time monitoring that prevents violations before they occur" }
     ]
   };
 
@@ -159,7 +159,7 @@ const Home = () => {
         title="Custom AI Solutions Built for Real World Performance"
         subtitle="Unlock the power of artificial intelligence to transform your business operations, increase efficiency, and drive sustainable growth."
         primaryButtonText="Get Started"
-        secondaryButtonText="View Demos"
+        secondaryButtonText="Request Free Demo"
         onPrimaryClick={handleGetStarted}
         onSecondaryClick={handleWatchDemo}
       />
@@ -237,8 +237,13 @@ const Home = () => {
                       <h4 className="text-white font-semibold mb-2 text-sm leading-tight">
                         {solution.name}
                       </h4>
-                      <p className="text-white/70 text-xs leading-relaxed">
-                        {solution.description}
+                      {solution.painPoint && (
+                        <p className="text-red-400 text-xs font-semibold mb-2">
+                          Pain Point: {solution.painPoint}
+                        </p>
+                      )}
+                      <p className="text-white/90 text-xs leading-relaxed">
+                        Solution: {solution.description}
                       </p>
                     </CardContent>
                   </Card>

@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle, ArrowRight, Calendar, Clock, Phone, Video, MapPin, Users, Building, Target, Lightbulb, AlertCircle } from "lucide-react";
 
 const Consultation = () => {
@@ -13,12 +15,27 @@ const Consultation = () => {
     email: "",
     company: "",
     phone: "",
-    communicationMethod: "google-meet"
+    communicationMethod: "google-meet",
+    industry: "",
+    companySize: "",
+    currentChallenges: [] as string[],
+    budgetRange: "",
+    timeline: "",
+    projectDescription: ""
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
     setContactData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleCheckboxChange = (field: string, value: string, checked: boolean) => {
+    setContactData(prev => ({
+      ...prev,
+      [field]: checked 
+        ? [...(prev[field as keyof typeof prev] as string[]), value]
+        : ((prev[field as keyof typeof prev] as string[]).filter((item: string) => item !== value))
+    }));
   };
 
   const handleSubmitContact = (e: React.FormEvent) => {
@@ -33,7 +50,9 @@ const Consultation = () => {
            contactData.lastName && 
            contactData.email && 
            contactData.company && 
-           contactData.phone;
+           contactData.phone &&
+           contactData.industry &&
+           contactData.companySize;
   };
 
   const communicationMethods = [
@@ -131,6 +150,120 @@ const Consultation = () => {
                 ))}
               </SelectContent>
             </Select>
+          </div>
+          
+          {/* Industry Selection */}
+          <div>
+            <label className="block text-sm font-medium mb-2">Industry *</label>
+            <Select value={contactData.industry} onValueChange={(value) => handleInputChange('industry', value)}>
+              <SelectTrigger data-testid="select-industry">
+                <SelectValue placeholder="Select your industry" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="healthcare">Healthcare</SelectItem>
+                <SelectItem value="finance">Finance</SelectItem>
+                <SelectItem value="manufacturing">Manufacturing</SelectItem>
+                <SelectItem value="retail">Retail</SelectItem>
+                <SelectItem value="technology">Technology</SelectItem>
+                <SelectItem value="education">Education</SelectItem>
+                <SelectItem value="real-estate">Real Estate</SelectItem>
+                <SelectItem value="legal">Legal</SelectItem>
+                <SelectItem value="other">Other</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          {/* Company Size */}
+          <div>
+            <label className="block text-sm font-medium mb-2">Company Size *</label>
+            <Select value={contactData.companySize} onValueChange={(value) => handleInputChange('companySize', value)}>
+              <SelectTrigger data-testid="select-company-size">
+                <SelectValue placeholder="Select company size" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1-10">1-10 employees</SelectItem>
+                <SelectItem value="11-50">11-50 employees</SelectItem>
+                <SelectItem value="51-200">51-200 employees</SelectItem>
+                <SelectItem value="201-500">201-500 employees</SelectItem>
+                <SelectItem value="501-1000">501-1000 employees</SelectItem>
+                <SelectItem value="1000+">1000+ employees</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          {/* Current Challenges */}
+          <div>
+            <label className="block text-sm font-medium mb-2">Current Challenges (Select all that apply)</label>
+            <div className="space-y-2">
+              {[
+                "Process Automation",
+                "Data Analytics",
+                "Customer Experience",
+                "Operational Efficiency",
+                "Cost Reduction",
+                "Scalability",
+                "Security & Compliance",
+                "Digital Transformation"
+              ].map((challenge) => (
+                <div key={challenge} className="flex items-center space-x-2">
+                  <Checkbox
+                    id={challenge}
+                    checked={contactData.currentChallenges.includes(challenge)}
+                    onCheckedChange={(checked) => handleCheckboxChange('currentChallenges', challenge, checked as boolean)}
+                  />
+                  <label htmlFor={challenge} className="text-sm cursor-pointer">
+                    {challenge}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Budget Range */}
+          <div>
+            <label className="block text-sm font-medium mb-2">Budget Range</label>
+            <Select value={contactData.budgetRange} onValueChange={(value) => handleInputChange('budgetRange', value)}>
+              <SelectTrigger data-testid="select-budget">
+                <SelectValue placeholder="Select budget range" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="under-10k">Under $10,000</SelectItem>
+                <SelectItem value="10-50k">$10,000 - $50,000</SelectItem>
+                <SelectItem value="50-100k">$50,000 - $100,000</SelectItem>
+                <SelectItem value="100-500k">$100,000 - $500,000</SelectItem>
+                <SelectItem value="500k+">$500,000+</SelectItem>
+                <SelectItem value="not-sure">Not sure yet</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          {/* Timeline */}
+          <div>
+            <label className="block text-sm font-medium mb-2">Project Timeline</label>
+            <Select value={contactData.timeline} onValueChange={(value) => handleInputChange('timeline', value)}>
+              <SelectTrigger data-testid="select-timeline">
+                <SelectValue placeholder="When do you need this?" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="immediate">Immediate (ASAP)</SelectItem>
+                <SelectItem value="1-3months">1-3 months</SelectItem>
+                <SelectItem value="3-6months">3-6 months</SelectItem>
+                <SelectItem value="6-12months">6-12 months</SelectItem>
+                <SelectItem value="planning">Just planning/researching</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          {/* Project Description */}
+          <div>
+            <label className="block text-sm font-medium mb-2">Project Description</label>
+            <Textarea
+              placeholder="Please briefly describe your project needs and goals..."
+              value={contactData.projectDescription}
+              onChange={(e) => handleInputChange('projectDescription', e.target.value)}
+              className="min-h-[100px]"
+              data-testid="textarea-project-description"
+            />
           </div>
         </div>
       );

@@ -11,6 +11,8 @@ import { Link } from "wouter";
 
 const Solutions = () => {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [selectedIndustry, setSelectedIndustry] = useState("");
+  const [selectedSolutionType, setSelectedSolutionType] = useState("");
   const [selectedSolution, setSelectedSolution] = useState<any>(null);
   const [industryDropdownOpen, setIndustryDropdownOpen] = useState(false);
   const [productDropdownOpen, setProductDropdownOpen] = useState(false);
@@ -306,7 +308,7 @@ const Solutions = () => {
               className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-solutions-hero-title"
             >
-              AI-Powered Solutions for Every Industry
+              AI-Powered Solutions for <span className="gradient-text">Every</span> Industry
             </h1>
             <p 
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
@@ -321,16 +323,16 @@ const Solutions = () => {
                 onClick={() => document.getElementById('solutions-grid')?.scrollIntoView({ behavior: 'smooth' })}
                 data-testid="button-explore-solutions"
               >
-                Explore Solutions
+                Get Custom Solution
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
                 onClick={() => window.location.href = '/get-started'}
                 data-testid="button-get-custom-solution"
               >
-                Get Custom Solution
+                Explore Solutions
               </Button>
             </div>
           </div>
@@ -340,12 +342,23 @@ const Solutions = () => {
       {/* Filter and Solutions Grid Section */}
       <section className="py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]" id="solutions-grid">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Filter Instruction Text */}
+          <div className="text-center mb-8">
+            <p className="text-lg text-muted-foreground">
+              Use the filter to find your industry specific solution!
+            </p>
+          </div>
+          
           {/* Filter Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
             {/* All Filter */}
             <Button
               variant={activeFilter === "All" ? "default" : "outline"}
-              onClick={() => setActiveFilter("All")}
+              onClick={() => {
+                setActiveFilter("All");
+                setSelectedIndustry("");
+                setSelectedSolutionType("");
+              }}
               className={`flex items-center px-6 py-3 transition-all duration-200 ${
                 activeFilter === "All"
                   ? "bg-primary text-white shadow-lg scale-105"
@@ -362,25 +375,25 @@ const Solutions = () => {
                 <Button
                   variant={activeFilter === "Health" ? "default" : "outline"}
                   onClick={() => {
-                    // Toggle filter - if already active, reset to "All"
-                    setActiveFilter(activeFilter === "Health" ? "All" : "Health");
+                    // Toggle dropdown open/closed
+                    setIndustryDropdownOpen(!industryDropdownOpen);
                   }}
-                  className={`flex items-center px-6 py-3 transition-all duration-200 ${
+                  className={`flex items-center px-6 py-3 min-w-[200px] transition-all duration-200 ${
                     activeFilter === "Health"
                       ? "bg-primary text-white shadow-lg scale-105"
                       : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
                   }`}
                   data-testid="filter-by-industry"
                 >
-                  <Building2 className="h-4 w-4 mr-2" />
-                  Health
-                  <Badge variant="secondary" className="ml-2 text-xs">
+                  <Building2 className="h-4 w-4 mr-2 flex-shrink-0" />
+                  <span className="flex-grow text-left">{selectedIndustry || "Industry"}</span>
+                  <Badge variant="secondary" className="ml-auto mr-2 text-xs">
                     {solutions.filter(solution => solution.type === "service").length}
                   </Badge>
-                  <ChevronDown className="h-4 w-4 ml-2" />
+                  <ChevronDown className="h-4 w-4 flex-shrink-0" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-64 p-0" align="start">
+              <PopoverContent className="w-64 p-0" align="start" side="bottom" sideOffset={5} avoidCollisions={false}>
                 <Command>
                   <CommandInput 
                     placeholder="Search industries..." 
@@ -400,10 +413,13 @@ const Solutions = () => {
                           value={option.value}
                           onSelect={() => {
                             setActiveFilter("Health");
+                            setSelectedIndustry(option.label);
                             setIndustryDropdownOpen(false);
                             setIndustrySearch("");
                           }}
-                          className="flex items-center gap-2 cursor-pointer"
+                          className={`flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] ${
+                            selectedIndustry === option.label ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
+                          }`}
                         >
                           {option.icon}
                           <span>{option.label}</span>
@@ -421,25 +437,25 @@ const Solutions = () => {
                 <Button
                   variant={activeFilter === "Solution Type" ? "default" : "outline"}
                   onClick={() => {
-                    // Toggle filter - if already active, reset to "All"
-                    setActiveFilter(activeFilter === "Solution Type" ? "All" : "Solution Type");
+                    // Toggle dropdown open/closed
+                    setProductDropdownOpen(!productDropdownOpen);
                   }}
-                  className={`flex items-center px-6 py-3 transition-all duration-200 ${
+                  className={`flex items-center px-6 py-3 min-w-[220px] transition-all duration-200 ${
                     activeFilter === "Solution Type"
                       ? "bg-primary text-white shadow-lg scale-105"
                       : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
                   }`}
                   data-testid="filter-by-product-service"
                 >
-                  <Cog className="h-4 w-4 mr-2" />
-                  Solution Type
-                  <Badge variant="secondary" className="ml-2 text-xs">
+                  <Cog className="h-4 w-4 mr-2 flex-shrink-0" />
+                  <span className="flex-grow text-left">{selectedSolutionType || "Solution Type"}</span>
+                  <Badge variant="secondary" className="ml-auto mr-2 text-xs">
                     {solutions.filter(solution => solution.type === "product").length}
                   </Badge>
-                  <ChevronDown className="h-4 w-4 ml-2" />
+                  <ChevronDown className="h-4 w-4 flex-shrink-0" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-64 p-0" align="start">
+              <PopoverContent className="w-64 p-0" align="start" side="bottom" sideOffset={5} avoidCollisions={false}>
                 <Command>
                   <CommandInput 
                     placeholder="Search solutions..." 
@@ -459,10 +475,13 @@ const Solutions = () => {
                           value={option.value}
                           onSelect={() => {
                             setActiveFilter("Solution Type");
+                            setSelectedSolutionType(option.label);
                             setProductDropdownOpen(false);
                             setProductSearch("");
                           }}
-                          className="flex items-center gap-2 cursor-pointer"
+                          className={`flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] ${
+                            selectedSolutionType === option.label ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
+                          }`}
                         >
                           {option.icon}
                           <span>{option.label}</span>

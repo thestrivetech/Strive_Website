@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   Building2, Users, Target, Calendar, Clock, Mail, Phone, User, 
   Briefcase, CheckCircle, ChevronRight, Sparkles, Zap
@@ -27,12 +27,11 @@ const Demo = () => {
     industry: "",
     companySize: "",
     currentChallenges: [] as string[],
+    otherChallengeText: "", // New field for custom challenge text
     budgetRange: "",
     
     // Demo Preferences
     demoFocusAreas: [] as string[],
-    preferredDate: "",
-    preferredTime: "",
     additionalRequirements: ""
   });
 
@@ -63,6 +62,21 @@ const Demo = () => {
     "Custom AI Models", "Integration Capabilities"
   ];
 
+  // Load Calendly script when component mounts
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // Cleanup script when component unmounts
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
   const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
@@ -78,9 +92,18 @@ const Demo = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Include custom challenge text in the submission if "Other" is selected
+    const submissionData = {
+      ...formData,
+      currentChallenges: formData.currentChallenges.includes("Other") && formData.otherChallengeText
+        ? [...formData.currentChallenges.filter(c => c !== "Other"), `Other: ${formData.otherChallengeText}`]
+        : formData.currentChallenges
+    };
+    
     setIsSubmitted(true);
     // Here you would typically send the form data to your backend
-    console.log("Demo request submitted:", formData);
+    console.log("Demo request submitted:", submissionData);
   };
 
   const isStepComplete = (step: number) => {
@@ -143,31 +166,7 @@ const Demo = () => {
 
   return (
     <div className="pt-16">
-      {/* Hero Section */}
-      <section className="py-12 hero-gradient relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-48 h-48 bg-orange-500/10 rounded-full blur-2xl animate-pulse" style={{animationDelay: '2s'}}></div>
-        </div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-6">
-              <div className="relative">
-                <Sparkles className="text-primary h-16 w-16 animate-pulse" />
-                <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping"></div>
-              </div>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Request Your Free Custom Demo
-            </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Let us show you exactly how Strive can transform your business. 
-              Get a personalized demonstration tailored to your specific needs and challenges.
-            </p>
-          </div>
-        </div>
-      </section>
+
 
       {/* Form Section */}
       <section className="py-16 bg-[#ffffffeb]">
@@ -343,7 +342,38 @@ const Demo = () => {
                               </Label>
                             </div>
                           ))}
+                          {/* Other option */}
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="other-challenge"
+                              checked={formData.currentChallenges.includes("Other")}
+                              onCheckedChange={(checked) => {
+                                handleCheckboxChange("currentChallenges", "Other", checked as boolean);
+                                // Clear the custom text if unchecked
+                                if (!checked) {
+                                  handleInputChange("otherChallengeText", "");
+                                }
+                              }}
+                            />
+                            <Label 
+                              htmlFor="other-challenge" 
+                              className="text-sm font-normal cursor-pointer text-[#020a1c]"
+                            >
+                              Other
+                            </Label>
+                          </div>
                         </div>
+                        {/* Custom challenge text input - shown when "Other" is selected */}
+                        {formData.currentChallenges.includes("Other") && (
+                          <div className="mt-4">
+                            <Input
+                              placeholder="Please specify your challenge or pain point..."
+                              value={formData.otherChallengeText}
+                              onChange={(e) => handleInputChange("otherChallengeText", e.target.value)}
+                              className="w-full"
+                            />
+                          </div>
+                        )}
                       </div>
                       
                       <div>
@@ -393,35 +423,6 @@ const Demo = () => {
                         </div>
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <Label htmlFor="preferredDate" className="text-[#ff7033]">Preferred Date</Label>
-                          <Input
-                            id="preferredDate"
-                            type="date"
-                            value={formData.preferredDate}
-                            onChange={(e) => handleInputChange("preferredDate", e.target.value)}
-                            min={new Date().toISOString().split('T')[0]}
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="preferredTime" className="text-[#ff7033]">Preferred Time</Label>
-                          <Select 
-                            value={formData.preferredTime} 
-                            onValueChange={(value) => handleInputChange("preferredTime", value)}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select time slot" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="morning">Morning (9 AM - 12 PM EST)</SelectItem>
-                              <SelectItem value="afternoon">Afternoon (12 PM - 5 PM EST)</SelectItem>
-                              <SelectItem value="evening">Evening (5 PM - 7 PM EST)</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-                      
                       <div>
                         <Label htmlFor="additionalRequirements" className="text-[#ff7033]">
                           Additional Requirements or Questions
@@ -433,6 +434,22 @@ const Demo = () => {
                           placeholder="Tell us about any specific features you'd like to see or questions you have..."
                           rows={4}
                         />
+                      </div>
+
+                      {/* Calendly Embed Section */}
+                      <div>
+                        <Label className="text-[#ff7033] mb-4 block">
+                          Select Your Preferred Demo Time
+                        </Label>
+                        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                          <div className="calendly-inline-widget" 
+                               data-url="https://calendly.com/strive-tech-demo/30min"
+                               style={{ minWidth: '320px', height: '400px' }}>
+                          </div>
+                          <p className="text-sm text-muted-foreground mt-2 text-center">
+                            * You'll receive a calendar invite and confirmation email after scheduling
+                          </p>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -462,11 +479,18 @@ const Demo = () => {
                     ) : (
                       <Button
                         type="submit"
-                        className="ml-auto bg-primary hover:bg-primary/90"
+                        className="ml-auto text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg relative overflow-hidden group"
+                        style={{
+                          background: 'linear-gradient(135deg, #ff7033 0%, #6b46c1 50%, #ff5420 100%)'
+                        }}
                         disabled={!isStepComplete(3)}
                       >
-                        Submit Demo Request
-                        <Zap className="ml-2 h-4 w-4" />
+                        <span className="relative z-10">
+                          Submit Demo Request
+                          <Zap className="ml-2 h-4 w-4 inline" />
+                        </span>
+                        {/* Shimmer effect on hover */}
+                        <div className="absolute inset-0 -top-2 -bottom-2 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:opacity-100 transform -skew-x-12 group-hover:animate-shimmer pointer-events-none" />
                       </Button>
                     )}
                   </div>

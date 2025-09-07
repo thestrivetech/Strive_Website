@@ -177,7 +177,7 @@ const Portfolio = () => {
               className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-hero-title"
             >
-              Unleashing AI Solutions for Tomorrow
+              Solutions that give you more <span className="gradient-text">Time</span> to do what you love
             </h1>
             <p 
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
@@ -275,7 +275,7 @@ const Portfolio = () => {
                     </span>
                   </div>
                   
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-[#ff7033] mb-3 group-hover:text-primary transition-colors duration-300">
                     {project.title}
                   </h3>
                   
@@ -285,7 +285,15 @@ const Portfolio = () => {
                   
                   <div className="flex flex-wrap gap-1 mb-4">
                     {project.technologies.slice(0, 3).map((tech, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
+                      <Badge 
+                        key={index} 
+                        variant="secondary" 
+                        className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.location.href = `/resources#tools-tech-${tech.toLowerCase().replace(/\s+/g, '-')}`;
+                        }}
+                      >
                         {tech}
                       </Badge>
                     ))}
@@ -376,7 +384,14 @@ const Portfolio = () => {
                   <h3 className="text-lg font-semibold mb-3">Technology Stack</h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.technologies.map((tech: string, index: number) => (
-                      <Badge key={index} variant="secondary" className="px-3 py-1">
+                      <Badge 
+                        key={index} 
+                        variant="secondary" 
+                        className="px-3 py-1 cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
+                        onClick={() => {
+                          window.location.href = `/resources#tools-tech-${tech.toLowerCase().replace(/\s+/g, '-')}`;
+                        }}
+                      >
                         {tech}
                       </Badge>
                     ))}

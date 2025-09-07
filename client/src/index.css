@@ -179,6 +179,20 @@
     transition: all 0.3s ease;
   }
 
+  /* Shimmer animation for buttons */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%) skewX(-12deg);
+    }
+    100% {
+      transform: translateX(200%) skewX(-12deg);
+    }
+  }
+
+  .group:hover .group-hover\:animate-shimmer {
+    animation: shimmer 0.75s ease-out;
+  }
+
   .card-hover:hover {
     transform: translateY(-4px);
     box-shadow: 0 20px 40px hsla(24, 100%, 58%, 0.1);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Download, FileText, BookOpen, BarChart3, Sparkles, Eye, X, ExternalLink, Clock, User, Calendar, BrainCircuit, Play, CheckCircle, AlertCircle, Trophy, Target } from "lucide-react";
+import { Download, FileText, BookOpen, BarChart3, Sparkles, Eye, X, ExternalLink, Clock, User, Calendar, BrainCircuit, Play, CheckCircle, AlertCircle, Trophy, Target, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -76,6 +76,7 @@ const Resources = () => {
     { name: "Whitepapers", icon: <FileText className="h-4 w-4 mr-2" /> },
     { name: "Case Studies", icon: <BarChart3 className="h-4 w-4 mr-2" /> },
     { name: "Quizzes", icon: <BrainCircuit className="h-4 w-4 mr-2" /> },
+    { name: "Tools & Tech", icon: <Wrench className="h-4 w-4 mr-2" /> },
   ];
   
   const featuredResource = {
@@ -1580,11 +1581,18 @@ const Resources = () => {
                     <Download className="mr-2 h-4 w-4" />
                     Download Resource
                   </Button>
-                  <Button variant="outline">
+                  <Button 
+                    variant="outline"
+                    className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-6 py-3 font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                  >
                     <ExternalLink className="mr-2 h-4 w-4" />
                     Share
                   </Button>
-                  <Button variant="outline" onClick={() => window.location.href = '/contact'}>
+                  <Button 
+                    variant="outline"
+                    className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white px-6 py-3 font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                    onClick={() => window.location.href = '/contact'}
+                  >
                     Get Consulting
                   </Button>
                 </div>
