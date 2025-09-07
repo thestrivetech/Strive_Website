@@ -96,20 +96,32 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#ffffffeb] p-4">
-      <div className="w-full max-w-md">
-        <Card className="shadow-lg">
-          <CardHeader className="text-center hero-gradient">
-            <CardTitle className="text-2xl font-bold text-white">Welcome to Strive</CardTitle>
-            <CardDescription className="text-gray-200">
+    <div className="min-h-screen hero-gradient flex items-center justify-center pt-16">
+      <div className="w-full max-w-md p-4">
+        <Card className="shadow-2xl border border-gray-100 rounded-2xl overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
+          <CardHeader className="text-center pb-8 pt-8">
+            <CardTitle className="text-3xl font-bold gradient-text mb-2">Welcome to Strive</CardTitle>
+            <CardDescription className="text-gray-600">
               Sign in to your account or create a new one to get started
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-8 pb-8">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="login" data-testid="tab-login">Login</TabsTrigger>
-                <TabsTrigger value="signup" data-testid="tab-signup">Sign Up</TabsTrigger>
+                <TabsTrigger 
+                  value="login" 
+                  data-testid="tab-login"
+                  className="data-[state=active]:bg-[#ff7033] data-[state=active]:text-white"
+                >
+                  Login
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="signup" 
+                  data-testid="tab-signup"
+                  className="data-[state=active]:bg-[#ff7033] data-[state=active]:text-white"
+                >
+                  Sign Up
+                </TabsTrigger>
               </TabsList>
               
               <TabsContent value="login" className="space-y-4 min-h-[280px]">

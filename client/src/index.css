@@ -190,7 +190,7 @@
   }
 
   .group:hover .group-hover\:animate-shimmer {
-    animation: shimmer 0.75s ease-out;
+    animation: shimmer 0.6s ease-out forwards;
   }
 
   .card-hover:hover {

@@ -284,7 +284,7 @@ const GetStarted = () => {
                   >
                     <span className="relative z-10">Submit</span>
                     {/* Shimmer effect on hover */}
-                    <div className="absolute inset-0 -top-2 -bottom-2 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:opacity-100 transform -skew-x-12 group-hover:animate-shimmer pointer-events-none" />
+                    <div className="absolute inset-0 -top-2 -bottom-2 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:animate-shimmer pointer-events-none" />
                   </Button>
                   
                   <p className="text-sm text-center" style={{ color: '#020a1c' }}>
@@ -316,15 +316,14 @@ const GetStarted = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#ffffffeb]">
-      {/* Dark overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
-      
-      <div className="relative pt-20 pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          {renderStep()}
+    <div className="pt-16 min-h-screen">
+      <section className="hero-gradient pt-20 pb-12">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            {renderStep()}
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

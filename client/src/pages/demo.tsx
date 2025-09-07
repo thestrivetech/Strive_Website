@@ -490,7 +490,7 @@ const Demo = () => {
                           <Zap className="ml-2 h-4 w-4 inline" />
                         </span>
                         {/* Shimmer effect on hover */}
-                        <div className="absolute inset-0 -top-2 -bottom-2 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:opacity-100 transform -skew-x-12 group-hover:animate-shimmer pointer-events-none" />
+                        <div className="absolute inset-0 -top-2 -bottom-2 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:animate-shimmer pointer-events-none" />
                       </Button>
                     )}
                   </div>
