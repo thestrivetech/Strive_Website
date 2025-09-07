@@ -178,8 +178,15 @@ const Demo = () => {
               <div className="flex items-center mb-4">
                 {[1, 2, 3].map((step) => (
                   <div key={step} className="flex items-center flex-1">
+                    {step > 1 && (
+                      <div className={`
+                        h-1 flex-1 mr-2
+                        ${formStep > step - 1 ? 'bg-primary' : 'bg-gray-200'}
+                        transition-all duration-300
+                      `} />
+                    )}
                     <div className={`
-                      w-10 h-10 rounded-full flex items-center justify-center font-semibold
+                      w-10 h-10 rounded-full flex items-center justify-center font-semibold mx-auto
                       ${formStep >= step ? 'bg-primary text-white' : 'bg-gray-200 text-gray-500'}
                       transition-all duration-300
                     `}>
@@ -187,7 +194,7 @@ const Demo = () => {
                     </div>
                     {step < 3 && (
                       <div className={`
-                        h-1 flex-1 mx-2
+                        h-1 flex-1 ml-2
                         ${formStep > step ? 'bg-primary' : 'bg-gray-200'}
                         transition-all duration-300
                       `} />
