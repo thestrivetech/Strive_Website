@@ -78,63 +78,68 @@ const Consultation = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium mb-2">First Name *</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>First Name *</label>
               <Input
                 type="text"
                 placeholder="John"
                 value={contactData.firstName}
                 onChange={(e) => handleInputChange('firstName', e.target.value)}
+                style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                 data-testid="input-first-name"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium mb-2">Last Name *</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Last Name *</label>
               <Input
                 type="text"
                 placeholder="Doe"
                 value={contactData.lastName}
                 onChange={(e) => handleInputChange('lastName', e.target.value)}
+                style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                 data-testid="input-last-name"
               />
             </div>
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2">Business Email *</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Business Email *</label>
             <Input
               type="email"
               placeholder="john@company.com"
               value={contactData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
+              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
               data-testid="input-email"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2">Company Name *</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Company Name *</label>
             <Input
               type="text"
               placeholder="Your Company"
               value={contactData.company}
               onChange={(e) => handleInputChange('company', e.target.value)}
+              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
               data-testid="input-company"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2">Phone Number *</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Phone Number *</label>
             <Input
               type="tel"
               placeholder="+1 (555) 123-4567"
               value={contactData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
+              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
               data-testid="input-phone"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2">Preferred Communication Method</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Preferred Communication Method</label>
             <Select value={contactData.communicationMethod} onValueChange={(value) => handleInputChange('communicationMethod', value)}>
               <SelectTrigger data-testid="select-communication-method">
                 <SelectValue placeholder="Select method" />
@@ -154,7 +159,7 @@ const Consultation = () => {
           
           {/* Industry Selection */}
           <div>
-            <label className="block text-sm font-medium mb-2">Industry *</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Industry *</label>
             <Select value={contactData.industry} onValueChange={(value) => handleInputChange('industry', value)}>
               <SelectTrigger data-testid="select-industry">
                 <SelectValue placeholder="Select your industry" />
@@ -175,7 +180,7 @@ const Consultation = () => {
           
           {/* Company Size */}
           <div>
-            <label className="block text-sm font-medium mb-2">Company Size *</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Company Size *</label>
             <Select value={contactData.companySize} onValueChange={(value) => handleInputChange('companySize', value)}>
               <SelectTrigger data-testid="select-company-size">
                 <SelectValue placeholder="Select company size" />
@@ -193,7 +198,7 @@ const Consultation = () => {
           
           {/* Current Challenges */}
           <div>
-            <label className="block text-sm font-medium mb-2">Current Challenges (Select all that apply)</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Current Challenges (Select all that apply)</label>
             <div className="space-y-2">
               {[
                 "Process Automation",
@@ -221,7 +226,7 @@ const Consultation = () => {
           
           {/* Budget Range */}
           <div>
-            <label className="block text-sm font-medium mb-2">Budget Range</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Budget Range</label>
             <Select value={contactData.budgetRange} onValueChange={(value) => handleInputChange('budgetRange', value)}>
               <SelectTrigger data-testid="select-budget">
                 <SelectValue placeholder="Select budget range" />
@@ -239,7 +244,7 @@ const Consultation = () => {
           
           {/* Timeline */}
           <div>
-            <label className="block text-sm font-medium mb-2">Project Timeline</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Project Timeline</label>
             <Select value={contactData.timeline} onValueChange={(value) => handleInputChange('timeline', value)}>
               <SelectTrigger data-testid="select-timeline">
                 <SelectValue placeholder="When do you need this?" />
@@ -256,12 +261,13 @@ const Consultation = () => {
           
           {/* Project Description */}
           <div>
-            <label className="block text-sm font-medium mb-2">Project Description</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Project Description</label>
             <Textarea
               placeholder="Please briefly describe your project needs and goals..."
               value={contactData.projectDescription}
               onChange={(e) => handleInputChange('projectDescription', e.target.value)}
               className="min-h-[100px]"
+              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
               data-testid="textarea-project-description"
             />
           </div>
@@ -348,7 +354,7 @@ const Consultation = () => {
   };
 
   return (
-    <div className="pt-16 min-h-screen bg-gradient-to-br from-background to-background/80">
+    <div className="pt-16 min-h-screen hero-gradient">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-2xl mx-auto">
           {/* Header */}
@@ -384,7 +390,7 @@ const Consultation = () => {
           </div>
 
           {/* Form Card */}
-          <Card className="bg-card border-border">
+          <Card className="bg-card border-border" style={{ backgroundColor: '#ffffffeb' }}>
             <CardContent className="p-8">
               {step === 1 ? (
                 <form onSubmit={handleSubmitContact}>

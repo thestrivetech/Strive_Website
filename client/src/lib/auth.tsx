@@ -43,7 +43,7 @@ interface AuthContextType {
   user: User | null;
   token: string | null;
   login: (username: string, password: string) => Promise<void>;
-  signup: (username: string, email: string, password: string) => Promise<void>;
+  signup: (username: string, email: string, password: string, firstName: string, lastName: string) => Promise<void>;
   logout: () => Promise<void>;
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -125,8 +125,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Signup mutation
   const signupMutation = useMutation({
-    mutationFn: async ({ username, email, password }: { username: string; email: string; password: string }) => {
-      const response = await apiRequestWithAuth('POST', '/api/auth/signup', { username, email, password });
+    mutationFn: async ({ username, email, password, firstName, lastName }: { username: string; email: string; password: string; firstName: string; lastName: string }) => {
+      const response = await apiRequestWithAuth('POST', '/api/auth/signup', { username, email, password, firstName, lastName });
       return response;
     },
   });
@@ -158,8 +158,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await loginMutation.mutateAsync({ username, password });
   };
 
-  const signup = async (username: string, email: string, password: string) => {
-    await signupMutation.mutateAsync({ username, email, password });
+  const signup = async (username: string, email: string, password: string, firstName: string, lastName: string) => {
+    await signupMutation.mutateAsync({ username, email, password, firstName, lastName });
   };
 
   const logout = async () => {

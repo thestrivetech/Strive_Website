@@ -44,7 +44,7 @@ const Contact = () => {
     {
       icon: <Clock className="text-primary w-6" />,
       title: "Business Hours",
-      content: "Mon-Fri: 9:00 AM - 6:00 PM EST"
+      content: "Mon-Fri: 8:00 AM - 8:00 PM EST"
     }
   ];
 
@@ -107,14 +107,14 @@ const Contact = () => {
   const handleQuickAction = (action: string) => {
     switch (action) {
       case "demo":
-        toast({ title: "Demo scheduled!", description: "A calendar invite will be sent to your email." });
+        window.location.href = '/demo';
         break;
       case "brochure":
         setIsBrochureModalOpen(true);
         break;
       case "chat":
         // Navigate to the full Sai chatbot page
-        window.location.href = '/chatbot';
+        window.location.href = '/chatbot-sai';
         break;
     }
   };
@@ -147,13 +147,13 @@ const Contact = () => {
               className="text-4xl md:text-5xl font-bold mb-6"
               data-testid="text-contact-title"
             >
-              Get in Touch
+              Let's <span className="gradient-text">Connect</span>
             </h1>
             <p 
               className="text-xl text-muted-foreground max-w-3xl mx-auto"
               data-testid="text-contact-subtitle"
             >
-              Ready to transform your business? Let's discuss how Strive can help you achieve your goals.
+              Ready to make your business Strive? Let's discuss how we can help you achieve your goals.
             </p>
           </div>
 
@@ -171,27 +171,27 @@ const Contact = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>First Name *</label>
+                      <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>First Name *</label>
                       <Input
                         type="text"
                         required
                         placeholder="John"
                         value={formData.firstName}
                         onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
-                        style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}
+                        style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                         className="focus:ring-primary focus:border-primary"
                         data-testid="input-first-name"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Last Name *</label>
+                      <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Last Name *</label>
                       <Input
                         type="text"
                         required
                         placeholder="Doe"
                         value={formData.lastName}
                         onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
-                        style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}
+                        style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                         className="focus:ring-primary focus:border-primary"
                         data-testid="input-last-name"
                       />
@@ -199,50 +199,50 @@ const Contact = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Business Email *</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Business Email *</label>
                     <Input
                       type="email"
                       required
                       placeholder="john@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                      style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}
+                      style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                       className="focus:ring-primary focus:border-primary"
                       data-testid="input-email"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Name *</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Company Name *</label>
                     <Input
                       type="text"
                       required
                       placeholder="Your Company"
                       value={formData.company}
                       onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
-                      style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}
+                      style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                       className="focus:ring-primary focus:border-primary"
                       data-testid="input-company"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Phone Number</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Phone Number</label>
                     <Input
                       type="tel"
                       placeholder="+1 (555) 123-4567"
                       value={formData.phone}
                       onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                      style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}
+                      style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                       className="focus:ring-primary focus:border-primary"
                       data-testid="input-phone"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Size</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Company Size</label>
                     <Select value={formData.companySize} onValueChange={(value) => setFormData(prev => ({ ...prev, companySize: value }))}>
-                      <SelectTrigger data-testid="select-company-size" className="gap-2" style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}>
+                      <SelectTrigger data-testid="select-company-size" className="gap-2" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                         <Users className="h-4 w-4 text-muted-foreground" />
                         <SelectValue placeholder="Select size" />
                       </SelectTrigger>
@@ -257,14 +257,14 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>How can we help? *</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>How can we help? *</label>
                     <Textarea
                       required
                       rows={4}
                       placeholder="Tell us about your project or business needs..."
                       value={formData.message}
                       onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                      style={{ backgroundColor: '#020a1c', color: '#ffffff', borderColor: '#ff7033' }}
+                      style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                       className="focus:ring-primary focus:border-primary"
                       data-testid="textarea-message"
                     />
@@ -289,7 +289,7 @@ const Contact = () => {
 
                   <Button 
                     type="submit"
-                    className="w-full bg-primary text-primary-foreground py-3 text-lg hover:bg-primary/90"
+                    className="w-full bg-primary text-primary-foreground py-3 text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                     data-testid="button-send-message"
                   >
                     Send Message
@@ -350,12 +350,12 @@ const Contact = () => {
                   <div className="space-y-4">
                     {/* Primary consultation button */}
                     <Button
-                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-primary/20"
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:scale-105 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                       onClick={() => window.location.href = '/consultation'}
                       data-testid="button-schedule-consultation"
                     >
                       <Calendar className="mr-2 w-5 h-5" />
-                      Schedule a Consultation
+                      Schedule Consultation
                     </Button>
                     
                     {/* Secondary actions */}
@@ -364,7 +364,7 @@ const Contact = () => {
                         <Button
                           key={index}
                           variant="outline"
-                          className="justify-center py-3 border-2 border-muted hover:border-primary/50 hover:bg-primary/5 transition-all duration-200"
+                          className="justify-center py-3 border-2 border-muted hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105 hover:shadow-md"
                           onClick={() => handleQuickAction(action.action)}
                           data-testid={`button-${action.action}`}
                         >

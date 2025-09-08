@@ -65,30 +65,37 @@ const About = () => {
   // Vision Timeline Data
   const visionMilestones = [
     {
-      year: "2025",
-      title: "AI Revolution Launch",
-      description: "Launching next-gen AI automation platform with predictive analytics",
+      year: "Q4 2026",
+      title: "AI Platform Beta Launch",
+      description: "Rolling out beta version of our next-gen AI automation platform to select enterprise clients",
       icon: <CpuChipIcon className="h-6 w-6" />,
       status: "current"
     },
     {
-      year: "2026",
-      title: "Global Expansion",
-      description: "Expanding to 50+ countries with localized AI solutions",
+      year: "Q1 2027",
+      title: "Global Market Entry",
+      description: "Expanding operations to European and Asian markets with localized AI solutions",
       icon: <GlobeAltIcon className="h-6 w-6" />,
       status: "upcoming"
     },
     {
-      year: "2027",
-      title: "Innovation Hub",
-      description: "Opening R&D centers focused on quantum computing integration",
+      year: "Q2 2027",
+      title: "Innovation Lab Launch",
+      description: "Opening dedicated R&D facility for quantum computing and advanced AI research",
       icon: <LightBulbIcon className="h-6 w-6" />,
       status: "future"
     },
     {
-      year: "2028",
-      title: "Market Leadership",
-      description: "Becoming the #1 AI business solutions provider globally",
+      year: "Q3 2027",
+      title: "Enterprise Scale",
+      description: "Achieving 500+ enterprise clients with comprehensive AI transformation programs",
+      icon: <ArrowTrendingUpIcon className="h-6 w-6" />,
+      status: "future"
+    },
+    {
+      year: "Q4 2027",
+      title: "Industry Leadership",
+      description: "Establishing position as top-tier AI business solutions provider globally",
       icon: <ArrowTrendingUpIcon className="h-6 w-6" />,
       status: "future"
     }

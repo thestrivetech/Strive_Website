@@ -13,7 +13,7 @@ import { insertUserSchema } from "@shared/schema";
 import { useAuth } from "@/lib/auth";
 
 const loginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
+  username: z.string().min(1, "Username or email is required"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -56,6 +56,8 @@ const Login = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      firstName: "",
+      lastName: "",
     },
   });
 
@@ -79,7 +81,7 @@ const Login = () => {
   const onSignupSubmit = async (data: SignupFormData) => {
     try {
       const { confirmPassword, ...signupData } = data;
-      await signup(signupData.username, signupData.email, signupData.password);
+      await signup(signupData.username, signupData.email, signupData.password, signupData.firstName, signupData.lastName);
       toast({
         title: "Account created!",
         description: "Please check your email and click the verification link to activate your account.",
@@ -132,11 +134,12 @@ const Login = () => {
                       name="username"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Username</FormLabel>
+                          <FormLabel style={{ color: '#ff7033' }}>Username or Email</FormLabel>
                           <FormControl>
                             <Input 
-                              placeholder="Enter your username" 
+                              placeholder="Enter your username or email" 
                               data-testid="input-login-username"
+                              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                               {...field} 
                             />
                           </FormControl>
@@ -149,12 +152,13 @@ const Login = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
+                          <FormLabel style={{ color: '#ff7033' }}>Password</FormLabel>
                           <FormControl>
                             <Input 
                               type="password" 
                               placeholder="Enter your password" 
                               data-testid="input-login-password"
+                              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                               {...field} 
                             />
                           </FormControl>
@@ -164,7 +168,7 @@ const Login = () => {
                     />
                     <Button 
                       type="submit" 
-                      className="w-full" 
+                      className="w-full relative overflow-hidden group transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500" 
                       disabled={isLoading}
                       data-testid="button-submit-login"
                     >
@@ -179,19 +183,58 @@ const Login = () => {
                 </Form>
               </TabsContent>
               
-              <TabsContent value="signup" className="space-y-4 min-h-[350px]">
+              <TabsContent value="signup" className="space-y-4 min-h-[450px]">
                 <Form {...signupForm}>
                   <form onSubmit={signupForm.handleSubmit(onSignupSubmit)} className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={signupForm.control}
+                        name="firstName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel style={{ color: '#ff7033' }}>First Name</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="John" 
+                                data-testid="input-signup-first-name"
+                                style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                                {...field} 
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={signupForm.control}
+                        name="lastName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel style={{ color: '#ff7033' }}>Last Name</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="Doe" 
+                                data-testid="input-signup-last-name"
+                                style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                                {...field} 
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                     <FormField
                       control={signupForm.control}
                       name="username"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Username</FormLabel>
+                          <FormLabel style={{ color: '#ff7033' }}>Username</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="Choose a username" 
                               data-testid="input-signup-username"
+                              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                               {...field} 
                             />
                           </FormControl>
@@ -204,12 +247,13 @@ const Login = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email Address</FormLabel>
+                          <FormLabel style={{ color: '#ff7033' }}>Email</FormLabel>
                           <FormControl>
                             <Input 
                               type="email"
                               placeholder="Enter your email address" 
                               data-testid="input-signup-email"
+                              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                               {...field} 
                             />
                           </FormControl>
@@ -222,12 +266,13 @@ const Login = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
+                          <FormLabel style={{ color: '#ff7033' }}>Password</FormLabel>
                           <FormControl>
                             <Input 
                               type="password" 
                               placeholder="Create a password" 
                               data-testid="input-signup-password"
+                              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                               {...field} 
                             />
                           </FormControl>
@@ -240,12 +285,13 @@ const Login = () => {
                       name="confirmPassword"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Confirm Password</FormLabel>
+                          <FormLabel style={{ color: '#ff7033' }}>Confirm Password</FormLabel>
                           <FormControl>
                             <Input 
                               type="password" 
                               placeholder="Confirm your password" 
                               data-testid="input-signup-confirm-password"
+                              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                               {...field} 
                             />
                           </FormControl>
@@ -255,7 +301,7 @@ const Login = () => {
                     />
                     <Button 
                       type="submit" 
-                      className="w-full" 
+                      className="w-full relative overflow-hidden group transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500" 
                       disabled={isLoading}
                       data-testid="button-submit-signup"
                     >

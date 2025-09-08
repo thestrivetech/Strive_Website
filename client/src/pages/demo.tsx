@@ -32,6 +32,7 @@ const Demo = () => {
     
     // Demo Preferences
     demoFocusAreas: [] as string[],
+    otherDemoFocusText: "", // New field for custom demo focus text
     additionalRequirements: ""
   });
 
@@ -59,7 +60,7 @@ const Demo = () => {
   const demoFocusOptions = [
     "AI-Powered Dashboard", "Team Collaboration Tools", "Business Intelligence",
     "Security & Compliance", "Automation Solutions", "Analytics & Reporting",
-    "Custom AI Models", "Integration Capabilities"
+    "Custom AI Models", "Integration Capabilities", "Other"
   ];
 
   // Load Calendly script when component mounts
@@ -98,7 +99,10 @@ const Demo = () => {
       ...formData,
       currentChallenges: formData.currentChallenges.includes("Other") && formData.otherChallengeText
         ? [...formData.currentChallenges.filter(c => c !== "Other"), `Other: ${formData.otherChallengeText}`]
-        : formData.currentChallenges
+        : formData.currentChallenges,
+      demoFocusAreas: formData.demoFocusAreas.includes("Other") && formData.otherDemoFocusText
+        ? [...formData.demoFocusAreas.filter(d => d !== "Other"), `Other: ${formData.otherDemoFocusText}`]
+        : formData.demoFocusAreas
     };
     
     setIsSubmitted(true);
@@ -208,7 +212,7 @@ const Demo = () => {
             </div>
 
             {/* Form Card */}
-            <Card className="bg-white shadow-xl">
+            <Card className="bg-white shadow-xl" style={{ backgroundColor: '#ffffffeb' }}>
               <CardHeader>
                 <CardTitle className="text-2xl text-[#020a1c]">
                   {formStep === 1 && "Tell us about yourself"}
@@ -229,6 +233,7 @@ const Demo = () => {
                             value={formData.fullName}
                             onChange={(e) => handleInputChange("fullName", e.target.value)}
                             placeholder="John Doe"
+                            style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                             required
                           />
                         </div>
@@ -240,6 +245,7 @@ const Demo = () => {
                             value={formData.email}
                             onChange={(e) => handleInputChange("email", e.target.value)}
                             placeholder="john@company.com"
+                            style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                             required
                           />
                         </div>
@@ -254,6 +260,7 @@ const Demo = () => {
                             value={formData.phone}
                             onChange={(e) => handleInputChange("phone", e.target.value)}
                             placeholder="+1 (555) 123-4567"
+                            style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                           />
                         </div>
                         <div>
@@ -263,6 +270,7 @@ const Demo = () => {
                             value={formData.companyName}
                             onChange={(e) => handleInputChange("companyName", e.target.value)}
                             placeholder="Acme Corporation"
+                            style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                             required
                           />
                         </div>
@@ -275,6 +283,7 @@ const Demo = () => {
                           value={formData.jobTitle}
                           onChange={(e) => handleInputChange("jobTitle", e.target.value)}
                           placeholder="Chief Technology Officer"
+                          style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                         />
                       </div>
                     </div>
@@ -371,6 +380,7 @@ const Demo = () => {
                               value={formData.otherChallengeText}
                               onChange={(e) => handleInputChange("otherChallengeText", e.target.value)}
                               className="w-full"
+                              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                             />
                           </div>
                         )}
@@ -408,9 +418,13 @@ const Demo = () => {
                               <Checkbox
                                 id={option}
                                 checked={formData.demoFocusAreas.includes(option)}
-                                onCheckedChange={(checked) => 
-                                  handleCheckboxChange("demoFocusAreas", option, checked as boolean)
-                                }
+                                onCheckedChange={(checked) => {
+                                  handleCheckboxChange("demoFocusAreas", option, checked as boolean);
+                                  // Clear the custom text if "Other" is unchecked
+                                  if (option === "Other" && !checked) {
+                                    handleInputChange("otherDemoFocusText", "");
+                                  }
+                                }}
                               />
                               <Label 
                                 htmlFor={option} 
@@ -421,6 +435,18 @@ const Demo = () => {
                             </div>
                           ))}
                         </div>
+                        {/* Custom demo focus text input - shown when "Other" is selected */}
+                        {formData.demoFocusAreas.includes("Other") && (
+                          <div className="mt-4">
+                            <Input
+                              placeholder="Please specify your additional demo focus areas..."
+                              value={formData.otherDemoFocusText}
+                              onChange={(e) => handleInputChange("otherDemoFocusText", e.target.value)}
+                              className="w-full"
+                              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                            />
+                          </div>
+                        )}
                       </div>
                       
                       <div>
@@ -433,6 +459,7 @@ const Demo = () => {
                           onChange={(e) => handleInputChange("additionalRequirements", e.target.value)}
                           placeholder="Tell us about any specific features you'd like to see or questions you have..."
                           rows={4}
+                          style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                         />
                       </div>
 

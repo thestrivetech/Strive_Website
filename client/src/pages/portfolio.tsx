@@ -311,10 +311,6 @@ const Portfolio = () => {
                     <Play className="mr-2 h-4 w-4" />
                     View Demo
                   </Button>
-                  <Button variant="outline" onClick={() => window.open(selectedProject.githubUrl, '_blank')}>
-                    <Github className="mr-2 h-4 w-4" />
-                    View Code
-                  </Button>
                   <Button variant="outline" onClick={() => window.location.href = '/contact'}>
                     Get Started
                   </Button>

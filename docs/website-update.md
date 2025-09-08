@@ -43,7 +43,7 @@
 
 - Change the word "Intelligence" in hero section to the same gradient color used on all other hero section words 
 
-# Company Page # 
+# Company Page # - Haven't implemented yet - Needs refinement
 
 - Create nav bar dropdown to list “Become a Partner, Community (discord and more), Meet the Team, etc. - Think of more areas and pages/sections to add to this page or part of the website - We need to decide whether to make this one entire page broken into different sections or to make it different pages (could make it one page with different pop out screens that go into more detail like on other pages)
 
@@ -79,13 +79,15 @@ Need to fix “Schedule a Demo” button, it doesn’t go to any page. Make it g
 
 # Schedule Consultation Page #
 
-- Make the background off white to match the other pages
+- Make the background of this page the same gradient background of the Contact page and use the same exact color scheme for the card and text boxes as well
 
 # Get Started Pages # 
 
 
 
 # Request Demo Section #
+
+- Please make the card text box color scheme on all steps of this section the same as step 3 of 3 "Get Started" page
 
 - On step 2 card, we need to give the customer the option to type in their industry if they select "Other"
 

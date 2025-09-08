@@ -209,13 +209,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!username || !password) {
         res.status(400).json({ 
           success: false, 
-          message: "Username and password are required" 
+          message: "Username or email and password are required" 
         });
         return;
       }
       
-      // Find user by username to get email
-      const user = await storage.getUserByUsername(username);
+      // Find user by username or email
+      const user = await storage.getUserByUsernameOrEmail(username);
       if (!user) {
         res.status(401).json({ 
           success: false, 

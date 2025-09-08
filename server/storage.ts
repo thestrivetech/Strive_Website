@@ -6,6 +6,8 @@ import { eq } from "drizzle-orm";
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
+  getUserByUsernameOrEmail(usernameOrEmail: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
   getContactSubmissions(): Promise<ContactSubmission[]>;
@@ -32,6 +34,18 @@ export class MemStorage implements IStorage {
   async getUserByUsername(username: string): Promise<User | undefined> {
     return Array.from(this.users.values()).find(
       (user) => user.username === username,
+    );
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    return Array.from(this.users.values()).find(
+      (user) => user.email === email,
+    );
+  }
+
+  async getUserByUsernameOrEmail(usernameOrEmail: string): Promise<User | undefined> {
+    return Array.from(this.users.values()).find(
+      (user) => user.username === usernameOrEmail || user.email === usernameOrEmail,
     );
   }
 
@@ -97,6 +111,28 @@ export class SupabaseStorage implements IStorage {
   async getUserByUsername(username: string): Promise<User | undefined> {
     const result = await db.select().from(users).where(eq(users.username, username)).limit(1);
     return result[0];
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const result = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    return result[0];
+  }
+
+  async getUserByUsernameOrEmail(usernameOrEmail: string): Promise<User | undefined> {
+    const result = await db.select().from(users).where(
+      eq(users.username, usernameOrEmail)
+    ).limit(1);
+    
+    if (result[0]) {
+      return result[0];
+    }
+    
+    // If not found by username, try by email
+    const emailResult = await db.select().from(users).where(
+      eq(users.email, usernameOrEmail)
+    ).limit(1);
+    
+    return emailResult[0];
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
