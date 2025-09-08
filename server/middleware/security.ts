@@ -43,7 +43,9 @@ export const securityHeaders = helmet({
         "'self'", 
         "'unsafe-inline'", // Needed for Vite in development
         "'unsafe-eval'", // Needed for development
-        "https://cdn.jsdelivr.net" // For CDN assets if needed
+        "https://cdn.jsdelivr.net", // For CDN assets if needed
+        "https://assets.calendly.com",
+        "https://calendly.com"
       ],
       styleSrc: [
         "'self'", 
@@ -64,9 +66,16 @@ export const securityHeaders = helmet({
         "'self'",
         "https://*.supabase.co", // Supabase API calls
         "wss://*.supabase.co", // Supabase realtime
-        "https://api.github.com" // If needed for portfolio data
+        "https://api.github.com", // If needed for portfolio data
+        "https://calendly.com",
+        "https://*.calendly.com"
       ],
-      frameSrc: ["'none'"],
+      frameSrc: [
+        "'self'",
+        "https://calendly.com",
+        "https://*.calendly.com", 
+        "https://assets.calendly.com"
+      ],
       objectSrc: ["'none'"],
       baseUri: ["'self'"],
       formAction: ["'self'"],

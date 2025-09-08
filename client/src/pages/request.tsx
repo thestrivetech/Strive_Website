@@ -513,21 +513,23 @@ const Request = () => {
                             </p>
                           </div>
                           <div className="px-4 pb-4">
-                            {/* Calendly iframe placeholder */}
-                            <div className="w-full h-96 bg-muted rounded-lg flex items-center justify-center border-2 border-dashed border-muted-foreground/20">
-                              <div className="text-center space-y-4">
-                                <Calendar className="w-12 h-12 text-primary mx-auto" />
-                                <div>
-                                  <h4 className="font-semibold">Calendly Integration</h4>
-                                  <p className="text-sm text-muted-foreground max-w-md">
-                                    Interactive calendar will be embedded here for the showcase scheduling
-                                  </p>
-                                </div>
-                                <div className="space-y-2 text-xs text-muted-foreground">
-                                  <p>Contact: <span className="font-medium text-foreground">{formData.fullName}</span></p>
-                                  <p>Email: <span className="font-medium text-foreground">{formData.email}</span></p>
-                                  <p>Company: <span className="font-medium text-foreground">{formData.companyName}</span></p>
-                                </div>
+                            {/* Calendly Integration */}
+                            <div className="w-full rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
+                              <iframe
+                                src="https://calendly.com/strivetech"
+                                width="100%"
+                                height="630"
+                                frameBorder="0"
+                                title="Schedule Your Showcase - Strive Tech"
+                                style={{ borderRadius: '8px' }}
+                              />
+                            </div>
+                            <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                              <div className="space-y-2 text-xs text-muted-foreground">
+                                <p><strong>Your Details:</strong></p>
+                                <p>Contact: <span className="font-medium text-foreground">{formData.fullName}</span></p>
+                                <p>Email: <span className="font-medium text-foreground">{formData.email}</span></p>
+                                <p>Company: <span className="font-medium text-foreground">{formData.companyName}</span></p>
                               </div>
                             </div>
                             <p className="text-sm text-muted-foreground mt-2 text-center">

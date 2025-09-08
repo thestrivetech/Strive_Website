@@ -326,23 +326,25 @@ const Consultation = () => {
             </p>
           </CardHeader>
           <CardContent>
-            {/* Calendly iframe placeholder */}
-            <div className="w-full h-96 bg-muted rounded-lg flex items-center justify-center border-2 border-dashed border-muted-foreground/20">
-              <div className="text-center space-y-4">
-                <Calendar className="w-12 h-12 text-primary mx-auto" />
-                <div>
-                  <h4 className="font-semibold">Calendly Integration</h4>
-                  <p className="text-sm text-muted-foreground max-w-md">
-                    Interactive calendar will be embedded here for meeting scheduling
-                  </p>
-                </div>
-                <div className="space-y-2 text-xs text-muted-foreground">
-                  <p>Communication Method: <span className="font-medium text-foreground">
-                    {communicationMethods.find(m => m.id === contactData.communicationMethod)?.name}
-                  </span></p>
-                  <p>Contact: <span className="font-medium text-foreground">{contactData.firstName} {contactData.lastName}</span></p>
-                  <p>Email: <span className="font-medium text-foreground">{contactData.email}</span></p>
-                </div>
+            {/* Calendly Integration */}
+            <div className="w-full rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
+              <iframe
+                src="https://calendly.com/strivetech"
+                width="100%"
+                height="630"
+                frameBorder="0"
+                title="Schedule Your Consultation - Strive Tech"
+                style={{ borderRadius: '8px' }}
+              />
+            </div>
+            <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="space-y-2 text-xs text-muted-foreground">
+                <p><strong>Your Details:</strong></p>
+                <p>Communication Method: <span className="font-medium text-foreground">
+                  {communicationMethods.find(m => m.id === contactData.communicationMethod)?.name}
+                </span></p>
+                <p>Contact: <span className="font-medium text-foreground">{contactData.firstName} {contactData.lastName}</span></p>
+                <p>Email: <span className="font-medium text-foreground">{contactData.email}</span></p>
               </div>
             </div>
             

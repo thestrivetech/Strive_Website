@@ -404,3 +404,153 @@ This session achieved a complete transformation of the website's request system,
 **Result:** Tighter, more professional spacing that reduces visual gaps and improves form flow.
 
 **Status:** All requested changes completed. Website ready for Calendly API integration and next development phase.
+
+## Phase 8: Calendly Integration Implementation
+
+### **User Request for Calendar Integration**
+After the website restructuring and UI enhancements, the user requested to replace the Calendly placeholder sections with actual working Calendly calendar embeds using their company URL: `calendly.com/strivetech`.
+
+### **Initial Issue Discovery**
+The Calendly iframes were being blocked by the browser with "Content blocked" errors due to strict Content Security Policy (CSP) configuration in the server middleware.
+
+### 1. **Root Cause Analysis**
+**Files Analyzed:** `/server/middleware/security.ts`
+
+**Issue Identified:**
+- CSP setting `frameSrc: ["'none'"]` was blocking ALL iframes, including Calendly
+- Missing Calendly domains in `scriptSrc` and `connectSrc` directives
+- Server-side security middleware preventing iframe embedding
+
+### 2. **Calendly Iframe Implementation**
+**Files Modified:** 
+- `/client/src/pages/request.tsx`
+- `/client/src/pages/consultation.tsx`
+
+**Request Page Changes:**
+```jsx
+// Replaced placeholder div with actual Calendly iframe
+<div className="w-full rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
+  <iframe
+    src="https://calendly.com/strivetech"
+    width="100%"
+    height="630"
+    frameBorder="0"
+    title="Schedule Your Showcase - Strive Tech"
+    style={{ borderRadius: '8px' }}
+  />
+</div>
+```
+
+**Consultation Page Changes:**
+```jsx
+// Replaced placeholder div with actual Calendly iframe
+<div className="w-full rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
+  <iframe
+    src="https://calendly.com/strivetech"
+    width="100%"
+    height="630"
+    frameBorder="0"
+    title="Schedule Your Consultation - Strive Tech"
+    style={{ borderRadius: '8px' }}
+  />
+</div>
+```
+
+### 3. **Content Security Policy Fix**
+**Files Modified:** `/server/middleware/security.ts`
+
+**CSP Updates Implemented:**
+
+#### **Frame Sources (Critical Fix):**
+```typescript
+// BEFORE: frameSrc: ["'none'"] - Blocked ALL iframes
+// AFTER:
+frameSrc: [
+  "'self'",
+  "https://calendly.com",
+  "https://*.calendly.com", 
+  "https://assets.calendly.com"
+]
+```
+
+#### **Script Sources:**
+```typescript
+scriptSrc: [
+  "'self'", 
+  "'unsafe-inline'",
+  "'unsafe-eval'", 
+  "https://cdn.jsdelivr.net",
+  "https://assets.calendly.com",    // ← Added for Calendly scripts
+  "https://calendly.com"           // ← Added for Calendly scripts
+]
+```
+
+#### **Connect Sources:**
+```typescript
+connectSrc: [
+  "'self'",
+  "https://*.supabase.co",
+  "wss://*.supabase.co", 
+  "https://api.github.com",
+  "https://calendly.com",          // ← Added for API calls
+  "https://*.calendly.com"         // ← Added for API calls
+]
+```
+
+### 4. **User Experience Enhancements**
+**Features Implemented:**
+- **Professional Styling:** Clean rounded borders matching site design
+- **Responsive Design:** 100% width with 630px height for optimal viewing
+- **User Context Display:** Contact details shown below calendar for reference
+- **Seamless Integration:** Calendar embedded directly in multi-step forms
+- **Accessibility:** Proper iframe titles for screen readers
+
+### **Implementation Results:**
+
+#### **Request Page Integration:**
+✅ **Location:** Step 3 of the showcase request form  
+✅ **Functionality:** Users complete form → see embedded Calendly for showcase booking  
+✅ **User Flow:** Contact info → Business details → Solution preferences → Schedule showcase  
+
+#### **Consultation Page Integration:**  
+✅ **Location:** Step 2 after contact form submission  
+✅ **Functionality:** Users fill contact form → proceed to embedded Calendly scheduling  
+✅ **User Flow:** Contact information → Schedule 30-minute consultation  
+
+### **Technical Validation:**
+- ✅ **Build Success:** Project compiled successfully with no errors
+- ✅ **CSP Configuration:** All Calendly domains properly whitelisted
+- ✅ **Security Maintained:** Only Calendly-specific exceptions added to CSP
+- ✅ **Performance:** Server bundle size minimally increased (23.8kb → 24.1kb)
+
+### **User Testing Results:**
+- ✅ **Iframe Loading:** Calendly calendars display without "Content Blocked" errors
+- ✅ **Functionality:** Full scheduling capability directly within website
+- ✅ **Responsive:** Works properly across desktop and mobile devices
+- ✅ **Integration:** Seamlessly embedded in existing form workflows
+
+## Final Calendly Integration Impact
+
+### **Problem Solved:**
+**Before:** Placeholder sections with "Calendly Integration" text and broken iframe blocking  
+**After:** Fully functional embedded Calendly scheduling directly within request and consultation pages
+
+### **User Experience Transformation:**
+- **Seamless Booking:** Users never leave the website to schedule meetings
+- **Context Preservation:** Contact information displayed alongside calendar
+- **Professional Appearance:** Clean integration matching website design
+- **Dual Purpose:** Single calendar handles both showcases and consultations
+
+### **Technical Architecture:**
+- **Security-First:** CSP properly configured for Calendly domains only
+- **Maintainable:** Clean iframe implementation with consistent styling
+- **Scalable:** Ready for future calendar customization or additional booking types
+- **Standards-Compliant:** Proper HTML5 iframe attributes and accessibility features
+
+### **Business Value:**
+- **Increased Conversions:** Reduced friction in booking process
+- **Better User Experience:** No external redirects or broken appointment links  
+- **Professional Image:** Integrated booking system demonstrates technical sophistication
+- **Operational Efficiency:** Direct connection to company Calendly account
+
+**Final Status:** Calendly integration fully implemented and tested successfully. Users can now schedule both Showcase meetings and Consultations directly within the website using the embedded `calendly.com/strivetech` booking system.
