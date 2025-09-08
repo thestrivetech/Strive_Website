@@ -3,6 +3,8 @@ import { Download, FileText, BookOpen, BarChart3, Sparkles, Eye, X, ExternalLink
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -369,11 +371,11 @@ const Resources = () => {
                 {filteredQuizzes.map((quiz) => (
                   <Card 
                     key={quiz.id}
-                    className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-blue-900 to-purple-900"
+                    className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-blue-900 to-purple-900 h-full flex flex-col"
                     onClick={() => startQuiz(quiz)}
                     data-testid={`card-quiz-${quiz.id}`}
                   >
-                    <div className="relative overflow-hidden">
+                    <div className="relative overflow-hidden flex-shrink-0">
                       <div className="h-48 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
                         <div className="text-center text-white">
                           <BrainCircuit className="w-16 h-16 mx-auto mb-4 opacity-80" />
@@ -397,11 +399,11 @@ const Resources = () => {
                       </div>
                     </div>
                     
-                    <CardContent className="p-6 text-white">
-                      <h4 className="text-xl font-bold mb-3 group-hover:text-blue-300 transition-colors">
+                    <CardContent className="p-6 text-white flex flex-col flex-grow">
+                      <h4 className="text-xl font-bold mb-3 group-hover:text-blue-300 transition-colors line-clamp-2 min-h-[3.5rem]">
                         {quiz.title}
                       </h4>
-                      <p className="text-slate-300 mb-4 text-sm leading-relaxed">
+                      <p className="text-slate-300 mb-4 text-sm leading-relaxed line-clamp-3 flex-grow">
                         {quiz.description}
                       </p>
                       
@@ -423,7 +425,7 @@ const Resources = () => {
                       </div>
                       
                       <Button 
-                        className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0"
+                        className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0 mt-auto"
                         onClick={(e) => {
                           e.stopPropagation();
                           startQuiz(quiz);
@@ -456,11 +458,11 @@ const Resources = () => {
                 {filteredTechCards.map((tech) => (
                   <Card 
                     key={tech.id}
-                    className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-slate-900 to-slate-800"
+                    className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-slate-900 to-slate-800 h-full flex flex-col"
                     onClick={() => setSelectedResource(tech)}
                     data-testid={`card-tech-${tech.id}`}
                   >
-                    <div className="relative overflow-hidden">
+                    <div className="relative overflow-hidden flex-shrink-0">
                       <img 
                         src={tech.imageUrl} 
                         alt={tech.imageAlt}
@@ -494,7 +496,7 @@ const Resources = () => {
                       </div>
                     </div>
                     
-                    <CardContent className="p-6 text-white">
+                    <CardContent className="p-6 text-white flex flex-col flex-grow">
                       <div className="flex items-center gap-2 mb-3">
                         <div className="text-blue-400">
                           <Wrench className="h-5 w-5" />
@@ -504,11 +506,11 @@ const Resources = () => {
                         </span>
                       </div>
                       
-                      <h3 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                      <h3 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors duration-300 line-clamp-2 min-h-[3.5rem]">
                         {tech.title}
                       </h3>
                       
-                      <p className="text-slate-300 mb-4 line-clamp-2">
+                      <p className="text-slate-300 mb-4 line-clamp-3 flex-grow">
                         {tech.shortDescription}
                       </p>
                       
@@ -525,7 +527,7 @@ const Resources = () => {
                         )}
                       </div>
                       
-                      <div className="flex items-center justify-between text-sm text-slate-400">
+                      <div className="flex items-center justify-between text-sm text-slate-400 mb-4">
                         <span data-testid={`text-tech-metadata-${tech.id}`}>
                           {tech.metadata}
                         </span>
@@ -535,7 +537,7 @@ const Resources = () => {
                       </div>
                       
                       <Button 
-                        className="w-full mt-4 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300"
+                        className="w-full mt-auto group-hover:bg-blue-500 group-hover:text-white transition-all duration-300"
                         variant="outline"
                       >
                         Learn More
@@ -554,11 +556,11 @@ const Resources = () => {
               {filteredResources.map((resource) => (
               <Card 
                 key={resource.id}
-                className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800"
+                className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 h-full flex flex-col"
                 onClick={() => setSelectedResource(resource)}
                 data-testid={`card-resource-${resource.id}`}
               >
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden flex-shrink-0">
                   <img 
                     src={resource.imageUrl} 
                     alt={resource.imageAlt}
@@ -583,7 +585,7 @@ const Resources = () => {
                   </div>
                 </div>
                 
-                <CardContent className="p-6">
+                <CardContent className="p-6 flex flex-col flex-grow">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="text-primary">
                       {getTypeIcon(resource.type)}
@@ -593,11 +595,11 @@ const Resources = () => {
                     </span>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-[#ff7033] mb-3 group-hover:text-primary transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-[#ff7033] mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2 min-h-[3.5rem]">
                     {resource.title}
                   </h3>
                   
-                  <p className="text-muted-foreground mb-4 line-clamp-2">
+                  <p className="text-muted-foreground mb-4 line-clamp-3 flex-grow">
                     {resource.shortDescription}
                   </p>
                   
@@ -614,7 +616,7 @@ const Resources = () => {
                     )}
                   </div>
                   
-                  <div className="flex items-center justify-between text-sm text-muted-foreground">
+                  <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
                     <span data-testid={`text-resource-metadata-${resource.id}`}>
                       {resource.metadata}
                     </span>
@@ -624,7 +626,7 @@ const Resources = () => {
                   </div>
                   
                   <Button 
-                    className="w-full mt-4 group-hover:bg-primary group-hover:text-white transition-all duration-300"
+                    className="w-full mt-auto group-hover:bg-primary group-hover:text-white transition-all duration-300"
                     variant="outline"
                   >
                     View Details
@@ -695,7 +697,12 @@ const Resources = () => {
 
       {/* Resource Detail Modal */}
       <Dialog open={!!selectedResource} onOpenChange={() => setSelectedResource(null)}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogPrimitive.Portal>
+          <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+          <DialogPrimitive.Content className={cn(
+            "fixed left-[50%] top-[50%] z-50 grid w-full max-w-4xl translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
+            "max-h-[90vh] overflow-y-auto"
+          )}>
           {selectedResource && (
             <>
               <DialogTitle className="sr-only">{selectedResource.title}</DialogTitle>
@@ -708,14 +715,11 @@ const Resources = () => {
                   alt={selectedResource.imageAlt}
                   className="w-full h-64 object-cover rounded-lg"
                 />
-                <Button
-                  onClick={() => setSelectedResource(null)}
-                  className="absolute top-4 right-4 h-10 w-10 p-0 bg-gray-800/80 hover:bg-gray-700/90 border-2 border-orange-500/50 hover:border-orange-500 rounded-lg transition-all duration-200"
-                  variant="ghost"
-                >
-                  <X className="h-5 w-5 text-white" />
-                </Button>
               </div>
+              <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground bg-gray-800/80 hover:bg-gray-700/90 border-2 border-orange-500/50 hover:border-orange-500 rounded-lg h-10 w-10 p-0 z-50">
+                <X className="h-5 w-5 text-white m-auto" />
+                <span className="sr-only">Close</span>
+              </DialogPrimitive.Close>
               
               <div className="p-6 space-y-6">
                 <div className="flex items-center gap-3">
@@ -815,7 +819,8 @@ const Resources = () => {
               </div>
             </>
           )}
-        </DialogContent>
+          </DialogPrimitive.Content>
+        </DialogPrimitive.Portal>
       </Dialog>
 
       {/* Quiz Modal */}

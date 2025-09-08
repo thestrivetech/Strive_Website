@@ -17,8 +17,10 @@ const Consultation = () => {
     phone: "",
     communicationMethod: "google-meet",
     industry: "",
+    otherIndustry: "", // Added for custom industry input
     companySize: "",
     currentChallenges: [] as string[],
+    otherChallenge: "", // Added for custom challenge input
     budgetRange: "",
     timeline: "",
     projectDescription: ""
@@ -68,10 +70,10 @@ const Consultation = () => {
         <div className="space-y-6">
           <div className="text-center mb-8">
             <Users className="w-16 h-16 text-primary mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-2" data-testid="step-title">
+            <h2 className="text-2xl font-bold mb-2" style={{ color: '#020a1c' }} data-testid="step-title">
               Contact Information
             </h2>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground" style={{ color: '#020a1c' }}>
               Tell us about yourself and your business needs
             </p>
           </div>
@@ -141,7 +143,7 @@ const Consultation = () => {
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Preferred Communication Method</label>
             <Select value={contactData.communicationMethod} onValueChange={(value) => handleInputChange('communicationMethod', value)}>
-              <SelectTrigger data-testid="select-communication-method">
+              <SelectTrigger data-testid="select-communication-method" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="Select method" />
               </SelectTrigger>
               <SelectContent>
@@ -161,7 +163,7 @@ const Consultation = () => {
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Industry *</label>
             <Select value={contactData.industry} onValueChange={(value) => handleInputChange('industry', value)}>
-              <SelectTrigger data-testid="select-industry">
+              <SelectTrigger data-testid="select-industry" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="Select your industry" />
               </SelectTrigger>
               <SelectContent>
@@ -176,13 +178,25 @@ const Consultation = () => {
                 <SelectItem value="other">Other</SelectItem>
               </SelectContent>
             </Select>
+            {/* Custom industry input - shown when "Other" is selected */}
+            {contactData.industry === "other" && (
+              <Input
+                type="text"
+                placeholder="Please specify your industry..."
+                value={contactData.otherIndustry}
+                onChange={(e) => handleInputChange('otherIndustry', e.target.value)}
+                style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                className="mt-2"
+                data-testid="input-other-industry"
+              />
+            )}
           </div>
           
           {/* Company Size */}
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Company Size *</label>
             <Select value={contactData.companySize} onValueChange={(value) => handleInputChange('companySize', value)}>
-              <SelectTrigger data-testid="select-company-size">
+              <SelectTrigger data-testid="select-company-size" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="Select company size" />
               </SelectTrigger>
               <SelectContent>
@@ -208,7 +222,8 @@ const Consultation = () => {
                 "Cost Reduction",
                 "Scalability",
                 "Security & Compliance",
-                "Digital Transformation"
+                "Digital Transformation",
+                "Other"
               ].map((challenge) => (
                 <div key={challenge} className="flex items-center space-x-2">
                   <Checkbox
@@ -216,27 +231,39 @@ const Consultation = () => {
                     checked={contactData.currentChallenges.includes(challenge)}
                     onCheckedChange={(checked) => handleCheckboxChange('currentChallenges', challenge, checked as boolean)}
                   />
-                  <label htmlFor={challenge} className="text-sm cursor-pointer">
+                  <label htmlFor={challenge} className="text-sm cursor-pointer" style={{ color: '#020a1c' }}>
                     {challenge}
                   </label>
                 </div>
               ))}
             </div>
+            {/* Custom challenge input - shown when "Other" is selected */}
+            {contactData.currentChallenges.includes("Other") && (
+              <Input
+                type="text"
+                placeholder="Please specify your challenge..."
+                value={contactData.otherChallenge}
+                onChange={(e) => handleInputChange('otherChallenge', e.target.value)}
+                style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                className="mt-2"
+                data-testid="input-other-challenge"
+              />
+            )}
           </div>
           
           {/* Budget Range */}
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Budget Range</label>
             <Select value={contactData.budgetRange} onValueChange={(value) => handleInputChange('budgetRange', value)}>
-              <SelectTrigger data-testid="select-budget">
+              <SelectTrigger data-testid="select-budget" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="Select budget range" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="under-10k">Under $10,000</SelectItem>
-                <SelectItem value="10-50k">$10,000 - $50,000</SelectItem>
-                <SelectItem value="50-100k">$50,000 - $100,000</SelectItem>
-                <SelectItem value="100-500k">$100,000 - $500,000</SelectItem>
-                <SelectItem value="500k+">$500,000+</SelectItem>
+                <SelectItem value="1-5k">$1,000 - $5,000</SelectItem>
+                <SelectItem value="5-10k">$5,000 - $10,000</SelectItem>
+                <SelectItem value="10-25k">$10,000 - $25,000</SelectItem>
+                <SelectItem value="25-50k">$25,000 - $50,000</SelectItem>
+                <SelectItem value="over-50k">Over $50,000</SelectItem>
                 <SelectItem value="not-sure">Not sure yet</SelectItem>
               </SelectContent>
             </Select>
@@ -246,7 +273,7 @@ const Consultation = () => {
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Project Timeline</label>
             <Select value={contactData.timeline} onValueChange={(value) => handleInputChange('timeline', value)}>
-              <SelectTrigger data-testid="select-timeline">
+              <SelectTrigger data-testid="select-timeline" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="When do you need this?" />
               </SelectTrigger>
               <SelectContent>
@@ -279,7 +306,7 @@ const Consultation = () => {
       <div className="space-y-6">
         <div className="text-center mb-8">
           <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-2" data-testid="step-title">
+          <h2 className="text-2xl font-bold mb-2" style={{ color: '#020a1c' }} data-testid="step-title">
             Contact Information Received!
           </h2>
           <p className="text-muted-foreground">

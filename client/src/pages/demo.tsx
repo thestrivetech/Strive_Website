@@ -53,8 +53,8 @@ const Demo = () => {
   ];
 
   const budgetRanges = [
-    "Under $10,000", "$10,000 - $50,000", "$50,000 - $100,000", 
-    "$100,000 - $500,000", "$500,000+", "Not sure yet"
+    "$1,000 - $5,000", "$5,000 - $10,000", "$10,000 - $25,000", 
+    "$25,000 - $50,000", "Over $50,000", "Not sure yet"
   ];
 
   const demoFocusOptions = [
@@ -126,15 +126,15 @@ const Demo = () => {
   if (isSubmitted) {
     return (
       <div className="pt-16 min-h-screen hero-gradient flex items-center justify-center">
-        <Card className="max-w-2xl mx-auto bg-white/95 backdrop-blur-sm">
+        <Card className="max-w-2xl mx-auto hero-gradient backdrop-blur-sm">
           <CardContent className="p-12 text-center">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
-            <h2 className="text-3xl font-bold text-[#020a1c] mb-4">
+            <h2 className="text-3xl font-bold text-[#ff7033] mb-4">
               Demo Request Received!
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-lg text-white/80 mb-8">
               Thank you for your interest in Strive. Our team will review your requirements 
               and contact you within 24 hours to schedule your personalized demo.
             </p>
@@ -212,9 +212,9 @@ const Demo = () => {
             </div>
 
             {/* Form Card */}
-            <Card className="bg-white shadow-xl" style={{ backgroundColor: '#ffffffeb' }}>
+            <Card className="hero-gradient shadow-xl">
               <CardHeader>
-                <CardTitle className="text-2xl text-[#020a1c]">
+                <CardTitle className="text-2xl text-[#ff7033]">
                   {formStep === 1 && "Tell us about yourself"}
                   {formStep === 2 && "Help us understand your business"}
                   {formStep === 3 && "Customize your demo experience"}
@@ -227,7 +227,7 @@ const Demo = () => {
                     <div className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <Label htmlFor="fullName" className="text-[#ff7033]">Full Name *</Label>
+                          <Label htmlFor="fullName" className="text-white">Full Name *</Label>
                           <Input
                             id="fullName"
                             value={formData.fullName}
@@ -238,7 +238,7 @@ const Demo = () => {
                           />
                         </div>
                         <div>
-                          <Label htmlFor="email" className="text-[#ff7033]">Email Address *</Label>
+                          <Label htmlFor="email" className="text-white">Email Address *</Label>
                           <Input
                             id="email"
                             type="email"
@@ -253,7 +253,7 @@ const Demo = () => {
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <Label htmlFor="phone" className="text-[#ff7033]">Phone Number</Label>
+                          <Label htmlFor="phone" className="text-white">Phone Number</Label>
                           <Input
                             id="phone"
                             type="tel"
@@ -264,7 +264,7 @@ const Demo = () => {
                           />
                         </div>
                         <div>
-                          <Label htmlFor="companyName" className="text-[#ff7033]">Company Name *</Label>
+                          <Label htmlFor="companyName" className="text-white">Company Name *</Label>
                           <Input
                             id="companyName"
                             value={formData.companyName}
@@ -277,7 +277,7 @@ const Demo = () => {
                       </div>
                       
                       <div>
-                        <Label htmlFor="jobTitle" className="text-[#ff7033]">Job Title</Label>
+                        <Label htmlFor="jobTitle" className="text-white">Job Title</Label>
                         <Input
                           id="jobTitle"
                           value={formData.jobTitle}
@@ -294,13 +294,13 @@ const Demo = () => {
                     <div className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <Label htmlFor="industry" className="text-[#ff7033]">Industry *</Label>
+                          <Label htmlFor="industry" className="text-white">Industry *</Label>
                           <Select 
                             value={formData.industry} 
                             onValueChange={(value) => handleInputChange("industry", value)}
                           >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select your industry" />
+                            <SelectTrigger style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
+                            <SelectValue placeholder="Select your industry" />
                             </SelectTrigger>
                             <SelectContent>
                               {industries.map((industry) => (
@@ -312,12 +312,12 @@ const Demo = () => {
                           </Select>
                         </div>
                         <div>
-                          <Label htmlFor="companySize" className="text-[#ff7033]">Company Size *</Label>
+                          <Label htmlFor="companySize" className="text-white">Company Size *</Label>
                           <Select 
                             value={formData.companySize} 
                             onValueChange={(value) => handleInputChange("companySize", value)}
                           >
-                            <SelectTrigger>
+                            <SelectTrigger style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                               <SelectValue placeholder="Select company size" />
                             </SelectTrigger>
                             <SelectContent>
@@ -332,7 +332,7 @@ const Demo = () => {
                       </div>
                       
                       <div>
-                        <Label className="text-[#ff7033]">Current Challenges * (Select all that apply)</Label>
+                        <Label className="text-white">Current Challenges * (Select all that apply)</Label>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-3">
                           {challenges.map((challenge) => (
                             <div key={challenge} className="flex items-center space-x-2">
@@ -345,7 +345,7 @@ const Demo = () => {
                               />
                               <Label 
                                 htmlFor={challenge} 
-                                className="text-sm font-normal cursor-pointer text-[#020a1c]"
+                                className="text-sm font-normal cursor-pointer text-white"
                               >
                                 {challenge}
                               </Label>
@@ -366,7 +366,7 @@ const Demo = () => {
                             />
                             <Label 
                               htmlFor="other-challenge" 
-                              className="text-sm font-normal cursor-pointer text-[#020a1c]"
+                              className="text-sm font-normal cursor-pointer text-white"
                             >
                               Other
                             </Label>
@@ -387,12 +387,12 @@ const Demo = () => {
                       </div>
                       
                       <div>
-                        <Label htmlFor="budgetRange" className="text-[#ff7033]">Budget Range</Label>
+                        <Label htmlFor="budgetRange" className="text-white">Budget Range</Label>
                         <Select 
                           value={formData.budgetRange} 
                           onValueChange={(value) => handleInputChange("budgetRange", value)}
                         >
-                          <SelectTrigger>
+                          <SelectTrigger style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                             <SelectValue placeholder="Select budget range" />
                           </SelectTrigger>
                           <SelectContent>
@@ -411,7 +411,7 @@ const Demo = () => {
                   {formStep === 3 && (
                     <div className="space-y-6">
                       <div>
-                        <Label className="text-[#ff7033]">Demo Focus Areas * (Select all that interest you)</Label>
+                        <Label className="text-white">Demo Focus Areas * (Select all that interest you)</Label>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
                           {demoFocusOptions.map((option) => (
                             <div key={option} className="flex items-center space-x-2">
@@ -428,7 +428,7 @@ const Demo = () => {
                               />
                               <Label 
                                 htmlFor={option} 
-                                className="text-sm font-normal cursor-pointer text-[#020a1c]"
+                                className="text-sm font-normal cursor-pointer text-white"
                               >
                                 {option}
                               </Label>
@@ -450,7 +450,7 @@ const Demo = () => {
                       </div>
                       
                       <div>
-                        <Label htmlFor="additionalRequirements" className="text-[#ff7033]">
+                        <Label htmlFor="additionalRequirements" className="text-white">
                           Additional Requirements or Questions
                         </Label>
                         <Textarea
@@ -465,17 +465,38 @@ const Demo = () => {
 
                       {/* Calendly Embed Section */}
                       <div>
-                        <Label className="text-[#ff7033] mb-4 block">
-                          Select Your Preferred Demo Time
-                        </Label>
-                        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                          <div className="calendly-inline-widget demo-cursor-pointer" 
-                               data-url="https://calendly.com/strive-tech-demo/30min"
-                               style={{ minWidth: '320px', height: '400px' }}>
+                        <div className="bg-card rounded-lg border">
+                          <div className="p-4">
+                            <h4 className="text-center flex items-center justify-center gap-2 font-semibold mb-2">
+                              <Calendar className="w-6 h-6 text-primary" />
+                              Schedule Your Demo
+                            </h4>
+                            <p className="text-center text-muted-foreground mb-4 text-sm">
+                              Choose a convenient time for your personalized demo session
+                            </p>
                           </div>
-                          <p className="text-sm text-muted-foreground mt-2 text-center">
-                            * You'll receive a calendar invite and confirmation email after scheduling
-                          </p>
+                          <div className="px-4 pb-4">
+                            {/* Calendly iframe placeholder */}
+                            <div className="w-full h-96 bg-muted rounded-lg flex items-center justify-center border-2 border-dashed border-muted-foreground/20">
+                              <div className="text-center space-y-4">
+                                <Calendar className="w-12 h-12 text-primary mx-auto" />
+                                <div>
+                                  <h4 className="font-semibold">Calendly Integration</h4>
+                                  <p className="text-sm text-muted-foreground max-w-md">
+                                    Interactive calendar will be embedded here for demo scheduling
+                                  </p>
+                                </div>
+                                <div className="space-y-2 text-xs text-muted-foreground">
+                                  <p>Contact: <span className="font-medium text-foreground">{formData.fullName}</span></p>
+                                  <p>Email: <span className="font-medium text-foreground">{formData.email}</span></p>
+                                  <p>Company: <span className="font-medium text-foreground">{formData.companyName}</span></p>
+                                </div>
+                              </div>
+                            </div>
+                            <p className="text-sm text-muted-foreground mt-2 text-center">
+                              * You'll receive a calendar invite and confirmation email after scheduling
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -527,37 +548,37 @@ const Demo = () => {
 
             {/* Benefits Section */}
             <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="bg-white/80 backdrop-blur-sm">
+              <Card className="hero-gradient backdrop-blur-sm">
                 <CardContent className="p-6 text-center">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Target className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-[#020a1c] mb-2">Tailored to You</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <h3 className="font-semibold text-white mb-2">Tailored to You</h3>
+                  <p className="text-sm text-white/80">
                     Your demo will focus on your specific industry and challenges
                   </p>
                 </CardContent>
               </Card>
               
-              <Card className="bg-white/80 backdrop-blur-sm">
+              <Card className="hero-gradient backdrop-blur-sm">
                 <CardContent className="p-6 text-center">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Clock className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-[#020a1c] mb-2">Quick Response</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <h3 className="font-semibold text-white mb-2">Quick Response</h3>
+                  <p className="text-sm text-white/80">
                     We'll contact you within 24 hours to schedule your demo
                   </p>
                 </CardContent>
               </Card>
               
-              <Card className="bg-white/80 backdrop-blur-sm">
+              <Card className="hero-gradient backdrop-blur-sm">
                 <CardContent className="p-6 text-center">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Users className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-[#020a1c] mb-2">Expert Guidance</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <h3 className="font-semibold text-white mb-2">Expert Guidance</h3>
+                  <p className="text-sm text-white/80">
                     Our solution architects will guide you through the best options
                   </p>
                 </CardContent>

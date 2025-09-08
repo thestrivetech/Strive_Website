@@ -523,7 +523,7 @@ const Contact = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-primary" />
-                    <span>Mon-Fri: 9:00 AM - 6:00 PM PST</span>
+                    <span>Mon-Fri: 8:00 AM - 8:00 PM EST</span>
                   </div>
                 </div>
               </div>
