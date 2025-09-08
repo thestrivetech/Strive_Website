@@ -80,7 +80,7 @@ const DataAnalytics = () => {
           </div>
 
           <div className="text-center">
-            <Link href="/get-started">
+            <Link href="/request">
               <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-data-analytics">
                 Get Started with Data & Analytics
               </Button>

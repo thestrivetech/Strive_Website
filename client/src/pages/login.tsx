@@ -101,10 +101,26 @@ const Login = () => {
     <div className="min-h-screen hero-gradient flex items-center justify-center pt-16">
       <div className="w-full max-w-md p-4">
         <Card className="shadow-2xl border border-gray-100 rounded-2xl overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
-          <CardHeader className="text-center pb-8 pt-8">
-            <CardTitle className="text-3xl font-bold gradient-text mb-2">Welcome to Strive</CardTitle>
+          <CardHeader className="text-center pb-4 pt-8">
+            <CardTitle className="text-3xl font-bold mb-1">
+              {activeTab === "login" ? (
+                <>
+                  <span className="hero-gradient-text">Welcome to </span>
+                  <span className="gradient-text">Strive</span>
+                </>
+              ) : (
+                <>
+                  <span className="hero-gradient-text">Ready to </span>
+                  <span className="gradient-text">Strive</span>
+                  <span className="hero-gradient-text">?</span>
+                </>
+              )}
+            </CardTitle>
             <CardDescription className="text-gray-600">
-              Sign in to your account or create a new one to get started
+              {activeTab === "login" 
+                ? "Sign in to your account to access your dashboard"
+                : "Join us and watch your business thrive"
+              }
             </CardDescription>
           </CardHeader>
           <CardContent className="px-8 pb-8">
@@ -134,7 +150,7 @@ const Login = () => {
                       name="username"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel style={{ color: '#ff7033' }}>Username or Email</FormLabel>
+                          <FormLabel style={{ color: '#1e3a8a' }}>Username or Email</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="Enter your username or email" 
@@ -152,7 +168,7 @@ const Login = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel style={{ color: '#ff7033' }}>Password</FormLabel>
+                          <FormLabel style={{ color: '#1e3a8a' }}>Password</FormLabel>
                           <FormControl>
                             <Input 
                               type="password" 
@@ -192,7 +208,7 @@ const Login = () => {
                         name="firstName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel style={{ color: '#ff7033' }}>First Name</FormLabel>
+                            <FormLabel style={{ color: '#1e3a8a' }}>First Name</FormLabel>
                             <FormControl>
                               <Input 
                                 placeholder="John" 
@@ -210,7 +226,7 @@ const Login = () => {
                         name="lastName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel style={{ color: '#ff7033' }}>Last Name</FormLabel>
+                            <FormLabel style={{ color: '#1e3a8a' }}>Last Name</FormLabel>
                             <FormControl>
                               <Input 
                                 placeholder="Doe" 
@@ -229,7 +245,7 @@ const Login = () => {
                       name="username"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel style={{ color: '#ff7033' }}>Username</FormLabel>
+                          <FormLabel style={{ color: '#1e3a8a' }}>Username</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="Choose a username" 
@@ -247,7 +263,7 @@ const Login = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel style={{ color: '#ff7033' }}>Email</FormLabel>
+                          <FormLabel style={{ color: '#1e3a8a' }}>Email</FormLabel>
                           <FormControl>
                             <Input 
                               type="email"
@@ -266,7 +282,7 @@ const Login = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel style={{ color: '#ff7033' }}>Password</FormLabel>
+                          <FormLabel style={{ color: '#1e3a8a' }}>Password</FormLabel>
                           <FormControl>
                             <Input 
                               type="password" 
@@ -285,7 +301,7 @@ const Login = () => {
                       name="confirmPassword"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel style={{ color: '#ff7033' }}>Confirm Password</FormLabel>
+                          <FormLabel style={{ color: '#1e3a8a' }}>Confirm Password</FormLabel>
                           <FormControl>
                             <Input 
                               type="password" 

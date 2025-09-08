@@ -218,7 +218,7 @@ const ComputerVisionDocumentation = () => {
             vision can revolutionize your operations.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/get-started">
+            <Link href="/request">
               <Button size="lg" className="bg-primary hover:bg-primary/90">
                 Request a Demo
               </Button>

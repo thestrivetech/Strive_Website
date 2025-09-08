@@ -30,11 +30,11 @@ const Home = () => {
   const [selectedSolution, setSelectedSolution] = useState<any | null>(null);
 
   const handleGetStarted = () => {
-    window.location.href = "/get-started";
+    window.location.href = "/request";
   };
 
   const handleWatchDemo = () => {
-    window.location.href = "/demo";
+    window.location.href = "/request";
   };
 
   const industrySpecificSolutions = {

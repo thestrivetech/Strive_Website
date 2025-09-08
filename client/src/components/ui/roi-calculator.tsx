@@ -244,7 +244,7 @@ const ROICalculator = () => {
               {/* Schedule Consultation Button - Bottom aligned */}
               <div className="pt-4 mt-auto">
                 <button 
-                  onClick={() => window.location.href = "/get-started"}
+                  onClick={() => window.location.href = "/request"}
                   className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                   data-testid="button-schedule-discovery-call"
                 >

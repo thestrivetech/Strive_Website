@@ -74,7 +74,7 @@ const Education = () => {
           </div>
 
           <div className="text-center">
-            <Link href="/get-started">
+            <Link href="/request">
               <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-education">
                 Get Started with Education Solutions
               </Button>

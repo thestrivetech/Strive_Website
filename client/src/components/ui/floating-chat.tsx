@@ -144,7 +144,7 @@ const FloatingChat = () => {
                   variant="outline"
                   className="text-xs border-2 border-transparent bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 p-[2px] text-white hover:text-[#ff7033] transition-all duration-300 hover:shadow-md hover:scale-105"
                   onClick={() => {
-                    window.location.href = '/solutions';
+                    window.location.href = '/request';
                   }}
                   style={{
                     background: 'linear-gradient(to bottom right, #ff7033, #f97316, #9333ea)',

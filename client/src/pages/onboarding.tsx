@@ -372,7 +372,7 @@ const Onboarding = () => {
                 <Button 
                   variant="outline"
                   className="flex-1"
-                  onClick={() => window.location.href = "/get-started"}
+                  onClick={() => window.location.href = "/request"}
                   data-testid="button-schedule-consultation"
                 >
                   Schedule Consultation

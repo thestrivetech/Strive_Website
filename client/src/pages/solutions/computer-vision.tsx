@@ -80,7 +80,7 @@ const ComputerVision = () => {
           </div>
 
           <div className="text-center">
-            <Link href="/get-started">
+            <Link href="/request">
               <Button size="lg" className="bg-primary hover:bg-primary/90" data-testid="button-get-started-computer-vision">
                 Get Started with Computer Vision
               </Button>

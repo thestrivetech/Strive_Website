@@ -254,7 +254,7 @@ const NlpDocumentation = () => {
             Start your NLP journey today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/get-started">
+            <Link href="/request">
               <Button size="lg" className="bg-primary hover:bg-primary/90">
                 Explore NLP Solutions
               </Button>

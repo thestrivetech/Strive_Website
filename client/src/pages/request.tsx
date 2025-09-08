@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { 
-  Building2, Users, Target, Calendar, Clock, Mail, Phone, User, 
-  Briefcase, CheckCircle, ChevronRight, Sparkles, Zap
+  Users, Target, Calendar, Clock, CheckCircle, ChevronRight, Zap
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,9 +9,8 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 
-const Demo = () => {
+const Request = () => {
   const [formStep, setFormStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -28,6 +26,7 @@ const Demo = () => {
     companySize: "",
     currentChallenges: [] as string[],
     otherChallengeText: "", // New field for custom challenge text
+    projectTimeline: "",
     budgetRange: "",
     
     // Demo Preferences
@@ -52,6 +51,16 @@ const Demo = () => {
     "Security & Compliance", "Digital Transformation"
   ];
 
+  const projectTimelines = [
+    "Immediate (ASAP)",
+    "Within 1 month", 
+    "1-3 months",
+    "3-6 months", 
+    "6-12 months",
+    "12+ months",
+    "Just exploring"
+  ];
+
   const budgetRanges = [
     "$1,000 - $5,000", "$5,000 - $10,000", "$10,000 - $25,000", 
     "$25,000 - $50,000", "Over $50,000", "Not sure yet"
@@ -62,6 +71,13 @@ const Demo = () => {
     "Security & Compliance", "Automation Solutions", "Analytics & Reporting",
     "Custom AI Models", "Integration Capabilities", "Other"
   ];
+
+  // Repeated input styling
+  const inputStyle = { 
+    backgroundColor: '#ffffff', 
+    color: '#020a1c', 
+    borderColor: '#ff7033' 
+  };
 
   // Load Calendly script when component mounts
   useEffect(() => {
@@ -94,6 +110,11 @@ const Demo = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Only submit if we're on step 3, otherwise do nothing
+    if (formStep !== 3) {
+      return;
+    }
+    
     // Include custom challenge text in the submission if "Other" is selected
     const submissionData = {
       ...formData,
@@ -107,7 +128,7 @@ const Demo = () => {
     
     setIsSubmitted(true);
     // Here you would typically send the form data to your backend
-    console.log("Demo request submitted:", submissionData);
+    console.log("Request submitted:", submissionData);
   };
 
   const isStepComplete = (step: number) => {
@@ -115,7 +136,7 @@ const Demo = () => {
       case 1:
         return formData.fullName && formData.email && formData.companyName;
       case 2:
-        return formData.industry && formData.companySize && formData.currentChallenges.length > 0;
+        return formData.industry && formData.companySize && formData.currentChallenges.length > 0 && formData.projectTimeline;
       case 3:
         return formData.demoFocusAreas.length > 0;
       default:
@@ -132,11 +153,10 @@ const Demo = () => {
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
             <h2 className="text-3xl font-bold text-[#ff7033] mb-4">
-              Demo Request Received!
+              Request Received!
             </h2>
             <p className="text-lg text-white/80 mb-8">
-              Thank you for your interest in Strive. Our team will review your requirements 
-              and contact you within 24 hours to schedule your personalized demo.
+              Thank you for your interest in Strive. You will receive a confirmation email momentarily. Our team will review your requirements and requests to have your showcase ready at the requested showcase time!
             </p>
             <div className="bg-gray-50 rounded-lg p-6 mb-8">
               <h3 className="font-semibold text-[#020a1c] mb-3">What happens next?</h3>
@@ -147,17 +167,17 @@ const Demo = () => {
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                  <span>We'll prepare a customized demo based on your needs</span>
+                  <span>We'll prepare a customized showcase based on your needs</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                  <span>You'll receive a calendar invite for your demo session</span>
+                  <span>You'll receive a calendar invite for your showcase session</span>
                 </li>
               </ul>
             </div>
             <Button 
               onClick={() => window.location.href = "/"}
-              className="bg-primary hover:bg-primary/90"
+              className="bg-primary hover:bg-primary/90 hover:scale-105 hover:shadow-xl transition-all duration-300"
               size="lg"
             >
               Return to Homepage
@@ -170,8 +190,6 @@ const Demo = () => {
 
   return (
     <div className="pt-16">
-
-
       {/* Form Section */}
       <section className="py-16 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -206,7 +224,7 @@ const Demo = () => {
                   Business Details
                 </span>
                 <span className={`text-center ${formStep >= 3 ? 'text-primary font-semibold' : 'text-gray-500'}`}>
-                  Demo Preferences
+                  Customize Your Solution
                 </span>
               </div>
             </div>
@@ -217,7 +235,7 @@ const Demo = () => {
                 <CardTitle className="text-2xl text-[#ff7033]">
                   {formStep === 1 && "Tell us about yourself"}
                   {formStep === 2 && "Help us understand your business"}
-                  {formStep === 3 && "Customize your demo experience"}
+                  {formStep === 3 && "Customize your solution"}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -233,7 +251,7 @@ const Demo = () => {
                             value={formData.fullName}
                             onChange={(e) => handleInputChange("fullName", e.target.value)}
                             placeholder="John Doe"
-                            style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                            style={inputStyle}
                             required
                           />
                         </div>
@@ -245,7 +263,7 @@ const Demo = () => {
                             value={formData.email}
                             onChange={(e) => handleInputChange("email", e.target.value)}
                             placeholder="john@company.com"
-                            style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                            style={inputStyle}
                             required
                           />
                         </div>
@@ -260,7 +278,7 @@ const Demo = () => {
                             value={formData.phone}
                             onChange={(e) => handleInputChange("phone", e.target.value)}
                             placeholder="+1 (555) 123-4567"
-                            style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                            style={inputStyle}
                           />
                         </div>
                         <div>
@@ -270,7 +288,7 @@ const Demo = () => {
                             value={formData.companyName}
                             onChange={(e) => handleInputChange("companyName", e.target.value)}
                             placeholder="Acme Corporation"
-                            style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                            style={inputStyle}
                             required
                           />
                         </div>
@@ -283,7 +301,7 @@ const Demo = () => {
                           value={formData.jobTitle}
                           onChange={(e) => handleInputChange("jobTitle", e.target.value)}
                           placeholder="Chief Technology Officer"
-                          style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                          style={inputStyle}
                         />
                       </div>
                     </div>
@@ -299,7 +317,7 @@ const Demo = () => {
                             value={formData.industry} 
                             onValueChange={(value) => handleInputChange("industry", value)}
                           >
-                            <SelectTrigger style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
+                            <SelectTrigger style={inputStyle}>
                             <SelectValue placeholder="Select your industry" />
                             </SelectTrigger>
                             <SelectContent>
@@ -317,7 +335,7 @@ const Demo = () => {
                             value={formData.companySize} 
                             onValueChange={(value) => handleInputChange("companySize", value)}
                           >
-                            <SelectTrigger style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
+                            <SelectTrigger style={inputStyle}>
                               <SelectValue placeholder="Select company size" />
                             </SelectTrigger>
                             <SelectContent>
@@ -380,10 +398,29 @@ const Demo = () => {
                               value={formData.otherChallengeText}
                               onChange={(e) => handleInputChange("otherChallengeText", e.target.value)}
                               className="w-full"
-                              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                              style={inputStyle}
                             />
                           </div>
                         )}
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor="projectTimeline" className="text-white">Project Timeline *</Label>
+                        <Select 
+                          value={formData.projectTimeline} 
+                          onValueChange={(value) => handleInputChange("projectTimeline", value)}
+                        >
+                          <SelectTrigger style={inputStyle}>
+                            <SelectValue placeholder="Select your project timeline" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {projectTimelines.map((timeline) => (
+                              <SelectItem key={timeline} value={timeline}>
+                                {timeline}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
                       
                       <div>
@@ -392,7 +429,7 @@ const Demo = () => {
                           value={formData.budgetRange} 
                           onValueChange={(value) => handleInputChange("budgetRange", value)}
                         >
-                          <SelectTrigger style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
+                          <SelectTrigger style={inputStyle}>
                             <SelectValue placeholder="Select budget range" />
                           </SelectTrigger>
                           <SelectContent>
@@ -411,7 +448,7 @@ const Demo = () => {
                   {formStep === 3 && (
                     <div className="space-y-6">
                       <div>
-                        <Label className="text-white">Demo Focus Areas * (Select all that interest you)</Label>
+                        <Label className="text-white">Solution Focus Areas * (Select all that interest you)</Label>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
                           {demoFocusOptions.map((option) => (
                             <div key={option} className="flex items-center space-x-2">
@@ -435,7 +472,7 @@ const Demo = () => {
                             </div>
                           ))}
                         </div>
-                        {/* Custom demo focus text input - shown when "Other" is selected */}
+                        {/* Custom solutions focus text input - shown when "Other" is selected */}
                         {formData.demoFocusAreas.includes("Other") && (
                           <div className="mt-4">
                             <Input
@@ -443,7 +480,7 @@ const Demo = () => {
                               value={formData.otherDemoFocusText}
                               onChange={(e) => handleInputChange("otherDemoFocusText", e.target.value)}
                               className="w-full"
-                              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                              style={inputStyle}
                             />
                           </div>
                         )}
@@ -459,7 +496,7 @@ const Demo = () => {
                           onChange={(e) => handleInputChange("additionalRequirements", e.target.value)}
                           placeholder="Tell us about any specific features you'd like to see or questions you have..."
                           rows={4}
-                          style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                          style={inputStyle}
                         />
                       </div>
 
@@ -469,10 +506,10 @@ const Demo = () => {
                           <div className="p-4">
                             <h4 className="text-center flex items-center justify-center gap-2 font-semibold mb-2">
                               <Calendar className="w-6 h-6 text-primary" />
-                              Schedule Your Demo
+                              Schedule Your Showcase
                             </h4>
                             <p className="text-center text-muted-foreground mb-4 text-sm">
-                              Choose a convenient time for your personalized demo session
+                              Choose a convenient time for your personalized solution Showcase
                             </p>
                           </div>
                           <div className="px-4 pb-4">
@@ -483,7 +520,7 @@ const Demo = () => {
                                 <div>
                                   <h4 className="font-semibold">Calendly Integration</h4>
                                   <p className="text-sm text-muted-foreground max-w-md">
-                                    Interactive calendar will be embedded here for demo scheduling
+                                    Interactive calendar will be embedded here for the showcase scheduling
                                   </p>
                                 </div>
                                 <div className="space-y-2 text-xs text-muted-foreground">
@@ -527,14 +564,14 @@ const Demo = () => {
                     ) : (
                       <Button
                         type="submit"
-                        className="ml-auto text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg relative overflow-hidden group demo-cursor-click"
+                        className="ml-auto text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg relative overflow-hidden group"
                         style={{
                           background: 'linear-gradient(135deg, #ff7033 0%, #6b46c1 50%, #ff5420 100%)'
                         }}
                         disabled={!isStepComplete(3)}
                       >
                         <span className="relative z-10">
-                          Submit Demo Request
+                          Submit Request
                           <Zap className="ml-2 h-4 w-4 inline" />
                         </span>
                         {/* Shimmer effect on hover */}
@@ -555,7 +592,7 @@ const Demo = () => {
                   </div>
                   <h3 className="font-semibold text-white mb-2">Tailored to You</h3>
                   <p className="text-sm text-white/80">
-                    Your demo will focus on your specific industry and challenges
+                    Your solution showcase will focus on your specific industry and challenges
                   </p>
                 </CardContent>
               </Card>
@@ -567,7 +604,7 @@ const Demo = () => {
                   </div>
                   <h3 className="font-semibold text-white mb-2">Quick Response</h3>
                   <p className="text-sm text-white/80">
-                    We'll contact you within 24 hours to schedule your demo
+                    We'll contact you within 24 hours to confirm your showcase
                   </p>
                 </CardContent>
               </Card>
@@ -591,4 +628,4 @@ const Demo = () => {
   );
 };
 
-export default Demo;
+export default Request;

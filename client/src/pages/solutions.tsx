@@ -286,7 +286,7 @@ const Solutions = () => {
         break;
       default:
         // Fallback to get started page
-        window.location.href = '/get-started';
+        window.location.href = '/request';
     }
   };
 
@@ -337,7 +337,7 @@ const Solutions = () => {
                 size="lg" 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group
                   before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
-                onClick={() => window.location.href = '/get-started'}
+                onClick={() => window.location.href = '/request'}
                 data-testid="button-get-custom-solution"
               >
                 Get Custom Solution
@@ -710,7 +710,7 @@ const Solutions = () => {
                       size="lg" 
                       variant="outline" 
                       className="flex-1 border-primary text-primary hover:bg-primary hover:text-white" 
-                      onClick={() => window.location.href = '/get-started'}
+                      onClick={() => window.location.href = '/request'}
                     >
                       Request Custom Demo
                     </Button>
@@ -720,7 +720,7 @@ const Solutions = () => {
                     <Button 
                       size="lg" 
                       className="flex-1 bg-primary hover:bg-primary/90" 
-                      onClick={() => window.location.href = '/get-started'}
+                      onClick={() => window.location.href = '/request'}
                     >
                       Request Demo
                     </Button>

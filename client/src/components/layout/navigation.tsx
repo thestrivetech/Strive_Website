@@ -195,7 +195,7 @@ const Navigation = () => {
                             Login
                           </Button>
                         </Link>
-                        <Link href="/get-started">
+                        <Link href="/request">
                           <Button 
                             className="w-full bg-primary text-white hover:bg-primary/90 transition-all duration-300 rounded-xl shadow-lg"
                             data-testid="mobile-button-get-started"
@@ -364,7 +364,7 @@ const Navigation = () => {
                     Login
                   </Button>
                 </Link>
-                <Link href="/get-started">
+                <Link href="/request">
                   <Button 
                     className="bg-primary text-primary-foreground hover:bg-primary/90"
                     data-testid="button-get-started"
