@@ -163,7 +163,7 @@ const Contact = () => {
               <CardContent className="p-0">
                 <h2 
                   className="text-2xl font-bold mb-6"
-                  style={{ color: '#020a1c' }}
+                  style={{ color: '#ff7033' }}
                   data-testid="text-form-title"
                 >
                   Send us a message
@@ -171,7 +171,7 @@ const Contact = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>First Name *</label>
+                      <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>First Name *</label>
                       <Input
                         type="text"
                         required
@@ -184,7 +184,7 @@ const Contact = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Last Name *</label>
+                      <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Last Name *</label>
                       <Input
                         type="text"
                         required
@@ -199,7 +199,7 @@ const Contact = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Business Email *</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Business Email *</label>
                     <Input
                       type="email"
                       required
@@ -213,7 +213,7 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Company Name *</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Name *</label>
                     <Input
                       type="text"
                       required
@@ -227,7 +227,7 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Phone Number</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Phone Number</label>
                     <Input
                       type="tel"
                       placeholder="+1 (555) 123-4567"
@@ -240,7 +240,7 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Company Size</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Size</label>
                     <Select value={formData.companySize} onValueChange={(value) => setFormData(prev => ({ ...prev, companySize: value }))}>
                       <SelectTrigger data-testid="select-company-size" className="gap-2" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                         <Users className="h-4 w-4 text-muted-foreground" />
@@ -257,7 +257,7 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>How can we help? *</label>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>How can we help? *</label>
                     <Textarea
                       required
                       rows={4}

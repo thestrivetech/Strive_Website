@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const FloatingChat = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +15,15 @@ const FloatingChat = () => {
       timestamp: new Date()
     }
   ]);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,10 +69,10 @@ const FloatingChat = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 w-80 h-96 z-50">
-          <Card className="h-full flex flex-col bg-card border-border shadow-2xl">
+        <div className="fixed bottom-24 right-4 w-96 h-[500px] z-50">
+          <Card className="h-full flex flex-col bg-white/10 backdrop-blur-xl border-border shadow-2xl">
             {/* Chat Header */}
-            <div className="bg-primary text-primary-foreground p-4 rounded-t-lg">
+            <div className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white p-4 rounded-t-lg">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <div className="w-8 h-8 bg-primary-foreground/20 rounded-full flex items-center justify-center">
@@ -77,76 +87,111 @@ const FloatingChat = () => {
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsOpen(false)}
-                  className="text-primary-foreground hover:bg-primary-foreground/20"
+                  className="text-white hover:bg-white/20 hover:text-white transition-all duration-200 hover:scale-110 rounded-full w-8 h-8"
                   data-testid="button-close-chat"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5 font-bold stroke-2" />
                 </Button>
               </div>
             </div>
 
             {/* Chat Messages */}
-            <CardContent className="flex-1 p-4 overflow-y-auto space-y-4">
-              {messages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
-                  data-testid={`message-${msg.type}-${index}`}
-                >
+            <ScrollArea className="flex-1 bg-transparent">
+              <div className="p-4 space-y-4">
+                {messages.map((msg, index) => (
                   <div
-                    className={`max-w-[70%] p-3 rounded-lg ${
-                      msg.type === 'user'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted text-muted-foreground'
-                    }`}
+                    key={index}
+                    className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                    data-testid={`message-${msg.type}-${index}`}
                   >
-                    <p className="text-sm">{msg.content}</p>
+                    <div
+                      className={`max-w-[70%] p-3 rounded-lg ${
+                        msg.type === 'user'
+                          ? 'bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white'
+                          : 'bg-gradient-to-br from-[#020a1c] via-purple-900 to-[#020a1c] text-white border border-[#ff7033]/20'
+                      }`}
+                    >
+                      <p className="text-sm">{msg.content}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
-              
-              {/* Quick Actions - Show only if it's the first message */}
-              {messages.length === 1 && (
-                <div className="space-y-2 mt-4">
-                  <p className="text-xs text-muted-foreground">Quick Actions:</p>
-                  <div className="flex flex-wrap gap-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="text-xs"
-                      onClick={() => {
-                        window.location.href = '/demo';
-                      }}
-                    >
-                      Request Demo
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="text-xs"
-                      onClick={() => {
-                        window.location.href = '/solutions';
-                      }}
-                    >
-                      Get Custom Solution
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="text-xs"
-                      onClick={() => {
-                        window.location.href = '/contact';
-                      }}
-                    >
-                      Contact Us
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </CardContent>
+                ))}
+                <div ref={messagesEndRef} />
+              </div>
+            </ScrollArea>
+
+            {/* Quick Actions - Always show */}
+            <div className="px-4 py-2 border-t border-border/50 bg-transparent">
+              <p className="text-xs text-muted-foreground mb-2">Quick Actions:</p>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="text-xs border-2 border-transparent bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 p-[2px] text-white hover:text-[#ff7033] transition-all duration-300 hover:shadow-md hover:scale-105"
+                  onClick={() => {
+                    window.location.href = '/demo';
+                  }}
+                  style={{
+                    background: 'linear-gradient(to bottom right, #ff7033, #f97316, #9333ea)',
+                    padding: '2px'
+                  }}
+                >
+                  <span className="bg-[#020a1c] hover:bg-[#020a1c] px-2 py-1 rounded text-xs w-full h-full flex items-center justify-center">
+                    Request Demo
+                  </span>
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="text-xs border-2 border-transparent bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 p-[2px] text-white hover:text-[#ff7033] transition-all duration-300 hover:shadow-md hover:scale-105"
+                  onClick={() => {
+                    window.location.href = '/solutions';
+                  }}
+                  style={{
+                    background: 'linear-gradient(to bottom right, #ff7033, #f97316, #9333ea)',
+                    padding: '2px'
+                  }}
+                >
+                  <span className="bg-[#020a1c] hover:bg-[#020a1c] px-2 py-1 rounded text-xs w-full h-full flex items-center justify-center">
+                    Get Custom Solution
+                  </span>
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="text-xs border-2 border-transparent bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 p-[2px] text-white hover:text-[#ff7033] transition-all duration-300 hover:shadow-md hover:scale-105"
+                  onClick={() => {
+                    window.location.href = '/contact';
+                  }}
+                  style={{
+                    background: 'linear-gradient(to bottom right, #ff7033, #f97316, #9333ea)',
+                    padding: '2px'
+                  }}
+                >
+                  <span className="bg-[#020a1c] hover:bg-[#020a1c] px-2 py-1 rounded text-xs w-full h-full flex items-center justify-center">
+                    Contact Us
+                  </span>
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="text-xs border-2 border-transparent bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 p-[2px] text-white hover:text-[#ff7033] transition-all duration-300 hover:shadow-md hover:scale-105"
+                  onClick={() => {
+                    window.location.href = '/chatbot-sai';
+                  }}
+                  style={{
+                    background: 'linear-gradient(to bottom right, #ff7033, #f97316, #9333ea)',
+                    padding: '2px'
+                  }}
+                >
+                  <span className="bg-[#020a1c] hover:bg-[#020a1c] px-2 py-1 rounded text-xs w-full h-full flex items-center justify-center">
+                    Live Chat Support
+                  </span>
+                </Button>
+              </div>
+            </div>
 
             {/* Chat Input */}
-            <div className="p-4 border-t border-border">
+            <div className="p-4 border-t border-border bg-transparent">
               <form onSubmit={handleSendMessage} className="flex space-x-2">
                 <Input
                   value={message}
@@ -158,7 +203,7 @@ const FloatingChat = () => {
                 <Button
                   type="submit"
                   size="icon"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90"
+                  className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white hover:from-orange-500 hover:to-[#ff7033] shadow-lg"
                   data-testid="button-send-message"
                 >
                   <Send className="w-4 h-4" />

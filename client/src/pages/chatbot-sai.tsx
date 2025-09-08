@@ -122,22 +122,27 @@ const ChatBotSai = () => {
   };
 
   return (
-    <div className="pt-16 min-h-screen bg-[#ffffffeb]">
+    <div className="pt-16 min-h-screen hero-gradient">
       {/* Header */}
-      <div className="hero-gradient py-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative py-12 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#ff7033]/10 via-transparent to-purple-600/10"></div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <div className="flex items-center justify-center mb-4">
+            <div className="flex items-center justify-center mb-6">
               <div className="relative">
-                <Bot className="h-12 w-12 text-primary animate-pulse" />
-                <Sparkles className="absolute -top-2 -right-2 h-6 w-6 text-[#ff7033]" />
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#ff7033] to-purple-600 flex items-center justify-center shadow-2xl">
+                  <Bot className="h-10 w-10 text-white" />
+                </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-[#ff7033] flex items-center justify-center animate-pulse">
+                  <Sparkles className="h-4 w-4 text-white" />
+                </div>
               </div>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
               Chat with <span className="gradient-text">Sai</span>
             </h1>
-            <p className="text-white/90">
-              Your AI-Powered Business Solutions Assistant
+            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+              Your AI-Powered Business Solutions Assistant - Available 24/7
             </p>
           </div>
         </div>
@@ -145,18 +150,21 @@ const ChatBotSai = () => {
 
       {/* Chat Interface */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-4xl mx-auto">
-          <Card className="shadow-xl">
-            <CardHeader className="bg-gradient-to-r from-[#020a1c] to-[#0f172a] text-white p-4">
+        <div className="max-w-5xl mx-auto">
+          <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
+            <CardHeader className="bg-gradient-to-r from-[#020a1c] via-purple-900 to-[#020a1c] text-white p-6">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
                   <div className="relative">
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <div className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full animate-ping"></div>
+                    <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse shadow-lg"></div>
+                    <div className="absolute inset-0 w-4 h-4 bg-green-400 rounded-full animate-ping"></div>
                   </div>
-                  <span className="font-semibold">Sai is Online</span>
+                  <div>
+                    <span className="font-bold text-lg">Sai is Online</span>
+                    <p className="text-white/80 text-sm">Intelligent Assistant</p>
+                  </div>
                 </div>
-                <Badge variant="secondary" className="bg-white/20 text-white">
+                <Badge className="bg-gradient-to-r from-[#ff7033] to-yellow-500 text-white px-4 py-2">
                   AI Assistant
                 </Badge>
               </div>
@@ -164,16 +172,18 @@ const ChatBotSai = () => {
             
             <CardContent className="p-0">
               {/* Messages Area */}
-              <ScrollArea className="h-[500px] p-6">
-                <div className="space-y-4">
+              <ScrollArea className="h-[600px] p-8 bg-gradient-to-b from-white/50 to-white/80">
+                <div className="space-y-6">
                   {messages.map((msg) => (
                     <div
                       key={msg.id}
                       className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
                     >
-                      <div className={`flex gap-3 max-w-[80%] ${msg.type === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                        <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-                          msg.type === 'user' ? 'bg-primary' : 'bg-gradient-to-r from-[#ff7033] to-primary'
+                      <div className={`flex gap-4 max-w-[85%] ${msg.type === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                        <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center shadow-lg ${
+                          msg.type === 'user' 
+                            ? 'bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600' 
+                            : 'bg-gradient-to-br from-[#020a1c] via-purple-900 to-[#020a1c] border-2 border-[#ff7033]/30'
                         }`}>
                           {msg.type === 'user' ? (
                             <User className="w-5 h-5 text-white" />
@@ -181,19 +191,19 @@ const ChatBotSai = () => {
                             <Bot className="w-5 h-5 text-white" />
                           )}
                         </div>
-                        <div>
-                          <div className={`rounded-2xl px-4 py-3 ${
+                        <div className="flex-1">
+                          <div className={`rounded-3xl px-6 py-4 shadow-lg ${
                             msg.type === 'user' 
-                              ? 'bg-primary text-white' 
-                              : 'bg-gray-100 text-[#020a1c]'
+                              ? 'bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white' 
+                              : 'bg-gradient-to-br from-[#020a1c] via-purple-900 to-[#020a1c] text-white border border-[#ff7033]/20'
                           }`}>
-                            <p className="text-sm">{msg.content}</p>
+                            <p className="text-sm leading-relaxed">{msg.content}</p>
                           </div>
-                          <div className={`flex items-center gap-1 mt-1 ${
+                          <div className={`flex items-center gap-2 mt-2 ${
                             msg.type === 'user' ? 'justify-end' : 'justify-start'
                           }`}>
-                            <Clock className="w-3 h-3 text-gray-400" />
-                            <span className="text-xs text-gray-400">{formatTime(msg.timestamp)}</span>
+                            <Clock className="w-3 h-3 text-gray-500" />
+                            <span className="text-xs text-gray-500">{formatTime(msg.timestamp)}</span>
                           </div>
                         </div>
                       </div>
@@ -202,15 +212,15 @@ const ChatBotSai = () => {
                   
                   {isTyping && (
                     <div className="flex justify-start">
-                      <div className="flex gap-3 max-w-[80%]">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-r from-[#ff7033] to-primary flex items-center justify-center">
-                          <Bot className="w-5 h-5 text-white" />
+                      <div className="flex gap-4 max-w-[85%]">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#020a1c] via-purple-900 to-[#020a1c] border-2 border-[#ff7033]/30 flex items-center justify-center shadow-lg">
+                          <Bot className="w-5 h-5 text-white animate-pulse" />
                         </div>
-                        <div className="bg-gray-100 rounded-2xl px-4 py-3">
-                          <div className="flex gap-1">
-                            <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-                            <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
-                            <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                        <div className="bg-gradient-to-br from-[#020a1c] via-purple-900 to-[#020a1c] border border-[#ff7033]/20 rounded-3xl px-6 py-4 shadow-lg">
+                          <div className="flex gap-2">
+                            <span className="w-3 h-3 bg-[#ff7033] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                            <span className="w-3 h-3 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: '200ms' }}></span>
+                            <span className="w-3 h-3 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '400ms' }}></span>
                           </div>
                         </div>
                       </div>
@@ -223,21 +233,27 @@ const ChatBotSai = () => {
 
               {/* Quick Actions */}
               {messages.length === 1 && (
-                <div className="px-6 py-3 border-t border-gray-200">
-                  <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
-                  <div className="flex flex-wrap gap-2">
+                <div className="px-8 py-4 border-t border-gray-200/50 bg-gradient-to-r from-white/80 to-white/60">
+                  <p className="text-sm font-semibold text-[#020a1c] mb-3">Quick questions to get started:</p>
+                  <div className="flex flex-wrap gap-3">
                     {quickActions.map((action, index) => (
                       <Button
                         key={index}
                         variant="outline"
                         size="sm"
-                        className="text-xs"
+                        className="text-xs border-2 border-transparent bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 p-[2px] text-white hover:text-[#ff7033] transition-all duration-300 hover:shadow-md hover:scale-105"
                         onClick={() => {
                           setMessage(action);
                           inputRef.current?.focus();
                         }}
+                        style={{
+                          background: 'linear-gradient(to bottom right, #ff7033, #f97316, #9333ea)',
+                          padding: '2px'
+                        }}
                       >
-                        {action}
+                        <span className="bg-[#020a1c] hover:bg-[#020a1c] px-3 py-1 rounded text-xs w-full h-full flex items-center justify-center">
+                          {action}
+                        </span>
                       </Button>
                     ))}
                   </div>
@@ -245,20 +261,20 @@ const ChatBotSai = () => {
               )}
 
               {/* Input Area */}
-              <form onSubmit={handleSendMessage} className="p-4 border-t border-gray-200">
-                <div className="flex gap-2">
+              <form onSubmit={handleSendMessage} className="p-6 border-t border-gray-200/50 bg-gradient-to-r from-white/90 to-white/70">
+                <div className="flex gap-4">
                   <Input
                     ref={inputRef}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Type your message..."
-                    className="flex-1"
+                    placeholder="Type your message to Sai..."
+                    className="flex-1 border-2 border-gray-200 focus:border-[#ff7033] focus:ring-[#ff7033] rounded-2xl px-4 py-3 text-white placeholder:text-gray-400"
                     disabled={isTyping}
                   />
                   <Button 
                     type="submit" 
                     size="icon"
-                    className="bg-primary hover:bg-primary/90"
+                    className="bg-gradient-to-r from-[#ff7033] to-orange-500 hover:from-orange-500 hover:to-[#ff7033] w-12 h-12 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                     disabled={!message.trim() || isTyping}
                   >
                     <Send className="w-5 h-5" />
@@ -269,28 +285,34 @@ const ChatBotSai = () => {
           </Card>
 
           {/* Info Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-            <Card className="bg-gradient-to-br from-primary/10 to-primary/5">
-              <CardContent className="p-4">
-                <MessageCircle className="w-8 h-8 text-primary mb-2" />
-                <h3 className="font-semibold text-[#020a1c] mb-1">Instant Responses</h3>
-                <p className="text-sm text-gray-600">Get immediate answers to your questions about our AI solutions</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg">
+                  <MessageCircle className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="font-bold text-white mb-2 text-lg">Instant Responses</h3>
+                <p className="text-sm text-white/80">Get immediate answers to your questions about our AI solutions</p>
               </CardContent>
             </Card>
             
-            <Card className="bg-gradient-to-br from-[#ff7033]/10 to-[#ff7033]/5">
-              <CardContent className="p-4">
-                <Sparkles className="w-8 h-8 text-[#ff7033] mb-2" />
-                <h3 className="font-semibold text-[#020a1c] mb-1">AI-Powered</h3>
-                <p className="text-sm text-gray-600">Intelligent responses tailored to your specific needs</p>
+            <Card className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 backdrop-blur-sm border-purple-600/20 shadow-2xl hover:scale-105 transition-all duration-300">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#020a1c] to-purple-900 flex items-center justify-center shadow-lg">
+                  <Sparkles className="w-8 h-8 text-[#ff7033]" />
+                </div>
+                <h3 className="font-bold text-white mb-2 text-lg">AI-Powered</h3>
+                <p className="text-sm text-white/80">Intelligent responses tailored to your specific needs</p>
               </CardContent>
             </Card>
             
-            <Card className="bg-gradient-to-br from-green-500/10 to-green-500/5">
-              <CardContent className="p-4">
-                <Clock className="w-8 h-8 text-green-500 mb-2" />
-                <h3 className="font-semibold text-[#020a1c] mb-1">Available 24/7</h3>
-                <p className="text-sm text-gray-600">Always here to help, any time of day or night</p>
+            <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg">
+                  <Clock className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="font-bold text-white mb-2 text-lg">Available 24/7</h3>
+                <p className="text-sm text-white/80">Always here to help, any time of day or night</p>
               </CardContent>
             </Card>
           </div>

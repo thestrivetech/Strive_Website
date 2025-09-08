@@ -74,7 +74,7 @@ function Router() {
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />
             <Route path="/cookies" component={Cookies} />
-            <Route path="/chatbot" component={ChatBotSai} />
+            <Route path="/chatbot-sai" component={ChatBotSai} />
             <Route path="/solutions/healthcare" component={Healthcare} />
             <Route path="/solutions/financial" component={Financial} />
             <Route path="/solutions/manufacturing" component={Manufacturing} />
