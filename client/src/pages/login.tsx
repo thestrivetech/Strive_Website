@@ -106,12 +106,12 @@ const Login = () => {
               {activeTab === "login" ? (
                 <>
                   <span className="hero-gradient-text">Welcome to </span>
-                  <span className="gradient-text">Strive</span>
+                  <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Strive</span>
                 </>
               ) : (
                 <>
                   <span className="hero-gradient-text">Ready to </span>
-                  <span className="gradient-text">Strive</span>
+                  <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Strive</span>
                   <span className="hero-gradient-text">?</span>
                 </>
               )}

@@ -57,7 +57,7 @@ const Contact = () => {
   const faqs = [
     {
       question: "How long does a typical implementation take?",
-      answer: "Implementation timelines vary based on project scope and complexity. Most projects range from 3-12 months, with our team providing detailed timelines during initial consultations."
+      answer: "Implementation timelines vary based on project scope and complexity. Most projects range from 3-12 months, with our team providing detailed timelines during initial assessments."
     },
     {
       question: "Do you provide ongoing support after implementation?",
@@ -147,7 +147,7 @@ const Contact = () => {
               className="text-4xl md:text-5xl font-bold mb-6"
               data-testid="text-contact-title"
             >
-              Let's <span className="gradient-text">Connect</span>
+              Let's <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Connect</span>
             </h1>
             <p 
               className="text-xl text-muted-foreground max-w-3xl mx-auto"
@@ -348,14 +348,14 @@ const Contact = () => {
                   </div>
                   
                   <div className="space-y-4">
-                    {/* Primary consultation button */}
+                    {/* Primary assessment button */}
                     <Button
                       className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:scale-105 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
-                      onClick={() => window.location.href = '/consultation'}
-                      data-testid="button-schedule-consultation"
+                      onClick={() => window.location.href = '/assessment'}
+                      data-testid="button-schedule-assessment"
                     >
                       <Calendar className="mr-2 w-5 h-5" />
-                      Schedule Consultation
+                      Schedule Assessment
                     </Button>
                     
                     {/* Secondary actions */}
@@ -445,7 +445,7 @@ const Contact = () => {
               <div className="w-20 h-20 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center mx-auto">
                 <span className="text-3xl font-bold text-white">S</span>
               </div>
-              <h2 className="text-3xl font-bold gradient-text">Strive</h2>
+              <h2 className="text-3xl font-bold bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Strive</h2>
               <p className="text-xl text-muted-foreground">Transforming Business Through AI Innovation</p>
             </div>
 

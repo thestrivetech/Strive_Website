@@ -391,7 +391,7 @@ const Home = () => {
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white leading-tight"
               data-testid="text-why-us-title"
             >
-              <span className="gradient-text">WHY CHOOSE STRIVE</span>
+              <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">WHY CHOOSE STRIVE</span>
             </h2>
             <div 
               className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/90 mb-6"

@@ -260,7 +260,7 @@ const About = () => {
               className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white"
               data-testid="text-vision-title"
             >
-              Roadmap to the <span className="gradient-text">Future</span>
+              Roadmap to the <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Future</span>
             </h2>
             <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
               Our strategic roadmap shows how we're building tomorrow's business solutions today.

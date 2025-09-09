@@ -7,7 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle, ArrowRight, Calendar, Clock, Phone, Video, MapPin, Users, Building, Target, Lightbulb, AlertCircle } from "lucide-react";
 
-const Consultation = () => {
+const Assessment = () => {
   const [step, setStep] = useState(1);
   const [contactData, setContactData] = useState({
     firstName: "",
@@ -310,7 +310,7 @@ const Consultation = () => {
             Contact Information Received!
           </h2>
           <p className="text-muted-foreground">
-            Now let's schedule your consultation
+            Now let's schedule your assessment
           </p>
         </div>
         
@@ -319,10 +319,10 @@ const Consultation = () => {
           <CardHeader>
             <CardTitle className="text-center flex items-center justify-center gap-2">
               <Calendar className="w-6 h-6 text-primary" />
-              Schedule Your Consultation
+              Schedule Your Assessment
             </CardTitle>
             <p className="text-center text-muted-foreground">
-              Choose a convenient time for your 30-minute consultation
+              Choose a convenient time for your 30-minute assessment
             </p>
           </CardHeader>
           <CardContent>
@@ -333,7 +333,7 @@ const Consultation = () => {
                 width="100%"
                 height="630"
                 frameBorder="0"
-                title="Schedule Your Consultation - Strive Tech"
+                title="Schedule Your Assessment - Strive Tech"
                 style={{ borderRadius: '8px' }}
               />
             </div>
@@ -388,11 +388,11 @@ const Consultation = () => {
         <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6" data-testid="consultation-title">
-              Schedule Your <span className="gradient-text">Consultation</span>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6" data-testid="assessment-title">
+              Schedule Your <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Assessment</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Let's discuss how AI can transform your business. Book a free 30-minute consultation with our experts.
+              Let's discuss how AI can transform your business. Book a free 30-minute assessment with our experts.
             </p>
           </div>
 
@@ -474,4 +474,4 @@ const Consultation = () => {
   );
 };
 
-export default Consultation;
+export default Assessment;

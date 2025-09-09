@@ -223,7 +223,7 @@ const ComputerVisionDocumentation = () => {
                 Request a Demo
               </Button>
             </Link>
-            <Link href="/consultation">
+            <Link href="/assessment">
               <Button size="lg" variant="outline">
                 Talk to an Expert
               </Button>

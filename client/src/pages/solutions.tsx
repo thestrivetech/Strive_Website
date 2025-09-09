@@ -324,7 +324,7 @@ const Solutions = () => {
               className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-solutions-hero-title"
             >
-              AI-Powered Solutions for <span className="gradient-text">Every</span> Industry
+              AI-Powered Solutions for <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Every</span> Industry
             </h1>
             <p 
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"

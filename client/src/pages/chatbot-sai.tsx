@@ -45,7 +45,7 @@ const ChatBotSai = () => {
     
     // Pricing
     if (lowerMessage.includes("price") || lowerMessage.includes("cost") || lowerMessage.includes("pricing")) {
-      return "Our pricing is customized based on your specific needs and scale. We offer flexible plans starting from small businesses to enterprise solutions. I can help you schedule a consultation to discuss your budget and requirements. Would you like me to arrange that?";
+      return "Our pricing is customized based on your specific needs and scale. We offer flexible plans starting from small businesses to enterprise solutions. I can help you schedule an assessment to discuss your budget and requirements. Would you like me to arrange that?";
     }
     
     // Demo
@@ -74,7 +74,7 @@ const ChatBotSai = () => {
     }
     
     // Default response
-    return "That's a great question! I'd be happy to help you explore that further. Could you provide more details about what specific aspect you're interested in? You can also check out our Solutions page for comprehensive information, or I can help schedule a consultation with our experts.";
+    return "That's a great question! I'd be happy to help you explore that further. Could you provide more details about what specific aspect you're interested in? You can also check out our Solutions page for comprehensive information, or I can help schedule an assessment with our experts.";
   };
 
   const handleSendMessage = (e: React.FormEvent) => {
@@ -139,7 +139,7 @@ const ChatBotSai = () => {
               </div>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-              Chat with <span className="gradient-text">Sai</span>
+              Chat with <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Sai</span>
             </h1>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Your AI-Powered Business Solutions Assistant - Available 24/7

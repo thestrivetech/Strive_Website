@@ -373,9 +373,9 @@ const Onboarding = () => {
                   variant="outline"
                   className="flex-1"
                   onClick={() => window.location.href = "/request"}
-                  data-testid="button-schedule-consultation"
+                  data-testid="button-schedule-assessment"
                 >
-                  Schedule Consultation
+                  Schedule Assessment
                 </Button>
               </div>
             </div>
@@ -394,7 +394,7 @@ const Onboarding = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-6" data-testid="onboarding-title">
-              Complete Your <span className="gradient-text">Profile</span>
+              Complete Your <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Profile</span>
             </h1>
             <p className="text-xl text-muted-foreground">
               Help us tailor the perfect AI solutions for your business needs.

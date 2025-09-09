@@ -283,9 +283,9 @@ const HealthcareCaseStudy = () => {
                 Start Your Transformation
               </Button>
             </Link>
-            <Link href="/consultation">
+            <Link href="/assessment">
               <Button size="lg" variant="outline">
-                Schedule Consultation
+                Schedule Assessment
               </Button>
             </Link>
           </div>
