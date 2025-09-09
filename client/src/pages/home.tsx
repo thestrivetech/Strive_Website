@@ -88,42 +88,33 @@ const Home = () => {
     ]
   };
 
-  const solutions = [
+  const planSteps = [
     {
-      icon: <Clock className="text-primary text-2xl" />,
-      title: "Project Management",
-      description: "Streamline your projects with AI-powered planning, tracking, and collaboration tools.",
-      href: "/solutions#ai-automation",
+      icon: <Search className="text-primary text-3xl" />,
+      step: "STEP 1",
+      title: "Get Your Free AI Assessment",
+      description: "30-minute deep-dive analysis of your biggest operational bottlenecks and AI opportunities.",
+      duration: "30 minutes",
+      outcome: "Custom roadmap identifying $500K+ in annual savings",
+      href: "/contact",
     },
     {
-      icon: <BarChart className="text-primary text-2xl" />,
-      title: "Business Intelligence",
-      description: "Make data-driven decisions with advanced analytics and real-time insights.",
-      href: "/solutions#data-analytics",
+      icon: <Settings className="text-primary text-3xl" />,
+      step: "STEP 2",
+      title: "We Build Your Custom Solution",
+      description: "Our experts design and implement AI automation tailored to your exact workflows and goals.",
+      duration: "30-60 days",
+      outcome: "Live AI system processing your work 24/7",
+      href: "/solutions",
     },
     {
-      icon: <Cog className="text-primary text-2xl" />,
-      title: "Process Automation",
-      description: "Automate repetitive tasks and workflows to boost productivity and reduce errors.",
-      href: "/solutions#ai-automation",
-    },
-    {
-      icon: <Users className="text-primary text-2xl" />,
-      title: "Customer Management",
-      description: "Build stronger relationships with comprehensive customer insights and engagement tools.",
-      href: "/solutions#data-analytics",
-    },
-    {
-      icon: <Calculator className="text-primary text-2xl" />,
-      title: "Financial Planning",
-      description: "Optimize your financial performance with predictive modeling and smart budgeting.",
-      href: "/solutions#data-analytics",
-    },
-    {
-      icon: <ShieldCheck className="text-primary text-2xl" />,
-      title: "Security & Compliance",
-      description: "Protect your business with enterprise-grade security and automated compliance monitoring.",
-      href: "/solutions#security-compliance",
+      icon: <TrendingUp className="text-primary text-3xl" />,
+      step: "STEP 3",
+      title: "Watch Your Operations Transform",
+      description: "Real-time dashboard shows your efficiency gains, cost savings, and team productivity increases.",
+      duration: "Day 1 onwards",
+      outcome: "3x faster processing, 60% cost reduction, liberated team",
+      href: "/portfolio",
     },
   ];
 
@@ -156,33 +147,107 @@ const Home = () => {
     <div className="pt-16">
       {/* Hero Section */}
       <HeroSection
-        title="Custom AI Solutions Built for Real World Performance"
-        subtitle="Unlock the power of artificial intelligence to transform your business operations, increase efficiency, and drive sustainable growth."
-        primaryButtonText="Get Started"
-        secondaryButtonText="Request Free Demo"
+        title="Stop Losing $2M Annually to Manual Processes—Transform Your Operations in 90 Days"
+        subtitle="Join 500+ industry leaders who've automated their way to 3x growth while their competitors struggle with spreadsheets. Get your free AI assessment and custom roadmap today."
+        primaryButtonText="Get My Free AI Assessment"
+        secondaryButtonText="Calculate My ROI"
         onPrimaryClick={handleGetStarted}
         onSecondaryClick={handleWatchDemo}
       />
+      {/* Problem Identification Section */}
+      <section className="py-12 sm:py-16 bg-[#f8fafc] border-b border-gray-100">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <div className="text-sm uppercase tracking-wide text-red-600 font-semibold mb-4">
+              THE HARSH REALITY
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-[#020a1c] leading-tight">
+              You're Drowning in Manual Processes While Competitors Race Ahead
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="text-center bg-white p-6 rounded-xl border border-red-100 shadow-lg">
+              <div className="w-16 h-16 bg-red-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <AlertTriangle className="w-8 h-8 text-red-600" />
+              </div>
+              <h3 className="text-lg font-bold text-[#020a1c] mb-3">
+                Your Best People Waste 60% of Their Time
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Top talent spending hours on spreadsheets, data entry, and repetitive tasks instead of strategic initiatives that drive growth.
+              </p>
+            </div>
+            <div className="text-center bg-white p-6 rounded-xl border border-red-100 shadow-lg">
+              <div className="w-16 h-16 bg-red-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <DollarSign className="w-8 h-8 text-red-600" />
+              </div>
+              <h3 className="text-lg font-bold text-[#020a1c] mb-3">
+                Manual Processes Cost You $2M+ Annually
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Hidden costs of inefficiency: errors, delays, overtime, missed opportunities, and employee burnout from soul-crushing repetitive work.
+              </p>
+            </div>
+            <div className="text-center bg-white p-6 rounded-xl border border-red-100 shadow-lg">
+              <div className="w-16 h-16 bg-red-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <TrendingUp className="w-8 h-8 text-red-600" />
+              </div>
+              <h3 className="text-lg font-bold text-[#020a1c] mb-3">
+                You Know AI is the Answer But Don't Know Where to Start
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Paralyzed by complexity, overwhelmed by options, and afraid of making the wrong investment in AI transformation.
+              </p>
+            </div>
+          </div>
+          <div className="text-center mt-8">
+            <p className="text-lg text-[#020a1c] font-semibold">
+              <span className="text-red-600">The Result:</span> While you struggle with spreadsheets, your AI-powered competitors are capturing your market share.
+            </p>
+          </div>
+        </div>
+      </section>
       {/* ROI Calculator */}
       <ROICalculator />
       {/* Industry Solutions Selector - Moved from Solutions Page */}
       <section className="py-16 hero-gradient">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Guide Positioning */}
           <div className="text-center mb-12">
             <div 
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-industry-label"
             >
-              SOLUTIONS BY INDUSTRY
+              WE UNDERSTAND THE PRESSURE YOU'RE UNDER
             </div>
             <h2 
-              className="text-2xl md:text-3xl font-bold mb-4 text-white"
+              className="text-2xl md:text-3xl font-bold mb-6 text-white"
               data-testid="text-industry-title"
             >
-              Find tailored solutions for your industry
+              500+ Leaders Have Trusted Us to Transform Their Operations
             </h2>
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 max-w-4xl mx-auto mb-8">
+              <p className="text-white/90 text-lg leading-relaxed mb-4">
+                <span className="text-primary font-semibold">We get it.</span> You're overwhelmed by AI complexity while competitors gain ground. 
+                That's why we've guided 500+ companies through seamless AI transformation — with zero technical headaches.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-white/80 text-sm">
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-5 h-5 text-primary" />
+                  <span>Industry #1 Rating</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-primary" />
+                  <span>500+ Successful Implementations</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-primary" />
+                  <span>90-Day Proven Process</span>
+                </div>
+              </div>
+            </div>
             <p className="text-white/80 text-lg max-w-2xl mx-auto">
-              Select your industry to discover how our AI-powered solutions can scale your business operations.
+              Select your industry to see how we've helped companies just like yours achieve 3x faster processing and 60% cost reduction.
             </p>
           </div>
 
@@ -239,11 +304,11 @@ const Home = () => {
                       </h4>
                       {solution.painPoint && (
                         <p className="text-red-400 text-xs font-semibold mb-2">
-                          Pain Point: {solution.painPoint}
+                          ❌ Cost of Inaction: {solution.painPoint}
                         </p>
                       )}
-                      <p className="text-white/90 text-xs leading-relaxed">
-                        Solution: {solution.description}
+                      <p className="text-green-300 text-xs leading-relaxed">
+                        ✓ Your Success Story: {solution.description}
                       </p>
                     </CardContent>
                   </Card>
@@ -256,26 +321,26 @@ const Home = () => {
           <div className="text-center mt-12">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-2xl mx-auto">
               <h3 className="text-2xl font-bold text-white mb-4">
-                Ready to Transform Your Industry?
+                Stop Letting Competitors Steal Your Market Share
               </h3>
               <p className="text-white/80 mb-6">
-                Explore our comprehensive solutions designed specifically for your business sector.
+                Get your free industry-specific transformation roadmap and see exactly how much you can save in the first 90 days.
               </p>
-              <Link href="/solutions">
+              <Link href="/contact">
                 <Button 
                   className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group
                   before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                   size="lg"
-                  data-testid="button-explore-solutions"
+                  data-testid="button-get-transformation-roadmap"
                 >
-                  Explore All Solutions
+                  Get My Free Transformation Roadmap
                 </Button>
               </Link>
             </div>
           </div>
         </div>
       </section>
-      {/* Integrated Platform Section */}
+      {/* 3-Step Plan Section */}
       <section className="py-12 sm:py-16 md:py-24 bg-[#ffffffeb] text-[#f8fafc]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
@@ -283,100 +348,66 @@ const Home = () => {
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-section-label"
             >
-              YOUR PROJECT DASHBOARD
+              OUR PROVEN 90-DAY TRANSFORMATION PLAN
             </div>
             <h2 
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 text-[#020a1c] leading-tight"
               data-testid="text-platform-title"
             >
-              Stay Connected with Real-Time Project Insights & Daily Progress Updates
+              From Manual Chaos to AI-Powered Growth in 3 Simple Steps
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Our exclusive client portal gives you complete visibility into your project's progress with daily snapshots, 
-              visual updates, milestone tracking, and direct communication with your dedicated team - all in one secure platform.
+              We've perfected this process with 500+ companies. No technical complexity, no months of delays, no risk to your operations.
             </p>
           </div>
 
-          {/* Solution Cards with Modal */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {solutions.map((solution, index) => (
-              <Dialog key={index}>
-                <DialogTrigger asChild>
-                  <Card 
-                    className="bg-white cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-105 border border-gray-100"
-                    data-testid={`card-solution-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
-                  >
-                    <CardContent className="p-6 group">
-                      <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                        {solution.icon}
-                      </div>
-                      <h3 className="text-xl font-bold text-[#020a1c] mb-3 transition-colors duration-300 group-hover:text-[#ff7033]">
-                        {solution.title}
-                      </h3>
-                      <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
-                        {solution.description}
-                      </p>
-                      <div className="flex items-center text-[#020a1c] font-semibold transition-colors duration-300 group-hover:text-[#ff7033]">
-                        <span>View Details</span>
-                        <ChevronRight className="ml-1 h-4 w-4" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle className="text-2xl flex items-center gap-3">
-                      <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                        {solution.icon}
-                      </div>
-                      {solution.title}
-                    </DialogTitle>
-                    <DialogDescription className="text-base mt-4">
-                      {solution.description}
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="mt-6 space-y-4">
-                    <div>
-                      <h4 className="font-semibold mb-2">Key Features:</h4>
-                      <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                        <li>Real-time project status updates and milestone tracking</li>
-                        <li>Visual progress indicators with completion percentages</li>
-                        <li>Direct messaging with your dedicated project team</li>
-                        <li>Document sharing and collaborative workspace</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Benefits:</h4>
-                      <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                        <li>Complete transparency throughout your project lifecycle</li>
-                        <li>Faster decision-making with instant access to information</li>
-                        <li>Reduced communication overhead with centralized updates</li>
-                        <li>Historical tracking of all project changes and decisions</li>
-                      </ul>
-                    </div>
-                    <div className="flex gap-3 pt-4">
-                      <Button 
-                        onClick={() => window.location.href = "/contact"}
-                        className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                      >
-                        Request Demo
-                      </Button>
-                      <Button 
-                        variant="outline"
-                        className="border-2 border-[#ff7033] text-[#ff7033] hover:bg-[#ff7033] hover:text-white transition-all duration-300"
-                        onClick={() => window.location.href = solution.href}
-                      >
-                        Learn More
-                      </Button>
+          {/* 3-Step Plan Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {planSteps.map((step, index) => (
+              <Card 
+                key={index}
+                className="bg-white transition-all duration-300 hover:shadow-xl hover:scale-105 border border-gray-100 relative"
+                data-testid={`card-step-${index + 1}`}
+              >
+                <CardContent className="p-6 text-center">
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-primary text-white px-4 py-1 rounded-full text-sm font-semibold">
+                      {step.step}
                     </div>
                   </div>
-                </DialogContent>
-              </Dialog>
+                  <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-4 mx-auto mt-4">
+                    {step.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-[#020a1c] mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
+                    {step.description}
+                  </p>
+                  <div className="space-y-2 mb-6">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Timeline:</span>
+                      <span className="font-semibold text-[#020a1c]">{step.duration}</span>
+                    </div>
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                      <p className="text-green-800 text-xs font-semibold">
+                        ✓ {step.outcome}
+                      </p>
+                    </div>
+                  </div>
+                  <Button 
+                    className="w-full bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                    onClick={() => window.location.href = step.href}
+                  >
+                    {index === 0 ? "Start Here - It's Free" : index === 1 ? "See Our Solutions" : "View Success Stories"}
+                  </Button>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
       </section>
-      {/* Why Us Section */}
+      {/* Success Vision & Failure Stakes Section */}
       <section className="py-12 sm:py-16 hero-gradient relative overflow-hidden">
         {/* Parallax Background Elements */}
         <div className="absolute inset-0 opacity-20">
@@ -391,79 +422,93 @@ const Home = () => {
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white leading-tight"
               data-testid="text-why-us-title"
             >
-              <span className="gradient-text">WHY CHOOSE STRIVE</span>
+              <span className="gradient-text">YOUR SUCCESS STORY STARTS HERE</span>
             </h2>
             <div 
               className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/90 mb-6"
               data-testid="text-why-us-subtitle"
             >
-              The Future of Business Starts Here
+              Picture Your Business 90 Days From Now
             </div>
             <p className="text-white/80 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
-              Don't just keep up with the competition—surpass them. Our cutting-edge AI solutions deliver measurable results that transform how you do business.
+              Your operations humming at 3x speed. Your team focused on growth, not spreadsheets. Your competitors wondering how you pulled so far ahead.
             </p>
           </div>
 
-          {/* Value Proposition Cards */}
+          {/* Success Outcomes Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {/* Innovative Tech */}
+            {/* Success Outcome 1 */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <LightBulbIcon className="h-8 w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-green-400/50 hover:scale-105 hover:shadow-2xl hover:shadow-green-400/20">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <TrendingUp className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-innovative-tech-title">
-                  Innovative Tech
+                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-success-growth">
+                  3x Faster Growth
                 </h3>
                 <p className="text-white/80 text-sm leading-relaxed">
-                  Cutting-edge AI and automation technologies that keep you ahead of industry trends and competitor solutions.
+                  Your operations running at triple speed while competitors struggle with manual processes. First-mover advantage secured.
                 </p>
               </div>
             </div>
 
-            {/* Scalable Solutions */}
+            {/* Success Outcome 2 */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <RocketLaunchIcon className="h-8 w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-green-400/50 hover:scale-105 hover:shadow-2xl hover:shadow-green-400/20">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <DollarSign className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-scalable-solutions-title">
-                  Scalable Solutions
+                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-success-savings">
+                  60% Cost Reduction
                 </h3>
                 <p className="text-white/80 text-sm leading-relaxed">
-                  Grow without limits. Our architecture scales seamlessly from startup to enterprise, adapting to your business needs.
+                  Massive operational savings from AI automation. Your profit margins expanding while overhead costs plummet.
                 </p>
               </div>
             </div>
 
-            {/* Future-Proof Design */}
+            {/* Success Outcome 3 */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <CpuChipIcon className="h-8 w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-green-400/50 hover:scale-105 hover:shadow-2xl hover:shadow-green-400/20">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Users className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-future-proof-title">
-                  Future-Proof Design
+                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-success-team">
+                  Liberated Team
                 </h3>
                 <p className="text-white/80 text-sm leading-relaxed">
-                  Built to evolve. Our solutions integrate emerging technologies, ensuring your investment remains valuable for years.
+                  Your best people doing their best work. No more spreadsheet drudgery. Pure strategic focus and innovation.
                 </p>
               </div>
             </div>
 
-            {/* Proven Results */}
+            {/* Success Outcome 4 */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <StarIcon className="h-8 w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-green-400/50 hover:scale-105 hover:shadow-2xl hover:shadow-green-400/20">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Trophy className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-proven-results-title">
-                  Proven Results
+                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-success-leadership">
+                  Industry Leadership
                 </h3>
                 <p className="text-white/80 text-sm leading-relaxed">
-                  Track record of success. Our clients see 3x faster processing, 60% cost reduction, and 24/7 automated efficiency.
+                  Recognized as the AI-powered leader in your industry. Competitors studying your success, not the other way around.
                 </p>
               </div>
+            </div>
+          </div>
+
+          {/* Failure Stakes Warning */}
+          <div className="mt-12 bg-red-900/20 border border-red-500/30 rounded-2xl p-6 max-w-4xl mx-auto">
+            <div className="text-center">
+              <AlertTriangle className="w-12 h-12 text-red-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-white mb-3">
+                The Cost of Staying Manual
+              </h3>
+              <p className="text-red-200 text-base leading-relaxed">
+                While you hesitate, competitors with AI are capturing your customers, your talent, and your market position. 
+                Every day of delay costs you $5,000+ in lost opportunity.
+              </p>
             </div>
           </div>
 
@@ -471,28 +516,28 @@ const Home = () => {
           <div className="text-center mt-8 sm:mt-12 lg:mt-16">
             <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-4xl mx-auto">
               <h3 className="text-2xl font-bold text-white mb-4">
-                Ready to Transform Your Business?
+                Choose Your Future: AI Leadership or Manual Mediocrity
               </h3>
               <p className="text-white/80 mb-6 text-lg">
-                Join industry leaders who've already made the switch to intelligent automation.
+                500+ companies chose transformation. Their competitors chose to wait. Whose story will be yours?
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                   size="lg"
                   onClick={() => window.location.href = "/contact"}
-                  data-testid="button-get-started-why-us"
+                  data-testid="button-claim-transformation"
                 >
-                  Get Started Today
+                  Claim Your Transformation Now
                 </Button>
                 <Button 
                   variant="outline"
                   className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
                   size="lg"
-                  onClick={() => window.location.href = "/about"}
-                  data-testid="button-meet-team"
+                  onClick={() => window.location.href = "/portfolio"}
+                  data-testid="button-see-proof"
                 >
-                  Meet the Team
+                  See the Proof
                 </Button>
               </div>
             </div>
@@ -538,37 +583,47 @@ const Home = () => {
           <div className="max-w-5xl mx-auto">
             {/* Call to Action */}
             <div className="bg-gradient-to-br from-white/70 to-white/50 backdrop-blur-sm border border-white/60 rounded-3xl p-8 lg:p-10 text-center shadow-xl">
+              <div className="bg-red-100 border border-red-300 rounded-lg p-4 mb-6">
+                <p className="text-red-800 font-semibold text-sm">
+                  ⚠️ WARNING: Every day you delay costs you $5,000+ in lost opportunities
+                </p>
+              </div>
               <h3 className="text-xl lg:text-2xl font-bold text-[#020a1c] mb-4">
-                Get Started in Just 15 Minutes
+                Don't Let Competitors Capture Your Market While You Hesitate
               </h3>
               <p className="text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-                Schedule a personalized demo and see exactly how our solutions can transform your specific business challenges into competitive advantages.
+                Get your free AI transformation roadmap and discover exactly how much you'll save in the first 90 days. 
+                <span className="font-semibold text-[#020a1c]">Join 500+ leaders who chose growth over stagnation.</span>
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button 
-                  variant="outline"
-                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[200px] relative overflow-hidden"
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[240px] relative overflow-hidden shadow-xl"
                   size="lg"
-                  onClick={() => window.location.href = "/demo"}
-                  data-testid="button-request-demo"
+                  onClick={() => window.location.href = "/contact"}
+                  data-testid="button-claim-roadmap"
                 >
-                  Request Free Demo
+                  Claim My Free Roadmap Now
                 </Button>
                 <Button 
                   variant="outline"
-                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[200px] relative overflow-hidden"
+                  className="border-2 border-[#020a1c] text-[#020a1c] hover:bg-[#020a1c] hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[240px]"
                   size="lg"
                   onClick={() => window.location.href = "/portfolio"}
-                  data-testid="button-view-case-studies"
+                  data-testid="button-see-transformations"
                 >
-                  View Our Work
+                  See Real Transformations
                 </Button>
               </div>
               
-              <p className="text-sm text-muted-foreground mt-6">
-                ✓ No commitment required  •  ✓ Custom solution walkthrough  •  ✓ ROI analysis included
-              </p>
+              <div className="mt-6 space-y-2">
+                <p className="text-sm text-green-700 font-semibold">
+                  ✓ Free 30-min assessment  •  ✓ Custom $500K+ savings analysis  •  ✓ 90-day transformation plan
+                </p>
+                <p className="text-xs text-muted-foreground italic">
+                  "Best business decision we ever made. Wish we'd started sooner." - CEO, Fortune 500 Company
+                </p>
+              </div>
             </div>
           </div>
         </div>
