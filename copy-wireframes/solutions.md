@@ -1,261 +1,176 @@
-# Solutions Page Wireframe
-URL: /solutions
+Here are StoryBrand-optimized, B2B-focused rewrites for every major section of your AI Solutions site, designed for clarity, engagement, and conversion:
 
-## Navigation Bar
-- **Logo:** Strive
-- **Menu Items:**
-  - Solutions
-  - Portfolio
-  - Resources
-  - About
-  - Contact
-- **CTA Button:** Schedule a Consultation
-
-## Hero Section
-### Main Title
+HERO SECTION (Headline & Subheadline)
+Current:
 AI-Powered Solutions for Every Industry
-
-### Subtitle
 Discover comprehensive AI and automation solutions tailored to transform your business operations, drive efficiency, and accelerate growth across all industries.
 
-### Buttons
-- **Primary:** Explore Solutions
-- **Secondary:** Get Custom Solution
+Rewrite:
+Unlock the Power of AI—Transform Your Business for Tomorrow
+We help industry leaders conquer operational challenges, maximize efficiency, and drive growth with AI solutions designed just for your field.
 
-## Filter Section
-### Filter Buttons
-- All
-- By Industry (Badge: 4)
-- Solution Type (Badge: 5)
+CTA Buttons:
 
-### Industry Dropdown Options
-- Healthcare
-- Financial Services
-- Manufacturing
-- Retail
-- Technology
-- Education
-- Real Estate
-- Legal
+Speak with an AI Specialist
 
-### Solution Type Dropdown Options
-- AI & Automation
-- Computer Vision
-- Data Analytics
-- Blockchain Solutions
-- Cloud Infrastructure
-- Security & Compliance
+Explore Industry Solutions
 
-## Solutions Grid
+FILTER/INSTRUCTIONS
+Current:
+Use the filter to find your industry specific solution!
 
-### Industry Solutions
+Rewrite:
+Easily Find Your Custom AI Solution:
+Select your industry to see proven strategies and results for companies just like yours.
 
-#### Healthcare Solutions
-**Category:** By Industry
-**Type:** Industry
-**Badge:** Industry
-**Short Description:** AI-powered healthcare solutions for patient care, diagnostics, and compliance.
-**Full Description:** Comprehensive healthcare solutions that leverage artificial intelligence to improve patient outcomes, streamline operations, and ensure regulatory compliance. Our healthcare suite includes advanced diagnostic tools, patient management systems, and automated compliance reporting.
-**Features:**
-- AI-powered diagnostics and imaging analysis
-- Patient data management and EHR integration
-- Automated compliance and regulatory reporting
-- Predictive analytics for patient outcomes
-**Technologies:** AI/ML, Computer Vision, NLP, Data Analytics
-**Metrics:**
-- Efficiency Increase: 45%
-- Cost Reduction: 30%
-- Compliance Rate: 99.2%
-**Button:** Learn More
+HEALTHCARE SOLUTIONS
+Current:
+Struggling with patient data management and compliance? Our AI-powered healthcare solutions streamline diagnostics, improve patient care, and ensure regulatory compliance.
 
-#### Financial Services Solutions
-**Category:** By Industry
-**Type:** Industry
-**Badge:** Industry
-**Short Description:** Advanced fintech solutions for fraud detection, risk management, and trading.
-**Full Description:** Revolutionary financial technology solutions that enhance security, optimize trading strategies, and provide deep customer insights. Our fintech platform combines real-time fraud detection with sophisticated risk assessment tools.
-**Features:**
-- Real-time fraud detection and prevention
-- Automated risk assessment and reporting
-- Algorithmic trading and portfolio optimization
-- Customer behavior analytics and personalization
-**Technologies:** Machine Learning, Real-time Analytics, Blockchain, API Integration
-**Metrics:**
-- Fraud Detection: 99.7%
-- Risk Reduction: 40%
-- Processing Speed: 2.3s
-**Button:** Learn More
+Rewrite:
+Health organizations face rising data, regulatory, and care challenges every day.
+Imagine freeing up your staff to focus on what matters most—your patients—while our AI manages compliance, data, and operations behind the scenes.
+Let us handle the complexity, so you can deliver better outcomes and meet every regulation with confidence.
 
-#### Manufacturing Solutions
-**Category:** By Industry
-**Type:** Industry
-**Badge:** Industry
-**Short Description:** Smart manufacturing solutions with predictive maintenance and quality control.
-**Full Description:** Intelligent manufacturing solutions that revolutionize production efficiency through predictive maintenance, automated quality control, and supply chain optimization. Transform your manufacturing operations with AI-powered insights.
-**Features:**
-- Predictive maintenance and equipment monitoring
-- Quality control automation with computer vision
-- Supply chain optimization and demand forecasting
-- Production workflow automation
-**Technologies:** IoT, Computer Vision, Predictive Analytics, Automation
-**Metrics:**
-- Downtime Reduction: 60%
-- Quality Improvement: 85%
-- Cost Savings: 25%
-**Button:** Learn More
+CTA:
 
-#### Retail Solutions
-**Category:** By Industry
-**Type:** Industry
-**Badge:** Industry
-**Short Description:** Omnichannel retail solutions for customer analytics and inventory management.
-**Full Description:** Comprehensive retail solutions that enhance customer experience through personalized recommendations, optimize inventory management, and implement dynamic pricing strategies for maximum profitability.
-**Features:**
-- Customer analytics and personalized recommendations
-- Inventory management and demand prediction
-- Dynamic pricing optimization
-- Omnichannel customer experience automation
-**Technologies:** Customer Analytics, AI Recommendations, Inventory Optimization, Dynamic Pricing
-**Metrics:**
-- Sales Increase: 35%
-- Inventory Optimization: 50%
-- Customer Satisfaction: 4.8/5
-**Button:** Learn More
+See Real Health Results
 
-### Solution Type Solutions
+Talk to a Healthcare AI Expert
 
-#### AI & Automation
-**Category:** Solution Type
-**Type:** Product
-**Badge:** DEMO AVAILABLE
-**Short Description:** Intelligent automation solutions powered by advanced AI and machine learning.
-**Full Description:** Comprehensive AI and automation platform that transforms business processes through intelligent process automation, machine learning models, and predictive analytics. Streamline operations while reducing costs and improving decision-making.
-**Features:**
-- Intelligent Process Automation
-- Machine Learning Models
-- Predictive Analytics
-- Natural Language Processing
-**Technologies:** GPT-4, TensorFlow, Python, REST APIs
-**Metrics:**
-- Process Efficiency: 70%
-- Error Reduction: 95%
-- Cost Savings: 40%
-**Buttons:** 
-- Learn More
-- View Demo
+FINANCIAL SERVICES SOLUTIONS
+Current:
+Losing revenue to fraud and inefficient risk assessment? Transform your financial operations with AI-driven fraud detection, automated risk management, and intelligent trading solutions.
 
-#### Computer Vision
-**Category:** Solution Type
-**Type:** Product
-**Badge:** DEMO AVAILABLE
-**Short Description:** Advanced AI-powered visual recognition and analysis systems.
-**Full Description:** Cutting-edge computer vision solutions that interpret, analyze, and understand digital images and videos. Perfect for quality control, security monitoring, and automated visual inspection across industries.
-**Features:**
-- Image Recognition & Classification
-- Object Detection & Tracking
-- Facial Recognition Systems
-- Threat Detection & Security Monitoring
-**Technologies:** OpenCV, TensorFlow, PyTorch, YOLO
-**Metrics:**
-- Accuracy: 97.8%
-- Processing Speed: 30fps
-- Detection Rate: 99.1%
-**Buttons:**
-- Learn More
-- View Demo
+Rewrite:
+Financial leaders today face relentless threats—from fraud to shifting regulations.
+We bring advanced AI tools to safeguard assets, streamline risk, and empower smarter, faster trading.
+Don’t let fraud and bottlenecks stand in your way—grow with confidence and control.
 
-#### Predictive Analytics
-**Category:** Solution Type
-**Type:** Product
-**Badge:** DEMO AVAILABLE
-**Short Description:** Data-driven insights and forecasting for strategic business decisions.
-**Full Description:** Advanced predictive analytics platform that transforms raw data into actionable business insights. Leverage machine learning algorithms to forecast trends, identify opportunities, and make data-driven strategic decisions.
-**Features:**
-- Advanced Statistical Modeling
-- Machine Learning Predictions
-- Real-time Data Processing
-- Interactive Dashboards
-**Technologies:** Python, R, Apache Spark, Tableau
-**Metrics:**
-- Prediction Accuracy: 94.2%
-- Processing Time: 1.2s
-- Data Points: 10M+
-**Buttons:**
-- Learn More
-- View Demo
+CTA:
 
-#### Cloud Infrastructure
-**Category:** Solution Type
-**Type:** Product
-**Short Description:** Scalable cloud solutions for modern business infrastructure needs.
-**Full Description:** Robust cloud infrastructure solutions that provide scalable, secure, and cost-effective computing resources. Deploy, manage, and scale your applications with confidence using our comprehensive cloud platform.
-**Features:**
-- Auto-scaling Infrastructure
-- Load Balancing & CDN
-- Database Management
-- Security & Compliance
-**Technologies:** AWS, Docker, Kubernetes, Terraform
-**Metrics:**
-- Uptime: 99.9%
-- Scalability: Auto
-- Cost Reduction: 35%
-**Button:** Learn More
+Secure My Operations
 
-#### Security & Compliance
-**Category:** Solution Type
-**Type:** Product
-**Short Description:** Comprehensive security frameworks and automated compliance monitoring.
-**Full Description:** Enterprise-grade security and compliance solutions that protect your business assets and ensure regulatory adherence. Automated monitoring, threat detection, and compliance reporting keep your organization secure.
-**Features:**
-- Regulatory Compliance Automation
-- Security Policy Management
-- Audit Trail & Reporting
-- Risk Assessment & Mitigation
-**Technologies:** Security Frameworks, Compliance Tools, Monitoring Systems, Risk Analytics
-**Metrics:**
-- Compliance Rate: 99.8%
-- Threat Detection: Real-time
-- Risk Reduction: 65%
-**Button:** Learn More
+Request a Financial AI Demo
 
-## Solution Modal Content (When Clicked)
-### Modal includes:
-- Full solution details
-- Complete feature list
-- All technologies used
-- Performance metrics
-- Demo buttons (if available)
-- Contact sales button
-- Get started button
+MANUFACTURING SOLUTIONS
+Current:
+Facing costly downtime and quality issues? Our smart manufacturing solutions predict equipment failures, automate quality control, and optimize your entire production workflow.
 
-## Footer
-### Company Info Section
-- **Logo:** STRIVE
-- **Description:** To empower businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.
-- **Social Media Links:**
-  - LinkedIn
-  - Twitter  
-  - Facebook
-  - Instagram
+Rewrite:
+Downtime and quality hiccups can drain your margins and stall growth.
+Our predictive AI anticipates equipment failures before they happen, while automated quality control ensures peak performance across your line.
+Shift from reactive to proactive—keep production moving, every hour of every day.
 
-### Quick Links Section
-- Home
-- Portfolio
-- Solutions
-- Resources
-- About Us
-- Contact
+CTA:
 
-### Contact Section
-- **Address:** 123 Business District
-- **Address Line 2:** Tech City, TC 12345
-- **Phone:** +1 (555) 123-4567
-- **Email:** hello@strive.com
+Boost My Production
 
-### Legal Links
-- Privacy Policy
-- Terms of Service
-- Cookie Policy
+Book a Manufacturing Strategy Call
 
-### Copyright
-© 2025 STRIVE. All rights reserved.
+RETAIL SOLUTIONS
+Current:
+Struggling with inventory management and customer retention? Our retail solutions optimize stock levels, predict customer behavior, and deliver personalized shopping experiences.
+
+Rewrite:
+Retail success now depends on knowing your customers and your shelves—instantly.
+Our AI sharpens inventory precision, predicts buying trends, and creates experiences that keep shoppers coming back.
+Stay ahead of demand and watch loyalty soar.
+
+CTA:
+
+Optimize My Retail
+
+Schedule a Retail Consultation
+
+CHATBOT / NLP SOLUTIONS
+Current:
+Overwhelmed by repetitive tasks and manual processes? Our intelligent chatbots automate customer service, streamline operations, and provide 24/7 support.
+
+Rewrite:
+Every hour spent on manual tasks is lost opportunity.
+Our AI chatbots resolve questions instantly, automate operations, and support your customers around the clock—freeing your team for higher-impact work.
+
+CTA:
+
+Automate My Customer Service
+
+Try a Demo Chatbot
+
+COMPUTER VISION / THREAT DETECTION
+Current:
+Missing critical security threats or quality defects? Our computer vision systems detect anomalies, monitor security, and ensure quality control with 99% accuracy.
+
+Rewrite:
+Defects and threats can slip by unnoticed—until they cost you.
+With 99% accuracy, our computer vision monitors your environment, detects threats, and keeps quality at its highest—all in real time.
+
+CTA:
+
+Secure My Facility
+
+Explore Computer Vision Solutions
+
+PREDICTIVE MODELING / FORECASTING
+Current:
+Can't predict market trends or customer behavior? Our predictive analytics platform forecasts outcomes, identifies opportunities, and drives data-driven decisions.
+
+Rewrite:
+Forecasting the future shouldn’t be guesswork.
+Our AI models analyze mountains of data to predict trends, customer behavior, and opportunities—so you make moves backed by certainty, not hunches.
+
+CTA:
+
+Get My Custom AI Forecast
+
+See Predictive Success Stories
+
+BLOCKCHAIN / WEB3 SOLUTIONS
+Current:
+Concerned about transparency and security in transactions? Our blockchain solutions ensure immutable records, smart contracts, and decentralized trust.
+
+Rewrite:
+In a world where trust and transparency are paramount, blockchain is your foundation.
+We build secure, transparent networks with immutable records and smart contracts—empowering your business with trust and clarity in every transaction.
+
+CTA:
+
+Build My Secure Network
+
+Speak with a Web3 Expert
+
+SECURITY & COMPLIANCE SOLUTIONS
+Current:
+Worried about data breaches and compliance violations? Our security solutions provide real-time threat detection, automated compliance monitoring, and comprehensive risk mitigation.
+
+Rewrite:
+Regulations and threats evolve fast—noncompliance or a single breach can devastate your brand.
+Our AI-driven systems watch over your operations 24/7, catching risks instantly and automating compliance. You stay one step ahead, every day.
+
+CTA:
+
+Strengthen My Security
+
+Request Compliance Monitoring
+
+ABOUT/MISSION
+Current:
+To empower businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.
+
+Rewrite:
+Mission:
+We exist to help ambitious businesses outpace the market, solving their toughest challenges with smart, effective AI and automation.
+
+FOOTER / CONTACT
+Current:
+123 Business District
+Tech City, TC 12345
++1 (555) 123-4567
+hello@strive.com
+
+Rewrite:
+Let’s Move Your Business Forward
+Contact our experts today and see what AI can do for you.
+123 Business District, Tech City, TC 12345
++1 (555) 123-4567
+hello@strive.com
