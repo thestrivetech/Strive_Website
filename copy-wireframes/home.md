@@ -1,295 +1,197 @@
-# Homepage Wireframe
-URL: /
+Proposed Rewrites:
+1. Hero Banner
 
-## Navigation Bar
-- **Logo:** Strive
-- **Menu Items:**
-  - Solutions
-  - Portfolio  
-  - Resources
-  - About
-  - Contact
-- **CTA Button:** Schedule a Consultation
+Current:
+Custom
+AI Solutions
+Built for Real World Performance
 
-## Hero Section
-### Main Headline
-Custom AI Solutions Built for Real World Performance
-
-### Subheadline
 Unlock the power of artificial intelligence to transform your business operations, increase efficiency, and drive sustainable growth.
 
-### Buttons
-- **Primary Button:** Get Started
-- **Secondary Button:** Watch Demo
+Get Started | Request Free Demo | AI Model Training
 
-## ROI Calculator Section
-### Title
-ROI Calculator
+Story Brand Rewrite:
 
-### Description
-Discover your potential return on investment with Strive's solutions tailored to your industry
+Transform Your Business with AI—Lead Your Industry, Not Just Compete
 
-### Calculator Form Fields
-- **Select Your Industry:** Dropdown (Healthcare, Finance, Retail, Manufacturing, Technology, Education, Real Estate, Legal)
-- **Investment Amount:** Slider ($10K - $1M)  
-- **Select Solutions:** Checkboxes based on industry (Process Automation, Data Analytics, AI Solutions, Compliance Tools, etc.)
+Are you struggling to outpace your competition with manual processes and outdated tools?
+At Strive, we help you unlock the potential of artificial intelligence, so your business runs smarter, faster, and more profitably.
+Take the first step—Book a Free Consultation today!
 
+[Get Started] [Book Free Consultation] [See AI in Action]
 
-### Results Display
-- **Total ROI:** Dollar amount with green indicator
-- **Time Savings:** Percentage with clock indicator  
-- **Annual Return:** Dollar amount with trending indicator
-### Action Buttons
-- **Primary:** Schedule Discovery Call
-- **Secondary:** Get Detailed Analysis
+2. Problem Statement & Empathy
 
-## Industry Solutions Section
-### Section Label
-SOLUTIONS BY INDUSTRY
+Add this directly below the hero section:
 
-### Section Title
-Find tailored solutions for your industry
+Doing More with Less Feels Impossible—But It Doesn’t Have to Be
 
-### Section Description
-Select your industry to discover how our AI-powered solutions can scale your business operations.
+You want to innovate, cut costs, and scale—yet you’re held back by inefficiency, siloed data, and rising demands.
+We understand how overwhelming digital transformation can be, and we’re here to help.
 
-### Industry Tiles (8 Industries)
-1. **Healthcare** 🏥
-2. **Finance** 💰
-3. **Manufacturing** 🏭
-4. **Retail** 🛒
-5. **Technology** 💻
-6. **Education** 🎓
-7. **Real Estate** 🏠
-8. **Legal** ⚖️
+3. Plan Section
 
-### Industry-Specific Solutions (When Industry Selected)
-#### Healthcare Solutions
-- **AI-powered diagnostics and imaging analysis**
-  - Advanced medical imaging with AI pattern recognition
-- **Patient data management and EHR integration**
-  - Seamless electronic health record management
-- **Automated compliance and regulatory reporting**
-  - HIPAA compliant automated reporting systems
-- **Predictive analytics for patient outcomes**
-  - Early intervention through predictive modeling
+Current:
+CTAs are spread throughout, but no explicit step-by-step process.
 
-#### Finance Solutions
-- **Real-time fraud detection and prevention**
-  - Advanced AI algorithms for fraud prevention
-- **Automated risk assessment and reporting**
-  - Comprehensive risk analysis and compliance reporting
-- **Algorithmic trading and portfolio optimization**
-  - AI-driven trading strategies and portfolio management
-- **Customer behavior analytics and personalization**
-  - Deep customer insights for personalized services
+Story Brand Rewrite:
 
-#### Manufacturing Solutions
-- **Predictive maintenance and equipment monitoring**
-  - Prevent downtime with intelligent maintenance scheduling
-- **Quality control automation with computer vision**
-  - Automated quality inspection using AI vision
-- **Supply chain optimization and demand forecasting**
-  - Optimize inventory and predict demand patterns
-- **Production workflow automation**
-  - Streamline manufacturing processes with automation
+Your Path to Results with AI—It’s Simple
 
-#### Retail Solutions
-- **Customer analytics and personalized recommendations**
-  - AI-powered personalization for better customer experience
-- **Inventory management and demand prediction**
-  - Smart inventory optimization and demand forecasting
-- **Dynamic pricing optimization**
-  - Real-time pricing strategies based on market conditions
-- **Omnichannel customer experience automation**
-  - Seamless customer journey across all channels
+Book Your Free Consultation
 
-#### Technology Solutions
-- **DevOps automation and CI/CD optimization**
-  - Automated deployment pipelines and infrastructure
-- **AI agent development and deployment**
-  - Custom AI agents for business automation
-- **Cloud infrastructure and scaling solutions**
-  - Auto-scaling cloud infrastructure management
-- **Data pipeline automation and analytics**
-  - Automated data processing and business intelligence
+Receive Your Custom AI Solution Roadmap
 
-#### Education Solutions
-- **Learning analytics and student performance insights**
-  - Data-driven insights into student learning patterns
-- **Administrative workflow automation**
-  - Streamline administrative processes and workflows
-- **Personalized learning path recommendations**
-  - AI-powered personalized education pathways
-- **Automated grading and assessment tools**
-  - Intelligent automated grading and feedback systems
+Transform Operations—See Measurable Impact in Weeks
 
-#### Real Estate Solutions
-- **Property valuation and market analysis**
-  - AI-powered property valuation and market insights
-- **Automated property management workflows**
-  - Streamline property management operations
-- **Lead generation and customer relationship management**
-  - Automated lead qualification and CRM integration
-- **Market trend prediction and investment insights**
-  - Predictive analytics for real estate investments
+Ready to start? You’re just one step away.
 
-#### Legal Solutions
-- **Document automation and contract analysis**
-  - AI-powered document generation and contract review
-- **Case management and workflow optimization**
-  - Streamlined case management and legal workflows
-- **Legal research and precedent discovery**
-  - AI-assisted legal research and case law analysis
-- **Compliance monitoring and risk assessment**
-  - Automated compliance monitoring and risk management
+[Schedule Now] [See Customer Results]
 
-### CTA Box
-#### Title
-Ready to Transform Your Industry?
+4. ROI Calculator
 
-#### Description
-Explore our comprehensive solutions designed specifically for your business sector.
+Current:
+Discover your potential return on investment with Strive's solutions tailored to your industry...
 
-#### Button
-Explore All Solutions
+Story Brand Rewrite:
 
-## Integrated Platform Section
-### Section Label
-INTEGRATED BUSINESS PLATFORM
+See How AI Delivers Real Business Value—Estimate Your ROI Instantly
 
-### Section Title
-A fully integrated suite of solutions, powered by industry leading AI.
+Know exactly how much time and money you could save.
 
-### Solution Cards (6 Cards)
+Select your industry
 
-#### Card 1: Project Management
-Streamline your projects with AI-powered planning, tracking, and collaboration tools.
+Enter your numbers
 
-#### Card 2: Business Intelligence
-Make data-driven decisions with advanced analytics and real-time insights.
+Get your personalized ROI projection in seconds
 
-#### Card 3: Process Automation
-Automate repetitive tasks and workflows to boost productivity and reduce errors.
+[Try the Calculator] [Talk to an Expert]
 
-#### Card 4: Customer Management
-Build stronger relationships with comprehensive customer insights and engagement tools.
+5. Solutions by Industry
 
-#### Card 5: Financial Planning
-Optimize your financial performance with predictive modeling and smart budgeting.
+Current:
+Find tailored solutions for your industry...
 
-#### Card 6: Security & Compliance
-Protect your business with enterprise-grade security and automated compliance monitoring.
+Story Brand Rewrite:
 
-## Why Choose Strive Section
-### Section Label
-WHY CHOOSE STRIVE
+AI Solutions Tailored to Your Industry’s Biggest Challenges
 
-### Section Title
-The Future of Business Starts Here
+No two industries are the same—which is why every solution we deliver is built around your goals, your pain points, and your opportunities.
 
-### Section Description
-Don't just keep up with the competition—surpass them. Our cutting-edge AI solutions deliver measurable results that transform how you do business.
+Healthcare: Automate scheduling, reduce admin costs, improve patient experience
 
-### Value Proposition Cards (4 Cards)
+Finance: Detect fraud faster, streamline reporting, maximize compliance
 
-#### Card 1: Innovative Tech
-**Title:** Innovative Tech
-**Description:** Cutting-edge AI and automation technologies that keep you ahead of industry trends and competitor solutions.
+Manufacturing: Boost quality, eliminate downtime, optimize supply chain
 
-#### Card 2: Scalable Solutions
-**Title:** Scalable Solutions
-**Description:** Grow without limits. Our architecture scales seamlessly from startup to enterprise, adapting to your business needs.
+Retail: Deliver personalized experiences at scale, predict demand, reduce returns
 
-#### Card 3: Future-Proof Design
-**Title:** Future-Proof Design
-**Description:** Built to evolve. Our solutions integrate emerging technologies, ensuring your investment remains valuable for years.
+More Industries…
 
-#### Card 4: Proven Results
-**Title:** Proven Results
-**Description:** Track record of success. Our clients see 3x faster processing, 60% cost reduction, and 24/7 automated efficiency.
+[Explore Solutions by Industry]
 
-### CTA Box
-#### Title
-Ready to Transform Your Business?
+6. Project Dashboard / Client Portal
 
-#### Description
-Join industry leaders who've already made the switch to intelligent automation.
+Current:
+Our exclusive client portal gives you complete visibility into your project's progress...
 
-#### Buttons
-- **Primary:** Get Started Today
-- **Secondary:** View Success Stories
+Story Brand Rewrite:
 
-## Resources Preview Section
-### Section Title
-Discover what's new with Strive
+Transparency, Accountability, and Control—in Real Time
 
-### Section Link
-View all resources →
+Never wonder where your project stands. Your custom Strive client portal gives you:
 
-### Resource Cards (3 Cards)
+Daily progress updates and milestones
 
-#### Card 1
-**Type:** PRODUCT UPDATES
-**Title:** Announcing Strive 2025
-**Description:** Unveiled at our annual conference, Strive's latest AI-powered features are transforming how businesses operate.
+Real-time chat with your team
 
-#### Card 2
-**Type:** ON-DEMAND WEBINAR
-**Title:** Expert Advice: How to Maximize Business Efficiency
-**Description:** Learn from industry experts about implementing automation and AI to drive productivity.
+Visual status dashboards
 
-#### Card 3
-**Type:** INDUSTRY NEWS
-**Title:** Strive named #1 in Business Solutions
-**Description:** Industry recognition for our comprehensive platform and customer satisfaction ratings.
+Secure, always-on access
 
-## CTA Section
-### Section Label
-CONNECT WITH US
+[See a Demo]
 
-### Section Title
-We'd love to show you around
+7. Solution Features
 
-### Section Description
-With Strive you can streamline operations, automate processes, and drive growth with intelligent insights.
+Current:
 
-### Benefits (3 Items)
-1. **Comply with industry standards and regulations.**
-2. **Identify opportunities and automate decision-making.**
-3. **Improve visibility and automate operations.**
+Project Management
 
-### CTA Button
-Schedule a Consultation
+Business Intelligence
 
-## Footer
-### Company Info Section
-- **Logo:** STRIVE
-- **Description:** To empower businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.
-- **Social Media Links:**
-  - LinkedIn
-  - Twitter  
-  - Facebook
-  - Instagram
+Process Automation
 
-### Quick Links Section
-- Home
-- Portfolio
-- Solutions
-- Resources
-- About Us
-- Contact
+etc.
 
-### Contact Section
-- **Address:** 123 Business District
-- **Address Line 2:** Tech City, TC 12345
-- **Phone:** +1 (555) 123-4567
-- **Email:** hello@strive.com
+Story Brand Rewrite:
 
-### Legal Links
-- Privacy Policy
-- Terms of Service
-- Cookie Policy
+Everything You Need to Succeed with AI—All in One Platform
 
-### Copyright
-© 2025 STRIVE. All rights reserved.
+AI-Driven Project Management: Plan, track, and deliver on time
+
+Business Intelligence: Spot trends and make data-driven decisions
+
+Process Automation: Free your team from busywork
+
+Customer Management: Turn every touchpoint into lasting loyalty
+
+Financial Planning: Forecast and optimize in real time
+
+Security & Compliance: Stay protected and audit-ready
+
+[Learn More About Our Platform]
+
+8. Why Choose Strive?
+
+Current:
+The Future of Business Starts Here...
+
+Story Brand Rewrite:
+
+Why Industry Leaders Choose Strive
+
+You don’t need another vendor—you need a strategic partner for sustainable growth.
+
+Innovation Delivered: Always-outpacing the market
+
+Unmatched Scalability: Solutions that evolve with you
+
+Proven Results, Every Time:
+
+3x faster processing
+
+60% cost reduction
+
+24/7 AI-powered efficiency
+
+Ready to become your industry’s next success story?
+
+[See Customer Case Studies] [Get Started Today]
+
+9. Social Proof & Case Studies
+
+Add a carousel or featured section with:
+
+Real Results from Real Businesses
+
+“Strive’s solutions slashed our processing times and drove $1M+ in savings in under a year.”
+— CFO, Top Financial Services Firm
+
+“We automated 80% of manual reporting and gained new insights we never knew were possible.”
+— Head of Operations, Manufacturing Client
+
+[Read More Success Stories]
+
+10. Footer / Contact
+
+Add a clear final CTA:
+
+Talk to an AI Expert—See What’s Possible for Your Business
+
+123 Business District, Tech City, TC 12345
+
++1 (555) 123-4567
+
+hello@strive.com
+
+[Contact Us Now]
