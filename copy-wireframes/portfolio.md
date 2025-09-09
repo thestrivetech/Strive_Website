@@ -1,202 +1,61 @@
-# Portfolio Page Wireframe
-URL: /portfolio
+Here are proposed rewrites for every section of your AI Solutions B2B portfolio page, using StoryBrand principles, an outcome-focused style, and tailored to convert business decision-makers:
 
-## Navigation Bar
-- **Logo:** Strive
-- **Menu Items:**
-  - Solutions
-  - Portfolio
-  - Resources
-  - About
-  - Contact
-- **CTA Button:** Schedule a Consultation
+Original Headline
+Solutions that give you more Time to do what you love
 
-## Hero Section
-### Main Title
-Unleashing AI Solutions for Tomorrow
+Rewrite
+Unlock Time and Growth: AI Solutions for Ambitious Businesses
 
-### Subtitle
+Original Description
 Explore cutting-edge AI demos, production-ready templates, and revolutionary prototypes that showcase the future of intelligent business solutions.
 
-### Button
-View Our Work →
+Rewrite
+Struggling with slow processes or information overload? Discover AI-powered solutions tailored for your business—purpose-built to drive efficiency, lower costs, and free your team to focus on what matters most.
 
-## Filter Section
-### Filter Buttons
-- All Projects
-- AI Agents
-- AI Models
-- RAG Solutions
-- Workflows
-- Templates
-- Infrastructure
+DEMOAI AGENT
+Neural Language Assistant
+Original:
+Advanced conversational AI that understands context and provides intelligent responses across multiple domains.
 
-## Project Showcase Grid
+Rewrite:
+Transform how your team communicates—AI chat agents that handle routine questions, triage workflows, and deliver real-time insights so your employees and customers always get timely, accurate answers.
 
-### Project 1: Neural Language Assistant
-**Category:** AI Agent
-**Badge:** DEMO
-**Technologies:** GPT-4, React, Node.js, Python
-**Short Description:** Advanced conversational AI that understands context and provides intelligent responses across multiple domains.
-**Full Description (Modal):** A sophisticated AI assistant powered by state-of-the-art language models, capable of understanding nuanced conversations, maintaining context across long interactions, and providing expert-level assistance in various fields including business analysis, technical support, and creative writing.
-**Features:**
-- Multi-turn conversations
-- Domain expertise
-- Context retention
-- Real-time responses
-**Metrics:**
-- Accuracy: 94.2%
-- Response Time: 1.2s
-- User Satisfaction: 4.8/5
-**Buttons:**
-- View Details
-- View Demo
-- View Code
+Computer Vision Analytics
+Original:
+Real-time image and video analysis for quality control, object detection, and automated inspection systems.
 
-### Project 2: Computer Vision Analytics
-**Category:** AI Model
-**Badge:** DEMO
-**Technologies:** TensorFlow, OpenCV, Python, FastAPI
-**Short Description:** Real-time image and video analysis for quality control, object detection, and automated inspection systems.
-**Full Description (Modal):** A comprehensive computer vision platform that processes visual data in real-time, providing accurate object detection, quality assessment, and anomaly detection. Perfect for manufacturing, security, and retail applications.
-**Features:**
-- Real-time processing
-- Multi-object detection
-- Quality scoring
-- Anomaly detection
-**Metrics:**
-- Accuracy: 97.8%
-- Processing Speed: 30fps
-- Detection Rate: 99.1%
-**Buttons:**
-- View Details
-- View Demo
-- View Code
+Rewrite:
+Spot quality issues before they disrupt your business. Automate visual inspections and monitor production lines in real time with computer vision—boosting consistency and reducing costly errors.
 
-### Project 3: RAG Knowledge System
-**Category:** RAG Solution
-**Badge:** PROTOTYPE
-**Technologies:** LangChain, Vector DB, FastAPI, React
-**Short Description:** Retrieval-Augmented Generation system that combines your knowledge base with AI for accurate, contextual responses.
-**Full Description (Modal):** An intelligent knowledge management system that ingests documents, creates semantic embeddings, and provides AI-powered search and question-answering capabilities. Ideal for enterprise knowledge bases, customer support, and research applications.
-**Features:**
-- Document ingestion
-- Semantic search
-- Context-aware responses
-- Multi-format support
-**Metrics:**
-- Accuracy: 91.7%
-- Retrieval Speed: 0.8s
-- Document Capacity: 10M+
-**Buttons:**
-- View Details
-- View Demo
-- View Code
+RAG Knowledge System
+Original:
+Retrieval-Augmented Generation system that combines your knowledge base with AI for accurate, contextual responses.
 
-### Project 4: Agentic Workflow Platform
-**Category:** Workflow
-**Badge:** PROTOTYPE
-**Technologies:** Multi-Agent, LangGraph, Python, Redis
-**Short Description:** Orchestrated AI agents working together, each specialized in specific domains to solve complex business problems.
-**Full Description (Modal):** A revolutionary multi-agent system where specialized AI agents collaborate to handle complex workflows. Each agent is an expert in its domain, working together to deliver comprehensive solutions for business process automation.
-**Features:**
-- Multi-agent coordination
-- Specialized expertise
-- Task decomposition
-- Quality assurance
-**Metrics:**
-- Efficiency Gain: 85% faster
-- Agent Count: 12
-- Success Rate: 96.3%
-**Buttons:**
-- View Details
-- View Demo
-- View Code
+Rewrite:
+Turn your company’s knowledge base into an on-demand problem solver. Our RAG platform connects your data with advanced AI—giving your team instant, reliable answers to any business challenge.
 
-### Project 5: Smart Dashboard UI Kit
-**Category:** Template
-**Badge:** TEMPLATE
-**Technologies:** React, TypeScript, Tailwind, Recharts
-**Short Description:** Modern, responsive dashboard components with AI-powered insights and real-time data visualization.
-**Full Description (Modal):** A comprehensive UI kit featuring modern dashboard components, interactive charts, and AI-powered insights. Includes dark/light themes, responsive layouts, and customizable widgets for any business intelligence application.
-**Features:**
-- 50+ Components
-- Responsive design
-- Dark/light themes
-- Real-time updates
-**Metrics:**
-- Components: 50+
-- Themes: 2
-- Responsive: 100%
-- Performance Score: 95/100
-**Buttons:**
-- View Details
-- View Demo
-- View Code
+Agentic Workflow Platform
+Original:
+Orchestrated AI agents working together, each specialized in specific domains to solve complex business problems.
 
-### Project 6: MCP Server Framework
-**Category:** Infrastructure
-**Badge:** PROTOTYPE
-**Technologies:** Protocol, TypeScript, WebSocket, Docker
-**Short Description:** Model Context Protocol server enabling seamless AI model integration across different platforms and applications.
-**Full Description (Modal):** A robust MCP (Model Context Protocol) server that standardizes AI model communication, enabling easy integration of various AI models into your applications with consistent APIs and real-time capabilities.
-**Features:**
-- Protocol standardization
-- Multi-model support
-- Real-time communication
-- Easy integration
-**Metrics:**
-- Models Supported: 25+
-- Latency: < 100ms
-- Uptime: 99.9%
-**Buttons:**
-- View Details
-- View Demo
-- View Code
+Rewrite:
+Unify people, processes, and data with AI agents that collaborate. Automate complex workflows across departments—so your organization works faster and smarter, not harder.
 
-## Project Detail Modal Structure
-### When project clicked, modal shows:
-- Large project image
-- Project title
-- Category badge
-- Type badge (DEMO/PROTOTYPE/TEMPLATE)
-- Full description
-- Key Features list
-- Performance Metrics
-- Technology Stack badges
-- Action Buttons:
-  - View Demo
-  - View Code
-  - Get Started
+Smart Dashboard UI Kit
+Original:
+Modern, responsive dashboard components with AI-powered insights and real-time data visualization.
 
-## Footer
-### Company Info Section
-- **Logo:** STRIVE
-- **Description:** To empower businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.
-- **Social Media Links:**
-  - LinkedIn
-  - Twitter  
-  - Facebook
-  - Instagram
+Rewrite:
+See the big picture at a glance. Custom dashboards powered by AI turn raw data into clear, actionable insights—so you can make confident decisions in real time.
 
-### Quick Links Section
-- Home
-- Portfolio
-- Solutions
-- Resources
-- About Us
-- Contact
+MCP Server Framework
+Original:
+Model Context Protocol server enabling seamless AI model integration across different platforms and applications.
 
-### Contact Section
-- **Address:** 123 Business District
-- **Address Line 2:** Tech City, TC 12345
-- **Phone:** +1 (555) 123-4567
-- **Email:** hello@strive.com
+Rewrite:
+Integrate and deploy best-in-class AI—without the integration headaches. Our flexible framework connects your preferred models to any business app, securely and at scale.
 
-### Legal Links
-- Privacy Policy
-- Terms of Service
-- Cookie Policy
+Example CTA Section (add at top and after each solution)
+Ready for a smarter, faster future?
+Let’s talk about your AI transformation. [Request a personalized demo]
 
-### Copyright
-© 2025 STRIVE. All rights reserved.
