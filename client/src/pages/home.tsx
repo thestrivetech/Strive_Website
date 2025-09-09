@@ -155,7 +155,7 @@ const Home = () => {
         onSecondaryClick={handleWatchDemo}
       />
       {/* Problem Identification Section */}
-      <section className="py-12 sm:py-16 bg-[#f8fafc] border-b border-gray-100">
+      <section className="py-12 sm:py-16 bg-[#ffffffeb] border-b border-gray-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <div className="text-sm uppercase tracking-wide text-red-600 font-semibold mb-4">
