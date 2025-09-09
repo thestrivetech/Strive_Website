@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 
 const FloatingChat = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +54,7 @@ const FloatingChat = () => {
   return (
     <>
       {/* Chat Button */}
-      <div className="floating-chat">
+      <div className="floating-chat relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="w-14 h-14 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg border-none outline-none flex items-center justify-center transition-all duration-200 cursor-pointer"
@@ -65,6 +66,11 @@ const FloatingChat = () => {
             <MessageCircle className="w-6 h-6" />
           )}
         </button>
+        {!isOpen && (
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+            <ComingSoonBadge size="sm" variant="floating" />
+          </div>
+        )}
       </div>
 
       {/* Chat Window */}

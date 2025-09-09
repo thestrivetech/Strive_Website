@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Calendar, Download, MessageCircle, ChevronDown, ChevronUp, Users, Eye, FileText } from "lucide-react";
+import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -34,7 +35,7 @@ const Contact = () => {
     {
       icon: <Phone className="text-primary w-6" />,
       title: "Phone", 
-      content: "+1 (555) 123-4567"
+      content: "(731)-431-2320"
     },
     {
       icon: <Mail className="text-primary w-6" />,
@@ -51,7 +52,16 @@ const Contact = () => {
   const quickActions = [
     { icon: <Calendar className="mr-2" />, text: "Request Personalized Demo", action: "demo" },
     { icon: <Eye className="mr-2" />, text: "Download Solutions Brochure", action: "brochure" },
-    { icon: <MessageCircle className="mr-2" />, text: "Chat Live with AI Specialist", action: "chat" }
+    { 
+      icon: <MessageCircle className="mr-2" />, 
+      text: (
+        <span className="flex items-center gap-2">
+          Chat Live with AI Specialist
+          <ComingSoonBadge size="sm" />
+        </span>
+      ), 
+      action: "chat" 
+    }
   ];
 
   const faqs = [
@@ -230,7 +240,7 @@ const Contact = () => {
                     <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Phone Number</label>
                     <Input
                       type="tel"
-                      placeholder="+1 (555) 123-4567"
+                      placeholder="(731)-431-2320"
                       value={formData.phone}
                       onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                       style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
@@ -508,7 +518,7 @@ const Contact = () => {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Phone className="w-4 h-4 text-primary" />
-                    <span>+1 (555) 123-4567</span>
+                    <span>(731)-431-2320</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-primary" />

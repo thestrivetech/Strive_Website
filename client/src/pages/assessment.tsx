@@ -132,7 +132,7 @@ const Assessment = () => {
             <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Phone Number *</label>
             <Input
               type="tel"
-              placeholder="+1 (555) 123-4567"
+              placeholder="(731)-431-2320"
               value={contactData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
               style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}

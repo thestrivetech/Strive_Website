@@ -142,21 +142,18 @@ const Footer = () => {
             <h3 className="font-semibold text-white mb-4">Contact</h3>
             <ul className="space-y-2">
               <li className="text-white/70" data-testid="text-address">
-                123 Business District
-              </li>
-              <li className="text-white/70" data-testid="text-address-line2">
-                Tech City, TC 12345
+                Nashville, TN
               </li>
               <li className="text-white/70" data-testid="text-phone">
-                +1 (555) 123-4567
+                (731)-431-2320
               </li>
               <li>
                 <a 
-                  href="mailto:hello@strive.com" 
+                  href="mailto:contact@strivetech.ai" 
                   className="text-white/70 hover:text-white transition-colors"
                   data-testid="link-email"
                 >
-                  hello@strive.com
+                  contact@strivetech.ai
                 </a>
               </li>
             </ul>

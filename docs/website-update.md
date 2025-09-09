@@ -1,6 +1,6 @@
 ### Entire implementation list for the website ###
 
-# Entire Website # 
+# Entire Website # - Prompted in session 18
 
 - Add small but noticable "Coming Soon" banner to "Chat Live with AI Specialist" button (Contact page) & "TRANSPARENCY, ACCOUNTABILITY, AND CONTROL" section (Home page) & the actual sign in / sign up pages (coming October 1st, 2025) - Also add the coming soon banner on the Chat bot icon in the bottom right corner of the screen
 
@@ -16,10 +16,26 @@
 
 - Change all photos / pics out for photos that are relevant to what the photo is used for
 
-- Change company address anywhere that it's used to: Nashville, TN
-  - Same goes for Phone number: (731)-431-2320
+##  📝 Notes from claude - session 18: ##
 
-# Home Page #
+    - Image replacement task requires actual business images to be provided
+    - Email service needs SMTP environment variables configured to actually send emails
+    
+  "Coming Soon" Badges - Created a reusable component and added to all 4 locations:
+    - Chat Live with AI Specialist button (Contact page)
+    - TRANSPARENCY section (Home page)
+    - Sign In/Sign Up forms (Login page)
+    - Floating chat bot icon
+  2. Contact Information Updated:
+    - Address: Nashville, TN
+    - Phone: (731)-431-2320
+    - Email: contact@strivetech.ai
+  3. Double Hyphens - Searched and found none that needed removal
+  4. Email Notifications - Set up complete email system that sends to all 4 addresses when
+  contact forms are submitted
+
+
+# Home Page # - Session 19
 
 
 - Need to fix ROI calculator to be more accurate (Use verified statistics through verified high quality sources and cite the source in the calculator section) - Also need to scale down the total investment to $500k max instead of $1M (Might need to change copy on this page to match this change after this is updated) - Also need to lower the total investment amount on ROI calculator - Move it down to be a maximum of $250,000 and a minimum of $1,000
@@ -122,4 +138,4 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 - Make the arrows for the demo preview section (home page) on the inside of the actual display area, its currently below the demo display area - Make sure this doesnt block the view of the actual demo preview.
 
-- 
+- Small chatbot icon isn't showing up on mobile

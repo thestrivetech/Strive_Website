@@ -6,6 +6,7 @@ import { z } from "zod";
 import bcrypt from "bcrypt";
 import { supabase } from "./supabase";
 import { authenticateToken, generateToken, type AuthenticatedRequest } from "./auth";
+import { emailService } from "./email";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -14,7 +15,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
       const submission = await storage.createContactSubmission(validatedData);
       
-      // In a real application, you might send an email notification here
+      // Send email notifications to all recipients
+      await emailService.sendContactFormNotification(validatedData);
       console.log("New contact submission:", submission);
       
       res.json({ 
@@ -54,7 +56,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const subscription = await storage.createNewsletterSubscription(validatedData);
       
-      // In a real application, you might add the email to a mailing list service here
+      // Send confirmation email to subscriber
+      await emailService.sendNewsletterConfirmation(validatedData.email);
       console.log("New newsletter subscription:", subscription);
       
       res.json({ 

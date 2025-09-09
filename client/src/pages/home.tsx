@@ -7,6 +7,7 @@ import {
   Wrench, Eye, Package, Settings, Target, Coins, Globe,
   BookOpen, Clipboard, Award, PenTool, Building2, FileText, Search, ShieldAlert
 } from "lucide-react";
+import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { LightBulbIcon, RocketLaunchIcon, CpuChipIcon, StarIcon } from "@heroicons/react/24/outline";
 import HeroSection from "@/components/ui/hero-section";
 import SolutionCard from "@/components/ui/solution-card";
@@ -284,6 +285,7 @@ const Home = () => {
               data-testid="text-section-label"
             >
               TRANSPARENCY, ACCOUNTABILITY, AND CONTROL
+              <ComingSoonBadge size="md" className="ml-3" />
             </div>
             <h2 
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 text-[#020a1c] leading-tight"

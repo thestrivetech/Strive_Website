@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { insertUserSchema } from "@shared/schema";
 import { useAuth } from "@/lib/auth";
+import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username or email is required"),
@@ -116,6 +117,9 @@ const Login = () => {
                 </>
               )}
             </CardTitle>
+            <div className="flex justify-center mt-2 mb-2">
+              <ComingSoonBadge size="md" variant="floating" />
+            </div>
             <CardDescription className="text-gray-600">
               {activeTab === "login" 
                 ? "Sign in to your account to access your dashboard"
