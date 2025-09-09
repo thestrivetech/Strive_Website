@@ -8,11 +8,17 @@
 
 # Home Page #
 
-- 
+- Need to fix ROI calculator to be more accurate - Also need to scale down the total investment to $500k max instead of $1M (Might need to change copy on this page to match this change after this is updated)
+
+- Need to fix cards and badges to all match in size (section dependent and size match)
+
+- Fix button end points after copy is finalized
 
 # Solutions Page #
 
-- 
+- Deselect option on industry and solution type filter (should be able to click back on the filter item that was selected in the dropdown menu to deselect it)
+Upgrade visuals on Solutions page to be on par with Portfolio
+
 
 # Portfolio Page #
 

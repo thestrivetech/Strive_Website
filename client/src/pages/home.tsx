@@ -396,7 +396,8 @@ const Home = () => {
                     </div>
                   </div>
                   <Button 
-                    className="w-full bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="w-full bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group
+                    before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                     onClick={() => window.location.href = step.href}
                   >
                     {index === 0 ? "Start Here - It's Free" : index === 1 ? "See Our Solutions" : "View Success Stories"}
@@ -523,7 +524,8 @@ const Home = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group
+                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                   size="lg"
                   onClick={() => window.location.href = "/contact"}
                   data-testid="button-claim-transformation"
@@ -598,7 +600,8 @@ const Home = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[240px] relative overflow-hidden shadow-xl"
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[240px] relative overflow-hidden shadow-xl group
+                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                   size="lg"
                   onClick={() => window.location.href = "/contact"}
                   data-testid="button-claim-roadmap"
@@ -607,7 +610,8 @@ const Home = () => {
                 </Button>
                 <Button 
                   variant="outline"
-                  className="border-2 border-[#020a1c] text-[#020a1c] hover:bg-[#020a1c] hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[240px]"
+                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[240px] relative overflow-hidden group
+                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                   size="lg"
                   onClick={() => window.location.href = "/portfolio"}
                   data-testid="button-see-transformations"
