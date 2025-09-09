@@ -231,7 +231,7 @@ const Resources = () => {
               className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-hero-title"
             >
-              Business <span className="gradient-text">Intelligence</span> Hub
+              Business <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Intelligence</span> Hub
             </h1>
             <p 
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
@@ -268,7 +268,7 @@ const Resources = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4 text-slate-800" data-testid="text-library-title">
-              Explore Our <span className="gradient-text">Resource Library</span>
+              Explore Our <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Resource Library</span>
             </h2>
             <p className="text-slate-600 text-lg" data-testid="text-library-subtitle">
               Filter and discover the perfect resources for your business journey.
@@ -360,7 +360,7 @@ const Resources = () => {
             <div className="mb-16">
               <div className="text-center mb-12">
                 <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                  AI Knowledge <span className="gradient-text">Quizzes</span>
+                  AI Knowledge <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Quizzes</span>
                 </h3>
                 <p className="text-slate-600 text-lg">
                   Test your AI expertise across different domains and difficulty levels.
@@ -447,7 +447,7 @@ const Resources = () => {
             <div className="mb-16">
               <div className="text-center mb-12">
                 <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                  Technology <span className="gradient-text">Stack</span>
+                  Technology <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Stack</span>
                 </h3>
                 <p className="text-slate-600 text-lg">
                   Explore the cutting-edge technologies powering our solutions and learn how to implement them.
@@ -651,7 +651,7 @@ const Resources = () => {
               className="text-3xl md:text-4xl font-bold mb-4 text-slate-800"
               data-testid="text-newsletter-title"
             >
-              Stay Ahead of the <span className="gradient-text">Curve</span>
+              Stay Ahead of the <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Curve</span>
             </h2>
             <p 
               className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto"

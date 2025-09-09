@@ -82,7 +82,7 @@ const Portfolio = () => {
               className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-hero-title"
             >
-              Solutions that give you more <span className="gradient-text">Time</span> to do what you love
+              Solutions that give you more <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Time</span> to do what you love
             </h1>
             <p 
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"

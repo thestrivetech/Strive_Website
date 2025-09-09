@@ -139,7 +139,7 @@ const ChatBotSai = () => {
               </div>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-              Chat with <span className="gradient-text">Sai</span>
+              Chat with <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Sai</span>
             </h1>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Your AI-Powered Business Solutions Assistant - Available 24/7

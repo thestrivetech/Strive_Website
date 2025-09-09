@@ -420,10 +420,10 @@ const Home = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
             <h2 
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight"
               data-testid="text-why-us-title"
             >
-              <span className="gradient-text">YOUR SUCCESS STORY STARTS HERE</span>
+              <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">YOUR SUCCESS STORY STARTS HERE</span>
             </h2>
             <div 
               className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/90 mb-6"

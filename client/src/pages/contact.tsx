@@ -147,7 +147,7 @@ const Contact = () => {
               className="text-4xl md:text-5xl font-bold mb-6"
               data-testid="text-contact-title"
             >
-              Let's <span className="gradient-text">Connect</span>
+              Let's <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Connect</span>
             </h1>
             <p 
               className="text-xl text-muted-foreground max-w-3xl mx-auto"
