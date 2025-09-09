@@ -8,23 +8,12 @@
 
 # Home Page #
 
-- Remove warning and caution sign symbols from the page, this angle and visual makes us look look like scammers and unprofessional - Remove the "⚠️ WARNING: Every day you delay costs you $5,000+ in lost opportunities" red section
 
-- Change "Manual Processes Cost You $2M+ Annually" to something more vague instead of using a specific number since we will be working with different sized companies. Could say "Manual Processes Costs you Thousands of Dollars, if not More"
-
-- Need to fix "Choose Your Future: AI Leadership or Manual Mediocrity" section to not be so rude - This seems pushy and also has the "scammer" feel.
-
-- Completely remove "The Cost of Staying Manual" badge - This is completely unessecary
-
-- Need to fix ROI calculator to be more accurate (Use verified statistics through verified high quality sources and cite the source in the calculator section) - Also need to scale down the total investment to $500k max instead of $1M (Might need to change copy on this page to match this change after this is updated)
-
-- Need to fix cards and badges to all match in size (section dependent and size match)
+- Need to fix ROI calculator to be more accurate (Use verified statistics through verified high quality sources and cite the source in the calculator section) - Also need to scale down the total investment to $500k max instead of $1M (Might need to change copy on this page to match this change after this is updated) - Also need to lower the total investment amount on ROI calculator - Move it down to be a maximum of $250,000 and a minimum of $1,000
 
 - Fix button end points after copy is finalized 
 
-- Fix copy in the "WE UNDERSTAND THE PRESSURE YOU'RE UNDER" section to be more applicable to our actual situation (we haven't helped anyone yet or worked with any clients). Instead, use verified statistics of how many companies are implementing AI into their business - Additionally provide verified statistics on how AI is earning or saving companies more money.
-
-- We also want to advertise that we create different levels of automation on the home page for any company need or want - We want to still express the importance of humans rather than appearing to be fully "AI positive," because many people are still skeptical of AI and it taking jobs away from people.
+- (MAYBE) We also want to advertise that we create different levels of automation on the home page for any company need or want - We want to still express the importance of humans rather than appearing to be fully "AI positive," because many people are still skeptical of AI and it taking jobs away from people.
   - Here's our automation levels:
     - Level 1: Straight software with no automation- Pure human 
 Level 2: Human workflow w/ AI assistance & eval (Strive is here)
@@ -57,15 +46,11 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 
 
-# Discovery / Assement Meeting Page # (Choose between assessment or discovery wording
-
-- Change page name to one of the above options - Then make surer to change all wording on the website with this change
-
 # Login Page #
 
 - Please make all text color dark blue for the text above each text box
 
-# Schedule Consultation Page #
+# Schedule Assessment Page #
 
 - 
 
