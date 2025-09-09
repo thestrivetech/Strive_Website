@@ -2,7 +2,7 @@
 
 # Entire Website # 
 
-- Add small but noticable "Coming Soon" banner to "Chat Live with AI Specialist" button (Contact page) & "TRANSPARENCY, ACCOUNTABILITY, AND CONTROL" section (Home page) & the actual sign in / sign up pages (coming October 1st, 2025)
+- Add small but noticable "Coming Soon" banner to "Chat Live with AI Specialist" button (Contact page) & "TRANSPARENCY, ACCOUNTABILITY, AND CONTROL" section (Home page) & the actual sign in / sign up pages (coming October 1st, 2025) - Also add the coming soon banner on the Chat bot icon in the bottom right corner of the screen
 
 - Remove any double hyphens on the website - Make sure the sentences that are edited still make sense after doing this (don't change entire sentences, just make small tweaks to make the sentences make sense)
 
