@@ -289,12 +289,7 @@
     transform: scale(1.05);
   }
 
-  .gradient-text {
-    background: linear-gradient(135deg, #ff7033 0%, #f97316 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+
 
   .hero-gradient-text {
     background: linear-gradient(135deg, hsl(222, 84%, 4.9%) 0%, hsl(250, 50%, 10%) 50%, hsl(222, 84%, 4.9%) 100%);
@@ -351,13 +346,6 @@
     overflow: hidden;
     box-shadow: 0 20px 60px hsla(0, 0%, 0%, 0.4);
     background: linear-gradient(135deg, hsl(217, 32%, 17%) 0%, hsl(222, 84%, 5.9%) 100%);
-  }
-
-  .gradient-text {
-    background: linear-gradient(135deg, #ff7033 0%, #f97316 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
 
   .logo-font {
