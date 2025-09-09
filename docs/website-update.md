@@ -30,7 +30,11 @@
 
 # Contact Page #
 
-- 
+
+
+# Discovery / Assement Meeting Page # (Choose between assessment or discovery wording
+
+- Change page name to one of the above options - Then make surer to change all wording on the website with this change
 
 # Login Page #
 
