@@ -168,11 +168,11 @@ const ROICalculator = () => {
             <div className="flex items-center justify-center mb-4">
               <Calculator className="text-primary mr-3 h-8 w-8" />
               <h2 className="text-2xl md:text-3xl font-bold" data-testid="roi-calculator-title">
-                ROI Calculator
+                See How AI Delivers Real Business Value
               </h2>
             </div>
             <p className="max-w-2xl mx-auto text-[#020a1c]" data-testid="roi-calculator-subtitle">
-              Discover your potential return on investment with Strive's solutions tailored to your industry
+              Know exactly how much time and money you could save. Select your industry, enter your numbers, and get your personalized ROI projection in seconds.
             </p>
           </div>
 
@@ -248,7 +248,7 @@ const ROICalculator = () => {
                   className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                   data-testid="button-schedule-discovery-call"
                 >
-                  Schedule an Assessment
+                  Try the Calculator
                 </button>
               </div>
             </Card>
@@ -258,7 +258,7 @@ const ROICalculator = () => {
               <CardContent className="space-y-6 p-0">
                 <div className="text-center">
                   <h3 className="text-lg font-semibold mb-4" data-testid="results-title">
-                    Your Projected Results
+                    Your Estimated ROI Instantly
                   </h3>
                 </div>
 
@@ -303,7 +303,7 @@ const ROICalculator = () => {
                     className="text-primary font-semibold hover:underline"
                     data-testid="button-get-detailed-analysis"
                   >
-                    Get Detailed Analysis →
+                    Talk to an Expert →
                   </button>
                 </div>
               </CardContent>

@@ -156,10 +156,10 @@ const Home = () => {
     <div className="pt-16">
       {/* Hero Section */}
       <HeroSection
-        title="Custom AI Solutions Built for Real World Performance"
-        subtitle="Unlock the power of artificial intelligence to transform your business operations, increase efficiency, and drive sustainable growth."
+        title="Transform Your Business with AI—Lead Your Industry, Not Just Compete"
+        subtitle="Are you struggling to outpace your competition with manual processes and outdated tools? At Strive, we help you unlock the potential of artificial intelligence, so your business runs smarter, faster, and more profitably."
         primaryButtonText="Get Started"
-        secondaryButtonText="Request Free Demo"
+        secondaryButtonText="Book Free Assessment"
         onPrimaryClick={handleGetStarted}
         onSecondaryClick={handleWatchDemo}
       />
@@ -173,16 +173,16 @@ const Home = () => {
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-industry-label"
             >
-              SOLUTIONS BY INDUSTRY
+              AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES
             </div>
             <h2 
               className="text-2xl md:text-3xl font-bold mb-4 text-white"
               data-testid="text-industry-title"
             >
-              Find tailored solutions for your industry
+              No two industries are the same—which is why every solution we deliver is built around your goals
             </h2>
             <p className="text-white/80 text-lg max-w-2xl mx-auto">
-              Select your industry to discover how our AI-powered solutions can scale your business operations.
+              Select your industry below to see proven strategies and results for companies just like yours.
             </p>
           </div>
 
@@ -256,10 +256,10 @@ const Home = () => {
           <div className="text-center mt-12">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-2xl mx-auto">
               <h3 className="text-2xl font-bold text-white mb-4">
-                Ready to Transform Your Industry?
+                Ready to become your industry's next success story?
               </h3>
               <p className="text-white/80 mb-6">
-                Explore our comprehensive solutions designed specifically for your business sector.
+                Talk to an AI Expert—See What's Possible for Your Business.
               </p>
               <Link href="/solutions">
                 <Button 
@@ -283,17 +283,17 @@ const Home = () => {
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-section-label"
             >
-              YOUR PROJECT DASHBOARD
+              TRANSPARENCY, ACCOUNTABILITY, AND CONTROL
             </div>
             <h2 
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 text-[#020a1c] leading-tight"
               data-testid="text-platform-title"
             >
-              Stay Connected with Real-Time Project Insights & Daily Progress Updates
+              Never Wonder Where Your Project Stands—Real Time Visibility
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Our exclusive client portal gives you complete visibility into your project's progress with daily snapshots, 
-              visual updates, milestone tracking, and direct communication with your dedicated team - all in one secure platform.
+              Your custom Strive client portal gives you daily progress updates and milestones, real-time chat with your team, 
+              visual status dashboards, and secure, always-on access - everything you need to succeed with AI, all in one platform.
             </p>
           </div>
 
@@ -391,16 +391,16 @@ const Home = () => {
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white leading-tight"
               data-testid="text-why-us-title"
             >
-              <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">WHY CHOOSE STRIVE</span>
+              <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">WHY INDUSTRY LEADERS CHOOSE STRIVE</span>
             </h2>
             <div 
               className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/90 mb-6"
               data-testid="text-why-us-subtitle"
             >
-              The Future of Business Starts Here
+              You don't need another vendor—you need a strategic partner for sustainable growth
             </div>
             <p className="text-white/80 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
-              Don't just keep up with the competition—surpass them. Our cutting-edge AI solutions deliver measurable results that transform how you do business.
+              Innovation Delivered: Always-outpacing the market. Unmatched Scalability: Solutions that evolve with you. Proven Results, Every Time.
             </p>
           </div>
 
@@ -413,10 +413,10 @@ const Home = () => {
                   <LightBulbIcon className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-4" data-testid="text-innovative-tech-title">
-                  Innovative Tech
+                  Innovation Delivered
                 </h3>
                 <p className="text-white/80 text-sm leading-relaxed">
-                  Cutting-edge AI and automation technologies that keep you ahead of industry trends and competitor solutions.
+                  Always-outpacing the market with cutting-edge AI and automation technologies that keep you ahead.
                 </p>
               </div>
             </div>
@@ -428,10 +428,10 @@ const Home = () => {
                   <RocketLaunchIcon className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-4" data-testid="text-scalable-solutions-title">
-                  Scalable Solutions
+                  Unmatched Scalability
                 </h3>
                 <p className="text-white/80 text-sm leading-relaxed">
-                  Grow without limits. Our architecture scales seamlessly from startup to enterprise, adapting to your business needs.
+                  Solutions that evolve with you. Our architecture scales seamlessly from startup to enterprise, adapting as you grow.
                 </p>
               </div>
             </div>
@@ -471,10 +471,10 @@ const Home = () => {
           <div className="text-center mt-8 sm:mt-12 lg:mt-16">
             <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-4xl mx-auto">
               <h3 className="text-2xl font-bold text-white mb-4">
-                Ready to Transform Your Business?
+                Ready to become your industry's next success story?
               </h3>
               <p className="text-white/80 mb-6 text-lg">
-                Join industry leaders who've already made the switch to intelligent automation.
+                See Customer Case Studies and discover what's possible for your business.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
@@ -507,7 +507,7 @@ const Home = () => {
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#020a1c] leading-tight"
               data-testid="text-resources-title"
             >
-              Discover what's new with Strive
+              Lead the AI Revolution in Your Industry
             </h2>
             <a 
               href="/resources" 
@@ -539,10 +539,10 @@ const Home = () => {
             {/* Call to Action */}
             <div className="bg-gradient-to-br from-white/70 to-white/50 backdrop-blur-sm border border-white/60 rounded-3xl p-8 lg:p-10 text-center shadow-xl">
               <h3 className="text-xl lg:text-2xl font-bold text-[#020a1c] mb-4">
-                Get Started in Just 15 Minutes
+                Your Path to Results with AI—It's Simple
               </h3>
               <p className="text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-                Schedule a personalized demo and see exactly how our solutions can transform your specific business challenges into competitive advantages.
+                Book Your Free Assessment → Receive Your Custom AI Solution Roadmap → Transform Operations—See Measurable Impact in Weeks. Ready to start? You're just one step away.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

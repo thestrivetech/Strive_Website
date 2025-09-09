@@ -74,7 +74,7 @@ const Assessment = () => {
               Contact Information
             </h2>
             <p className="text-muted-foreground" style={{ color: '#020a1c' }}>
-              Tell us about yourself and your business needs
+              Tell us about your goals so we can recommend the ideal AI solution for your unique business needs
             </p>
           </div>
           
@@ -389,10 +389,10 @@ const Assessment = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-6" data-testid="assessment-title">
-              Schedule Your <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Assessment</span>
+              Unlock Your Business's <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">AI Advantage</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Let's discuss how AI can transform your business. Book a free 30-minute assessment with our experts.
+              Discover actionable AI strategies tailored to your company's biggest challenges—book your complimentary 30-minute assessment today.
             </p>
           </div>
 
@@ -448,23 +448,23 @@ const Assessment = () => {
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center p-6 rounded-lg bg-card/50 border">
               <Lightbulb className="w-8 h-8 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">Expert Insights</h3>
+              <h3 className="font-semibold mb-2">Strategic AI Assessment</h3>
               <p className="text-sm text-muted-foreground">
-                Get personalized recommendations from our AI specialists
+                Receive actionable insights from industry-experienced AI consultants
               </p>
             </div>
             <div className="text-center p-6 rounded-lg bg-card/50 border">
               <Target className="w-8 h-8 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">Tailored Solutions</h3>
+              <h3 className="font-semibold mb-2">Custom AI Roadmap</h3>
               <p className="text-sm text-muted-foreground">
-                Solutions designed specifically for your industry and needs
+                Get a step-by-step plan, mapped to your priorities, for deploying AI at scale
               </p>
             </div>
             <div className="text-center p-6 rounded-lg bg-card/50 border">
               <Building className="w-8 h-8 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">Implementation Roadmap</h3>
+              <h3 className="font-semibold mb-2">Fast-Track Implementation</h3>
               <p className="text-sm text-muted-foreground">
-                Clear next steps and timeline for your AI transformation
+                Accelerate adoption with clear timelines and ongoing expert support
               </p>
             </div>
           </div>

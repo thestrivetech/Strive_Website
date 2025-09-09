@@ -28,7 +28,7 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: <MapPin className="text-primary w-6" />,
-      title: "Headquarters",
+      title: "Strive AI Solutions",
       content: "123 Business District, Tech City, TC 12345"
     },
     {
@@ -49,27 +49,27 @@ const Contact = () => {
   ];
 
   const quickActions = [
-    { icon: <Calendar className="mr-2" />, text: "Request a Demo", action: "demo" },
-    { icon: <Eye className="mr-2" />, text: "View Brochure", action: "brochure" },
-    { icon: <MessageCircle className="mr-2" />, text: "Live Chat Support", action: "chat" }
+    { icon: <Calendar className="mr-2" />, text: "Request Personalized Demo", action: "demo" },
+    { icon: <Eye className="mr-2" />, text: "Download Solutions Brochure", action: "brochure" },
+    { icon: <MessageCircle className="mr-2" />, text: "Chat Live with AI Specialist", action: "chat" }
   ];
 
   const faqs = [
     {
-      question: "How long does a typical implementation take?",
-      answer: "Implementation timelines vary based on project scope and complexity. Most projects range from 3-12 months, with our team providing detailed timelines during initial assessments."
+      question: "How quickly can we start seeing results with Strive's AI solutions?",
+      answer: "Most clients launch their first AI-powered project in as little as 4–8 weeks—with measurable business value soon after."
     },
     {
-      question: "Do you provide ongoing support after implementation?",
-      answer: "Yes, we provide comprehensive ongoing support including 24/7 monitoring, regular maintenance, training, and dedicated customer success management."
+      question: "What support can we expect after implementation?",
+      answer: "Our experts guide you from onboarding through ongoing optimization. You'll have a dedicated success manager, proactive monitoring, and 24/7 support."
     },
     {
-      question: "What industries do you serve?",
-      answer: "We serve a wide range of industries including healthcare, finance, manufacturing, retail, technology, and education, with specialized solutions for each sector."
+      question: "Which industries have you helped?",
+      answer: "We empower teams in manufacturing, finance, logistics, healthcare, retail, and beyond. If your industry isn't listed, chances are, we can help."
     },
     {
-      question: "How do you ensure data security?",
-      answer: "We implement enterprise-grade security measures including encryption, access controls, compliance monitoring, and regular security audits to protect your data."
+      question: "How does Strive protect our data?",
+      answer: "Your data security is our top priority. Strive adheres to leading compliance standards and uses advanced encryption to keep your information safe."
     }
   ];
 
@@ -147,13 +147,13 @@ const Contact = () => {
               className="text-4xl md:text-5xl font-bold mb-6"
               data-testid="text-contact-title"
             >
-              Let's <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Connect</span>
+              Accelerate Your <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Business Success</span> with AI
             </h1>
             <p 
               className="text-xl text-muted-foreground max-w-3xl mx-auto"
               data-testid="text-contact-subtitle"
             >
-              Ready to make your business Strive? Let's discuss how we can help you achieve your goals.
+              Your challenges are unique—let's talk about how custom AI solutions can unlock your next level of performance. Tell us where you want to go, and we'll help you get there.
             </p>
           </div>
 
@@ -166,7 +166,7 @@ const Contact = () => {
                   style={{ color: '#ff7033' }}
                   data-testid="text-form-title"
                 >
-                  Send us a message
+                  Begin Your AI Transformation
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -261,7 +261,7 @@ const Contact = () => {
                     <Textarea
                       required
                       rows={4}
-                      placeholder="Tell us about your project or business needs..."
+                      placeholder="Describe your biggest challenge or opportunity—our team will craft a personalized AI strategy..."
                       value={formData.message}
                       onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                       style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
@@ -279,11 +279,10 @@ const Contact = () => {
                       style={{ borderColor: '#ff7033' }}
                     />
                     <label htmlFor="privacy" className="text-sm" style={{ color: '#020a1c' }}>
-                      I agree to Strive's{" "}
+                      By submitting, you consent to a follow-up from our AI advisors and agree to our{" "}
                       <a href="#" className="text-primary hover:underline" data-testid="link-privacy-policy">
                         Privacy Policy
-                      </a>{" "}
-                      and consent to being contacted about my inquiry.
+                      </a>.
                     </label>
                   </div>
 
@@ -308,7 +307,7 @@ const Contact = () => {
                     style={{ color: '#020a1c' }}
                     data-testid="text-contact-info-title"
                   >
-                    Contact Information
+                    Connect With Us
                   </h3>
                   <div className="space-y-4">
                     {contactInfo.map((info, index) => (
@@ -340,10 +339,10 @@ const Contact = () => {
                       style={{ color: '#020a1c' }}
                       data-testid="text-quick-actions-title"
                     >
-                      Quick Actions
+                      Ready to Take the Next Step?
                     </h3>
                     <p className="text-muted-foreground" style={{ color: '#666' }}>
-                      Get started immediately or explore our resources
+                      Book your free strategy assessment and explore our resources
                     </p>
                   </div>
                   
@@ -355,7 +354,7 @@ const Contact = () => {
                       data-testid="button-schedule-assessment"
                     >
                       <Calendar className="mr-2 w-5 h-5" />
-                      Schedule Assessment
+                      Book Free Strategy Assessment
                     </Button>
                     
                     {/* Secondary actions */}
@@ -451,7 +450,7 @@ const Contact = () => {
 
             {/* About Section */}
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold">About Strive</h3>
+              <h3 className="text-xl font-semibold">Company Overview</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Strive is a leading provider of AI-powered business solutions, helping organizations across industries 
                 transform their operations, improve efficiency, and drive growth. Our comprehensive suite of services 

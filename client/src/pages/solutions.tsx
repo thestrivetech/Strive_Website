@@ -66,7 +66,7 @@ const Solutions = () => {
       type: "service",
       industry: "Healthcare",
       icon: <Heart className="text-primary text-xl" />,
-      shortDescription: "Struggling with patient data management and compliance? Our AI-powered healthcare solutions streamline diagnostics, improve patient care, and ensure regulatory compliance.",
+      shortDescription: "Health organizations face rising data, regulatory, and care challenges every day. Imagine freeing up your staff to focus on what matters most—your patients—while our AI manages compliance, data, and operations behind the scenes.",
       fullDescription: "Comprehensive healthcare solutions that leverage artificial intelligence to improve patient outcomes, streamline operations, and ensure regulatory compliance. Our healthcare suite includes advanced diagnostic tools, patient management systems, and automated compliance reporting.",
       features: [
         "AI-powered diagnostics and imaging analysis",
@@ -85,7 +85,7 @@ const Solutions = () => {
       type: "service",
       industry: "Finance",
       icon: <DollarSign className="text-primary text-xl" />,
-      shortDescription: "Losing revenue to fraud and inefficient risk assessment? Transform your financial operations with AI-driven fraud detection, automated risk management, and intelligent trading solutions.",
+      shortDescription: "Financial leaders today face relentless threats—from fraud to shifting regulations. We bring advanced AI tools to safeguard assets, streamline risk, and empower smarter, faster trading. Don't let fraud and bottlenecks stand in your way.",
       fullDescription: "Revolutionary financial technology solutions that enhance security, optimize trading strategies, and provide deep customer insights. Our fintech platform combines real-time fraud detection with sophisticated risk assessment tools.",
       features: [
         "Real-time fraud detection and prevention",
@@ -104,7 +104,7 @@ const Solutions = () => {
       type: "service",
       industry: "Manufacturing",
       icon: <Factory className="text-primary text-xl" />,
-      shortDescription: "Facing costly downtime and quality issues? Our smart manufacturing solutions predict equipment failures, automate quality control, and optimize your entire production workflow.",
+      shortDescription: "Downtime and quality hiccups can drain your margins and stall growth. Our predictive AI anticipates equipment failures before they happen, while automated quality control ensures peak performance across your line.",
       fullDescription: "Intelligent manufacturing solutions that revolutionize production efficiency through predictive maintenance, automated quality control, and supply chain optimization. Transform your manufacturing operations with AI-powered insights.",
       features: [
         "Predictive maintenance and equipment monitoring",
@@ -123,7 +123,7 @@ const Solutions = () => {
       type: "service", 
       industry: "Retail",
       icon: <ShoppingCart className="text-primary text-xl" />,
-      shortDescription: "Struggling with inventory management and customer retention? Our retail solutions optimize stock levels, predict customer behavior, and deliver personalized shopping experiences.",
+      shortDescription: "Retail success now depends on knowing your customers and your shelves—instantly. Our AI sharpens inventory precision, predicts buying trends, and creates experiences that keep shoppers coming back.",
       fullDescription: "Comprehensive retail solutions that enhance customer experience through personalized recommendations, optimize inventory management, and implement dynamic pricing strategies for maximum profitability.",
       features: [
         "Customer analytics and personalized recommendations",
@@ -142,7 +142,7 @@ const Solutions = () => {
       category: "NLP",
       type: "product",
       icon: <Bot className="text-primary text-xl" />,
-      shortDescription: "Overwhelmed by repetitive tasks and manual processes? Our intelligent chatbots automate customer service, streamline operations, and provide 24/7 support.",
+      shortDescription: "Every hour spent on manual tasks is lost opportunity. Our AI chatbots resolve questions instantly, automate operations, and support your customers around the clock—freeing your team for higher-impact work.",
       fullDescription: "Comprehensive AI and automation platform that transforms business processes through intelligent process automation, machine learning models, and predictive analytics. Streamline operations while reducing costs and improving decision-making.",
       features: [
         "Intelligent Process Automation",
@@ -161,7 +161,7 @@ const Solutions = () => {
       category: "Computer Vision",
       type: "product",
       icon: <Eye className="text-primary text-xl" />,
-      shortDescription: "Missing critical security threats or quality defects? Our computer vision systems detect anomalies, monitor security, and ensure quality control with 99% accuracy.",
+      shortDescription: "Defects and threats can slip by unnoticed—until they cost you. With 99% accuracy, our computer vision monitors your environment, detects threats, and keeps quality at its highest—all in real time.",
       fullDescription: "Cutting-edge computer vision solutions that interpret, analyze, and understand digital images and videos. Perfect for quality control, security monitoring, and automated visual inspection across industries.",
       features: [
         "Image Recognition & Classification",
@@ -180,7 +180,7 @@ const Solutions = () => {
       category: "Predictive Model",
       type: "product",
       icon: <BarChart className="text-primary text-xl" />,
-      shortDescription: "Can't predict market trends or customer behavior? Our predictive analytics platform forecasts outcomes, identifies opportunities, and drives data-driven decisions.",
+      shortDescription: "Forecasting the future shouldn't be guesswork. Our AI models analyze mountains of data to predict trends, customer behavior, and opportunities—so you make moves backed by certainty, not hunches.",
       fullDescription: "Advanced predictive analytics platform that transforms raw data into actionable business insights. Leverage machine learning algorithms to forecast trends, identify opportunities, and make data-driven strategic decisions.",
       features: [
         "Advanced Statistical Modeling",
@@ -199,7 +199,7 @@ const Solutions = () => {
       category: "Web3",
       type: "service",
       icon: <Cloud className="text-primary text-xl" />,
-      shortDescription: "Concerned about transparency and security in transactions? Our blockchain solutions ensure immutable records, smart contracts, and decentralized trust.",
+      shortDescription: "In a world where trust and transparency are paramount, blockchain is your foundation. We build secure, transparent networks with immutable records and smart contracts—empowering your business with trust and clarity in every transaction.",
       fullDescription: "Robust cloud infrastructure solutions that provide scalable, secure, and cost-effective computing resources. Deploy, manage, and scale your applications with confidence using our comprehensive cloud platform.",
       features: [
         "Auto-scaling Infrastructure",
@@ -217,7 +217,7 @@ const Solutions = () => {
       category: "Solution Type",
       type: "product",
       icon: <ShieldCheck className="text-primary text-xl" />,
-      shortDescription: "Worried about data breaches and compliance violations? Our security solutions provide real-time threat detection, automated compliance monitoring, and comprehensive risk mitigation.",
+      shortDescription: "Regulations and threats evolve fast—noncompliance or a single breach can devastate your brand. Our AI-driven systems watch over your operations 24/7, catching risks instantly and automating compliance. You stay one step ahead, every day.",
       fullDescription: "Enterprise-grade security and compliance solutions that protect your business assets and ensure regulatory adherence. Automated monitoring, threat detection, and compliance reporting keep your organization secure.",
       features: [
         "Regulatory Compliance Automation",
@@ -324,13 +324,13 @@ const Solutions = () => {
               className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-solutions-hero-title"
             >
-              AI-Powered Solutions for <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Every</span> Industry
+              Unlock the Power of AI—<span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Transform Your Business</span> for Tomorrow
             </h1>
             <p 
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
               data-testid="text-solutions-hero-subtitle"
             >
-              Discover comprehensive AI and automation solutions tailored to transform your business operations, drive efficiency, and accelerate growth across all industries.
+              We help industry leaders conquer operational challenges, maximize efficiency, and drive growth with AI solutions designed just for your field.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -340,7 +340,7 @@ const Solutions = () => {
                 onClick={() => window.location.href = '/request'}
                 data-testid="button-get-custom-solution"
               >
-                Get Custom Solution
+                Speak with an AI Specialist
               </Button>
               <Button 
                 size="lg" 
@@ -349,7 +349,7 @@ const Solutions = () => {
                 onClick={() => document.getElementById('solutions-grid')?.scrollIntoView({ behavior: 'smooth' })}
                 data-testid="button-explore-solutions"
               >
-                Explore Solutions
+                Explore Industry Solutions
               </Button>
             </div>
           </div>
@@ -362,7 +362,7 @@ const Solutions = () => {
           {/* Filter Instruction Text */}
           <div className="text-center mb-8">
             <p className="text-lg text-muted-foreground">
-              Use the filter to find your industry specific solution!
+              Easily Find Your Custom AI Solution: Select your industry to see proven strategies and results for companies just like yours.
             </p>
           </div>
           

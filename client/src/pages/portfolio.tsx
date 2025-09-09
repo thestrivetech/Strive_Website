@@ -82,13 +82,13 @@ const Portfolio = () => {
               className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-hero-title"
             >
-              Solutions that give you more <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Time</span> to do what you love
+              Unlock Time and Growth: <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">AI Solutions</span> for Ambitious Businesses
             </h1>
             <p 
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
               data-testid="text-hero-subtitle"
             >
-              Explore cutting-edge AI demos, production-ready templates, and revolutionary prototypes that showcase the future of intelligent business solutions.
+              Struggling with slow processes or information overload? Discover AI-powered solutions tailored for your business—purpose-built to drive efficiency, lower costs, and free your team to focus on what matters most.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -107,7 +107,7 @@ const Portfolio = () => {
                 onClick={() => window.location.href = '/demo'}
                 data-testid="button-request-demo"
               >
-                Request Demo
+                Request Personalized Demo
               </Button>
             </div>
           </div>

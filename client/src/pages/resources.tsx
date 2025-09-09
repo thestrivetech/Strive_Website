@@ -237,7 +237,7 @@ const Resources = () => {
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
               data-testid="text-hero-subtitle"
             >
-              Unlock your potential with expert insights, cutting-edge research, and proven strategies from industry leaders.
+              Gain exclusive strategies, actionable research, and expert insights to guide your team through every stage of digital transformation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -247,7 +247,7 @@ const Resources = () => {
                 onClick={() => document.getElementById('resource-library')?.scrollIntoView({ behavior: 'smooth' })}
                 data-testid="button-explore-resources"
               >
-                Explore Resources
+                Start Your AI Transformation
               </Button>
               <Button 
                 size="lg" 
@@ -256,7 +256,7 @@ const Resources = () => {
                 onClick={() => window.location.href = '/contact'}
                 data-testid="button-get-insights"
               >
-                Get Expert Insights
+                Unlock Actionable Insights
               </Button>
             </div>
           </div>
@@ -271,7 +271,7 @@ const Resources = () => {
               Explore Our <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Resource Library</span>
             </h2>
             <p className="text-slate-600 text-lg" data-testid="text-library-subtitle">
-              Filter and discover the perfect resources for your business journey.
+              Find tailored playbooks, case studies, and guides—each designed to help you solve your top business challenges with AI.
             </p>
           </div>
 

@@ -20,6 +20,8 @@ Level 2: Human workflow w/ AI assistance & eval (Strive is here)
 Level 3: Human directed AI workflow & Step by step Human monitoring/eval
 Level 4: Mostly autonomous workflow/system/software - Step by step agentic monitoring & eval -> End of workflow human eval
 YOLO 5: Fully automated system and workflow - Human eval at end of each day or human decided review frequency
+
+- 
  
 
 # Solutions Page #

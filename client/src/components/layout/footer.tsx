@@ -122,7 +122,7 @@ const Footer = () => {
                   className="text-white/70 hover:text-white transition-colors"
                   data-testid="footer-link-about"
                 >
-                  About Us
+                  Company
                 </Link>
               </li>
               <li>

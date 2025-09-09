@@ -153,10 +153,10 @@ const Request = () => {
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
             <h2 className="text-3xl font-bold text-[#ff7033] mb-4">
-              Request Received!
+              Your AI Journey Begins Now!
             </h2>
             <p className="text-lg text-white/80 mb-8">
-              Thank you for your interest in Strive. You will receive a confirmation email momentarily. Our team will review your requirements and requests to have your showcase ready at the requested showcase time!
+              Thank you for choosing Strive. Our AI specialists are already reviewing your requirements to craft a custom solution showcase. You'll receive a personalized roadmap within 24 hours.
             </p>
             <div className="bg-gray-50 rounded-lg p-6 mb-8">
               <h3 className="font-semibold text-[#020a1c] mb-3">What happens next?</h3>
@@ -233,9 +233,9 @@ const Request = () => {
             <Card className="hero-gradient shadow-xl">
               <CardHeader>
                 <CardTitle className="text-2xl text-[#ff7033]">
-                  {formStep === 1 && "Tell us about yourself"}
-                  {formStep === 2 && "Help us understand your business"}
-                  {formStep === 3 && "Customize your solution"}
+                  {formStep === 1 && "Ready to See AI in Action?"}
+                  {formStep === 2 && "Tell Us About Your Business"}
+                  {formStep === 3 && "See Your AI Roadmap"}
                 </CardTitle>
               </CardHeader>
               <CardContent>

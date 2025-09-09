@@ -5,22 +5,22 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
 
-const About = () => {
+const Company = () => {
   const missionVisionValues = [
     {
       icon: <Target className="text-primary text-2xl" />,
       title: "Our Mission",
-      description: "To empower businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth."
+      description: "Help you boost revenues, cut costs, and outpace your competitors—through the right AI, delivered at the right time."
     },
     {
       icon: <Eye className="text-primary text-2xl" />,
       title: "Our Vision", 
-      description: "To be the world's most trusted partner for business transformation and technological innovation."
+      description: "To be the trusted partner B2B leaders call for transformation and breakthrough growth."
     },
     {
       icon: <Heart className="text-primary text-2xl" />,
       title: "Our Values",
-      description: "Excellence, integrity, innovation, and customer success guide everything we do."
+      description: "Your success is our standard—through excellence, integrity, bold innovation, and relentless commitment."
     }
   ];
 
@@ -28,38 +28,38 @@ const About = () => {
     {
       name: "Michael Chen",
       title: "CEO & Founder",
-      description: "20+ years in enterprise technology and business transformation.",
+      description: "Trusted advisor to global enterprises; delivers proven growth with every partnership.",
       imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400",
       imageAlt: "Professional business executive headshot"
     },
     {
       name: "Sarah Johnson",
       title: "CTO",
-      description: "AI and cloud computing expert with a passion for innovation.",
+      description: "Turns cutting-edge AI into real business value—fast.",
       imageUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b812?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400",
       imageAlt: "Professional business woman executive"
     },
     {
       name: "David Rodriguez", 
       title: "VP of Operations",
-      description: "Operations excellence and process optimization specialist.",
+      description: "Removes friction, ensures smooth scaling.",
       imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400",
       imageAlt: "Professional business man in suit"
     },
     {
       name: "Emily Zhang",
       title: "Head of Customer Success",
-      description: "Dedicated to ensuring client satisfaction and long-term success.",
+      description: "Your champion for long-term satisfaction and ROI.",
       imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400",
       imageAlt: "Professional business woman in corporate setting"
     }
   ];
 
   const stats = [
-    { number: "150+", label: "Clients Served" },
-    { number: "8", label: "Years of Excellence" },
-    { number: "95%", label: "Client Retention" },
-    { number: "24/7", label: "Support Available" }
+    { number: "150+", label: "Successful Transformations" },
+    { number: "8", label: "Years Driving Operational Excellence" },
+    { number: "95%", label: "Retention Rate, Year After Year" },
+    { number: "24/7", label: "Always-On Support for Your Success" }
   ];
 
   // Vision Timeline Data
@@ -135,13 +135,13 @@ const About = () => {
               className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-about-title"
             >
-              Transforming Business Through Innovation
+              Unlock Your Company's Potential With Smarter Automation
             </h1>
             <p 
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
               data-testid="text-about-subtitle"
             >
-              We're not just another tech company. We're visionaries building the future of business automation, one intelligent solution at a time.
+              Tired of manual processes, complexity, or missed growth opportunities? Strive helps innovative teams like yours streamline operations, boost efficiency, and prepare for the future—with AI solutions tailored to your goals.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -213,13 +213,13 @@ const About = () => {
               </h2>
               <div className="space-y-6 text-muted-foreground">
                 <p data-testid="text-story-paragraph-1" className="text-lg leading-relaxed">
-                  Founded in 2015, Strive emerged from a simple observation: businesses were struggling to keep pace with rapid technological advancement while maintaining operational efficiency. Our founders, seasoned technology executives with decades of combined experience, recognized the need for a comprehensive approach to business transformation.
+                  In 2015, our founders met business leaders overwhelmed by tech change—facing wasted resources, siloed data, and operational bottlenecks. We created Strive to help organizations like yours turn chaos into clarity, using AI and automation as a competitive edge.
                 </p>
                 <p data-testid="text-story-paragraph-2" className="text-lg leading-relaxed">
                   What started as a small consulting firm has evolved into a full-service technology partner, serving enterprises across multiple industries. We've helped over 150 organizations streamline their operations, reduce costs, and accelerate growth through strategic technology implementation.
                 </p>
                 <p data-testid="text-story-paragraph-3" className="text-lg leading-relaxed">
-                  Today, we continue to push the boundaries of what's possible, leveraging cutting-edge AI, cloud technologies, and automation to deliver solutions that not only meet current needs but anticipate future challenges.
+                  Today we partner with forward-thinking teams to build scalable, efficient businesses—ready for tomorrow. Continuous innovation in AI ensures you're always a step ahead.
                 </p>
               </div>
               <div className="mt-8">
@@ -263,7 +263,7 @@ const About = () => {
               Roadmap to the <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Future</span>
             </h2>
             <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-              Our strategic roadmap shows how we're building tomorrow's business solutions today.
+              What's Ahead—For Us and For You: Continuous innovation in AI & emerging tech, so you're always a step ahead.
             </p>
           </div>
 
@@ -374,13 +374,13 @@ const About = () => {
               className="text-3xl md:text-4xl font-bold mb-6 text-[#020a1c]"
               data-testid="text-team-title"
             >
-              Meet the Visionaries
+              Meet Your Transformation Partners
             </h2>
             <p 
               className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
               data-testid="text-team-subtitle"
             >
-              Experienced leaders driving innovation and excellence across every aspect of our business.
+              Trusted advisors to global enterprises, delivering proven growth with every partnership.
             </p>
           </div>
 
@@ -413,10 +413,10 @@ const About = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              Ready to Transform Your Business?
+              Ready to See AI Work For You?
             </h2>
             <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-              Join the businesses that have already discovered the power of intelligent automation.
+              Book a free custom automation assessment and discover your roadmap to stronger growth, efficiency, and market leadership—starting today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -444,4 +444,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Company;

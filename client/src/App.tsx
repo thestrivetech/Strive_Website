@@ -21,7 +21,7 @@ import Home from "@/pages/home";
 const Portfolio = lazy(() => import("@/pages/portfolio"));
 const Solutions = lazy(() => import("@/pages/solutions"));
 const Resources = lazy(() => import("@/pages/resources"));
-const About = lazy(() => import("@/pages/about"));
+const Company = lazy(() => import("@/pages/company"));
 const Contact = lazy(() => import("@/pages/contact"));
 const Assessment = lazy(() => import("@/pages/assessment"));
 const Onboarding = lazy(() => import("@/pages/onboarding"));
@@ -62,7 +62,7 @@ function Router() {
             <Route path="/portfolio" component={Portfolio} />
             <Route path="/solutions" component={Solutions} />
             <Route path="/resources" component={Resources} />
-            <Route path="/about" component={About} />
+            <Route path="/about" component={Company} />
             <Route path="/contact" component={Contact} />
             <Route path="/assessment" component={Assessment} />
             <Route path="/onboarding" component={Onboarding} />
