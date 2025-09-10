@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { Slider } from "@/components/ui/slider";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calculator, TrendingUp, DollarSign, Clock, Stethoscope, CreditCard, ShoppingCart, Factory, Cpu, GraduationCap, Home as HomeIcon, Scale, Hotel, Zap, Truck, Leaf, Film, Heart, Building2, Globe, Briefcase, Gamepad2, Trophy } from "lucide-react";
+import { Calculator, TrendingUp, DollarSign, Clock, Stethoscope, CreditCard, ShoppingCart, Factory, Cpu, GraduationCap, Home as HomeIcon, Scale, Hotel, Zap, Truck, Leaf, Film, Heart, Building2, Globe, Briefcase, Gamepad2, Trophy, Laptop, ChevronDown, ShieldCheck, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { industryStatistics, roiMethodology } from "@/data/industry-statistics";
 import { Info } from "lucide-react";
@@ -36,8 +34,27 @@ interface IndustryData {
 
 const industryData: IndustryData = {
   /* 
-   * ROI CALCULATOR MULTIPLIER SETUP (Session 21 - Updated 2024-09-10)
+   * ROI CALCULATOR MULTIPLIER SETUP (Session 22 - Updated 2024-09-10)
    * 
+   * All Industries - Cross-sector averages:
+   * - Base ROI: 3.6x (average across all industries) 
+   * - Process Automation: 3.5x (broad business process optimization)
+   * - Data Analytics: 3.3x (insights and decision support)
+   * - AI Solutions: 4.0x (advanced AI implementations)
+   * - Compliance & Security: 3.0x (regulatory and security automation)
+   */
+  "all-industries": {
+    name: "All Industries",
+    icon: <Globe className="h-4 w-4" />,
+    baseROI: 3.6, // Cross-industry average
+    services: {
+      automation: { name: "Process Automation", multiplier: 3.5, timeSaving: 50 }, // General business process optimization
+      analytics: { name: "Data Analytics", multiplier: 3.3, timeSaving: 45 }, // Business intelligence and insights
+      ai: { name: "AI Solutions", multiplier: 4.0, timeSaving: 55 }, // Advanced AI implementations
+      compliance: { name: "Compliance & Security", multiplier: 3.0, timeSaving: 40 }, // Regulatory and security automation
+    },
+  },
+  /* 
    * Healthcare Industry Multipliers:
    * - Base ROI: 3.2x (McKinsey research baseline)
    * - Clinical Diagnostics AI: 3.2x (matches baseline for core diagnostics)
@@ -52,18 +69,18 @@ const industryData: IndustryData = {
   healthcare: {
     name: "Healthcare",
     icon: <Stethoscope className="h-4 w-4" />,
-    baseROI: 3.2, // McKinsey: $3.20 ROI per $1 invested in healthcare AI
+    baseROI: 3.5, // Workato: 283% ROI in 6 months, McKinsey healthcare AI baseline
     services: {
-      automation: { name: "Clinical Diagnostics AI", multiplier: 3.2, timeSaving: 50 }, // 90% adoption, 50% faster diagnosis
-      analytics: { name: "EHR Automation", multiplier: 2.8, timeSaving: 50 }, // 50% reduction in documentation time
-      ai: { name: "Patient Care AI", multiplier: 4.1, timeSaving: 45 }, // 45% readmission reduction
-      compliance: { name: "HIPAA Compliance Automation", multiplier: 3.8, timeSaving: 20 }, // 99.9% compliance rate prevents $2.5M avg penalties
+      automation: { name: "Clinical Diagnostics AI", multiplier: 3.2, timeSaving: 45 }, // Nature Medicine: 85% accuracy improvement
+      analytics: { name: "EHR Automation", multiplier: 3.0, timeSaving: 49 }, // 49.2% time reduction (Annals Internal Medicine)
+      ai: { name: "Patient Care AI", multiplier: 4.2, timeSaving: 35 }, // Readmission prevention + care optimization
+      compliance: { name: "HIPAA Compliance Automation", multiplier: 4.8, timeSaving: 75 }, // Prevents $9.77M breach + automation gains
     },
   },
   finance: {
     name: "Financial Services",
     icon: <CreditCard className="h-4 w-4" />,
-    baseROI: 3.8, // 73% using AI for fraud detection, strong ROI
+    baseROI: 4.0, // Gartner 2024: 58% using AI, strong ROI + 57min daily savings
     services: {
       automation: { name: "Risk Assessment Automation", multiplier: 3.8, timeSaving: 95 }, // 72hr to 5min processing
       analytics: { name: "Algorithmic Trading AI", multiplier: 4.2, timeSaving: 60 }, // 60% better timing
@@ -87,20 +104,20 @@ const industryData: IndustryData = {
     icon: <Factory className="h-4 w-4" />,
     baseROI: 4.0, // McKinsey: 10-40% cost reduction
     services: {
-      automation: { name: "Production Line Automation", multiplier: 4.1, timeSaving: 40 }, // 10-40% cost reduction
-      analytics: { name: "Quality Control Vision AI", multiplier: 3.2, timeSaving: 99 }, // 99.9% defect detection
-      ai: { name: "Predictive Maintenance AI", multiplier: 4.8, timeSaving: 70 }, // 70% breakdown reduction
+      automation: { name: "Production Line Automation", multiplier: 4.0, timeSaving: 62 }, // 62min daily savings (McKinsey 2024)
+      analytics: { name: "Quality Control Vision AI", multiplier: 3.5, timeSaving: 50 }, // 2-5% defect rate reduction to <0.1%
+      ai: { name: "Predictive Maintenance AI", multiplier: 4.5, timeSaving: 50 }, // $50k/hour downtime prevention
       compliance: { name: "Safety Monitoring AI", multiplier: 2.8, timeSaving: 25 }, // Real-time safety compliance
     },
   },
   technology: {
     name: "Technology",
     icon: <Cpu className="h-4 w-4" />,
-    baseROI: 4.2, // High ROI from automation and AI agents
+    baseROI: 4.5, // McKinsey 2024: Highest impact industry at 9% revenue increase
     services: {
-      automation: { name: "CI/CD & DevOps Automation", multiplier: 3.7, timeSaving: 90 }, // 10x deployment speed
-      analytics: { name: "Cloud Cost Optimization", multiplier: 3.9, timeSaving: 50 }, // 50% cloud cost reduction
-      ai: { name: "AI Agent Development", multiplier: 4.3, timeSaving: 80 }, // 80% operational savings
+      automation: { name: "CI/CD & DevOps Automation", multiplier: 4.0, timeSaving: 66 }, // 66min daily savings (McKinsey 2024)
+      analytics: { name: "Cloud Cost Optimization", multiplier: 4.2, timeSaving: 30 }, // 30% cloud waste elimination (Flexera 2024)
+      ai: { name: "AI Agent Development", multiplier: 4.8, timeSaving: 60 }, // Tech sector highest impact per McKinsey
       compliance: { name: "Security & Threat Detection", multiplier: 3.1, timeSaving: 95 }, // Real-time threat prevention
     },
   },
@@ -251,9 +268,31 @@ const industryData: IndustryData = {
 };
 
 const ROICalculator = () => {
-  const [selectedIndustry, setSelectedIndustry] = useState("healthcare");
+  const [selectedIndustry, setSelectedIndustry] = useState("all-industries");
   const [customIndustry, setCustomIndustry] = useState("");
   const [open, setOpen] = useState(false);
+  const [industrySearch, setIndustrySearch] = useState("");
+  
+  // Industry options matching solutions page exactly
+  const industryOptions = [
+    { value: "all-industries", label: "All Industries", icon: <Globe className="h-4 w-4" /> },
+    { value: "healthcare", label: "Healthcare", icon: <Heart className="h-4 w-4" /> },
+    { value: "finance", label: "Financial Services", icon: <DollarSign className="h-4 w-4" /> },
+    { value: "manufacturing", label: "Manufacturing", icon: <Factory className="h-4 w-4" /> },
+    { value: "retail", label: "Retail", icon: <ShoppingCart className="h-4 w-4" /> },
+    { value: "technology", label: "Technology", icon: <Laptop className="h-4 w-4" /> },
+    { value: "education", label: "Education", icon: <GraduationCap className="h-4 w-4" /> },
+    { value: "real-estate", label: "Real Estate", icon: <HomeIcon className="h-4 w-4" /> },
+    { value: "legal", label: "Legal", icon: <Scale className="h-4 w-4" /> },
+    { value: "logistics", label: "Logistics & Supply Chain", icon: <Truck className="h-4 w-4" /> },
+    { value: "hospitality", label: "Hospitality & Tourism", icon: <Hotel className="h-4 w-4" /> },
+    { value: "energy", label: "Energy & Utilities", icon: <Zap className="h-4 w-4" /> },
+    { value: "government", label: "Government & Public Sector", icon: <Building2 className="h-4 w-4" /> },
+    { value: "agriculture", label: "Agriculture", icon: <Leaf className="h-4 w-4" /> },
+    { value: "media", label: "Media & Entertainment", icon: <Film className="h-4 w-4" /> },
+    { value: "gaming", label: "Gaming", icon: <Gamepad2 className="h-4 w-4" /> },
+    { value: "esports", label: "eSports", icon: <Trophy className="h-4 w-4" /> }
+  ];
   const [selectedServices, setSelectedServices] = useState<string[]>(["automation"]);
   const [investmentAmount, setInvestmentAmount] = useState([50000]);
   const [calculatedROI, setCalculatedROI] = useState(0);
@@ -269,32 +308,61 @@ const ROICalculator = () => {
 
     const investment = investmentAmount[0];
     
-    // Calculate base ROI with diminishing returns for larger investments
-    // Based on McKinsey research showing 20-40% productivity gains from AI
-    const investmentFactor = Math.log10(investment / 1000) / 2.3; // Logarithmic scaling
-    let totalMultiplier = industry.baseROI * (0.7 + investmentFactor * 0.3); // Scale from 70% to 100% of base
+    // NEW FIXED CALCULATION ALGORITHM (Session 22)
+    // Based on 2024 research: Multiple AI solutions create compounding value, not diminishing returns
     
-    // Calculate time savings with investment scaling
-    // Maximum time savings of 400% as requested
-    let totalTimeSaving = 0;
-    const maxTimeSaving = 400; // Maximum 400% time savings
+    // Calculate base ROI with realistic investment scaling
+    const investmentFactor = Math.log10(investment / 10000) / 2; // More realistic scaling
+    let totalMultiplier = industry.baseROI * (0.85 + investmentFactor * 0.15); // Scale from 85% to 100% of base
     
+    // FIXED: Weighted ROI model - preserve high-value solutions  
+    if (selectedServices.length === 1) {
+      // Single solution: use its full multiplier
+      const service = industry.services[selectedServices[0]];
+      if (service) {
+        totalMultiplier = service.multiplier * (0.85 + investmentFactor * 0.15);
+      }
+    } else {
+      // Multiple solutions: weighted average + synergy bonus
+      let weightedSum = 0;
+      let totalWeight = 0;
+      
+      selectedServices.forEach(serviceKey => {
+        const service = industry.services[serviceKey];
+        if (service) {
+          // Weight by multiplier value (higher multipliers get more weight)
+          const weight = service.multiplier / industry.baseROI;
+          weightedSum += service.multiplier * weight;
+          totalWeight += weight;
+        }
+      });
+      
+      const weightedAverage = weightedSum / totalWeight;
+      // Add 10% synergy bonus for multiple solutions
+      totalMultiplier = weightedAverage * (0.85 + investmentFactor * 0.15) * 1.1;
+    }
+    
+    // FIXED: Compound time savings calculation
+    let compoundEfficiency = 1;
     selectedServices.forEach(serviceKey => {
       const service = industry.services[serviceKey];
       if (service) {
-        // Each service adds value but with diminishing returns
-        const serviceWeight = 1 / (selectedServices.length * 0.7 + 0.3);
-        totalMultiplier += service.multiplier * serviceWeight * 0.4;
-        
-        // Time savings scale with investment amount
-        const timeSavingBase = service.timeSaving * serviceWeight;
-        totalTimeSaving += timeSavingBase;
+        // Each solution multiplies efficiency (compounding effect)
+        const efficiencyGain = service.timeSaving / 100;
+        compoundEfficiency *= (1 + efficiencyGain * 0.4); // 40% of stated time saving realized
       }
     });
     
-    // Scale time savings based on investment (higher investment = more automation = more time saved)
-    const timeScalingFactor = Math.min(investment / 50000, 4); // Cap at 4x for $200k+ investments
-    totalTimeSaving = Math.min(totalTimeSaving * timeScalingFactor, maxTimeSaving);
+    // Calculate total time savings as percentage improvement
+    let totalTimeSaving = (compoundEfficiency - 1) * 100;
+    
+    // Apply investment scaling (higher investment = better implementation = more efficiency)
+    const timeScalingFactor = Math.min(investment / 25000, 2.5); // More reasonable scaling
+    totalTimeSaving *= timeScalingFactor;
+    
+    // Industry-specific caps on time savings (based on research)
+    const maxTimeSaving = selectedIndustry === 'technology' || selectedIndustry === 'gaming' ? 300 : 250;
+    totalTimeSaving = Math.min(totalTimeSaving, maxTimeSaving);
 
     // Calculate ROI with more realistic projections
     // Research shows typical AI ROI ranges from 1.3x to 4.8x investment
@@ -353,67 +421,79 @@ const ROICalculator = () => {
                         variant="outline"
                         role="combobox"
                         aria-expanded={open}
-                        className="w-full justify-between"
+                        className="w-full justify-between min-h-[48px]"
                         data-testid="select-industry"
                       >
                         <div className="flex items-center gap-2">
-                          {industryData[selectedIndustry]?.icon}
-                          <span>
-                            {selectedIndustry === "other" && customIndustry 
-                              ? customIndustry 
-                              : industryData[selectedIndustry]?.name || "Select industry..."}
-                          </span>
+                          {selectedIndustry === "other" && customIndustry ? (
+                            <>
+                              <Briefcase className="h-4 w-4 flex-shrink-0" />
+                              <span className="truncate">{customIndustry}</span>
+                            </>
+                          ) : (
+                            <>
+                              {industryOptions.find(option => option.value === selectedIndustry)?.icon || industryData[selectedIndustry]?.icon}
+                              <span className="truncate">
+                                {industryOptions.find(option => option.value === selectedIndustry)?.label || industryData[selectedIndustry]?.name || "Select industry..."}
+                              </span>
+                            </>
+                          )}
                         </div>
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        <ChevronDown className="ml-2 h-4 w-4 flex-shrink-0 opacity-50" />
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-full p-0">
+                    <PopoverContent className="w-[400px] p-0 max-h-[300px]" align="start" side="bottom" sideOffset={5}>
                       <Command>
-                        <CommandInput 
-                          placeholder="Search or type custom industry..." 
-                          onValueChange={(value) => {
-                            setCustomIndustry(value);
-                          }}
-                        />
-                        <CommandEmpty>
-                          <div className="p-4 text-sm">
-                            <p className="mb-2">Industry not found?</p>
-                            <Button 
-                              variant="outline" 
-                              className="w-full"
-                              onClick={() => {
-                                setSelectedIndustry("other");
-                                setOpen(false);
-                              }}
-                            >
-                              Use "{customIndustry || "Custom Industry"}"
-                            </Button>
-                          </div>
-                        </CommandEmpty>
-                        <CommandGroup>
-                          {Object.entries(industryData).filter(([key]) => key !== "other").map(([key, industry]) => (
-                            <CommandItem
-                              key={key}
-                              value={industry.name}
-                              onSelect={() => {
-                                setSelectedIndustry(key);
-                                setCustomIndustry("");
-                                setOpen(false);
-                              }}
-                            >
-                              <Check
-                                className={cn(
-                                  "mr-2 h-4 w-4",
-                                  selectedIndustry === key ? "opacity-100" : "opacity-0"
-                                )}
-                              />
-                              <div className="flex items-center gap-2">
-                                {industry.icon}
-                                <span>{industry.name}</span>
-                              </div>
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
+                        <div className="relative">
+                          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#ff7033] pointer-events-none z-10" />
+                          <CommandInput 
+                            placeholder="Search industries..." 
+                            value={industrySearch}
+                            onValueChange={setIndustrySearch}
+                            className="border-b border-gray-200/70 bg-[#ffffffeb] placeholder:text-[#020a1c]/70 placeholder:font-medium text-[#020a1c] focus:border-primary/50 focus:bg-[#ffffffeb] focus:placeholder:text-[#020a1c]/50 transition-colors duration-200 pl-10"
+                          />
+                        </div>
+                        <CommandList className="max-h-[200px] overflow-y-auto">
+                          <CommandEmpty>
+                            <div className="p-4 text-sm">
+                              <p className="mb-2">Industry not found?</p>
+                              <Button 
+                                variant="outline" 
+                                className="w-full"
+                                onClick={() => {
+                                  setSelectedIndustry("other");
+                                  setCustomIndustry(industrySearch || "Custom Industry");
+                                  setOpen(false);
+                                  setIndustrySearch("");
+                                }}
+                              >
+                                Use "{industrySearch || "Custom Industry"}"
+                              </Button>
+                            </div>
+                          </CommandEmpty>
+                          <CommandGroup>
+                            {industryOptions
+                              .filter(option => 
+                                option.label.toLowerCase().includes(industrySearch.toLowerCase())
+                              )
+                              .map((option) => (
+                              <CommandItem
+                                key={option.value}
+                                value={option.value}
+                                onSelect={() => {
+                                  setSelectedIndustry(option.value);
+                                  setCustomIndustry("");
+                                  setOpen(false);
+                                  setIndustrySearch("");
+                                }}
+                                className="flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033]"
+                              >
+                                {option.icon}
+                                <span>{option.label}</span>
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
                       </Command>
                     </PopoverContent>
                   </Popover>

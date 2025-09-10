@@ -83,11 +83,11 @@ const FloatingChat = () => {
             <MessageCircle className="w-6 h-6" />
           )}
         </button>
-{!isOpen && (
-          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-            <ComingSoonBadge size="sm" variant="hero" />
-          </div>
-        )}
+      </div>
+
+      {/* Coming Soon Badge - Always visible, centered under chat button */}
+      <div className="fixed bottom-4 z-[60] transform -translate-x-1/2" style={{ right: '-36px' }}>
+        <ComingSoonBadge size="sm" variant="hero" />
       </div>
 
       {/* Chat Window */}

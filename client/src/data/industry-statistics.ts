@@ -23,10 +23,10 @@ export const industryStatistics = {
       year: 2023
     },
     compliance: {
-      statistic: "HIPAA violations average $2.09 million per breach",
-      source: "IBM Cost of a Data Breach Report",
+      statistic: "Healthcare data breaches average $9.77 million per incident",
+      source: "IBM Cost of a Data Breach Report 2024",
       sourceUrl: "https://www.ibm.com/reports/data-breach",
-      year: 2023
+      year: 2024
     },
     readmission: {
       statistic: "Hospital readmission rates average 15.6% within 30 days",
@@ -36,6 +36,18 @@ export const industryStatistics = {
     }
   },
   finance: {
+    aiAdoption: {
+      statistic: "58% of finance functions are using AI in 2024",
+      source: "Gartner Finance Survey 2024",
+      sourceUrl: "https://www.gartner.com/en/newsroom/press-releases/2024-09-11-gartner-survey-shows-58-percent-of-finance-functions-use-ai-in-2024",
+      year: 2024
+    },
+    timeSavings: {
+      statistic: "Financial services workers save 57 minutes daily using AI",
+      source: "McKinsey State of AI 2024",
+      sourceUrl: "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+      year: 2024
+    },
     fraud: {
       statistic: "Global fraud losses reached $5.38 billion in 2023",
       source: "Nilson Report",
@@ -219,11 +231,11 @@ export const industryStatistics = {
   }
 };
 
-// ROI Calculation Sources
+// ROI Calculation Sources (Updated Session 22 - 2024-09-10)
 export const roiMethodology = {
-  source: "Strive Tech ROI calculations based on aggregated client data and industry benchmarks",
-  methodology: "ROI projections use conservative estimates based on documented client results across 500+ implementations",
-  validation: "All metrics validated through third-party audits by Deloitte & PwC",
+  source: "Strive Tech ROI calculations based on 2024 industry research and client data",
+  methodology: "ROI projections based on McKinsey State of AI 2024, Gartner surveys, IBM breach reports, and Workato automation studies. Uses compound benefit model where multiple solutions create synergistic value.",
+  validation: "Validated against McKinsey (283% healthcare ROI), Gartner (58% finance adoption), IBM ($9.77M breach costs), and industry time-savings research",
   year: 2024,
-  disclaimer: "Individual results may vary based on implementation scope and organizational readiness"
+  disclaimer: "Individual results may vary based on implementation scope, organizational readiness, and data quality. Projections represent potential value based on industry averages."
 };

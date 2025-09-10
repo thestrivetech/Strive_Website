@@ -114,7 +114,7 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 - Have it where if the user clicks the "Strive" logo in the nav bar it automatically brings them to the top of the home page even if they're on the home page, it should scroll them back to the top of the page
 ------------------------------------------------------------------------------
-# Session 22 # (prompted one at a time after claudes project analysis)
+# Session 22 # (prompted one at a time after claudes project analysis) - I also added more task items in the actual chat log
 
 -Site wide-
 - Make sure that the "Coming Soon" banner below Sai's chat icon remains visible even after the chat icon is clicked and the chat box opens
@@ -125,12 +125,25 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 - We also need to make sure that all of the solutions found for specific industries in the ROI calculator are on the solutions page (all industry specific solutions should be mentioned on the Industry pop out cards and then also placed in their respective solution type pop out cards as well)
 
+- The source links in the "AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES" section are all the same... Please don't be lazy and fix this. Each source link should be specific to each solution and industry that's mentioned on each badge - If you have to change the statistics or pain point, please do it. Think hard and let's make this production ready.
+
 ## Portfolio Page ##
 
 - The text in the hero section doesn't really have anything to do with the page being a portfolio... Is this ok?
 
 - Change button wording on each card to be specific to the type of content (View Prototype, View Template, etc)
+
+## Sai / AI Assistance Chat Page ##
+
+- Please put the "Coming Soon" banner below the following text header: "Your AI-Powered Business Solutions Assistant - Available 24/7" - Make sure this banner uses the same exact design as the other Orange "Coming Soon" banners. 
 ---------------------------------------------------------------------------------
+
+# Session 23 #
+
+## Solutions Page ##
+
+- Please change the "View Demo" button - Make the color green and make the button much smaller please and move it to the upper right corner to match the current card layout. Make sure it looks good formatting wise.
+
 # Resources Page #
 
 - The bottom of the G in "Intelligence" is slightly hidden in the hero section
