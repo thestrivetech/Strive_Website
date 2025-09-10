@@ -51,7 +51,16 @@ const Contact = () => {
 
   const quickActions = [
     { icon: <Calendar className="mr-2" />, text: "Request Personalized Demo", action: "demo" },
-    { icon: <Eye className="mr-2" />, text: "Download Solutions Brochure", action: "brochure" },
+    { 
+      icon: <Eye className="mr-2" />, 
+      text: (
+        <span className="flex items-center gap-1.5 text-sm">
+          Download Brochure
+          <ComingSoonBadge size="sm" className="text-[9px] px-1.5 py-0.5" />
+        </span>
+      ), 
+      action: "brochure" 
+    },
     { 
       icon: <MessageCircle className="mr-2" />, 
       text: (
@@ -223,20 +232,6 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Name *</label>
-                    <Input
-                      type="text"
-                      required
-                      placeholder="Your Company"
-                      value={formData.company}
-                      onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
-                      style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
-                      className="focus:ring-primary focus:border-primary"
-                      data-testid="input-company"
-                    />
-                  </div>
-
-                  <div>
                     <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Phone Number</label>
                     <Input
                       type="tel"
@@ -246,6 +241,19 @@ const Contact = () => {
                       style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                       className="focus:ring-primary focus:border-primary"
                       data-testid="input-phone"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Name</label>
+                    <Input
+                      type="text"
+                      placeholder="Your Company"
+                      value={formData.company}
+                      onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
+                      style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                      className="focus:ring-primary focus:border-primary"
+                      data-testid="input-company"
                     />
                   </div>
 

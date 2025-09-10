@@ -36,7 +36,7 @@ const Home = () => {
   };
 
   const handleWatchDemo = () => {
-    window.location.href = "/request";
+    window.location.href = "/assessment";
   };
 
   const industrySpecificSolutions = {

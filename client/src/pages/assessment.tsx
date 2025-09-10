@@ -26,9 +26,37 @@ const Assessment = () => {
     projectDescription: ""
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({
+    email: "",
+    phone: ""
+  });
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone: string) => {
+    const phoneRegex = /^[\+]?[1-9]?[\d\s\-\(\)]{7,15}$/;
+    return phoneRegex.test(phone.replace(/\s/g, ''));
+  };
 
   const handleInputChange = (field: string, value: string) => {
     setContactData(prev => ({ ...prev, [field]: value }));
+    
+    // Clear validation error when user starts typing
+    if (field === 'email' || field === 'phone') {
+      setValidationErrors(prev => ({ ...prev, [field]: "" }));
+    }
+    
+    // Validate on blur for immediate feedback
+    if (field === 'email' && value && !validateEmail(value)) {
+      setValidationErrors(prev => ({ ...prev, email: "Please enter a valid email address" }));
+    }
+    
+    if (field === 'phone' && value && !validatePhone(value)) {
+      setValidationErrors(prev => ({ ...prev, phone: "Please enter a valid phone number" }));
+    }
   };
 
   const handleCheckboxChange = (field: string, value: string, checked: boolean) => {
@@ -42,17 +70,34 @@ const Assessment = () => {
 
   const handleSubmitContact = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Contact info submitted:", contactData);
-    setIsSubmitted(true);
-    setStep(2);
+    
+    // Validate email and phone before submission
+    const emailValid = validateEmail(contactData.email);
+    const phoneValid = validatePhone(contactData.phone);
+    
+    const newErrors = {
+      email: !emailValid && contactData.email ? "Please enter a valid email address" : "",
+      phone: !phoneValid && contactData.phone ? "Please enter a valid phone number" : ""
+    };
+    
+    setValidationErrors(newErrors);
+    
+    // Only proceed if no validation errors
+    if (emailValid && phoneValid) {
+      console.log("Contact info submitted:", contactData);
+      setIsSubmitted(true);
+      setStep(2);
+    }
   };
 
   const isContactValid = () => {
     return contactData.firstName && 
            contactData.lastName && 
            contactData.email && 
+           validateEmail(contactData.email) &&
            contactData.company && 
            contactData.phone &&
+           validatePhone(contactData.phone) &&
            contactData.industry &&
            contactData.companySize;
   };
@@ -70,7 +115,7 @@ const Assessment = () => {
         <div className="space-y-6">
           <div className="text-center mb-8">
             <Users className="w-16 h-16 text-primary mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-2" style={{ color: '#020a1c' }} data-testid="step-title">
+            <h2 className="text-2xl font-bold mb-2" style={{ color: '#ff7033' }} data-testid="step-title">
               Contact Information
             </h2>
             <p className="text-muted-foreground" style={{ color: '#020a1c' }}>
@@ -80,7 +125,7 @@ const Assessment = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>First Name *</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>First Name *</label>
               <Input
                 type="text"
                 placeholder="John"
@@ -92,7 +137,7 @@ const Assessment = () => {
             </div>
             
             <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Last Name *</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Last Name *</label>
               <Input
                 type="text"
                 placeholder="Doe"
@@ -105,19 +150,22 @@ const Assessment = () => {
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Business Email *</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Business Email *</label>
             <Input
               type="email"
               placeholder="john@company.com"
               value={contactData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
-              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: validationErrors.email ? '#ef4444' : '#ff7033' }}
               data-testid="input-email"
             />
+            {validationErrors.email && (
+              <p className="text-sm text-red-500 mt-1">{validationErrors.email}</p>
+            )}
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Company Name *</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Name *</label>
             <Input
               type="text"
               placeholder="Your Company"
@@ -129,19 +177,22 @@ const Assessment = () => {
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Phone Number *</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Phone Number *</label>
             <Input
               type="tel"
               placeholder="(731)-431-2320"
               value={contactData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
-              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+              style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: validationErrors.phone ? '#ef4444' : '#ff7033' }}
               data-testid="input-phone"
             />
+            {validationErrors.phone && (
+              <p className="text-sm text-red-500 mt-1">{validationErrors.phone}</p>
+            )}
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Preferred Communication Method</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Preferred Communication Method</label>
             <Select value={contactData.communicationMethod} onValueChange={(value) => handleInputChange('communicationMethod', value)}>
               <SelectTrigger data-testid="select-communication-method" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="Select method" />
@@ -161,7 +212,7 @@ const Assessment = () => {
           
           {/* Industry Selection */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Industry *</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Industry *</label>
             <Select value={contactData.industry} onValueChange={(value) => handleInputChange('industry', value)}>
               <SelectTrigger data-testid="select-industry" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="Select your industry" />
@@ -194,7 +245,7 @@ const Assessment = () => {
           
           {/* Company Size */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Company Size *</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Size *</label>
             <Select value={contactData.companySize} onValueChange={(value) => handleInputChange('companySize', value)}>
               <SelectTrigger data-testid="select-company-size" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="Select company size" />
@@ -212,7 +263,7 @@ const Assessment = () => {
           
           {/* Current Challenges */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Current Challenges (Select all that apply)</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Current Challenges (Select all that apply)</label>
             <div className="space-y-2">
               {[
                 "Process Automation",
@@ -253,7 +304,7 @@ const Assessment = () => {
           
           {/* Budget Range */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Budget Range</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Budget Range</label>
             <Select value={contactData.budgetRange} onValueChange={(value) => handleInputChange('budgetRange', value)}>
               <SelectTrigger data-testid="select-budget" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="Select budget range" />
@@ -271,7 +322,7 @@ const Assessment = () => {
           
           {/* Timeline */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Project Timeline</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Project Timeline</label>
             <Select value={contactData.timeline} onValueChange={(value) => handleInputChange('timeline', value)}>
               <SelectTrigger data-testid="select-timeline" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="When do you need this?" />
@@ -288,7 +339,7 @@ const Assessment = () => {
           
           {/* Project Description */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#ff7033' }}>Project Description</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Project Description</label>
             <Textarea
               placeholder="Please briefly describe your project needs and goals..."
               value={contactData.projectDescription}
@@ -389,7 +440,7 @@ const Assessment = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-6" data-testid="assessment-title">
-              Unlock Your Business's <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block pb-2">AI Advantage</span>
+              Unlock Your Business's <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">AI Advantage</span>
             </h1>
             <p className="text-xl text-muted-foreground">
               Discover actionable AI strategies tailored to your company's biggest challenges—book your complimentary 30-minute assessment today.

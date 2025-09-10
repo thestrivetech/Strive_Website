@@ -153,25 +153,25 @@ const Request = () => {
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
             <h2 className="text-3xl font-bold text-[#ff7033] mb-4">
-              Your AI Journey Begins Now!
+              Request Received - Showcase Preparation Begins!
             </h2>
             <p className="text-lg text-white/80 mb-8">
-              Thank you for choosing Strive. Our AI specialists are already reviewing your requirements to craft a custom solution showcase. You'll receive a personalized roadmap within 24 hours.
+              Thank you for choosing Strive. Our solution architects are now preparing your personalized AI showcase. Within 24 hours, you'll receive a detailed showcase agenda tailored to your specific requirements and industry challenges.
             </p>
             <div className="bg-gray-50 rounded-lg p-6 mb-8">
-              <h3 className="font-semibold text-[#020a1c] mb-3">What happens next?</h3>
+              <h3 className="font-semibold text-[#020a1c] mb-3">Your Showcase Timeline:</h3>
               <ul className="text-left space-y-2 text-muted-foreground">
                 <li className="flex items-start">
                   <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                  <span>Our solution architects will review your requirements</span>
+                  <span><strong>Within 2 hours:</strong> Our solution architects begin reviewing your specific requirements</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                  <span>We'll prepare a customized showcase based on your needs</span>
+                  <span><strong>Within 24 hours:</strong> You'll receive a personalized showcase agenda and calendar invitation</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                  <span>You'll receive a calendar invite for your showcase session</span>
+                  <span><strong>Showcase session:</strong> Live demonstration of AI solutions tailored to your business challenges</span>
                 </li>
               </ul>
             </div>
@@ -199,12 +199,14 @@ const Request = () => {
               <div className="relative mb-4">
                 <div className="flex justify-between items-center">
                   {[1, 2, 3].map((step) => (
-                    <div key={step} className={`
-                      w-10 h-10 rounded-full flex items-center justify-center font-semibold z-10 relative
-                      ${formStep >= step ? 'bg-primary text-white' : 'bg-gray-200 text-gray-500'}
-                      transition-all duration-300
-                    `}>
-                      {step}
+                    <div key={step} className="flex flex-col items-center">
+                      <div className={`
+                        w-10 h-10 rounded-full flex items-center justify-center font-semibold z-10 relative
+                        ${formStep >= step ? 'bg-primary text-white' : 'bg-gray-200 text-gray-500'}
+                        transition-all duration-300
+                      `}>
+                        {step}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -217,13 +219,13 @@ const Request = () => {
                 </div>
               </div>
               <div className="flex justify-between text-sm">
-                <span className={`text-center ${formStep >= 1 ? 'text-primary font-semibold' : 'text-gray-500'}`}>
+                <span className={`text-center flex-1 ${formStep >= 1 ? 'text-primary font-semibold' : 'text-gray-500'}`}>
                   Contact Info
                 </span>
-                <span className={`text-center ${formStep >= 2 ? 'text-primary font-semibold' : 'text-gray-500'}`}>
+                <span className={`text-center flex-1 ${formStep >= 2 ? 'text-primary font-semibold' : 'text-gray-500'}`}>
                   Business Details
                 </span>
-                <span className={`text-center ${formStep >= 3 ? 'text-primary font-semibold' : 'text-gray-500'}`}>
+                <span className={`text-center flex-1 ${formStep >= 3 ? 'text-primary font-semibold' : 'text-gray-500'}`}>
                   Customize Your Solution
                 </span>
               </div>
@@ -524,7 +526,7 @@ const Request = () => {
                                 style={{ borderRadius: '8px' }}
                               />
                             </div>
-                            <div className="mt-4 p-3 rounded-lg border border-gray-200" style={{ backgroundColor: '#ffffffeb' }}>
+                            <div className="mt-4 p-3 rounded-lg border border-gray-200 bg-off-white">
                               <div className="space-y-2 text-xs">
                                 <p style={{ color: '#ff7033' }}><strong>Your Details:</strong></p>
                                 <p style={{ color: '#ff7033' }}>Contact: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.fullName}</span></p>
@@ -576,7 +578,6 @@ const Request = () => {
                           <Zap className="mr-2 h-5 w-5" />
                           Submit Request
                           <Zap className="ml-2 h-5 w-5" />
-                          <Zap className="ml-2 h-4 w-4 inline" />
                         </span>
                         {/* Shimmer effect on hover */}
                         <div className="absolute inset-0 -top-2 -bottom-2 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:animate-shimmer pointer-events-none" />

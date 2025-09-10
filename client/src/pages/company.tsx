@@ -103,66 +103,66 @@ const Company = () => {
 
   return (
     <div className="pt-16">
-      {/* Hero Section with AI-themed animated background */}
+      {/* Hero Section - Our Vision & Roadmap to the Future */}
       <section className="py-20 hero-gradient relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 animate-pulse"></div>
-          <div className="absolute top-0 left-0 w-full h-full">
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className={`absolute w-2 h-2 bg-primary rounded-full animate-ping opacity-60`}
-                style={{
-                  left: `${10 + i * 15}%`,
-                  top: `${20 + i * 10}%`,
-                  animationDelay: `${i * 0.5}s`,
-                  animationDuration: '3s'
-                }}
-              />
-            ))}
-          </div>
-        </div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-6">
-              <div className="relative">
-                <Users className="text-primary h-16 w-16 animate-pulse" />
-                <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping"></div>
-              </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div 
+              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
+              data-testid="text-vision-label"
+            >
+              OUR VISION
             </div>
             <h1 
-              className="text-5xl md:text-7xl font-bold mb-6 text-white"
-              data-testid="text-about-title"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white"
+              data-testid="text-vision-title"
             >
-              Unlock Your Company's Potential With Smarter Automation
+              Roadmap to the <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Future</span>
             </h1>
-            <p 
-              className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
-              data-testid="text-about-subtitle"
-            >
-              Tired of manual processes, complexity, or missed growth opportunities? Strive helps innovative teams like yours streamline operations, boost efficiency, and prepare for the future—with AI solutions tailored to your goals.
+            <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+              What's Ahead—For Us and For You: Continuous innovation in AI & emerging tech, so you're always a step ahead.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group
-                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
-                onClick={() => document.getElementById('our-story')?.scrollIntoView({ behavior: 'smooth' })}
-                data-testid="button-learn-more"
+          </div>
+
+          {/* Timeline */}
+          <div className="relative max-w-6xl mx-auto">
+            {/* Timeline Line */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary via-primary/50 to-primary/20 rounded-full"></div>
+            
+            {visionMilestones.map((milestone, index) => (
+              <div 
+                key={index}
+                className={`relative flex items-center mb-16 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
+                data-testid={`milestone-${milestone.year}`}
               >
-                Learn Our Story
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-                onClick={() => window.location.href = '/contact'}
-                data-testid="button-join-team"
-              >
-                Join Our Team
-              </Button>
-            </div>
+                {/* Content */}
+                <div className={`w-5/12 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+                  <div className={`bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:scale-105 transition-all duration-300 ${
+                    milestone.status === 'current' ? 'ring-2 ring-primary shadow-lg shadow-primary/20' : ''
+                  }`}>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-primary to-orange-500 rounded-xl flex items-center justify-center text-white">
+                        {milestone.icon}
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-white">{milestone.year}</div>
+                        {milestone.status === 'current' && (
+                          <div className="text-xs text-primary font-semibold uppercase tracking-wide">Current Focus</div>
+                        )}
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-3">{milestone.title}</h3>
+                    <p className="text-white/80">{milestone.description}</p>
+                  </div>
+                </div>
+                
+                {/* Timeline Dot */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-primary rounded-full border-4 border-white shadow-lg z-10"></div>
+                
+                {/* Spacer */}
+                <div className="w-5/12"></div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -246,69 +246,6 @@ const Company = () => {
         </div>
       </section>
 
-      {/* Our Vision Timeline */}
-      <section className="py-20 hero-gradient relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div 
-              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
-              data-testid="text-vision-label"
-            >
-              OUR VISION
-            </div>
-            <h2 
-              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white"
-              data-testid="text-vision-title"
-            >
-              Roadmap to the <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Future</span>
-            </h2>
-            <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-              What's Ahead—For Us and For You: Continuous innovation in AI & emerging tech, so you're always a step ahead.
-            </p>
-          </div>
-
-          {/* Timeline */}
-          <div className="relative max-w-6xl mx-auto">
-            {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary via-primary/50 to-primary/20 rounded-full"></div>
-            
-            {visionMilestones.map((milestone, index) => (
-              <div 
-                key={index}
-                className={`relative flex items-center mb-16 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
-                data-testid={`milestone-${milestone.year}`}
-              >
-                {/* Content */}
-                <div className={`w-5/12 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                  <div className={`bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:scale-105 transition-all duration-300 ${
-                    milestone.status === 'current' ? 'ring-2 ring-primary shadow-lg shadow-primary/20' : ''
-                  }`}>
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-primary to-orange-500 rounded-xl flex items-center justify-center text-white">
-                        {milestone.icon}
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold text-white">{milestone.year}</div>
-                        {milestone.status === 'current' && (
-                          <div className="text-xs text-primary font-semibold uppercase tracking-wide">Current Focus</div>
-                        )}
-                      </div>
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-3">{milestone.title}</h3>
-                    <p className="text-white/80">{milestone.description}</p>
-                  </div>
-                </div>
-                
-                {/* Timeline Dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-primary rounded-full border-4 border-white shadow-lg z-10"></div>
-                
-                {/* Spacer */}
-                <div className="w-5/12"></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Mission, Vision, Values */}
       <section className="py-16 md:py-24 bg-[#ffffffeb]">
@@ -335,7 +272,7 @@ const Company = () => {
                 className="group"
                 data-testid={`card-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <div className="bg-off-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
                   <div className="w-20 h-20 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                     <div className="text-white text-2xl">
                       {item.icon}
@@ -387,7 +324,7 @@ const Company = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
               <div key={index} className="group">
-                <div className="bg-off-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100 overflow-hidden">
+                <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100 overflow-hidden">
                   <div className="relative overflow-hidden">
                     <img 
                       src={member.imageUrl}
@@ -420,7 +357,7 @@ const Company = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
-                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg"
+                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                 size="lg"
                 onClick={() => window.location.href = "/contact"}
                 data-testid="button-get-started-cta"
@@ -429,7 +366,7 @@ const Company = () => {
               </Button>
               <Button 
                 variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 px-8 py-3 text-lg"
+                className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
                 size="lg"
                 onClick={() => window.location.href = "/portfolio"}
                 data-testid="button-view-work"
