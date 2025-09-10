@@ -6,7 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
 import LazyImage from "@/components/ui/lazy-image";
-import logoImage from "@assets/STRIVE_Orange_Text_Transparent_1483 x 320px.png";
+import logoImage from "@assets/STRIVE_Orange_Text_Transparent_1483 x 320px.webp";
 import healthcareIcon from "@assets/generated_images/Healthcare_industry_icon_f2723fd3.png";
 import financialIcon from "@assets/generated_images/Financial_services_icon_6bb00680.png";
 import manufacturingIcon from "@assets/generated_images/Manufacturing_industry_icon_f22de001.png";
@@ -38,6 +38,14 @@ const Navigation = () => {
         variant: "destructive",
       });
     }
+  };
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (location === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // If not on home page, let the Link component handle navigation normally
   };
 
   const navItems = [
@@ -81,12 +89,14 @@ const Navigation = () => {
                 <div className="flex flex-col space-y-1 mt-8">
                   {/* Logo in mobile menu */}
                   <div className="mb-8 text-center">
-                    <LazyImage 
-                      src={logoImage} 
-                      alt="Strive" 
-              className="h-12 w-auto max-w-[240px] mx-auto"
-                      loading="eager"
-                    />
+                    <Link href="/" onClick={(e) => { handleLogoClick(e); setMobileMenuOpen(false); }}>
+                      <LazyImage 
+                        src={logoImage} 
+                        alt="Strive" 
+                        className="h-12 w-auto max-w-[240px] mx-auto"
+                        loading="eager"
+                      />
+                    </Link>
                   </div>
                   {/* Home */}
                   <Link
@@ -213,7 +223,7 @@ const Navigation = () => {
           </div>
           
           {/* Center: Logo */}
-          <Link href="/" className="flex items-center absolute left-1/2 transform -translate-x-1/2">
+          <Link href="/" className="flex items-center absolute left-1/2 transform -translate-x-1/2" onClick={handleLogoClick}>
             <LazyImage 
               src={logoImage} 
               alt="Strive" 
@@ -253,7 +263,7 @@ const Navigation = () => {
         {/* Desktop Layout */}
         <div className="hidden md:flex justify-between items-center h-16" style={{ overflow: 'visible' }}>
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center" onClick={handleLogoClick}>
             <LazyImage 
               src={logoImage} 
               alt="Strive" 

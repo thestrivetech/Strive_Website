@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import LazyImage from "@/components/ui/lazy-image";
-import logoImage from "@assets/STRIVE_Orange_Text_Transparent_1483 x 320px.png";
+import logoImage from "@assets/STRIVE_Orange_Text_Transparent_1483 x 320px.webp";
 
 // Discord Icon Component
 const DiscordIcon = ({ className }: { className?: string }) => (

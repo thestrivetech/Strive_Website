@@ -8,6 +8,7 @@ import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 
 const FloatingChat = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Array<{type: 'user' | 'bot', content: string, timestamp: Date}>>([
     {
@@ -54,10 +55,26 @@ const FloatingChat = () => {
   return (
     <>
       {/* Chat Button */}
-      <div className="floating-chat relative">
+      <div className="floating-chat fixed bottom-12 right-16 z-50">
+        {/* Peek-a-boo preview panel */}
+        {!isOpen && isHovered && (
+          <div 
+            className="absolute bottom-16 right-0 bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white px-4 py-2 rounded-lg shadow-lg whitespace-nowrap transform transition-all duration-300 ease-out animate-in slide-in-from-right-2 fade-in"
+            style={{ zIndex: 1000 }}
+          >
+            <div className="flex items-center gap-2">
+              <MessageCircle className="w-4 h-4" />
+              <span className="text-sm font-medium">Chat with Sai!</span>
+            </div>
+            {/* Arrow pointing to button */}
+            <div className="absolute -bottom-1 right-6 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-orange-500"></div>
+          </div>
+        )}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-14 h-14 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg border-none outline-none flex items-center justify-center transition-all duration-200 cursor-pointer"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className="w-14 h-14 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg border-none outline-none flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110"
           data-testid="button-floating-chat"
         >
           {isOpen ? (
@@ -66,16 +83,16 @@ const FloatingChat = () => {
             <MessageCircle className="w-6 h-6" />
           )}
         </button>
-        {!isOpen && (
-          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-            <ComingSoonBadge size="sm" variant="floating" />
+{!isOpen && (
+          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+            <ComingSoonBadge size="sm" variant="hero" />
           </div>
         )}
       </div>
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 w-96 h-[500px] z-50">
+        <div className="fixed bottom-28 right-16 w-96 h-[500px] z-40">
           <Card className="h-full flex flex-col bg-white/10 backdrop-blur-xl border-border shadow-2xl">
             {/* Chat Header */}
             <div className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white p-4 rounded-t-lg">

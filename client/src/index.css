@@ -239,6 +239,36 @@
     }
   }
 
+  /* Coming Soon Badge Shiny Effect */
+  .coming-soon-badge {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .coming-soon-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%);
+    animation: coming-soon-shine 3s infinite;
+    pointer-events: none;
+  }
+
+  @keyframes coming-soon-shine {
+    0% {
+      left: -100%;
+    }
+    27% {
+      left: 100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+
   .nav-link {
     position: relative;
     transition: color 0.3s ease;

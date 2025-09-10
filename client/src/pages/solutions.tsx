@@ -358,7 +358,7 @@ const Solutions = () => {
         setSelectedSolution(industrySolution);
         
         // Clean the URL after opening the modal
-        window.history.replaceState(null, '', '/solutions');
+        window.history.replaceState({}, document.title, '/solutions');
       }
     }
   }, []);

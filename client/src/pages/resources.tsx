@@ -92,7 +92,7 @@ const Resources = () => {
       
       // Clean the URL
       setTimeout(() => {
-        window.history.replaceState(null, '', '/resources');
+        window.history.replaceState({}, document.title, '/resources');
       }, 1000);
     }
   }, [technologyCards]);

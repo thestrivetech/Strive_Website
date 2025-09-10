@@ -131,3 +131,8 @@ Besides the Core Web Vitals, other metrics can serve as valuable diagnostics:
 *   **Amazon:** Generally good performance but has some CLS issues on certain pages.
 *   **Google:** Excellent performance across the board.
 *   **Astro Framework Website (astro.build):** Near-perfect performance scores, demonstrating the framework's focus on speed and minimal client-side JavaScript.
+
+
+# Codebase optimizations #
+
+- For production websites using minification, comments have no meaningful impact on performance. In unminified code, the impact is minimal and unlikely to be noticeable unless the comments are extraordinarily voluminous. Focus on standard optimization techniques (e.g., minification, compression, caching) for performance gains rather than worrying about comments.

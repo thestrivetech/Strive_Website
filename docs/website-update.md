@@ -110,8 +110,14 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 - Please make the "Coming Soon" banner half it's current size in the "TRANSPARENCY, ACCOUNTABILITY, AND CONTROL" section of the home page.
 
+- Remove flashing effect on the "Coming Soon" banners - Add the shiny effect that's used in the ROI calculator ROI return badges (make sure it's the same speed)
 
-# Portfolio Page #
+- Have it where if the user clicks the "Strive" logo in the nav bar it automatically brings them to the top of the home page even if they're on the home page, it should scroll them back to the top of the page
+------------------------------------------------------------------------------
+- Make sure that the "Coming Soon" banner below Sai's chat icon remains visible even after the chat icon is clicked and the chat box opens
+
+- The ROI calculator still isn't fixed with the time saving issue - The HIPPA Compliance solution makes the time savings amount go down along with the ROI numbers... This is happening for multiple solutions when selected - Remake the entire algorithm to make sure that all calculations are representing the correct calculations for each solution for each specific industry
+# Portfolio Page # - Session 22
 
 - The text in the hero section doesn't really have anything to do with the page being a portfolio... Is this ok?
 
@@ -147,11 +153,14 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 # Contact Page #
 
-- 
+- Increase button size for the AI Chat specialist - Also make the "Coming Soon" banner half the size
+
+- Make the "Company name" and "company size" box inputs below the phone number text box
+  - Also make the "Company Name" input option for users (only on the contact page form)
 
 # Login Page #
 
-- Please make all text color dark blue for the text above each text box
+-
 
 # Schedule Assessment Page #
 
