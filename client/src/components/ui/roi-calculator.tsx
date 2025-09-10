@@ -3,7 +3,21 @@ import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calculator, TrendingUp, DollarSign, Clock, Stethoscope, CreditCard, ShoppingCart, Factory, Cpu, GraduationCap, Home as HomeIcon, Scale } from "lucide-react";
+import { Calculator, TrendingUp, DollarSign, Clock, Stethoscope, CreditCard, ShoppingCart, Factory, Cpu, GraduationCap, Home as HomeIcon, Scale, Hotel, Zap, Truck, Leaf, Film, Heart, Building2, Globe, Briefcase } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { industryStatistics, roiMethodology } from "@/data/industry-statistics";
+import { Info } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface IndustryData {
   [key: string]: {
@@ -109,18 +123,112 @@ const industryData: IndustryData = {
       compliance: { name: "Compliance Monitoring", multiplier: 3.3, timeSaving: 25 },
     },
   },
+  // Additional industries for broader coverage
+  hospitality: {
+    name: "Hospitality & Tourism",
+    icon: <Hotel className="h-4 w-4" />,
+    baseROI: 2.6,
+    services: {
+      automation: { name: "Booking Automation", multiplier: 3.1, timeSaving: 40 },
+      analytics: { name: "Guest Analytics", multiplier: 2.9, timeSaving: 30 },
+      ai: { name: "Revenue Management", multiplier: 3.6, timeSaving: 45 },
+      compliance: { name: "Operations Optimization", multiplier: 2.5, timeSaving: 25 },
+    },
+  },
+  energy: {
+    name: "Energy & Utilities",
+    icon: <Zap className="h-4 w-4" />,
+    baseROI: 3.4,
+    services: {
+      automation: { name: "Grid Automation", multiplier: 3.9, timeSaving: 50 },
+      analytics: { name: "Consumption Analytics", multiplier: 3.3, timeSaving: 35 },
+      ai: { name: "Predictive Grid Management", multiplier: 4.5, timeSaving: 55 },
+      compliance: { name: "Regulatory Compliance", multiplier: 2.8, timeSaving: 20 },
+    },
+  },
+  logistics: {
+    name: "Transportation & Logistics",
+    icon: <Truck className="h-4 w-4" />,
+    baseROI: 3.0,
+    services: {
+      automation: { name: "Route Optimization", multiplier: 3.5, timeSaving: 45 },
+      analytics: { name: "Fleet Analytics", multiplier: 3.2, timeSaving: 35 },
+      ai: { name: "Demand Forecasting", multiplier: 3.8, timeSaving: 40 },
+      compliance: { name: "Supply Chain Management", multiplier: 2.9, timeSaving: 30 },
+    },
+  },
+  agriculture: {
+    name: "Agriculture & Food",
+    icon: <Leaf className="h-4 w-4" />,
+    baseROI: 2.5,
+    services: {
+      automation: { name: "Farm Automation", multiplier: 3.0, timeSaving: 40 },
+      analytics: { name: "Crop Analytics", multiplier: 2.8, timeSaving: 30 },
+      ai: { name: "Yield Prediction", multiplier: 3.4, timeSaving: 45 },
+      compliance: { name: "Supply Chain Tracking", multiplier: 2.4, timeSaving: 25 },
+    },
+  },
+  media: {
+    name: "Media & Entertainment",
+    icon: <Film className="h-4 w-4" />,
+    baseROI: 2.8,
+    services: {
+      automation: { name: "Content Distribution", multiplier: 3.2, timeSaving: 35 },
+      analytics: { name: "Audience Analytics", multiplier: 3.5, timeSaving: 40 },
+      ai: { name: "Content Personalization", multiplier: 3.9, timeSaving: 45 },
+      compliance: { name: "Rights Management", multiplier: 2.6, timeSaving: 20 },
+    },
+  },
+  nonprofit: {
+    name: "Non-profit Organizations",
+    icon: <Heart className="h-4 w-4" />,
+    baseROI: 2.2,
+    services: {
+      automation: { name: "Donor Management", multiplier: 2.6, timeSaving: 35 },
+      analytics: { name: "Impact Analytics", multiplier: 2.4, timeSaving: 30 },
+      ai: { name: "Grant Writing Assistance", multiplier: 3.0, timeSaving: 40 },
+      compliance: { name: "Compliance Reporting", multiplier: 2.2, timeSaving: 25 },
+    },
+  },
+  government: {
+    name: "Government & Public Sector",
+    icon: <Building2 className="h-4 w-4" />,
+    baseROI: 2.4,
+    services: {
+      automation: { name: "Service Automation", multiplier: 2.8, timeSaving: 40 },
+      analytics: { name: "Citizen Analytics", multiplier: 2.6, timeSaving: 30 },
+      ai: { name: "Smart City Solutions", multiplier: 3.3, timeSaving: 45 },
+      compliance: { name: "Regulatory Management", multiplier: 2.5, timeSaving: 25 },
+    },
+  },
+  other: {
+    name: "Other Industry",
+    icon: <Briefcase className="h-4 w-4" />,
+    baseROI: 2.5, // Default average for custom industries
+    services: {
+      automation: { name: "Process Automation", multiplier: 3.0, timeSaving: 35 },
+      analytics: { name: "Data Analytics", multiplier: 2.8, timeSaving: 30 },
+      ai: { name: "AI Solutions", multiplier: 3.5, timeSaving: 40 },
+      compliance: { name: "Compliance Management", multiplier: 2.5, timeSaving: 25 },
+    },
+  },
 };
 
 const ROICalculator = () => {
   const [selectedIndustry, setSelectedIndustry] = useState("healthcare");
+  const [customIndustry, setCustomIndustry] = useState("");
+  const [open, setOpen] = useState(false);
   const [selectedServices, setSelectedServices] = useState<string[]>(["automation"]);
-  const [investmentAmount, setInvestmentAmount] = useState([100000]);
+  const [investmentAmount, setInvestmentAmount] = useState([50000]);
   const [calculatedROI, setCalculatedROI] = useState(0);
   const [timeSavings, setTimeSavings] = useState(0);
   const [annualReturn, setAnnualReturn] = useState(0);
 
   useEffect(() => {
-    const industry = industryData[selectedIndustry];
+    // Use custom industry data if "other" is selected and custom name provided
+    const industry = selectedIndustry === "other" && customIndustry 
+      ? { ...industryData.other, name: customIndustry }
+      : industryData[selectedIndustry];
     if (!industry) return;
 
     let totalMultiplier = industry.baseROI;
@@ -184,22 +292,81 @@ const ROICalculator = () => {
                   <label className="text-sm font-medium mb-3 block">
                     Select Your Industry
                   </label>
-                  <Select value={selectedIndustry} onValueChange={setSelectedIndustry}>
-                    <SelectTrigger data-testid="select-industry" className="gap-2">
-                      {industryData[selectedIndustry]?.icon}
-                      <SelectValue placeholder="Choose your industry" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {Object.entries(industryData).map(([key, industry]) => (
-                        <SelectItem key={key} value={key} className="gap-2">
-                          <div className="flex items-center gap-2">
-                            {industry.icon}
-                            <span>{industry.name}</span>
+                  <Popover open={open} onOpenChange={setOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={open}
+                        className="w-full justify-between"
+                        data-testid="select-industry"
+                      >
+                        <div className="flex items-center gap-2">
+                          {industryData[selectedIndustry]?.icon}
+                          <span>
+                            {selectedIndustry === "other" && customIndustry 
+                              ? customIndustry 
+                              : industryData[selectedIndustry]?.name || "Select industry..."}
+                          </span>
+                        </div>
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0">
+                      <Command>
+                        <CommandInput 
+                          placeholder="Search or type custom industry..." 
+                          onValueChange={(value) => {
+                            setCustomIndustry(value);
+                          }}
+                        />
+                        <CommandEmpty>
+                          <div className="p-4 text-sm">
+                            <p className="mb-2">Industry not found?</p>
+                            <Button 
+                              variant="outline" 
+                              className="w-full"
+                              onClick={() => {
+                                setSelectedIndustry("other");
+                                setOpen(false);
+                              }}
+                            >
+                              Use "{customIndustry || "Custom Industry"}"
+                            </Button>
                           </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                        </CommandEmpty>
+                        <CommandGroup>
+                          {Object.entries(industryData).filter(([key]) => key !== "other").map(([key, industry]) => (
+                            <CommandItem
+                              key={key}
+                              value={industry.name}
+                              onSelect={() => {
+                                setSelectedIndustry(key);
+                                setCustomIndustry("");
+                                setOpen(false);
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  "mr-2 h-4 w-4",
+                                  selectedIndustry === key ? "opacity-100" : "opacity-0"
+                                )}
+                              />
+                              <div className="flex items-center gap-2">
+                                {industry.icon}
+                                <span>{industry.name}</span>
+                              </div>
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  {selectedIndustry === "other" && customIndustry && (
+                    <p className="text-xs text-muted-foreground mt-2">
+                      Using custom industry: {customIndustry}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -209,15 +376,15 @@ const ROICalculator = () => {
                   <Slider
                     value={investmentAmount}
                     onValueChange={setInvestmentAmount}
-                    max={1000000}
-                    min={10000}
-                    step={10000}
+                    max={250000}
+                    min={1000}
+                    step={1000}
                     className="w-full"
                     data-testid="slider-investment"
                   />
                   <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                    <span>$10K</span>
-                    <span>$1M</span>
+                    <span>$1K</span>
+                    <span>$250K</span>
                   </div>
                 </div>
 
@@ -248,7 +415,7 @@ const ROICalculator = () => {
                   className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                   data-testid="button-schedule-discovery-call"
                 >
-                  Try the Calculator
+                  Request Solution Showcase
                 </button>
               </div>
             </Card>
@@ -295,9 +462,30 @@ const ROICalculator = () => {
                 </div>
 
                 <div className="text-center pt-4">
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Based on {industryData[selectedIndustry]?.name} industry averages and selected solutions
-                  </p>
+                  <TooltipProvider>
+                    <div className="flex items-center justify-center gap-2 mb-4">
+                      <p className="text-sm text-muted-foreground">
+                        Based on {selectedIndustry === "other" && customIndustry 
+                          ? customIndustry 
+                          : industryData[selectedIndustry]?.name} industry averages and selected solutions
+                      </p>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent className="max-w-sm">
+                          <div className="space-y-2">
+                            <p className="font-semibold">ROI Methodology</p>
+                            <p className="text-xs">{roiMethodology.methodology}</p>
+                            <p className="text-xs text-muted-foreground">
+                              Validated by: {roiMethodology.validation}
+                            </p>
+                            <p className="text-xs italic">{roiMethodology.disclaimer}</p>
+                          </div>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </TooltipProvider>
                   <button 
                     onClick={() => window.location.href = "/contact"}
                     className="text-primary font-semibold hover:underline"

@@ -34,6 +34,11 @@
   4. Email Notifications - Set up complete email system that sends to all 4 addresses when
   contact forms are submitted
 
+- User note: The chatbot icon is now messed up and all the way on the left side of the screen. - Need to fix this ASAP
+  - Same for the AI Specialist chat button on the contact page - This means we need to review this chat session and make sure everything was implemented properly and to fix any bugs that were introduced
+- The contact page wasn't updated with the Address or email
+
+- Make sure to change and update the FAQ section on the contact page - First question needs to be a shorter time period
 
 # Home Page # - Session 19
 
@@ -61,7 +66,7 @@ YOLO 5: Fully automated system and workflow - Human eval at end of each day or h
 - Make sure the "AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES" sections statistics and are accurate and that we have high quality sources to back the statistics
  
 
-# Solutions Page #
+# Solutions Page # - Session 20
 
 - Deselect option on industry and solution type filter (should be able to click back on the filter item that was selected in the dropdown menu to deselect it)
 Upgrade visuals on Solutions page to be on par with Portfolio
@@ -73,9 +78,9 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 - Add Solution type: Offline Solutions / Local solutions - which is for all solutions that can operate locally on clients own hardware if they're hardware can handle it. - Make the actual card production ready and make sure that it matches the writing style and tone of the other solution cards - Add types of solutions that can actually be ran offline / locally
   - Slogan for locally ran solutions: If you have the hardware, we'll build you the software.
 
-- Add the gaming industry - Make sure to create more specific AI solutions for this industry as well
-
-- Add the eSports industry - Make sure to create more specific AI solutions for this industry as well
+- Add the following industries to all applicable locations (filters, home page roi calculator filter, solutions page, etc.)
+  - Add the gaming industry - Make sure to create more specific AI solutions for this industry as well
+  - Add the eSports industry - Make sure to create more specific AI solutions for this industry as well
 
 
 # Portfolio Page #

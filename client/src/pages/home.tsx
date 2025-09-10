@@ -25,6 +25,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Link } from "wouter";
+import { BarChart3, Lock } from "lucide-react";
 
 const Home = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
@@ -294,7 +295,7 @@ const Home = () => {
               Never Wonder Where Your Project Stands—Real Time Visibility
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Your custom Strive client portal gives you daily progress updates and milestones, real-time chat with your team, 
+              Your custom <span className="bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent font-semibold">Strive client portal</span> gives you daily progress updates and milestones, real-time chat with your team, 
               visual status dashboards, and secure, always-on access - everything you need to succeed with AI, all in one platform.
             </p>
           </div>
@@ -305,11 +306,12 @@ const Home = () => {
               <Dialog key={index}>
                 <DialogTrigger asChild>
                   <Card 
-                    className="bg-white cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-105 border border-gray-100"
+                    className="bg-gradient-to-br from-white to-gray-50 cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105 border border-gray-200 hover:border-primary/30 overflow-hidden relative group"
                     data-testid={`card-solution-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
                   >
-                    <CardContent className="p-6 group">
-                      <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <CardContent className="p-6 relative">
+                      <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-orange-500/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                         {solution.icon}
                       </div>
                       <h3 className="text-xl font-bold text-[#020a1c] mb-3 transition-colors duration-300 group-hover:text-[#ff7033]">
