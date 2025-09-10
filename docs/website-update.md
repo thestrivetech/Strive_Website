@@ -222,6 +222,8 @@ Upgrade visuals on Solutions page to be on par with Portfolio
   - We also need to clean the entire codebase to improve website performance
 
 -    Make sure ROI calculator is fixed (import code files from perplexity)
+
+- Need to fix my headshot because it looks hella pixelated
 -------------------------------------------------------------------------------------------
 
 # Mobile Session #
