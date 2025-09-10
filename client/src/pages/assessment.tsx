@@ -389,7 +389,7 @@ const Assessment = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-6" data-testid="assessment-title">
-              Unlock Your Business's <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">AI Advantage</span>
+              Unlock Your Business's <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block pb-2">AI Advantage</span>
             </h1>
             <p className="text-xl text-muted-foreground">
               Discover actionable AI strategies tailored to your company's biggest challenges—book your complimentary 30-minute assessment today.

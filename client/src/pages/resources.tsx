@@ -231,7 +231,7 @@ const Resources = () => {
               className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-hero-title"
             >
-              Business <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Intelligence</span> Hub
+              Business <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block pb-2">Intelligence</span> Hub
             </h1>
             <p 
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
@@ -244,19 +244,19 @@ const Resources = () => {
                 size="lg" 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group
                   before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
-                onClick={() => document.getElementById('resource-library')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => window.location.href = '/contact'}
                 data-testid="button-explore-resources"
               >
-                Start Your AI Transformation
+                Unlock Actionable Insights
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
                 className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-                onClick={() => window.location.href = '/contact'}
+                onClick={() => document.getElementById('resource-library')?.scrollIntoView({ behavior: 'smooth' })}
                 data-testid="button-get-insights"
               >
-                Unlock Actionable Insights
+                Let's Learn
               </Button>
             </div>
           </div>
@@ -393,11 +393,7 @@ const Resources = () => {
                           {quiz.difficulty}
                         </Badge>
                       </div>
-                      <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="bg-white/90 backdrop-blur-sm rounded-full p-2">
-                          <Play className="h-5 w-5 text-blue-600" />
-                        </div>
-                      </div>
+
                     </div>
                     
                     <CardContent className="p-6 text-white flex flex-col flex-grow">
@@ -702,7 +698,7 @@ const Resources = () => {
           <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
           <DialogPrimitive.Content className={cn(
             "fixed left-[50%] top-[50%] z-50 grid w-full max-w-4xl translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
-            "max-h-[90vh] overflow-y-auto"
+            "max-h-[90vh] overflow-y-auto modal-scrollbar"
           )}>
           {selectedResource && (
             <>
@@ -798,11 +794,7 @@ const Resources = () => {
                 </div>
                 
                 <div className="flex gap-4 pt-4">
-                  <Button className="flex-1">
-                    <Download className="mr-2 h-4 w-4" />
-                    Download Resource
-                  </Button>
-                  <Button 
+                  <Button
                     variant="outline"
                     className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-6 py-3 font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
                   >
@@ -814,7 +806,7 @@ const Resources = () => {
                     className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-6 py-3 font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
                     onClick={() => window.location.href = '/contact'}
                   >
-                    Get Consulting
+                    Get Expert Insight
                   </Button>
                 </div>
               </div>
@@ -826,7 +818,7 @@ const Resources = () => {
 
       {/* Quiz Modal */}
       <Dialog open={isQuizModalOpen} onOpenChange={closeQuizModal}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto modal-scrollbar">
           {selectedQuiz && !showQuizResult && (
             <>
               <DialogTitle className="text-2xl font-bold flex items-center gap-2">
@@ -865,7 +857,7 @@ const Resources = () => {
                 {/* Current Question */}
                 {selectedQuiz.questions[currentQuestionIndex] && (
                   <div className="space-y-6">
-                    <h3 className="text-xl font-semibold text-slate-800">
+                    <h3 className="text-xl font-semibold text-blue-600">
                       {selectedQuiz.questions[currentQuestionIndex].question}
                     </h3>
                     
@@ -974,7 +966,7 @@ const Resources = () => {
                 {/* Detailed Results */}
                 <div className="space-y-4">
                   <h3 className="text-lg font-semibold">Question Review</h3>
-                  <div className="space-y-3 max-h-64 overflow-y-auto">
+                  <div className="space-y-3 max-h-64 overflow-y-auto modal-scrollbar">
                     {selectedQuiz.questions.map((question, index) => {
                       const userAnswer = userAnswers[index];
                       const isCorrect = userAnswer === question.correctAnswer;

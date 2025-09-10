@@ -384,6 +384,36 @@
     letter-spacing: 0.1em;
   }
 
-  
+  /* Custom scrollbar styling for modal popouts */
+  .modal-scrollbar::-webkit-scrollbar,
+  [role="dialog"]::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .modal-scrollbar::-webkit-scrollbar-track,
+  [role="dialog"]::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+
+  .modal-scrollbar::-webkit-scrollbar-thumb,
+  [role="dialog"]::-webkit-scrollbar-thumb {
+    background: rgba(100, 100, 100, 0.3);
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .modal-scrollbar::-webkit-scrollbar-thumb:hover,
+  [role="dialog"]::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 100, 100, 0.5);
+  }
+
+  /* Firefox scrollbar styling */
+  .modal-scrollbar,
+  [role="dialog"] {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(100, 100, 100, 0.3) rgba(0, 0, 0, 0.1);
+  }
 
 }

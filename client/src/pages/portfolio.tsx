@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Bot, Code, Blocks, Brain, BrainCircuit, Database, Globe, Zap, Eye, Play, ExternalLink, X, Github, Monitor, Smartphone, ChevronRight, Filter } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
 // Import data from new modular structure
@@ -95,19 +97,19 @@ const Portfolio = () => {
                 size="lg" 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group
                   before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
-                onClick={() => document.getElementById('showcase')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => window.location.href = '/request'}
                 data-testid="button-view-work"
               >
-                View Our Work
+                Request Personalized Demo
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
                 className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-                onClick={() => window.location.href = '/demo'}
+                onClick={() => document.getElementById('showcase')?.scrollIntoView({ behavior: 'smooth' })}
                 data-testid="button-request-demo"
               >
-                Request Personalized Demo
+                View Our Work
               </Button>
             </div>
           </div>
@@ -216,8 +218,13 @@ const Portfolio = () => {
                     className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300"
                     variant="outline"
                   >
-                    View Details
-                    <Eye className="ml-2 h-4 w-4" />
+                    {project.type === 'demo' ? 'View Demo' : 
+                     project.type === 'prototype' ? 'View Prototype' : 
+                     project.type === 'template' ? 'View Template' : 'View Details'}
+                    {project.type === 'demo' ? <Play className="ml-2 h-4 w-4" /> :
+                     project.type === 'prototype' ? <Code className="ml-2 h-4 w-4" /> :
+                     project.type === 'template' ? <Blocks className="ml-2 h-4 w-4" /> :
+                     <Eye className="ml-2 h-4 w-4" />}
                   </Button>
                 </CardContent>
               </Card>
@@ -227,7 +234,12 @@ const Portfolio = () => {
       </section>
       {/* Project Detail Modal */}
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogPrimitive.Portal>
+          <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+          <DialogPrimitive.Content className={cn(
+            "fixed left-[50%] top-[50%] z-50 grid w-full max-w-4xl translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
+            "max-h-[90vh] overflow-y-auto modal-scrollbar"
+          )}>
           {selectedProject && (
             <>
               <DialogTitle className="sr-only">{selectedProject.title}</DialogTitle>
@@ -240,14 +252,11 @@ const Portfolio = () => {
                   alt={selectedProject.title}
                   className="w-full h-64 object-cover rounded-lg"
                 />
-                <Button
-                  onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 h-10 w-10 p-0 bg-gray-800/80 hover:bg-gray-700/90 border-2 border-orange-500/50 hover:border-orange-500 rounded-lg transition-all duration-200"
-                  variant="ghost"
-                >
-                  <X className="h-5 w-5 text-white" />
-                </Button>
               </div>
+              <DialogPrimitive.Close className="absolute right-4 top-4 bg-gray-800/80 hover:bg-gray-700/90 border-2 border-orange-500/50 hover:border-orange-500 rounded-lg h-10 w-10 p-0 z-50 transition-all duration-200">
+                <X className="h-5 w-5 text-white m-auto" />
+                <span className="sr-only">Close</span>
+              </DialogPrimitive.Close>
               
               <div className="p-6 space-y-6">
                 <div className="flex items-center gap-3">
@@ -318,7 +327,8 @@ const Portfolio = () => {
               </div>
             </>
           )}
-        </DialogContent>
+          </DialogPrimitive.Content>
+        </DialogPrimitive.Portal>
       </Dialog>
     </div>
   );

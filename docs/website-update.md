@@ -165,28 +165,25 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 -------------------------------------------------------------------------------
 
-# Company Page # - Haven't reviewed yet - Needs refinement
+# Session 26 #
 
-- Create nav bar dropdown to list “Become a Partner, Community (discord and more), Meet the Team, etc. - Think of more areas and pages/sections to add to this page or part of the website - We need to decide whether to make this one entire page broken into different sections or to make it different pages (could make it one page with different pop out screens that go into more detail like on other pages)
+# Company Page # 
 
-- Maybe change the header text to something more specific about this being our Company page? But still hooking the users attention or making them want to work with us? - Maybe geared towards a partnership or something of the sort
+- Remove everything above the "OUR VISION" roadmap section and then make the our vision section be this pages hero section 
 
 - Change "view our work" button color scheme and hover effect
 
-- Fix "OUR FOUNDATION" section
 
 # Contact Page #
-
-- Increase button size for the AI Chat specialist - Also make the "Coming Soon" banner half the size
 
 - Make the "Company name" and "company size" box inputs below the phone number text box
   - Also make the "Company Name" input option for users (only on the contact page form)
 
-# Login Page #
+- Add "Coming Soon" banner to the Brochure button please. You can resize the text to make sure that it doesn't mess up the visual design of the page/section
+- ----------------------------------------------------------------------------------
+# Session 27 #
 
--
-
-# Schedule Assessment Page #
+## Schedule Assessment Page ##
 
 - Change text above the text boxes to dark blue that's used on the site
 
@@ -194,7 +191,16 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 - Have error message pop up if the email isn't an actual email and the same goes for the phone number
 
-# Request Pages # 
+- Fix the word "Advantage" - the bottom of the G is currently behind part of the hero section color somehow
+
+- Change the home page hero section button, "Book Free Assessment" to be linked to the assessment page
+
+- Need to allow the user to click "Other" when they're selecting their "Current Challenges" - This should then let them type in their own answer
+----------------------------------------------------------------------------------------
+
+# Session 28 #
+
+## Request Pages ##
 ### Request Demo / Request Solution Page and 'steps' subpages ###
 
 - Fix the formatting of the "3 Steps" - Make the step bubbles and text align (each bubble should be aligned with the middle of the actual text)
@@ -206,14 +212,21 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 - Change background color used in the user details box (located right below the calendly window) to match the off white background color
   - Change text color inside mentioned above text box to be orange and dark blue (orange used for the: Your Details, Contact, Email, Company, and dark blue is used for users/clients actual information)
+  - ----------------------------------------------------------------------------------------
+
+# FINAL SESSION #
 
 # Final Step before deployment & Mobile Optimization #
 
 - Follow the docs/optimization-guide.md to completely optimize the websites performance
   - We also need to clean the entire codebase to improve website performance
 
+-    Make sure ROI calculator is fixed (import code files from perplexity)
+-------------------------------------------------------------------------------------------
 
-# Mobile Design List #
+# Mobile Session #
+
+### Mobile Design List ###
 
 - Make mobile specific design way more mobile centric - example: "What's New with Strive?" section should have a scroll feature where the different cards can be rotate horizontally
 

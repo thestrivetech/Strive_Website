@@ -1,5 +1,5 @@
 Regular chat prompt for website edits without agents:
-Please understand the current state of the website and layout. I need your help with updating it. Read this file: chat_logs/website_updates/session24.md - This is your task list for this session along with your chat log where you need to keep full and complete context and track progress for the session. Use the existing task list to create an in-depth to-do list for each listed task. Do your best and be great.
+Please understand the current state of the website and layout. I need your help with updating it. Read this file: chat_logs/website_updates/session25.md - This is your task list for this session along with your chat log where you need to keep full and complete context and track progress for the session. Use the existing task list to create an in-depth to-do list for each listed task. Do your best and be great.
 
 Chat log creation:
 Create this sessions chat log please and record full context from this session - Put it here: chat_logs/website_updates/session2.md

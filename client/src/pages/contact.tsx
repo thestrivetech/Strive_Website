@@ -57,7 +57,7 @@ const Contact = () => {
       text: (
         <span className="flex items-center gap-2">
           Chat Live with AI Specialist
-          <ComingSoonBadge size="sm" />
+          <ComingSoonBadge size="sm" className="text-[10px] px-1.5 py-0.5" />
         </span>
       ), 
       action: "chat" 
@@ -369,7 +369,7 @@ const Contact = () => {
                     
                     {/* Secondary actions */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {quickActions.map((action, index) => (
+                      {quickActions.slice(0, 2).map((action, index) => (
                         <Button
                           key={index}
                           variant="outline"
@@ -382,6 +382,18 @@ const Contact = () => {
                         </Button>
                       ))}
                     </div>
+                    {/* Chat button spans full width */}
+                    {quickActions[2] && (
+                      <Button
+                        variant="outline"
+                        className="w-full justify-center py-3 border-2 border-muted hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105 hover:shadow-md mt-3 relative overflow-hidden"
+                        onClick={() => handleQuickAction(quickActions[2].action)}
+                        data-testid={`button-${quickActions[2].action}`}
+                      >
+                        {quickActions[2].icon}
+                        {quickActions[2].text}
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -440,7 +452,7 @@ const Contact = () => {
 
       {/* Brochure Modal */}
       <Dialog open={isBrochureModalOpen} onOpenChange={setIsBrochureModalOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto modal-scrollbar">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold flex items-center gap-2">
               <FileText className="w-6 h-6 text-primary" />

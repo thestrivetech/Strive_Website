@@ -144,6 +144,12 @@ const ChatBotSai = () => {
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Your AI-Powered Business Solutions Assistant - Available 24/7
             </p>
+            {/* Coming Soon Banner */}
+            <div className="mt-6">
+              <Badge className="px-6 py-2 text-lg font-semibold bg-gradient-to-r from-[#ff7033] to-orange-500 text-white border-0 shadow-lg animate-pulse hover:animate-none transition-all duration-300">
+                Coming Soon
+              </Badge>
+            </div>
           </div>
         </div>
       </div>
