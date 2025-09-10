@@ -271,7 +271,7 @@ const Resources = () => {
               Explore Our Resource Library
             </h2>
             <p className="text-slate-600 text-lg" data-testid="text-library-subtitle">
-              Find tailored playbooks, case studies, and guides—each designed to help you solve your top business challenges with AI.
+              Find tailored playbooks, case studies, and guides, each designed to help you solve your top business challenges with AI.
             </p>
           </div>
 

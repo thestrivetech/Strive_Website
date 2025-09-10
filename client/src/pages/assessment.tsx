@@ -443,7 +443,7 @@ const Assessment = () => {
               Unlock Your Business's <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">AI Advantage</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Discover actionable AI strategies tailored to your company's biggest challenges—book your complimentary 30-minute assessment today.
+              Discover actionable AI strategies tailored to your company's biggest challenges. Book your complimentary 30-minute assessment today.
             </p>
           </div>
 

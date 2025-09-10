@@ -4,13 +4,16 @@ import TeamMember from "@/components/ui/team-member";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
+import GarrettHeadshot from "@/assets/Garrett-Headshot.webp";
+import JeffHeadshot from "@/assets/Jeff-Headshot.webp";
+import GrantHeadshot from "@/assets/Grant-Headshot.webp";
 
 const Company = () => {
   const missionVisionValues = [
     {
       icon: <Target className="text-primary text-2xl" />,
       title: "Our Mission",
-      description: "Help you boost revenues, cut costs, and outpace your competitors—through the right AI, delivered at the right time."
+      description: "Help you boost revenues, cut costs, and outpace your competitors through the right AI, delivered at the right time."
     },
     {
       icon: <Eye className="text-primary text-2xl" />,
@@ -20,38 +23,31 @@ const Company = () => {
     {
       icon: <Heart className="text-primary text-2xl" />,
       title: "Our Values",
-      description: "Your success is our standard—through excellence, integrity, bold innovation, and relentless commitment."
+      description: "Your success is our standard through excellence, integrity, bold innovation, and relentless commitment."
     }
   ];
 
   const teamMembers = [
     {
-      name: "Michael Chen",
-      title: "CEO & Founder",
-      description: "Trusted advisor to global enterprises; delivers proven growth with every partnership.",
-      imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400",
-      imageAlt: "Professional business executive headshot"
+      name: "Garrett Holland",
+      title: "Founder & CEO",
+      description: "Visionary leader transforming businesses through strategic AI innovation and operational excellence.",
+      imageUrl: GarrettHeadshot,
+      imageAlt: "Garrett Holland - CEO & Founder headshot"
     },
     {
-      name: "Sarah Johnson",
-      title: "CTO",
-      description: "Turns cutting-edge AI into real business value—fast.",
-      imageUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b812?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400",
-      imageAlt: "Professional business woman executive"
+      name: "Jeff Meyer",
+      title: "Co-Founder, Head of Sales",
+      description: "Expert relationship builder driving exponential growth through strategic partnerships and client success.",
+      imageUrl: JeffHeadshot,
+      imageAlt: "Jeff Meyer - Co-Founder, Head of Sales headshot"
     },
     {
-      name: "David Rodriguez", 
-      title: "VP of Operations",
-      description: "Removes friction, ensures smooth scaling.",
-      imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400",
-      imageAlt: "Professional business man in suit"
-    },
-    {
-      name: "Emily Zhang",
-      title: "Head of Customer Success",
-      description: "Your champion for long-term satisfaction and ROI.",
-      imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400",
-      imageAlt: "Professional business woman in corporate setting"
+      name: "Grant Ramey",
+      title: "Co-Founder, VP",
+      description: "Operational excellence architect scaling breakthrough solutions and delivering measurable results.",
+      imageUrl: GrantHeadshot,
+      imageAlt: "Grant Ramey - Co-Founder, VP headshot"
     }
   ];
 
@@ -120,7 +116,7 @@ const Company = () => {
               Roadmap to the <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Future</span>
             </h1>
             <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-              What's Ahead—For Us and For You: Continuous innovation in AI & emerging tech, so you're always a step ahead.
+              What's Ahead for Us and For You: Continuous innovation in AI & emerging tech, so you're always a step ahead.
             </p>
           </div>
 
@@ -213,13 +209,13 @@ const Company = () => {
               </h2>
               <div className="space-y-6 text-muted-foreground">
                 <p data-testid="text-story-paragraph-1" className="text-lg leading-relaxed">
-                  In 2015, our founders met business leaders overwhelmed by tech change—facing wasted resources, siloed data, and operational bottlenecks. We created Strive to help organizations like yours turn chaos into clarity, using AI and automation as a competitive edge.
+                  In 2015, our founders met business leaders overwhelmed by tech change who were facing wasted resources, siloed data, and operational bottlenecks. We created Strive to help organizations like yours turn chaos into clarity, using AI and automation as a competitive edge.
                 </p>
                 <p data-testid="text-story-paragraph-2" className="text-lg leading-relaxed">
                   What started as a small consulting firm has evolved into a full-service technology partner, serving enterprises across multiple industries. We've helped over 150 organizations streamline their operations, reduce costs, and accelerate growth through strategic technology implementation.
                 </p>
                 <p data-testid="text-story-paragraph-3" className="text-lg leading-relaxed">
-                  Today we partner with forward-thinking teams to build scalable, efficient businesses—ready for tomorrow. Continuous innovation in AI ensures you're always a step ahead.
+                  Today we partner with forward-thinking teams to build scalable, efficient businesses that are ready for tomorrow. Continuous innovation in AI ensures you're always a step ahead.
                 </p>
               </div>
               <div className="mt-8">
@@ -321,22 +317,38 @@ const Company = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {teamMembers.map((member, index) => (
               <div key={index} className="group">
-                <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100 overflow-hidden">
+                <div className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-gray-100 overflow-hidden relative">
+                  {/* Gradient overlay on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
+                  
                   <div className="relative overflow-hidden">
                     <img 
                       src={member.imageUrl}
                       alt={member.imageAlt}
-                      className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                      className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    {/* Decorative border effect */}
+                    <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-t-3xl transition-colors duration-500"></div>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2 text-[#020a1c]">{member.name}</h3>
-                    <p className="text-primary font-semibold mb-3">{member.title}</p>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{member.description}</p>
+                  
+                  <div className="p-8 relative z-10">
+                    <h3 className="text-2xl font-bold mb-3 text-[#020a1c] group-hover:text-primary transition-colors duration-300">
+                      {member.name}
+                    </h3>
+                    <p className="text-primary font-bold mb-4 text-lg tracking-wide">
+                      {member.title}
+                    </p>
+                    <p className="text-muted-foreground leading-relaxed text-base">
+                      {member.description}
+                    </p>
+                    
+                    {/* Decorative accent */}
+                    <div className="absolute bottom-0 left-8 right-8 h-1 bg-gradient-to-r from-primary to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                   </div>
                 </div>
               </div>
@@ -353,7 +365,7 @@ const Company = () => {
               Ready to See AI Work For You?
             </h2>
             <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-              Book a free custom automation assessment and discover your roadmap to stronger growth, efficiency, and market leadership—starting today.
+              Book a free custom automation assessment and discover your roadmap to stronger growth, efficiency, and market leadership starting today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 

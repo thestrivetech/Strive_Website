@@ -158,7 +158,7 @@ const Home = () => {
     <div className="pt-16">
       {/* Hero Section */}
       <HeroSection
-        title="Transform Your Business with AI—Lead Your Industry, Not Just Compete"
+        title="Transform Your Business with AI to Lead Your Industry, Not Just Compete"
         subtitle="Are you struggling to outpace your competition with manual processes and outdated tools? At Strive, we help you unlock the potential of artificial intelligence, so your business runs smarter, faster, and more profitably."
         primaryButtonText="Get Started"
         secondaryButtonText="Book Free Assessment"
@@ -181,7 +181,7 @@ const Home = () => {
               className="text-2xl md:text-3xl font-bold mb-4 text-white"
               data-testid="text-industry-title"
             >
-              No two industries are the same—which is why every solution we deliver is built around your goals
+              No two industries are the same, which is why every solution we deliver is built around your goals
             </h2>
             <p className="text-white/80 text-lg max-w-2xl mx-auto">
               Select your industry below to see proven strategies and results for companies just like yours.
@@ -273,7 +273,7 @@ const Home = () => {
                 Ready to become your industry's next success story?
               </h3>
               <p className="text-white/80 mb-6">
-                Talk to an AI Expert—See What's Possible for Your Business.
+                Talk to an AI Expert to See What's Possible for Your Business.
               </p>
               <Link href="/solutions">
                 <Button 
@@ -306,7 +306,7 @@ const Home = () => {
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 text-[#020a1c] leading-tight"
               data-testid="text-platform-title"
             >
-              Never Wonder Where Your Project Stands—Real Time Visibility
+              Never Wonder Where Your Project Stands with Real Time Visibility
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Your custom <span className="bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent font-semibold">Strive client portal</span> gives you daily progress updates and milestones, real-time chat with your team, 
@@ -415,7 +415,7 @@ const Home = () => {
               className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/90 mb-6"
               data-testid="text-why-us-subtitle"
             >
-              You don't need another vendor—you need a strategic partner for sustainable growth
+              You don't need another vendor; you need a strategic partner for sustainable growth
             </div>
             <p className="text-white/80 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
               Innovation Delivered: Always-outpacing the market. Unmatched Scalability: Solutions that evolve with you. Proven Results, Every Time.
@@ -557,10 +557,10 @@ const Home = () => {
             {/* Call to Action */}
             <div className="bg-gradient-to-br from-white/70 to-white/50 backdrop-blur-sm border border-white/60 rounded-3xl p-8 lg:p-10 text-center shadow-xl">
               <h3 className="text-xl lg:text-2xl font-bold text-[#020a1c] mb-4">
-                Your Path to Results with AI—It's Simple
+                Your Path to Results with AI: It's Simple
               </h3>
               <p className="text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-                Book Your Free Assessment → Receive Your Custom AI Solution Roadmap → Transform Operations—See Measurable Impact in Weeks. Ready to start? You're just one step away.
+                Book Your Free Assessment → Receive Your Custom AI Solution Roadmap → Transform Operations and See Measurable Impact in Weeks. Ready to start? You're just one step away.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

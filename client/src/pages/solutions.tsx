@@ -70,7 +70,7 @@ const Solutions = () => {
       type: "service",
       industry: "Healthcare",
       icon: <Heart className="text-primary text-xl" />,
-      shortDescription: "Health organizations face rising data, regulatory, and care challenges every day. Imagine freeing up your staff to focus on what matters most—your patients—while our AI manages compliance, data, and operations behind the scenes.",
+      shortDescription: "Health organizations face rising data, regulatory, and care challenges every day. Imagine freeing up your staff to focus on what matters most: your patients, while our AI manages compliance, data, and operations behind the scenes.",
       fullDescription: "Comprehensive healthcare solutions that leverage artificial intelligence to improve patient outcomes, streamline operations, and ensure regulatory compliance. Our healthcare suite includes advanced diagnostic tools, patient management systems, and automated compliance reporting.",
       features: [
         "AI-powered diagnostics and imaging analysis",
@@ -89,7 +89,7 @@ const Solutions = () => {
       type: "service",
       industry: "Finance",
       icon: <DollarSign className="text-primary text-xl" />,
-      shortDescription: "Financial leaders today face relentless threats—from fraud to shifting regulations. We bring advanced AI tools to safeguard assets, streamline risk, and empower smarter, faster trading. Don't let fraud and bottlenecks stand in your way.",
+      shortDescription: "Financial leaders today face relentless threats ranging from fraud to shifting regulations. We bring advanced AI tools to safeguard assets, streamline risk, and empower smarter, faster trading. Don't let fraud and bottlenecks stand in your way.",
       fullDescription: "Revolutionary financial technology solutions that enhance security, optimize trading strategies, and provide deep customer insights. Our fintech platform combines real-time fraud detection with sophisticated risk assessment tools.",
       features: [
         "Real-time fraud detection and prevention",
@@ -127,7 +127,7 @@ const Solutions = () => {
       type: "service", 
       industry: "Retail",
       icon: <ShoppingCart className="text-primary text-xl" />,
-      shortDescription: "Retail success now depends on knowing your customers and your shelves—instantly. Our AI sharpens inventory precision, predicts buying trends, and creates experiences that keep shoppers coming back.",
+      shortDescription: "Retail success now depends on knowing your customers and your shelves instantly. Our AI sharpens inventory precision, predicts buying trends, and creates experiences that keep shoppers coming back.",
       fullDescription: "Comprehensive retail solutions that enhance customer experience through personalized recommendations, optimize inventory management, and implement dynamic pricing strategies for maximum profitability.",
       features: [
         "Customer analytics and personalized recommendations",
@@ -146,7 +146,7 @@ const Solutions = () => {
       type: "service",
       industry: "Technology",
       icon: <Cpu className="text-primary text-xl" />,
-      shortDescription: "Tech companies need to move fast and ship flawlessly. Our AI automates CI/CD pipelines, optimizes cloud costs, develops intelligent agents, and detects threats in real-time—giving you the edge to innovate faster than the competition.",
+      shortDescription: "Tech companies need to move fast and ship flawlessly. Our AI automates CI/CD pipelines, optimizes cloud costs, develops intelligent agents, and detects threats in real-time, giving you the edge to innovate faster than the competition.",
       fullDescription: "Advanced AI solutions designed specifically for technology companies to accelerate development, optimize infrastructure, and enhance security. From DevOps automation to AI agent development, transform your tech operations with cutting-edge intelligence.",
       features: [
         "CI/CD and DevOps automation",
@@ -165,7 +165,7 @@ const Solutions = () => {
       type: "service",
       industry: "Education",
       icon: <GraduationCap className="text-primary text-xl" />,
-      shortDescription: "Transform education with AI that adapts to every learner. Our solutions automate administrative tasks, personalize learning paths, identify at-risk students early, and provide instant grading—freeing educators to focus on what matters: teaching.",
+      shortDescription: "Transform education with AI that adapts to every learner. Our solutions automate administrative tasks, personalize learning paths, identify at-risk students early, and provide instant grading, freeing educators to focus on what matters: teaching.",
       fullDescription: "Comprehensive educational AI solutions that enhance learning outcomes, streamline administrative processes, and provide personalized education at scale. Transform your institution with intelligent automation and adaptive learning technology.",
       features: [
         "Administrative task automation",
@@ -184,7 +184,7 @@ const Solutions = () => {
       type: "service",
       industry: "Real Estate",
       icon: <HomeIcon className="text-primary text-xl" />,
-      shortDescription: "Win in real estate with AI that sees opportunities first. Our solutions automate property management, predict market trends, provide instant valuations, and nurture leads automatically—helping you close deals faster and maximize returns.",
+      shortDescription: "Win in real estate with AI that sees opportunities first. Our solutions automate property management, predict market trends, provide instant valuations, and nurture leads automatically, helping you close deals faster and maximize returns.",
       fullDescription: "Innovative real estate AI solutions that transform property management, market analysis, and customer engagement. From automated valuations to predictive market analytics, gain the competitive edge in real estate.",
       features: [
         "Property management automation",
@@ -203,7 +203,7 @@ const Solutions = () => {
       type: "service",
       industry: "Legal",
       icon: <Scale className="text-primary text-xl" />,
-      shortDescription: "Practice law smarter, not harder. Our AI analyzes contracts in minutes, researches case law in seconds, manages cases flawlessly, and prevents compliance violations—transforming hours of work into moments of insight.",
+      shortDescription: "Practice law smarter, not harder. Our AI analyzes contracts in minutes, researches case law in seconds, manages cases flawlessly, and prevents compliance violations, transforming hours of work into moments of insight.",
       fullDescription: "Revolutionary legal AI solutions that automate document analysis, accelerate research, and ensure compliance. Transform your legal practice with intelligent automation that reduces risk and increases efficiency.",
       features: [
         "Contract analysis and automation",
@@ -222,7 +222,7 @@ const Solutions = () => {
       type: "service",
       industry: "Government",
       icon: <Building2 className="text-primary text-xl" />,
-      shortDescription: "Serve citizens better with AI that works as hard as you do. Our solutions automate citizen services, detect fraud instantly, analyze policy impacts, and ensure security—delivering efficient, transparent government that builds trust.",
+      shortDescription: "Serve citizens better with AI that works as hard as you do. Our solutions automate citizen services, detect fraud instantly, analyze policy impacts, and ensure security while delivering efficient, transparent government that builds trust.",
       fullDescription: "Comprehensive government AI solutions that enhance citizen services, improve operational efficiency, and ensure security. Transform public sector operations with intelligent automation and data-driven decision making.",
       features: [
         "Citizen service automation and chatbots",
@@ -241,7 +241,7 @@ const Solutions = () => {
       category: "NLP",
       type: "product",
       icon: <Bot className="text-primary text-xl" />,
-      shortDescription: "Every hour spent on manual tasks is lost opportunity. Our AI chatbots resolve questions instantly, automate operations, and support your customers around the clock—freeing your team for higher-impact work.",
+      shortDescription: "Every hour spent on manual tasks is lost opportunity. Our AI chatbots resolve questions instantly, automate operations, and support your customers around the clock, freeing your team for higher-impact work.",
       fullDescription: "Comprehensive AI and automation platform that transforms business processes through intelligent process automation, machine learning models, and predictive analytics. Streamline operations while reducing costs and improving decision-making.",
       features: [
         "Intelligent Process Automation",
@@ -260,7 +260,7 @@ const Solutions = () => {
       category: "Computer Vision",
       type: "product",
       icon: <Eye className="text-primary text-xl" />,
-      shortDescription: "Defects and threats can slip by unnoticed—until they cost you. With 99% accuracy, our computer vision monitors your environment, detects threats, and keeps quality at its highest—all in real time.",
+      shortDescription: "Defects and threats can slip by unnoticed until they cost you. With 99% accuracy, our computer vision monitors your environment, detects threats, and keeps quality at its highest, all in real time.",
       fullDescription: "Cutting-edge computer vision solutions that interpret, analyze, and understand digital images and videos. Perfect for quality control, security monitoring, and automated visual inspection across industries.",
       features: [
         "Image Recognition & Classification",
@@ -279,7 +279,7 @@ const Solutions = () => {
       category: "Predictive Model",
       type: "product",
       icon: <BarChart className="text-primary text-xl" />,
-      shortDescription: "Forecasting the future shouldn't be guesswork. Our AI models analyze mountains of data to predict trends, customer behavior, and opportunities—so you make moves backed by certainty, not hunches.",
+      shortDescription: "Forecasting the future shouldn't be guesswork. Our AI models analyze mountains of data to predict trends, customer behavior, and opportunities so you make moves backed by certainty, not hunches.",
       fullDescription: "Advanced predictive analytics platform that transforms raw data into actionable business insights. Leverage machine learning algorithms to forecast trends, identify opportunities, and make data-driven strategic decisions.",
       features: [
         "Advanced Statistical Modeling",
@@ -298,7 +298,7 @@ const Solutions = () => {
       category: "Web3",
       type: "service",
       icon: <Cloud className="text-primary text-xl" />,
-      shortDescription: "In a world where trust and transparency are paramount, blockchain is your foundation. We build secure, transparent networks with immutable records and smart contracts—empowering your business with trust and clarity in every transaction.",
+      shortDescription: "In a world where trust and transparency are paramount, blockchain is your foundation. We build secure, transparent networks with immutable records and smart contracts that empower your business with trust and clarity in every transaction.",
       fullDescription: "Robust cloud infrastructure solutions that provide scalable, secure, and cost-effective computing resources. Deploy, manage, and scale your applications with confidence using our comprehensive cloud platform.",
       features: [
         "Auto-scaling Infrastructure",
@@ -316,7 +316,7 @@ const Solutions = () => {
       category: "Solution Type",
       type: "product",
       icon: <ShieldCheck className="text-primary text-xl" />,
-      shortDescription: "Regulations and threats evolve fast—noncompliance or a single breach can devastate your brand. Our AI-driven systems watch over your operations 24/7, catching risks instantly and automating compliance. You stay one step ahead, every day.",
+      shortDescription: "Regulations and threats evolve fast; noncompliance or a single breach can devastate your brand. Our AI-driven systems watch over your operations 24/7, catching risks instantly and automating compliance. You stay one step ahead, every day.",
       fullDescription: "Enterprise-grade security and compliance solutions that protect your business assets and ensure regulatory adherence. Automated monitoring, threat detection, and compliance reporting keep your organization secure.",
       features: [
         "Regulatory Compliance Automation",
@@ -336,7 +336,7 @@ const Solutions = () => {
       type: "service",
       industry: "Gaming",
       icon: <Gamepad2 className="text-primary text-xl" />,
-      shortDescription: "The gaming industry demands flawless performance, fair play, and deep player engagement. Our AI solutions detect cheaters instantly, optimize matchmaking, predict player behavior, and automate testing—letting you focus on creating unforgettable gaming experiences.",
+      shortDescription: "The gaming industry demands flawless performance, fair play, and deep player engagement. Our AI solutions detect cheaters instantly, optimize matchmaking, predict player behavior, and automate testing, letting you focus on creating unforgettable gaming experiences.",
       fullDescription: "Comprehensive gaming industry solutions leveraging AI to enhance player experiences, ensure competitive integrity, and optimize game development processes. From anti-cheat systems to intelligent NPCs and predictive analytics, transform your games with cutting-edge AI technology.",
       features: [
         "Real-time anti-cheat detection and prevention",
@@ -374,7 +374,7 @@ const Solutions = () => {
       category: "Offline Solutions",
       type: "product",
       icon: <Cloud className="text-primary text-xl opacity-50" />,
-      shortDescription: "If you have the hardware, we'll build you the software. Deploy powerful AI models directly on your infrastructure—no internet required. Perfect for sensitive data, regulated industries, or locations with limited connectivity.",
+      shortDescription: "If you have the hardware, we'll build you the software. Deploy powerful AI models directly on your infrastructure with no internet required. Perfect for sensitive data, regulated industries, or locations with limited connectivity.",
       fullDescription: "Enterprise-grade offline AI solutions that run entirely on your local infrastructure. Maintain complete data sovereignty while leveraging cutting-edge AI capabilities. Our offline solutions are optimized for performance on your hardware, ensuring fast processing without external dependencies.",
       features: [
         "On-premise AI model deployment and optimization",
@@ -392,7 +392,7 @@ const Solutions = () => {
       category: "Offline Solutions",
       type: "product",
       icon: <Cpu className="text-primary text-xl" />,
-      shortDescription: "Process data where it's generated—at the edge. Our edge AI solutions bring intelligence to IoT devices, industrial equipment, and remote locations, delivering real-time insights without cloud dependency.",
+      shortDescription: "Process data where it's generated: at the edge. Our edge AI solutions bring intelligence to IoT devices, industrial equipment, and remote locations, delivering real-time insights without cloud dependency.",
       fullDescription: "Advanced edge computing solutions that bring AI processing directly to your devices and equipment. Reduce latency, save bandwidth, and maintain operations even without internet connectivity. Perfect for IoT deployments, industrial automation, and remote operations.",
       features: [
         "Real-time edge processing and decision-making",
@@ -430,7 +430,7 @@ const Solutions = () => {
       type: "service",
       industry: "Non-profit",
       icon: <Heart className="text-primary text-xl" />,
-      shortDescription: "Every dollar and hour matters in non-profit work. Our AI maximizes your impact by automating donor engagement, grant writing, and impact reporting—freeing your team to focus on your mission, not paperwork.",
+      shortDescription: "Every dollar and hour matters in non-profit work. Our AI maximizes your impact by automating donor engagement, grant writing, and impact reporting, freeing your team to focus on your mission, not paperwork.",
       fullDescription: "Specialized AI solutions designed for non-profit organizations to maximize impact while minimizing operational overhead. From automated donor engagement to AI-powered grant writing and impact measurement, transform how your organization creates positive change.",
       features: [
         "Donor engagement automation and personalization",
@@ -449,7 +449,7 @@ const Solutions = () => {
       type: "service",
       industry: "Agriculture",
       icon: <Leaf className="text-primary text-xl" />,
-      shortDescription: "Feed the world more efficiently with AI. Our precision farming solutions monitor crop health, optimize irrigation, predict yields, and track food safety—helping you grow more with less while ensuring complete traceability.",
+      shortDescription: "Feed the world more efficiently with AI. Our precision farming solutions monitor crop health, optimize irrigation, predict yields, and track food safety, helping you grow more with less while ensuring complete traceability.",
       fullDescription: "Revolutionary agricultural AI solutions that transform farming through precision agriculture, predictive analytics, and automated monitoring. Increase yields, reduce waste, and ensure food safety with intelligent farming technology.",
       features: [
         "Precision farming automation and optimization",
@@ -468,7 +468,7 @@ const Solutions = () => {
       type: "service",
       industry: "Media",
       icon: <Film className="text-primary text-xl" />,
-      shortDescription: "Content is king, but distribution and engagement rule the kingdom. Our AI accelerates content delivery, personalizes viewer experiences, protects digital rights, and predicts what audiences want next—keeping them engaged and coming back.",
+      shortDescription: "Content is king, but distribution and engagement rule the kingdom. Our AI accelerates content delivery, personalizes viewer experiences, protects digital rights, and predicts what audiences want next, keeping them engaged and coming back.",
       fullDescription: "Cutting-edge AI solutions for media and entertainment companies to optimize content distribution, maximize audience engagement, and protect intellectual property. Transform how you create, distribute, and monetize content in the digital age.",
       features: [
         "AI-powered content distribution and optimization",
@@ -487,7 +487,7 @@ const Solutions = () => {
       type: "service",
       industry: "Energy",
       icon: <Zap className="text-primary text-xl" />,
-      shortDescription: "Power the future intelligently. Our AI optimizes grid operations, predicts equipment failures before they happen, reduces energy waste, and automates regulatory compliance—delivering reliable, efficient energy while cutting costs.",
+      shortDescription: "Power the future intelligently. Our AI optimizes grid operations, predicts equipment failures before they happen, reduces energy waste, and automates regulatory compliance, delivering reliable, efficient energy while cutting costs.",
       fullDescription: "Advanced AI solutions for energy and utility companies to optimize grid operations, predict maintenance needs, and improve energy efficiency. Transform your infrastructure with intelligent automation and predictive analytics.",
       features: [
         "Smart grid automation and optimization",
@@ -506,7 +506,7 @@ const Solutions = () => {
       type: "service",
       industry: "Logistics",
       icon: <Truck className="text-primary text-xl" />,
-      shortDescription: "Every mile and minute counts in logistics. Our AI optimizes routes in real-time, predicts demand patterns, provides end-to-end visibility, and maximizes fleet efficiency—delivering faster, cheaper, and more reliably than ever.",
+      shortDescription: "Every mile and minute counts in logistics. Our AI optimizes routes in real-time, predicts demand patterns, provides end-to-end visibility, and maximizes fleet efficiency to deliver faster, cheaper, and more reliably than ever.",
       fullDescription: "Comprehensive AI solutions for logistics and transportation companies to optimize operations, reduce costs, and improve delivery performance. From route optimization to predictive demand planning, transform your supply chain with intelligent automation.",
       features: [
         "AI-powered route optimization and planning",
@@ -525,7 +525,7 @@ const Solutions = () => {
       type: "service",
       industry: "Hospitality",
       icon: <Hotel className="text-primary text-xl" />,
-      shortDescription: "Create unforgettable guest experiences with AI. From smart booking to personalized service, dynamic pricing to staff optimization—our solutions help you delight guests while maximizing revenue and operational efficiency.",
+      shortDescription: "Create unforgettable guest experiences with AI. From smart booking to personalized service, dynamic pricing to staff optimization. Our solutions help you delight guests while maximizing revenue and operational efficiency.",
       fullDescription: "Innovative AI solutions for hospitality and tourism businesses to enhance guest experiences, optimize operations, and maximize revenue. Transform every touchpoint of the guest journey with intelligent automation and personalization.",
       features: [
         "Smart booking and automated check-in systems",
@@ -632,7 +632,7 @@ const Solutions = () => {
               className="text-5xl md:text-7xl font-bold mb-6 text-white"
               data-testid="text-solutions-hero-title"
             >
-              Unlock the Power of AI—<span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Transform Your Business</span> for Tomorrow
+              Unlock the Power of AI to <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Transform Your Business</span> for Tomorrow
             </h1>
             <p 
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"

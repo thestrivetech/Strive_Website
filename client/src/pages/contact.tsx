@@ -76,7 +76,7 @@ const Contact = () => {
   const faqs = [
     {
       question: "How quickly can we start seeing results with Strive's AI solutions?",
-      answer: "Most clients launch their first AI-powered project in as little as 2–4 weeks—with measurable business value soon after."
+      answer: "Most clients launch their first AI-powered project in as little as 2 to 4 weeks with measurable business value soon after."
     },
     {
       question: "What support can we expect after implementation?",
@@ -172,7 +172,7 @@ const Contact = () => {
               className="text-xl text-muted-foreground max-w-3xl mx-auto"
               data-testid="text-contact-subtitle"
             >
-              Your challenges are unique—let's talk about how custom AI solutions can unlock your next level of performance. Tell us where you want to go, and we'll help you get there.
+              Your challenges are unique, so let's talk about how custom AI solutions can unlock your next level of performance. Tell us where you want to go, and we'll help you get there.
             </p>
           </div>
 
@@ -279,7 +279,7 @@ const Contact = () => {
                     <Textarea
                       required
                       rows={4}
-                      placeholder="Describe your biggest challenge or opportunity—our team will craft a personalized AI strategy..."
+                      placeholder="Describe your biggest challenge or opportunity and our team will craft a personalized AI strategy..."
                       value={formData.message}
                       onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                       style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}

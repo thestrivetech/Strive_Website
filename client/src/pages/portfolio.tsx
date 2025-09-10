@@ -90,7 +90,7 @@ const Portfolio = () => {
               className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
               data-testid="text-hero-subtitle"
             >
-              Struggling with slow processes or information overload? Discover AI-powered solutions tailored for your business—purpose-built to drive efficiency, lower costs, and free your team to focus on what matters most.
+              Struggling with slow processes or information overload? Discover AI-powered solutions tailored for your business that are purpose-built to drive efficiency, lower costs, and free your team to focus on what matters most.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
