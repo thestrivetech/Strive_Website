@@ -93,6 +93,13 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 - Put "View Demo" button back onto cards that we have a demo made for
   - Make it to where the user can see a preview on the pop out card and then also view the demo on the pop out card in full screen
 
+
+# Additional Updates # - Session 21
+
+- Change all images to .webp
+  - Address bug where error is happening whenever I click the back button on the browser
+
+
 ### Home page additions ###
 
 - add "source" hyperlink in the "AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES" section for each industries solutions card to show original source that backs up pain points and statistics claims - Check to make sure the source link is valid
@@ -102,6 +109,7 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 - ROI Calculator: When I click the HIPPA solutions option for healthcare, it brings all percentages down... Why is this? If it's a bug, can we please fix it and make sure that this isn't happening for any other industry and solution. If this isn't a bug, please explain.
 
 - Please make the "Coming Soon" banner half it's current size in the "TRANSPARENCY, ACCOUNTABILITY, AND CONTROL" section of the home page.
+
 
 # Portfolio Page #
 
@@ -165,6 +173,11 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 - Change background color used in the user details box (located right below the calendly window) to match the off white background color
   - Change text color inside mentioned above text box to be orange and dark blue (orange used for the: Your Details, Contact, Email, Company, and dark blue is used for users/clients actual information)
+
+# Final Step before deployment & Mobile Optimization #
+
+- Follow the docs/optimization-guide.md to completely optimize the websites performance
+  - We also need to clean the entire codebase to improve website performance
 
 
 # Mobile Design List #
