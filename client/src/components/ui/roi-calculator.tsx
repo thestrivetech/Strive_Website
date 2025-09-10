@@ -445,7 +445,7 @@ const ROICalculator = () => {
                     <PopoverContent className="w-[400px] p-0 max-h-[300px]" align="start" side="bottom" sideOffset={5}>
                       <Command>
                         <div className="relative">
-                          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#ff7033] pointer-events-none z-10" />
+                          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white pointer-events-none z-10" />
                           <CommandInput 
                             placeholder="Search industries..." 
                             value={industrySearch}
@@ -481,12 +481,19 @@ const ROICalculator = () => {
                                 key={option.value}
                                 value={option.value}
                                 onSelect={() => {
-                                  setSelectedIndustry(option.value);
+                                  if (selectedIndustry === option.value) {
+                                    // Deselect if already selected
+                                    setSelectedIndustry("all-industries");
+                                  } else {
+                                    setSelectedIndustry(option.value);
+                                  }
                                   setCustomIndustry("");
                                   setOpen(false);
                                   setIndustrySearch("");
                                 }}
-                                className="flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033]"
+                                className={`flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] ${
+                                  selectedIndustry === option.value ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
+                                }`}
                               >
                                 {option.icon}
                                 <span>{option.label}</span>

@@ -29,7 +29,7 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: <MapPin className="text-primary w-6" />,
-      title: "Strive AI Solutions",
+      title: "Location",
       content: "Nashville, TN"
     },
     {

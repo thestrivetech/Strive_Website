@@ -3,7 +3,7 @@
 -Site wide-
 - (Complete) Make sure that the "Coming Soon" banner below Sai's chat icon remains visible even after the chat icon is clicked and the chat box opens
 
-###### (prompted) STILL MESSED UP - Use OPUS to fix algo - The ROI calculator still isn't fixed with the time saving issue - The HIPPA Compliance solution makes the time savings amount go down along with the ROI numbers... This is happening for multiple solutions when selected - Remake the entire algorithm to make sure that all calculations are representing the correct calculations for each solution for each specific industry
+###### (prompted) STILL MESSED UP - Use OPUS to fix algo - The ROI calculator still isn't fixed with certain soltutions being selected that negativley impact the ROI results - Additionally, for each solution that is selected, all ROI fields should go up numerically no matter how much money is invested/spent. Obviously the increments should be smaller with each additional solution but it should still make the ROI numbers go up - In doing this please make sure that there's a specific max and minimum impact for each solution for each specific industry. Not all should have the same impact to the ROI and Time saving results considering different solutions will impact different industries - Think smart and make the ROI calculations make sense to why things go up in value and in return when certain solutions are selected and a certain amount of money is invested into those solutions. 
 
 - Still need to fix the ROI calculations (annual return is fine) - Maybe add context to how the ROI amount is calculated to help user understanding?
 
@@ -13,11 +13,11 @@
 
 - The source links in the "AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES" section are all the same... Please don't be lazy and fix this. Each source link should be specific to each solution and industry that's mentioned on each badge - If you have to change the statistics or pain point, please do it. Think hard and let's make this production ready.
 
-- Fix all card/badge sizes in the "WHY INDUSTRY LEADERS CHOOSE STRIVE" section on the home page to be the same. You can just scale the smaller ones up to match the biggest one since it's bigger due to the amount of text
+- (COMPLETE) Fix all card/badge sizes in the "WHY INDUSTRY LEADERS CHOOSE STRIVE" section on the home page to be the same. You can just scale the smaller ones up to match the biggest one since it's bigger due to the amount of text
 
-- Change Sai's chatbot icon from the regular chat bubble to lucide's "bot-message-square" icon - keep the same color and orange background circle. All I want to do is change out the icon
+- (COMPLETE) Change Sai's chatbot icon from the regular chat bubble to lucide's "bot-message-square" icon - keep the same color and orange background circle. All I want to do is change out the icon
 
-- Use the same unselect logic and functionality as the filter dropdown menu on the solutions page to where the user can relick the industry they originally selected to unselect it and go back to "All Industries"
+- (PROMPTED BUT NOT FIXED) Use the same unselect logic and functionality as the filter dropdown menu on the solutions page to where the user can relick the industry they originally selected to unselect it and go back to "All Industries"
 
 ## Portfolio Page ##
 

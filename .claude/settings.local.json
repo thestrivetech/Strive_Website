@@ -100,7 +100,8 @@
       "Bash(fuser:*)",
       "Bash(tree:*)",
       "Bash(timeout 10 npm run dev)",
-      "Bash(do)"
+      "Bash(do)",
+      "mcp__serena__execute_shell_command"
     ],
     "deny": []
   },

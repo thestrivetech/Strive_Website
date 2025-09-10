@@ -48,6 +48,14 @@ const Navigation = () => {
     // If not on home page, let the Link component handle navigation normally
   };
 
+  const handleNavClick = (e: React.MouseEvent, path: string) => {
+    if (location === path) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // If not on same page, let the Link component handle navigation normally
+  };
+
   const navItems = [
     { name: "Home", path: "/" },
     { name: "Portfolio", path: "/portfolio" },
@@ -104,7 +112,7 @@ const Navigation = () => {
                     className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 ${
                       isActive("/") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => { handleNavClick(e, "/"); setMobileMenuOpen(false); }}
                     data-testid="mobile-nav-home"
                   >
                     Home
@@ -116,7 +124,7 @@ const Navigation = () => {
                     className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 font-medium ${
                       isActive("/solutions") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => { handleNavClick(e, "/solutions"); setMobileMenuOpen(false); }}
                     data-testid="mobile-nav-solutions"
                   >
                     Solutions
@@ -128,7 +136,7 @@ const Navigation = () => {
                     className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 font-medium ${
                       isActive("/portfolio") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => { handleNavClick(e, "/portfolio"); setMobileMenuOpen(false); }}
                     data-testid="mobile-nav-portfolio"
                   >
                     Portfolio
@@ -140,7 +148,7 @@ const Navigation = () => {
                     className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 font-medium ${
                       isActive("/resources") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => { handleNavClick(e, "/resources"); setMobileMenuOpen(false); }}
                     data-testid="mobile-nav-resources"
                   >
                     Resources
@@ -151,7 +159,7 @@ const Navigation = () => {
                     className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 ${
                       isActive("/about") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => { handleNavClick(e, "/about"); setMobileMenuOpen(false); }}
                     data-testid="mobile-nav-about-us"
                   >
                     Company
@@ -161,7 +169,7 @@ const Navigation = () => {
                     className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 ${
                       isActive("/contact") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => { handleNavClick(e, "/contact"); setMobileMenuOpen(false); }}
                     data-testid="mobile-nav-contact"
                   >
                     Contact
@@ -280,6 +288,7 @@ const Navigation = () => {
               className={`nav-link text-foreground hover:text-primary transition-colors ${
                 isActive("/") ? "active" : ""
               }`}
+              onClick={(e) => handleNavClick(e, "/")}
               data-testid="nav-home"
             >
               Home
@@ -291,6 +300,7 @@ const Navigation = () => {
               className={`nav-link text-foreground hover:text-primary transition-colors ${
                 isActive("/solutions") ? "active" : ""
               }`}
+              onClick={(e) => handleNavClick(e, "/solutions")}
               data-testid="nav-solutions"
             >
               Solutions
@@ -302,6 +312,7 @@ const Navigation = () => {
               className={`nav-link text-foreground hover:text-primary transition-colors ${
                 isActive("/portfolio") ? "active" : ""
               }`}
+              onClick={(e) => handleNavClick(e, "/portfolio")}
               data-testid="nav-portfolio"
             >
               Portfolio
@@ -313,6 +324,7 @@ const Navigation = () => {
               className={`nav-link text-foreground hover:text-primary transition-colors ${
                 isActive("/resources") ? "active" : ""
               }`}
+              onClick={(e) => handleNavClick(e, "/resources")}
               data-testid="nav-resources"
             >
               Resources
@@ -324,6 +336,7 @@ const Navigation = () => {
               className={`nav-link text-foreground hover:text-primary transition-colors ${
                 isActive("/about") ? "active" : ""
               }`}
+              onClick={(e) => handleNavClick(e, "/about")}
               data-testid="nav-about"
             >
               Company
@@ -333,6 +346,7 @@ const Navigation = () => {
               className={`nav-link text-foreground hover:text-primary transition-colors ${
                 isActive("/contact") ? "active" : ""
               }`}
+              onClick={(e) => handleNavClick(e, "/contact")}
               data-testid="nav-contact"
             >
               Contact
