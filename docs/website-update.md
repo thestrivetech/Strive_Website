@@ -167,7 +167,7 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 # Session 26 #
 
-# Company Page # 
+# Company Page #
 
 - Remove everything above the "OUR VISION" roadmap section and then make the our vision section be this pages hero section 
 
