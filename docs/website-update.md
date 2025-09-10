@@ -127,42 +127,45 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 - The source links in the "AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES" section are all the same... Please don't be lazy and fix this. Each source link should be specific to each solution and industry that's mentioned on each badge - If you have to change the statistics or pain point, please do it. Think hard and let's make this production ready.
 
-## Portfolio Page ##
+----------------------------------------------------------------------------------------------------------------------
+
+# Session 24 #
+
+## Portfolio Page ## 
 
 - The text in the hero section doesn't really have anything to do with the page being a portfolio... Is this ok?
 
 - Change button wording on each card to be specific to the type of content (View Prototype, View Template, etc)
 
+- Remove double "X's" on all pop cards - Then make sure to use the same "X" that's used on all pop out cards on the resource page
+
 ## Sai / AI Assistance Chat Page ##
 
 - Please put the "Coming Soon" banner below the following text header: "Your AI-Powered Business Solutions Assistant - Available 24/7" - Make sure this banner uses the same exact design as the other Orange "Coming Soon" banners. 
----------------------------------------------------------------------------------
-
-# Session 23 #
 
 ## Solutions Page ##
 
 - Please change the "View Demo" button - Make the color green and make the button much smaller please and move it to the upper right corner to match the current card layout. Make sure it looks good formatting wise.
 
-# Resources Page #
+--------------------------------------------------------------------------------
+
+# Resources Page # - Session 25
 
 - The bottom of the G in "Intelligence" is slightly hidden in the hero section
 
 - Please make the filter buttons the same color scheme and hover color effect as the portfolio pages filter buttons
 
-- Remove gradient color from the "Resource Library"
-
-- When I click the back button going back to the resource page from clicking the "Unlock Actionable Insights" (takes me to the contact page) - Is this a bug?
-
 - The wording on the two buttons in the hero section isn't very clear. Please add "Let's Learn" as the button that takes the user lower onto the page to look further into our available resources. The other button should stay the same.
 
 - Remove the download button from popouts
-- Remove "Consulting" from the button (think of replacement)
+- Remove "Consulting" from the button and replace it with "Get Expert Insight"
+  - Make sure after deleting the "download" button that the popout cards look good visually when it comes to the layout and format
 
-- Completely update the quiz pop out cards
+- Completely update the quiz pop out cards - The current word color on the pop out card blends in with the dark blue card background so just make it the same blue color that's used for the brain icon on the pop out cards
 
+-------------------------------------------------------------------------------
 
-# Company Page # - Haven't implemented yet - Needs refinement
+# Company Page # - Haven't reviewed yet - Needs refinement
 
 - Create nav bar dropdown to list “Become a Partner, Community (discord and more), Meet the Team, etc. - Think of more areas and pages/sections to add to this page or part of the website - We need to decide whether to make this one entire page broken into different sections or to make it different pages (could make it one page with different pop out screens that go into more detail like on other pages)
 

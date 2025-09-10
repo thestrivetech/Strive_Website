@@ -308,70 +308,148 @@ const ROICalculator = () => {
 
     const investment = investmentAmount[0];
     
-    // NEW FIXED CALCULATION ALGORITHM (Session 22)
-    // Based on 2024 research: Multiple AI solutions create compounding value, not diminishing returns
+    // FIXED ROI CALCULATION (Session 23) - Investment-Proportional Returns
+    // ROI = (Investment × Return Multiplier) - Investment
     
-    // Calculate base ROI with realistic investment scaling
-    const investmentFactor = Math.log10(investment / 10000) / 2; // More realistic scaling
-    let totalMultiplier = industry.baseROI * (0.85 + investmentFactor * 0.15); // Scale from 85% to 100% of base
+    // STEP 1: Calculate base return multiplier from selected solutions
+    let baseReturnMultiplier = 1.0; // Start with no return (100% of investment back)
     
-    // FIXED: Weighted ROI model - preserve high-value solutions  
-    if (selectedServices.length === 1) {
-      // Single solution: use its full multiplier
-      const service = industry.services[selectedServices[0]];
-      if (service) {
-        totalMultiplier = service.multiplier * (0.85 + investmentFactor * 0.15);
-      }
-    } else {
-      // Multiple solutions: weighted average + synergy bonus
-      let weightedSum = 0;
-      let totalWeight = 0;
-      
-      selectedServices.forEach(serviceKey => {
-        const service = industry.services[serviceKey];
-        if (service) {
-          // Weight by multiplier value (higher multipliers get more weight)
-          const weight = service.multiplier / industry.baseROI;
-          weightedSum += service.multiplier * weight;
-          totalWeight += weight;
-        }
-      });
-      
-      const weightedAverage = weightedSum / totalWeight;
-      // Add 10% synergy bonus for multiple solutions
-      totalMultiplier = weightedAverage * (0.85 + investmentFactor * 0.15) * 1.1;
-    }
+    // Service-based return multipliers (additive with diminishing returns)
+    const solutionReturnBonus = [0.5, 0.4, 0.3, 0.2]; // 50%, 40%, 30%, 20% per solution
     
-    // FIXED: Compound time savings calculation
-    let compoundEfficiency = 1;
-    selectedServices.forEach(serviceKey => {
+    selectedServices.forEach((serviceKey, index) => {
       const service = industry.services[serviceKey];
       if (service) {
-        // Each solution multiplies efficiency (compounding effect)
-        const efficiencyGain = service.timeSaving / 100;
-        compoundEfficiency *= (1 + efficiencyGain * 0.4); // 40% of stated time saving realized
+        // Each solution adds a return bonus with diminishing returns
+        const solutionBonus = solutionReturnBonus[index] || 0.1; // 10% for 5th+ solutions
+        baseReturnMultiplier += solutionBonus;
       }
     });
     
-    // Calculate total time savings as percentage improvement
-    let totalTimeSaving = (compoundEfficiency - 1) * 100;
+    // STEP 2: Industry efficiency modifiers
+    const industryEfficiencyModifiers: { [key: string]: number } = {
+      'technology': 1.2,     // Best returns - tech-savvy, high automation potential
+      'finance': 1.2,        // High-value, efficiency-focused
+      'gaming': 1.15,
+      'esports': 1.15,
+      'legal': 1.1,          // High hourly rates, good automation potential
+      'healthcare': 1.1,     // Regulated but high-impact
+      'manufacturing': 1.0,  // Baseline - steady returns
+      'retail': 1.0,
+      'logistics': 1.0,
+      'energy': 1.0,
+      'media': 1.0,
+      'hospitality': 0.95,
+      'real-estate': 0.95,
+      'agriculture': 0.9,
+      'education': 0.9,      // Budget constraints
+      'nonprofit': 0.85,     // Limited budgets
+      'government': 0.9,
+      'all-industries': 1.0,
+      'other': 1.0
+    };
     
-    // Apply investment scaling (higher investment = better implementation = more efficiency)
-    const timeScalingFactor = Math.min(investment / 25000, 2.5); // More reasonable scaling
-    totalTimeSaving *= timeScalingFactor;
+    const industryModifier = industryEfficiencyModifiers[selectedIndustry] || 1.0;
     
-    // Industry-specific caps on time savings (based on research)
-    const maxTimeSaving = selectedIndustry === 'technology' || selectedIndustry === 'gaming' ? 300 : 250;
-    totalTimeSaving = Math.min(totalTimeSaving, maxTimeSaving);
+    // STEP 3: Investment quality bonus (economy of scale)
+    let investmentQualityBonus = 1.0;
+    if (investment >= 150000) {
+      investmentQualityBonus = 1.2; // +20% for $150k+
+    } else if (investment >= 50000) {
+      investmentQualityBonus = 1.1; // +10% for $50k+
+    }
+    
+    // STEP 4: Calculate time savings (for display only - doesn't affect ROI directly)
+    let totalTimeSavingsPercent = 0;
+    const diminishingReturns = [1.00, 0.75, 0.55, 0.40];
+    
+    selectedServices.forEach((serviceKey, index) => {
+      const service = industry.services[serviceKey];
+      if (service) {
+        const diminishingFactor = diminishingReturns[index] || 0.25;
+        totalTimeSavingsPercent += service.timeSaving * diminishingFactor;
+      }
+    });
+    
+    // Apply industry efficiency to time savings
+    totalTimeSavingsPercent *= industryModifier;
+    
+    // Synergy bonuses for time savings
+    let synergyBonus = 1.0;
+    if (selectedServices.length >= 2) synergyBonus += 0.05;
+    if (selectedServices.length >= 3) synergyBonus += 0.05;
+    if (selectedServices.length >= 4) synergyBonus += 0.05;
+    
+    totalTimeSavingsPercent *= synergyBonus;
+    
+    // Time savings caps
+    const industryMaxTimeSavings: { [key: string]: number } = {
+      'technology': 350,
+      'finance': 320,
+      'gaming': 300,
+      'esports': 300,
+      'legal': 280,
+      'healthcare': 260,
+      'manufacturing': 240,
+      'retail': 220,
+      'logistics': 220,
+      'energy': 200,
+      'media': 200,
+      'hospitality': 180,
+      'real-estate': 180,
+      'agriculture': 160,
+      'education': 140,
+      'nonprofit': 120,
+      'government': 140,
+      'all-industries': 200,
+      'other': 200
+    };
+    
+    const maxTimeSavings = industryMaxTimeSavings[selectedIndustry] || 200;
+    totalTimeSavingsPercent = Math.min(totalTimeSavingsPercent, maxTimeSavings);
+    
+    // STEP 5: Calculate final 5-year ROI (investment proportional)
+    const finalReturnMultiplier = baseReturnMultiplier * industryModifier * investmentQualityBonus;
+    
+    // Apply industry-specific caps (as multipliers, not absolute values)
+    const industryMaxMultiplier: { [key: string]: number } = {
+      'technology': 3.2,     // 220% ROI max (3.2x total return)
+      'finance': 3.2,        // 220% ROI max  
+      'gaming': 3.0,         // 200% ROI max
+      'esports': 3.0,        // 200% ROI max
+      'legal': 2.8,          // 180% ROI max
+      'healthcare': 2.8,     // 180% ROI max (increased to allow 4th solution)
+      'manufacturing': 2.5,  // 150% ROI max
+      'retail': 2.2,         // 120% ROI max
+      'logistics': 2.2,      // 120% ROI max
+      'energy': 2.3,         // 130% ROI max
+      'media': 2.1,          // 110% ROI max
+      'hospitality': 2.0,    // 100% ROI max
+      'real-estate': 2.0,    // 100% ROI max
+      'agriculture': 1.8,    // 80% ROI max
+      'education': 1.7,      // 70% ROI max (increased slightly)
+      'nonprofit': 1.5,      // 50% ROI max
+      'government': 1.7,     // 70% ROI max
+      'all-industries': 2.3, // 130% ROI max
+      'other': 2.3           // 130% ROI max
+    };
+    
+    const maxMultiplier = industryMaxMultiplier[selectedIndustry] || 2.0;
+    const cappedMultiplier = Math.min(finalReturnMultiplier, maxMultiplier);
+    
+    // Ensure minimum 20% return
+    const safeMultiplier = Math.max(cappedMultiplier, 1.2);
+    
+    // Calculate 5-year ROI
+    const fiveYearTotalValue = investment * safeMultiplier;
+    const fiveYearROI = fiveYearTotalValue - investment;
+    
+    // Calculate annual return (5-year ROI / 5)
+    const annualReturn = fiveYearROI / 5;
 
-    // Calculate ROI with more realistic projections
-    // Research shows typical AI ROI ranges from 1.3x to 4.8x investment
-    const roi = (investment * Math.min(totalMultiplier, 4.8)) - investment;
-    const annualROI = roi * 0.8; // Conservative 80% annual realization
-
-    setCalculatedROI(Math.round(roi));
-    setTimeSavings(Math.round(totalTimeSaving));
-    setAnnualReturn(Math.round(annualROI));
+    setCalculatedROI(Math.round(fiveYearROI));
+    setTimeSavings(Math.round(totalTimeSavingsPercent));
+    setAnnualReturn(Math.round(annualReturn));
   }, [selectedIndustry, selectedServices, investmentAmount, customIndustry]);
 
   const toggleService = (serviceKey: string) => {
@@ -578,7 +656,7 @@ const ROICalculator = () => {
                       {formatCurrency(calculatedROI)}
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      Total ROI
+                      5 Year ROI
                     </div>
                   </div>
 

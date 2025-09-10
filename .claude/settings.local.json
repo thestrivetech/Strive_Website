@@ -101,7 +101,13 @@
       "Bash(tree:*)",
       "Bash(timeout 10 npm run dev)",
       "Bash(do)",
-      "mcp__serena__execute_shell_command"
+      "mcp__serena__execute_shell_command",
+      "WebFetch(domain:www.healthaffairs.org)",
+      "WebFetch(domain:www.hhs.gov)",
+      "WebFetch(domain:consumer.ftc.gov)",
+      "WebFetch(domain:www.gartner.com)",
+      "WebFetch(domain:blog.hubspot.com)",
+      "WebFetch(domain:www.cbsnews.com)"
     ],
     "deny": []
   },

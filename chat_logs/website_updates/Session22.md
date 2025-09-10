@@ -9,25 +9,13 @@
 
 - (COMPLETE) Add scroll feature into the ROI calculator for when users are selection a industry - Also need to add the search ability (look at the solutions page filter to make sure that this dropdown filter for the ROI calculator works the exact same, the ordering of the industries should also match that pages dropdown filter as well)
 
-- We also need to make sure that all of the solutions found for specific industries in the ROI calculator are on the solutions page (all industry specific solutions should be mentioned on the Industry pop out cards and then also placed in their respective solution type pop out cards as well)
-
-- The source links in the "AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES" section are all the same... Please don't be lazy and fix this. Each source link should be specific to each solution and industry that's mentioned on each badge - If you have to change the statistics or pain point, please do it. Think hard and let's make this production ready.
+- (FINISHED IN SESSION 22 & 23 - Need to double check) The source links in the "AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES" section are all the same... Please don't be lazy and fix this. Each source link should be specific to each solution and industry that's mentioned on each badge - If you have to change the statistics or pain point, please do it. Think hard and let's make this production ready.
 
 - (COMPLETE) Fix all card/badge sizes in the "WHY INDUSTRY LEADERS CHOOSE STRIVE" section on the home page to be the same. You can just scale the smaller ones up to match the biggest one since it's bigger due to the amount of text
 
 - (COMPLETE) Change Sai's chatbot icon from the regular chat bubble to lucide's "bot-message-square" icon - keep the same color and orange background circle. All I want to do is change out the icon
 
-- (PROMPTED BUT NOT FIXED) Use the same unselect logic and functionality as the filter dropdown menu on the solutions page to where the user can relick the industry they originally selected to unselect it and go back to "All Industries"
-
-## Portfolio Page ##
-
-- The text in the hero section doesn't really have anything to do with the page being a portfolio... Is this ok?
-
-- Change button wording on each card to be specific to the type of content (View Prototype, View Template, etc)
-
-## Sai / AI Assistance Chat Page ##
-
-- Please put the "Coming Soon" banner below the following text header: "Your AI-Powered Business Solutions Assistant - Available 24/7" - Make sure this banner uses the same exact design as the other Orange "Coming Soon" banners. 
+- (COMPLETED) Use the same unselect logic and functionality as the filter dropdown menu on the solutions page to where the user can relick the industry they originally selected to unselect it and go back to "All Industries"
 
 ---
 
