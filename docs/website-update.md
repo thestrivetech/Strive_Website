@@ -119,7 +119,7 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 - When I click the back button going back to the resource page from clicking the "Unlock Actionable Insights" (takes me to the contact page) - Is this a bug?
 
-- Switch button text places in the hero section - Make the "Start AI Journey" take the user to the Assessment Meeting page
+- The wording on the two buttons in the hero section isn't very clear. Please add "Let's Learn" as the button that takes the user lower onto the page to look further into our available resources. The other button should stay the same.
 
 - Remove the download button from popouts
 - Remove "Consulting" from the button (think of replacement)
