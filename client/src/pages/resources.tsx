@@ -268,7 +268,7 @@ const Resources = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4 text-slate-800" data-testid="text-library-title">
-              Explore Our <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Resource Library</span>
+              Explore Our Resource Library
             </h2>
             <p className="text-slate-600 text-lg" data-testid="text-library-subtitle">
               Find tailored playbooks, case studies, and guides—each designed to help you solve your top business challenges with AI.
@@ -341,10 +341,11 @@ const Resources = () => {
               <Button
                 key={filter.name}
                 variant={activeFilter === filter.name ? "default" : "outline"}
-                className={`rounded-full flex items-center ${
-                  activeFilter === filter.name 
-                    ? "bg-orange-500 text-white hover:bg-orange-600" 
-                    : "bg-off-white text-slate-600 hover:bg-orange-500 hover:text-white border-slate-200"
+                size="sm"
+                className={`flex items-center gap-2 transition-all duration-300 ${
+                  activeFilter === filter.name
+                    ? 'bg-primary text-white shadow-lg scale-105'
+                    : 'border-primary/20 text-foreground hover:border-primary hover:text-primary hover:scale-105'
                 }`}
                 onClick={() => setActiveFilter(filter.name)}
                 data-testid={`filter-${filter.name.toLowerCase().replace(/\s+/g, "-")}`}

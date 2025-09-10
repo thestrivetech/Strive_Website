@@ -25,7 +25,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Link } from "wouter";
-import { BarChart3, Lock } from "lucide-react";
+import { BarChart3, Lock, ExternalLink } from "lucide-react";
 
 const Home = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
@@ -240,9 +240,21 @@ const Home = () => {
                         {solution.name}
                       </h4>
                       {solution.painPoint && (
-                        <p className="text-red-400 text-xs font-semibold mb-2">
-                          Pain Point: {solution.painPoint}
-                        </p>
+                        <div className="mb-2">
+                          <p className="text-red-400 text-xs font-semibold">
+                            Pain Point: {solution.painPoint}
+                          </p>
+                          <a 
+                            href="https://www.mckinsey.com/industries/healthcare/our-insights/transforming-healthcare-with-ai" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-xs text-blue-400 hover:text-blue-300 underline inline-flex items-center gap-1 mt-1"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            Source
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        </div>
                       )}
                       <p className="text-white/90 text-xs leading-relaxed">
                         Solution: {solution.description}

@@ -34,11 +34,13 @@
   4. Email Notifications - Set up complete email system that sends to all 4 addresses when
   contact forms are submitted
 
-- User note: The chatbot icon is now messed up and all the way on the left side of the screen. - Need to fix this ASAP
+- User note: The chatbot icon is now messed up and all the way on the bottom of the page and on the left side of the screen. - Need to fix this ASAP
   - Same for the AI Specialist chat button on the contact page - This means we need to review this chat session and make sure everything was implemented properly and to fix any bugs that were introduced
 - The contact page wasn't updated with the Address or email
 
 - Make sure to change and update the FAQ section on the contact page - First question needs to be a shorter time period
+
+
 
 # Home Page # - Session 19
 
@@ -64,6 +66,10 @@ YOLO 5: Fully automated system and workflow - Human eval at end of each day or h
 - ROI calculator button needs to be changed to "Request Solution Showcase"
 
 - Make sure the "AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES" sections statistics and are accurate and that we have high quality sources to back the statistics
+
+### Session 19 - User Notes ###
+
+- ROI calculator should show the time savings going up when investment amount increases - The maximum time savings should be 400% - Please make sure that all calculations align with investment amount along with the amount of solutions that the client is selecting - Each solution the client is selecting should have different weights for different parts of the calculations. Think hard and make the right calculations based on high quality research using high quality sources
  
 
 # Solutions Page # - Session 20
@@ -82,10 +88,26 @@ Upgrade visuals on Solutions page to be on par with Portfolio
   - Add the gaming industry - Make sure to create more specific AI solutions for this industry as well
   - Add the eSports industry - Make sure to create more specific AI solutions for this industry as well
 
+### Session 20 - User notes ###
+
+- Put "View Demo" button back onto cards that we have a demo made for
+  - Make it to where the user can see a preview on the pop out card and then also view the demo on the pop out card in full screen
+
+### Home page additions ###
+
+- add "source" hyperlink in the "AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES" section for each industries solutions card to show original source that backs up pain points and statistics claims - Check to make sure the source link is valid
+
+- Try out "peek a boo" ui design with chatbot icon - hover effect makes the chat bot come onto screen fully, then when clicked the chat box fully appears
+
+- ROI Calculator: When I click the HIPPA solutions option for healthcare, it brings all percentages down... Why is this? If it's a bug, can we please fix it and make sure that this isn't happening for any other industry and solution. If this isn't a bug, please explain.
+
+- Please make the "Coming Soon" banner half it's current size in the "TRANSPARENCY, ACCOUNTABILITY, AND CONTROL" section of the home page.
 
 # Portfolio Page #
 
 - The text in the hero section doesn't really have anything to do with the page being a portfolio... Is this ok?
+
+- Change button wording on each card to be specific to the type of content (View Prototype, View Template, etc)
 
 # Resources Page #
 
@@ -97,11 +119,23 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 - When I click the back button going back to the resource page from clicking the "Unlock Actionable Insights" (takes me to the contact page) - Is this a bug?
 
+- Switch button text places in the hero section - Make the "Start AI Journey" take the user to the Assessment Meeting page
+
+- Remove the download button from popouts
+- Remove "Consulting" from the button (think of replacement)
+
+- Completely update the quiz pop out cards
+
+
 # Company Page # - Haven't implemented yet - Needs refinement
 
 - Create nav bar dropdown to list “Become a Partner, Community (discord and more), Meet the Team, etc. - Think of more areas and pages/sections to add to this page or part of the website - We need to decide whether to make this one entire page broken into different sections or to make it different pages (could make it one page with different pop out screens that go into more detail like on other pages)
 
-- Maybe change the header text to something more specific about this being our Company page? But still hooking the users attention or making them want to work with us?
+- Maybe change the header text to something more specific about this being our Company page? But still hooking the users attention or making them want to work with us? - Maybe geared towards a partnership or something of the sort
+
+- Change "view our work" button color scheme and hover effect
+
+- Fix "OUR FOUNDATION" section
 
 # Contact Page #
 
@@ -143,4 +177,4 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 - Make the arrows for the demo preview section (home page) on the inside of the actual display area, its currently below the demo display area - Make sure this doesnt block the view of the actual demo preview.
 
-- Small chatbot icon isn't showing up on mobile
+- Small chatbot icon isn't showing up on mobile until the very bottom of the page

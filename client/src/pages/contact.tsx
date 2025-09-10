@@ -30,7 +30,7 @@ const Contact = () => {
     {
       icon: <MapPin className="text-primary w-6" />,
       title: "Strive AI Solutions",
-      content: "123 Business District, Tech City, TC 12345"
+      content: "Nashville, TN"
     },
     {
       icon: <Phone className="text-primary w-6" />,
@@ -40,7 +40,7 @@ const Contact = () => {
     {
       icon: <Mail className="text-primary w-6" />,
       title: "Email",
-      content: "hello@strive.com"
+      content: "contact@strivetech.ai"
     },
     {
       icon: <Clock className="text-primary w-6" />,
@@ -67,7 +67,7 @@ const Contact = () => {
   const faqs = [
     {
       question: "How quickly can we start seeing results with Strive's AI solutions?",
-      answer: "Most clients launch their first AI-powered project in as little as 4–8 weeks—with measurable business value soon after."
+      answer: "Most clients launch their first AI-powered project in as little as 2–4 weeks—with measurable business value soon after."
     },
     {
       question: "What support can we expect after implementation?",

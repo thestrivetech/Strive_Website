@@ -524,12 +524,12 @@ const Request = () => {
                                 style={{ borderRadius: '8px' }}
                               />
                             </div>
-                            <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                              <div className="space-y-2 text-xs text-muted-foreground">
-                                <p><strong>Your Details:</strong></p>
-                                <p>Contact: <span className="font-medium text-foreground">{formData.fullName}</span></p>
-                                <p>Email: <span className="font-medium text-foreground">{formData.email}</span></p>
-                                <p>Company: <span className="font-medium text-foreground">{formData.companyName}</span></p>
+                            <div className="mt-4 p-3 rounded-lg border border-gray-200" style={{ backgroundColor: '#ffffffeb' }}>
+                              <div className="space-y-2 text-xs">
+                                <p style={{ color: '#ff7033' }}><strong>Your Details:</strong></p>
+                                <p style={{ color: '#ff7033' }}>Contact: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.fullName}</span></p>
+                                <p style={{ color: '#ff7033' }}>Email: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.email}</span></p>
+                                <p style={{ color: '#ff7033' }}>Company: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.companyName}</span></p>
                               </div>
                             </div>
                             <p className="text-sm text-muted-foreground mt-2 text-center">
@@ -568,12 +568,14 @@ const Request = () => {
                         type="submit"
                         className="ml-auto text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg relative overflow-hidden group"
                         style={{
-                          background: 'linear-gradient(135deg, #ff7033 0%, #6b46c1 50%, #ff5420 100%)'
+                          background: 'linear-gradient(135deg, #ff7033 0%, #9333ea 50%, #ff7033 100%)'
                         }}
                         disabled={!isStepComplete(3)}
                       >
-                        <span className="relative z-10">
+                        <span className="relative z-10 flex items-center">
+                          <Zap className="mr-2 h-5 w-5" />
                           Submit Request
+                          <Zap className="ml-2 h-5 w-5" />
                           <Zap className="ml-2 h-4 w-4 inline" />
                         </span>
                         {/* Shimmer effect on hover */}

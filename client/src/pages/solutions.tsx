@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Bot, BarChart, Blocks, ShieldCheck, Eye, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory, Building2, DollarSign, Home as HomeIcon, Scale, Cloud, Cog, Target, Filter, Check, Lightbulb, ChevronDown, Search } from "lucide-react";
+import { Bot, BarChart, Blocks, ShieldCheck, Eye, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory, Building2, DollarSign, Home as HomeIcon, Scale, Cloud, Cog, Target, Filter, Check, Lightbulb, ChevronDown, Search, Gamepad2, Trophy, Cpu, Play } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -41,7 +41,9 @@ const Solutions = () => {
     { value: "insurance", label: "Insurance", icon: <ShieldCheck className="h-4 w-4" /> },
     { value: "automotive", label: "Automotive", icon: <Factory className="h-4 w-4" /> },
     { value: "agriculture", label: "Agriculture", icon: <Building2 className="h-4 w-4" /> },
-    { value: "media", label: "Media & Entertainment", icon: <Laptop className="h-4 w-4" /> }
+    { value: "media", label: "Media & Entertainment", icon: <Laptop className="h-4 w-4" /> },
+    { value: "gaming", label: "Gaming", icon: <Gamepad2 className="h-4 w-4" /> },
+    { value: "esports", label: "eSports", icon: <Trophy className="h-4 w-4" /> }
   ];
 
   const productOptions = [
@@ -54,7 +56,8 @@ const Solutions = () => {
     { value: "predictive-analytics", label: "Predictive Analytics", icon: <BarChart className="h-4 w-4" /> },
     { value: "nlp", label: "Natural Language Processing", icon: <Bot className="h-4 w-4" /> },
     { value: "iot-integration", label: "IoT Integration", icon: <Cog className="h-4 w-4" /> },
-    { value: "process-automation", label: "Process Automation", icon: <Cog className="h-4 w-4" /> }
+    { value: "process-automation", label: "Process Automation", icon: <Cog className="h-4 w-4" /> },
+    { value: "offline-solutions", label: "Offline Solutions", icon: <Cloud className="h-4 w-4 opacity-50" /> }
   ];
 
   const solutions = [
@@ -228,6 +231,100 @@ const Solutions = () => {
       technologies: ["Healthcare", "Finance", "Manufacturing", "Retail", "Technology", "Education", "Insurance"],
       hasDemo: false,
       metrics: { "Compliance Rate": "99.8%", "Threat Detection": "Real-time", "Risk Reduction": "65%" }
+    },
+    // Gaming Industry Solutions
+    {
+      id: 10,
+      title: "Gaming Solutions",
+      category: "Gaming",
+      type: "service",
+      industry: "Gaming",
+      icon: <Gamepad2 className="text-primary text-xl" />,
+      shortDescription: "The gaming industry demands flawless performance, fair play, and deep player engagement. Our AI solutions detect cheaters instantly, optimize matchmaking, predict player behavior, and automate testing—letting you focus on creating unforgettable gaming experiences.",
+      fullDescription: "Comprehensive gaming industry solutions leveraging AI to enhance player experiences, ensure competitive integrity, and optimize game development processes. From anti-cheat systems to intelligent NPCs and predictive analytics, transform your games with cutting-edge AI technology.",
+      features: [
+        "Real-time anti-cheat detection and prevention",
+        "AI-powered NPCs and dynamic game content",
+        "Player behavior prediction and retention analytics",
+        "Automated game testing and quality assurance"
+      ],
+      technologies: ["AI & Automation", "Computer Vision", "Data Analytics", "Predictive Analytics", "Process Automation", "NLP"],
+      hasDemo: false,
+      metrics: { "Cheat Detection": "99.5%", "Player Retention": "45%↑", "Testing Efficiency": "3x" }
+    },
+    {
+      id: 11,
+      title: "eSports Solutions",
+      category: "eSports",
+      type: "service",
+      industry: "eSports",
+      icon: <Trophy className="text-primary text-xl" />,
+      shortDescription: "eSports thrives on competitive integrity and viewer engagement. Our AI monitors for match-fixing, optimizes tournament brackets, analyzes player performance in real-time, and creates personalized viewer experiences that keep audiences coming back.",
+      fullDescription: "Revolutionary eSports solutions that ensure competitive integrity, enhance viewer engagement, and provide deep performance analytics. Our platform combines real-time monitoring with sophisticated analytics to elevate the competitive gaming experience for players and viewers alike.",
+      features: [
+        "Competitive integrity monitoring and match-fixing detection",
+        "Tournament bracket optimization and management",
+        "Real-time performance analytics and coaching insights",
+        "AI-powered viewer engagement and personalization"
+      ],
+      technologies: ["AI & Automation", "Data Analytics", "Computer Vision", "Predictive Analytics", "NLP", "Process Automation"],
+      hasDemo: false,
+      metrics: { "Integrity Monitoring": "24/7", "Viewer Engagement": "60%↑", "Analytics Accuracy": "96.8%" }
+    },
+    // Offline/Local Solutions
+    {
+      id: 12,
+      title: "Local AI Deployment",
+      category: "Offline Solutions",
+      type: "product",
+      icon: <Cloud className="text-primary text-xl opacity-50" />,
+      shortDescription: "If you have the hardware, we'll build you the software. Deploy powerful AI models directly on your infrastructure—no internet required. Perfect for sensitive data, regulated industries, or locations with limited connectivity.",
+      fullDescription: "Enterprise-grade offline AI solutions that run entirely on your local infrastructure. Maintain complete data sovereignty while leveraging cutting-edge AI capabilities. Our offline solutions are optimized for performance on your hardware, ensuring fast processing without external dependencies.",
+      features: [
+        "On-premise AI model deployment and optimization",
+        "Local data processing with zero external dependencies",
+        "Hardware-optimized performance tuning",
+        "Air-gapped security for sensitive operations"
+      ],
+      technologies: ["Healthcare", "Finance", "Government", "Manufacturing", "Legal", "Defense"],
+      hasDemo: false,
+      metrics: { "Data Security": "100%", "Latency": "<10ms", "Uptime": "99.99%" }
+    },
+    {
+      id: 13,
+      title: "Edge Computing AI",
+      category: "Offline Solutions",
+      type: "product",
+      icon: <Cpu className="text-primary text-xl" />,
+      shortDescription: "Process data where it's generated—at the edge. Our edge AI solutions bring intelligence to IoT devices, industrial equipment, and remote locations, delivering real-time insights without cloud dependency.",
+      fullDescription: "Advanced edge computing solutions that bring AI processing directly to your devices and equipment. Reduce latency, save bandwidth, and maintain operations even without internet connectivity. Perfect for IoT deployments, industrial automation, and remote operations.",
+      features: [
+        "Real-time edge processing and decision-making",
+        "Distributed AI across IoT devices",
+        "Bandwidth optimization and cost reduction",
+        "Resilient operations in disconnected environments"
+      ],
+      technologies: ["Manufacturing", "Energy", "Logistics", "Agriculture", "Automotive", "Retail"],
+      hasDemo: false,
+      metrics: { "Response Time": "<5ms", "Bandwidth Savings": "80%", "Device Support": "1000+" }
+    },
+    {
+      id: 14,
+      title: "Private Cloud AI",
+      category: "Offline Solutions",
+      type: "product",
+      icon: <ShieldCheck className="text-primary text-xl" />,
+      shortDescription: "Complete AI infrastructure within your private cloud. Get all the benefits of cloud AI while maintaining total control over your data and compliance requirements. Your hardware, your rules, our expertise.",
+      fullDescription: "Comprehensive private cloud AI platform that delivers enterprise-scale artificial intelligence capabilities within your controlled environment. Maintain regulatory compliance and data sovereignty while leveraging powerful AI tools for your organization.",
+      features: [
+        "Private cloud AI platform deployment",
+        "Custom model training on local infrastructure",
+        "Compliance-ready architecture for regulated industries",
+        "Hybrid cloud options for flexible deployment"
+      ],
+      technologies: ["Finance", "Healthcare", "Government", "Legal", "Insurance", "Education"],
+      hasDemo: false,
+      metrics: { "Compliance": "100%", "Performance": "Cloud-equivalent", "Data Control": "Complete" }
     }
   ];
   
@@ -340,7 +437,7 @@ const Solutions = () => {
                 onClick={() => window.location.href = '/request'}
                 data-testid="button-get-custom-solution"
               >
-                Speak with an AI Specialist
+                Get Custom Solution
               </Button>
               <Button 
                 size="lg" 
@@ -405,7 +502,7 @@ const Solutions = () => {
                   <Building2 className="h-4 w-4 mr-2 flex-shrink-0" />
                   <span className="flex-grow text-left">{selectedIndustry || "Industry"}</span>
                   <Badge variant="secondary" className="ml-auto mr-2 text-xs">
-                    {solutions.filter(solution => solution.type === "service").length}
+                    {industryOptions.length}
                   </Badge>
                   <ChevronDown className="h-4 w-4 flex-shrink-0" />
                 </Button>
@@ -423,8 +520,14 @@ const Solutions = () => {
                       <CommandItem
                         value="all-industries"
                         onSelect={() => {
-                          setActiveFilter("Health");
-                          setSelectedIndustry("All Industries");
+                          if (selectedIndustry === "All Industries") {
+                            // Deselect if already selected
+                            setSelectedIndustry("");
+                            setActiveFilter("All");
+                          } else {
+                            setActiveFilter("Health");
+                            setSelectedIndustry("All Industries");
+                          }
                           setIndustryDropdownOpen(false);
                           setIndustrySearch("");
                         }}
@@ -444,8 +547,14 @@ const Solutions = () => {
                           key={option.value}
                           value={option.value}
                           onSelect={() => {
-                            setActiveFilter("Health");
-                            setSelectedIndustry(option.label);
+                            if (selectedIndustry === option.label) {
+                              // Deselect if already selected
+                              setSelectedIndustry("");
+                              setActiveFilter("All");
+                            } else {
+                              setActiveFilter("Health");
+                              setSelectedIndustry(option.label);
+                            }
                             setIndustryDropdownOpen(false);
                             setIndustrySearch("");
                           }}
@@ -482,7 +591,7 @@ const Solutions = () => {
                   <Cog className="h-4 w-4 mr-2 flex-shrink-0" />
                   <span className="flex-grow text-left">{selectedSolutionType || "Solution Type"}</span>
                   <Badge variant="secondary" className="ml-auto mr-2 text-xs">
-                    {solutions.filter(solution => solution.type === "product").length}
+                    {productOptions.length}
                   </Badge>
                   <ChevronDown className="h-4 w-4 flex-shrink-0" />
                 </Button>
@@ -500,8 +609,14 @@ const Solutions = () => {
                       <CommandItem
                         value="all-solutions"
                         onSelect={() => {
-                          setActiveFilter("Solution Type");
-                          setSelectedSolutionType("All Solutions");
+                          if (selectedSolutionType === "All Solutions") {
+                            // Deselect if already selected
+                            setSelectedSolutionType("");
+                            setActiveFilter("All");
+                          } else {
+                            setActiveFilter("Solution Type");
+                            setSelectedSolutionType("All Solutions");
+                          }
                           setProductDropdownOpen(false);
                           setProductSearch("");
                         }}
@@ -521,8 +636,14 @@ const Solutions = () => {
                           key={option.value}
                           value={option.value}
                           onSelect={() => {
-                            setActiveFilter("Solution Type");
-                            setSelectedSolutionType(option.label);
+                            if (selectedSolutionType === option.label) {
+                              // Deselect if already selected
+                              setSelectedSolutionType("");
+                              setActiveFilter("All");
+                            } else {
+                              setActiveFilter("Solution Type");
+                              setSelectedSolutionType(option.label);
+                            }
                             setProductDropdownOpen(false);
                             setProductSearch("");
                           }}
@@ -546,14 +667,17 @@ const Solutions = () => {
             {filteredSolutions.map((solution) => (
               <Card
                 key={solution.id}
-                className="group cursor-pointer bg-white transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-2 hover:border-primary/50 overflow-hidden h-full flex flex-col"
+                className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 h-full flex flex-col"
                 onClick={() => setSelectedSolution(solution)}
                 data-testid={`solution-card-${solution.id}`}
               >
-                <CardContent className="p-6 flex flex-col h-full">
+                <CardContent className="p-6 flex flex-col h-full relative">
+                  {/* Decorative gradient overlay */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-3xl" />
+                  
                   {/* Header Section */}
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="text-primary">
+                    <div className="text-primary transition-transform duration-300 group-hover:scale-110">
                       {solution.icon}
                     </div>
                     <span className="text-sm font-medium uppercase tracking-wide text-[#020a1c]">
@@ -605,7 +729,19 @@ const Solutions = () => {
                   </div>
                   
                   {/* Action Buttons Section */}
-                  <div className="mt-auto pt-2">
+                  <div className="mt-auto pt-2 space-y-2">
+                    {solution.hasDemo && (
+                      <Button 
+                        className="w-full bg-gradient-to-r from-[#ff7033] to-purple-600 text-white hover:from-[#ff5420] hover:to-purple-700 transition-all duration-300"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleViewDemo(solution.demoType || "");
+                        }}
+                      >
+                        View Demo
+                        <Play className="ml-2 h-4 w-4" />
+                      </Button>
+                    )}
                     <Button 
                       className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300"
                       variant="outline"
@@ -617,7 +753,6 @@ const Solutions = () => {
                       View Details
                       <Eye className="ml-2 h-4 w-4" />
                     </Button>
-
                   </div>
                 </CardContent>
               </Card>
