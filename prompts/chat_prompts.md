@@ -22,3 +22,13 @@ You are a professional copy writer for B2B websites. I need your help with updat
 # Code Cleanup #
 
 You are an expert AI coding assistant optimizing my website's codebase for deployment. Start with a thorough analysis of the entire project, spotting ways to cut load times (e.g., image optimization, CSS/JS minification, caching, performance metrics), remove unused code (dead code, redundant dependencies, obsolete files), and clean repository (file organization, artifact removal, formatting standardization, version control best practices). Create a chat log file ('optimization_log.md') in the root to track all steps, changes, and progress in detail with timestamps, before/after snippets, rationales, and impacts. Update the log continuously after each action or phase for a chronological record. After analysis, propose a prioritized plan in the log, then implement iteratively on a new branch ('optimization-branch') with descriptive commits, testing functionality/performance per stage, and seeking confirmation for major changes. Optimize holistically (frontend, backend, database, server) while keeping the site functional and deployable. Please do not change or delete anything that will affect the design or functionality of the website. Do your due diligence and find everything that's able to be deleted without causing any problems. Here's you chat log for this session where you will create a super in depth analysis of the enitre codebase to see what can be deleted or edited to improve the websites overall performance: chat_logs/website_updates/code-review/session1.md
+
+
+Additional user created prompt:
+This session we will be cleaning the codebase completely to ensure that the website runs at the 
+highest level of performance. We need to look throughout the entire codebase to find unused /
+old code that wasn't deleted, any unecessary redundant code, and anything else you can think of
+to make the websites codebase as clean as possible. It is of the upmost importance that any        
+changes that you make doesn't affect the websites functionality, design, layout, or overall
+completeness. Please start by analyzing the entire codebase to see what you find - Once you're
+done and have found all that you can, place all of it here: C:\Users\zochr\Desktop\GitHub\Strive_Website_Replit\chat_logs\website_updates\code-review\session1.md 

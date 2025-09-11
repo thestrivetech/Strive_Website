@@ -3,3 +3,13 @@ Errors are popping up when I click a bunch of the buttons... The error reads: 50
 Also getting an error when I refresh the page
 
 - @claude : Please check for all other potential errors in the code.
+
+- ROI calc needs to be polished
+
+Also, here are all of the social links:
+- Facebook: https://www.facebook.com/thestrivetech 
+- Instagram: https://www.instagram.com/thestrivetech
+- LinkdIn: https://www.linkedin.com/company/thestrivetech/
+- Twitter / X: https://x.com/thestrivetech
+- TikTok also need to add this icon in the footer for all pages: https://www.tiktok.com/@thestrivetech
+- Discord (needs to be updated from the current one): https://discord.gg/txTJZSJbVm
