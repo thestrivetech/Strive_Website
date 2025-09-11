@@ -108,7 +108,9 @@
       "WebFetch(domain:www.cbsnews.com)",
       "Bash(sh)",
       "Read(//c/Users/zochr/AppData/Roaming/Claude/**)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(del \"client\\src\\components\\ui\\roi-calculator-old.tsx\")",
+      "Bash(rm:*)"
     ],
     "deny": []
   },

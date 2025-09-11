@@ -17,7 +17,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Send email notifications to all recipients
       await emailService.sendContactFormNotification(validatedData);
-      console.log("New contact submission:", submission);
       
       res.json({ 
         success: true, 
@@ -58,7 +57,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Send confirmation email to subscriber
       await emailService.sendNewsletterConfirmation(validatedData.email);
-      console.log("New newsletter subscription:", subscription);
       
       res.json({ 
         success: true, 
@@ -137,7 +135,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
 
         if (error) {
-          console.error('Supabase signup error:', error);
           res.status(400).json({ 
             success: false, 
             message: error.message || "Failed to create account" 
@@ -188,7 +185,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
     } catch (error) {
-      console.error('Signup error:', error);
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
           success: false, 
@@ -235,7 +231,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
 
         if (error || !data.user) {
-          console.error('Supabase login error:', error);
           res.status(401).json({ 
             success: false, 
             message: "Invalid credentials" 
@@ -293,7 +288,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
     } catch (error) {
-      console.error('Login error:', error);
       res.status(500).json({ 
         success: false, 
         message: "Failed to login" 
@@ -333,7 +327,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       });
     } catch (error) {
-      console.error('Get user error:', error);
       res.status(500).json({ 
         success: false, 
         message: "Failed to get user information" 
@@ -349,7 +342,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const { error } = await supabase.auth.signOut();
         
         if (error) {
-          console.error('Supabase logout error:', error);
+          // Supabase logout error handled silently
         }
       }
 
@@ -358,7 +351,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "Logged out successfully" 
       });
     } catch (error) {
-      console.error('Logout error:', error);
       res.status(500).json({ 
         success: false, 
         message: "Failed to logout" 

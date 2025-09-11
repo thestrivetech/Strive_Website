@@ -373,7 +373,6 @@ async function registerRoutes(app2) {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
       const submission = await storage.createContactSubmission(validatedData);
       await emailService.sendContactFormNotification(validatedData);
-      console.log("New contact submission:", submission);
       res.json({
         success: true,
         message: "Thank you for your message. We'll get back to you within one business day."
@@ -406,7 +405,6 @@ async function registerRoutes(app2) {
       }
       const subscription = await storage.createNewsletterSubscription(validatedData);
       await emailService.sendNewsletterConfirmation(validatedData.email);
-      console.log("New newsletter subscription:", subscription);
       res.json({
         success: true,
         message: "Successfully subscribed to our newsletter!"
@@ -471,7 +469,6 @@ async function registerRoutes(app2) {
           }
         });
         if (error) {
-          console.error("Supabase signup error:", error);
           res.status(400).json({
             success: false,
             message: error.message || "Failed to create account"
@@ -517,7 +514,6 @@ async function registerRoutes(app2) {
         });
       }
     } catch (error) {
-      console.error("Signup error:", error);
       if (error instanceof z.ZodError) {
         res.status(400).json({
           success: false,
@@ -556,7 +552,6 @@ async function registerRoutes(app2) {
           password
         });
         if (error || !data.user) {
-          console.error("Supabase login error:", error);
           res.status(401).json({
             success: false,
             message: "Invalid credentials"
@@ -607,7 +602,6 @@ async function registerRoutes(app2) {
         });
       }
     } catch (error) {
-      console.error("Login error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to login"
@@ -642,7 +636,6 @@ async function registerRoutes(app2) {
         }
       });
     } catch (error) {
-      console.error("Get user error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to get user information"
@@ -654,7 +647,6 @@ async function registerRoutes(app2) {
       if (supabase) {
         const { error } = await supabase.auth.signOut();
         if (error) {
-          console.error("Supabase logout error:", error);
         }
       }
       res.json({
@@ -662,7 +654,6 @@ async function registerRoutes(app2) {
         message: "Logged out successfully"
       });
     } catch (error) {
-      console.error("Logout error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to logout"
@@ -951,12 +942,18 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
-  const port = parseInt(process.env.PORT || "5000", 10);
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true
-  }, () => {
-    log(`serving on port ${port}`);
-  });
+  if (!process.env.VERCEL) {
+    const port = parseInt(process.env.PORT || "5000", 10);
+    server.listen({
+      port,
+      host: "0.0.0.0",
+      reusePort: true
+    }, () => {
+      log(`serving on port ${port}`);
+    });
+  }
 })();
+var index_default = app;
+export {
+  index_default as default
+};

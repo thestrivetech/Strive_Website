@@ -1,7 +1,7 @@
 // Comprehensive ROI Calculator Validation Test
 // This test file validates that the ROI calculator matches the specification in docs/roi-calc.md
 
-import { roiCalculator } from './client/src/lib/roi-calculator.js';
+import { roiCalculator } from './client/src/lib/roi-calculator.ts';
 
 console.log('🧪 ROI Calculator Comprehensive Validation Test');
 console.log('================================================\n');
