@@ -7,6 +7,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
 
 // Import data from new modular structure
 import { Resource, technologyCards, resources } from "@/data/resources";
@@ -17,8 +18,11 @@ import { getSolutionById } from "@/data/solutions-mapping";
 // Types are now imported from the modular structure
 
 const Resources = () => {
+  const { toast } = useToast();
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
   
   // Quiz state
   const [selectedQuiz, setSelectedQuiz] = useState<Quiz | null>(null);
@@ -192,10 +196,54 @@ const Resources = () => {
     return colorMap[type] || "bg-gray-500";
   };
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle newsletter signup
-    alert("Newsletter signup functionality would be implemented here");
+    
+    if (!newsletterEmail.trim()) {
+      toast({
+        title: "Email required",
+        description: "Please enter your email address.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsNewsletterSubmitting(true);
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: newsletterEmail.trim() }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        toast({
+          title: "Successfully subscribed!",
+          description: result.message || "Welcome to our newsletter!",
+        });
+        setNewsletterEmail("");
+      } else {
+        toast({
+          title: "Subscription failed",
+          description: result.message || "Please try again.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      toast({
+        title: "Network error",
+        description: "Please check your connection and try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsNewsletterSubmitting(false);
+    }
   };
 
   return (
@@ -661,6 +709,8 @@ const Resources = () => {
               <div className="flex gap-4">
                 <Input
                   type="email"
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
                   placeholder="Enter your email address"
                   className="flex-1 bg-off-white border-slate-200 text-slate-800 px-4 py-3 rounded-lg"
                   required
@@ -668,10 +718,11 @@ const Resources = () => {
                 />
                 <Button 
                   type="submit"
-                  className="bg-orange-500 text-white hover:bg-orange-600 px-6 py-3 rounded-lg"
+                  disabled={isNewsletterSubmitting}
+                  className="bg-orange-500 text-white hover:bg-orange-600 px-6 py-3 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   data-testid="button-newsletter-subscribe"
                 >
-                  Get Started
+                  {isNewsletterSubmitting ? "Subscribing..." : "Get Started"}
                 </Button>
               </div>
             </form>

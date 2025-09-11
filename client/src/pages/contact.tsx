@@ -25,6 +25,7 @@ const Contact = () => {
   
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const contactInfo = [
     {
@@ -92,7 +93,7 @@ const Contact = () => {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.privacyConsent) {
@@ -104,23 +105,53 @@ const Contact = () => {
       return;
     }
 
-    // Handle form submission
-    toast({
-      title: "Message sent successfully!",
-      description: "We'll get back to you within one business day.",
-    });
-    
-    // Reset form
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      company: "",
-      phone: "",
-      companySize: "",
-      message: "",
-      privacyConsent: false
-    });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        toast({
+          title: "Message sent successfully!",
+          description: result.message || "We'll get back to you within one business day.",
+        });
+        
+        // Reset form
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          company: "",
+          phone: "",
+          companySize: "",
+          message: "",
+          privacyConsent: false
+        });
+      } else {
+        toast({
+          title: "Failed to send message",
+          description: result.message || "Please try again or contact us directly.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      toast({
+        title: "Network error",
+        description: "Please check your connection and try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleQuickAction = (action: string) => {
@@ -306,10 +337,11 @@ const Contact = () => {
 
                   <Button 
                     type="submit"
-                    className="w-full bg-primary text-primary-foreground py-3 text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
+                    disabled={isSubmitting}
+                    className="w-full bg-primary text-primary-foreground py-3 text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                     data-testid="button-send-message"
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </CardContent>

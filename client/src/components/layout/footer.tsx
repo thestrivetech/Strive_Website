@@ -15,6 +15,18 @@ const DiscordIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// TikTok Icon Component
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M19.321 5.562a5.124 5.124 0 0 1-.443-.258 6.228 6.228 0 0 1-1.137-.966c-.849-.849-1.419-1.947-1.419-3.169V1h-3.23v13.769c0 2.072-1.688 3.76-3.76 3.76s-3.76-1.688-3.76-3.76 1.688-3.76 3.76-3.76c.384 0 .755.058 1.105.166V7.824a7.128 7.128 0 0 0-1.105-.084c-3.969 0-7.19 3.221-7.19 7.19s3.221 7.19 7.19 7.19 7.19-3.221 7.19-7.19V9.027a9.69 9.69 0 0 0 5.63 1.784V7.611c-1.159 0-2.23-.347-3.123-.918l.292-.13z"/>
+  </svg>
+);
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -37,35 +49,52 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="#" 
+                href="https://www.linkedin.com/company/thestrivetech/" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-white/60 hover:text-white transition-colors"
                 data-testid="link-linkedin"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
               <a 
-                href="#" 
+                href="https://x.com/thestrivetech" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-white/60 hover:text-white transition-colors"
                 data-testid="link-twitter"
               >
                 <Twitter className="h-5 w-5" />
               </a>
               <a 
-                href="#" 
+                href="https://www.facebook.com/thestrivetech" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-white/60 hover:text-white transition-colors"
                 data-testid="link-facebook"
               >
                 <Facebook className="h-5 w-5" />
               </a>
               <a 
-                href="#" 
+                href="https://www.instagram.com/thestrivetech" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-white/60 hover:text-white transition-colors"
                 data-testid="link-instagram"
               >
                 <Instagram className="h-5 w-5" />
               </a>
               <a 
-                href="https://discord.gg/q3djnrvP29" 
+                href="https://www.tiktok.com/@thestrivetech" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/60 hover:text-white transition-colors"
+                data-testid="link-tiktok"
+              >
+                <TikTokIcon className="h-5 w-5" />
+              </a>
+              <a 
+                href="https://discord.gg/txTJZSJbVm" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white/60 hover:text-white transition-colors"
