@@ -12,5 +12,23 @@ export const ragKnowledgeSystem: Project = {
   demoUrl: "https://demo.strive.ai/rag-system",
   githubUrl: "https://github.com/strive-ai/rag-knowledge",
   features: ["Document ingestion", "Semantic search", "Context-aware responses", "Multi-format support"],
-  metrics: { "Accuracy": "91.7%", "Retrieval Speed": "0.8s", "Document Capacity": "10M+" }
+  metrics: { "Accuracy": "91.7%", "Retrieval Speed": "0.8s", "Document Capacity": "10M+" },
+  sources: [
+    {
+      title: "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      url: "https://arxiv.org/abs/2005.11401",
+      description: "Original RAG research paper by Facebook AI"
+    },
+    {
+      title: "LangChain Documentation",
+      url: "https://python.langchain.com/docs/get_started/introduction",
+      description: "Framework for building LLM applications"
+    },
+    {
+      title: "Vector Database Comparison Study",
+      url: "https://www.pinecone.io/learn/vector-database-comparison/",
+      description: "Performance analysis of vector storage solutions"
+    }
+  ],
+  relatedSolutions: ["ai-automation", "nlp-solutions", "data-analytics"]
 };

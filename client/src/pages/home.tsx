@@ -275,14 +275,14 @@ const Home = () => {
               <p className="text-white/80 mb-6">
                 Talk to an AI Expert to See What's Possible for Your Business.
               </p>
-              <Link href="/solutions">
+              <Link href="/request">
                 <Button 
                   className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group
-                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
+                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 font-bold"
                   size="lg"
-                  data-testid="button-explore-solutions"
+                  data-testid="button-get-custom-solution"
                 >
-                  Explore All Solutions
+                  Get Custom Solution
                 </Button>
               </Link>
             </div>
@@ -294,7 +294,7 @@ const Home = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
             <div className="mb-6">
-              <ComingSoonBadge size="sm" />
+              <ComingSoonBadge size="sm" variant="hero" />
             </div>
             <div 
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
@@ -496,21 +496,22 @@ const Home = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group
+                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                   size="lg"
                   onClick={() => window.location.href = "/contact"}
                   data-testid="button-get-started-why-us"
                 >
-                  Get Started Today
+                  Let's Meet!
                 </Button>
                 <Button 
                   variant="outline"
                   className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
                   size="lg"
-                  onClick={() => window.location.href = "/about"}
+                  onClick={() => window.location.href = "/portfolio"}
                   data-testid="button-meet-team"
                 >
-                  Meet the Team
+                  View Our Work
                 </Button>
               </div>
             </div>

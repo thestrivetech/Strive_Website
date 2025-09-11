@@ -32,5 +32,23 @@ export const financialFraudDetection: Resource = {
       "Develop ML model ensemble for better accuracy",
       "Create automated model retraining pipelines"
     ]
-  }
+  },
+  sources: [
+    {
+      title: "Financial Fraud Detection with AI - Federal Reserve Research",
+      url: "https://www.federalreserve.gov/econres/notes/feds-notes/machine-learning-for-fraud-detection-20190801.htm",
+      description: "Federal Reserve analysis of machine learning in fraud detection"
+    },
+    {
+      title: "Real-time Fraud Prevention Best Practices - IBM",
+      url: "https://www.ibm.com/topics/fraud-detection",
+      description: "Comprehensive guide to implementing AI-powered fraud detection"
+    },
+    {
+      title: "Banking AI Implementation Study - McKinsey",
+      url: "https://www.mckinsey.com/industries/financial-services/our-insights/the-state-of-ai-in-financial-services",
+      description: "Industry analysis of AI adoption in financial services"
+    }
+  ],
+  relatedSolutions: ["financial-services", "ai-automation", "data-analytics"]
 };

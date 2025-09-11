@@ -17,4 +17,10 @@ export interface Resource {
     insights: string[];
     actionItems: string[];
   };
+  sources?: Array<{
+    title: string;
+    url: string;
+    description?: string;
+  }>;
+  relatedSolutions?: string[];
 }

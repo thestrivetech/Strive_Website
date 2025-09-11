@@ -12,5 +12,23 @@ export const agenticWorkflowPlatform: Project = {
   demoUrl: "https://demo.strive.ai/agentic-workflow",
   githubUrl: "https://github.com/strive-ai/agentic-platform",
   features: ["Multi-agent coordination", "Specialized expertise", "Task decomposition", "Quality assurance"],
-  metrics: { "Efficiency Gain": "85% faster", "Agent Count": "12", "Success Rate": "96.3%" }
+  metrics: { "Efficiency Gain": "85% faster", "Agent Count": "12", "Success Rate": "96.3%" },
+  sources: [
+    {
+      title: "Multi-Agent Systems: Algorithmic, Game-Theoretic, and Logical Foundations",
+      url: "https://www.cambridge.org/core/books/multiagent-systems/",
+      description: "Theoretical foundations for multi-agent coordination"
+    },
+    {
+      title: "LangGraph Multi-Agent Framework",
+      url: "https://langchain-ai.github.io/langgraph/",
+      description: "Implementation framework for agent orchestration"
+    },
+    {
+      title: "Business Process Automation with AI - Deloitte",
+      url: "https://www2.deloitte.com/us/en/insights/focus/cognitive-technologies/cognitive-automation-artificial-intelligence-business-processes.html",
+      description: "Enterprise applications and benefits analysis"
+    }
+  ],
+  relatedSolutions: ["process-automation", "ai-automation", "manufacturing-solutions"]
 };

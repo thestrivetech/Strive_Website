@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 
 // Import data from new modular structure
 import { Project, projects } from "@/data/portfolio";
+import { getSolutionById } from "@/data/solutions-mapping";
 
 // Project interface is now imported from the modular structure
 
@@ -298,20 +299,23 @@ const Portfolio = () => {
                 </div>
                 
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">Technology Stack</h3>
+                  <h3 className="text-lg font-semibold mb-3">Solutions</h3>
                   <div className="flex flex-wrap gap-2">
-                    {selectedProject.technologies.map((tech: string, index: number) => (
-                      <Badge 
-                        key={index} 
-                        variant="secondary" 
-                        className="px-3 py-1 cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
-                        onClick={() => {
-                          window.location.href = `/resources?filter=tools-tech&tech=${encodeURIComponent(tech.toLowerCase())}`;
-                        }}
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
+                    {selectedProject.relatedSolutions?.map((solutionId: string, index: number) => {
+                      const solution = getSolutionById(solutionId);
+                      return solution ? (
+                        <Badge 
+                          key={index} 
+                          variant="secondary" 
+                          className="px-3 py-1 cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
+                          onClick={() => {
+                            window.location.href = `/solutions?solution=${solutionId}`;
+                          }}
+                        >
+                          {solution.title}
+                        </Badge>
+                      ) : null;
+                    })}
                   </div>
                 </div>
                 

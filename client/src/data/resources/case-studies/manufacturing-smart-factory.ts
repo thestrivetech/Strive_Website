@@ -32,5 +32,23 @@ export const manufacturingSmartFactory: Resource = {
       "Build predictive maintenance models incrementally",
       "Train workforce on new technologies continuously"
     ]
-  }
+  },
+  sources: [
+    {
+      title: "Smart Factory Implementation Guide - MIT Technology Review",
+      url: "https://www.technologyreview.com/2023/01/15/1066822/smart-factory-manufacturing-ai/",
+      description: "Comprehensive analysis of smart factory transformations"
+    },
+    {
+      title: "Predictive Maintenance ROI Study - Deloitte",
+      url: "https://www2.deloitte.com/us/en/insights/focus/industry-4-0/predictive-maintenance-applications.html",
+      description: "Industry research on predictive maintenance benefits"
+    },
+    {
+      title: "Manufacturing AI Implementation - BCG",
+      url: "https://www.bcg.com/capabilities/digital-technology-data/artificial-intelligence/manufacturing",
+      description: "Strategic guide to AI adoption in manufacturing"
+    }
+  ],
+  relatedSolutions: ["manufacturing-solutions", "ai-automation", "computer-vision"]
 };

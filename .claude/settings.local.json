@@ -107,7 +107,8 @@
       "WebFetch(domain:consumer.ftc.gov)",
       "WebFetch(domain:www.gartner.com)",
       "WebFetch(domain:blog.hubspot.com)",
-      "WebFetch(domain:www.cbsnews.com)"
+      "WebFetch(domain:www.cbsnews.com)",
+      "Bash(sh)"
     ],
     "deny": []
   },

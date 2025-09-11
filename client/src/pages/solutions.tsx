@@ -18,6 +18,31 @@ const Solutions = () => {
   const [productDropdownOpen, setProductDropdownOpen] = useState(false);
   const [industrySearch, setIndustrySearch] = useState("");
   const [productSearch, setProductSearch] = useState("");
+
+  // Handle URL parameters for auto-opening solution modals
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const solutionParam = urlParams.get('solution');
+    
+    if (solutionParam) {
+      // Find the solution by ID or title match
+      const targetSolution = solutions.find(solution => 
+        solution.title.toLowerCase().includes(solutionParam.toLowerCase()) ||
+        solution.industry?.toLowerCase() === solutionParam.toLowerCase()
+      );
+      
+      if (targetSolution) {
+        setSelectedSolution(targetSolution);
+        // Scroll to the solution card
+        setTimeout(() => {
+          const solutionElement = document.querySelector(`[data-testid="solution-card-${targetSolution.id}"]`);
+          if (solutionElement) {
+            solutionElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 100);
+      }
+    }
+  }, []);
   
   const filters = [
     { name: "All", icon: null },

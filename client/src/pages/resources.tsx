@@ -12,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Resource, technologyCards, resources } from "@/data/resources";
 import { Quiz, QuizQuestion, QuizResult, allQuizzes } from "@/data/resources/quizzes";
 import { featuredResource } from "@/data/resources/featured";
+import { getSolutionById } from "@/data/solutions-mapping";
 
 // Types are now imported from the modular structure
 
@@ -783,12 +784,46 @@ const Resources = () => {
                 </div>
                 
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">Tags</h3>
+                  <h3 className="text-lg font-semibold mb-3">Solutions</h3>
                   <div className="flex flex-wrap gap-2">
-                    {selectedResource.tags.map((tag: string, index: number) => (
-                      <Badge key={index} variant="secondary" className="px-3 py-1">
-                        {tag}
-                      </Badge>
+                    {selectedResource.relatedSolutions?.map((solutionId: string, index: number) => {
+                      const solution = getSolutionById(solutionId);
+                      return solution ? (
+                        <Badge 
+                          key={index} 
+                          variant="secondary" 
+                          className="px-3 py-1 cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
+                          onClick={() => {
+                            window.location.href = `/solutions?solution=${solutionId}`;
+                          }}
+                        >
+                          {solution.title}
+                        </Badge>
+                      ) : null;
+                    })}
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Sources</h3>
+                  <div className="space-y-2">
+                    {selectedResource.sources?.map((source, index: number) => (
+                      <div key={index} className="flex items-start gap-2">
+                        <ExternalLink className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                        <div>
+                          <a 
+                            href={source.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm font-medium text-primary hover:underline"
+                          >
+                            {source.title}
+                          </a>
+                          {source.description && (
+                            <p className="text-xs text-muted-foreground mt-1">{source.description}</p>
+                          )}
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -1029,7 +1064,7 @@ const Resources = () => {
                     className="flex-1"
                     data-testid="button-get-consulting"
                   >
-                    Get AI Consulting
+                    Get AI Insights
                   </Button>
                 </div>
               </div>

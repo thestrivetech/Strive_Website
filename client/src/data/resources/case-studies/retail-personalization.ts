@@ -32,5 +32,23 @@ export const retailPersonalization: Resource = {
       "Deploy dynamic pricing strategically",
       "Create personalized marketing workflows"
     ]
-  }
+  },
+  sources: [
+    {
+      title: "E-commerce Personalization Study - Harvard Business Review",
+      url: "https://hbr.org/2019/11/the-value-of-keeping-the-right-customers",
+      description: "Analysis of personalization impact on customer retention"
+    },
+    {
+      title: "Retail AI Implementation Report - Accenture",
+      url: "https://www.accenture.com/us-en/insights/retail/ai-retail-personalization",
+      description: "Industry research on AI-driven retail personalization"
+    },
+    {
+      title: "Dynamic Pricing Best Practices - McKinsey",
+      url: "https://www.mckinsey.com/industries/retail/our-insights/getting-pricing-right-in-retail",
+      description: "Strategic guide to implementing dynamic pricing"
+    }
+  ],
+  relatedSolutions: ["ai-automation", "data-analytics", "process-automation"]
 };

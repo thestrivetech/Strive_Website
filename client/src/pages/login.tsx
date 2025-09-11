@@ -118,7 +118,7 @@ const Login = () => {
               )}
             </CardTitle>
             <div className="flex justify-center mt-2 mb-2">
-              <ComingSoonBadge size="md" variant="floating" />
+              <ComingSoonBadge size="md" variant="hero" />
             </div>
             <CardDescription className="text-gray-600">
               {activeTab === "login" 

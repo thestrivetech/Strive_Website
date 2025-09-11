@@ -11,4 +11,10 @@ export interface Project {
   githubUrl: string;
   features: string[];
   metrics: Record<string, string | undefined>;
+  sources: Array<{
+    title: string;
+    url: string;
+    description?: string;
+  }>;
+  relatedSolutions: string[];
 }

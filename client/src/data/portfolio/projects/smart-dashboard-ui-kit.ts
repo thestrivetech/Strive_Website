@@ -12,5 +12,23 @@ export const smartDashboardUiKit: Project = {
   demoUrl: "https://demo.strive.ai/dashboard-kit",
   githubUrl: "https://github.com/strive-ai/dashboard-kit",
   features: ["50+ Components", "Responsive design", "Dark/light themes", "Real-time updates"],
-  metrics: { "Components": "50+", "Themes": "2", "Responsive": "100%", "Performance Score": "95/100" }
+  metrics: { "Components": "50+", "Themes": "2", "Responsive": "100%", "Performance Score": "95/100" },
+  sources: [
+    {
+      title: "React Dashboard Design Patterns",
+      url: "https://react-dashboard-patterns.com/",
+      description: "Best practices for dashboard component design"
+    },
+    {
+      title: "Data Visualization Best Practices - Tableau",
+      url: "https://www.tableau.com/learn/articles/data-visualization",
+      description: "Guidelines for effective data presentation"
+    },
+    {
+      title: "Modern Web Dashboard UX Research",
+      url: "https://www.nngroup.com/articles/dashboard-design/",
+      description: "User experience research for dashboard interfaces"
+    }
+  ],
+  relatedSolutions: ["data-analytics", "cloud-infrastructure", "ai-automation"]
 };

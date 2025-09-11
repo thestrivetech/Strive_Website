@@ -12,5 +12,23 @@ export const computerVisionAnalytics: Project = {
   demoUrl: "https://demo.strive.ai/computer-vision",
   githubUrl: "https://github.com/strive-ai/cv-analytics",
   features: ["Real-time processing", "Multi-object detection", "Quality scoring", "Anomaly detection"],
-  metrics: { "Accuracy": "97.8%", "Processing Speed": "30fps", "Detection Rate": "99.1%" }
+  metrics: { "Accuracy": "97.8%", "Processing Speed": "30fps", "Detection Rate": "99.1%" },
+  sources: [
+    {
+      title: "YOLO: Real-Time Object Detection",
+      url: "https://pjreddie.com/darknet/yolo/",
+      description: "Foundation algorithm for real-time object detection"
+    },
+    {
+      title: "Computer Vision in Manufacturing - McKinsey",
+      url: "https://www.mckinsey.com/industries/manufacturing/our-insights/artificial-intelligence-in-manufacturing",
+      description: "Industry applications and ROI analysis"
+    },
+    {
+      title: "OpenCV Computer Vision Library Documentation",
+      url: "https://docs.opencv.org/",
+      description: "Technical implementation reference"
+    }
+  ],
+  relatedSolutions: ["computer-vision", "manufacturing-solutions", "ai-automation"]
 };

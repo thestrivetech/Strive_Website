@@ -32,5 +32,23 @@ export const enterpriseAiImplementation: Resource = {
       "Invest in employee training and change management",
       "Establish clear success metrics and measurement frameworks"
     ]
-  }
+  },
+  sources: [
+    {
+      title: "Enterprise AI Adoption Report - MIT Technology Review",
+      url: "https://www.technologyreview.com/2023/02/01/1067426/ai-adoption-enterprise-survey-2023/",
+      description: "Annual survey on enterprise AI implementation trends"
+    },
+    {
+      title: "AI ROI in Manufacturing - Deloitte",
+      url: "https://www2.deloitte.com/us/en/insights/focus/cognitive-technologies/ai-manufacturing-applications.html",
+      description: "Analysis of AI return on investment in manufacturing"
+    },
+    {
+      title: "Predictive Maintenance Best Practices - McKinsey",
+      url: "https://www.mckinsey.com/capabilities/operations/our-insights/predictive-maintenance-the-next-level-of-asset-management",
+      description: "Strategic guide to implementing predictive maintenance"
+    }
+  ],
+  relatedSolutions: ["ai-automation", "manufacturing-solutions", "process-automation"]
 };

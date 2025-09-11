@@ -144,10 +144,10 @@ const ChatBotSai = () => {
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Your AI-Powered Business Solutions Assistant - Available 24/7
             </p>
-            {/* Coming Soon Banner */}
+            {/* Coming September 15th Banner */}
             <div className="mt-6">
-              <Badge className="px-6 py-2 text-lg font-semibold bg-gradient-to-r from-[#ff7033] to-orange-500 text-white border-0 shadow-lg animate-pulse hover:animate-none transition-all duration-300">
-                Coming Soon
+              <Badge className="px-6 py-2 text-lg font-semibold bg-gradient-to-br from-[#020a1c] via-purple-900 to-[#020a1c] text-white border border-[#ff7033]/20 shadow-lg animate-pulse hover:animate-none transition-all duration-300">
+                Coming September 15th
               </Badge>
             </div>
           </div>

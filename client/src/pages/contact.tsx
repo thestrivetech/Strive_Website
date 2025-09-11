@@ -56,7 +56,7 @@ const Contact = () => {
       text: (
         <span className="flex items-center gap-1.5 text-sm">
           Download Brochure
-          <ComingSoonBadge size="sm" className="text-[9px] px-1.5 py-0.5" />
+          <ComingSoonBadge size="sm" variant="hero" className="text-[9px] px-1.5 py-0.5" />
         </span>
       ), 
       action: "brochure" 
@@ -66,7 +66,7 @@ const Contact = () => {
       text: (
         <span className="flex items-center gap-2">
           Chat Live with AI Specialist
-          <ComingSoonBadge size="sm" className="text-[10px] px-1.5 py-0.5" />
+          <ComingSoonBadge size="sm" variant="hero" className="text-[10px] px-1.5 py-0.5" />
         </span>
       ), 
       action: "chat" 

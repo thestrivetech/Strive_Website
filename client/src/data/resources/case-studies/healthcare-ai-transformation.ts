@@ -32,5 +32,23 @@ export const healthcareAiTransformation: Resource = {
       "Establish clear success metrics before implementation",
       "Create feedback loops for continuous improvement"
     ]
-  }
+  },
+  sources: [
+    {
+      title: "Healthcare AI Implementation Study - McKinsey",
+      url: "https://www.mckinsey.com/industries/healthcare-systems-and-services/our-insights/transforming-healthcare-with-ai",
+      description: "Comprehensive research on AI adoption in healthcare systems"
+    },
+    {
+      title: "Medical AI Diagnostic Accuracy Research - Nature Medicine",
+      url: "https://www.nature.com/articles/s41591-021-01614-0",
+      description: "Clinical validation of AI diagnostic systems"
+    },
+    {
+      title: "Healthcare Cost Reduction Through AI - Harvard Business Review",
+      url: "https://hbr.org/2019/05/the-potential-for-artificial-intelligence-in-healthcare",
+      description: "Analysis of cost benefits from AI implementation"
+    }
+  ],
+  relatedSolutions: ["healthcare-solutions", "ai-automation", "computer-vision"]
 };
