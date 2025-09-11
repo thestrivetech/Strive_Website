@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "installCommand": "npm install",
+        "buildCommand": "npm run build",
+        "outputDirectory": "dist/public"
+      }
+    },
+    {
+      "src": "dist/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/dist/index.js"
+    }
+  ]
+}
