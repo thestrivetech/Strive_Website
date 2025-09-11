@@ -83,8 +83,6 @@
       "Bash(echo $NODE_ENV)",
       "Bash(echo \"REPL_ID: $REPL_ID\")",
       "Bash(echo:*)",
-      "mcp__playwright__browser_navigate",
-      "mcp__playwright__browser_install",
       "WebFetch(domain:51de729c-bd38-455d-b593-3d576c21f424-00-knr49tw9vspk.kirk.replit.dev)",
       "Bash(npm search:*)",
       "Bash(source:*)",
@@ -108,7 +106,9 @@
       "WebFetch(domain:www.gartner.com)",
       "WebFetch(domain:blog.hubspot.com)",
       "WebFetch(domain:www.cbsnews.com)",
-      "Bash(sh)"
+      "Bash(sh)",
+      "Read(//c/Users/zochr/AppData/Roaming/Claude/**)",
+      "Bash(dir:*)"
     ],
     "deny": []
   },
