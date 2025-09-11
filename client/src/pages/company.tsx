@@ -69,29 +69,29 @@ const Company = () => {
     },
     {
       year: "Q1 2027",
-      title: "Global Market Entry",
-      description: "Expanding operations to European and Asian markets with localized AI solutions",
-      icon: <GlobeAltIcon className="h-6 w-6" />,
+      title: "50 Custom Solutions Delivered",
+      description: "Reaching our first 50 successful AI implementations, helping 40 businesses streamline key processes and save an average of 15 hours per week",
+      icon: <ArrowTrendingUpIcon className="h-6 w-6" />,
       status: "upcoming"
     },
     {
       year: "Q2 2027",
-      title: "Innovation Lab Launch",
-      description: "Opening dedicated R&D facility for quantum computing and advanced AI research",
-      icon: <LightBulbIcon className="h-6 w-6" />,
+      title: "100 Businesses Transformed",
+      description: "Celebrating 100 businesses enhanced with custom AI solutions, achieving 95% client satisfaction and expanding to 10 industry verticals",
+      icon: <GlobeAltIcon className="h-6 w-6" />,
       status: "future"
     },
     {
       year: "Q3 2027",
-      title: "Enterprise Scale",
-      description: "Achieving 500+ enterprise clients with comprehensive AI transformation programs",
-      icon: <ArrowTrendingUpIcon className="h-6 w-6" />,
+      title: "10,000 Hours Saved Monthly",
+      description: "Saving clients 10,000+ hours monthly through 200 intelligent workflow solutions, equivalent to 60+ full-time employees focused on strategic work",
+      icon: <LightBulbIcon className="h-6 w-6" />,
       status: "future"
     },
     {
       year: "Q4 2027",
-      title: "Industry Leadership",
-      description: "Establishing position as top-tier AI business solutions provider globally",
+      title: "$50M in Client Savings Generated",
+      description: "Achieving $50 million in documented cost savings and efficiency gains for our clients through 300+ deployed AI solutions",
       icon: <ArrowTrendingUpIcon className="h-6 w-6" />,
       status: "future"
     }
