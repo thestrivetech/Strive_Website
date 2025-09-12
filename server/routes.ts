@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertUserSchema, insertDemoRequestSchema } from "@shared/schema";
+import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertUserSchema, insertRequestSchema } from "@shared/schema";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { supabase } from "./supabase";
@@ -118,13 +118,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Demo/Showcase request submission
   app.post("/api/request", async (req, res) => {
     try {
-      const validatedData = insertDemoRequestSchema.parse(req.body);
+      const validatedData = insertRequestSchema.parse(req.body);
       
       // Store request in database (if available)
       try {
-        await storage.createDemoRequest(validatedData);
+        await storage.createRequest(validatedData);
       } catch (dbError) {
-        console.warn('Database unavailable, continuing without storing demo request:', dbError);
+        console.warn('Database unavailable, continuing without storing request:', dbError);
       }
       
       // Send email notifications to team (if email service is configured)
@@ -152,7 +152,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "Thank you for your request! We'll contact you within one business day to schedule your demo."
       });
     } catch (error) {
-      console.error('Demo request submission error:', error);
+      console.error('Request submission error:', error);
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
           success: false, 
@@ -190,6 +190,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         success: false, 
         message: "Failed to fetch newsletter subscriptions" 
+      });
+    }
+  });
+
+  // Get all requests (admin endpoint) - Demo, Assessment, Solution Showcase
+  app.get("/api/admin/requests", async (req, res) => {
+    try {
+      const requests = await storage.getRequests();
+      res.json(requests);
+    } catch (error) {
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to fetch requests" 
       });
     }
   });

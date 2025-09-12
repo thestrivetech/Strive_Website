@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type ContactSubmission, type InsertContactSubmission, type NewsletterSubscription, type InsertNewsletterSubscription, type DemoRequest, type InsertDemoRequest, users, contactSubmissions, newsletterSubscriptions, demoRequests } from "@shared/schema";
+import { type User, type InsertUser, type ContactSubmission, type InsertContactSubmission, type NewsletterSubscription, type InsertNewsletterSubscription, type Request, type InsertRequest, users, contactSubmissions, newsletterSubscriptions, requests } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./supabase";
 import { eq } from "drizzle-orm";
@@ -14,21 +14,21 @@ export interface IStorage {
   createNewsletterSubscription(subscription: InsertNewsletterSubscription): Promise<NewsletterSubscription>;
   getNewsletterSubscriptions(): Promise<NewsletterSubscription[]>;
   getNewsletterSubscriptionByEmail(email: string): Promise<NewsletterSubscription | undefined>;
-  createDemoRequest(request: InsertDemoRequest): Promise<DemoRequest>;
-  getDemoRequests(): Promise<DemoRequest[]>;
+  createRequest(request: InsertRequest): Promise<Request>;
+  getRequests(): Promise<Request[]>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
   private contactSubmissions: Map<string, ContactSubmission>;
   private newsletterSubscriptions: Map<string, NewsletterSubscription>;
-  private demoRequests: Map<string, DemoRequest>;
+  private requests: Map<string, Request>;
 
   constructor() {
     this.users = new Map();
     this.contactSubmissions = new Map();
     this.newsletterSubscriptions = new Map();
-    this.demoRequests = new Map();
+    this.requests = new Map();
   }
 
   async getUser(id: string): Promise<User | undefined> {
@@ -105,9 +105,9 @@ export class MemStorage implements IStorage {
     );
   }
 
-  async createDemoRequest(insertRequest: InsertDemoRequest): Promise<DemoRequest> {
+  async createRequest(insertRequest: InsertRequest): Promise<Request> {
     const id = randomUUID();
-    const request: DemoRequest = {
+    const request: Request = {
       ...insertRequest,
       phone: insertRequest.phone || null,
       jobTitle: insertRequest.jobTitle || null,
@@ -122,12 +122,12 @@ export class MemStorage implements IStorage {
       id,
       submittedAt: new Date(),
     };
-    this.demoRequests.set(id, request);
+    this.requests.set(id, request);
     return request;
   }
 
-  async getDemoRequests(): Promise<DemoRequest[]> {
-    return Array.from(this.demoRequests.values());
+  async getRequests(): Promise<Request[]> {
+    return Array.from(this.requests.values());
   }
 }
 
@@ -192,13 +192,13 @@ export class SupabaseStorage implements IStorage {
     return result[0];
   }
 
-  async createDemoRequest(insertRequest: InsertDemoRequest): Promise<DemoRequest> {
-    const result = await db.insert(demoRequests).values(insertRequest).returning();
+  async createRequest(insertRequest: InsertRequest): Promise<Request> {
+    const result = await db.insert(requests).values(insertRequest).returning();
     return result[0];
   }
 
-  async getDemoRequests(): Promise<DemoRequest[]> {
-    return await db.select().from(demoRequests);
+  async getRequests(): Promise<Request[]> {
+    return await db.select().from(requests);
   }
 }
 

@@ -34,7 +34,7 @@ export const newsletterSubscriptions = pgTable("newsletter_subscriptions", {
   subscribedAt: timestamp("subscribed_at").defaultNow().notNull(),
 });
 
-export const demoRequests = pgTable("demo_requests", {
+export const requests = pgTable("requests", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   // Contact Information
   firstName: text("first_name").notNull(),
@@ -85,7 +85,7 @@ export const insertNewsletterSubscriptionSchema = createInsertSchema(newsletterS
   email: true,
 });
 
-export const insertDemoRequestSchema = createInsertSchema(demoRequests).pick({
+export const insertRequestSchema = createInsertSchema(requests).pick({
   firstName: true,
   lastName: true,
   fullName: true,
@@ -110,5 +110,5 @@ export type InsertContactSubmission = z.infer<typeof insertContactSubmissionSche
 export type ContactSubmission = typeof contactSubmissions.$inferSelect;
 export type InsertNewsletterSubscription = z.infer<typeof insertNewsletterSubscriptionSchema>;
 export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect;
-export type InsertDemoRequest = z.infer<typeof insertDemoRequestSchema>;
-export type DemoRequest = typeof demoRequests.$inferSelect;
+export type InsertRequest = z.infer<typeof insertRequestSchema>;
+export type Request = typeof requests.$inferSelect;
