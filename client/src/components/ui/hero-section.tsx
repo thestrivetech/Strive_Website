@@ -237,7 +237,7 @@ const HeroSection = ({
                 {/* Left Arrow - Mobile */}
                 <button
                   onClick={goToPreviousDemo}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-primary/20 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border-2 border-primary/30 hover:border-primary hover:scale-105 z-10"
+                  className="absolute left-2 bottom-4 w-10 h-10 bg-white/10 hover:bg-primary/20 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border-2 border-primary/30 hover:border-primary hover:scale-105 z-10"
                   data-testid="button-demo-prev-mobile-inside"
                 >
                   <ChevronLeft className="w-5 h-5 text-primary" />
@@ -246,7 +246,7 @@ const HeroSection = ({
                 {/* Right Arrow - Mobile */}
                 <button
                   onClick={goToNextDemo}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-primary/20 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border-2 border-primary/30 hover:border-primary hover:scale-105 z-10"
+                  className="absolute right-2 bottom-4 w-10 h-10 bg-white/10 hover:bg-primary/20 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border-2 border-primary/30 hover:border-primary hover:scale-105 z-10"
                   data-testid="button-demo-next-mobile-inside"
                 >
                   <ChevronRight className="w-5 h-5 text-primary" />

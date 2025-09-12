@@ -8,6 +8,7 @@ import {
   BookOpen, Clipboard, Award, PenTool, Building2, FileText, Search, ShieldAlert
 } from "lucide-react";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LightBulbIcon, RocketLaunchIcon, CpuChipIcon, StarIcon } from "@heroicons/react/24/outline";
 import HeroSection from "@/components/ui/hero-section";
 import SolutionCard from "@/components/ui/solution-card";
@@ -168,8 +169,31 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Industry Selector */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-12">
+          {/* Industry Selector - Mobile Dropdown, Desktop Grid */}
+          {/* Mobile Dropdown */}
+          <div className="md:hidden mb-12">
+            <Select 
+              value={selectedIndustry || ""} 
+              onValueChange={(value) => setSelectedIndustry(value === selectedIndustry ? null : value)}
+            >
+              <SelectTrigger className="w-full max-w-sm mx-auto bg-[#020a1c] border-orange-500 text-white">
+                <SelectValue placeholder="Select your industry to see solutions" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="healthcare">Healthcare</SelectItem>
+                <SelectItem value="finance">Finance</SelectItem>
+                <SelectItem value="manufacturing">Manufacturing</SelectItem>
+                <SelectItem value="retail">Retail</SelectItem>
+                <SelectItem value="technology">Technology</SelectItem>
+                <SelectItem value="education">Education</SelectItem>
+                <SelectItem value="real-estate">Real Estate</SelectItem>
+                <SelectItem value="legal">Legal</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Desktop Grid */}
+          <div className="hidden md:grid grid-cols-4 lg:grid-cols-8 gap-4 mb-12">
             {[
               { id: "healthcare", name: "Healthcare", icon: <Heart className="w-8 h-8" /> },
               { id: "finance", name: "Finance", icon: <DollarSign className="w-8 h-8" /> },
@@ -211,10 +235,10 @@ const Home = () => {
                   ].find(industry => industry.id === selectedIndustry)?.name} Solutions
                 </h3>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 {industrySpecificSolutions[selectedIndustry as keyof typeof industrySpecificSolutions].map((solution, index) => (
                   <Card key={index} className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
-                    <CardContent className="p-6 text-center">
+                    <CardContent className="p-3 md:p-6 text-center">
                       <div className="text-white mb-4 flex justify-center">{solution.icon}</div>
                       <h4 className="text-white font-semibold mb-2 text-sm leading-tight">
                         {solution.name}

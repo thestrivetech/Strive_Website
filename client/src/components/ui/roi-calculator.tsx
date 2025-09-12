@@ -164,10 +164,10 @@ const ROICalculator = () => {
             </p>
           </div>
 
-          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-8">
             {/* Calculator Controls */}
-            <Card className="p-4 md:p-6 flex flex-col">
-              <CardContent className="space-y-6 p-0 flex-grow">
+            <Card className="p-2 sm:p-4 md:p-6 flex flex-col">
+              <CardContent className="space-y-3 sm:space-y-6 p-0 flex-grow">
                 <div>
                   <label className="text-sm font-medium mb-3 block">
                     Select Your Industry
@@ -309,8 +309,8 @@ const ROICalculator = () => {
             </Card>
 
             {/* Results */}
-            <Card className="p-4 md:p-6 bg-gradient-to-br from-primary/5 to-orange-500/5">
-              <CardContent className="space-y-6 p-0">
+            <Card className="p-2 sm:p-4 md:p-6 bg-gradient-to-br from-primary/5 to-orange-500/5">
+              <CardContent className="space-y-3 sm:space-y-6 p-0">
                 <div className="text-center">
                   <h3 className="text-lg font-semibold mb-4" data-testid="results-title">
                     Your Estimated ROI Instantly
