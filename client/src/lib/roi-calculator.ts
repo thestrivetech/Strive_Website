@@ -699,7 +699,7 @@ export class AIROICalculator {
         // Calculate time savings with diminishing returns
         const rawTimeSavings = timeSavingsList.reduce((a, b) => a + b, 0);
         totalTimeSavings = timeSavingsList.length > 1 ? rawTimeSavings * 0.85 : rawTimeSavings;
-        totalTimeSavings = Math.min(totalTimeSavings, 65); // Cap at 65%
+
       }
     }
 
