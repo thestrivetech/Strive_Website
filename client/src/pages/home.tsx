@@ -295,7 +295,7 @@ const Home = () => {
           </div>
 
           {/* Solution Cards with Modal */}
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
             {solutions.map((solution, index) => (
               <Dialog key={index}>
                 <DialogTrigger asChild>
@@ -403,7 +403,7 @@ const Home = () => {
           </div>
 
           {/* Value Proposition Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {/* Innovative Tech */}
             <div className="group">
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 min-h-[320px]">
@@ -517,9 +517,9 @@ const Home = () => {
             </a>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 gap-6 lg:gap-8 pb-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {resources.map((resource, index) => (
-              <div key={index} className="flex-none w-72 snap-center md:w-auto">
+              <div key={index}>
                 <ResourceCard
                   type={resource.type}
                   title={resource.title}

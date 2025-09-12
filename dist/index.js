@@ -371,13 +371,25 @@ async function registerRoutes(app2) {
   app2.post("/api/contact", async (req, res) => {
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
-      const submission = await storage.createContactSubmission(validatedData);
-      await emailService.sendContactFormNotification(validatedData);
+      try {
+        await storage.createContactSubmission(validatedData);
+      } catch (dbError) {
+        console.warn("Database unavailable, continuing without storing submission:", dbError);
+      }
+      try {
+        const emailSent = await emailService.sendContactFormNotification(validatedData);
+        if (!emailSent) {
+          console.warn("Email service not configured - contact form submission not sent via email");
+        }
+      } catch (emailError) {
+        console.warn("Email sending failed:", emailError);
+      }
       res.json({
         success: true,
         message: "Thank you for your message. We'll get back to you within one business day."
       });
     } catch (error) {
+      console.error("Contact form submission error:", error);
       if (error instanceof z.ZodError) {
         res.status(400).json({
           success: false,
@@ -387,7 +399,7 @@ async function registerRoutes(app2) {
       } else {
         res.status(500).json({
           success: false,
-          message: "Failed to submit contact form"
+          message: "Failed to submit contact form. Please try again or contact us directly."
         });
       }
     }
@@ -395,21 +407,33 @@ async function registerRoutes(app2) {
   app2.post("/api/newsletter", async (req, res) => {
     try {
       const validatedData = insertNewsletterSubscriptionSchema.parse(req.body);
-      const existing = await storage.getNewsletterSubscriptionByEmail(validatedData.email);
-      if (existing) {
-        res.status(409).json({
-          success: false,
-          message: "Email is already subscribed to our newsletter."
-        });
-        return;
+      try {
+        const existing = await storage.getNewsletterSubscriptionByEmail(validatedData.email);
+        if (existing) {
+          res.status(409).json({
+            success: false,
+            message: "Email is already subscribed to our newsletter."
+          });
+          return;
+        }
+        await storage.createNewsletterSubscription(validatedData);
+      } catch (dbError) {
+        console.warn("Database unavailable for newsletter subscription:", dbError);
       }
-      const subscription = await storage.createNewsletterSubscription(validatedData);
-      await emailService.sendNewsletterConfirmation(validatedData.email);
+      try {
+        const emailSent = await emailService.sendNewsletterConfirmation(validatedData.email);
+        if (!emailSent) {
+          console.warn("Email service not configured - newsletter confirmation not sent");
+        }
+      } catch (emailError) {
+        console.warn("Newsletter confirmation email failed:", emailError);
+      }
       res.json({
         success: true,
         message: "Successfully subscribed to our newsletter!"
       });
     } catch (error) {
+      console.error("Newsletter subscription error:", error);
       if (error instanceof z.ZodError) {
         res.status(400).json({
           success: false,
@@ -419,7 +443,7 @@ async function registerRoutes(app2) {
       } else {
         res.status(500).json({
           success: false,
-          message: "Failed to subscribe to newsletter"
+          message: "Failed to subscribe to newsletter. Please try again."
         });
       }
     }

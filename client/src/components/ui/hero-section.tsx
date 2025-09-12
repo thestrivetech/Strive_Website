@@ -116,8 +116,8 @@ const HeroSection = ({
               </Button>
             </div>
 
-            {/* Demo Navigation Dots */}
-            <div className="flex items-center justify-center lg:justify-start space-x-2 sm:space-x-3">
+            {/* Demo Navigation Dots - Hidden on mobile */}
+            <div className="hidden sm:flex items-center justify-center lg:justify-start space-x-2 sm:space-x-3">
               {demoVideos.map((_, index) => (
                 <button
                   key={index}
