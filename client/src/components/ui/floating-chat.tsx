@@ -55,7 +55,7 @@ const FloatingChat = () => {
   return (
     <>
       {/* Chat Button */}
-      <div className="floating-chat fixed bottom-4 right-4 sm:bottom-12 sm:right-16 z-50">
+      <div className="floating-chat fixed bottom-20 right-4 sm:bottom-12 sm:right-16 z-50">
         {/* Peek-a-boo preview panel */}
         {!isOpen && isHovered && (
           <div 

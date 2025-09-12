@@ -131,11 +131,3 @@ All 7 original mobile design requirements have been successfully implemented. Th
 - Consistent 2-column and 2x2 layouts as requested
 
 ---
-
-# User Notes #
-
-- Need to adjust the arrows inside of the demo preview to be more visible but not be in the way of demo preview videos (move the arrows to the bottom of the demo preview display, they should still be insdide of the display though)
-
-- ROI calculator is still too big and requires the user to scroll in order to see the ROI results - Try to make both cards smaller so they can be side by side in a 2 column setup so they appear side-by-side
-
-- The "AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES" section needs to be reformatted on mobile so the user doesn't have to scroll down to see the pain points and solutions. I'm thinking we turn this section into a dropdown filter section where the user selects a industry and then the badges/cards appear that already exist (pain point and solution badges) in a 2x2 grid so the user doesn't have to scroll in order to see anyything when they select a specific industry

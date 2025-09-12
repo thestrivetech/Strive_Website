@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle, ArrowRight, Calendar, Clock, Phone, Video, MapPin, Users, Building, Target, Lightbulb, AlertCircle } from "lucide-react";
+import { validateEmail, validatePhone } from "@/lib/validation";
 
 const Assessment = () => {
   const [step, setStep] = useState(1);
@@ -31,15 +32,9 @@ const Assessment = () => {
     phone: ""
   });
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const validatePhone = (phone: string) => {
-    const phoneRegex = /^[\+]?[1-9]?[\d\s\-\(\)]{7,15}$/;
-    return phoneRegex.test(phone.replace(/\s/g, ''));
-  };
+  // Validation functions using reusable utilities
+  const isEmailValid = (email: string) => validateEmail(email).isValid;
+  const isPhoneValid = (phone: string) => validatePhone(phone, true).isValid;
 
   const handleInputChange = (field: string, value: string) => {
     setContactData(prev => ({ ...prev, [field]: value }));
@@ -50,12 +45,18 @@ const Assessment = () => {
     }
     
     // Validate on blur for immediate feedback
-    if (field === 'email' && value && !validateEmail(value)) {
-      setValidationErrors(prev => ({ ...prev, email: "Please enter a valid email address" }));
+    if (field === 'email' && value) {
+      const emailValidation = validateEmail(value);
+      if (!emailValidation.isValid) {
+        setValidationErrors(prev => ({ ...prev, email: emailValidation.errorMessage || "" }));
+      }
     }
     
-    if (field === 'phone' && value && !validatePhone(value)) {
-      setValidationErrors(prev => ({ ...prev, phone: "Please enter a valid phone number" }));
+    if (field === 'phone' && value) {
+      const phoneValidation = validatePhone(value, true);
+      if (!phoneValidation.isValid) {
+        setValidationErrors(prev => ({ ...prev, phone: phoneValidation.errorMessage || "" }));
+      }
     }
   };
 
@@ -72,18 +73,18 @@ const Assessment = () => {
     e.preventDefault();
     
     // Validate email and phone before submission
-    const emailValid = validateEmail(contactData.email);
-    const phoneValid = validatePhone(contactData.phone);
+    const emailValidation = validateEmail(contactData.email);
+    const phoneValidation = validatePhone(contactData.phone, true);
     
     const newErrors = {
-      email: !emailValid && contactData.email ? "Please enter a valid email address" : "",
-      phone: !phoneValid && contactData.phone ? "Please enter a valid phone number" : ""
+      email: !emailValidation.isValid ? emailValidation.errorMessage || "" : "",
+      phone: !phoneValidation.isValid ? phoneValidation.errorMessage || "" : ""
     };
     
     setValidationErrors(newErrors);
     
     // Only proceed if no validation errors
-    if (emailValid && phoneValid) {
+    if (emailValidation.isValid && phoneValidation.isValid) {
       console.log("Contact info submitted:", contactData);
       setIsSubmitted(true);
       setStep(2);
@@ -94,10 +95,10 @@ const Assessment = () => {
     return contactData.firstName && 
            contactData.lastName && 
            contactData.email && 
-           validateEmail(contactData.email) &&
+           isEmailValid(contactData.email) &&
            contactData.company && 
            contactData.phone &&
-           validatePhone(contactData.phone) &&
+           isPhoneValid(contactData.phone) &&
            contactData.industry &&
            contactData.companySize;
   };

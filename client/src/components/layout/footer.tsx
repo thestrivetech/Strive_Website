@@ -33,78 +33,79 @@ const Footer = () => {
   return (
     <footer className="hero-gradient text-white border-t border-white/10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="col-span-1 lg:col-span-2">
-            <div className="mb-4" data-testid="footer-logo">
-              <LazyImage 
-                src={logoImage} 
-                alt="Strive" 
-                className="h-14 w-auto max-w-[280px]"
-                loading="eager"
-              />
-            </div>
-            <p className="text-white/80 mb-6 max-w-md">
-              To empower businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.
-            </p>
-            <div className="flex space-x-4">
-              <a 
-                href="https://www.linkedin.com/company/thestrivetech/" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 hover:text-white transition-colors"
-                data-testid="link-linkedin"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a 
-                href="https://x.com/thestrivetech" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 hover:text-white transition-colors"
-                data-testid="link-twitter"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a 
-                href="https://www.facebook.com/thestrivetech" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 hover:text-white transition-colors"
-                data-testid="link-facebook"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a 
-                href="https://www.instagram.com/thestrivetech" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 hover:text-white transition-colors"
-                data-testid="link-instagram"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a 
-                href="https://www.tiktok.com/@thestrivetech" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 hover:text-white transition-colors"
-                data-testid="link-tiktok"
-              >
-                <TikTokIcon className="h-5 w-5" />
-              </a>
-              <a 
-                href="https://discord.gg/txTJZSJbVm" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 hover:text-white transition-colors"
-                data-testid="link-discord"
-              >
-                <DiscordIcon className="h-5 w-5" />
-              </a>
-            </div>
+        {/* Company Info - Full Width on All Devices */}
+        <div className="mb-8">
+          <div className="mb-4" data-testid="footer-logo">
+            <LazyImage 
+              src={logoImage} 
+              alt="Strive" 
+              className="h-14 w-auto max-w-[280px]"
+              loading="eager"
+            />
           </div>
+          <p className="text-white/80 mb-6 max-w-md">
+            To empower businesses with innovative technology solutions that drive efficiency, productivity, and sustainable growth.
+          </p>
+          <div className="flex space-x-4">
+            <a 
+              href="https://www.linkedin.com/company/thestrivetech/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white transition-colors"
+              data-testid="link-linkedin"
+            >
+              <Linkedin className="h-5 w-5" />
+            </a>
+            <a 
+              href="https://x.com/thestrivetech" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white transition-colors"
+              data-testid="link-twitter"
+            >
+              <Twitter className="h-5 w-5" />
+            </a>
+            <a 
+              href="https://www.facebook.com/thestrivetech" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white transition-colors"
+              data-testid="link-facebook"
+            >
+              <Facebook className="h-5 w-5" />
+            </a>
+            <a 
+              href="https://www.instagram.com/thestrivetech" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white transition-colors"
+              data-testid="link-instagram"
+            >
+              <Instagram className="h-5 w-5" />
+            </a>
+            <a 
+              href="https://www.tiktok.com/@thestrivetech" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white transition-colors"
+              data-testid="link-tiktok"
+            >
+              <TikTokIcon className="h-5 w-5" />
+            </a>
+            <a 
+              href="https://discord.gg/txTJZSJbVm" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white transition-colors"
+              data-testid="link-discord"
+            >
+              <DiscordIcon className="h-5 w-5" />
+            </a>
+          </div>
+        </div>
 
+        {/* Quick Links and Contact - Side by Side on Mobile, Grid on Desktop */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Quick Links */}
           <div>
             <h3 className="font-semibold text-white mb-4">Quick Links</h3>

@@ -9,10 +9,15 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
+import { validateEmail, validatePhone } from "@/lib/validation";
 
 const Request = () => {
   const [formStep, setFormStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({
+    email: "",
+    phone: ""
+  });
   const [formData, setFormData] = useState({
     // Contact Information
     fullName: "",
@@ -79,6 +84,10 @@ const Request = () => {
     borderColor: '#ff7033' 
   };
 
+  // Validation functions using reusable utilities
+  const isEmailValid = (email: string) => validateEmail(email).isValid;
+  const isPhoneValid = (phone: string) => validatePhone(phone, true).isValid;
+
   // Load Calendly script when component mounts
   useEffect(() => {
     const script = document.createElement('script');
@@ -96,6 +105,26 @@ const Request = () => {
 
   const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    
+    // Clear validation error when user starts typing
+    if (field === 'email' || field === 'phone') {
+      setValidationErrors(prev => ({ ...prev, [field]: "" }));
+    }
+    
+    // Validate on change for immediate feedback
+    if (field === 'email' && value) {
+      const emailValidation = validateEmail(value);
+      if (!emailValidation.isValid) {
+        setValidationErrors(prev => ({ ...prev, email: emailValidation.errorMessage || "" }));
+      }
+    }
+    
+    if (field === 'phone' && value) {
+      const phoneValidation = validatePhone(value, true);
+      if (!phoneValidation.isValid) {
+        setValidationErrors(prev => ({ ...prev, phone: phoneValidation.errorMessage || "" }));
+      }
+    }
   };
 
   const handleCheckboxChange = (field: string, value: string, checked: boolean) => {
@@ -134,7 +163,12 @@ const Request = () => {
   const isStepComplete = (step: number) => {
     switch (step) {
       case 1:
-        return formData.fullName && formData.email && formData.companyName;
+        return formData.fullName && 
+               formData.email && 
+               isEmailValid(formData.email) &&
+               formData.companyName &&
+               formData.phone &&
+               isPhoneValid(formData.phone);
       case 2:
         return formData.industry && formData.companySize && formData.currentChallenges.length > 0 && formData.projectTimeline;
       case 3:
@@ -265,23 +299,36 @@ const Request = () => {
                             value={formData.email}
                             onChange={(e) => handleInputChange("email", e.target.value)}
                             placeholder="john@company.com"
-                            style={inputStyle}
+                            style={{
+                              ...inputStyle,
+                              borderColor: validationErrors.email ? '#ef4444' : '#ff7033'
+                            }}
                             required
                           />
+                          {validationErrors.email && (
+                            <p className="text-sm text-red-400 mt-1">{validationErrors.email}</p>
+                          )}
                         </div>
                       </div>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <Label htmlFor="phone" className="text-white">Phone Number</Label>
+                          <Label htmlFor="phone" className="text-white">Phone Number *</Label>
                           <Input
                             id="phone"
                             type="tel"
                             value={formData.phone}
                             onChange={(e) => handleInputChange("phone", e.target.value)}
                             placeholder="(731)-431-2320"
-                            style={inputStyle}
+                            style={{
+                              ...inputStyle,
+                              borderColor: validationErrors.phone ? '#ef4444' : '#ff7033'
+                            }}
+                            required
                           />
+                          {validationErrors.phone && (
+                            <p className="text-sm text-red-400 mt-1">{validationErrors.phone}</p>
+                          )}
                         </div>
                         <div>
                           <Label htmlFor="companyName" className="text-white">Company Name *</Label>

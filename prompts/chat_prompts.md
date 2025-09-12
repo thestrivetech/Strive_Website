@@ -32,3 +32,9 @@ to make the websites codebase as clean as possible. It is of the upmost importan
 changes that you make doesn't affect the websites functionality, design, layout, or overall
 completeness. Please start by analyzing the entire codebase to see what you find - Once you're
 done and have found all that you can, place all of it here: C:\Users\zochr\Desktop\GitHub\Strive_Website_Replit\chat_logs\website_updates\code-review\session1.md 
+
+
+# Mobile Updates #
+
+Prompt:
+Please read last sessions chat log: /Users/grant/Documents/GitHub/Strive_Website_Replit/chat_logs/website_updates/Mobile/session1.md - After doing this, please read this sessions chat log that I have created: /Users/grant/Documents/GitHub/Strive_Website_Replit/chat_logs/website_updates/Mobile/session2.md - You will see the task list for this session inside of the chat log - Please create your own in depth to-do list in order to make this session a success in updating the mobile design and mobile UX. 

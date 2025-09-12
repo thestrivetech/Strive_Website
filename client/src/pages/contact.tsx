@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import { validatePhone } from "@/lib/validation";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -22,10 +23,16 @@ const Contact = () => {
     message: "",
     privacyConsent: false
   });
+  const [validationErrors, setValidationErrors] = useState({
+    phone: ""
+  });
   
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Validation function using reusable utility
+  const isPhoneValid = (phone: string) => validatePhone(phone, false).isValid;
 
   const contactInfo = [
     {
@@ -103,6 +110,20 @@ const Contact = () => {
         variant: "destructive"
       });
       return;
+    }
+
+    // Validate phone if provided
+    if (formData.phone) {
+      const phoneValidation = validatePhone(formData.phone, false);
+      if (!phoneValidation.isValid) {
+        setValidationErrors({ phone: phoneValidation.errorMessage || "" });
+        toast({
+          title: "Invalid phone number",
+          description: "Please enter a valid phone number or leave it blank.",
+          variant: "destructive"
+        });
+        return;
+      }
     }
 
     setIsSubmitting(true);
@@ -268,11 +289,32 @@ const Contact = () => {
                       type="tel"
                       placeholder="(731)-431-2320"
                       value={formData.phone}
-                      onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                      style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setFormData(prev => ({ ...prev, phone: value }));
+                        // Clear validation error when user starts typing
+                        if (validationErrors.phone) {
+                          setValidationErrors({ phone: "" });
+                        }
+                        // Validate on change if phone is provided
+                        if (value) {
+                          const phoneValidation = validatePhone(value, false);
+                          if (!phoneValidation.isValid) {
+                            setValidationErrors({ phone: phoneValidation.errorMessage || "" });
+                          }
+                        }
+                      }}
+                      style={{ 
+                        backgroundColor: '#ffffff', 
+                        color: '#020a1c', 
+                        borderColor: validationErrors.phone ? '#ef4444' : '#ff7033' 
+                      }}
                       className="focus:ring-primary focus:border-primary"
                       data-testid="input-phone"
                     />
+                    {validationErrors.phone && (
+                      <p className="text-sm text-red-500 mt-1">{validationErrors.phone}</p>
+                    )}
                   </div>
 
                   <div>

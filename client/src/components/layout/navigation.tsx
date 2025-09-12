@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, User, LogOut } from "lucide-react";
+import { Menu, User, LogOut, Home, Cpu, FolderOpen, BookOpen, Building, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/lib/auth";
@@ -115,6 +115,7 @@ const Navigation = () => {
                     onClick={(e) => { handleNavClick(e, "/"); setMobileMenuOpen(false); }}
                     data-testid="mobile-nav-home"
                   >
+                    <Home className="w-5 h-5 mr-3 text-[#ff7033]" />
                     Home
                   </Link>
                   
@@ -127,6 +128,7 @@ const Navigation = () => {
                     onClick={(e) => { handleNavClick(e, "/solutions"); setMobileMenuOpen(false); }}
                     data-testid="mobile-nav-solutions"
                   >
+                    <Cpu className="w-5 h-5 mr-3 text-[#ff7033]" />
                     Solutions
                   </Link>
                   
@@ -139,6 +141,7 @@ const Navigation = () => {
                     onClick={(e) => { handleNavClick(e, "/portfolio"); setMobileMenuOpen(false); }}
                     data-testid="mobile-nav-portfolio"
                   >
+                    <FolderOpen className="w-5 h-5 mr-3 text-[#ff7033]" />
                     Portfolio
                   </Link>
                   
@@ -151,6 +154,7 @@ const Navigation = () => {
                     onClick={(e) => { handleNavClick(e, "/resources"); setMobileMenuOpen(false); }}
                     data-testid="mobile-nav-resources"
                   >
+                    <BookOpen className="w-5 h-5 mr-3 text-[#ff7033]" />
                     Resources
                   </Link>
                   
@@ -162,6 +166,7 @@ const Navigation = () => {
                     onClick={(e) => { handleNavClick(e, "/about"); setMobileMenuOpen(false); }}
                     data-testid="mobile-nav-about-us"
                   >
+                    <Building className="w-5 h-5 mr-3 text-[#ff7033]" />
                     Company
                   </Link>
                   <Link
@@ -172,6 +177,7 @@ const Navigation = () => {
                     onClick={(e) => { handleNavClick(e, "/contact"); setMobileMenuOpen(false); }}
                     data-testid="mobile-nav-contact"
                   >
+                    <Mail className="w-5 h-5 mr-3 text-[#ff7033]" />
                     Contact
                   </Link>
                   <div className="space-y-3 mt-8 pt-6 border-t border-white/20">
