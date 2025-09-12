@@ -38,3 +38,17 @@ done and have found all that you can, place all of it here: C:\Users\zochr\Deskt
 
 Prompt:
 Please read last sessions chat log: /Users/grant/Documents/GitHub/Strive_Website_Replit/chat_logs/website_updates/Mobile/session1.md - After doing this, please read this sessions chat log that I have created: /Users/grant/Documents/GitHub/Strive_Website_Replit/chat_logs/website_updates/Mobile/session2.md - You will see the task list for this session inside of the chat log - Please create your own in depth to-do list in order to make this session a success in updating the mobile design and mobile UX. 
+
+# Mobile Session prompt to continue where we left off #
+
+ Now that we've completed that, lets pick up where we left off with updating the websites mobile    
+   design. Please read the last few chat logs here: C:\Users\zochr\Desktop\GitHub\Strive_Website_     
+   Replit\chat_logs\website_updates\Mobile\session1.md & C:\Users\zochr\Desktop\GitHub\Strive_Webs    
+   ite_Replit\chat_logs\website_updates\Mobile\session2.md - There are things that were
+   "implemented" and "updated" in these sessions that didn't actually achieve what I was wanting      
+   them to achieve. Most of the cards on the pages for Mobile display are still in vertical
+   alignment where the user has to scroll a lot to read everything. Please analyze everthing and      
+   help me fix it. You can read this file to see my original prompts/task list that I gave to
+   claude in older sessions:
+   C:\Users\zochr\Desktop\GitHub\Strive_Website_Replit\chat_logs\website_updates\Mobile\notes.md -    
+   Future sessions are also mentioned in this file so please just ignore them for this session. 

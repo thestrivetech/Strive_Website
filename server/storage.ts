@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type ContactSubmission, type InsertContactSubmission, type NewsletterSubscription, type InsertNewsletterSubscription, users, contactSubmissions, newsletterSubscriptions } from "@shared/schema";
+import { type User, type InsertUser, type ContactSubmission, type InsertContactSubmission, type NewsletterSubscription, type InsertNewsletterSubscription, type DemoRequest, type InsertDemoRequest, users, contactSubmissions, newsletterSubscriptions, demoRequests } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./supabase";
 import { eq } from "drizzle-orm";
@@ -14,17 +14,21 @@ export interface IStorage {
   createNewsletterSubscription(subscription: InsertNewsletterSubscription): Promise<NewsletterSubscription>;
   getNewsletterSubscriptions(): Promise<NewsletterSubscription[]>;
   getNewsletterSubscriptionByEmail(email: string): Promise<NewsletterSubscription | undefined>;
+  createDemoRequest(request: InsertDemoRequest): Promise<DemoRequest>;
+  getDemoRequests(): Promise<DemoRequest[]>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
   private contactSubmissions: Map<string, ContactSubmission>;
   private newsletterSubscriptions: Map<string, NewsletterSubscription>;
+  private demoRequests: Map<string, DemoRequest>;
 
   constructor() {
     this.users = new Map();
     this.contactSubmissions = new Map();
     this.newsletterSubscriptions = new Map();
+    this.demoRequests = new Map();
   }
 
   async getUser(id: string): Promise<User | undefined> {
@@ -100,6 +104,31 @@ export class MemStorage implements IStorage {
       (subscription) => subscription.email === email,
     );
   }
+
+  async createDemoRequest(insertRequest: InsertDemoRequest): Promise<DemoRequest> {
+    const id = randomUUID();
+    const request: DemoRequest = {
+      ...insertRequest,
+      phone: insertRequest.phone || null,
+      jobTitle: insertRequest.jobTitle || null,
+      industry: insertRequest.industry || null,
+      companySize: insertRequest.companySize || null,
+      currentChallenges: insertRequest.currentChallenges || null,
+      projectTimeline: insertRequest.projectTimeline || null,
+      budgetRange: insertRequest.budgetRange || null,
+      demoFocusAreas: insertRequest.demoFocusAreas || null,
+      additionalRequirements: insertRequest.additionalRequirements || null,
+      preferredDate: insertRequest.preferredDate || null,
+      id,
+      submittedAt: new Date(),
+    };
+    this.demoRequests.set(id, request);
+    return request;
+  }
+
+  async getDemoRequests(): Promise<DemoRequest[]> {
+    return Array.from(this.demoRequests.values());
+  }
 }
 
 export class SupabaseStorage implements IStorage {
@@ -161,6 +190,15 @@ export class SupabaseStorage implements IStorage {
   async getNewsletterSubscriptionByEmail(email: string): Promise<NewsletterSubscription | undefined> {
     const result = await db.select().from(newsletterSubscriptions).where(eq(newsletterSubscriptions.email, email)).limit(1);
     return result[0];
+  }
+
+  async createDemoRequest(insertRequest: InsertDemoRequest): Promise<DemoRequest> {
+    const result = await db.insert(demoRequests).values(insertRequest).returning();
+    return result[0];
+  }
+
+  async getDemoRequests(): Promise<DemoRequest[]> {
+    return await db.select().from(demoRequests);
   }
 }
 

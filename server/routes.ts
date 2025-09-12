@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertUserSchema } from "@shared/schema";
+import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertUserSchema, insertDemoRequestSchema } from "@shared/schema";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { supabase } from "./supabase";
@@ -29,6 +29,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       } catch (emailError) {
         console.warn('Email sending failed:', emailError);
+      }
+
+      // Send confirmation email to user
+      try {
+        const confirmationSent = await emailService.sendContactFormConfirmation(validatedData);
+        if (!confirmationSent) {
+          console.warn('Contact form confirmation email could not be sent');
+        }
+      } catch (confirmationError) {
+        console.warn('Contact form confirmation email failed:', confirmationError);
       }
       
       res.json({ 
@@ -100,6 +110,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
         res.status(500).json({ 
           success: false, 
           message: "Failed to subscribe to newsletter. Please try again."
+        });
+      }
+    }
+  });
+
+  // Demo/Showcase request submission
+  app.post("/api/request", async (req, res) => {
+    try {
+      const validatedData = insertDemoRequestSchema.parse(req.body);
+      
+      // Store request in database (if available)
+      try {
+        await storage.createDemoRequest(validatedData);
+      } catch (dbError) {
+        console.warn('Database unavailable, continuing without storing demo request:', dbError);
+      }
+      
+      // Send email notifications to team (if email service is configured)
+      try {
+        const emailSent = await emailService.sendRequestNotification(validatedData);
+        if (!emailSent) {
+          console.warn('Email service not configured - request notification not sent via email');
+        }
+      } catch (emailError) {
+        console.warn('Request notification email failed:', emailError);
+      }
+
+      // Send confirmation email to user
+      try {
+        const confirmationSent = await emailService.sendRequestConfirmation(validatedData);
+        if (!confirmationSent) {
+          console.warn('Request confirmation email could not be sent');
+        }
+      } catch (confirmationError) {
+        console.warn('Request confirmation email failed:', confirmationError);
+      }
+      
+      res.json({ 
+        success: true, 
+        message: "Thank you for your request! We'll contact you within one business day to schedule your demo."
+      });
+    } catch (error) {
+      console.error('Demo request submission error:', error);
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ 
+          success: false, 
+          message: "Invalid form data", 
+          errors: error.errors 
+        });
+      } else {
+        res.status(500).json({ 
+          success: false, 
+          message: "Failed to submit request. Please try again or contact us directly."
         });
       }
     }

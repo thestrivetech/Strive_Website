@@ -20,6 +20,8 @@ const Request = () => {
   });
   const [formData, setFormData] = useState({
     // Contact Information
+    firstName: "",
+    lastName: "",
     fullName: "",
     email: "",
     phone: "",
@@ -33,6 +35,9 @@ const Request = () => {
     otherChallengeText: "", // New field for custom challenge text
     projectTimeline: "",
     budgetRange: "",
+    
+    // Request Types
+    requestTypes: [] as string[],
     
     // Demo Preferences
     demoFocusAreas: [] as string[],
@@ -69,6 +74,12 @@ const Request = () => {
   const budgetRanges = [
     "$1,000 - $5,000", "$5,000 - $10,000", "$10,000 - $25,000", 
     "$25,000 - $50,000", "Over $50,000", "Not sure yet"
+  ];
+
+  const requestTypeOptions = [
+    { value: "demo", label: "Product Demo", description: "See our AI solutions in action with live demonstrations" },
+    { value: "showcase", label: "Solution Showcase", description: "Tailored presentation of AI solutions for your industry" },
+    { value: "assessment", label: "AI Assessment", description: "Comprehensive evaluation of your AI readiness and opportunities" }
   ];
 
   const demoFocusOptions = [
@@ -136,7 +147,7 @@ const Request = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Only submit if we're on step 3, otherwise do nothing
@@ -144,20 +155,57 @@ const Request = () => {
       return;
     }
     
+    // Parse fullName into firstName and lastName
+    const nameParts = formData.fullName.split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts.slice(1).join(' ') || '';
+    
     // Include custom challenge text in the submission if "Other" is selected
     const submissionData = {
-      ...formData,
-      currentChallenges: formData.currentChallenges.includes("Other") && formData.otherChallengeText
+      firstName,
+      lastName,
+      fullName: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      company: formData.companyName,
+      jobTitle: formData.jobTitle,
+      industry: formData.industry,
+      companySize: formData.companySize,
+      currentChallenges: JSON.stringify(formData.currentChallenges.includes("Other") && formData.otherChallengeText
         ? [...formData.currentChallenges.filter(c => c !== "Other"), `Other: ${formData.otherChallengeText}`]
-        : formData.currentChallenges,
-      demoFocusAreas: formData.demoFocusAreas.includes("Other") && formData.otherDemoFocusText
+        : formData.currentChallenges),
+      projectTimeline: formData.projectTimeline,
+      budgetRange: formData.budgetRange,
+      requestTypes: formData.requestTypes.join(','),
+      demoFocusAreas: JSON.stringify(formData.demoFocusAreas.includes("Other") && formData.otherDemoFocusText
         ? [...formData.demoFocusAreas.filter(d => d !== "Other"), `Other: ${formData.otherDemoFocusText}`]
-        : formData.demoFocusAreas
+        : formData.demoFocusAreas),
+      additionalRequirements: formData.additionalRequirements
     };
     
-    setIsSubmitted(true);
-    // Here you would typically send the form data to your backend
-    console.log("Request submitted:", submissionData);
+    try {
+      const response = await fetch('/api/request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData),
+      });
+
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        setIsSubmitted(true);
+        console.log("Request submitted successfully:", result);
+      } else {
+        console.error("Request submission failed:", result);
+        // Could add error handling UI here
+        alert("Failed to submit request. Please try again.");
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      alert("Network error. Please check your connection and try again.");
+    }
   };
 
   const isStepComplete = (step: number) => {
@@ -170,7 +218,7 @@ const Request = () => {
                formData.phone &&
                isPhoneValid(formData.phone);
       case 2:
-        return formData.industry && formData.companySize && formData.currentChallenges.length > 0 && formData.projectTimeline;
+        return formData.industry && formData.companySize && formData.currentChallenges.length > 0 && formData.projectTimeline && formData.requestTypes.length > 0;
       case 3:
         return formData.demoFocusAreas.length > 0;
       default:
@@ -489,6 +537,39 @@ const Request = () => {
                             ))}
                           </SelectContent>
                         </Select>
+                      </div>
+
+                      {/* Request Types Selection */}
+                      <div>
+                        <Label className="text-white">Services Requested * (Select all that apply)</Label>
+                        <div className="grid grid-cols-1 gap-4 mt-3">
+                          {requestTypeOptions.map((option) => (
+                            <div key={option.value} className="border border-gray-300 rounded-lg p-4 bg-white/10 backdrop-blur-sm">
+                              <div className="flex items-center space-x-3">
+                                <Checkbox
+                                  id={option.value}
+                                  checked={formData.requestTypes.includes(option.value)}
+                                  onCheckedChange={(checked) => {
+                                    handleCheckboxChange("requestTypes", option.value, checked as boolean);
+                                  }}
+                                  className="border-white data-[state=checked]:bg-[#ff7033] data-[state=checked]:border-[#ff7033]"
+                                />
+                                <div>
+                                  <Label 
+                                    htmlFor={option.value} 
+                                    className="text-white font-semibold cursor-pointer"
+                                  >
+                                    {option.label}
+                                  </Label>
+                                  <p className="text-gray-200 text-sm mt-1">{option.description}</p>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        {formData.requestTypes.length === 0 && (
+                          <p className="text-red-400 text-sm mt-2">Please select at least one service</p>
+                        )}
                       </div>
                     </div>
                   )}

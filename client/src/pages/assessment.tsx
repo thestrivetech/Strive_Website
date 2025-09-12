@@ -69,7 +69,7 @@ const Assessment = () => {
     }));
   };
 
-  const handleSubmitContact = (e: React.FormEvent) => {
+  const handleSubmitContact = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validate email and phone before submission
@@ -85,9 +85,50 @@ const Assessment = () => {
     
     // Only proceed if no validation errors
     if (emailValidation.isValid && phoneValidation.isValid) {
-      console.log("Contact info submitted:", contactData);
-      setIsSubmitted(true);
-      setStep(2);
+      // Prepare data for submission to request API
+      const submissionData = {
+        firstName: contactData.firstName,
+        lastName: contactData.lastName,
+        fullName: `${contactData.firstName} ${contactData.lastName}`,
+        email: contactData.email,
+        phone: contactData.phone,
+        company: contactData.company,
+        jobTitle: contactData.industry === "Other" && contactData.otherIndustry ? contactData.otherIndustry : "", // Use other field for job title if needed
+        industry: contactData.industry === "Other" && contactData.otherIndustry ? contactData.otherIndustry : contactData.industry,
+        companySize: contactData.companySize,
+        currentChallenges: JSON.stringify(contactData.currentChallenges.includes("Other") && contactData.otherChallenge
+          ? [...contactData.currentChallenges.filter(c => c !== "Other"), `Other: ${contactData.otherChallenge}`]
+          : contactData.currentChallenges),
+        projectTimeline: contactData.timeline,
+        budgetRange: contactData.budgetRange,
+        requestTypes: "assessment", // Assessment request type
+        demoFocusAreas: JSON.stringify([]), // Empty for assessment
+        additionalRequirements: `Communication Method: ${contactData.communicationMethod}\n\nProject Description: ${contactData.projectDescription || 'Not provided'}`
+      };
+
+      try {
+        const response = await fetch('/api/request', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(submissionData),
+        });
+
+        const result = await response.json();
+        
+        if (response.ok && result.success) {
+          console.log("Assessment request submitted successfully:", result);
+          setIsSubmitted(true);
+          setStep(2);
+        } else {
+          console.error("Assessment request submission failed:", result);
+          alert("Failed to submit assessment request. Please try again.");
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+        alert("Network error. Please check your connection and try again.");
+      }
     }
   };
 
