@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Download, FileText, BookOpen, BarChart3, Sparkles, Eye, X, ExternalLink, Clock, User, Calendar, BrainCircuit, Play, CheckCircle, AlertCircle, Trophy, Target, Wrench } from "lucide-react";
+import { Download, FileText, BookOpen, BarChart3, Sparkles, Eye, X, ExternalLink, Clock, User, Calendar, BrainCircuit, Play, CheckCircle, AlertCircle, Trophy, Target, Wrench, Filter, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 
@@ -385,24 +386,67 @@ const Resources = () => {
           </div>
 
           {/* Resource Categories */}
-          <div className="flex flex-wrap gap-4 justify-center mb-12">
-            {filters.map((filter) => (
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8 md:mb-12">
+            {/* Mobile Dropdown */}
+            <div className="sm:hidden w-full max-w-xs">
+              <Select value={activeFilter} onValueChange={setActiveFilter}>
+                <SelectTrigger className="w-full bg-[#020a1c] border-orange-500 text-white focus:border-orange-400">
+                  <div className="flex items-center gap-2">
+                    {filters.find(f => f.name === activeFilter)?.icon}
+                    <SelectValue />
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="bg-[#020a1c] border-orange-500">
+                  {filters.map((filter) => (
+                    <SelectItem 
+                      key={filter.name} 
+                      value={filter.name}
+                      className="text-white hover:bg-orange-500/20 focus:bg-orange-500/20"
+                    >
+                      <div className="flex items-center gap-2">
+                        {filter.icon}
+                        {filter.name}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Desktop Buttons - Only All and Filter */}
+            <div className="hidden sm:flex gap-2">
               <Button
-                key={filter.name}
-                variant={activeFilter === filter.name ? "default" : "outline"}
+                variant={activeFilter === "All" ? "default" : "outline"}
                 size="sm"
+                onClick={() => setActiveFilter("All")}
                 className={`flex items-center gap-2 transition-all duration-300 ${
-                  activeFilter === filter.name
+                  activeFilter === "All"
                     ? 'bg-primary text-white shadow-lg scale-105'
                     : 'border-primary/20 text-foreground hover:border-primary hover:text-primary hover:scale-105'
                 }`}
-                onClick={() => setActiveFilter(filter.name)}
-                data-testid={`filter-${filter.name.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                {filter.icon}
-                {filter.name}
+                <Globe className="h-4 w-4" />
+                All
               </Button>
-            ))}
+              <Select value={activeFilter === "All" ? "" : activeFilter} onValueChange={setActiveFilter}>
+                <SelectTrigger className="w-auto min-w-[120px] border-primary/20 hover:border-primary">
+                  <div className="flex items-center gap-2">
+                    <Filter className="h-4 w-4" />
+                    <SelectValue placeholder="Filter" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent>
+                  {filters.filter(f => f.name !== "All").map((filter) => (
+                    <SelectItem key={filter.name} value={filter.name}>
+                      <div className="flex items-center gap-2">
+                        {filter.icon}
+                        {filter.name}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           {/* AI Knowledge Quizzes Section */}
@@ -598,7 +642,7 @@ const Resources = () => {
 
           {/* Resource Grid */}
           {activeFilter !== "Quizzes" && activeFilter !== "Tools & Tech" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
               {filteredResources.map((resource) => (
               <Card 
                 key={resource.id}
@@ -610,42 +654,42 @@ const Resources = () => {
                   <img 
                     src={resource.imageUrl} 
                     alt={resource.imageAlt}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-32 sm:h-40 md:h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                     data-testid={`img-resource-${resource.id}`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute top-4 left-4">
-                    <Badge className={`${getTypeColor(resource.type)} text-white border-0`}>
+                  <div className="absolute top-2 left-2 md:top-4 md:left-4">
+                    <Badge className={`${getTypeColor(resource.type)} text-white border-0 text-xs px-1 py-0.5`}>
                       {resource.type}
                     </Badge>
                   </div>
-                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
-                        <Eye className="h-4 w-4" />
+                  <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex gap-1 md:gap-2">
+                      <Button size="sm" variant="secondary" className="h-6 w-6 md:h-8 md:w-8 p-0">
+                        <Eye className="h-3 w-3 md:h-4 md:w-4" />
                       </Button>
-                      <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
-                        <Download className="h-4 w-4" />
+                      <Button size="sm" variant="secondary" className="h-6 w-6 md:h-8 md:w-8 p-0">
+                        <Download className="h-3 w-3 md:h-4 md:w-4" />
                       </Button>
                     </div>
                   </div>
                 </div>
                 
-                <CardContent className="p-6 flex flex-col flex-grow">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="text-primary">
+                <CardContent className="p-3 md:p-6 flex flex-col flex-grow">
+                  <div className="flex items-center gap-1 md:gap-2 mb-2 md:mb-3">
+                    <div className="text-primary text-sm md:text-base">
                       {getTypeIcon(resource.type)}
                     </div>
-                    <span className="text-sm font-medium uppercase tracking-wide text-[#020a1c]">
+                    <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-[#020a1c] hidden sm:inline">
                       {resource.type}
                     </span>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-[#ff7033] mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2 min-h-[3.5rem]">
+                  <h3 className="text-sm md:text-xl font-bold text-[#ff7033] mb-2 md:mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
                     {resource.title}
                   </h3>
                   
-                  <p className="text-muted-foreground mb-4 line-clamp-3 flex-grow">
+                  <p className="text-muted-foreground mb-2 md:mb-4 line-clamp-1 md:line-clamp-3 flex-grow text-xs md:text-sm">
                     {resource.shortDescription}
                   </p>
                   

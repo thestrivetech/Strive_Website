@@ -153,9 +153,9 @@ const ROICalculator = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
-            <div className="flex items-center justify-center mb-4">
-              <Calculator className="text-primary mr-3 h-8 w-8" />
-              <h2 className="text-2xl md:text-3xl font-bold" data-testid="roi-calculator-title">
+            <div className="flex flex-col items-center justify-center mb-4">
+              <Calculator className="text-primary mb-3 h-8 w-8" />
+              <h2 className="text-2xl md:text-3xl font-bold text-center" data-testid="roi-calculator-title">
                 See How AI Delivers Real Business Value
               </h2>
             </div>
@@ -164,12 +164,12 @@ const ROICalculator = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-8">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-8">
             {/* Calculator Controls */}
             <Card className="p-2 sm:p-4 md:p-6 flex flex-col">
-              <CardContent className="space-y-3 sm:space-y-6 p-0 flex-grow">
+              <CardContent className="space-y-2 sm:space-y-3 md:space-y-6 p-0 flex-grow">
                 <div>
-                  <label className="text-sm font-medium mb-3 block">
+                  <label className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 block">
                     Select Your Industry
                   </label>
                   <Popover open={open} onOpenChange={setOpen}>
@@ -178,7 +178,7 @@ const ROICalculator = () => {
                         variant="outline"
                         role="combobox"
                         aria-expanded={open}
-                        className="w-full justify-between min-h-[48px]"
+                        className="w-full justify-between min-h-[40px] sm:min-h-[48px] text-xs sm:text-sm"
                         data-testid="select-industry"
                       >
                         <div className="flex items-center gap-2">
@@ -229,7 +229,7 @@ const ROICalculator = () => {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-3 block">
+                  <label className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 block">
                     Investment Amount: {formatCurrency(investmentAmount[0])}
                   </label>
                   <Slider
@@ -248,7 +248,7 @@ const ROICalculator = () => {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-3 block">
+                  <label className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 block">
                     Select AI Solutions ({selectedSolutions.length} selected)
                   </label>
                   <div className="space-y-2">
@@ -260,14 +260,14 @@ const ROICalculator = () => {
                             <TooltipTrigger asChild>
                               <Badge
                                 variant={selectedSolutions.includes(solution) ? "default" : "outline"}
-                                className="cursor-pointer p-3 w-full justify-start hover:bg-primary/10 transition-colors"
+                                className="cursor-pointer p-2 sm:p-3 w-full justify-start hover:bg-primary/10 transition-colors text-xs sm:text-sm"
                                 onClick={() => toggleSolution(solution)}
                                 data-testid={`solution-${solution.replace(/\s+/g, '-').toLowerCase()}`}
                               >
                                 <div className="flex items-center justify-between w-full">
                                   <span className="text-left">{solution}</span>
                                   {solutionDetails && (
-                                    <span className="text-xs opacity-70 ml-2">
+                                    <span className="text-xs opacity-70 ml-2 hidden sm:inline">
                                       {solutionDetails.timeSavingsPercent}% time saved
                                     </span>
                                   )}
@@ -296,10 +296,10 @@ const ROICalculator = () => {
               </CardContent>
               
               {/* Schedule Assessment Button - Bottom aligned */}
-              <div className="pt-4 mt-auto">
+              <div className="pt-2 sm:pt-4 mt-auto">
                 <button 
                   onClick={() => window.location.href = "/request"}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group text-xs sm:text-sm
                   before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                   data-testid="button-schedule-discovery-call"
                 >
@@ -310,50 +310,50 @@ const ROICalculator = () => {
 
             {/* Results */}
             <Card className="p-2 sm:p-4 md:p-6 bg-gradient-to-br from-primary/5 to-orange-500/5">
-              <CardContent className="space-y-3 sm:space-y-6 p-0">
+              <CardContent className="space-y-2 sm:space-y-3 md:space-y-6 p-0">
                 <div className="text-center">
-                  <h3 className="text-lg font-semibold mb-4" data-testid="results-title">
+                  <h3 className="text-sm sm:text-lg font-semibold mb-2 sm:mb-4" data-testid="results-title">
                     Your Estimated ROI Instantly
                   </h3>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="text-center p-4 hero-gradient roi-badge rounded-lg border border-white/20">
-                    <DollarSign className="text-green-500 h-8 w-8 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-green-500" data-testid="text-total-roi">
+                <div className="grid grid-cols-1 gap-2 sm:gap-4">
+                  <div className="text-center p-2 sm:p-4 hero-gradient roi-badge rounded-lg border border-white/20">
+                    <DollarSign className="text-green-500 h-6 w-6 sm:h-8 sm:w-8 mx-auto mb-1 sm:mb-2" />
+                    <div className="text-lg sm:text-2xl font-bold text-green-500" data-testid="text-total-roi">
                       {formatCurrency(calculatedROI)}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-xs sm:text-sm text-muted-foreground">
                       5 Year ROI
                     </div>
                   </div>
 
-                  <div className="text-center p-4 hero-gradient roi-badge rounded-lg border border-white/20">
-                    <Clock className="text-blue-500 h-8 w-8 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-blue-500" data-testid="text-time-savings">
+                  <div className="text-center p-2 sm:p-4 hero-gradient roi-badge rounded-lg border border-white/20">
+                    <Clock className="text-blue-500 h-6 w-6 sm:h-8 sm:w-8 mx-auto mb-1 sm:mb-2" />
+                    <div className="text-lg sm:text-2xl font-bold text-blue-500" data-testid="text-time-savings">
                       {timeSavings}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-xs sm:text-sm text-muted-foreground">
                       Time Savings
                     </div>
                   </div>
 
-                  <div className="text-center p-4 hero-gradient roi-badge rounded-lg border border-white/20">
-                    <TrendingUp className="text-primary h-8 w-8 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-primary" data-testid="text-annual-return">
+                  <div className="text-center p-2 sm:p-4 hero-gradient roi-badge rounded-lg border border-white/20">
+                    <TrendingUp className="text-primary h-6 w-6 sm:h-8 sm:w-8 mx-auto mb-1 sm:mb-2" />
+                    <div className="text-lg sm:text-2xl font-bold text-primary" data-testid="text-annual-return">
                       {formatCurrency(annualReturn)}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-xs sm:text-sm text-muted-foreground">
                       Annual Return
                     </div>
                   </div>
 
-                  <div className="text-center p-4 hero-gradient roi-badge rounded-lg border border-white/20">
-                    <Calculator className="text-purple-500 h-8 w-8 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-purple-500">
+                  <div className="text-center p-2 sm:p-4 hero-gradient roi-badge rounded-lg border border-white/20">
+                    <Calculator className="text-purple-500 h-6 w-6 sm:h-8 sm:w-8 mx-auto mb-1 sm:mb-2" />
+                    <div className="text-lg sm:text-2xl font-bold text-purple-500">
                       {paybackMonths} months
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-xs sm:text-sm text-muted-foreground">
                       Payback Period
                     </div>
                   </div>

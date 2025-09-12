@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { 
   Trophy, Shield, Brain, TrendingUp, Clock, Users, BarChart, Cog, Calculator, ShieldCheck, 
-  Truck, Zap, ChevronRight,
+  Truck, Zap, ChevronRight, ChevronLeft,
   Heart, DollarSign, Factory, ShoppingCart, Monitor, GraduationCap, Home as HomeIcon, Scale,
   Microscope, ClipboardList, CheckCircle, AlertTriangle, LineChart, UserCheck,
   Wrench, Eye, Package, Settings, Target, Coins, Globe,
@@ -31,6 +31,7 @@ import { BarChart3, Lock, ExternalLink } from "lucide-react";
 const Home = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedSolution, setSelectedSolution] = useState<any | null>(null);
+  const [currentResourceIndex, setCurrentResourceIndex] = useState(0);
 
   const handleGetStarted = () => {
     window.location.href = "/request";
@@ -38,6 +39,14 @@ const Home = () => {
 
   const handleWatchDemo = () => {
     window.location.href = "/assessment";
+  };
+
+  const nextResource = () => {
+    setCurrentResourceIndex((prev) => (prev + 1) % resources.length);
+  };
+
+  const prevResource = () => {
+    setCurrentResourceIndex((prev) => (prev - 1 + resources.length) % resources.length);
   };
 
   const industrySpecificSolutions = {
@@ -319,28 +328,28 @@ const Home = () => {
           </div>
 
           {/* Solution Cards with Modal */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
             {solutions.map((solution, index) => (
               <Dialog key={index}>
                 <DialogTrigger asChild>
                   <Card 
-                    className="bg-gradient-to-br from-white to-gray-50 cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105 border border-gray-200 hover:border-primary/30 overflow-hidden relative group"
+                    className="bg-gradient-to-br from-white to-gray-50 cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105 border border-gray-200 hover:border-primary/30 overflow-hidden relative group h-full"
                     data-testid={`card-solution-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <CardContent className="p-6 relative">
-                      <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-orange-500/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <CardContent className="p-4 md:p-6 relative h-full flex flex-col">
+                      <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-primary/20 to-orange-500/20 rounded-xl flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300">
                         {solution.icon}
                       </div>
-                      <h3 className="text-xl font-bold text-[#020a1c] mb-3 transition-colors duration-300 group-hover:text-[#ff7033]">
+                      <h3 className="text-lg md:text-xl font-bold text-[#020a1c] mb-2 md:mb-3 transition-colors duration-300 group-hover:text-[#ff7033]">
                         {solution.title}
                       </h3>
-                      <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
+                      <p className="text-muted-foreground mb-3 md:mb-4 text-xs md:text-sm leading-relaxed flex-grow">
                         {solution.description}
                       </p>
-                      <div className="flex items-center text-[#020a1c] font-semibold transition-colors duration-300 group-hover:text-[#ff7033]">
-                        <span>View Details</span>
-                        <ChevronRight className="ml-1 h-4 w-4" />
+                      <div className="flex items-center text-[#020a1c] font-semibold transition-colors duration-300 group-hover:text-[#ff7033] mt-auto">
+                        <span className="text-xs md:text-sm">View Details</span>
+                        <ChevronRight className="ml-1 h-3 w-3 md:h-4 md:w-4" />
                       </div>
                     </CardContent>
                   </Card>
@@ -427,17 +436,17 @@ const Home = () => {
           </div>
 
           {/* Value Proposition Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
             {/* Innovative Tech */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 min-h-[320px]">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <LightBulbIcon className="h-8 w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 md:p-6 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
+                <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-innovative-tech-title">
+                <h3 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4" data-testid="text-innovative-tech-title">
                   Innovation Delivered
                 </h3>
-                <p className="text-white/80 text-sm leading-relaxed">
+                <p className="text-white/80 text-xs md:text-sm leading-relaxed flex-grow">
                   Always-outpacing the market with cutting-edge AI and automation technologies that keep you ahead.
                 </p>
               </div>
@@ -445,14 +454,14 @@ const Home = () => {
 
             {/* Scalable Solutions */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 min-h-[320px]">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <RocketLaunchIcon className="h-8 w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 md:p-6 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
+                <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <RocketLaunchIcon className="h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-scalable-solutions-title">
+                <h3 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4" data-testid="text-scalable-solutions-title">
                   Unmatched Scalability
                 </h3>
-                <p className="text-white/80 text-sm leading-relaxed">
+                <p className="text-white/80 text-xs md:text-sm leading-relaxed flex-grow">
                   Solutions that evolve with you. Our architecture scales seamlessly from startup to enterprise, adapting as you grow.
                 </p>
               </div>
@@ -460,14 +469,14 @@ const Home = () => {
 
             {/* Future-Proof Design */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 min-h-[320px]">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <CpuChipIcon className="h-8 w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 md:p-6 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
+                <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <CpuChipIcon className="h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-future-proof-title">
+                <h3 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4" data-testid="text-future-proof-title">
                   Future-Proof Design
                 </h3>
-                <p className="text-white/80 text-sm leading-relaxed">
+                <p className="text-white/80 text-xs md:text-sm leading-relaxed flex-grow">
                   Built to evolve. Our solutions integrate emerging technologies, ensuring your investment remains valuable for years.
                 </p>
               </div>
@@ -475,14 +484,14 @@ const Home = () => {
 
             {/* Proven Results */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 min-h-[320px]">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <StarIcon className="h-8 w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 md:p-6 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
+                <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <StarIcon className="h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-proven-results-title">
+                <h3 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4" data-testid="text-proven-results-title">
                   Proven Results
                 </h3>
-                <p className="text-white/80 text-sm leading-relaxed">
+                <p className="text-white/80 text-xs md:text-sm leading-relaxed flex-grow">
                   Track record of success. Our clients see 3x faster processing, 60% cost reduction, and 24/7 automated efficiency.
                 </p>
               </div>
@@ -541,7 +550,63 @@ const Home = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          {/* Mobile: Horizontal Swipe Carousel */}
+          <div className="md:hidden relative">
+            <div className="overflow-hidden rounded-2xl">
+              <div 
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${currentResourceIndex * 100}%)` }}
+              >
+                {resources.map((resource, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-4">
+                    <ResourceCard
+                      type={resource.type}
+                      title={resource.title}
+                      description={resource.description}
+                      imageUrl={resource.imageUrl}
+                      imageAlt={resource.imageAlt}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevResource}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full p-3 hover:bg-white/20 transition-all duration-300 z-10"
+              aria-label="Previous resource"
+            >
+              <ChevronLeft className="h-6 w-6 text-[#020a1c]" />
+            </button>
+            
+            <button
+              onClick={nextResource}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full p-3 hover:bg-white/20 transition-all duration-300 z-10"
+              aria-label="Next resource"
+            >
+              <ChevronRight className="h-6 w-6 text-[#020a1c]" />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center space-x-2 mt-6">
+              {resources.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentResourceIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentResourceIndex 
+                      ? 'bg-primary scale-125' 
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to resource ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: Original Grid Layout */}
+          <div className="hidden md:grid grid-cols-3 gap-6 lg:gap-8">
             {resources.map((resource, index) => (
               <div key={index}>
                 <ResourceCard

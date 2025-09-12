@@ -1,8 +1,21 @@
 Regular chat prompt for website edits without agents:
 Please understand the current state of the website and layout. I need your help with updating it. Read this file: chat_logs/website_updates/session28.md - This is your task list for this session along with your chat log where you need to keep full and complete context and track progress for the session. Use the existing task list to create an in-depth to-do list for each listed task. Do your best and be great.
 
-Chat log creation:
-Create this sessions chat log please and record full context from this session - Put it here: chat_logs/website_updates/session2.md
+# Chat log creation / update: #
+Please make sure that you update this sessions chat     │
+│   log: /Users/grant/Documents/GitHub/Strive_Website_Repl  │
+│   it/chat_logs/website_updates/Mobile/session3-review&fi  │
+│   xing-previous-sessions.md - Document everything from    │
+│   this session in full and complete detail. Leave         │
+│   nothing out. All changes and updates that happened in   │
+│   this session should be documented thoroughly and        │
+│   nothing should be left out from this session. This is   │
+│   crititcal to updating this project and to ensuring a    │
+│   smooth session to session continuity so we can keep     │
+│   track of everything that is changed or updated in case  │
+│   we need to come back and fix something that was done    │
+│   wrong. Think hard and do this to the best of your       │
+│   ability. 
 
 MCP server setup (put claude into sonnet model):
 Please read this file and only download the Serena MCP server: MCP_SETUP.md

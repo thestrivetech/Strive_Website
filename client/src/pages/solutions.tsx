@@ -899,7 +899,7 @@ const Solutions = () => {
           </div>
 
           {/* Solutions Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
             {filteredSolutions.map((solution) => (
               <Card
                 key={solution.id}
@@ -907,7 +907,7 @@ const Solutions = () => {
                 onClick={() => setSelectedSolution(solution)}
                 data-testid={`solution-card-${solution.id}`}
               >
-                <CardContent className="p-6 flex flex-col h-full relative">
+                <CardContent className="p-3 md:p-6 flex flex-col h-full relative">
                   {/* Decorative gradient overlay */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-3xl" />
                   
@@ -915,7 +915,7 @@ const Solutions = () => {
                   {solution.hasDemo && (
                     <Button 
                       size="sm"
-                      className="absolute top-4 right-4 bg-green-500 hover:bg-green-600 text-white text-xs px-3 py-1 h-7 shadow-md transition-all duration-200 z-10"
+                      className="absolute top-2 right-2 md:top-4 md:right-4 bg-green-500 hover:bg-green-600 text-white text-xs px-2 md:px-3 py-0.5 md:py-1 h-6 md:h-7 shadow-md transition-all duration-200 z-10"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleViewDemo(solution.demoType || "");
@@ -927,34 +927,34 @@ const Solutions = () => {
                   )}
                   
                   {/* Header Section */}
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="text-primary transition-transform duration-300 group-hover:scale-110">
+                  <div className="flex items-center gap-1 md:gap-2 mb-2 md:mb-3">
+                    <div className="text-primary transition-transform duration-300 group-hover:scale-110 text-sm md:text-xl">
                       {solution.icon}
                     </div>
-                    <span className="text-sm font-medium uppercase tracking-wide text-[#020a1c]">
+                    <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-[#020a1c] hidden sm:inline">
                       {solution.category}
                     </span>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-[#ff7033] mb-3 group-hover:text-primary transition-colors duration-300">
+                  <h3 className="text-sm md:text-xl font-bold text-[#ff7033] mb-2 md:mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
                     {solution.title}
                   </h3>
                   
                   {/* Description Section */}
-                  <div className="flex-grow mb-6">
-                    <p className="text-muted-foreground line-clamp-3 leading-relaxed">
+                  <div className="flex-grow mb-3 md:mb-6">
+                    <p className="text-muted-foreground line-clamp-2 md:line-clamp-3 leading-relaxed text-xs md:text-sm">
                       {solution.shortDescription}
                     </p>
                   </div>
                   
                   {/* Technologies Section */}
-                  <div className="mb-6">
-                    <div className="flex flex-wrap gap-2">
+                  <div className="mb-3 md:mb-6">
+                    <div className="flex flex-wrap gap-1 md:gap-2">
                       {solution.technologies.slice(0, 3).map((tech, index) => (
                         <Badge 
                           key={index} 
                           variant="secondary" 
-                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
+                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors px-1 md:px-2 py-0.5 md:py-1"
                           onClick={(e) => {
                             e.stopPropagation();
                             // Navigate to resources page with filter
@@ -967,7 +967,7 @@ const Solutions = () => {
                       {solution.technologies.length > 3 && (
                         <Badge 
                           variant="secondary" 
-                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
+                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors px-1 md:px-2 py-0.5 md:py-1"
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedSolution(solution);

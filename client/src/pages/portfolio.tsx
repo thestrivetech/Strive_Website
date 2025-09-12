@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Bot, Code, Blocks, Brain, BrainCircuit, Database, Globe, Zap, Eye, Play, ExternalLink, X, Github, Monitor, Smartphone, ChevronRight, Filter } from "lucide-react";
+import { Bot, Code, Blocks, Brain, BrainCircuit, Database, Globe, Zap, Eye, Play, ExternalLink, X, Github, Monitor, Smartphone, ChevronRight, Filter, ChevronDown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Import data from new modular structure
 import { Project, projects } from "@/data/portfolio";
@@ -120,28 +121,71 @@ const Portfolio = () => {
       <section id="showcase" className="py-16 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Filter Navigation */}
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
-            {filters.map((filter) => (
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8 md:mb-12">
+            {/* Mobile Dropdown */}
+            <div className="sm:hidden w-full max-w-xs">
+              <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                <SelectTrigger className="w-full bg-[#020a1c] border-orange-500 text-white focus:border-orange-400">
+                  <div className="flex items-center gap-2">
+                    {filters.find(f => f.id === selectedFilter)?.icon}
+                    <SelectValue />
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="bg-[#020a1c] border-orange-500">
+                  {filters.map((filter) => (
+                    <SelectItem 
+                      key={filter.id} 
+                      value={filter.id}
+                      className="text-white hover:bg-orange-500/20 focus:bg-orange-500/20"
+                    >
+                      <div className="flex items-center gap-2">
+                        {filter.icon}
+                        {filter.name}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Desktop Buttons - Only All and Filter */}
+            <div className="hidden sm:flex gap-2">
               <Button
-                key={filter.id}
-                variant={selectedFilter === filter.id ? "default" : "outline"}
+                variant={selectedFilter === "all" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setSelectedFilter(filter.id)}
+                onClick={() => setSelectedFilter("all")}
                 className={`flex items-center gap-2 transition-all duration-300 ${
-                  selectedFilter === filter.id
+                  selectedFilter === "all"
                     ? 'bg-primary text-white shadow-lg scale-105'
                     : 'border-primary/20 text-foreground hover:border-primary hover:text-primary hover:scale-105'
                 }`}
-                data-testid={`button-filter-${filter.id}`}
               >
-                {filter.icon}
-                {filter.name}
+                <Globe className="h-4 w-4" />
+                All
               </Button>
-            ))}
+              <Select value={selectedFilter === "all" ? "" : selectedFilter} onValueChange={setSelectedFilter}>
+                <SelectTrigger className="w-auto min-w-[120px] border-primary/20 hover:border-primary">
+                  <div className="flex items-center gap-2">
+                    <Filter className="h-4 w-4" />
+                    <SelectValue placeholder="Filter" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent>
+                  {filters.filter(f => f.id !== "all").map((filter) => (
+                    <SelectItem key={filter.id} value={filter.id}>
+                      <div className="flex items-center gap-2">
+                        {filter.icon}
+                        {filter.name}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           {/* Project Gallery */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
             {filteredProjects.map((project) => (
               <Card 
                 key={project.id}
@@ -153,53 +197,53 @@ const Portfolio = () => {
                   <img 
                     src={project.imageUrl} 
                     alt={project.title}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-32 sm:h-40 md:h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                     data-testid={`img-project-${project.id}`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <Badge className={`${getTypeColor(project.type)} text-white border-0`}>
+                  <div className="absolute top-2 left-2 md:top-4 md:left-4 flex gap-2">
+                    <Badge className={`${getTypeColor(project.type)} text-white border-0 text-xs px-1 py-0.5`}>
                       {project.type.toUpperCase()}
                     </Badge>
                   </div>
-                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="flex gap-2">
+                  <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex gap-1 md:gap-2">
                       {project.type === 'demo' && (
-                        <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
-                          <Play className="h-4 w-4" />
+                        <Button size="sm" variant="secondary" className="h-6 w-6 md:h-8 md:w-8 p-0">
+                          <Play className="h-3 w-3 md:h-4 md:w-4" />
                         </Button>
                       )}
-                      <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
-                        <ExternalLink className="h-4 w-4" />
+                      <Button size="sm" variant="secondary" className="h-6 w-6 md:h-8 md:w-8 p-0">
+                        <ExternalLink className="h-3 w-3 md:h-4 md:w-4" />
                       </Button>
                     </div>
                   </div>
                 </div>
                 
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="text-primary">
+                <CardContent className="p-3 md:p-6">
+                  <div className="flex items-center gap-1 md:gap-2 mb-2 md:mb-3">
+                    <div className="text-primary text-sm md:text-base">
                       {getCategoryIcon(project.category)}
                     </div>
-                    <span className="text-sm font-medium uppercase tracking-wide text-[#020a1c]">
+                    <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-[#020a1c] hidden sm:inline">
                       {project.category}
                     </span>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-[#ff7033] mb-3 group-hover:text-primary transition-colors duration-300">
+                  <h3 className="text-sm md:text-xl font-bold text-[#ff7033] mb-2 md:mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
                     {project.title}
                   </h3>
                   
-                  <p className="text-muted-foreground mb-4 line-clamp-2">
+                  <p className="text-muted-foreground mb-2 md:mb-4 line-clamp-1 md:line-clamp-2 text-xs md:text-sm">
                     {project.shortDescription}
                   </p>
                   
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {project.technologies.slice(0, 3).map((tech, index) => (
+                  <div className="flex flex-wrap gap-1 mb-2 md:mb-4">
+                    {project.technologies.slice(0, 2).map((tech, index) => (
                       <Badge 
                         key={index} 
                         variant="secondary" 
-                        className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
+                        className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors px-1 py-0.5"
                         onClick={(e) => {
                           e.stopPropagation();
                           window.location.href = `/resources?filter=tools-tech&tech=${encodeURIComponent(tech.toLowerCase())}`;
@@ -208,9 +252,9 @@ const Portfolio = () => {
                         {tech}
                       </Badge>
                     ))}
-                    {project.technologies.length > 3 && (
-                      <Badge variant="secondary" className="text-xs">
-                        +{project.technologies.length - 3}
+                    {project.technologies.length > 2 && (
+                      <Badge variant="secondary" className="text-xs px-1 py-0.5">
+                        +{project.technologies.length - 2}
                       </Badge>
                     )}
                   </div>
