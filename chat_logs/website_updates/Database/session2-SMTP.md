@@ -1,5 +1,7 @@
 # Session 2: SMTP System & Multi-Request Type Implementation
 
+### IMPORTANT NOTE!!!!!!!!! - The assessment page now has an error when I try to click "Proceed to Scheduling" - Make sure this is only an error with Replit preview and not an actual error
+
 ## Executive Summary
 
 This session successfully implemented a comprehensive multi-request type system that allows users to select from Product Demo, Solution Showcase, and AI Assessment services. The system was fully integrated with the existing SMTP email infrastructure from Session 1, creating a unified request handling system across all website pages.
