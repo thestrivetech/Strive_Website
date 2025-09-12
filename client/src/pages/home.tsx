@@ -295,7 +295,7 @@ const Home = () => {
           </div>
 
           {/* Solution Cards with Modal */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {solutions.map((solution, index) => (
               <Dialog key={index}>
                 <DialogTrigger asChild>
@@ -517,16 +517,17 @@ const Home = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 gap-6 lg:gap-8 pb-4">
             {resources.map((resource, index) => (
-              <ResourceCard
-                key={index}
-                type={resource.type}
-                title={resource.title}
-                description={resource.description}
-                imageUrl={resource.imageUrl}
-                imageAlt={resource.imageAlt}
-              />
+              <div key={index} className="flex-none w-72 snap-center md:w-auto">
+                <ResourceCard
+                  type={resource.type}
+                  title={resource.title}
+                  description={resource.description}
+                  imageUrl={resource.imageUrl}
+                  imageAlt={resource.imageAlt}
+                />
+              </div>
             ))}
           </div>
         </div>

@@ -201,7 +201,7 @@ const HeroSection = ({
                       >
                         {demoVideos[currentDemo].duration}
                       </span>
-                      <div className="flex space-x-1">
+                      <div className="hidden sm:flex space-x-1">
                         {demoVideos.map((_, index) => (
                           <div
                             key={index}
@@ -234,6 +234,23 @@ const HeroSection = ({
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
               >
+                {/* Left Arrow - Mobile */}
+                <button
+                  onClick={goToPreviousDemo}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-primary/20 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border-2 border-primary/30 hover:border-primary hover:scale-105 z-10"
+                  data-testid="button-demo-prev-mobile-inside"
+                >
+                  <ChevronLeft className="w-5 h-5 text-primary" />
+                </button>
+                
+                {/* Right Arrow - Mobile */}
+                <button
+                  onClick={goToNextDemo}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-primary/20 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border-2 border-primary/30 hover:border-primary hover:scale-105 z-10"
+                  data-testid="button-demo-next-mobile-inside"
+                >
+                  <ChevronRight className="w-5 h-5 text-primary" />
+                </button>
                 <img 
                   src={demoVideos[currentDemo].thumbnail}
                   alt={demoVideos[currentDemo].title}
@@ -273,7 +290,7 @@ const HeroSection = ({
                       <span className="text-xs text-gray-400">
                         {demoVideos[currentDemo].duration}
                       </span>
-                      <div className="flex space-x-1">
+                      <div className="hidden sm:flex space-x-1">
                         {demoVideos.map((_, index) => (
                           <div
                             key={index}
@@ -289,27 +306,11 @@ const HeroSection = ({
               </div>
             </div>
 
-            {/* Mobile Navigation Controls */}
-            <div className="flex lg:hidden items-center justify-center gap-3 mt-6">
-              <button
-                onClick={goToPreviousDemo}
-                className="w-12 h-12 bg-white/10 hover:bg-primary/20 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border-2 border-primary/30 hover:border-primary hover:scale-105"
-                data-testid="button-demo-prev-mobile"
-              >
-                <ChevronLeft className="w-6 h-6 text-primary" />
-              </button>
-              <div className="text-center flex-1 px-2">
-                <p className="text-xs sm:text-sm text-muted-foreground">
-                  Rotating demo • Auto-plays every 6 seconds
-                </p>
-              </div>
-              <button
-                onClick={goToNextDemo}
-                className="w-12 h-12 bg-white/10 hover:bg-primary/20 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm border-2 border-primary/30 hover:border-primary hover:scale-105"
-                data-testid="button-demo-next-mobile"
-              >
-                <ChevronRight className="w-6 h-6 text-primary" />
-              </button>
+            {/* Mobile info text */}
+            <div className="lg:hidden text-center mt-4">
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Rotating demo • Auto-plays every 6 seconds
+              </p>
             </div>
 
             {/* Desktop text */}

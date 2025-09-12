@@ -110,7 +110,9 @@
       "Read(//c/Users/zochr/AppData/Roaming/Claude/**)",
       "Bash(dir:*)",
       "Bash(del \"client\\src\\components\\ui\\roi-calculator-old.tsx\")",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "mcp__serena__think_about_whether_you_are_done",
+      "Bash(set NODE_ENV=development)"
     ],
     "deny": []
   },
