@@ -27,28 +27,7 @@ User requested help migrating from an old Supabase database to a new one created
    - Status: Active, needs schema creation
 
 ### Credentials in .env (Final State)
-```env
-# Master Admin Credentials (Username: Admin1)
-MASTER_ADMIN_EMAIL=Contact@strivetech.ai
-MASTER_ADMIN_PASSWORD=StriveMaster0725!$
-
-# Supabase Configuration - Project ID: qnfcdyjhzolhsokblslb
-SUPABASE_URL=https://qnfcdyjhzolhsokblslb.supabase.co
-SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.[...]
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.[...]
-JWT_SECRET=eek3YJFXi3fWTYdTWELDl+FU0lx/b1c12SjG5fiy/UCiWJt1E+iPPa7BPzCdS0HiCwZUvKei1q6lBBVUCb8HYg==
-
-# Database Configuration for Vercel-Supabase Integration
-DATABASE_URL=postgresql://postgres.qnfcdyjhzolhsokblslb:[SERVICE_KEY]@aws-0-us-west-1.pooler.supabase.com:6543/postgres
-
-# Email Service Configuration (SMTP)
-SMTP_HOST=smtp-relay.gmail.com:587
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=contact@strivetech.ai
-SMTP_PASS=dphw dcrd wkbj crku
-SMTP_FROM=contact@strivetech.ai
-```
+DELETED BY USER - THE .ENV CREDENTIALS WERE COMMITED TO GITHUB WITHOUT KNOWING SINCE THEY WERE HERE IN A CHAT LOG
 
 ## Actions Taken During Session
 
