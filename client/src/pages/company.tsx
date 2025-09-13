@@ -63,7 +63,7 @@ const Company = () => {
 
   const stats = [
     { number: "203", label: "Total Projects Completed" },
-    { number: "12", label: "Fortune 500 Clients", note: "Can't list names on website due to NDAs" },
+    { number: "12", label: "Fortune 500 Clients" },
     { number: "95%", label: "Retention Rate, Year After Year" },
     { number: "24/7", label: "Always-On Support for Your Success" }
   ];
@@ -197,11 +197,6 @@ const Company = () => {
                 >
                   {stat.label}
                 </div>
-                {stat.note && (
-                  <div className="text-xs text-muted-foreground mt-1 italic text-center leading-tight">
-                    {stat.note}
-                  </div>
-                )}
               </div>
             ))}
           </div>
