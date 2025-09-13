@@ -178,57 +178,27 @@ const Company = () => {
       {/* Stats Section - Moved outside hero */}
       <section className="py-12 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Mobile: Horizontal scroll layout */}
-          <div className="block md:hidden">
-            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-              {stats.map((stat, index) => (
-                <div 
-                  key={index}
-                  className="text-center group flex-shrink-0 min-w-[160px]"
-                  data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                  <div className="text-2xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300" 
-                    data-testid={`text-stat-number-${index}`}
-                  >
-                    {stat.number}
-                  </div>
-                  <div 
-                    className="text-muted-foreground font-medium text-xs leading-tight"
-                    data-testid={`text-stat-label-${index}`}
-                  >
-                    {stat.label}
-                  </div>
-                  {stat.note && (
-                    <div className="text-xs text-muted-foreground mt-1 italic text-center leading-tight">
-                      {stat.note}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Desktop: Grid layout */}
-          <div className="hidden md:grid grid-cols-4 gap-8">
+          {/* Mobile & Tablet: 2x2 Grid layout */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {stats.map((stat, index) => (
               <div 
                 key={index}
                 className="text-center group"
                 data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <div className="text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300" 
+                <div className="text-2xl md:text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300" 
                   data-testid={`text-stat-number-${index}`}
                 >
                   {stat.number}
                 </div>
                 <div 
-                  className="text-muted-foreground font-medium text-base"
+                  className="text-muted-foreground font-medium text-sm md:text-base leading-tight"
                   data-testid={`text-stat-label-${index}`}
                 >
                   {stat.label}
                 </div>
                 {stat.note && (
-                  <div className="text-xs text-muted-foreground mt-1 italic">
+                  <div className="text-xs text-muted-foreground mt-1 italic text-center leading-tight">
                     {stat.note}
                   </div>
                 )}
