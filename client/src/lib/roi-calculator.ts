@@ -714,8 +714,7 @@ export class AIROICalculator {
 
     // Calculate returns
     const fiveYearROI = validatedAmount * (finalROIMultiplier - 1);
-    const annualGrowthRate = Math.pow(finalROIMultiplier, 1 / timeHorizonYears) - 1;
-    const annualReturn = validatedAmount * annualGrowthRate;
+    const annualReturn = fiveYearROI / 5;
 
     // Calculate payback period in months
     const monthlyReturn = annualReturn / 12;
