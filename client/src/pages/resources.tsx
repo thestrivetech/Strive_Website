@@ -389,7 +389,14 @@ const Resources = () => {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8 md:mb-12">
             {/* Mobile Dropdown */}
             <div className="sm:hidden w-full max-w-xs">
-              <Select value={activeFilter} onValueChange={setActiveFilter}>
+              <Select value={activeFilter} onValueChange={(value) => {
+                if (activeFilter === value) {
+                  // Deselect if already selected
+                  setActiveFilter("All");
+                } else {
+                  setActiveFilter(value);
+                }
+              }}>
                 <SelectTrigger className="w-full bg-[#020a1c] border-orange-500 text-white focus:border-orange-400">
                   <div className="flex items-center gap-2">
                     <div className="flex-shrink-0">
@@ -436,7 +443,14 @@ const Resources = () => {
                 <Globe className="h-4 w-4" />
                 All
               </Button>
-              <Select value={activeFilter === "All" ? "" : activeFilter} onValueChange={setActiveFilter}>
+              <Select value={activeFilter === "All" ? "" : activeFilter} onValueChange={(value) => {
+                if (activeFilter === value) {
+                  // Deselect if already selected
+                  setActiveFilter("All");
+                } else {
+                  setActiveFilter(value);
+                }
+              }}>
                 <SelectTrigger className={`w-auto min-w-[120px] transition-all duration-200 ${
                   activeFilter !== "All" && activeFilter
                     ? "bg-primary text-white shadow-lg scale-105 border-primary"

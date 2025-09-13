@@ -660,7 +660,7 @@ const Solutions = () => {
               Unlock the Power of AI to <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Transform Your Business</span> for Tomorrow
             </h1>
             <p 
-              className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
+              className="text-xl md:text-2xl text-[#94a3b8] max-w-4xl mx-auto mb-8"
               data-testid="text-solutions-hero-subtitle"
             >
               We help industry leaders conquer operational challenges, maximize efficiency, and drive growth with AI solutions designed just for your field.
@@ -899,7 +899,7 @@ const Solutions = () => {
           </div>
 
           {/* Solutions Grid */}
-          <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
             {filteredSolutions.map((solution) => (
               <Card
                 key={solution.id}
@@ -907,7 +907,7 @@ const Solutions = () => {
                 onClick={() => setSelectedSolution(solution)}
                 data-testid={`solution-card-${solution.id}`}
               >
-                <CardContent className="p-3 md:p-6 flex flex-col h-full relative">
+                <CardContent className="p-3 md:p-6 flex flex-col md:flex-col h-full relative">
                   {/* Decorative gradient overlay */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-3xl" />
                   
@@ -926,19 +926,25 @@ const Solutions = () => {
                     </Button>
                   )}
                   
-                  {/* Header Section */}
-                  <div className="flex items-center gap-1 md:gap-2 mb-2 md:mb-3">
-                    <div className="text-primary transition-transform duration-300 group-hover:scale-110 text-sm md:text-xl">
-                      {solution.icon}
+                  {/* Mobile: Horizontal layout, Desktop: Vertical layout */}
+                  <div className="flex flex-row md:flex-col h-full">
+                    {/* Icon and Header Section */}
+                    <div className="flex-shrink-0 mr-4 md:mr-0 md:mb-3">
+                      <div className="flex items-center gap-2 md:gap-2">
+                        <div className="text-primary transition-transform duration-300 group-hover:scale-110 text-lg md:text-xl">
+                          {solution.icon}
+                        </div>
+                        <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-[#020a1c] hidden md:inline">
+                          {solution.category}
+                        </span>
+                      </div>
                     </div>
-                    <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-[#020a1c] hidden sm:inline">
-                      {solution.category}
-                    </span>
-                  </div>
-                  
-                  <h3 className="text-sm md:text-xl font-bold text-[#ff7033] mb-2 md:mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                    {solution.title}
-                  </h3>
+                    
+                    {/* Content Section */}
+                    <div className="flex-1 flex flex-col">
+                      <h3 className="text-base md:text-xl font-bold text-[#ff7033] mb-2 md:mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                        {solution.title}
+                      </h3>
                   
                   {/* Description Section */}
                   <div className="flex-grow mb-3 md:mb-6">
@@ -950,11 +956,11 @@ const Solutions = () => {
                   {/* Technologies Section */}
                   <div className="mb-3 md:mb-6">
                     <div className="flex flex-wrap gap-1 md:gap-2">
-                      {solution.technologies.slice(0, 3).map((tech, index) => (
+                      {solution.technologies.slice(0, 2).map((tech, index) => (
                         <Badge 
                           key={index} 
                           variant="secondary" 
-                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors px-1 md:px-2 py-0.5 md:py-1"
+                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors px-2 md:px-2 py-1 md:py-1"
                           onClick={(e) => {
                             e.stopPropagation();
                             // Navigate to resources page with filter
@@ -964,16 +970,16 @@ const Solutions = () => {
                           {tech}
                         </Badge>
                       ))}
-                      {solution.technologies.length > 3 && (
+                      {solution.technologies.length > 2 && (
                         <Badge 
                           variant="secondary" 
-                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors px-1 md:px-2 py-0.5 md:py-1"
+                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors px-2 md:px-2 py-1 md:py-1"
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedSolution(solution);
                           }}
                         >
-                          +{solution.technologies.length - 3} more
+                          +{solution.technologies.length - 2} more
                         </Badge>
                       )}
                     </div>
@@ -982,7 +988,7 @@ const Solutions = () => {
                   {/* Action Button Section */}
                   <div className="mt-auto pt-2">
                     <Button 
-                      className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300"
+                      className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300 text-sm py-2 min-h-[44px]"
                       variant="outline"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -992,6 +998,8 @@ const Solutions = () => {
                       View Details
                       <Eye className="ml-2 h-4 w-4" />
                     </Button>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
