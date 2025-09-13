@@ -392,8 +392,12 @@ const Resources = () => {
               <Select value={activeFilter} onValueChange={setActiveFilter}>
                 <SelectTrigger className="w-full bg-[#020a1c] border-orange-500 text-white focus:border-orange-400">
                   <div className="flex items-center gap-2">
-                    {filters.find(f => f.name === activeFilter)?.icon}
-                    <SelectValue />
+                    <div className="flex-shrink-0">
+                      {filters.find(f => f.name === activeFilter)?.icon}
+                    </div>
+                    <span className="flex-grow text-left">
+                      {filters.find(f => f.name === activeFilter)?.name}
+                    </span>
                   </div>
                 </SelectTrigger>
                 <SelectContent className="bg-[#020a1c] border-orange-500">
@@ -401,11 +405,15 @@ const Resources = () => {
                     <SelectItem 
                       key={filter.name} 
                       value={filter.name}
-                      className="text-white hover:bg-orange-500/20 focus:bg-orange-500/20"
+                      className={`text-white cursor-pointer hover:bg-orange-500/20 focus:bg-orange-500/20 ${
+                        activeFilter === filter.name 
+                          ? "bg-orange-500/20 text-orange-400" 
+                          : ""
+                      }`}
                     >
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 w-full">
                         {filter.icon}
-                        {filter.name}
+                        <span>{filter.name}</span>
                       </div>
                     </SelectItem>
                   ))}
@@ -431,16 +439,29 @@ const Resources = () => {
               <Select value={activeFilter === "All" ? "" : activeFilter} onValueChange={setActiveFilter}>
                 <SelectTrigger className="w-auto min-w-[120px] border-primary/20 hover:border-primary">
                   <div className="flex items-center gap-2">
-                    <Filter className="h-4 w-4" />
-                    <SelectValue placeholder="Filter" />
+                    <Filter className="h-4 w-4 flex-shrink-0" />
+                    <span className="flex-grow text-left">
+                      {activeFilter !== "All" && activeFilter 
+                        ? filters.find(f => f.name === activeFilter)?.name || "Filter"
+                        : "Filter"
+                      }
+                    </span>
                   </div>
                 </SelectTrigger>
                 <SelectContent>
                   {filters.filter(f => f.name !== "All").map((filter) => (
-                    <SelectItem key={filter.name} value={filter.name}>
-                      <div className="flex items-center gap-2">
+                    <SelectItem 
+                      key={filter.name} 
+                      value={filter.name}
+                      className={`cursor-pointer hover:text-[#ff7033] hover:[&>div]:text-[#ff7033] ${
+                        activeFilter === filter.name 
+                          ? "bg-[#ff7033]/10 text-[#ff7033] [&>div]:text-[#ff7033]" 
+                          : ""
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 w-full">
                         {filter.icon}
-                        {filter.name}
+                        <span>{filter.name}</span>
                       </div>
                     </SelectItem>
                   ))}

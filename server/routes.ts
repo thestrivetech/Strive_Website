@@ -1,12 +1,13 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { storage, MemStorage } from "./storage";
 import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertUserSchema, insertRequestSchema } from "@shared/schema";
 import { z } from "zod";
 import bcrypt from "bcrypt";
-import { supabase } from "./supabase";
+import { supabase, db } from "./supabase";
 import { authenticateToken, generateToken, type AuthenticatedRequest } from "./auth";
 import { emailService } from "./email";
+import { sql } from "drizzle-orm";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -200,9 +201,74 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const requests = await storage.getRequests();
       res.json(requests);
     } catch (error) {
-      res.status(500).json({ 
-        success: false, 
-        message: "Failed to fetch requests" 
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch requests"
+      });
+    }
+  });
+
+  // Database health check endpoint
+  app.get("/api/health/database", async (req, res) => {
+    try {
+      // Test basic database connectivity
+      const healthCheck = {
+        timestamp: new Date().toISOString(),
+        database: {
+          connected: false,
+          type: 'unknown',
+          tables: [] as string[],
+          error: null as string | null
+        },
+        supabase: {
+          configured: false,
+          url: null as string | null
+        }
+      };
+
+      // Check Supabase configuration
+      if (process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY) {
+        healthCheck.supabase.configured = true;
+        healthCheck.supabase.url = process.env.SUPABASE_URL;
+      }
+
+      // Test database connection by querying information schema
+      try {
+        // Use raw SQL to check table existence
+        const tablesResult = await db.execute(sql`
+          SELECT table_name
+          FROM information_schema.tables
+          WHERE table_schema = 'public'
+          AND table_type = 'BASE TABLE'
+          ORDER BY table_name
+        `);
+
+        healthCheck.database.connected = true;
+        healthCheck.database.type = process.env.DATABASE_URL ? 'postgresql' : 'memory';
+        healthCheck.database.tables = Array.isArray(tablesResult)
+          ? tablesResult.map((row: any) => row.table_name)
+          : [];
+
+      } catch (dbError) {
+        healthCheck.database.error = dbError instanceof Error ? dbError.message : 'Unknown database error';
+
+        // Fallback check - if using memory storage, it's still "healthy"
+        if (storage instanceof MemStorage) {
+          healthCheck.database.connected = true;
+          healthCheck.database.type = 'memory';
+          healthCheck.database.tables = ['memory_storage'];
+        }
+      }
+
+      const statusCode = healthCheck.database.connected ? 200 : 503;
+      res.status(statusCode).json(healthCheck);
+
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Health check failed",
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString()
       });
     }
   });

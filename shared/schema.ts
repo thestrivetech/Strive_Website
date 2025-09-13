@@ -44,22 +44,41 @@ export const requests = pgTable("requests", {
   phone: text("phone"),
   company: text("company").notNull(),
   jobTitle: text("job_title"),
-  
+
   // Business Information
   industry: text("industry"),
   companySize: text("company_size"),
   currentChallenges: text("current_challenges"), // JSON array as text
   projectTimeline: text("project_timeline"),
   budgetRange: text("budget_range"),
-  
+
   // Request Information
   requestTypes: text("request_types").notNull(), // Comma-separated: 'demo,showcase,assessment'
   demoFocusAreas: text("demo_focus_areas"), // JSON array as text
   additionalRequirements: text("additional_requirements"),
   preferredDate: text("preferred_date"),
-  
-  // Submission metadata
+
+  // Status and Assignment (Production Features)
+  status: text("status").notNull().default("pending"), // pending, contacted, scheduled, completed, cancelled
+  assignedTo: text("assigned_to"), // Team member assigned to handle this request
+  priority: text("priority").notNull().default("normal"), // low, normal, high, urgent
+
+  // Audit Trail
   submittedAt: timestamp("submitted_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  contactedAt: timestamp("contacted_at"), // When first contact was made
+  scheduledAt: timestamp("scheduled_at"), // When meeting/demo was scheduled
+  completedAt: timestamp("completed_at"), // When request was completed
+
+  // Soft Delete Support
+  deletedAt: timestamp("deleted_at"), // For GDPR compliance and data recovery
+  deletedBy: text("deleted_by"), // Who deleted the record
+
+  // Analytics and Tracking
+  source: text("source").notNull().default("website"), // website, referral, social, etc.
+  utm: text("utm_data"), // UTM parameters as JSON for tracking
+  ipAddress: text("ip_address"), // For security and analytics
+  userAgent: text("user_agent"), // Browser/device info
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({

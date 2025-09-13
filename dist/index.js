@@ -1,4 +1,5 @@
 // server/index.ts
+import dotenv2 from "dotenv";
 import express2 from "express";
 
 // server/routes.ts
@@ -60,8 +61,36 @@ var requests = pgTable("requests", {
   // JSON array as text
   additionalRequirements: text("additional_requirements"),
   preferredDate: text("preferred_date"),
-  // Submission metadata
-  submittedAt: timestamp("submitted_at").defaultNow().notNull()
+  // Status and Assignment (Production Features)
+  status: text("status").notNull().default("pending"),
+  // pending, contacted, scheduled, completed, cancelled
+  assignedTo: text("assigned_to"),
+  // Team member assigned to handle this request
+  priority: text("priority").notNull().default("normal"),
+  // low, normal, high, urgent
+  // Audit Trail
+  submittedAt: timestamp("submitted_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  contactedAt: timestamp("contacted_at"),
+  // When first contact was made
+  scheduledAt: timestamp("scheduled_at"),
+  // When meeting/demo was scheduled
+  completedAt: timestamp("completed_at"),
+  // When request was completed
+  // Soft Delete Support
+  deletedAt: timestamp("deleted_at"),
+  // For GDPR compliance and data recovery
+  deletedBy: text("deleted_by"),
+  // Who deleted the record
+  // Analytics and Tracking
+  source: text("source").notNull().default("website"),
+  // website, referral, social, etc.
+  utm: text("utm_data"),
+  // UTM parameters as JSON for tracking
+  ipAddress: text("ip_address"),
+  // For security and analytics
+  userAgent: text("user_agent")
+  // Browser/device info
 });
 var insertUserSchema = createInsertSchema(users).pick({
   username: true,
@@ -106,9 +135,11 @@ var insertRequestSchema = createInsertSchema(requests).pick({
 import { randomUUID } from "crypto";
 
 // server/supabase.ts
+import dotenv from "dotenv";
 import { createClient } from "@supabase/supabase-js";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
+dotenv.config();
 var supabase = process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY ? createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY) : null;
 var databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl || databaseUrl.includes("[PROJECT-ID]") || databaseUrl.includes("[DB-PASSWORD]")) {
@@ -637,6 +668,7 @@ var EmailService = class {
 var emailService = new EmailService();
 
 // server/routes.ts
+import { sql as sql2 } from "drizzle-orm";
 async function registerRoutes(app2) {
   app2.post("/api/contact", async (req, res) => {
     try {
@@ -800,6 +832,55 @@ async function registerRoutes(app2) {
       res.status(500).json({
         success: false,
         message: "Failed to fetch requests"
+      });
+    }
+  });
+  app2.get("/api/health/database", async (req, res) => {
+    try {
+      const healthCheck = {
+        timestamp: (/* @__PURE__ */ new Date()).toISOString(),
+        database: {
+          connected: false,
+          type: "unknown",
+          tables: [],
+          error: null
+        },
+        supabase: {
+          configured: false,
+          url: null
+        }
+      };
+      if (process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY) {
+        healthCheck.supabase.configured = true;
+        healthCheck.supabase.url = process.env.SUPABASE_URL;
+      }
+      try {
+        const tablesResult = await db.execute(sql2`
+          SELECT table_name
+          FROM information_schema.tables
+          WHERE table_schema = 'public'
+          AND table_type = 'BASE TABLE'
+          ORDER BY table_name
+        `);
+        healthCheck.database.connected = true;
+        healthCheck.database.type = process.env.DATABASE_URL ? "postgresql" : "memory";
+        healthCheck.database.tables = Array.isArray(tablesResult) ? tablesResult.map((row) => row.table_name) : [];
+      } catch (dbError) {
+        healthCheck.database.error = dbError instanceof Error ? dbError.message : "Unknown database error";
+        if (storage instanceof MemStorage) {
+          healthCheck.database.connected = true;
+          healthCheck.database.type = "memory";
+          healthCheck.database.tables = ["memory_storage"];
+        }
+      }
+      const statusCode = healthCheck.database.connected ? 200 : 503;
+      res.status(statusCode).json(healthCheck);
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Health check failed",
+        error: error instanceof Error ? error.message : "Unknown error",
+        timestamp: (/* @__PURE__ */ new Date()).toISOString()
       });
     }
   });
@@ -1257,6 +1338,7 @@ var applySecurity = [
 ];
 
 // server/index.ts
+dotenv2.config();
 var app = express2();
 app.set("trust proxy", true);
 app.use(applySecurity);
@@ -1301,12 +1383,10 @@ app.use((req, res, next) => {
   }
   if (!process.env.VERCEL) {
     const port = parseInt(process.env.PORT || "5000", 10);
-    server.listen({
-      port,
-      host: "0.0.0.0",
-      reusePort: true
-    }, () => {
-      log(`serving on port ${port}`);
+    const host = process.platform === "win32" ? "127.0.0.1" : "0.0.0.0";
+    const options = process.platform === "win32" ? { port, host } : { port, host, reusePort: true };
+    server.listen(options, () => {
+      log(`serving on port ${port} (${host})`);
     });
   }
 })();

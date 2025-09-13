@@ -1,0 +1,6 @@
+Sai Chatbot - Your Strive Tech custom chatbot that is your 24/7 support team when we're not available.
+    - Tranined on your specific company and any and every project that's ever created by us for your company. This ensures that Sai knows everything there is to know about any product or service that we ever create for you and can also be trained on your existing software or services or even ones to come! 
+    - Sai will be capable of assisting you with any issues that may arise and give you a seamless troubleshooting step by step guide to fix anyting that you might need help with. 
+    - Sai is your customized specialist that can be trained on anything and everything that you might need. He's alongside of our architect team during the enitre development process so he gets to see the project being built from sqaure 1 to being production ready. Who knows what you will be able to learn from Sai even after our team educates and helps you understand the product or service that we've customized for your business!
+
+    

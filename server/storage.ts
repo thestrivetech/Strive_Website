@@ -107,8 +107,10 @@ export class MemStorage implements IStorage {
 
   async createRequest(insertRequest: InsertRequest): Promise<Request> {
     const id = randomUUID();
+    const now = new Date();
     const request: Request = {
       ...insertRequest,
+      id,
       phone: insertRequest.phone || null,
       jobTitle: insertRequest.jobTitle || null,
       industry: insertRequest.industry || null,
@@ -119,8 +121,21 @@ export class MemStorage implements IStorage {
       demoFocusAreas: insertRequest.demoFocusAreas || null,
       additionalRequirements: insertRequest.additionalRequirements || null,
       preferredDate: insertRequest.preferredDate || null,
-      id,
-      submittedAt: new Date(),
+      // Production fields
+      status: "pending",
+      assignedTo: null,
+      priority: "normal",
+      submittedAt: now,
+      updatedAt: now,
+      contactedAt: null,
+      scheduledAt: null,
+      completedAt: null,
+      deletedAt: null,
+      deletedBy: null,
+      source: "website",
+      utm: null,
+      ipAddress: null,
+      userAgent: null,
     };
     this.requests.set(id, request);
     return request;

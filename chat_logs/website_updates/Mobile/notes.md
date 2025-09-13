@@ -67,3 +67,77 @@
 - Remove the hero section from the step 2 of 2 page when the user is scheduling their meeting time via calendly
 
 - Make the calendly window formatted better please. Right now it looks elongated vertically (you can make the card on this screen extend to be the full width of the screen in order to make the calendly window wider and to make the formatting better)
+
+
+# Session 6 #
+- All changes made in this session or sequential sessions should prioritize making the mobile design of the website beautiful while giving the best user experience.
+   - Any changes made should be strictly for mobile design and formatting/layout only, please make sure to preserve the desktop layout and all other display sizes. This update is strictly for mobile only.
+
+## Home Page ##
+
+- Overall goal: Make this page beautiful on mobile displays without changing overall design and layout that exists on desktop display (only if needed to make the mobile design work much better)
+
+- ROI calculator is finally formatted correctly in the side by side view but now look extremely cramped. What can we do to fix this?
+
+- The "TRANSPARENCY, ACCOUNTABILITY, AND CONTROL" section cards still need to be reformatted when it comes to their layout - They need to be reorganized into a 3x3 grid. When doing this please resize the font and make the icon centered at the top of each card. Do what you need to do to ensure they look good and are formatted correctly. 
+
+- "WHY INDUSTRY LEADERS CHOOSE STRIVE" sections cards are still vertically formatted and stacked. Let's please resize them along with the font size and icon size to make sure that everything looks good in this section.
+   - The paragraph text (3rd text section from the top) might need to made smaller by a little? It looks like it's competing with the text above it
+
+- The "Lead the AI Revolution in Your Industry" section is great. I only want to change one minor thing: Remove the translucent circles from the sroll arrows, make the arrows the same orange used on the website, and move the arrows to the outside of the cards for easier visibility.
+
+
+## Solutions Page ##
+
+- Overall goal: Make this page beautiful on mobile displays without changing overall design and layout that exists on desktop display (only if needed to make the mobile design work much better)
+
+- Please make the subheading text the same gray color (#94a3b8) that's used for the subheading text on the home page 
+
+- All cards on the solutions page are formatted terribly: Icon needs to be centered at the top of each card, the orange title text for each card looks light/grayed out, the buttons inside of each card are way too big (except for the view details button) and the text inside of the buttons are way too big as well, the text in the View Details button is too big and going off of the button, lastly... all cards look way too tall and elongated still. Please do whatever reformatting that you need to do in order to fix all of this.
+   - The demo button needs to be reduced to just the play icon instead of having both the icon and the word "Demo"
+   - The description text for each card is only a few words long so we need to fix this or make the descriptions smaller for mobile
+
+
+## Portfolio Page ##
+
+- Overall goal: Make this page beautiful on mobile displays without changing overall design and layout that exists on desktop display (only if needed to make the mobile design work much better)
+
+- Filter button shows two of the same icons when there should only be one.
+
+- All cards on the portfolio page are formatted terribly: Icons should be removed from each card, the buttons inside of each card are way too big (except for the view button) and the text inside of the buttons are way too big as well, the text in the View button is too big and going off of the button
+   - The description text for each card is only a few words long so we need to fix this or make the descriptions smaller for mobile
+
+- Please make the subheading text the same gray color (#94a3b8) that's used for the subheading text on the home page 
+
+## Resources Page ##
+- Overall goal: Make this page beautiful on mobile displays without changing overall design and layout that exists on desktop display (only if needed to make the mobile design work much better)
+
+- Filter button shows two of the same icons when there should only be one.
+
+- All cards on the portfolio page are formatted terribly: Icons should be removed from each card, the buttons inside of each card are way too big (except for the view button) and the text inside of the buttons are way too big as well, the text in the View button is too big and going off of the button
+   - The description text for each card is only a few words long so we need to fix this or make the descriptions smaller for mobile
+
+- Please make the subheading text the same gray color (#94a3b8) that's used for the subheading text on the home page 
+
+## Company Page ##
+
+- Overall goal: Make this page beautiful on mobile displays without changing overall design and layout that exists on desktop display (only if needed to make the mobile design work much better)
+
+- Hero section looks good (company timeline). No changes required
+
+- Please make the subheading text the same gray color (#94a3b8) that's used for the subheading text on the home page 
+
+- Metrics / stats section is still vertically stacked and needs to be resized completely to fit in single line horizontally (change font size for numbers and words for this happen)
+   - "Can't list names on website due to NDAs" Text is white so it blends in with the background and can barely be seen.
+
+- The cards/badges in the "Mission, Vision & Values" section are still vertically stacked which isn't what we're going for. Please reformat the cards to be a 1x2 stack (one card on top: "Our Values" and then the other two cards below it) - Delete the orange square on the cards and add a relevant icon (lucide) to what the card is about. You can resize the font or do whatever is needed to make this format work. 
+
+- The Headshot cards in "Meet Your Transformation Partners" section need to be reformatted to match the same function and format as the cards in the "Lead the AI Revolution in Your Industry" section on the home page where the user can click and swipe through them (also put the 3 bubbles that are used in that section on the home page for this section)
+
+## Contact Page ##
+
+- Overall goal: Make this page beautiful on mobile displays without changing overall design and layout that exists on desktop display (only if needed to make the mobile design work much better)
+
+- Make sure all buttons and text within the buttons are resized when viewed on different screen types - Currently the Chat Live With AI Specialist text on the bottom button is too big and goes off of the area of the button (it gets worse depending on the mobile screen size, same goes for the download brochure button - on some mobile screen sizes all buttons look fine but for others the text is too long)
+
+- Error message pops up when I try to submit contact form: "Failed to send message - Invalid form data" - See if this is for mobile only or if its persistent on all displays and happening for the whole website

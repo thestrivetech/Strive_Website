@@ -17,6 +17,22 @@ Please make sure that you update this sessions chat     │
 │   wrong. Think hard and do this to the best of your       │
 │   ability. 
 
+# Chat log Creation / Update - Another good prompt with good output: 
+### Design Specifc
+Please update this sessions chat log with full and complete detail of all updates and edits that    
+  were completed in this session. Please be extra thorough to ensure a successful review session in   
+  the future. We should be able to come back and look at this chat log to see EVERYTHING that was     
+  done in this session just in case we have to fix anything or if we need to copy what was done with  
+   some of the pages in this session to other pages on the website.
+
+### Database / Code Specific
+Please update this sessions chat log with full and complete detail of all updates and edits 
+that were completed in this session. Please be extra thorough to ensure a successful review session 
+in the future. We should be able to come back and look at this chat log to see EVERYTHING that was
+done in this session just in case we have to fix anything that was done or if there were any
+redundant files or code created in this session.
+
+
 MCP server setup (put claude into sonnet model):
 Please read this file and only download the Serena MCP server: MCP_SETUP.md
 

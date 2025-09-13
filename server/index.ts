@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
@@ -70,12 +73,13 @@ app.use((req, res, next) => {
   // It is the only port that is not firewalled.
   if (!process.env.VERCEL) {
     const port = parseInt(process.env.PORT || '5000', 10);
-    server.listen({
-      port,
-      host: "0.0.0.0",
-      reusePort: true,
-    }, () => {
-      log(`serving on port ${port}`);
+    const host = process.platform === 'win32' ? '127.0.0.1' : '0.0.0.0';
+    const options = process.platform === 'win32'
+      ? { port, host }
+      : { port, host, reusePort: true };
+
+    server.listen(options, () => {
+      log(`serving on port ${port} (${host})`);
     });
   }
 })();
