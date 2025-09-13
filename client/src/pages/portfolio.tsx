@@ -172,7 +172,11 @@ const Portfolio = () => {
                 All
               </Button>
               <Select value={selectedFilter === "all" ? "" : selectedFilter} onValueChange={setSelectedFilter}>
-                <SelectTrigger className="w-auto min-w-[120px] border-primary/20 hover:border-primary">
+                <SelectTrigger className={`w-auto min-w-[120px] transition-all duration-200 ${
+                  selectedFilter !== "all" && selectedFilter
+                    ? "bg-primary text-white shadow-lg scale-105 border-primary"
+                    : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
+                }`}>
                   <div className="flex items-center gap-2">
                     <Filter className="h-4 w-4 flex-shrink-0" />
                     <span className="flex-grow text-left">
