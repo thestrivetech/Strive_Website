@@ -926,36 +926,41 @@ const Solutions = () => {
                     </Button>
                   )}
                   
-                  {/* Mobile: Horizontal layout, Desktop: Vertical layout */}
-                  <div className="flex flex-row md:flex-col h-full">
-                    {/* Icon and Header Section */}
-                    <div className="flex-shrink-0 mr-4 md:mr-0 md:mb-3">
-                      <div className="flex items-center gap-2 md:gap-2">
-                        <div className="text-primary transition-transform duration-300 group-hover:scale-110 text-lg md:text-xl">
+                  {/* Mobile: Optimized layout with centered header, Desktop: Vertical layout */}
+                  <div className="flex flex-col h-full">
+                    {/* Mobile: Centered Icon and Title */}
+                    <div className="flex flex-col md:flex-col items-center md:items-start mb-3 md:mb-3">
+                      {/* Icon Section */}
+                      <div className="mb-2 md:mb-2">
+                        <div className="text-primary transition-transform duration-300 group-hover:scale-110 text-2xl md:text-xl flex justify-center">
                           {solution.icon}
                         </div>
-                        <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-[#020a1c] hidden md:inline">
-                          {solution.category}
-                        </span>
                       </div>
-                    </div>
-                    
-                    {/* Content Section */}
-                    <div className="flex-1 flex flex-col">
-                      <h3 className="text-base md:text-xl font-bold text-[#ff7033] mb-2 md:mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                      
+                      {/* Title Section - Centered on mobile */}
+                      <h3 className="text-base md:text-xl font-bold text-[#ff7033] group-hover:text-primary transition-colors duration-300 line-clamp-2 text-center md:text-left">
                         {solution.title}
                       </h3>
+                      
+                      {/* Category - Desktop only */}
+                      <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-[#020a1c] hidden md:inline mt-1">
+                        {solution.category}
+                      </span>
+                    </div>
+                    
+                    {/* Content Section - Left aligned */}
+                    <div className="flex-1 flex flex-col text-left">
                   
-                  {/* Description Section */}
-                  <div className="flex-grow mb-3 md:mb-6">
-                    <p className="text-muted-foreground line-clamp-2 md:line-clamp-3 leading-relaxed text-xs md:text-sm">
-                      {solution.shortDescription}
-                    </p>
-                  </div>
-                  
-                  {/* Technologies Section */}
-                  <div className="mb-3 md:mb-6">
-                    <div className="flex flex-wrap gap-1 md:gap-2">
+                      {/* Description Section */}
+                      <div className="flex-grow mb-3 md:mb-6">
+                        <p className="text-muted-foreground line-clamp-2 md:line-clamp-3 leading-relaxed text-sm md:text-sm">
+                          {solution.shortDescription}
+                        </p>
+                      </div>
+                      
+                      {/* Technologies Section */}
+                      <div className="mb-3 md:mb-6">
+                        <div className="flex flex-wrap gap-1 md:gap-2 justify-center md:justify-start">
                       {solution.technologies.slice(0, 2).map((tech, index) => (
                         <Badge 
                           key={index} 
@@ -985,19 +990,19 @@ const Solutions = () => {
                     </div>
                   </div>
                   
-                  {/* Action Button Section */}
-                  <div className="mt-auto pt-2">
-                    <Button 
-                      className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300 text-sm py-2 min-h-[44px]"
-                      variant="outline"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedSolution(solution);
-                      }}
-                    >
-                      View Details
-                      <Eye className="ml-2 h-4 w-4" />
-                    </Button>
+                      {/* Action Button Section */}
+                      <div className="mt-auto pt-2">
+                        <Button 
+                          className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300 text-sm py-2 min-h-[44px]"
+                          variant="outline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedSolution(solution);
+                          }}
+                        >
+                          View Details
+                          <Eye className="ml-2 h-4 w-4" />
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -1080,12 +1085,12 @@ const Solutions = () => {
                 </div>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-6 border-t">
+              <div className="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t">
                 {selectedSolution.hasDemo ? (
                   <>
                     <Button 
                       size="lg" 
-                      className="flex-1 bg-green-500 hover:bg-green-600 text-white"
+                      className="w-full sm:flex-1 bg-green-500 hover:bg-green-600 text-white px-6 py-3 text-sm font-semibold min-h-[48px]"
                       onClick={() => handleViewDemo(selectedSolution.demoType || "")}
                     >
                       View {selectedSolution.demoType} Demo
@@ -1093,7 +1098,7 @@ const Solutions = () => {
                     <Button 
                       size="lg" 
                       variant="outline" 
-                      className="flex-1 border-primary text-primary hover:bg-primary hover:text-white" 
+                      className="w-full sm:flex-1 border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 text-sm font-semibold min-h-[48px]" 
                       onClick={() => window.location.href = '/request'}
                     >
                       Request Custom Demo
@@ -1103,7 +1108,7 @@ const Solutions = () => {
                   <>
                     <Button 
                       size="lg" 
-                      className="flex-1 bg-primary hover:bg-primary/90" 
+                      className="w-full sm:flex-1 bg-primary hover:bg-primary/90 px-6 py-3 text-sm font-semibold min-h-[48px]" 
                       onClick={() => window.location.href = '/request'}
                     >
                       Request Demo
@@ -1111,7 +1116,7 @@ const Solutions = () => {
                     <Button 
                       size="lg" 
                       variant="outline" 
-                      className="flex-1 border-primary text-primary hover:bg-primary hover:text-white" 
+                      className="w-full sm:flex-1 border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 text-sm font-semibold min-h-[48px]" 
                       onClick={() => window.location.href = '/contact'}
                     >
                       Contact Sales
