@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { 
   Trophy, Shield, Brain, TrendingUp, Clock, Users, BarChart, Cog, Calculator, ShieldCheck, 
-  Truck, Zap, ChevronRight, ChevronLeft,
+  Truck, Zap, ChevronRight, ChevronLeft, ChevronDown,
   Heart, DollarSign, Factory, ShoppingCart, Monitor, GraduationCap, Home as HomeIcon, Scale,
   Microscope, ClipboardList, CheckCircle, AlertTriangle, LineChart, UserCheck,
   Wrench, Eye, Package, Settings, Target, Coins, Globe,
@@ -9,6 +9,9 @@ import {
 } from "lucide-react";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 import { LightBulbIcon, RocketLaunchIcon, CpuChipIcon, StarIcon } from "@heroicons/react/24/outline";
 import HeroSection from "@/components/ui/hero-section";
 import SolutionCard from "@/components/ui/solution-card";
@@ -32,6 +35,8 @@ const Home = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedSolution, setSelectedSolution] = useState<any | null>(null);
   const [currentResourceIndex, setCurrentResourceIndex] = useState(0);
+  const [industryDropdownOpen, setIndustryDropdownOpen] = useState(false);
+  const [industrySearch, setIndustrySearch] = useState("");
 
   const handleGetStarted = () => {
     window.location.href = "/request";
@@ -47,6 +52,18 @@ const Home = () => {
 
   const prevResource = () => {
     setCurrentResourceIndex((prev) => (prev - 1 + resources.length) % resources.length);
+  };
+
+  // Industry icons mapping for dropdown
+  const industryIcons = {
+    healthcare: <Heart className="h-4 w-4" />,
+    finance: <DollarSign className="h-4 w-4" />,
+    manufacturing: <Factory className="h-4 w-4" />,
+    retail: <ShoppingCart className="h-4 w-4" />,
+    technology: <Monitor className="h-4 w-4" />,
+    education: <GraduationCap className="h-4 w-4" />,
+    "real-estate": <HomeIcon className="h-4 w-4" />,
+    legal: <Scale className="h-4 w-4" />
   };
 
   const industrySpecificSolutions = {
@@ -181,24 +198,77 @@ const Home = () => {
           {/* Industry Selector - Mobile Dropdown, Desktop Grid */}
           {/* Mobile Dropdown */}
           <div className="md:hidden mb-12">
-            <Select 
-              value={selectedIndustry || ""} 
-              onValueChange={(value) => setSelectedIndustry(value === selectedIndustry ? null : value)}
-            >
-              <SelectTrigger className="w-full max-w-sm mx-auto bg-[#020a1c] border-orange-500 text-white">
-                <SelectValue placeholder="Select your industry to see solutions" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="healthcare">Healthcare</SelectItem>
-                <SelectItem value="finance">Finance</SelectItem>
-                <SelectItem value="manufacturing">Manufacturing</SelectItem>
-                <SelectItem value="retail">Retail</SelectItem>
-                <SelectItem value="technology">Technology</SelectItem>
-                <SelectItem value="education">Education</SelectItem>
-                <SelectItem value="real-estate">Real Estate</SelectItem>
-                <SelectItem value="legal">Legal</SelectItem>
-              </SelectContent>
-            </Select>
+            <Popover open={industryDropdownOpen} onOpenChange={setIndustryDropdownOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={industryDropdownOpen}
+                  className="w-full max-w-sm mx-auto bg-[#020a1c] border-orange-500 text-white hover:bg-[#020a1c]/90 justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    {selectedIndustry && industryIcons[selectedIndustry as keyof typeof industryIcons]}
+                    <span className="truncate">
+                      {selectedIndustry ? 
+                        selectedIndustry.charAt(0).toUpperCase() + selectedIndustry.slice(1).replace('-', ' ') : 
+                        "Select your industry to see solutions"
+                      }
+                    </span>
+                  </div>
+                  <ChevronDown className="ml-2 h-4 w-4 flex-shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[350px] p-0 max-h-[300px]" align="center" side="bottom" sideOffset={5}>
+                <Command>
+                  <CommandInput 
+                    placeholder="Search industries..." 
+                    value={industrySearch}
+                    onValueChange={setIndustrySearch}
+                    className="border-b"
+                  />
+                  <CommandList className="max-h-[200px] overflow-y-auto">
+                    <CommandEmpty>No industry found.</CommandEmpty>
+                    <CommandGroup>
+                      {[
+                        { id: "healthcare", name: "Healthcare" },
+                        { id: "finance", name: "Finance" },
+                        { id: "manufacturing", name: "Manufacturing" },
+                        { id: "retail", name: "Retail" },
+                        { id: "technology", name: "Technology" },
+                        { id: "education", name: "Education" },
+                        { id: "real-estate", name: "Real Estate" },
+                        { id: "legal", name: "Legal" }
+                      ]
+                        .filter(industry => 
+                          industry.name.toLowerCase().includes(industrySearch.toLowerCase())
+                        )
+                        .map((industry) => (
+                        <CommandItem
+                          key={industry.id}
+                          value={industry.id}
+                          onSelect={() => {
+                            if (selectedIndustry === industry.id) {
+                              setSelectedIndustry(null);
+                            } else {
+                              setSelectedIndustry(industry.id);
+                            }
+                            setIndustryDropdownOpen(false);
+                            setIndustrySearch("");
+                          }}
+                          className={cn(
+                            "flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033]",
+                            selectedIndustry === industry.id && "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]"
+                          )}
+                        >
+                          {industryIcons[industry.id as keyof typeof industryIcons]}
+                          <span>{industry.name}</span>
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
           </div>
 
           {/* Desktop Grid */}
@@ -574,18 +644,18 @@ const Home = () => {
             {/* Navigation Arrows */}
             <button
               onClick={prevResource}
-              className="absolute -left-4 top-1/2 -translate-y-1/2 rounded-full p-3 hover:scale-110 transition-all duration-300 z-10"
+              className="absolute -left-6 top-1/2 -translate-y-1/2 rounded-full p-3 hover:scale-110 transition-all duration-300 z-10"
               aria-label="Previous resource"
             >
-              <ChevronLeft className="h-6 w-6 text-[#ff7033] hover:text-[#ff7033]/80" />
+              <ChevronLeft className="h-8 w-8 text-[#ff7033] hover:text-[#ff7033]/80" />
             </button>
             
             <button
               onClick={nextResource}
-              className="absolute -right-4 top-1/2 -translate-y-1/2 rounded-full p-3 hover:scale-110 transition-all duration-300 z-10"
+              className="absolute -right-6 top-1/2 -translate-y-1/2 rounded-full p-3 hover:scale-110 transition-all duration-300 z-10"
               aria-label="Next resource"
             >
-              <ChevronRight className="h-6 w-6 text-[#ff7033] hover:text-[#ff7033]/80" />
+              <ChevronRight className="h-8 w-8 text-[#ff7033] hover:text-[#ff7033]/80" />
             </button>
 
             {/* Dots Indicator */}

@@ -208,7 +208,11 @@ const ROICalculator = () => {
                                 key={industry}
                                 value={industry}
                                 onSelect={() => {
-                                  setSelectedIndustry(industry as IndustryName);
+                                  if (selectedIndustry === industry) {
+                                    setSelectedIndustry("All Industries" as IndustryName);
+                                  } else {
+                                    setSelectedIndustry(industry as IndustryName);
+                                  }
                                   setOpen(false);
                                   setIndustrySearch("");
                                 }}

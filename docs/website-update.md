@@ -245,3 +245,26 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 - Make "WHY INDUSTRY LEADERS CHOOSE STRIVE" section cards/badges 2 columns (2x2)
 
 - Make "Lead the AI Revolution in Your Industry" section a scroll through section where the user can click or scroll through the content cards 
+
+
+# FINAL STEPS FOR DEPLOYMENT #
+
+- Update my headshot photo
+
+- Edit all fill out forms (request, assessment, and contact forms) to where users/clients can provide their company's website URL - This should be optional
+  - Once this is done, please make sure to edit the database schema and tables to take this update/change into account
+
+- Finalize mobile design updates
+  - Center Chat bot icon or move the coming soon banner to be cockeyed / slanted on the top left of the chatbot icon
+
+- Test request and contact forms 
+  - Test Email confirmations (make templates as well)
+
+- Remove all portfolio cards except what we have (Chatbot/NLP model, Computer Vision/Threat Detection model, and Football Score Prediction model)
+
+- Polish the solutions cards to make sure they are worded correctly and accurately
+  - Make sure all pop out cards on the site are worded correctly and accurately
+
+- Finish company page (icons for values and mission & update the paragraph text with our story or goal as a company)
+
+- Remove flashing effect from coming soon banner on ChatBot page
