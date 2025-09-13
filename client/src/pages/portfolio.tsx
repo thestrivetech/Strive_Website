@@ -235,7 +235,7 @@ const Portfolio = () => {
                 {/* Mobile: Horizontal Layout, Desktop: Vertical Layout */}
                 <div className="flex flex-row md:flex-col">
                   {/* Image Container */}
-                  <div className="relative overflow-hidden w-24 h-40 md:w-full md:h-32 lg:h-48 flex-shrink-0">
+                  <div className="relative overflow-hidden w-28 h-48 md:w-full md:h-32 lg:h-48 flex-shrink-0">
                     <img 
                       src={project.imageUrl} 
                       alt={project.title}
