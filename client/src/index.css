@@ -253,7 +253,7 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%);
-    animation: coming-soon-shine 3s infinite;
+    animation: coming-soon-shine 8s infinite;
     pointer-events: none;
   }
 
