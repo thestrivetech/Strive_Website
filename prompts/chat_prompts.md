@@ -66,7 +66,7 @@ done and have found all that you can, place all of it here: C:\Users\zochr\Deskt
 # Mobile Updates #
 
 Prompt:
-Please read last sessions chat log: /Users/grant/Documents/GitHub/Strive_Website_Replit/chat_logs/website_updates/Mobile/session1.md - After doing this, please read this sessions chat log that I have created: /Users/grant/Documents/GitHub/Strive_Website_Replit/chat_logs/website_updates/Mobile/session2.md - You will see the task list for this session inside of the chat log - Please create your own in depth to-do list in order to make this session a success in updating the mobile design and mobile UX. 
+Please read this sessions chat log that I have created: /Users/grant/Documents/GitHub/Strive_Website_Replit/chat_logs/website_updates/Mobile/session6.md - You will see the task list for this session inside of the chat log - Please create your own in depth to-do list in order to make this session a success in updating the mobile design and mobile user experience. Please make the mobile design beautiful while focusing on fixing the formatting issues that exist.
 
 # Mobile Session prompt to continue where we left off #
 
