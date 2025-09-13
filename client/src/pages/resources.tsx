@@ -677,20 +677,46 @@ const Resources = () => {
               >
                 {/* Mobile: Horizontal Layout, Desktop: Vertical Layout */}
                 <div className="flex flex-row md:flex-col">
-                  {/* Image Container */}
-                  <div className="relative overflow-hidden w-28 h-40 md:w-full md:h-32 lg:h-48 flex-shrink-0">
-                    <img 
-                      src={resource.imageUrl} 
-                      alt={resource.imageAlt}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      data-testid={`img-resource-${resource.id}`}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute top-1 left-1 md:top-2 md:left-2">
-                      <Badge className={`${getTypeColor(resource.type)} text-white border-0 text-xs px-1 py-0.5`}>
-                        {resource.type}
-                      </Badge>
+                  {/* Image Container with Metadata Below */}
+                  <div className="flex flex-col w-28 md:w-full flex-shrink-0">
+                    {/* Image Section */}
+                    <div className="relative overflow-hidden h-32 md:h-32 lg:h-40">
+                      <img 
+                        src={resource.imageUrl} 
+                        alt={resource.imageAlt}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        data-testid={`img-resource-${resource.id}`}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute top-1 left-1 md:top-2 md:left-2">
+                        <Badge className={`${getTypeColor(resource.type)} text-white border-0 text-xs px-1 py-0.5`}>
+                          {resource.type}
+                        </Badge>
+                      </div>
+                      <div className="absolute bottom-1 right-1 md:bottom-2 md:right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="flex gap-1">
+                          <Button size="sm" variant="secondary" className="h-5 w-5 md:h-6 md:w-6 p-0">
+                            <Eye className="h-2 w-2 md:h-3 md:w-3" />
+                          </Button>
+                          <Button size="sm" variant="secondary" className="h-5 w-5 md:h-6 md:w-6 p-0">
+                            <Download className="h-2 w-2 md:h-3 md:w-3" />
+                          </Button>
+                        </div>
+                      </div>
                     </div>
+                    
+                    {/* Metadata Section - Below Image */}
+                    <div className="px-1 py-1 bg-gray-50 dark:bg-gray-800 h-8 md:h-16">
+                      <div className="flex flex-col md:flex-row md:justify-between gap-1 text-xs text-muted-foreground h-full justify-center">
+                        <span className="truncate text-center md:text-left" data-testid={`text-resource-metadata-${resource.id}`}>
+                          {resource.metadata}
+                        </span>
+                        <span className="truncate text-center md:text-right" data-testid={`text-resource-date-${resource.id}`}>
+                          {resource.date}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                     <div className="absolute bottom-1 right-1 md:bottom-2 md:right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="flex gap-1">
                         <Button size="sm" variant="secondary" className="h-5 w-5 md:h-6 md:w-6 p-0">
@@ -700,18 +726,6 @@ const Resources = () => {
                           <Download className="h-2 w-2 md:h-3 md:w-3" />
                         </Button>
                       </div>
-                    </div>
-                  </div>
-                  
-                  {/* Metadata Section - Below Image */}
-                  <div className="hidden md:block px-2 py-1">
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span data-testid={`text-resource-metadata-${resource.id}`}>
-                        {resource.metadata}
-                      </span>
-                      <span data-testid={`text-resource-date-${resource.id}`}>
-                        {resource.date}
-                      </span>
                     </div>
                   </div>
                   
