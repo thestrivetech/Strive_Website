@@ -180,7 +180,8 @@ const Request = () => {
       demoFocusAreas: JSON.stringify(formData.demoFocusAreas.includes("Other") && formData.otherDemoFocusText
         ? [...formData.demoFocusAreas.filter(d => d !== "Other"), `Other: ${formData.otherDemoFocusText}`]
         : formData.demoFocusAreas),
-      additionalRequirements: formData.additionalRequirements
+      additionalRequirements: formData.additionalRequirements,
+      preferredDate: null // Add missing required field
     };
     
     try {

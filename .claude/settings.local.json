@@ -62,7 +62,10 @@
       "Bash(printf '\\x1b[B\\r')",
       "Bash(printf '\\r')",
       "Bash(npm start)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(/bashes)",
+      "Bash(PORT=3002 npm run dev)",
+      "Bash(printf '\\x03')"
     ],
     "deny": []
   },

@@ -98,6 +98,9 @@ export const insertContactSubmissionSchema = createInsertSchema(contactSubmissio
   companySize: true,
   message: true,
   privacyConsent: true,
+}).extend({
+  // Allow boolean values for privacyConsent and transform to string
+  privacyConsent: z.union([z.boolean(), z.string()]).transform((val) => String(val)),
 });
 
 export const insertNewsletterSubscriptionSchema = createInsertSchema(newsletterSubscriptions).pick({

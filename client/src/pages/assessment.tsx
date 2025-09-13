@@ -103,7 +103,10 @@ const Assessment = () => {
         budgetRange: contactData.budgetRange,
         requestTypes: "assessment", // Assessment request type
         demoFocusAreas: JSON.stringify([]), // Empty for assessment
-        additionalRequirements: `Communication Method: ${contactData.communicationMethod}\n\nProject Description: ${contactData.projectDescription || 'Not provided'}`
+        additionalRequirements: `Communication Method: ${contactData.communicationMethod}
+
+Project Description: ${contactData.projectDescription || 'Not provided'}`,
+        preferredDate: null // Add missing required field
       };
 
       try {

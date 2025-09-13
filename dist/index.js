@@ -9,6 +9,7 @@ import { createServer } from "http";
 import { sql } from "drizzle-orm";
 import { pgTable, text, varchar, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 var users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
@@ -108,6 +109,9 @@ var insertContactSubmissionSchema = createInsertSchema(contactSubmissions).pick(
   companySize: true,
   message: true,
   privacyConsent: true
+}).extend({
+  // Allow boolean values for privacyConsent and transform to string
+  privacyConsent: z.union([z.boolean(), z.string()]).transform((val) => String(val))
 });
 var insertNewsletterSubscriptionSchema = createInsertSchema(newsletterSubscriptions).pick({
   email: true
@@ -235,8 +239,10 @@ var MemStorage = class {
   }
   async createRequest(insertRequest) {
     const id = randomUUID();
+    const now = /* @__PURE__ */ new Date();
     const request = {
       ...insertRequest,
+      id,
       phone: insertRequest.phone || null,
       jobTitle: insertRequest.jobTitle || null,
       industry: insertRequest.industry || null,
@@ -247,8 +253,21 @@ var MemStorage = class {
       demoFocusAreas: insertRequest.demoFocusAreas || null,
       additionalRequirements: insertRequest.additionalRequirements || null,
       preferredDate: insertRequest.preferredDate || null,
-      id,
-      submittedAt: /* @__PURE__ */ new Date()
+      // Production fields
+      status: "pending",
+      assignedTo: null,
+      priority: "normal",
+      submittedAt: now,
+      updatedAt: now,
+      contactedAt: null,
+      scheduledAt: null,
+      completedAt: null,
+      deletedAt: null,
+      deletedBy: null,
+      source: "website",
+      utm: null,
+      ipAddress: null,
+      userAgent: null
     };
     this.requests.set(id, request);
     return request;
@@ -315,7 +334,7 @@ var SupabaseStorage = class {
 var storage = process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY ? new SupabaseStorage() : new MemStorage();
 
 // server/routes.ts
-import { z } from "zod";
+import { z as z2 } from "zod";
 import bcrypt from "bcrypt";
 
 // server/auth.ts
@@ -700,7 +719,7 @@ async function registerRoutes(app2) {
       });
     } catch (error) {
       console.error("Contact form submission error:", error);
-      if (error instanceof z.ZodError) {
+      if (error instanceof z2.ZodError) {
         res.status(400).json({
           success: false,
           message: "Invalid form data",
@@ -744,7 +763,7 @@ async function registerRoutes(app2) {
       });
     } catch (error) {
       console.error("Newsletter subscription error:", error);
-      if (error instanceof z.ZodError) {
+      if (error instanceof z2.ZodError) {
         res.status(400).json({
           success: false,
           message: "Invalid email address",
@@ -788,7 +807,7 @@ async function registerRoutes(app2) {
       });
     } catch (error) {
       console.error("Request submission error:", error);
-      if (error instanceof z.ZodError) {
+      if (error instanceof z2.ZodError) {
         res.status(400).json({
           success: false,
           message: "Invalid form data",
@@ -952,7 +971,7 @@ async function registerRoutes(app2) {
         });
       }
     } catch (error) {
-      if (error instanceof z.ZodError) {
+      if (error instanceof z2.ZodError) {
         res.status(400).json({
           success: false,
           message: "Invalid form data",
