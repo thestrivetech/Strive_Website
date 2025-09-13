@@ -1,14 +1,24 @@
-import { Target, Eye, Heart, CheckCircle, Calendar, Rocket, Zap, Users } from "lucide-react";
+import { Target, Eye, Heart, CheckCircle, Calendar, Rocket, Zap, Users, ChevronLeft, ChevronRight } from "lucide-react";
 import { ArrowTrendingUpIcon, LightBulbIcon, GlobeAltIcon, CpuChipIcon } from "@heroicons/react/24/outline";
 import TeamMember from "@/components/ui/team-member";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import GarrettHeadshot from "@/assets/Garrett-Headshot.webp";
 import JeffHeadshot from "@/assets/Jeff-Headshot.webp";
 import GrantHeadshot from "@/assets/Grant-Headshot.webp";
 
 const Company = () => {
+  const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
+  
+  const nextTeamMember = () => {
+    setCurrentTeamIndex((prev) => (prev + 1) % teamMembers.length);
+  };
+  
+  const prevTeamMember = () => {
+    setCurrentTeamIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
+  };
+
   const missionVisionValues = [
     {
       icon: <Target className="text-primary text-2xl" />,
@@ -115,7 +125,7 @@ const Company = () => {
             >
               Roadmap to the <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Future</span>
             </h1>
-            <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+            <p className="text-[#94a3b8] text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
               What's Ahead for Us and For You: Continuous innovation in AI & emerging tech, so you're always a step ahead.
             </p>
           </div>
@@ -168,26 +178,57 @@ const Company = () => {
       {/* Stats Section - Moved outside hero */}
       <section className="py-12 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+          {/* Mobile: Horizontal scroll layout */}
+          <div className="block md:hidden">
+            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+              {stats.map((stat, index) => (
+                <div 
+                  key={index}
+                  className="text-center group flex-shrink-0 min-w-[160px]"
+                  data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}
+                >
+                  <div className="text-2xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300" 
+                    data-testid={`text-stat-number-${index}`}
+                  >
+                    {stat.number}
+                  </div>
+                  <div 
+                    className="text-muted-foreground font-medium text-xs leading-tight"
+                    data-testid={`text-stat-label-${index}`}
+                  >
+                    {stat.label}
+                  </div>
+                  {stat.note && (
+                    <div className="text-xs text-muted-foreground mt-1 italic text-center leading-tight">
+                      {stat.note}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Desktop: Grid layout */}
+          <div className="hidden md:grid grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div 
                 key={index}
                 className="text-center group"
                 data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300" 
+                <div className="text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300" 
                   data-testid={`text-stat-number-${index}`}
                 >
                   {stat.number}
                 </div>
                 <div 
-                  className="text-muted-foreground font-medium text-sm md:text-base"
+                  className="text-muted-foreground font-medium text-base"
                   data-testid={`text-stat-label-${index}`}
                 >
                   {stat.label}
                 </div>
                 {stat.note && (
-                  <div className="text-xs text-muted-foreground/70 mt-1 italic">
+                  <div className="text-xs text-muted-foreground mt-1 italic">
                     {stat.note}
                   </div>
                 )}
@@ -268,27 +309,93 @@ const Company = () => {
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {/* Mobile: 1x2 Layout - Values on top, Mission and Vision below */}
+          <div className="block md:hidden">
+            <div className="space-y-6">
+              {/* Values card first */}
+              {missionVisionValues.filter(item => item.title === "Our Values").map((item, index) => (
+                <div 
+                  key={index} 
+                  className="group"
+                  data-testid={`card-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                >
+                  <div className="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                    <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <div className="text-primary text-xl">
+                        {item.icon}
+                      </div>
+                    </div>
+                    <h3 
+                      className="text-lg font-bold mb-3 text-[#020a1c]"
+                      data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-title`}
+                    >
+                      {item.title}
+                    </h3>
+                    <p 
+                      className="text-sm text-muted-foreground leading-relaxed"
+                      data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-description`}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+              
+              {/* Mission and Vision in a 2-column grid */}
+              <div className="grid grid-cols-2 gap-4">
+                {missionVisionValues.filter(item => item.title !== "Our Values").map((item, index) => (
+                  <div 
+                    key={index} 
+                    className="group"
+                    data-testid={`card-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                  >
+                    <div className="bg-white rounded-2xl p-4 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                      <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                        <div className="text-primary text-lg">
+                          {item.icon}
+                        </div>
+                      </div>
+                      <h3 
+                        className="text-base font-bold mb-2 text-[#020a1c]"
+                        data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-title`}
+                      >
+                        {item.title}
+                      </h3>
+                      <p 
+                        className="text-xs text-muted-foreground leading-relaxed"
+                        data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-description`}
+                      >
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          {/* Desktop: Original 3-column grid */}
+          <div className="hidden md:grid grid-cols-3 gap-8">
             {missionVisionValues.map((item, index) => (
               <div 
                 key={index} 
                 className="group"
                 data-testid={`card-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <div className="bg-white rounded-2xl p-6 md:p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
-                  <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <div className="text-white text-xl md:text-2xl">
+                <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                  <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <div className="text-primary text-2xl">
                       {item.icon}
                     </div>
                   </div>
                   <h3 
-                    className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-[#020a1c]"
+                    className="text-xl font-bold mb-4 text-[#020a1c]"
                     data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-title`}
                   >
                     {item.title}
                   </h3>
                   <p 
-                    className="text-sm md:text-base text-muted-foreground leading-relaxed"
+                    className="text-base text-muted-foreground leading-relaxed"
                     data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-description`}
                   >
                     {item.description}
@@ -324,7 +431,87 @@ const Company = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {/* Mobile: Horizontal Swipe Carousel */}
+          <div className="md:hidden relative">
+            <div className="overflow-hidden rounded-2xl">
+              <div 
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${currentTeamIndex * 100}%)` }}
+              >
+                {teamMembers.map((member, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-4">
+                    <div className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100 overflow-hidden relative group">
+                      {/* Gradient overlay on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
+                      
+                      <div className="relative overflow-hidden">
+                        <img 
+                          src={member.imageUrl}
+                          alt={member.imageAlt}
+                          className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        {/* Decorative border effect */}
+                        <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-t-3xl transition-colors duration-500"></div>
+                      </div>
+                      
+                      <div className="p-6 relative z-10">
+                        <h3 className="text-xl font-bold mb-3 text-[#020a1c] group-hover:text-primary transition-colors duration-300">
+                          {member.name}
+                        </h3>
+                        <p className="text-primary font-bold mb-3 text-base tracking-wide">
+                          {member.title}
+                        </p>
+                        <p className="text-muted-foreground leading-relaxed text-sm">
+                          {member.description}
+                        </p>
+                        
+                        {/* Decorative accent */}
+                        <div className="absolute bottom-0 left-6 right-6 h-1 bg-gradient-to-r from-primary to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevTeamMember}
+              className="absolute -left-6 top-1/2 -translate-y-1/2 rounded-full p-3 hover:scale-110 transition-all duration-300 z-10"
+              aria-label="Previous team member"
+            >
+              <ChevronLeft className="h-8 w-8 text-[#ff7033] hover:text-[#ff7033]/80" />
+            </button>
+            
+            <button
+              onClick={nextTeamMember}
+              className="absolute -right-6 top-1/2 -translate-y-1/2 rounded-full p-3 hover:scale-110 transition-all duration-300 z-10"
+              aria-label="Next team member"
+            >
+              <ChevronRight className="h-8 w-8 text-[#ff7033] hover:text-[#ff7033]/80" />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center space-x-2 mt-6">
+              {teamMembers.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTeamIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentTeamIndex 
+                      ? 'bg-primary scale-125' 
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to team member ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: Original Grid Layout */}
+          <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {teamMembers.map((member, index) => (
               <div key={index} className="group">
                 <div className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-gray-100 overflow-hidden relative">
