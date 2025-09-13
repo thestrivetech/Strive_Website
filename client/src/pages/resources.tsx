@@ -509,35 +509,38 @@ const Resources = () => {
                     data-testid={`card-quiz-${quiz.id}`}
                   >
                     <div className="relative overflow-hidden flex-shrink-0">
-                      <div className="h-48 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                      <div className="h-32 md:h-48 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
                         <div className="text-center text-white">
-                          <BrainCircuit className="w-16 h-16 mx-auto mb-4 opacity-80" />
-                          <div className="text-sm font-medium uppercase tracking-wide">
+                          <BrainCircuit className="w-8 h-8 md:w-16 md:h-16 mx-auto mb-2 md:mb-4 opacity-80" />
+                          <div className="text-xs md:text-sm font-medium uppercase tracking-wide">
                             {quiz.topic}
                           </div>
                         </div>
                       </div>
-                      <div className="absolute top-4 left-4">
+                      <div className="absolute top-2 left-2 md:top-4 md:left-4">
                         <Badge className={`${
                           quiz.difficulty === 'beginner' ? 'bg-green-500' :
                           quiz.difficulty === 'intermediate' ? 'bg-yellow-500' : 'bg-red-500'
-                        } text-white border-0 capitalize`}>
+                        } text-white border-0 capitalize text-xs px-2 py-1`}>
                           {quiz.difficulty}
                         </Badge>
                       </div>
-
                     </div>
                     
-                    <CardContent className="p-6 text-white flex flex-col flex-grow">
-                      <h4 className="text-xl font-bold mb-3 group-hover:text-blue-300 transition-colors line-clamp-2 min-h-[3.5rem]">
+                    <CardContent className="p-3 md:p-6 text-white flex flex-col flex-grow">
+                      {/* Mobile: Centered title, Desktop: Left-aligned */}
+                      <h4 className="text-base md:text-xl font-bold mb-2 md:mb-3 group-hover:text-blue-300 transition-colors line-clamp-2 text-center md:text-left">
                         {quiz.title}
                       </h4>
-                      <p className="text-slate-300 mb-4 text-sm leading-relaxed line-clamp-3 flex-grow">
+                      
+                      {/* Description - Left aligned */}
+                      <p className="text-slate-300 mb-3 md:mb-4 text-xs md:text-sm leading-relaxed line-clamp-3 flex-grow text-left">
                         {quiz.description}
                       </p>
                       
-                      <div className="flex items-center justify-between text-xs text-slate-400 mb-4">
-                        <div className="flex items-center gap-4">
+                      {/* Quiz Metrics - Centered on mobile */}
+                      <div className="flex flex-col md:flex-row items-center md:items-center justify-center md:justify-between text-xs text-slate-400 mb-3 md:mb-4 gap-2 md:gap-4">
+                        <div className="flex items-center gap-2 md:gap-4">
                           <div className="flex items-center gap-1">
                             <Target className="h-3 w-3" />
                             {quiz.questions.length} questions
@@ -553,15 +556,16 @@ const Resources = () => {
                         </div>
                       </div>
                       
+                      {/* Action Button */}
                       <Button 
-                        className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0 mt-auto"
+                        className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0 mt-auto text-sm py-2 min-h-[44px]"
                         onClick={(e) => {
                           e.stopPropagation();
                           startQuiz(quiz);
                         }}
                         data-testid={`button-start-quiz-${quiz.id}`}
                       >
-                        <Play className="h-4 w-4 mr-2" />
+                        <Play className="h-3 w-3 md:h-4 md:w-4 mr-2" />
                         Start Quiz
                       </Button>
                     </CardContent>
@@ -591,87 +595,79 @@ const Resources = () => {
                     onClick={() => setSelectedResource(tech)}
                     data-testid={`card-tech-${tech.id}`}
                   >
-                    <div className="relative overflow-hidden flex-shrink-0">
-                      <img 
-                        src={tech.imageUrl} 
-                        alt={tech.imageAlt}
-                        className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                        data-testid={`img-tech-${tech.id}`}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className="absolute top-4 left-4">
-                        <Badge className="bg-blue-500 text-white border-0">
-                          {tech.type}
-                        </Badge>
-                      </div>
-                      <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="flex gap-2">
-                          <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button 
-                            size="sm" 
-                            variant="secondary" 
-                            className="h-8 w-8 p-0"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              // Navigate to portfolio with this tech filter
-                              window.location.href = '/portfolio';
-                            }}
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </Button>
+                    <CardContent className="p-3 md:p-6 text-white flex flex-col h-full relative">
+                      {/* Decorative gradient overlay */}
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/5 to-transparent rounded-full blur-3xl" />
+                      
+                      {/* Mobile: Centered layout, Desktop: Left-aligned layout */}
+                      <div className="flex flex-col h-full">
+                        {/* Icon and Title Section */}
+                        <div className="flex flex-col items-center md:items-start mb-3 md:mb-3">
+                          {/* Icon Section */}
+                          <div className="mb-2 md:mb-2">
+                            <div className="text-blue-400 transition-transform duration-300 group-hover:scale-110 text-2xl md:text-xl flex justify-center">
+                              <Wrench className="h-8 w-8 md:h-5 md:w-5" />
+                            </div>
+                          </div>
+                          
+                          {/* Title Section - Centered on mobile */}
+                          <h3 className="text-base md:text-xl font-bold group-hover:text-blue-400 transition-colors duration-300 line-clamp-2 text-center md:text-left mb-1 md:mb-3">
+                            {tech.title}
+                          </h3>
+                          
+                          {/* Type - Desktop only */}
+                          <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-blue-400 hidden md:inline">
+                            {tech.type}
+                          </span>
+                        </div>
+                        
+                        {/* Content Section - Left aligned */}
+                        <div className="flex-1 flex flex-col text-left">
+                          {/* Description Section */}
+                          <div className="flex-grow mb-3 md:mb-4">
+                            <p className="text-slate-300 line-clamp-2 md:line-clamp-3 leading-relaxed text-sm md:text-sm">
+                              {tech.shortDescription}
+                            </p>
+                          </div>
+                          
+                          {/* Tags Section */}
+                          <div className="mb-3 md:mb-4">
+                            <div className="flex flex-wrap gap-1 justify-center md:justify-start">
+                              {tech.tags.slice(0, 2).map((tag, index) => (
+                                <Badge key={index} variant="secondary" className="text-xs bg-slate-700 text-slate-300 px-2 py-1">
+                                  {tag}
+                                </Badge>
+                              ))}
+                              {tech.tags.length > 2 && (
+                                <Badge variant="secondary" className="text-xs bg-slate-700 text-slate-300 px-2 py-1">
+                                  +{tech.tags.length - 2}
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                          
+                          {/* Metadata Section */}
+                          <div className="flex items-center justify-between text-sm text-slate-400 mb-3 md:mb-4">
+                            <span className="text-xs md:text-sm" data-testid={`text-tech-metadata-${tech.id}`}>
+                              {tech.metadata}
+                            </span>
+                            <span className="text-xs md:text-sm" data-testid={`text-tech-date-${tech.id}`}>
+                              {tech.date}
+                            </span>
+                          </div>
+                          
+                          {/* Action Button Section */}
+                          <div className="mt-auto pt-2">
+                            <Button 
+                              className="w-full group-hover:bg-blue-500 group-hover:text-white transition-all duration-300 text-sm py-2 min-h-[44px]"
+                              variant="outline"
+                            >
+                              Learn More
+                              <Eye className="ml-2 h-4 w-4" />
+                            </Button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    
-                    <CardContent className="p-6 text-white flex flex-col flex-grow">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="text-blue-400">
-                          <Wrench className="h-5 w-5" />
-                        </div>
-                        <span className="text-sm font-medium uppercase tracking-wide text-blue-400">
-                          {tech.type}
-                        </span>
-                      </div>
-                      
-                      <h3 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors duration-300 line-clamp-2 min-h-[3.5rem]">
-                        {tech.title}
-                      </h3>
-                      
-                      <p className="text-slate-300 mb-4 line-clamp-3 flex-grow">
-                        {tech.shortDescription}
-                      </p>
-                      
-                      <div className="flex flex-wrap gap-1 mb-4">
-                        {tech.tags.slice(0, 2).map((tag, index) => (
-                          <Badge key={index} variant="secondary" className="text-xs bg-slate-700 text-slate-300">
-                            {tag}
-                          </Badge>
-                        ))}
-                        {tech.tags.length > 2 && (
-                          <Badge variant="secondary" className="text-xs bg-slate-700 text-slate-300">
-                            +{tech.tags.length - 2}
-                          </Badge>
-                        )}
-                      </div>
-                      
-                      <div className="flex items-center justify-between text-sm text-slate-400 mb-4">
-                        <span data-testid={`text-tech-metadata-${tech.id}`}>
-                          {tech.metadata}
-                        </span>
-                        <span data-testid={`text-tech-date-${tech.id}`}>
-                          {tech.date}
-                        </span>
-                      </div>
-                      
-                      <Button 
-                        className="w-full mt-auto group-hover:bg-blue-500 group-hover:text-white transition-all duration-300"
-                        variant="outline"
-                      >
-                        Learn More
-                        <Eye className="ml-2 h-4 w-4" />
-                      </Button>
                     </CardContent>
                   </Card>
                 ))}
@@ -681,7 +677,7 @@ const Resources = () => {
 
           {/* Resource Grid */}
           {activeFilter !== "Quizzes" && activeFilter !== "Tools & Tech" && (
-            <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
               {filteredResources.map((resource) => (
               <Card 
                 key={resource.id}
@@ -689,79 +685,84 @@ const Resources = () => {
                 onClick={() => setSelectedResource(resource)}
                 data-testid={`card-resource-${resource.id}`}
               >
-                <div className="relative overflow-hidden flex-shrink-0">
-                  <img 
-                    src={resource.imageUrl} 
-                    alt={resource.imageAlt}
-                    className="w-full h-32 sm:h-40 md:h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                    data-testid={`img-resource-${resource.id}`}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute top-2 left-2 md:top-4 md:left-4">
-                    <Badge className={`${getTypeColor(resource.type)} text-white border-0 text-xs px-1 py-0.5`}>
-                      {resource.type}
-                    </Badge>
-                  </div>
-                  <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="flex gap-1 md:gap-2">
-                      <Button size="sm" variant="secondary" className="h-6 w-6 md:h-8 md:w-8 p-0">
-                        <Eye className="h-3 w-3 md:h-4 md:w-4" />
-                      </Button>
-                      <Button size="sm" variant="secondary" className="h-6 w-6 md:h-8 md:w-8 p-0">
-                        <Download className="h-3 w-3 md:h-4 md:w-4" />
-                      </Button>
+                {/* Mobile: Horizontal Layout, Desktop: Vertical Layout */}
+                <div className="flex flex-row md:flex-col">
+                  {/* Image Container */}
+                  <div className="relative overflow-hidden w-28 h-40 md:w-full md:h-32 lg:h-48 flex-shrink-0">
+                    <img 
+                      src={resource.imageUrl} 
+                      alt={resource.imageAlt}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      data-testid={`img-resource-${resource.id}`}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute top-1 left-1 md:top-2 md:left-2">
+                      <Badge className={`${getTypeColor(resource.type)} text-white border-0 text-xs px-1 py-0.5`}>
+                        {resource.type}
+                      </Badge>
+                    </div>
+                    <div className="absolute bottom-1 right-1 md:bottom-2 md:right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="flex gap-1">
+                        <Button size="sm" variant="secondary" className="h-5 w-5 md:h-6 md:w-6 p-0">
+                          <Eye className="h-2 w-2 md:h-3 md:w-3" />
+                        </Button>
+                        <Button size="sm" variant="secondary" className="h-5 w-5 md:h-6 md:w-6 p-0">
+                          <Download className="h-2 w-2 md:h-3 md:w-3" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
+                  
+                  {/* Content Container */}
+                  <CardContent className="p-3 md:p-6 flex flex-col flex-grow min-w-0">
+                    <div className="flex items-center gap-1 md:gap-2 mb-1 md:mb-3">
+                      <div className="text-primary text-sm">
+                        {getTypeIcon(resource.type)}
+                      </div>
+                      <span className="text-xs font-medium uppercase tracking-wide text-[#020a1c] hidden sm:inline">
+                        {resource.type}
+                      </span>
+                    </div>
+                    
+                    <h3 className="text-sm md:text-xl font-bold text-[#ff7033] mb-1 md:mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                      {resource.title}
+                    </h3>
+                    
+                    <p className="text-muted-foreground mb-2 md:mb-4 line-clamp-2 text-xs md:text-sm flex-grow">
+                      {resource.shortDescription}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-1 mb-2 md:mb-4">
+                      {resource.tags.slice(0, 2).map((tag, index) => (
+                        <Badge key={index} variant="secondary" className="text-xs px-1 py-0.5">
+                          {tag}
+                        </Badge>
+                      ))}
+                      {resource.tags.length > 2 && (
+                        <Badge variant="secondary" className="text-xs px-1 py-0.5">
+                          +{resource.tags.length - 2}
+                        </Badge>
+                      )}
+                    </div>
+                    
+                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-2 md:mb-4">
+                      <span className="text-xs md:text-sm" data-testid={`text-resource-metadata-${resource.id}`}>
+                        {resource.metadata}
+                      </span>
+                      <span className="text-xs md:text-sm" data-testid={`text-resource-date-${resource.id}`}>
+                        {resource.date}
+                      </span>
+                    </div>
+                    
+                    <Button 
+                      className="w-full mt-auto group-hover:bg-primary group-hover:text-white transition-all duration-300 text-xs md:text-sm py-1 md:py-2"
+                      variant="outline"
+                    >
+                      View Details
+                      <Eye className="ml-1 h-3 w-3 md:ml-2 md:h-4 md:w-4" />
+                    </Button>
+                  </CardContent>
                 </div>
-                
-                <CardContent className="p-3 md:p-6 flex flex-col flex-grow">
-                  <div className="flex items-center gap-1 md:gap-2 mb-2 md:mb-3">
-                    <div className="text-primary text-sm md:text-base">
-                      {getTypeIcon(resource.type)}
-                    </div>
-                    <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-[#020a1c] hidden sm:inline">
-                      {resource.type}
-                    </span>
-                  </div>
-                  
-                  <h3 className="text-sm md:text-xl font-bold text-[#ff7033] mb-2 md:mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                    {resource.title}
-                  </h3>
-                  
-                  <p className="text-muted-foreground mb-2 md:mb-4 line-clamp-1 md:line-clamp-3 flex-grow text-xs md:text-sm">
-                    {resource.shortDescription}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {resource.tags.slice(0, 2).map((tag, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
-                    {resource.tags.length > 2 && (
-                      <Badge variant="secondary" className="text-xs">
-                        +{resource.tags.length - 2}
-                      </Badge>
-                    )}
-                  </div>
-                  
-                  <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
-                    <span data-testid={`text-resource-metadata-${resource.id}`}>
-                      {resource.metadata}
-                    </span>
-                    <span data-testid={`text-resource-date-${resource.id}`}>
-                      {resource.date}
-                    </span>
-                  </div>
-                  
-                  <Button 
-                    className="w-full mt-auto group-hover:bg-primary group-hover:text-white transition-all duration-300"
-                    variant="outline"
-                  >
-                    View Details
-                    <Eye className="ml-2 h-4 w-4" />
-                  </Button>
-                </CardContent>
               </Card>
             ))}
             </div>
