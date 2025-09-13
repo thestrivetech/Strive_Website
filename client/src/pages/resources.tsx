@@ -284,7 +284,7 @@ const Resources = () => {
               Business <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block pb-2">Intelligence</span> Hub
             </h1>
             <p 
-              className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
+              className=\"text-xl md:text-2xl text-[#94a3b8] max-w-4xl mx-auto mb-8\"
               data-testid="text-hero-subtitle"
             >
               Gain exclusive strategies, actionable research, and expert insights to guide your team through every stage of digital transformation.
@@ -412,9 +412,9 @@ const Resources = () => {
                     <SelectItem 
                       key={filter.name} 
                       value={filter.name}
-                      className={`text-white cursor-pointer hover:bg-orange-500/20 focus:bg-orange-500/20 hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] ${
+                      className={`text-white cursor-pointer hover:bg-orange-500/20 focus:bg-orange-500/20 hover:text-[#ff7033] hover:[&_svg]:text-[#ff7033] ${
                         activeFilter === filter.name 
-                          ? "bg-orange-500/20 text-[#ff7033] [&>svg]:text-[#ff7033]" 
+                          ? "bg-orange-500/20 text-[#ff7033] [&_svg]:text-[#ff7033]" 
                           : ""
                       }`}
                     >
@@ -451,14 +451,14 @@ const Resources = () => {
                   setActiveFilter(value);
                 }
               }}>
-                <SelectTrigger className={`w-auto min-w-[120px] transition-all duration-200 ${
+                <SelectTrigger className={`w-auto min-w-[60px] px-2 py-1 text-sm transition-all duration-200 ${
                   activeFilter !== "All" && activeFilter
                     ? "bg-primary text-white shadow-lg scale-105 border-primary"
                     : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
                 }`}>
-                  <div className="flex items-center gap-2">
-                    <Filter className="h-4 w-4 flex-shrink-0" />
-                    <span className="flex-grow text-left">
+                  <div className="flex items-center gap-1">
+                    <Filter className="h-3 w-3 flex-shrink-0" />
+                    <span className="flex-grow text-left text-xs">
                       {activeFilter !== "All" && activeFilter 
                         ? filters.find(f => f.name === activeFilter)?.name || "Filter"
                         : "Filter"
@@ -471,9 +471,9 @@ const Resources = () => {
                     <SelectItem 
                       key={filter.name} 
                       value={filter.name}
-                      className={`cursor-pointer hover:text-[#ff7033] hover:[&>div]:text-[#ff7033] ${
+                      className={`cursor-pointer hover:text-[#ff7033] hover:[&_svg]:text-[#ff7033] ${
                         activeFilter === filter.name 
-                          ? "bg-[#ff7033]/10 text-[#ff7033] [&>div]:text-[#ff7033]" 
+                          ? "bg-[#ff7033]/10 text-[#ff7033] [&_svg]:text-[#ff7033]" 
                           : ""
                       }`}
                     >
@@ -703,6 +703,18 @@ const Resources = () => {
                     </div>
                   </div>
                   
+                  {/* Metadata Section - Below Image */}
+                  <div className="hidden md:block px-2 py-1">
+                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                      <span data-testid={`text-resource-metadata-${resource.id}`}>
+                        {resource.metadata}
+                      </span>
+                      <span data-testid={`text-resource-date-${resource.id}`}>
+                        {resource.date}
+                      </span>
+                    </div>
+                  </div>
+                  
                   {/* Content Container */}
                   <CardContent className="p-3 md:p-6 flex flex-col flex-grow min-w-0">
                     <div className="flex items-center gap-1 md:gap-2 mb-1 md:mb-3">
@@ -735,14 +747,6 @@ const Resources = () => {
                       )}
                     </div>
                     
-                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-2 md:mb-4">
-                      <span className="text-xs md:text-sm" data-testid={`text-resource-metadata-${resource.id}`}>
-                        {resource.metadata}
-                      </span>
-                      <span className="text-xs md:text-sm" data-testid={`text-resource-date-${resource.id}`}>
-                        {resource.date}
-                      </span>
-                    </div>
                     
                     <Button 
                       className="w-full mt-auto group-hover:bg-primary group-hover:text-white transition-all duration-300 text-xs md:text-sm py-1 md:py-2"
