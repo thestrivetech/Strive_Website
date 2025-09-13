@@ -412,9 +412,9 @@ const Resources = () => {
                     <SelectItem 
                       key={filter.name} 
                       value={filter.name}
-                      className={`text-white cursor-pointer hover:bg-orange-500/20 focus:bg-orange-500/20 ${
+                      className={`text-white cursor-pointer hover:bg-orange-500/20 focus:bg-orange-500/20 hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] ${
                         activeFilter === filter.name 
-                          ? "bg-orange-500/20 text-orange-400" 
+                          ? "bg-orange-500/20 text-[#ff7033] [&>svg]:text-[#ff7033]" 
                           : ""
                       }`}
                     >
@@ -624,14 +624,14 @@ const Resources = () => {
                         {/* Content Section - Left aligned */}
                         <div className="flex-1 flex flex-col text-left">
                           {/* Description Section */}
-                          <div className="flex-grow mb-3 md:mb-4">
+                          <div className="mb-3 md:mb-4">
                             <p className="text-slate-300 line-clamp-2 md:line-clamp-3 leading-relaxed text-sm md:text-sm">
                               {tech.shortDescription}
                             </p>
                           </div>
                           
                           {/* Tags Section */}
-                          <div className="mb-3 md:mb-4">
+                          <div className="mb-4 md:mb-6">
                             <div className="flex flex-wrap gap-1 justify-center md:justify-start">
                               {tech.tags.slice(0, 2).map((tag, index) => (
                                 <Badge key={index} variant="secondary" className="text-xs bg-slate-700 text-slate-300 px-2 py-1">
@@ -644,16 +644,6 @@ const Resources = () => {
                                 </Badge>
                               )}
                             </div>
-                          </div>
-                          
-                          {/* Metadata Section */}
-                          <div className="flex items-center justify-between text-sm text-slate-400 mb-3 md:mb-4">
-                            <span className="text-xs md:text-sm" data-testid={`text-tech-metadata-${tech.id}`}>
-                              {tech.metadata}
-                            </span>
-                            <span className="text-xs md:text-sm" data-testid={`text-tech-date-${tech.id}`}>
-                              {tech.date}
-                            </span>
                           </div>
                           
                           {/* Action Button Section */}
