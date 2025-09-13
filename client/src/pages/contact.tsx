@@ -211,36 +211,36 @@ const Contact = () => {
 
   return (
     <div className="pt-16">
-      <section className="hero-gradient pt-20 pb-16">
+      <section className="hero-gradient pt-16 md:pt-20 pb-12 md:pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12 md:mb-16">
             <h1 
-              className="text-4xl md:text-5xl font-bold mb-6"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight"
               data-testid="text-contact-title"
             >
               Accelerate Your <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Business Success</span> with AI
             </h1>
             <p 
-              className="text-xl text-muted-foreground max-w-3xl mx-auto"
+              className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
               data-testid="text-contact-subtitle"
             >
               Your challenges are unique, so let's talk about how custom AI solutions can unlock your next level of performance. Tell us where you want to go, and we'll help you get there.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Contact Form */}
-            <Card className="p-8" style={{ backgroundColor: '#ffffffeb' }}>
+            <Card className="p-6 md:p-8" style={{ backgroundColor: '#ffffffeb' }}>
               <CardContent className="p-0">
                 <h2 
-                  className="text-2xl font-bold mb-6"
+                  className="text-xl md:text-2xl font-bold mb-4 md:mb-6"
                   style={{ color: '#ff7033' }}
                   data-testid="text-form-title"
                 >
                   Begin Your AI Transformation
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                     <div>
                       <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>First Name *</label>
                       <Input
@@ -250,7 +250,7 @@ const Contact = () => {
                         value={formData.firstName}
                         onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
                         style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
-                        className="focus:ring-primary focus:border-primary"
+                        className="focus:ring-primary focus:border-primary h-11 md:h-10"
                         data-testid="input-first-name"
                       />
                     </div>
@@ -263,7 +263,7 @@ const Contact = () => {
                         value={formData.lastName}
                         onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
                         style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
-                        className="focus:ring-primary focus:border-primary"
+                        className="focus:ring-primary focus:border-primary h-11 md:h-10"
                         data-testid="input-last-name"
                       />
                     </div>
@@ -278,7 +278,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                       style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
-                      className="focus:ring-primary focus:border-primary"
+                      className="focus:ring-primary focus:border-primary h-11 md:h-10"
                       data-testid="input-email"
                     />
                   </div>
@@ -309,7 +309,7 @@ const Contact = () => {
                         color: '#020a1c', 
                         borderColor: validationErrors.phone ? '#ef4444' : '#ff7033' 
                       }}
-                      className="focus:ring-primary focus:border-primary"
+                      className="focus:ring-primary focus:border-primary h-11 md:h-10"
                       data-testid="input-phone"
                     />
                     {validationErrors.phone && (
@@ -325,7 +325,7 @@ const Contact = () => {
                       value={formData.company}
                       onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
                       style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
-                      className="focus:ring-primary focus:border-primary"
+                      className="focus:ring-primary focus:border-primary h-11 md:h-10"
                       data-testid="input-company"
                     />
                   </div>
@@ -333,7 +333,7 @@ const Contact = () => {
                   <div>
                     <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Size</label>
                     <Select value={formData.companySize} onValueChange={(value) => setFormData(prev => ({ ...prev, companySize: value }))}>
-                      <SelectTrigger data-testid="select-company-size" className="gap-2" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
+                      <SelectTrigger data-testid="select-company-size" className="gap-2 h-11 md:h-10" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                         <Users className="h-4 w-4 text-muted-foreground" />
                         <SelectValue placeholder="Select size" />
                       </SelectTrigger>
@@ -356,7 +356,7 @@ const Contact = () => {
                       value={formData.message}
                       onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                       style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
-                      className="focus:ring-primary focus:border-primary"
+                      className="focus:ring-primary focus:border-primary resize-none"
                       data-testid="textarea-message"
                     />
                   </div>
@@ -380,7 +380,7 @@ const Contact = () => {
                   <Button 
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-primary text-primary-foreground py-3 text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="w-full bg-primary text-primary-foreground py-3 md:py-3 text-base md:text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 h-12 md:h-auto"
                     data-testid="button-send-message"
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
@@ -390,28 +390,30 @@ const Contact = () => {
             </Card>
 
             {/* Contact Information */}
-            <div className="space-y-8">
+            <div className="space-y-6 md:space-y-8">
               {/* Contact Details */}
-              <Card className="p-8" style={{ backgroundColor: '#ffffffeb' }}>
+              <Card className="p-6 md:p-8" style={{ backgroundColor: '#ffffffeb' }}>
                 <CardContent className="p-0">
                   <h3 
-                    className="text-xl font-bold mb-6"
+                    className="text-lg md:text-xl font-bold mb-4 md:mb-6"
                     style={{ color: '#020a1c' }}
                     data-testid="text-contact-info-title"
                   >
                     Connect With Us
                   </h3>
-                  <div className="space-y-4">
+                  <div className="space-y-3 md:space-y-4">
                     {contactInfo.map((info, index) => (
                       <div 
                         key={index} 
                         className="flex items-center"
                         data-testid={`contact-info-${info.title.toLowerCase().replace(/\s+/g, "-")}`}
                       >
-                        {info.icon}
-                        <div className="ml-4">
-                          <div className="font-medium" style={{ color: '#020a1c' }}>{info.title}</div>
-                          <div className="text-muted-foreground" style={{ color: '#666' }}>{info.content}</div>
+                        <div className="flex-shrink-0">
+                          {info.icon}
+                        </div>
+                        <div className="ml-3 md:ml-4">
+                          <div className="font-medium text-sm md:text-base" style={{ color: '#020a1c' }}>{info.title}</div>
+                          <div className="text-muted-foreground text-sm md:text-base" style={{ color: '#666' }}>{info.content}</div>
                         </div>
                       </div>
                     ))}
@@ -420,42 +422,42 @@ const Contact = () => {
               </Card>
 
               {/* Quick Actions - Enhanced */}
-              <Card className="p-8 shadow-xl" style={{ backgroundColor: '#ffffffeb', border: '1px solid #ff7033' }}>
+              <Card className="p-6 md:p-8 shadow-xl" style={{ backgroundColor: '#ffffffeb', border: '1px solid #ff7033' }}>
                 <CardContent className="p-0">
-                  <div className="text-center mb-6">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Calendar className="w-6 h-6 text-primary" />
+                  <div className="text-center mb-4 md:mb-6">
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2 md:mb-3">
+                      <Calendar className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                     </div>
                     <h3 
-                      className="text-2xl font-bold mb-2"
+                      className="text-lg md:text-2xl font-bold mb-1 md:mb-2"
                       style={{ color: '#020a1c' }}
                       data-testid="text-quick-actions-title"
                     >
                       Ready to Take the Next Step?
                     </h3>
-                    <p className="text-muted-foreground" style={{ color: '#666' }}>
+                    <p className="text-muted-foreground text-sm md:text-base" style={{ color: '#666' }}>
                       Book your free strategy assessment and explore our resources
                     </p>
                   </div>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-3 md:space-y-4">
                     {/* Primary assessment button */}
                     <Button
-                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:scale-105 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-3 md:py-4 text-base md:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:scale-105 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 h-12 md:h-auto"
                       onClick={() => window.location.href = '/assessment'}
                       data-testid="button-schedule-assessment"
                     >
-                      <Calendar className="mr-2 w-5 h-5" />
+                      <Calendar className="mr-2 w-4 h-4 md:w-5 md:h-5" />
                       Book Free Strategy Assessment
                     </Button>
                     
                     {/* Secondary actions */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-3">
                       {quickActions.slice(0, 2).map((action, index) => (
                         <Button
                           key={index}
                           variant="outline"
-                          className="justify-center py-3 border-2 border-muted hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105 hover:shadow-md"
+                          className="justify-center py-3 border-2 border-muted hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105 hover:shadow-md text-sm md:text-base h-11 md:h-auto"
                           onClick={() => handleQuickAction(action.action)}
                           data-testid={`button-${action.action}`}
                         >
@@ -468,7 +470,7 @@ const Contact = () => {
                     {quickActions[2] && (
                       <Button
                         variant="outline"
-                        className="w-full justify-center py-3 border-2 border-muted hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105 hover:shadow-md mt-3 relative overflow-hidden"
+                        className="w-full justify-center py-3 border-2 border-muted hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105 hover:shadow-md relative overflow-hidden text-sm md:text-base h-11 md:h-auto"
                         onClick={() => handleQuickAction(quickActions[2].action)}
                         data-testid={`button-${quickActions[2].action}`}
                       >
@@ -483,42 +485,44 @@ const Contact = () => {
           </div>
 
           {/* FAQ Section */}
-          <div className="mt-20">
-            <div className="text-center mb-12">
+          <div className="mt-16 md:mt-20">
+            <div className="text-center mb-8 md:mb-12">
               <h2 
-                className="text-3xl md:text-4xl font-bold mb-4"
+                className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4"
                 data-testid="text-faq-title"
               >
                 Frequently Asked Questions
               </h2>
               <p 
-                className="text-xl text-muted-foreground"
+                className="text-lg md:text-xl text-muted-foreground"
                 data-testid="text-faq-subtitle"
               >
                 Quick answers to common questions.
               </p>
             </div>
 
-            <div className="max-w-4xl mx-auto space-y-4">
+            <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
               {faqs.map((faq, index) => (
                 <Card key={index} className="overflow-hidden" style={{ backgroundColor: '#ffffffeb' }}>
                   <button
-                    className="w-full text-left p-6 flex items-center justify-between hover:bg-muted/50 transition-colors"
+                    className="w-full text-left p-4 md:p-6 flex items-center justify-between hover:bg-muted/50 transition-colors min-h-[60px] md:min-h-auto"
                     onClick={() => toggleFaq(index)}
                     data-testid={`button-faq-${index}`}
                   >
-                    <span className="font-medium" data-testid={`text-faq-question-${index}`} style={{ color: '#020a1c' }}>
+                    <span className="font-medium text-sm md:text-base pr-4" data-testid={`text-faq-question-${index}`} style={{ color: '#020a1c' }}>
                       {faq.question}
                     </span>
-                    {expandedFaq === index ? (
-                      <ChevronUp className="text-primary" />
-                    ) : (
-                      <ChevronDown className="text-primary" />
-                    )}
+                    <div className="flex-shrink-0">
+                      {expandedFaq === index ? (
+                        <ChevronUp className="text-primary w-5 h-5 md:w-6 md:h-6" />
+                      ) : (
+                        <ChevronDown className="text-primary w-5 h-5 md:w-6 md:h-6" />
+                      )}
+                    </div>
                   </button>
                   {expandedFaq === index && (
                     <div 
-                      className="px-6 pb-6"
+                      className="px-4 md:px-6 pb-4 md:pb-6 text-sm md:text-base leading-relaxed"
                       style={{ color: '#666' }}
                       data-testid={`text-faq-answer-${index}`}
                     >

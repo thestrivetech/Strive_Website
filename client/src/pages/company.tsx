@@ -52,8 +52,8 @@ const Company = () => {
   ];
 
   const stats = [
-    { number: "150+", label: "Successful Transformations" },
-    { number: "8", label: "Years Driving Operational Excellence" },
+    { number: "203", label: "Total Projects Completed" },
+    { number: "12", label: "Fortune 500 Clients", note: "Can't list names on website due to NDAs" },
     { number: "95%", label: "Retention Rate, Year After Year" },
     { number: "24/7", label: "Always-On Support for Your Success" }
   ];
@@ -122,41 +122,43 @@ const Company = () => {
 
           {/* Timeline */}
           <div className="relative max-w-6xl mx-auto">
-            {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary via-primary/50 to-primary/20 rounded-full"></div>
+            {/* Timeline Line - Desktop: Center, Mobile: Left */}
+            <div className="absolute left-6 md:left-1/2 md:transform md:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary via-primary/50 to-primary/20 rounded-full"></div>
             
             {visionMilestones.map((milestone, index) => (
               <div 
                 key={index}
-                className={`relative flex items-center mb-16 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
+                className={`relative mb-12 md:mb-16 md:flex md:items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
                 data-testid={`milestone-${milestone.year}`}
               >
-                {/* Content */}
-                <div className={`w-5/12 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                  <div className={`bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:scale-105 transition-all duration-300 ${
+                {/* Content - Mobile: Full width left-aligned, Desktop: Alternating */}
+                <div className={`pl-16 md:pl-0 md:w-5/12 ${index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'}`}>
+                  <div className={`bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 md:p-6 hover:scale-105 transition-all duration-300 ${
                     milestone.status === 'current' ? 'ring-2 ring-primary shadow-lg shadow-primary/20' : ''
                   }`}>
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-primary to-orange-500 rounded-xl flex items-center justify-center text-white">
-                        {milestone.icon}
+                    <div className="flex items-center gap-3 mb-3 md:mb-4">
+                      <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary to-orange-500 rounded-xl flex items-center justify-center text-white">
+                        <div className="scale-75 md:scale-100">
+                          {milestone.icon}
+                        </div>
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-white">{milestone.year}</div>
+                        <div className="text-xl md:text-2xl font-bold text-white">{milestone.year}</div>
                         {milestone.status === 'current' && (
                           <div className="text-xs text-primary font-semibold uppercase tracking-wide">Current Focus</div>
                         )}
                       </div>
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-3">{milestone.title}</h3>
-                    <p className="text-white/80">{milestone.description}</p>
+                    <h3 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-3">{milestone.title}</h3>
+                    <p className="text-sm md:text-base text-white/80">{milestone.description}</p>
                   </div>
                 </div>
                 
-                {/* Timeline Dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-primary rounded-full border-4 border-white shadow-lg z-10"></div>
+                {/* Timeline Dot - Mobile: Left aligned, Desktop: Center */}
+                <div className="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-4 h-4 md:w-6 md:h-6 bg-primary rounded-full border-2 md:border-4 border-white shadow-lg z-10"></div>
                 
-                {/* Spacer */}
-                <div className="w-5/12"></div>
+                {/* Spacer - Desktop only */}
+                <div className="hidden md:block md:w-5/12"></div>
               </div>
             ))}
           </div>
@@ -166,24 +168,29 @@ const Company = () => {
       {/* Stats Section - Moved outside hero */}
       <section className="py-12 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {stats.map((stat, index) => (
               <div 
                 key={index}
                 className="text-center group"
                 data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <div className="text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300" 
+                <div className="text-3xl md:text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300" 
                   data-testid={`text-stat-number-${index}`}
                 >
                   {stat.number}
                 </div>
                 <div 
-                  className="text-muted-foreground font-medium"
+                  className="text-muted-foreground font-medium text-sm md:text-base"
                   data-testid={`text-stat-label-${index}`}
                 >
                   {stat.label}
                 </div>
+                {stat.note && (
+                  <div className="text-xs text-muted-foreground/70 mt-1 italic">
+                    {stat.note}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -261,27 +268,27 @@ const Company = () => {
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {missionVisionValues.map((item, index) => (
               <div 
                 key={index} 
                 className="group"
                 data-testid={`card-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
-                  <div className="w-20 h-20 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <div className="text-white text-2xl">
+                <div className="bg-white rounded-2xl p-6 md:p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                  <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <div className="text-white text-xl md:text-2xl">
                       {item.icon}
                     </div>
                   </div>
                   <h3 
-                    className="text-xl font-bold mb-4 text-[#020a1c]"
+                    className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-[#020a1c]"
                     data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-title`}
                   >
                     {item.title}
                   </h3>
                   <p 
-                    className="text-muted-foreground leading-relaxed"
+                    className="text-sm md:text-base text-muted-foreground leading-relaxed"
                     data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-description`}
                   >
                     {item.description}

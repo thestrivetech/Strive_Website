@@ -36,6 +36,33 @@ var newsletterSubscriptions = pgTable("newsletter_subscriptions", {
   email: text("email").notNull().unique(),
   subscribedAt: timestamp("subscribed_at").defaultNow().notNull()
 });
+var requests = pgTable("requests", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  // Contact Information
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+  fullName: text("full_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone"),
+  company: text("company").notNull(),
+  jobTitle: text("job_title"),
+  // Business Information
+  industry: text("industry"),
+  companySize: text("company_size"),
+  currentChallenges: text("current_challenges"),
+  // JSON array as text
+  projectTimeline: text("project_timeline"),
+  budgetRange: text("budget_range"),
+  // Request Information
+  requestTypes: text("request_types").notNull(),
+  // Comma-separated: 'demo,showcase,assessment'
+  demoFocusAreas: text("demo_focus_areas"),
+  // JSON array as text
+  additionalRequirements: text("additional_requirements"),
+  preferredDate: text("preferred_date"),
+  // Submission metadata
+  submittedAt: timestamp("submitted_at").defaultNow().notNull()
+});
 var insertUserSchema = createInsertSchema(users).pick({
   username: true,
   email: true,
@@ -56,6 +83,24 @@ var insertContactSubmissionSchema = createInsertSchema(contactSubmissions).pick(
 var insertNewsletterSubscriptionSchema = createInsertSchema(newsletterSubscriptions).pick({
   email: true
 });
+var insertRequestSchema = createInsertSchema(requests).pick({
+  firstName: true,
+  lastName: true,
+  fullName: true,
+  email: true,
+  phone: true,
+  company: true,
+  jobTitle: true,
+  industry: true,
+  companySize: true,
+  currentChallenges: true,
+  projectTimeline: true,
+  budgetRange: true,
+  requestTypes: true,
+  demoFocusAreas: true,
+  additionalRequirements: true,
+  preferredDate: true
+});
 
 // server/storage.ts
 import { randomUUID } from "crypto";
@@ -66,8 +111,16 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 var supabase = process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY ? createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY) : null;
 var databaseUrl = process.env.DATABASE_URL;
-if (!databaseUrl) {
-  throw new Error("DATABASE_URL or SUPABASE_URL is required for database connection");
+if (!databaseUrl || databaseUrl.includes("[PROJECT-ID]") || databaseUrl.includes("[DB-PASSWORD]")) {
+  if (!process.env.SUPABASE_URL) {
+    throw new Error("Either DATABASE_URL or SUPABASE_URL is required for database connection");
+  }
+  const projectId = process.env.SUPABASE_URL.match(/https:\/\/([^.]+)\.supabase\.co/)?.[1];
+  if (!projectId) {
+    throw new Error("Could not extract project ID from SUPABASE_URL");
+  }
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+  databaseUrl = `postgresql://postgres.${projectId}:${serviceKey}@aws-0-us-east-1.pooler.supabase.com:6543/postgres`;
 }
 var client = postgres(databaseUrl);
 var db = drizzle(client);
@@ -78,10 +131,12 @@ var MemStorage = class {
   users;
   contactSubmissions;
   newsletterSubscriptions;
+  requests;
   constructor() {
     this.users = /* @__PURE__ */ new Map();
     this.contactSubmissions = /* @__PURE__ */ new Map();
     this.newsletterSubscriptions = /* @__PURE__ */ new Map();
+    this.requests = /* @__PURE__ */ new Map();
   }
   async getUser(id) {
     return this.users.get(id);
@@ -147,6 +202,29 @@ var MemStorage = class {
       (subscription) => subscription.email === email
     );
   }
+  async createRequest(insertRequest) {
+    const id = randomUUID();
+    const request = {
+      ...insertRequest,
+      phone: insertRequest.phone || null,
+      jobTitle: insertRequest.jobTitle || null,
+      industry: insertRequest.industry || null,
+      companySize: insertRequest.companySize || null,
+      currentChallenges: insertRequest.currentChallenges || null,
+      projectTimeline: insertRequest.projectTimeline || null,
+      budgetRange: insertRequest.budgetRange || null,
+      demoFocusAreas: insertRequest.demoFocusAreas || null,
+      additionalRequirements: insertRequest.additionalRequirements || null,
+      preferredDate: insertRequest.preferredDate || null,
+      id,
+      submittedAt: /* @__PURE__ */ new Date()
+    };
+    this.requests.set(id, request);
+    return request;
+  }
+  async getRequests() {
+    return Array.from(this.requests.values());
+  }
 };
 var SupabaseStorage = class {
   async getUser(id) {
@@ -194,6 +272,13 @@ var SupabaseStorage = class {
   async getNewsletterSubscriptionByEmail(email) {
     const result = await db.select().from(newsletterSubscriptions).where(eq(newsletterSubscriptions.email, email)).limit(1);
     return result[0];
+  }
+  async createRequest(insertRequest) {
+    const result = await db.insert(requests).values(insertRequest).returning();
+    return result[0];
+  }
+  async getRequests() {
+    return await db.select().from(requests);
   }
 };
 var storage = process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY ? new SupabaseStorage() : new MemStorage();
@@ -260,29 +345,52 @@ var EmailService = class {
       }
     };
     if (emailConfig.auth.user && emailConfig.auth.pass) {
-      this.transporter = nodemailer.createTransporter(emailConfig);
+      this.transporter = nodemailer.createTransport(emailConfig);
     } else {
       console.warn("Email service not configured. Set SMTP_USER and SMTP_PASS environment variables.");
     }
   }
-  async sendEmail(options) {
+  async sendEmail(options, retries = 3) {
     if (!this.transporter) {
       console.warn("Email not sent - email service not configured");
       return false;
     }
+    const mailOptions = {
+      from: process.env.SMTP_FROM || "noreply@strivetech.ai",
+      to: options.to.join(", "),
+      subject: options.subject,
+      text: options.text || options.html.replace(/<[^>]*>/g, ""),
+      html: options.html
+    };
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        await this.transporter.sendMail(mailOptions);
+        console.log(`Email sent successfully to: ${options.to.join(", ")} (attempt ${attempt})`);
+        return true;
+      } catch (error) {
+        console.error(`Email sending failed on attempt ${attempt}:`, error);
+        if (attempt === retries) {
+          console.error(`Failed to send email after ${retries} attempts to: ${options.to.join(", ")}`);
+          return false;
+        }
+        const waitTime = Math.pow(2, attempt - 1) * 1e3;
+        console.log(`Retrying email send in ${waitTime}ms...`);
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
+      }
+    }
+    return false;
+  }
+  async verifyConnection() {
+    if (!this.transporter) {
+      console.warn("Cannot verify email connection - transporter not configured");
+      return false;
+    }
     try {
-      const mailOptions = {
-        from: process.env.SMTP_FROM || "noreply@strivetech.ai",
-        to: options.to.join(", "),
-        subject: options.subject,
-        text: options.text || options.html.replace(/<[^>]*>/g, ""),
-        html: options.html
-      };
-      await this.transporter.sendMail(mailOptions);
-      console.log("Email sent successfully to:", options.to.join(", "));
+      await this.transporter.verify();
+      console.log("Email service connection verified successfully");
       return true;
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.error("Email service connection verification failed:", error);
       return false;
     }
   }
@@ -363,6 +471,168 @@ var EmailService = class {
       html
     });
   }
+  async sendContactFormConfirmation(formData) {
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #ff7033;">Thank You for Contacting Strive Tech!</h2>
+        <p>Dear ${formData.firstName},</p>
+        <p>Thank you for reaching out to us! We've received your message and will get back to you within one business day.</p>
+        
+        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0;">
+          <h3 style="color: #333; margin-top: 0;">Your Message Details:</h3>
+          <p><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</p>
+          <p><strong>Company:</strong> ${formData.company}</p>
+          <p><strong>Message:</strong></p>
+          <p style="background-color: white; padding: 15px; border-radius: 3px;">${formData.message}</p>
+        </div>
+
+        <p>In the meantime, feel free to explore our <a href="https://strivetech.ai/solutions" style="color: #ff7033;">AI solutions</a> and learn more about how we can help transform your business.</p>
+        
+        <p>Best regards,<br>The Strive Tech Team</p>
+        
+        <p style="color: #666; font-size: 12px; margin-top: 30px;">
+          This is an automated confirmation email. If you need immediate assistance, please call us directly.
+        </p>
+      </div>
+    `;
+    return await this.sendEmail({
+      to: [formData.email],
+      subject: "Thank you for contacting Strive Tech - We'll be in touch soon!",
+      html
+    });
+  }
+  async sendRequestConfirmation(requestData) {
+    const requestTypes = requestData.requestTypes ? requestData.requestTypes.split(",") : [];
+    const serviceList = requestTypes.map((type) => {
+      switch (type) {
+        case "demo":
+          return "Product Demo";
+        case "showcase":
+          return "Solution Showcase";
+        case "assessment":
+          return "AI Assessment";
+        default:
+          return type;
+      }
+    }).join(", ");
+    const currentChallenges = requestData.currentChallenges ? JSON.parse(requestData.currentChallenges) : [];
+    const demoFocusAreas = requestData.demoFocusAreas ? JSON.parse(requestData.demoFocusAreas) : [];
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #ff7033;">Your Request is Confirmed!</h2>
+        <p>Dear ${requestData.firstName || requestData.fullName.split(" ")[0]},</p>
+        <p>Thank you for your interest in Strive Tech's AI solutions! We've received your request for <strong>${serviceList}</strong> and will contact you within one business day to schedule your sessions.</p>
+        
+        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0;">
+          <h3 style="color: #333; margin-top: 0;">Your Request Details:</h3>
+          <p><strong>Name:</strong> ${requestData.fullName}</p>
+          <p><strong>Company:</strong> ${requestData.company}</p>
+          <p><strong>Services Requested:</strong> ${serviceList}</p>
+          ${requestData.industry ? `<p><strong>Industry:</strong> ${requestData.industry}</p>` : ""}
+          ${requestData.companySize ? `<p><strong>Company Size:</strong> ${requestData.companySize}</p>` : ""}
+          ${currentChallenges.length > 0 ? `<p><strong>Current Challenges:</strong> ${currentChallenges.join(", ")}</p>` : ""}
+          ${demoFocusAreas.length > 0 ? `<p><strong>Focus Areas:</strong> ${demoFocusAreas.join(", ")}</p>` : ""}
+          ${requestData.projectTimeline ? `<p><strong>Timeline:</strong> ${requestData.projectTimeline}</p>` : ""}
+          ${requestData.additionalRequirements ? `<p><strong>Additional Requirements:</strong></p><p style="background-color: white; padding: 15px; border-radius: 3px;">${requestData.additionalRequirements}</p>` : ""}
+        </div>
+
+        <div style="background-color: #e8f4fd; padding: 15px; border-radius: 5px; border-left: 4px solid #ff7033;">
+          <h3 style="color: #333; margin-top: 0;">What to Expect:</h3>
+          <ul style="margin: 10px 0;">
+            <li>A team member will contact you within 24 hours to confirm details</li>
+            <li>You'll receive calendar invites for all requested services</li>
+            <li>Sessions will be tailored to your specific business needs and industry</li>
+            ${requestTypes.includes("demo") ? "<li>Live product demonstrations of our AI solutions</li>" : ""}
+            ${requestTypes.includes("showcase") ? "<li>Custom solution presentations based on your challenges</li>" : ""}
+            ${requestTypes.includes("assessment") ? "<li>Comprehensive AI readiness evaluation and recommendations</li>" : ""}
+          </ul>
+        </div>
+        
+        <p>We're excited to show you how Strive Tech can help transform your business with cutting-edge AI solutions!</p>
+        
+        <p>Best regards,<br>The Strive Tech Team</p>
+        
+        <p style="color: #666; font-size: 12px; margin-top: 30px;">
+          This is an automated confirmation email. If you have any questions or need to reschedule, please reply to this email.
+        </p>
+      </div>
+    `;
+    return await this.sendEmail({
+      to: [requestData.email],
+      subject: `Your ${serviceList} Request with Strive Tech - Confirmed!`,
+      html
+    });
+  }
+  async sendRequestNotification(requestData) {
+    const recipients = [
+      "garrettholland@strivetech.ai",
+      "jeffmeyer@strivetech.ai",
+      "grantramey@strivetech.ai",
+      "contact@strivetech.ai"
+    ];
+    const requestTypes = requestData.requestTypes ? requestData.requestTypes.split(",") : [];
+    const serviceList = requestTypes.map((type) => {
+      switch (type) {
+        case "demo":
+          return "Product Demo";
+        case "showcase":
+          return "Solution Showcase";
+        case "assessment":
+          return "AI Assessment";
+        default:
+          return type;
+      }
+    }).join(", ");
+    const currentChallenges = requestData.currentChallenges ? JSON.parse(requestData.currentChallenges) : [];
+    const demoFocusAreas = requestData.demoFocusAreas ? JSON.parse(requestData.demoFocusAreas) : [];
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #ff7033;">New Service Request</h2>
+        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px;">
+          <p><strong>Services Requested:</strong> ${serviceList}</p>
+          <p><strong>Name:</strong> ${requestData.fullName}</p>
+          <p><strong>Email:</strong> ${requestData.email}</p>
+          <p><strong>Phone:</strong> ${requestData.phone || "Not provided"}</p>
+          <p><strong>Company:</strong> ${requestData.company}</p>
+          <p><strong>Job Title:</strong> ${requestData.jobTitle || "Not provided"}</p>
+          <p><strong>Industry:</strong> ${requestData.industry || "Not provided"}</p>
+          <p><strong>Company Size:</strong> ${requestData.companySize || "Not provided"}</p>
+          <p><strong>Timeline:</strong> ${requestData.projectTimeline || "Not specified"}</p>
+          <p><strong>Budget:</strong> ${requestData.budgetRange || "Not specified"}</p>
+          
+          ${currentChallenges.length > 0 ? `
+            <p><strong>Current Challenges:</strong></p>
+            <ul>${currentChallenges.map((challenge) => `<li>${challenge}</li>`).join("")}</ul>
+          ` : ""}
+          
+          ${demoFocusAreas.length > 0 ? `
+            <p><strong>Focus Areas:</strong></p>
+            <ul>${demoFocusAreas.map((area) => `<li>${area}</li>`).join("")}</ul>
+          ` : ""}
+          
+          ${requestData.additionalRequirements ? `
+            <p><strong>Additional Requirements:</strong></p>
+            <p style="background-color: white; padding: 15px; border-radius: 3px;">${requestData.additionalRequirements}</p>
+          ` : ""}
+        </div>
+        
+        <div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 15px; border-left: 4px solid #ff7033;">
+          <h3 style="color: #333; margin-top: 0;">Next Steps:</h3>
+          <ul style="margin: 10px 0;">
+            <li>Contact within 24 hours to schedule ${serviceList.toLowerCase()}</li>
+            <li>Send calendar invites for all requested services</li>
+            <li>Prepare materials based on their industry and challenges</li>
+            ${requestTypes.includes("assessment") ? "<li>Schedule technical assessment session</li>" : ""}
+          </ul>
+        </div>
+      </div>
+    `;
+    return await this.sendEmail({
+      to: recipients,
+      subject: `New ${serviceList} Request from ${requestData.fullName}`,
+      html
+    });
+  }
 };
 var emailService = new EmailService();
 
@@ -383,6 +653,14 @@ async function registerRoutes(app2) {
         }
       } catch (emailError) {
         console.warn("Email sending failed:", emailError);
+      }
+      try {
+        const confirmationSent = await emailService.sendContactFormConfirmation(validatedData);
+        if (!confirmationSent) {
+          console.warn("Contact form confirmation email could not be sent");
+        }
+      } catch (confirmationError) {
+        console.warn("Contact form confirmation email failed:", confirmationError);
       }
       res.json({
         success: true,
@@ -448,6 +726,50 @@ async function registerRoutes(app2) {
       }
     }
   });
+  app2.post("/api/request", async (req, res) => {
+    try {
+      const validatedData = insertRequestSchema.parse(req.body);
+      try {
+        await storage.createRequest(validatedData);
+      } catch (dbError) {
+        console.warn("Database unavailable, continuing without storing request:", dbError);
+      }
+      try {
+        const emailSent = await emailService.sendRequestNotification(validatedData);
+        if (!emailSent) {
+          console.warn("Email service not configured - request notification not sent via email");
+        }
+      } catch (emailError) {
+        console.warn("Request notification email failed:", emailError);
+      }
+      try {
+        const confirmationSent = await emailService.sendRequestConfirmation(validatedData);
+        if (!confirmationSent) {
+          console.warn("Request confirmation email could not be sent");
+        }
+      } catch (confirmationError) {
+        console.warn("Request confirmation email failed:", confirmationError);
+      }
+      res.json({
+        success: true,
+        message: "Thank you for your request! We'll contact you within one business day to schedule your demo."
+      });
+    } catch (error) {
+      console.error("Request submission error:", error);
+      if (error instanceof z.ZodError) {
+        res.status(400).json({
+          success: false,
+          message: "Invalid form data",
+          errors: error.errors
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: "Failed to submit request. Please try again or contact us directly."
+        });
+      }
+    }
+  });
   app2.get("/api/admin/contacts", async (req, res) => {
     try {
       const submissions = await storage.getContactSubmissions();
@@ -467,6 +789,17 @@ async function registerRoutes(app2) {
       res.status(500).json({
         success: false,
         message: "Failed to fetch newsletter subscriptions"
+      });
+    }
+  });
+  app2.get("/api/admin/requests", async (req, res) => {
+    try {
+      const requests2 = await storage.getRequests();
+      res.json(requests2);
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch requests"
       });
     }
   });
