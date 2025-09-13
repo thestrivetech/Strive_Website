@@ -284,7 +284,7 @@ const Resources = () => {
               Business <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block pb-2">Intelligence</span> Hub
             </h1>
             <p 
-              className=\"text-xl md:text-2xl text-[#94a3b8] max-w-4xl mx-auto mb-8\"
+              className="text-xl md:text-2xl text-[#94a3b8] max-w-4xl mx-auto mb-8"
               data-testid="text-hero-subtitle"
             >
               Gain exclusive strategies, actionable research, and expert insights to guide your team through every stage of digital transformation.
