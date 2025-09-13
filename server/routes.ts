@@ -12,21 +12,36 @@ import { sql } from "drizzle-orm";
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
   app.post("/api/contact", async (req, res) => {
+    console.log('Contact form submission received:', {
+      body: req.body,
+      privacyConsent: {
+        value: req.body.privacyConsent,
+        type: typeof req.body.privacyConsent
+      }
+    });
+
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
-      
+      console.log('Contact form data validated successfully:', {
+        privacyConsent: validatedData.privacyConsent,
+        privacyConsentType: typeof validatedData.privacyConsent
+      });
+
       // Store submission in database (if available)
       try {
         await storage.createContactSubmission(validatedData);
+        console.log('Contact form stored in database successfully');
       } catch (dbError) {
         console.warn('Database unavailable, continuing without storing submission:', dbError);
       }
-      
+
       // Send email notifications to all recipients (if email service is configured)
       try {
         const emailSent = await emailService.sendContactFormNotification(validatedData);
         if (!emailSent) {
           console.warn('Email service not configured - contact form submission not sent via email');
+        } else {
+          console.log('Contact form notification email sent successfully');
         }
       } catch (emailError) {
         console.warn('Email sending failed:', emailError);
@@ -37,26 +52,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const confirmationSent = await emailService.sendContactFormConfirmation(validatedData);
         if (!confirmationSent) {
           console.warn('Contact form confirmation email could not be sent');
+        } else {
+          console.log('Contact form confirmation email sent successfully');
         }
       } catch (confirmationError) {
         console.warn('Contact form confirmation email failed:', confirmationError);
       }
-      
-      res.json({ 
-        success: true, 
+
+      res.json({
+        success: true,
         message: "Thank you for your message. We'll get back to you within one business day."
       });
     } catch (error) {
       console.error('Contact form submission error:', error);
       if (error instanceof z.ZodError) {
-        res.status(400).json({ 
-          success: false, 
-          message: "Invalid form data", 
-          errors: error.errors 
+        console.error('Validation errors:', error.errors);
+        res.status(400).json({
+          success: false,
+          message: "Invalid form data - please check all required fields",
+          errors: error.errors,
+          details: error.errors.map(e => `${e.path.join('.')}: ${e.message}`).join(', ')
         });
       } else {
-        res.status(500).json({ 
-          success: false, 
+        res.status(500).json({
+          success: false,
           message: "Failed to submit contact form. Please try again or contact us directly."
         });
       }

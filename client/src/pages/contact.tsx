@@ -59,25 +59,27 @@ const Contact = () => {
 
   const quickActions = [
     { icon: <Calendar className="mr-2" />, text: "Request Personalized Demo", action: "demo" },
-    { 
-      icon: <Eye className="mr-2" />, 
+    {
+      icon: <Eye className="mr-1 sm:mr-2 flex-shrink-0" />,
       text: (
-        <span className="flex items-center gap-1.5 text-sm">
-          Download Brochure
-          <ComingSoonBadge size="sm" variant="hero" className="text-[9px] px-1.5 py-0.5" />
+        <span className="flex items-center gap-1.5">
+          <span className="hidden sm:inline">Download Brochure</span>
+          <span className="sm:hidden text-xs">Download</span>
+          <ComingSoonBadge size="sm" variant="hero" className="text-[8px] sm:text-[9px] px-1 sm:px-1.5 py-0.5" />
         </span>
-      ), 
-      action: "brochure" 
+      ),
+      action: "brochure"
     },
-    { 
-      icon: <MessageCircle className="mr-2" />, 
+    {
+      icon: <MessageCircle className="mr-1 sm:mr-2 flex-shrink-0" />,
       text: (
-        <span className="flex items-center gap-2">
-          Chat Live with AI Specialist
-          <ComingSoonBadge size="sm" variant="hero" className="text-[10px] px-1.5 py-0.5" />
+        <span className="flex items-center gap-1 sm:gap-2">
+          <span className="hidden sm:inline">Chat Live with AI Specialist</span>
+          <span className="sm:hidden text-xs leading-tight">Chat with AI</span>
+          <ComingSoonBadge size="sm" variant="hero" className="text-[8px] sm:text-[10px] px-1 sm:px-1.5 py-0.5" />
         </span>
-      ), 
-      action: "chat" 
+      ),
+      action: "chat"
     }
   ];
 
@@ -129,22 +131,41 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
+      // Create a clean submission object with proper typing
+      const submissionData = {
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        email: formData.email.trim().toLowerCase(),
+        company: formData.company?.trim() || "",
+        phone: formData.phone?.trim() || "",
+        companySize: formData.companySize || "",
+        message: formData.message.trim(),
+        privacyConsent: formData.privacyConsent
+      };
+
+      console.log('Submitting contact form:', {
+        ...submissionData,
+        privacyConsent: typeof submissionData.privacyConsent,
+        privacyConsentValue: submissionData.privacyConsent
+      });
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submissionData),
       });
 
       const result = await response.json();
+      console.log('Contact form response:', { status: response.status, result });
 
       if (response.ok && result.success) {
         toast({
           title: "Message sent successfully!",
           description: result.message || "We'll get back to you within one business day.",
         });
-        
+
         // Reset form
         setFormData({
           firstName: "",
@@ -157,9 +178,10 @@ const Contact = () => {
           privacyConsent: false
         });
       } else {
+        console.error('Contact form error response:', result);
         toast({
           title: "Failed to send message",
-          description: result.message || "Please try again or contact us directly.",
+          description: result.message || "Invalid form data - please check all fields and try again.",
           variant: "destructive"
         });
       }
@@ -239,8 +261,8 @@ const Contact = () => {
                 >
                   Begin Your AI Transformation
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
                     <div>
                       <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>First Name *</label>
                       <Input
@@ -250,7 +272,7 @@ const Contact = () => {
                         value={formData.firstName}
                         onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
                         style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
-                        className="focus:ring-primary focus:border-primary h-11 md:h-10"
+                        className="focus:ring-primary focus:border-primary h-12 sm:h-11 md:h-10"
                         data-testid="input-first-name"
                       />
                     </div>
@@ -263,7 +285,7 @@ const Contact = () => {
                         value={formData.lastName}
                         onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
                         style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
-                        className="focus:ring-primary focus:border-primary h-11 md:h-10"
+                        className="focus:ring-primary focus:border-primary h-12 sm:h-11 md:h-10"
                         data-testid="input-last-name"
                       />
                     </div>
@@ -333,7 +355,7 @@ const Contact = () => {
                   <div>
                     <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Size</label>
                     <Select value={formData.companySize} onValueChange={(value) => setFormData(prev => ({ ...prev, companySize: value }))}>
-                      <SelectTrigger data-testid="select-company-size" className="gap-2 h-11 md:h-10" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
+                      <SelectTrigger data-testid="select-company-size" className="gap-2 h-12 sm:h-11 md:h-10" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                         <Users className="h-4 w-4 text-muted-foreground" />
                         <SelectValue placeholder="Select size" />
                       </SelectTrigger>
@@ -361,7 +383,7 @@ const Contact = () => {
                     />
                   </div>
 
-                  <div className="flex items-start space-x-2">
+                  <div className="flex items-start space-x-3 py-1">
                     <Checkbox
                       id="privacy"
                       checked={formData.privacyConsent}
@@ -377,10 +399,10 @@ const Contact = () => {
                     </label>
                   </div>
 
-                  <Button 
+                  <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-primary text-primary-foreground py-3 md:py-3 text-base md:text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 h-12 md:h-auto"
+                    className="w-full bg-primary text-primary-foreground py-3 md:py-3 px-4 text-base md:text-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 min-h-[3rem]"
                     data-testid="button-send-message"
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
@@ -401,17 +423,17 @@ const Contact = () => {
                   >
                     Connect With Us
                   </h3>
-                  <div className="space-y-3 md:space-y-4">
+                  <div className="space-y-4 md:space-y-4">
                     {contactInfo.map((info, index) => (
-                      <div 
-                        key={index} 
-                        className="flex items-center"
+                      <div
+                        key={index}
+                        className="flex items-center py-1"
                         data-testid={`contact-info-${info.title.toLowerCase().replace(/\s+/g, "-")}`}
                       >
                         <div className="flex-shrink-0">
                           {info.icon}
                         </div>
-                        <div className="ml-3 md:ml-4">
+                        <div className="ml-4 md:ml-4">
                           <div className="font-medium text-sm md:text-base" style={{ color: '#020a1c' }}>{info.title}</div>
                           <div className="text-muted-foreground text-sm md:text-base" style={{ color: '#666' }}>{info.content}</div>
                         </div>
@@ -443,12 +465,13 @@ const Contact = () => {
                   <div className="space-y-3 md:space-y-4">
                     {/* Primary assessment button */}
                     <Button
-                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-3 md:py-4 text-base md:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:scale-105 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 h-12 md:h-auto"
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-2 sm:py-3 md:py-4 px-3 sm:px-4 text-sm sm:text-base md:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:scale-105 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 min-h-[2.75rem] sm:min-h-[3rem]"
                       onClick={() => window.location.href = '/assessment'}
                       data-testid="button-schedule-assessment"
                     >
-                      <Calendar className="mr-2 w-4 h-4 md:w-5 md:h-5" />
-                      Book Free Strategy Assessment
+                      <Calendar className="mr-1 sm:mr-2 w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                      <span className="hidden sm:inline">Book Free Strategy Assessment</span>
+                      <span className="sm:hidden text-center leading-tight">Book Free Assessment</span>
                     </Button>
                     
                     {/* Secondary actions */}
@@ -457,7 +480,7 @@ const Contact = () => {
                         <Button
                           key={index}
                           variant="outline"
-                          className="justify-center py-3 border-2 border-muted hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105 hover:shadow-md text-sm md:text-base h-11 md:h-auto"
+                          className="justify-center py-2 sm:py-3 px-2 sm:px-4 border-2 border-muted hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105 hover:shadow-md text-xs sm:text-sm md:text-base min-h-[2.5rem] sm:min-h-[2.75rem] whitespace-normal sm:whitespace-nowrap"
                           onClick={() => handleQuickAction(action.action)}
                           data-testid={`button-${action.action}`}
                         >
@@ -470,7 +493,7 @@ const Contact = () => {
                     {quickActions[2] && (
                       <Button
                         variant="outline"
-                        className="w-full justify-center py-3 border-2 border-muted hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105 hover:shadow-md relative overflow-hidden text-sm md:text-base h-11 md:h-auto"
+                        className="w-full justify-center py-2 sm:py-3 px-2 sm:px-4 border-2 border-muted hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105 hover:shadow-md relative overflow-hidden text-xs sm:text-sm md:text-base min-h-[2.5rem] sm:min-h-[2.75rem] whitespace-normal sm:whitespace-nowrap"
                         onClick={() => handleQuickAction(quickActions[2].action)}
                         data-testid={`button-${quickActions[2].action}`}
                       >
@@ -505,7 +528,7 @@ const Contact = () => {
               {faqs.map((faq, index) => (
                 <Card key={index} className="overflow-hidden" style={{ backgroundColor: '#ffffffeb' }}>
                   <button
-                    className="w-full text-left p-4 md:p-6 flex items-center justify-between hover:bg-muted/50 transition-colors min-h-[60px] md:min-h-auto"
+                    className="w-full text-left p-5 sm:p-4 md:p-6 flex items-center justify-between hover:bg-muted/50 transition-colors min-h-[64px] sm:min-h-[60px] md:min-h-auto"
                     onClick={() => toggleFaq(index)}
                     data-testid={`button-faq-${index}`}
                   >
@@ -538,7 +561,7 @@ const Contact = () => {
 
       {/* Brochure Modal */}
       <Dialog open={isBrochureModalOpen} onOpenChange={setIsBrochureModalOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto modal-scrollbar">
+        <DialogContent className="max-w-4xl max-h-[90vh] w-[95vw] sm:w-auto overflow-y-auto modal-scrollbar">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold flex items-center gap-2">
               <FileText className="w-6 h-6 text-primary" />
