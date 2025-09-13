@@ -154,37 +154,39 @@ const Assessment = () => {
   const renderStep = () => {
     if (step === 1) {
       return (
-        <div className="space-y-6">
-          <div className="text-center mb-8">
-            <Users className="w-16 h-16 text-primary mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-2" style={{ color: '#ff7033' }} data-testid="step-title">
+        <div className="space-y-4 md:space-y-6">
+          <div className="text-center mb-6 md:mb-8">
+            <Users className="w-12 h-12 md:w-16 md:h-16 text-primary mx-auto mb-3 md:mb-4" />
+            <h2 className="text-xl md:text-2xl font-bold mb-2" style={{ color: '#ff7033' }} data-testid="step-title">
               Contact Information
             </h2>
-            <p className="text-muted-foreground" style={{ color: '#020a1c' }}>
+            <p className="text-sm md:text-base text-muted-foreground" style={{ color: '#020a1c' }}>
               Tell us about your goals so we can recommend the ideal AI solution for your unique business needs
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>First Name *</label>
+              <label className="block text-xs md:text-sm font-medium mb-2" style={{ color: '#020a1c' }}>First Name *</label>
               <Input
                 type="text"
                 placeholder="John"
                 value={contactData.firstName}
                 onChange={(e) => handleInputChange('firstName', e.target.value)}
+                className="h-11 md:h-10"
                 style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                 data-testid="input-first-name"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Last Name *</label>
+              <label className="block text-xs md:text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Last Name *</label>
               <Input
                 type="text"
                 placeholder="Doe"
                 value={contactData.lastName}
                 onChange={(e) => handleInputChange('lastName', e.target.value)}
+                className="h-11 md:h-10"
                 style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
                 data-testid="input-last-name"
               />
@@ -192,12 +194,13 @@ const Assessment = () => {
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Business Email *</label>
+            <label className="block text-xs md:text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Business Email *</label>
             <Input
               type="email"
               placeholder="john@company.com"
               value={contactData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
+              className="h-11 md:h-10"
               style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: validationErrors.email ? '#ef4444' : '#ff7033' }}
               data-testid="input-email"
             />
@@ -207,24 +210,26 @@ const Assessment = () => {
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Name *</label>
+            <label className="block text-xs md:text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Name *</label>
             <Input
               type="text"
               placeholder="Your Company"
               value={contactData.company}
               onChange={(e) => handleInputChange('company', e.target.value)}
+              className="h-11 md:h-10"
               style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
               data-testid="input-company"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Phone Number *</label>
+            <label className="block text-xs md:text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Phone Number *</label>
             <Input
               type="tel"
               placeholder="(731)-431-2320"
               value={contactData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
+              className="h-11 md:h-10"
               style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: validationErrors.phone ? '#ef4444' : '#ff7033' }}
               data-testid="input-phone"
             />
@@ -234,9 +239,9 @@ const Assessment = () => {
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Preferred Communication Method</label>
+            <label className="block text-xs md:text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Preferred Communication Method</label>
             <Select value={contactData.communicationMethod} onValueChange={(value) => handleInputChange('communicationMethod', value)}>
-              <SelectTrigger data-testid="select-communication-method" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
+              <SelectTrigger className="h-11 md:h-10" data-testid="select-communication-method" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="Select method" />
               </SelectTrigger>
               <SelectContent>
@@ -254,9 +259,9 @@ const Assessment = () => {
           
           {/* Industry Selection */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Industry *</label>
+            <label className="block text-xs md:text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Industry *</label>
             <Select value={contactData.industry} onValueChange={(value) => handleInputChange('industry', value)}>
-              <SelectTrigger data-testid="select-industry" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
+              <SelectTrigger className="h-11 md:h-10" data-testid="select-industry" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="Select your industry" />
               </SelectTrigger>
               <SelectContent>
@@ -278,8 +283,8 @@ const Assessment = () => {
                 placeholder="Please specify your industry..."
                 value={contactData.otherIndustry}
                 onChange={(e) => handleInputChange('otherIndustry', e.target.value)}
+                className="mt-2 h-11 md:h-10"
                 style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
-                className="mt-2"
                 data-testid="input-other-industry"
               />
             )}
@@ -287,9 +292,9 @@ const Assessment = () => {
           
           {/* Company Size */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Size *</label>
+            <label className="block text-xs md:text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Company Size *</label>
             <Select value={contactData.companySize} onValueChange={(value) => handleInputChange('companySize', value)}>
-              <SelectTrigger data-testid="select-company-size" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
+              <SelectTrigger className="h-11 md:h-10" data-testid="select-company-size" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="Select company size" />
               </SelectTrigger>
               <SelectContent>
@@ -305,7 +310,7 @@ const Assessment = () => {
           
           {/* Current Challenges */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Current Challenges (Select all that apply)</label>
+            <label className="block text-xs md:text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Current Challenges (Select all that apply)</label>
             <div className="space-y-2">
               {[
                 "Process Automation",
@@ -324,7 +329,7 @@ const Assessment = () => {
                     checked={contactData.currentChallenges.includes(challenge)}
                     onCheckedChange={(checked) => handleCheckboxChange('currentChallenges', challenge, checked as boolean)}
                   />
-                  <label htmlFor={challenge} className="text-sm cursor-pointer" style={{ color: '#020a1c' }}>
+                  <label htmlFor={challenge} className="text-xs md:text-sm cursor-pointer" style={{ color: '#020a1c' }}>
                     {challenge}
                   </label>
                 </div>
@@ -337,8 +342,8 @@ const Assessment = () => {
                 placeholder="Please specify your challenge..."
                 value={contactData.otherChallenge}
                 onChange={(e) => handleInputChange('otherChallenge', e.target.value)}
+                className="mt-2 h-11 md:h-10"
                 style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
-                className="mt-2"
                 data-testid="input-other-challenge"
               />
             )}
@@ -346,9 +351,9 @@ const Assessment = () => {
           
           {/* Budget Range */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Budget Range</label>
+            <label className="block text-xs md:text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Budget Range</label>
             <Select value={contactData.budgetRange} onValueChange={(value) => handleInputChange('budgetRange', value)}>
-              <SelectTrigger data-testid="select-budget" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
+              <SelectTrigger className="h-11 md:h-10" data-testid="select-budget" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="Select budget range" />
               </SelectTrigger>
               <SelectContent>
@@ -364,9 +369,9 @@ const Assessment = () => {
           
           {/* Timeline */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Project Timeline</label>
+            <label className="block text-xs md:text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Project Timeline</label>
             <Select value={contactData.timeline} onValueChange={(value) => handleInputChange('timeline', value)}>
-              <SelectTrigger data-testid="select-timeline" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
+              <SelectTrigger className="h-11 md:h-10" data-testid="select-timeline" style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}>
                 <SelectValue placeholder="When do you need this?" />
               </SelectTrigger>
               <SelectContent>
@@ -381,12 +386,12 @@ const Assessment = () => {
           
           {/* Project Description */}
           <div>
-            <label className="block text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Project Description</label>
+            <label className="block text-xs md:text-sm font-medium mb-2" style={{ color: '#020a1c' }}>Project Description</label>
             <Textarea
               placeholder="Please briefly describe your project needs and goals..."
               value={contactData.projectDescription}
               onChange={(e) => handleInputChange('projectDescription', e.target.value)}
-              className="min-h-[100px]"
+              className="min-h-[80px] md:min-h-[100px] resize-none"
               style={{ backgroundColor: '#ffffff', color: '#020a1c', borderColor: '#ff7033' }}
               data-testid="textarea-project-description"
             />
@@ -396,42 +401,33 @@ const Assessment = () => {
     }
 
     return (
-      <div className="space-y-6">
-        <div className="text-center mb-8">
-          <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-2" style={{ color: '#020a1c' }} data-testid="step-title">
-            Contact Information Received!
-          </h2>
-          <p className="text-muted-foreground">
-            Now let's schedule your assessment
-          </p>
-        </div>
-        
+      <div className="space-y-4 md:space-y-6">
         {/* Calendly Embed */}
         <div className="bg-card rounded-lg border">
-          <CardHeader>
-            <CardTitle className="text-center flex items-center justify-center gap-2">
-              <Calendar className="w-6 h-6 text-primary" />
+          <CardHeader className="p-3 md:p-6">
+            <CardTitle className="text-center flex items-center justify-center gap-2 text-base md:text-lg">
+              <Calendar className="w-5 h-5 md:w-6 md:h-6 text-primary" />
               Schedule Your Assessment
             </CardTitle>
-            <p className="text-center text-muted-foreground">
+            <p className="text-center text-muted-foreground text-xs md:text-sm">
               Choose a convenient time for your 30-minute assessment
             </p>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0 md:p-6">
             {/* Calendly Integration */}
-            <div className="w-full rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
+            <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
               <iframe
                 src="https://calendly.com/strivetech"
                 width="100%"
-                height="630"
+                height="500"
                 frameBorder="0"
                 title="Schedule Your Assessment - Strive Tech"
-                style={{ borderRadius: '8px' }}
+                className="md:h-[630px]"
+                style={{ borderRadius: '0px' }}
               />
             </div>
-            <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <div className="space-y-2 text-xs text-muted-foreground">
+            <div className="mt-3 md:mt-4 mx-3 md:mx-0 p-2 md:p-3 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="space-y-1 md:space-y-2 text-xs text-muted-foreground">
                 <p><strong>Your Details:</strong></p>
                 <p>Communication Method: <span className="font-medium text-foreground">
                   {communicationMethods.find(m => m.id === contactData.communicationMethod)?.name}
@@ -442,18 +438,18 @@ const Assessment = () => {
             </div>
             
             {/* Meeting Details */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 mt-4 md:mt-6 text-center mx-3 md:mx-0">
               <div className="flex items-center justify-center space-x-2">
                 <Clock className="w-4 h-4 text-primary" />
-                <span className="text-sm">30 minutes</span>
+                <span className="text-xs md:text-sm">30 minutes</span>
               </div>
               <div className="flex items-center justify-center space-x-2">
                 <Users className="w-4 h-4 text-primary" />
-                <span className="text-sm">1-on-1 Session</span>
+                <span className="text-xs md:text-sm">1-on-1 Session</span>
               </div>
               <div className="flex items-center justify-center space-x-2">
                 <Target className="w-4 h-4 text-primary" />
-                <span className="text-sm">Tailored Solutions</span>
+                <span className="text-xs md:text-sm">Tailored Solutions</span>
               </div>
             </div>
           </CardContent>
@@ -477,25 +473,25 @@ const Assessment = () => {
 
   return (
     <div className="pt-16 min-h-screen hero-gradient">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <div className="max-w-2xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6" data-testid="assessment-title">
+          <div className="text-center mb-8 md:mb-12">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight" data-testid="assessment-title">
               Unlock Your Business's <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">AI Advantage</span>
             </h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-lg md:text-xl text-muted-foreground">
               Discover actionable AI strategies tailored to your company's biggest challenges. Book your complimentary 30-minute assessment today.
             </p>
           </div>
 
           {/* Progress Indicator */}
-          <div className="mb-8">
-            <div className="flex items-center justify-center space-x-4 mb-4">
+          <div className="mb-6 md:mb-8">
+            <div className="flex items-center justify-center space-x-4 mb-3 md:mb-4">
               {[1, 2].map((stepNum) => (
                 <div
                   key={stepNum}
-                  className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
+                  className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-xs md:text-sm font-semibold transition-all ${
                     stepNum <= step
                       ? 'bg-primary text-primary-foreground'
                       : 'bg-muted text-muted-foreground'
@@ -506,24 +502,24 @@ const Assessment = () => {
                 </div>
               ))}
             </div>
-            <div className="text-center text-sm text-muted-foreground">
+            <div className="text-center text-xs md:text-sm text-muted-foreground">
               Step {step} of 2: {step === 1 ? "Contact Information" : "Schedule Meeting"}
             </div>
           </div>
 
           {/* Form Card */}
           <Card className="bg-card border-border" style={{ backgroundColor: '#ffffffeb' }}>
-            <CardContent className="p-8">
+            <CardContent className="p-6 md:p-8">
               {step === 1 ? (
                 <form onSubmit={handleSubmitContact}>
                   {renderStep()}
                   
                   {/* Submit Button */}
-                  <div className="flex justify-end pt-8">
+                  <div className="flex justify-end pt-6 md:pt-8">
                     <Button
                       type="submit"
                       disabled={!isContactValid()}
-                      className="bg-primary text-primary-foreground hover:bg-primary/90 px-8"
+                      className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 md:px-8 h-11 md:h-auto text-sm md:text-base"
                       data-testid="button-proceed-to-scheduling"
                     >
                       Proceed to Scheduling
@@ -538,25 +534,25 @@ const Assessment = () => {
           </Card>
 
           {/* Benefits Section */}
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center p-6 rounded-lg bg-card/50 border">
-              <Lightbulb className="w-8 h-8 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">Strategic AI Assessment</h3>
-              <p className="text-sm text-muted-foreground">
+          <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="text-center p-4 md:p-6 rounded-lg bg-card/50 border">
+              <Lightbulb className="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2 md:mb-3" />
+              <h3 className="font-semibold mb-2 text-sm md:text-base">Strategic AI Assessment</h3>
+              <p className="text-xs md:text-sm text-muted-foreground">
                 Receive actionable insights from industry-experienced AI consultants
               </p>
             </div>
-            <div className="text-center p-6 rounded-lg bg-card/50 border">
-              <Target className="w-8 h-8 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">Custom AI Roadmap</h3>
-              <p className="text-sm text-muted-foreground">
+            <div className="text-center p-4 md:p-6 rounded-lg bg-card/50 border">
+              <Target className="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2 md:mb-3" />
+              <h3 className="font-semibold mb-2 text-sm md:text-base">Custom AI Roadmap</h3>
+              <p className="text-xs md:text-sm text-muted-foreground">
                 Get a step-by-step plan, mapped to your priorities, for deploying AI at scale
               </p>
             </div>
-            <div className="text-center p-6 rounded-lg bg-card/50 border">
-              <Building className="w-8 h-8 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold mb-2">Fast-Track Implementation</h3>
-              <p className="text-sm text-muted-foreground">
+            <div className="text-center p-4 md:p-6 rounded-lg bg-card/50 border">
+              <Building className="w-6 h-6 md:w-8 md:h-8 text-primary mx-auto mb-2 md:mb-3" />
+              <h3 className="font-semibold mb-2 text-sm md:text-base">Fast-Track Implementation</h3>
+              <p className="text-xs md:text-sm text-muted-foreground">
                 Accelerate adoption with clear timelines and ongoing expert support
               </p>
             </div>

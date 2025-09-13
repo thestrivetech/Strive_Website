@@ -51,7 +51,8 @@
       "WebFetch(domain:github.com)",
       "WebSearch",
       "Bash(claude mcp:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(ccusage)"
     ],
     "deny": []
   },

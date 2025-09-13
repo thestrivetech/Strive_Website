@@ -273,7 +273,7 @@ const Request = () => {
   return (
     <div className="pt-16">
       {/* Form Section */}
-      <section className="py-16 bg-[#ffffffeb]">
+      <section className="py-12 md:py-16 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             {/* Progress Indicator */}
@@ -315,38 +315,40 @@ const Request = () => {
 
             {/* Form Card */}
             <Card className="hero-gradient shadow-xl">
-              <CardHeader>
-                <CardTitle className="text-2xl text-[#ff7033]">
+              <CardHeader className="p-6 md:p-8">
+                <CardTitle className="text-xl md:text-2xl text-[#ff7033]">
                   {formStep === 1 && "Ready to See AI in Action?"}
                   {formStep === 2 && "Tell Us About Your Business"}
                   {formStep === 3 && "See Your AI Roadmap"}
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6 md:p-8">
                 <form onSubmit={handleSubmit}>
                   {/* Step 1: Contact Information */}
                   {formStep === 1 && (
-                    <div className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4 md:space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         <div>
-                          <Label htmlFor="fullName" className="text-white">Full Name *</Label>
+                          <Label htmlFor="fullName" className="text-white text-sm md:text-base">Full Name *</Label>
                           <Input
                             id="fullName"
                             value={formData.fullName}
                             onChange={(e) => handleInputChange("fullName", e.target.value)}
                             placeholder="John Doe"
+                            className="h-11 md:h-10"
                             style={inputStyle}
                             required
                           />
                         </div>
                         <div>
-                          <Label htmlFor="email" className="text-white">Email Address *</Label>
+                          <Label htmlFor="email" className="text-white text-sm md:text-base">Email Address *</Label>
                           <Input
                             id="email"
                             type="email"
                             value={formData.email}
                             onChange={(e) => handleInputChange("email", e.target.value)}
                             placeholder="john@company.com"
+                            className="h-11 md:h-10"
                             style={{
                               ...inputStyle,
                               borderColor: validationErrors.email ? '#ef4444' : '#ff7033'
@@ -359,15 +361,16 @@ const Request = () => {
                         </div>
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         <div>
-                          <Label htmlFor="phone" className="text-white">Phone Number *</Label>
+                          <Label htmlFor="phone" className="text-white text-sm md:text-base">Phone Number *</Label>
                           <Input
                             id="phone"
                             type="tel"
                             value={formData.phone}
                             onChange={(e) => handleInputChange("phone", e.target.value)}
                             placeholder="(731)-431-2320"
+                            className="h-11 md:h-10"
                             style={{
                               ...inputStyle,
                               borderColor: validationErrors.phone ? '#ef4444' : '#ff7033'
@@ -379,12 +382,13 @@ const Request = () => {
                           )}
                         </div>
                         <div>
-                          <Label htmlFor="companyName" className="text-white">Company Name *</Label>
+                          <Label htmlFor="companyName" className="text-white text-sm md:text-base">Company Name *</Label>
                           <Input
                             id="companyName"
                             value={formData.companyName}
                             onChange={(e) => handleInputChange("companyName", e.target.value)}
                             placeholder="Acme Corporation"
+                            className="h-11 md:h-10"
                             style={inputStyle}
                             required
                           />
@@ -392,12 +396,13 @@ const Request = () => {
                       </div>
                       
                       <div>
-                        <Label htmlFor="jobTitle" className="text-white">Job Title</Label>
+                        <Label htmlFor="jobTitle" className="text-white text-sm md:text-base">Job Title</Label>
                         <Input
                           id="jobTitle"
                           value={formData.jobTitle}
                           onChange={(e) => handleInputChange("jobTitle", e.target.value)}
                           placeholder="Chief Technology Officer"
+                          className="h-11 md:h-10"
                           style={inputStyle}
                         />
                       </div>
@@ -406,15 +411,15 @@ const Request = () => {
 
                   {/* Step 2: Business Information */}
                   {formStep === 2 && (
-                    <div className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4 md:space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         <div>
-                          <Label htmlFor="industry" className="text-white">Industry *</Label>
+                          <Label htmlFor="industry" className="text-white text-sm md:text-base">Industry *</Label>
                           <Select 
                             value={formData.industry} 
                             onValueChange={(value) => handleInputChange("industry", value)}
                           >
-                            <SelectTrigger style={inputStyle}>
+                            <SelectTrigger className="h-11 md:h-10" style={inputStyle}>
                             <SelectValue placeholder="Select your industry" />
                             </SelectTrigger>
                             <SelectContent>
@@ -427,12 +432,12 @@ const Request = () => {
                           </Select>
                         </div>
                         <div>
-                          <Label htmlFor="companySize" className="text-white">Company Size *</Label>
+                          <Label htmlFor="companySize" className="text-white text-sm md:text-base">Company Size *</Label>
                           <Select 
                             value={formData.companySize} 
                             onValueChange={(value) => handleInputChange("companySize", value)}
                           >
-                            <SelectTrigger style={inputStyle}>
+                            <SelectTrigger className="h-11 md:h-10" style={inputStyle}>
                               <SelectValue placeholder="Select company size" />
                             </SelectTrigger>
                             <SelectContent>
@@ -447,8 +452,8 @@ const Request = () => {
                       </div>
                       
                       <div>
-                        <Label className="text-white">Current Challenges * (Select all that apply)</Label>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-3">
+                        <Label className="text-white text-sm md:text-base">Current Challenges * (Select all that apply)</Label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mt-3">
                           {challenges.map((challenge) => (
                             <div key={challenge} className="flex items-center space-x-2">
                               <Checkbox
@@ -460,7 +465,7 @@ const Request = () => {
                               />
                               <Label 
                                 htmlFor={challenge} 
-                                className="text-sm font-normal cursor-pointer text-white"
+                                className="text-xs md:text-sm font-normal cursor-pointer text-white"
                               >
                                 {challenge}
                               </Label>
@@ -481,7 +486,7 @@ const Request = () => {
                             />
                             <Label 
                               htmlFor="other-challenge" 
-                              className="text-sm font-normal cursor-pointer text-white"
+                              className="text-xs md:text-sm font-normal cursor-pointer text-white"
                             >
                               Other
                             </Label>
@@ -494,7 +499,7 @@ const Request = () => {
                               placeholder="Please specify your challenge or pain point..."
                               value={formData.otherChallengeText}
                               onChange={(e) => handleInputChange("otherChallengeText", e.target.value)}
-                              className="w-full"
+                              className="w-full h-11 md:h-10"
                               style={inputStyle}
                             />
                           </div>
@@ -502,12 +507,12 @@ const Request = () => {
                       </div>
                       
                       <div>
-                        <Label htmlFor="projectTimeline" className="text-white">Project Timeline *</Label>
+                        <Label htmlFor="projectTimeline" className="text-white text-sm md:text-base">Project Timeline *</Label>
                         <Select 
                           value={formData.projectTimeline} 
                           onValueChange={(value) => handleInputChange("projectTimeline", value)}
                         >
-                          <SelectTrigger style={inputStyle}>
+                          <SelectTrigger className="h-11 md:h-10" style={inputStyle}>
                             <SelectValue placeholder="Select your project timeline" />
                           </SelectTrigger>
                           <SelectContent>
@@ -521,12 +526,12 @@ const Request = () => {
                       </div>
                       
                       <div>
-                        <Label htmlFor="budgetRange" className="text-white">Budget Range</Label>
+                        <Label htmlFor="budgetRange" className="text-white text-sm md:text-base">Budget Range</Label>
                         <Select 
                           value={formData.budgetRange} 
                           onValueChange={(value) => handleInputChange("budgetRange", value)}
                         >
-                          <SelectTrigger style={inputStyle}>
+                          <SelectTrigger className="h-11 md:h-10" style={inputStyle}>
                             <SelectValue placeholder="Select budget range" />
                           </SelectTrigger>
                           <SelectContent>
@@ -541,10 +546,10 @@ const Request = () => {
 
                       {/* Request Types Selection */}
                       <div>
-                        <Label className="text-white">Services Requested * (Select all that apply)</Label>
-                        <div className="grid grid-cols-1 gap-4 mt-3">
+                        <Label className="text-white text-sm md:text-base">Services Requested * (Select all that apply)</Label>
+                        <div className="grid grid-cols-1 gap-3 md:gap-4 mt-3">
                           {requestTypeOptions.map((option) => (
-                            <div key={option.value} className="border border-gray-300 rounded-lg p-4 bg-white/10 backdrop-blur-sm">
+                            <div key={option.value} className="border border-gray-300 rounded-lg p-3 md:p-4 bg-white/10 backdrop-blur-sm">
                               <div className="flex items-center space-x-3">
                                 <Checkbox
                                   id={option.value}
@@ -557,11 +562,11 @@ const Request = () => {
                                 <div>
                                   <Label 
                                     htmlFor={option.value} 
-                                    className="text-white font-semibold cursor-pointer"
+                                    className="text-white font-semibold cursor-pointer text-sm md:text-base"
                                   >
                                     {option.label}
                                   </Label>
-                                  <p className="text-gray-200 text-sm mt-1">{option.description}</p>
+                                  <p className="text-gray-200 text-xs md:text-sm mt-1">{option.description}</p>
                                 </div>
                               </div>
                             </div>
@@ -576,10 +581,10 @@ const Request = () => {
 
                   {/* Step 3: Demo Preferences */}
                   {formStep === 3 && (
-                    <div className="space-y-6">
+                    <div className="space-y-4 md:space-y-6">
                       <div>
-                        <Label className="text-white">Solution Focus Areas * (Select all that interest you)</Label>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                        <Label className="text-white text-sm md:text-base">Solution Focus Areas * (Select all that interest you)</Label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mt-3">
                           {demoFocusOptions.map((option) => (
                             <div key={option} className="flex items-center space-x-2">
                               <Checkbox
@@ -595,7 +600,7 @@ const Request = () => {
                               />
                               <Label 
                                 htmlFor={option} 
-                                className="text-sm font-normal cursor-pointer text-white"
+                                className="text-xs md:text-sm font-normal cursor-pointer text-white"
                               >
                                 {option}
                               </Label>
@@ -609,7 +614,7 @@ const Request = () => {
                               placeholder="Please specify your additional demo focus areas..."
                               value={formData.otherDemoFocusText}
                               onChange={(e) => handleInputChange("otherDemoFocusText", e.target.value)}
-                              className="w-full"
+                              className="w-full h-11 md:h-10"
                               style={inputStyle}
                             />
                           </div>
@@ -617,7 +622,7 @@ const Request = () => {
                       </div>
                       
                       <div>
-                        <Label htmlFor="additionalRequirements" className="text-white">
+                        <Label htmlFor="additionalRequirements" className="text-white text-sm md:text-base">
                           Additional Requirements or Questions
                         </Label>
                         <Textarea
@@ -633,36 +638,37 @@ const Request = () => {
                       {/* Calendly Embed Section */}
                       <div>
                         <div className="bg-card rounded-lg border">
-                          <div className="p-4">
-                            <h4 className="text-center flex items-center justify-center gap-2 font-semibold mb-2">
-                              <Calendar className="w-6 h-6 text-primary" />
+                          <div className="p-3 md:p-4">
+                            <h4 className="text-center flex items-center justify-center gap-2 font-semibold mb-2 text-base md:text-lg">
+                              <Calendar className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                               Schedule Your Showcase
                             </h4>
-                            <p className="text-center text-muted-foreground mb-4 text-sm">
+                            <p className="text-center text-muted-foreground mb-3 md:mb-4 text-xs md:text-sm">
                               Choose a convenient time for your personalized solution Showcase
                             </p>
                           </div>
-                          <div className="px-4 pb-4">
+                          <div className="px-0 md:px-4 pb-3 md:pb-4">
                             {/* Calendly Integration */}
-                            <div className="w-full rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
+                            <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
                               <iframe
                                 src="https://calendly.com/strivetech"
                                 width="100%"
-                                height="630"
+                                height="500"
                                 frameBorder="0"
                                 title="Schedule Your Showcase - Strive Tech"
-                                style={{ borderRadius: '8px' }}
+                                className="md:h-[630px]"
+                                style={{ borderRadius: '0px' }}
                               />
                             </div>
-                            <div className="mt-4 p-3 rounded-lg border border-gray-200 bg-off-white">
-                              <div className="space-y-2 text-xs">
+                            <div className="mt-3 md:mt-4 p-2 md:p-3 rounded-lg border border-gray-200 bg-off-white">
+                              <div className="space-y-1 md:space-y-2 text-xs">
                                 <p style={{ color: '#ff7033' }}><strong>Your Details:</strong></p>
                                 <p style={{ color: '#ff7033' }}>Contact: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.fullName}</span></p>
                                 <p style={{ color: '#ff7033' }}>Email: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.email}</span></p>
                                 <p style={{ color: '#ff7033' }}>Company: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.companyName}</span></p>
                               </div>
                             </div>
-                            <p className="text-sm text-muted-foreground mt-2 text-center">
+                            <p className="text-xs md:text-sm text-muted-foreground mt-2 text-center">
                               * You'll receive a calendar invite and confirmation email after scheduling
                             </p>
                           </div>
@@ -717,42 +723,45 @@ const Request = () => {
             </Card>
 
             {/* Benefits Section */}
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="hero-gradient backdrop-blur-sm">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Target className="w-6 h-6 text-primary" />
+            <div className="mt-8 md:mt-12">
+              {/* Mobile horizontal scroll, desktop grid */}
+              <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:snap-none md:pb-0">
+              <Card className="hero-gradient backdrop-blur-sm min-w-[280px] snap-center md:min-w-0">
+                <CardContent className="p-4 md:p-6 text-center">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                    <Target className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-white mb-2">Tailored to You</h3>
-                  <p className="text-sm text-white/80">
+                  <h3 className="font-semibold text-white mb-2 text-sm md:text-base">Tailored to You</h3>
+                  <p className="text-xs md:text-sm text-white/80">
                     Your solution showcase will focus on your specific industry and challenges
                   </p>
                 </CardContent>
               </Card>
               
-              <Card className="hero-gradient backdrop-blur-sm">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Clock className="w-6 h-6 text-primary" />
+              <Card className="hero-gradient backdrop-blur-sm min-w-[280px] snap-center md:min-w-0">
+                <CardContent className="p-4 md:p-6 text-center">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                    <Clock className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-white mb-2">Quick Response</h3>
-                  <p className="text-sm text-white/80">
+                  <h3 className="font-semibold text-white mb-2 text-sm md:text-base">Quick Response</h3>
+                  <p className="text-xs md:text-sm text-white/80">
                     We'll contact you within 24 hours to confirm your showcase
                   </p>
                 </CardContent>
               </Card>
               
-              <Card className="hero-gradient backdrop-blur-sm">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Users className="w-6 h-6 text-primary" />
+              <Card className="hero-gradient backdrop-blur-sm min-w-[280px] snap-center md:min-w-0">
+                <CardContent className="p-4 md:p-6 text-center">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                    <Users className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-white mb-2">Expert Guidance</h3>
-                  <p className="text-sm text-white/80">
+                  <h3 className="font-semibold text-white mb-2 text-sm md:text-base">Expert Guidance</h3>
+                  <p className="text-xs md:text-sm text-white/80">
                     Our solution architects will guide you through the best options
                   </p>
                 </CardContent>
               </Card>
+              </div>
             </div>
           </div>
         </div>
