@@ -19,11 +19,7 @@ Please make sure that you update this sessions chat     │
 
 # Chat log Creation / Update - Another good prompt with good output: 
 ### Design Specifc
-Please update this sessions chat log with full and complete detail of all updates and edits that    
-  were completed in this session. Please be extra thorough to ensure a successful review session in   
-  the future. We should be able to come back and look at this chat log to see EVERYTHING that was     
-  done in this session just in case we have to fix anything or if we need to copy what was done with  
-   some of the pages in this session to other pages on the website.
+Please update this sessions chat log with full and complete detail of all updates and edits that were completed in this session. Please be extra thorough to ensure a successful review session in the future. We should be able to come back and look at this chat log to see EVERYTHING that was done in this session just in case we have to fix anything or if we need to copy what was done with some of the pages in this session to other pages on the website.
 
 ### Database / Code Specific
 Please update this sessions chat log with full and complete detail of all updates and edits 
@@ -66,7 +62,7 @@ done and have found all that you can, place all of it here: C:\Users\zochr\Deskt
 # Mobile Updates #
 
 Prompt:
-Please read this sessions chat log that I have created: /Users/grant/Documents/GitHub/Strive_Website_Replit/chat_logs/website_updates/Mobile/session6.md - You will see the task list for this session inside of the chat log - Please create your own in depth to-do list in order to make this session a success in updating the mobile design and mobile user experience. Please make the mobile design beautiful while focusing on fixing the formatting issues that exist.
+You're a profession mobile app designer: Please read this sessions chat log that I have created: /Users/grant/Documents/GitHub/Strive_Website_Replit/chat_logs/website_updates/Mobile/session9.md - You will see the task list for this session inside of the chat log - Please create your own in depth to-do list in order to make this session a success in updating the mobile design and mobile user experience. Please make the mobile design beautiful while focusing on fixing the formatting issues that exist.
 
 # Mobile Session prompt to continue where we left off #
 

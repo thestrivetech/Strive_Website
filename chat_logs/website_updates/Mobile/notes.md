@@ -95,10 +95,12 @@
 
 - Please make the subheading text the same gray color (#94a3b8) that's used for the subheading text on the home page 
 
-- All cards on the solutions page are formatted terribly: Icon needs to be centered at the top of each card, the orange title text for each card looks light/grayed out, the buttons inside of each card are way too big (except for the view details button) and the text inside of the buttons are way too big as well, the text in the View Details button is too big and going off of the button, lastly... all cards look way too tall and elongated still. Please do whatever reformatting that you need to do in order to fix all of this.
-   - The demo button needs to be reduced to just the play icon instead of having both the icon and the word "Demo"
-   - The description text for each card is only a few words long so we need to fix this or make the descriptions smaller for mobile
+- Please reformat all cards on this page to be horizontally displayed instead of the 3x3 grid that we have now.
+   - Make the description short to account for this reformating 
+   - Make other necessary adjustments to the card format and layout that makes this new horizontal and full width card display visually appealing and look professional. 
 
+
+# Session 8 #
 
 ## Portfolio Page ##
 
@@ -106,10 +108,12 @@
 
 - Filter button shows two of the same icons when there should only be one.
 
-- All cards on the portfolio page are formatted terribly: Icons should be removed from each card, the buttons inside of each card are way too big (except for the view button) and the text inside of the buttons are way too big as well, the text in the View button is too big and going off of the button
-   - The description text for each card is only a few words long so we need to fix this or make the descriptions smaller for mobile
+- Please reformat all cards on this page to be horizontally displayed instead of the 3x3 grid that we have now.
+   - Make the description short to account for this reformating 
+   - Make other necessary adjustments to the card format and layout that makes this new horizontal and full width card display visually appealing and look professional. 
 
 - Please make the subheading text the same gray color (#94a3b8) that's used for the subheading text on the home page 
+
 
 ## Resources Page ##
 - Overall goal: Make this page beautiful on mobile displays without changing overall design and layout that exists on desktop display (only if needed to make the mobile design work much better)
@@ -120,6 +124,9 @@
    - The description text for each card is only a few words long so we need to fix this or make the descriptions smaller for mobile
 
 - Please make the subheading text the same gray color (#94a3b8) that's used for the subheading text on the home page 
+
+
+# Session 9 #
 
 ## Company Page ##
 
@@ -135,6 +142,8 @@
 - The cards/badges in the "Mission, Vision & Values" section are still vertically stacked which isn't what we're going for. Please reformat the cards to be a 1x2 stack (one card on top: "Our Values" and then the other two cards below it) - Delete the orange square on the cards and add a relevant icon (lucide) to what the card is about. You can resize the font or do whatever is needed to make this format work. 
 
 - The Headshot cards in "Meet Your Transformation Partners" section need to be reformatted to match the same function and format as the cards in the "Lead the AI Revolution in Your Industry" section on the home page where the user can click and swipe through them (also put the 3 bubbles that are used in that section on the home page for this section)
+
+# Session 10 #
 
 ## Contact Page ##
 

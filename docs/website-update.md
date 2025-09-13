@@ -268,3 +268,6 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 - Finish company page (icons for values and mission & update the paragraph text with our story or goal as a company)
 
 - Remove flashing effect from coming soon banner on ChatBot page
+
+- Update website for SEO
+  - Look at C:\Users\zochr\Desktop\GitHub\Strive_Website_Replit\docs\website-plan.md for instructions (can probably do more than what it )
