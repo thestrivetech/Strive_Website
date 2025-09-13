@@ -289,14 +289,14 @@ const Company = () => {
                   className="group"
                   data-testid={`card-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
                 >
-                  <div className="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
-                    <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <div className="text-primary text-xl">
+                  <div className="bg-white rounded-2xl p-5 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                    <div className="w-14 h-14 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                      <div className="text-primary text-lg">
                         {item.icon}
                       </div>
                     </div>
                     <h3 
-                      className="text-lg font-bold mb-3 text-[#020a1c]"
+                      className="text-base font-bold mb-2 text-[#020a1c]"
                       data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-title`}
                     >
                       {item.title}
@@ -544,10 +544,10 @@ const Company = () => {
                 variant="outline"
                 className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
                 size="lg"
-                onClick={() => window.location.href = "/portfolio"}
-                data-testid="button-view-work"
+                onClick={() => window.location.href = "/contact"}
+                data-testid="button-join-team"
               >
-                View Our Work
+                Join Our Team
               </Button>
             </div>
           </div>
