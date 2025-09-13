@@ -46,18 +46,18 @@ const Company = () => {
       imageAlt: "Garrett Holland - CEO & Founder headshot"
     },
     {
-      name: "Jeff Meyer",
-      title: "Co-Founder, Head of Sales",
-      description: "Expert relationship builder driving exponential growth through strategic partnerships and client success.",
-      imageUrl: JeffHeadshot,
-      imageAlt: "Jeff Meyer - Co-Founder, Head of Sales headshot"
-    },
-    {
       name: "Grant Ramey",
       title: "Co-Founder, VP",
       description: "Operational excellence architect scaling breakthrough solutions and delivering measurable results.",
       imageUrl: GrantHeadshot,
       imageAlt: "Grant Ramey - Co-Founder, VP headshot"
+    },
+    {
+      name: "Jeff Meyer",
+      title: "Co-Founder, Head of Sales",
+      description: "Expert relationship builder driving exponential growth through strategic partnerships and client success.",
+      imageUrl: JeffHeadshot,
+      imageAlt: "Jeff Meyer - Co-Founder, Head of Sales headshot"
     }
   ];
 
