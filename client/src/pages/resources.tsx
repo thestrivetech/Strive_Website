@@ -678,9 +678,9 @@ const Resources = () => {
                 {/* Mobile: Horizontal Layout, Desktop: Vertical Layout */}
                 <div className="flex flex-row md:flex-col">
                   {/* Left Side - Photo and Metadata (Mobile) / Top (Desktop) */}
-                  <div className="flex flex-col md:w-full flex-shrink-0">
+                  <div className="flex flex-col justify-between flex-shrink-0 w-28 md:w-full">
                     {/* Image Container */}
-                    <div className="relative overflow-hidden w-28 h-32 md:w-full md:h-32 lg:h-48">
+                    <div className="relative overflow-hidden w-28 h-40 md:w-full md:h-32 lg:h-48 flex-grow">
                       <img 
                         src={resource.imageUrl} 
                         alt={resource.imageAlt}
@@ -705,8 +705,8 @@ const Resources = () => {
                       </div>
                     </div>
                     
-                    {/* Mobile-only Metadata Section - Below image */}
-                    <div className="md:hidden px-1 py-1">
+                    {/* Mobile-only Metadata Section - Aligned with bottom */}
+                    <div className="md:hidden px-1 py-1 mt-auto">
                       <div className="flex flex-col gap-0.5 text-xs text-[#1e3a8a]">
                         <span className="truncate" data-testid={`text-resource-metadata-${resource.id}`}>
                           {resource.metadata}
