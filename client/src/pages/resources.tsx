@@ -737,14 +737,14 @@ const Resources = () => {
                       {resource.shortDescription}
                     </p>
                     
-                    <div className="flex flex-wrap gap-1 mb-2 md:mb-4">
+                    <div className="flex gap-1 mb-2 md:mb-4 overflow-hidden">
                       {resource.tags.slice(0, 2).map((tag, index) => (
-                        <Badge key={index} variant="secondary" className="text-xs px-1 py-0.5">
+                        <Badge key={index} variant="secondary" className="text-xs px-1 py-0.5 whitespace-nowrap flex-shrink-0">
                           {tag}
                         </Badge>
                       ))}
                       {resource.tags.length > 2 && (
-                        <Badge variant="secondary" className="text-xs px-1 py-0.5">
+                        <Badge variant="secondary" className="text-xs px-1 py-0.5 whitespace-nowrap flex-shrink-0">
                           +{resource.tags.length - 2}
                         </Badge>
                       )}
