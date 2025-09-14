@@ -39,8 +39,11 @@ chat_logs/
 prompts/
 attached_assets/
 copy-wireframes/
-migrations/
 tests/
+
+# Supabase temporary files (not needed for deployment)
+supabase/migrations_archive/
+supabase/.temp/
 
 # Temporary development files
 2025-09-13-website-optimization-continue-please.txt
