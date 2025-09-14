@@ -26,10 +26,12 @@ class ServiceWorkerManager {
         this.setupEventListeners(options);
 
         // Register the service worker
-        this.registration = await this.workbox.register();
+        this.registration = await this.workbox.register() || null;
 
         console.log('✅ Service Worker registered successfully');
-        options.onRegistered?.(this.registration);
+        if (this.registration) {
+          options.onRegistered?.(this.registration);
+        }
 
         // Check for updates every 60 seconds
         this.setupUpdateCheck();

@@ -135,7 +135,8 @@ export const createValidationRules = (type: 'contact' | 'newsletter' | 'roi') =>
     case 'roi':
       return [
         body('currentCosts')
-          .isNumeric({ min: 0 })
+          .isNumeric()
+          .isFloat({ min: 0 })
           .withMessage('Current costs must be a positive number'),
         body('teamSize')
           .isInt({ min: 1, max: 10000 })

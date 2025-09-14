@@ -205,7 +205,7 @@ class EmailService {
   async sendRequestConfirmation(requestData: any) {
     // Parse request types from comma-separated string
     const requestTypes = requestData.requestTypes ? requestData.requestTypes.split(',') : [];
-    const serviceList = requestTypes.map(type => {
+    const serviceList = requestTypes.map((type: string) => {
       switch(type) {
         case 'demo': return 'Product Demo';
         case 'showcase': return 'Solution Showcase';
@@ -276,7 +276,7 @@ class EmailService {
 
     // Parse request types and arrays
     const requestTypes = requestData.requestTypes ? requestData.requestTypes.split(',') : [];
-    const serviceList = requestTypes.map(type => {
+    const serviceList = requestTypes.map((type: string) => {
       switch(type) {
         case 'demo': return 'Product Demo';
         case 'showcase': return 'Solution Showcase';  
@@ -305,12 +305,12 @@ class EmailService {
           
           ${currentChallenges.length > 0 ? `
             <p><strong>Current Challenges:</strong></p>
-            <ul>${currentChallenges.map(challenge => `<li>${challenge}</li>`).join('')}</ul>
+            <ul>${currentChallenges.map((challenge: string) => `<li>${challenge}</li>`).join('')}</ul>
           ` : ''}
           
           ${demoFocusAreas.length > 0 ? `
             <p><strong>Focus Areas:</strong></p>
-            <ul>${demoFocusAreas.map(area => `<li>${area}</li>`).join('')}</ul>
+            <ul>${demoFocusAreas.map((area: string) => `<li>${area}</li>`).join('')}</ul>
           ` : ''}
           
           ${requestData.additionalRequirements ? `

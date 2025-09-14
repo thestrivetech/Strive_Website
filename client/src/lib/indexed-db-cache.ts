@@ -21,7 +21,7 @@ const OBJECT_STORES = {
 
 interface CacheEntry<T = any> {
   id: string;
-  data: T;
+  data: T | string; // Allow string for compressed data
   timestamp: number;
   ttl: number;
   version: string;
@@ -152,7 +152,7 @@ class IndexedDBCache {
     }
 
     // Decompress if needed
-    return entry.compressed ? await this.decompress(entry.data) : entry.data;
+    return entry.compressed ? await this.decompress(entry.data as string) : entry.data as T;
   }
 
   /**
@@ -187,7 +187,7 @@ class IndexedDBCache {
 
       for (const entry of entries) {
         if (Date.now() - entry.timestamp <= entry.ttl) {
-          const data = entry.compressed ? await this.decompress(entry.data) : entry.data;
+          const data = entry.compressed ? await this.decompress(entry.data as string) : entry.data;
           results.push(data);
         }
       }
@@ -222,7 +222,7 @@ class IndexedDBCache {
    */
   async getCachedAPIResponse(url: string): Promise<any> {
     const id = this.generateCacheKey(url);
-    const cached = await this.get('API_CACHE', id);
+    const cached = await this.get<any>('API_CACHE', id);
     return cached?.data || null;
   }
 
@@ -238,14 +238,14 @@ class IndexedDBCache {
     const staleTtl = options.staleTtl || ttl * 2;
 
     // Try to get from cache first
-    const cached = await this.get('API_CACHE', key);
+    const cached = await this.get<CacheEntry<T>>('API_CACHE', key);
 
     if (cached) {
-      const age = Date.now() - cached.timestamp;
+      const age = Date.now() - (cached as any).timestamp;
 
       // If fresh, return cached data
       if (age < ttl) {
-        return cached.data;
+        return (cached as any).data;
       }
 
       // If stale but not expired, return stale data and revalidate in background
@@ -257,7 +257,7 @@ class IndexedDBCache {
           console.warn('Background revalidation failed:', error);
         });
 
-        return cached.data;
+        return (cached as any).data;
       }
     }
 

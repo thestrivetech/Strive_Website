@@ -222,5 +222,4 @@ export const useImageOptimization = () => {
   return { supportsAvif, supportsWebp };
 };
 
-// Export types for use in other components
-export type { OptimizedImageProps };
+// Export types for use in other components - already exported as interface above
