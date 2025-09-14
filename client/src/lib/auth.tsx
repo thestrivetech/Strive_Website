@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState, ReactNode, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 // Custom API request function that supports authorization headers
@@ -191,8 +191,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const isAuthenticated = !!token && !!user;
 
-  return (
-    <AuthContext.Provider value={{
+  // Memoize context value to prevent unnecessary re-renders
+  const contextValue = useMemo(
+    () => ({
       user,
       token,
       login,
@@ -200,7 +201,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       logout,
       isAuthenticated,
       isLoading: isLoading || loginMutation.isPending || signupMutation.isPending || logoutMutation.isPending,
-    }}>
+    }),
+    [
+      user,
+      token,
+      login,
+      signup,
+      logout,
+      isAuthenticated,
+      isLoading,
+      loginMutation.isPending,
+      signupMutation.isPending,
+      logoutMutation.isPending,
+    ]
+  );
+
+  return (
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

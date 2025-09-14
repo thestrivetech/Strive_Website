@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Bot, BarChart, Blocks, ShieldCheck, Eye, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory, Building2, DollarSign, Home as HomeIcon, Scale, Cloud, Cog, Target, Filter, Check, Lightbulb, ChevronDown, Search, Gamepad2, Trophy, Cpu, Play, Leaf, Film, Zap, Truck, Hotel } from "lucide-react";
+import { MetaTags } from "@/components/seo/meta-tags";
+import { useSEO } from "@/hooks/use-seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +12,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Link } from "wouter";
 
 const Solutions = () => {
+  const { seoConfig } = useSEO();
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedIndustry, setSelectedIndustry] = useState("");
   const [selectedSolutionType, setSelectedSolutionType] = useState("");
@@ -624,7 +627,11 @@ const Solutions = () => {
   };
 
   return (
-    <div className="pt-16">
+    <>
+      {/* SEO Meta Tags */}
+      <MetaTags seo={seoConfig} />
+      
+      <div className="pt-16">
       {/* Hero Section with AI-themed animated background */}
       <section className="py-20 hero-gradient relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
@@ -1129,6 +1136,7 @@ const Solutions = () => {
         </DialogContent>
       </Dialog>
     </div>
+    </>
   );
 };
 

@@ -1,3 +1,6 @@
+import { memo } from "react";
+import LazyImage from "@/components/ui/lazy-image";
+
 interface TeamMemberProps {
   name: string;
   title: string;
@@ -7,12 +10,16 @@ interface TeamMemberProps {
   className?: string;
 }
 
-const TeamMember = ({ name, title, description, imageUrl, imageAlt, className }: TeamMemberProps) => {
+const TeamMember = memo(({ name, title, description, imageUrl, imageAlt, className }: TeamMemberProps) => {
   return (
     <div className={`text-center ${className}`} data-testid={`team-member-${name.toLowerCase().replace(/\s+/g, "-")}`}>
-      <img 
-        src={imageUrl} 
+      <LazyImage
+        src={imageUrl}
         alt={imageAlt}
+        width={128}
+        height={128}
+        sizes="128px"
+        loading="lazy"
         className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
         data-testid={`img-${name.toLowerCase().replace(/\s+/g, "-")}`}
       />
@@ -36,6 +43,8 @@ const TeamMember = ({ name, title, description, imageUrl, imageAlt, className }:
       </p>
     </div>
   );
-};
+});
+
+TeamMember.displayName = "TeamMember";
 
 export default TeamMember;

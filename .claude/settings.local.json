@@ -65,7 +65,8 @@
       "Bash(git restore:*)",
       "Bash(/bashes)",
       "Bash(PORT=3002 npm run dev)",
-      "Bash(printf '\\x03')"
+      "Bash(printf '\\x03')",
+      "Bash(awk:*)"
     ],
     "deny": []
   },

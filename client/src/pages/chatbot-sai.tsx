@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState, useRef, useEffect } from "react";
 
@@ -173,9 +174,7 @@ const ChatBotSai = () => {
             
             {/* Coming September 15th Banner - Mobile Only */}
             <div className="md:hidden flex justify-center py-3 bg-gradient-to-r from-[#020a1c] via-purple-900 to-[#020a1c] border-t border-[#ff7033]/20">
-              <Badge className="px-4 py-1 text-sm font-semibold bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white border border-white/20 shadow-lg animate-pulse hover:animate-none transition-all duration-300">
-                Coming September 15th
-              </Badge>
+              <ComingSoonBadge size="md" variant="hero" className="text-sm font-semibold shadow-lg" />
             </div>
             
             <CardContent className="p-0">

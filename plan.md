@@ -14,7 +14,7 @@ This document outlines the complete migration from React + Vite + Express to Nex
 ## Target Architecture
 - **Frontend**: Next.js 14+ (App Router) + React + TypeScript
 - **Backend**: Next.js API Routes + Express.js (hybrid approach)
-- **Database**: Migrate to SupaBase
+- **Database**: Use SupaBase & Drizzle
 - **Styling**: Tailwind CSS + Radix UI (unchanged)
 - **Routing**: Next.js App Router
 - **State Management**: TanStack Query (unchanged)

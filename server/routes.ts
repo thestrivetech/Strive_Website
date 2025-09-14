@@ -8,11 +8,13 @@ import { supabase, db } from "./supabase";
 import { authenticateToken, generateToken, type AuthenticatedRequest } from "./auth";
 import { emailService } from "./email";
 import { sql } from "drizzle-orm";
+import { log } from "./lib/logger";
+import { sitemapRouter } from "./routes/sitemap";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
   app.post("/api/contact", async (req, res) => {
-    console.log('Contact form submission received:', {
+    log.debug('Contact form submission received', {
       body: req.body,
       privacyConsent: {
         value: req.body.privacyConsent,
@@ -22,7 +24,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
-      console.log('Contact form data validated successfully:', {
+      log.debug('Contact form data validated successfully', {
         privacyConsent: validatedData.privacyConsent,
         privacyConsentType: typeof validatedData.privacyConsent
       });
@@ -30,33 +32,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Store submission in database (if available)
       try {
         await storage.createContactSubmission(validatedData);
-        console.log('Contact form stored in database successfully');
+        log.database('Contact form stored successfully');
       } catch (dbError) {
-        console.warn('Database unavailable, continuing without storing submission:', dbError);
+        log.warn('Database unavailable, continuing without storing submission', dbError);
       }
 
       // Send email notifications to all recipients (if email service is configured)
       try {
         const emailSent = await emailService.sendContactFormNotification(validatedData);
         if (!emailSent) {
-          console.warn('Email service not configured - contact form submission not sent via email');
+          log.email('Contact form notification not sent - email service not configured', false);
         } else {
-          console.log('Contact form notification email sent successfully');
+          log.email('Contact form notification email sent successfully', true);
         }
       } catch (emailError) {
-        console.warn('Email sending failed:', emailError);
+        log.email('Email sending failed', false, emailError);
       }
 
       // Send confirmation email to user
       try {
         const confirmationSent = await emailService.sendContactFormConfirmation(validatedData);
         if (!confirmationSent) {
-          console.warn('Contact form confirmation email could not be sent');
+          log.email('Contact form confirmation email could not be sent', false);
         } else {
-          console.log('Contact form confirmation email sent successfully');
+          log.email('Contact form confirmation email sent successfully', true);
         }
       } catch (confirmationError) {
-        console.warn('Contact form confirmation email failed:', confirmationError);
+        log.email('Contact form confirmation email failed', false, confirmationError);
       }
 
       res.json({
@@ -64,9 +66,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "Thank you for your message. We'll get back to you within one business day."
       });
     } catch (error) {
-      console.error('Contact form submission error:', error);
+      log.error('Contact form submission error', error);
       if (error instanceof z.ZodError) {
-        console.error('Validation errors:', error.errors);
+        log.error('Validation errors', error.errors);
         res.status(400).json({
           success: false,
           message: "Invalid form data - please check all required fields",
@@ -101,17 +103,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Store subscription in database
         await storage.createNewsletterSubscription(validatedData);
       } catch (dbError) {
-        console.warn('Database unavailable for newsletter subscription:', dbError);
+        log.warn('Database unavailable for newsletter subscription', dbError);
       }
       
       // Send confirmation email to subscriber (if email service is configured)
       try {
         const emailSent = await emailService.sendNewsletterConfirmation(validatedData.email);
         if (!emailSent) {
-          console.warn('Email service not configured - newsletter confirmation not sent');
+          log.email('Newsletter confirmation not sent - email service not configured', false);
         }
       } catch (emailError) {
-        console.warn('Newsletter confirmation email failed:', emailError);
+        log.email('Newsletter confirmation email failed', false, emailError);
       }
       
       res.json({ 
@@ -119,7 +121,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "Successfully subscribed to our newsletter!"
       });
     } catch (error) {
-      console.error('Newsletter subscription error:', error);
+      log.error('Newsletter subscription error', error);
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
           success: false, 
@@ -144,27 +146,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         await storage.createRequest(validatedData);
       } catch (dbError) {
-        console.warn('Database unavailable, continuing without storing request:', dbError);
+        log.warn('Database unavailable, continuing without storing request', dbError);
       }
       
       // Send email notifications to team (if email service is configured)
       try {
         const emailSent = await emailService.sendRequestNotification(validatedData);
         if (!emailSent) {
-          console.warn('Email service not configured - request notification not sent via email');
+          log.email('Request notification not sent - email service not configured', false);
         }
       } catch (emailError) {
-        console.warn('Request notification email failed:', emailError);
+        log.email('Request notification email failed', false, emailError);
       }
 
       // Send confirmation email to user
       try {
         const confirmationSent = await emailService.sendRequestConfirmation(validatedData);
         if (!confirmationSent) {
-          console.warn('Request confirmation email could not be sent');
+          log.email('Request confirmation email could not be sent', false);
         }
       } catch (confirmationError) {
-        console.warn('Request confirmation email failed:', confirmationError);
+        log.email('Request confirmation email failed', false, confirmationError);
       }
       
       res.json({ 
@@ -172,7 +174,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "Thank you for your request! We'll contact you within one business day to schedule your demo."
       });
     } catch (error) {
-      console.error('Request submission error:', error);
+      log.error('Request submission error', error);
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
           success: false, 
@@ -545,6 +547,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
+  // SEO and Sitemap routes
+  app.use("/api", sitemapRouter);
 
   const httpServer = createServer(app);
   return httpServer;

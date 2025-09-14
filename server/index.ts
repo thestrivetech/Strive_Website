@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express, { type Request, Response, NextFunction } from "express";
+import compression from "compression";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { applySecurity } from "./middleware/security";
@@ -13,6 +14,17 @@ app.set('trust proxy', true);
 
 // Apply security middleware first
 app.use(applySecurity);
+
+// Enable compression with optimized settings
+app.use(compression({
+  level: 6, // Compression level (1-9, 6 is good balance of speed vs compression)
+  threshold: 1024, // Only compress responses larger than 1KB
+  filter: (req, res) => {
+    // Don't compress if already compressed or streaming
+    if (req.headers['x-no-compression']) return false;
+    return compression.filter(req, res);
+  }
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

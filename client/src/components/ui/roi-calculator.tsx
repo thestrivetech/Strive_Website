@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useDebounce } from "@/hooks/useDebounce";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -51,6 +52,7 @@ const ROICalculator = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryName>("All Industries");
   const [open, setOpen] = useState(false);
   const [industrySearch, setIndustrySearch] = useState("");
+  const debouncedIndustrySearch = useDebounce(industrySearch, 300);
   const [selectedSolutions, setSelectedSolutions] = useState<string[]>([]);
   const [investmentAmount, setInvestmentAmount] = useState([50000]);
   const [calculatedROI, setCalculatedROI] = useState(0);
@@ -200,8 +202,8 @@ const ROICalculator = () => {
                           <CommandEmpty>No industry found.</CommandEmpty>
                           <CommandGroup>
                             {allIndustries
-                              .filter(industry => 
-                                industry.toLowerCase().includes(industrySearch.toLowerCase())
+                              .filter(industry =>
+                                industry.toLowerCase().includes(debouncedIndustrySearch.toLowerCase())
                               )
                               .map((industry) => (
                               <CommandItem

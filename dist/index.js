@@ -1,6 +1,7 @@
 // server/index.ts
 import dotenv2 from "dotenv";
 import express2 from "express";
+import compression from "compression";
 
 // server/routes.ts
 import { createServer } from "http";
@@ -688,42 +689,202 @@ var emailService = new EmailService();
 
 // server/routes.ts
 import { sql as sql2 } from "drizzle-orm";
+
+// server/lib/logger.ts
+import winston from "winston";
+var isProduction = process.env.NODE_ENV === "production";
+var isDevelopment = process.env.NODE_ENV === "development";
+var logLevels = {
+  error: 0,
+  warn: 1,
+  info: 2,
+  debug: 3
+};
+var logColors = {
+  error: "red",
+  warn: "yellow",
+  info: "green",
+  debug: "blue"
+};
+winston.addColors(logColors);
+var developmentFormat = winston.format.combine(
+  winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+  winston.format.errors({ stack: true }),
+  winston.format.colorize({ all: true }),
+  winston.format.printf(({ level, message, timestamp: timestamp2, stack }) => {
+    if (stack) {
+      return `[${timestamp2}] ${level}: ${message}
+${stack}`;
+    }
+    return `[${timestamp2}] ${level}: ${message}`;
+  })
+);
+var productionFormat = winston.format.combine(
+  winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+  winston.format.errors({ stack: true }),
+  winston.format.json()
+);
+var transports = [];
+if (isDevelopment) {
+  transports.push(
+    new winston.transports.Console({
+      level: "debug",
+      format: developmentFormat
+    })
+  );
+} else {
+  transports.push(
+    new winston.transports.Console({
+      level: "info",
+      format: productionFormat
+    })
+  );
+  if (process.env.ENABLE_FILE_LOGGING === "true") {
+    transports.push(
+      new winston.transports.File({
+        filename: "logs/error.log",
+        level: "error",
+        format: productionFormat,
+        maxsize: 5242880,
+        // 5MB
+        maxFiles: 5
+      }),
+      new winston.transports.File({
+        filename: "logs/combined.log",
+        level: "info",
+        format: productionFormat,
+        maxsize: 5242880,
+        // 5MB
+        maxFiles: 5
+      })
+    );
+  }
+}
+var logger = winston.createLogger({
+  levels: logLevels,
+  level: isProduction ? "info" : "debug",
+  format: isProduction ? productionFormat : developmentFormat,
+  transports,
+  // Don't exit on handled exceptions
+  exitOnError: false
+});
+var log = {
+  error: (message, meta) => {
+    if (meta) {
+      logger.error(message, { meta });
+    } else {
+      logger.error(message);
+    }
+  },
+  warn: (message, meta) => {
+    if (meta) {
+      logger.warn(message, { meta });
+    } else {
+      logger.warn(message);
+    }
+  },
+  info: (message, meta) => {
+    if (meta) {
+      logger.info(message, { meta });
+    } else {
+      logger.info(message);
+    }
+  },
+  debug: (message, meta) => {
+    if (meta) {
+      logger.debug(message, { meta });
+    } else {
+      logger.debug(message);
+    }
+  },
+  // Special methods for common use cases
+  apiRequest: (method, url, meta) => {
+    logger.info(`API ${method} ${url}`, { meta, type: "api_request" });
+  },
+  apiResponse: (method, url, statusCode, responseTime) => {
+    const level = statusCode >= 500 ? "error" : statusCode >= 400 ? "warn" : "info";
+    logger[level](`API ${method} ${url} - ${statusCode}`, {
+      statusCode,
+      responseTime: responseTime ? `${responseTime}ms` : void 0,
+      type: "api_response"
+    });
+  },
+  database: (operation, meta) => {
+    logger.info(`Database: ${operation}`, { meta, type: "database" });
+  },
+  email: (operation, success, meta) => {
+    const level = success ? "info" : "warn";
+    logger[level](`Email: ${operation}`, { success, meta, type: "email" });
+  },
+  auth: (operation, username, meta) => {
+    logger.info(`Auth: ${operation}`, { username, meta, type: "auth" });
+  }
+};
+if (isProduction) {
+  process.on("uncaughtException", (error) => {
+    logger.error("Uncaught Exception:", error);
+    process.exit(1);
+  });
+  process.on("unhandledRejection", (reason, promise) => {
+    logger.error("Unhandled Rejection at:", { promise, reason });
+  });
+}
+
+// server/routes.ts
 async function registerRoutes(app2) {
   app2.post("/api/contact", async (req, res) => {
+    log.debug("Contact form submission received", {
+      body: req.body,
+      privacyConsent: {
+        value: req.body.privacyConsent,
+        type: typeof req.body.privacyConsent
+      }
+    });
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
+      log.debug("Contact form data validated successfully", {
+        privacyConsent: validatedData.privacyConsent,
+        privacyConsentType: typeof validatedData.privacyConsent
+      });
       try {
         await storage.createContactSubmission(validatedData);
+        log.database("Contact form stored successfully");
       } catch (dbError) {
-        console.warn("Database unavailable, continuing without storing submission:", dbError);
+        log.warn("Database unavailable, continuing without storing submission", dbError);
       }
       try {
         const emailSent = await emailService.sendContactFormNotification(validatedData);
         if (!emailSent) {
-          console.warn("Email service not configured - contact form submission not sent via email");
+          log.email("Contact form notification not sent - email service not configured", false);
+        } else {
+          log.email("Contact form notification email sent successfully", true);
         }
       } catch (emailError) {
-        console.warn("Email sending failed:", emailError);
+        log.email("Email sending failed", false, emailError);
       }
       try {
         const confirmationSent = await emailService.sendContactFormConfirmation(validatedData);
         if (!confirmationSent) {
-          console.warn("Contact form confirmation email could not be sent");
+          log.email("Contact form confirmation email could not be sent", false);
+        } else {
+          log.email("Contact form confirmation email sent successfully", true);
         }
       } catch (confirmationError) {
-        console.warn("Contact form confirmation email failed:", confirmationError);
+        log.email("Contact form confirmation email failed", false, confirmationError);
       }
       res.json({
         success: true,
         message: "Thank you for your message. We'll get back to you within one business day."
       });
     } catch (error) {
-      console.error("Contact form submission error:", error);
+      log.error("Contact form submission error", error);
       if (error instanceof z2.ZodError) {
+        log.error("Validation errors", error.errors);
         res.status(400).json({
           success: false,
-          message: "Invalid form data",
-          errors: error.errors
+          message: "Invalid form data - please check all required fields",
+          errors: error.errors,
+          details: error.errors.map((e) => `${e.path.join(".")}: ${e.message}`).join(", ")
         });
       } else {
         res.status(500).json({
@@ -747,22 +908,22 @@ async function registerRoutes(app2) {
         }
         await storage.createNewsletterSubscription(validatedData);
       } catch (dbError) {
-        console.warn("Database unavailable for newsletter subscription:", dbError);
+        log.warn("Database unavailable for newsletter subscription", dbError);
       }
       try {
         const emailSent = await emailService.sendNewsletterConfirmation(validatedData.email);
         if (!emailSent) {
-          console.warn("Email service not configured - newsletter confirmation not sent");
+          log.email("Newsletter confirmation not sent - email service not configured", false);
         }
       } catch (emailError) {
-        console.warn("Newsletter confirmation email failed:", emailError);
+        log.email("Newsletter confirmation email failed", false, emailError);
       }
       res.json({
         success: true,
         message: "Successfully subscribed to our newsletter!"
       });
     } catch (error) {
-      console.error("Newsletter subscription error:", error);
+      log.error("Newsletter subscription error", error);
       if (error instanceof z2.ZodError) {
         res.status(400).json({
           success: false,
@@ -783,30 +944,30 @@ async function registerRoutes(app2) {
       try {
         await storage.createRequest(validatedData);
       } catch (dbError) {
-        console.warn("Database unavailable, continuing without storing request:", dbError);
+        log.warn("Database unavailable, continuing without storing request", dbError);
       }
       try {
         const emailSent = await emailService.sendRequestNotification(validatedData);
         if (!emailSent) {
-          console.warn("Email service not configured - request notification not sent via email");
+          log.email("Request notification not sent - email service not configured", false);
         }
       } catch (emailError) {
-        console.warn("Request notification email failed:", emailError);
+        log.email("Request notification email failed", false, emailError);
       }
       try {
         const confirmationSent = await emailService.sendRequestConfirmation(validatedData);
         if (!confirmationSent) {
-          console.warn("Request confirmation email could not be sent");
+          log.email("Request confirmation email could not be sent", false);
         }
       } catch (confirmationError) {
-        console.warn("Request confirmation email failed:", confirmationError);
+        log.email("Request confirmation email failed", false, confirmationError);
       }
       res.json({
         success: true,
         message: "Thank you for your request! We'll contact you within one business day to schedule your demo."
       });
     } catch (error) {
-      console.error("Request submission error:", error);
+      log.error("Request submission error", error);
       if (error instanceof z2.ZodError) {
         res.status(400).json({
           success: false,
@@ -1131,9 +1292,100 @@ import { createServer as createViteServer, createLogger } from "vite";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import { visualizer } from "rollup-plugin-visualizer";
+import { VitePWA } from "vite-plugin-pwa";
 var vite_config_default = defineConfig({
   plugins: [
     react(),
+    // PWA Plugin with basic configuration
+    VitePWA({
+      registerType: "autoUpdate",
+      includeAssets: ["favicon.ico", "apple-touch-icon.png"],
+      manifest: {
+        name: "Strive Tech - AI-Powered Business Solutions",
+        short_name: "Strive Tech",
+        description: "Transform your business with AI-powered solutions and cutting-edge technology",
+        theme_color: "#00C5A1",
+        background_color: "#ffffff",
+        display: "standalone",
+        start_url: "/",
+        scope: "/",
+        icons: [
+          {
+            src: "android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png"
+          },
+          {
+            src: "android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png"
+          }
+        ]
+      },
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,avif}"],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts-cache",
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365
+              }
+            }
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "gstatic-fonts-cache",
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365
+              }
+            }
+          },
+          {
+            urlPattern: /\/api\/.*/,
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "api-cache",
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24
+              }
+            }
+          },
+          {
+            urlPattern: /\.(png|jpg|jpeg|svg|webp|avif)$/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "images-cache",
+              expiration: {
+                maxEntries: 200,
+                maxAgeSeconds: 60 * 60 * 24 * 90
+              }
+            }
+          }
+        ],
+        skipWaiting: true,
+        clientsClaim: true
+      },
+      devOptions: {
+        enabled: false
+      }
+    }),
+    // Bundle analyzer - generates stats.html after build
+    process.env.ANALYZE === "true" && visualizer({
+      filename: "dist/bundle-analyzer.html",
+      open: true,
+      brotliSize: true,
+      gzipSize: true,
+      template: "treemap"
+    }),
     // Temporarily disabled runtime error overlay due to frame property issues
     // runtimeErrorOverlay(),
     ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [
@@ -1141,7 +1393,7 @@ var vite_config_default = defineConfig({
         (m) => m.cartographer()
       )
     ] : []
-  ],
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
@@ -1152,7 +1404,86 @@ var vite_config_default = defineConfig({
   root: path.resolve(import.meta.dirname, "client"),
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
-    emptyOutDir: true
+    emptyOutDir: true,
+    // Enable source maps only in development
+    sourcemap: process.env.NODE_ENV === "development",
+    // Use esbuild for minification (faster than terser)
+    minify: "esbuild",
+    // Enable CSS code splitting
+    cssCodeSplit: true,
+    // Optimize chunk size
+    chunkSizeWarningLimit: 1e3,
+    rollupOptions: {
+      output: {
+        // Manual chunk optimization for better caching
+        manualChunks: {
+          // Vendor libraries that change rarely
+          vendor: ["react", "react-dom"],
+          router: ["wouter"],
+          // UI component libraries
+          ui: [
+            "@radix-ui/react-dialog",
+            "@radix-ui/react-select",
+            "@radix-ui/react-tooltip",
+            "@radix-ui/react-avatar",
+            "@radix-ui/react-checkbox",
+            "@radix-ui/react-collapsible",
+            "@radix-ui/react-label",
+            "@radix-ui/react-popover",
+            "@radix-ui/react-scroll-area",
+            "@radix-ui/react-separator",
+            "@radix-ui/react-slider",
+            "@radix-ui/react-slot",
+            "@radix-ui/react-switch",
+            "@radix-ui/react-tabs",
+            "@radix-ui/react-toast",
+            "@radix-ui/react-toggle",
+            "@radix-ui/react-toggle-group"
+          ],
+          // Utility libraries
+          utils: [
+            "date-fns",
+            "clsx",
+            "tailwind-merge",
+            "class-variance-authority"
+          ],
+          // Animation and motion
+          motion: ["framer-motion"],
+          // Data visualization
+          charts: ["recharts"],
+          // Icons and visual assets
+          icons: ["lucide-react", "@heroicons/react"],
+          // Form handling
+          forms: ["react-hook-form", "@hookform/resolvers"],
+          // Query and state management
+          query: ["@tanstack/react-query"],
+          // PWA and Service Worker
+          pwa: ["workbox-window", "idb"]
+        },
+        // Optimize asset file names for better caching
+        assetFileNames: (assetInfo) => {
+          if (!assetInfo.name) return "assets/[name]-[hash][extname]";
+          const info = assetInfo.name.split(".");
+          const ext = info[info.length - 1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp|avif/i.test(ext)) {
+            return `assets/images/[name]-[hash][extname]`;
+          }
+          if (/woff2?|ttf|otf|eot/i.test(ext)) {
+            return `assets/fonts/[name]-[hash][extname]`;
+          }
+          return `assets/[name]-[hash][extname]`;
+        },
+        chunkFileNames: "assets/js/[name]-[hash].js",
+        entryFileNames: "assets/js/[name]-[hash].js"
+      }
+    }
+  },
+  // Production-specific esbuild optimizations
+  esbuild: {
+    // Remove console.log and debugger statements in production
+    drop: process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
+    // Optimize for modern browsers in production
+    target: process.env.NODE_ENV === "production" ? "es2020" : "es2017"
   },
   server: {
     fs: {
@@ -1165,7 +1496,7 @@ var vite_config_default = defineConfig({
 // server/vite.ts
 import { nanoid } from "nanoid";
 var viteLogger = createLogger();
-function log(message, source = "express") {
+function log2(message, source = "express") {
   const formattedTime = (/* @__PURE__ */ new Date()).toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
@@ -1223,8 +1554,32 @@ function serveStatic(app2) {
       `Could not find the build directory: ${distPath}, make sure to build the client first`
     );
   }
-  app2.use(express.static(distPath));
+  app2.use(express.static(distPath, {
+    maxAge: "1y",
+    // Cache static assets for 1 year
+    etag: true,
+    // Enable ETag generation
+    lastModified: true,
+    // Send Last-Modified header
+    setHeaders: (res, filePath) => {
+      const ext = path2.extname(filePath).toLowerCase();
+      if (ext === ".html") {
+        res.setHeader("Cache-Control", "public, max-age=300, s-maxage=300");
+      } else if ([".js", ".css", ".woff2", ".woff", ".ttf", ".otf"].includes(ext)) {
+        res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+      } else if ([".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".svg", ".ico"].includes(ext)) {
+        res.setHeader("Cache-Control", "public, max-age=2592000");
+      } else {
+        res.setHeader("Cache-Control", "public, max-age=86400");
+      }
+      res.setHeader("X-Content-Type-Options", "nosniff");
+      if ([".js", ".css", ".html", ".json", ".xml", ".svg"].includes(ext)) {
+        res.setHeader("Vary", "Accept-Encoding");
+      }
+    }
+  }));
   app2.use("*", (_req, res) => {
+    res.setHeader("Cache-Control", "public, max-age=300");
     res.sendFile(path2.resolve(distPath, "index.html"));
   });
 }
@@ -1235,9 +1590,9 @@ import rateLimit from "express-rate-limit";
 import { body, validationResult } from "express-validator";
 var createRateLimiter = () => {
   const isReplit = !!(process.env.REPL_ID || process.env.REPLIT_DB_URL || process.env.REPL_SLUG);
-  const isDevelopment = process.env.NODE_ENV === "development";
-  const windowMs = isDevelopment || isReplit ? 1 * 60 * 1e3 : 15 * 60 * 1e3;
-  const maxRequests = isDevelopment || isReplit ? 1e3 : 500;
+  const isDevelopment2 = process.env.NODE_ENV === "development";
+  const windowMs = isDevelopment2 || isReplit ? 1 * 60 * 1e3 : 15 * 60 * 1e3;
+  const maxRequests = isDevelopment2 || isReplit ? 1e3 : 500;
   return rateLimit({
     windowMs,
     max: maxRequests,
@@ -1251,7 +1606,7 @@ var createRateLimiter = () => {
     // Disable the `X-RateLimit-*` headers
     // Skip rate limiting entirely in development or Replit, partial skip in production
     skip: (req) => {
-      if (isDevelopment || isReplit) {
+      if (isDevelopment2 || isReplit) {
         return true;
       }
       return req.url.startsWith("/assets/") || req.url.startsWith("/favicon");
@@ -1361,6 +1716,16 @@ dotenv2.config();
 var app = express2();
 app.set("trust proxy", true);
 app.use(applySecurity);
+app.use(compression({
+  level: 6,
+  // Compression level (1-9, 6 is good balance of speed vs compression)
+  threshold: 1024,
+  // Only compress responses larger than 1KB
+  filter: (req, res) => {
+    if (req.headers["x-no-compression"]) return false;
+    return compression.filter(req, res);
+  }
+}));
 app.use(express2.json());
 app.use(express2.urlencoded({ extended: false }));
 app.use((req, res, next) => {
@@ -1382,7 +1747,7 @@ app.use((req, res, next) => {
       if (logLine.length > 80) {
         logLine = logLine.slice(0, 79) + "\u2026";
       }
-      log(logLine);
+      log2(logLine);
     }
   });
   next();
@@ -1405,7 +1770,7 @@ app.use((req, res, next) => {
     const host = process.platform === "win32" ? "127.0.0.1" : "0.0.0.0";
     const options = process.platform === "win32" ? { port, host } : { port, host, reusePort: true };
     server.listen(options, () => {
-      log(`serving on port ${port} (${host})`);
+      log2(`serving on port ${port} (${host})`);
     });
   }
 })();

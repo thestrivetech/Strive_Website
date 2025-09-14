@@ -62,7 +62,7 @@ done and have found all that you can, place all of it here: C:\Users\zochr\Deskt
 # Mobile Updates #
 
 Prompt:
-You're a profession mobile app designer: Please read this sessions chat log that I have created: /Users/grant/Documents/GitHub/Strive_Website_Replit/chat_logs/website_updates/Mobile/session9.md - You will see the task list for this session inside of the chat log - Please create your own in depth to-do list in order to make this session a success in updating the mobile design and mobile user experience. Please make the mobile design beautiful while focusing on fixing the formatting issues that exist.
+You're a profession mobile app designer: Please read this sessions chat log that I have created: /Users/grant/Documents/GitHub/Strive_Website_Replit/chat_logs/website_updates/Mobile/session10.md - You will see the task list for this session inside of the chat log - Please create your own in depth to-do list in order to make this session a success in updating the mobile design and mobile user experience. Please make the mobile design beautiful while focusing on fixing the formatting issues that exist.
 
 # Mobile Session prompt to continue where we left off #
 

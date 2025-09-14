@@ -4,3 +4,11 @@ server/public
 vite.config.ts.*
 *.tar.gz
 .env
+
+# Local development cache and state
+.serena/cache/
+.local/state/
+
+# Project directory maps (generated files)
+project-directory-map.txt
+project-directory-map.json

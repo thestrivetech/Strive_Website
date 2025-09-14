@@ -1,4 +1,6 @@
+import { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import LazyImage from "@/components/ui/lazy-image";
 
 interface ResourceCardProps {
   type: string;
@@ -11,7 +13,7 @@ interface ResourceCardProps {
   className?: string;
 }
 
-const ResourceCard = ({ 
+const ResourceCard = memo(({ 
   type, 
   title, 
   description, 
@@ -27,9 +29,13 @@ const ResourceCard = ({
       data-testid={`card-resource-${title.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div className="aspect-video overflow-hidden">
-        <img 
-          src={imageUrl} 
+        <LazyImage
+          src={imageUrl}
           alt={imageAlt}
+          width={400}
+          height={225}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          loading="lazy"
           className="w-full h-full object-cover"
           data-testid={`img-${title.toLowerCase().replace(/\s+/g, "-")}`}
         />
@@ -70,6 +76,8 @@ const ResourceCard = ({
       </CardContent>
     </Card>
   );
-};
+});
+
+ResourceCard.displayName = "ResourceCard";
 
 export default ResourceCard;

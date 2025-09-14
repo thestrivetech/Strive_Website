@@ -7,6 +7,9 @@ import {
   Wrench, Eye, Package, Settings, Target, Coins, Globe,
   BookOpen, Clipboard, Award, PenTool, Building2, FileText, Search, ShieldAlert
 } from "lucide-react";
+import { MetaTags } from "@/components/seo/meta-tags";
+import { OrganizationStructuredData, FAQStructuredData } from "@/components/seo/structured-data";
+import { useSEO } from "@/hooks/use-seo";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -32,6 +35,7 @@ import { Link } from "wouter";
 import { BarChart3, Lock, ExternalLink } from "lucide-react";
 
 const Home = () => {
+  const { seoConfig } = useSEO();
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedSolution, setSelectedSolution] = useState<any | null>(null);
   const [currentResourceIndex, setCurrentResourceIndex] = useState(0);
@@ -162,7 +166,15 @@ const Home = () => {
 
 
   return (
-    <div className="pt-16">
+    <>
+      {/* SEO Meta Tags */}
+      <MetaTags seo={seoConfig} />
+      
+      {/* Structured Data */}
+      <OrganizationStructuredData />
+      <FAQStructuredData />
+      
+      <div className="pt-16">
       {/* Hero Section */}
       <HeroSection
         title="Transform Your Business with AI to Lead Your Industry, Not Just Compete"
@@ -733,6 +745,7 @@ const Home = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 
