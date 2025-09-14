@@ -42,6 +42,9 @@ copy-wireframes/
 docs/
 tests/
 
+# Database migrations (not needed for Vercel deployment)
+migrations/
+
 # Supabase temporary files (not needed for deployment)
 supabase/migrations_archive/
 supabase/.temp/
