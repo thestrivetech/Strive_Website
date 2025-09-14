@@ -39,6 +39,7 @@ chat_logs/
 prompts/
 attached_assets/
 copy-wireframes/
+docs/
 tests/
 
 # Supabase temporary files (not needed for deployment)
