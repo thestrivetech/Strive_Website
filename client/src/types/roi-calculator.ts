@@ -36,7 +36,6 @@ export interface ROICalculationResult {
   fiveYearROI: string;
   timeSavings: string;
   annualReturn: string;
-  paybackMonths: number;
   roiMultiplier: number;
 }
 

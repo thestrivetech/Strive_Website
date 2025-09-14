@@ -1,126 +1,188 @@
-import { MessageCircle, Send, Bot, Sparkles, User, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Bot, Sparkles, AlertCircle, Loader2, MessageCircle, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { useState, useRef, useEffect } from "react";
-
-interface Message {
-  id: number;
-  type: 'user' | 'bot';
-  content: string;
-  timestamp: Date;
-}
+import { chatbotManager, preconnectToChatbot } from "@/lib/chatbot-iframe-communication";
 
 const ChatBotSai = () => {
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      type: "bot",
-      content: "Hello! I'm Sai, your AI-powered assistant from Strive Tech. I'm here to help you explore our solutions, answer questions about our services, and guide you to the right resources. How can I assist you today?",
-      timestamp: new Date()
-    }
-  ]);
-  const [isTyping, setIsTyping] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [isPreconnected, setIsPreconnected] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  // Chatbot configuration
+  const chatbotOrigin = process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3001'
+    : 'https://chat.strivetech.ai';
+  const fullUrl = `${chatbotOrigin}/full`;
 
+  // Setup chatbot communication and preconnect immediately
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    // Preconnect immediately for best performance
+    preconnectToChatbot(chatbotOrigin);
+    setIsPreconnected(true);
 
-  const generateBotResponse = (userMessage: string): string => {
-    const lowerMessage = userMessage.toLowerCase();
-    
-    // AI Solutions
-    if (lowerMessage.includes("ai") || lowerMessage.includes("artificial intelligence")) {
-      return "We offer cutting-edge AI solutions including machine learning models, natural language processing, computer vision, and predictive analytics. Would you like to explore our portfolio or schedule a demo to see these solutions in action?";
-    }
-    
-    // Pricing
-    if (lowerMessage.includes("price") || lowerMessage.includes("cost") || lowerMessage.includes("pricing")) {
-      return "Our pricing is customized based on your specific needs and scale. We offer flexible plans starting from small businesses to enterprise solutions. I can help you schedule an assessment to discuss your budget and requirements. Would you like me to arrange that?";
-    }
-    
-    // Demo
-    if (lowerMessage.includes("demo") || lowerMessage.includes("trial")) {
-      return "Excellent! We offer personalized demos tailored to your industry and use case. You can request a free demo at our demo page, or I can help guide you through our interactive portfolio showcasing real implementations. Which would you prefer?";
-    }
-    
-    // Industries
-    if (lowerMessage.includes("industry") || lowerMessage.includes("industries")) {
-      return "We serve multiple industries including Healthcare, Finance, Manufacturing, Retail, Technology, Education, Real Estate, and Legal. Each solution is tailored to address specific industry pain points. Which industry are you interested in learning more about?";
-    }
-    
-    // Support
-    if (lowerMessage.includes("support") || lowerMessage.includes("help")) {
-      return "We provide 24/7 support for all our clients. Our support includes technical assistance, training resources, and dedicated account managers for enterprise clients. You can reach our support team through the Contact page or continue chatting with me for immediate assistance!";
-    }
-    
-    // Integration
-    if (lowerMessage.includes("integrate") || lowerMessage.includes("integration")) {
-      return "Our solutions are designed to integrate seamlessly with your existing systems. We support APIs, webhooks, and custom integrations with popular platforms like Salesforce, SAP, Microsoft Azure, AWS, and more. Would you like to discuss your specific integration requirements?";
-    }
-    
-    // About Company
-    if (lowerMessage.includes("about") || lowerMessage.includes("company") || lowerMessage.includes("strive")) {
-      return "Strive Tech is a leading AI solutions provider with 8+ years of experience, serving 150+ clients globally. We're committed to transforming businesses through innovative technology. Our team of experts specializes in creating custom AI solutions that drive real results. Would you like to learn more about our team or success stories?";
-    }
-    
-    // Default response
-    return "That's a great question! I'd be happy to help you explore that further. Could you provide more details about what specific aspect you're interested in? You can also check out our Solutions page for comprehensive information, or I can help schedule an assessment with our experts.";
-  };
-
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!message.trim()) return;
-
-    const userMessage: Message = {
-      id: messages.length + 1,
-      type: "user",
-      content: message,
-      timestamp: new Date()
-    };
-    
-    setMessages(prev => [...prev, userMessage]);
-    setMessage("");
-    setIsTyping(true);
-
-    // Simulate bot response with typing delay
-    setTimeout(() => {
-      const botResponse: Message = {
-        id: messages.length + 2,
-        type: "bot",
-        content: generateBotResponse(message),
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, botResponse]);
-      setIsTyping(false);
-    }, 1500);
-  };
-
-  const quickActions = [
-    "Tell me about your AI solutions",
-    "I need a demo",
-    "What industries do you serve?",
-    "Pricing information",
-    "How can AI help my business?"
-  ];
-
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', { 
-      hour: 'numeric', 
-      minute: '2-digit',
-      hour12: true 
+    // Setup message handlers
+    chatbotManager.onMessage('ready', () => {
+      setIsLoading(false);
+      setHasError(false);
     });
+
+    chatbotManager.onMessage('error', (data) => {
+      console.error('Chatbot error:', data);
+      setHasError(true);
+      setIsLoading(false);
+    });
+
+    chatbotManager.onMessage('navigate', (data) => {
+      if (data?.url) {
+        // Handle navigation requests from full-page chatbot
+        window.location.href = data.url;
+      }
+    });
+
+    // Cleanup on unmount
+    return () => {
+      chatbotManager.offMessage('ready');
+      chatbotManager.offMessage('error');
+      chatbotManager.offMessage('navigate');
+    };
+  }, [chatbotOrigin]);
+
+  // Handle iframe load
+  const handleIframeLoad = () => {
+    if (iframeRef.current) {
+      chatbotManager.setIframe(iframeRef.current);
+      // Notify iframe it's in full-page mode
+      chatbotManager.sendMessage('mode', { type: 'fullpage' });
+    }
   };
+
+  // Handle iframe error
+  const handleIframeError = () => {
+    setHasError(true);
+    setIsLoading(false);
+  };
+
+  // Handle retry
+  const handleRetry = () => {
+    setHasError(false);
+    setIsLoading(true);
+
+    // Reload iframe
+    if (iframeRef.current) {
+      iframeRef.current.src = fullUrl;
+    }
+  };
+
+  // Render error state
+  const renderErrorState = () => (
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-2xl mx-auto text-center">
+        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
+          <CardContent className="p-12">
+            <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-6" />
+            <h2 className="text-2xl font-bold mb-4">Chat Service Unavailable</h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              We're experiencing technical difficulties with our chat service.
+              Our team has been notified and is working to resolve this issue as quickly as possible.
+            </p>
+
+            <div className="space-y-4">
+              <Button
+                onClick={handleRetry}
+                className="w-full bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white hover:from-orange-500 hover:to-[#ff7033] shadow-lg"
+                size="lg"
+              >
+                <Loader2 className="w-4 h-4 mr-2" />
+                Try Again
+              </Button>
+
+              <div className="flex space-x-4">
+                <Button
+                  onClick={() => window.location.href = '/contact'}
+                  variant="outline"
+                  className="flex-1"
+                >
+                  Contact Support
+                </Button>
+                <Button
+                  onClick={() => window.location.href = '/'}
+                  variant="outline"
+                  className="flex-1"
+                >
+                  Return Home
+                </Button>
+              </div>
+
+              <div className="pt-4 border-t">
+                <p className="text-sm text-muted-foreground">
+                  Need immediate assistance? Call us at{' '}
+                  <a href="tel:+17314312320" className="text-primary hover:underline font-medium">
+                    (731) 431-2320
+                  </a>
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  // Render loading state
+  const renderLoadingState = () => (
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-5xl mx-auto">
+        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
+          <CardHeader className="bg-gradient-to-r from-[#020a1c] via-purple-900 to-[#020a1c] text-white p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <Loader2 className="w-4 h-4 text-white animate-spin" />
+                </div>
+                <div>
+                  <span className="font-bold text-lg">Connecting to Sai...</span>
+                  <p className="text-white/80 text-sm">Intelligent Assistant</p>
+                </div>
+              </div>
+              <Badge className="bg-gradient-to-r from-[#ff7033] to-yellow-500 text-white px-4 py-2">
+                AI Assistant
+              </Badge>
+            </div>
+          </CardHeader>
+
+          <CardContent className="p-0">
+            <div className="h-[600px] flex items-center justify-center bg-gradient-to-b from-white/50 to-white/80">
+              <div className="text-center">
+                <div className="relative mb-6">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#ff7033] to-purple-600 flex items-center justify-center shadow-2xl mx-auto">
+                    <Bot className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-r from-yellow-400 to-[#ff7033] flex items-center justify-center animate-pulse">
+                    <Sparkles className="h-3 w-3 text-white" />
+                  </div>
+                </div>
+
+                <h3 className="text-xl font-semibold text-[#020a1c] mb-2">Loading Sai...</h3>
+                <p className="text-muted-foreground mb-6">
+                  Your AI assistant is starting up. This may take a moment.
+                </p>
+
+                <div className="flex justify-center space-x-2 mb-4">
+                  <div className="w-2 h-2 bg-[#ff7033] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
 
   return (
     <div className="pt-16 min-h-screen hero-gradient">
@@ -145,186 +207,78 @@ const ChatBotSai = () => {
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Your AI-Powered Business Solutions Assistant - Available 24/7
             </p>
-
           </div>
         </div>
       </div>
 
       {/* Chat Interface */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-5xl mx-auto">
-          <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
-            <CardHeader className="bg-gradient-to-r from-[#020a1c] via-purple-900 to-[#020a1c] text-white p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="relative">
-                    <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse shadow-lg"></div>
-                    <div className="absolute inset-0 w-4 h-4 bg-green-400 rounded-full animate-ping"></div>
-                  </div>
-                  <div>
-                    <span className="font-bold text-lg">Sai is Online</span>
-                    <p className="text-white/80 text-sm">Intelligent Assistant</p>
-                  </div>
-                </div>
-                <Badge className="bg-gradient-to-r from-[#ff7033] to-yellow-500 text-white px-4 py-2">
-                  AI Assistant
-                </Badge>
-              </div>
-            </CardHeader>
-            
-            {/* Coming September 15th Banner - Mobile Only */}
-            <div className="md:hidden flex justify-center py-3 bg-gradient-to-r from-[#020a1c] via-purple-900 to-[#020a1c] border-t border-[#ff7033]/20">
-              <ComingSoonBadge size="md" variant="hero" className="text-sm font-semibold shadow-lg" />
-            </div>
-            
-            <CardContent className="p-0">
-              {/* Messages Area */}
-              <ScrollArea className="h-[600px] p-8 bg-gradient-to-b from-white/50 to-white/80">
-                <div className="space-y-6">
-                  {messages.map((msg) => (
-                    <div
-                      key={msg.id}
-                      className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
-                    >
-                      <div className={`flex gap-4 max-w-[85%] ${msg.type === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                        <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center shadow-lg ${
-                          msg.type === 'user' 
-                            ? 'bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600' 
-                            : 'bg-gradient-to-br from-[#020a1c] via-purple-900 to-[#020a1c] border-2 border-[#ff7033]/30'
-                        }`}>
-                          {msg.type === 'user' ? (
-                            <User className="w-5 h-5 text-white" />
-                          ) : (
-                            <Bot className="w-5 h-5 text-white" />
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <div className={`rounded-3xl px-6 py-4 shadow-lg ${
-                            msg.type === 'user' 
-                              ? 'bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white' 
-                              : 'bg-gradient-to-br from-[#020a1c] via-purple-900 to-[#020a1c] text-white border border-[#ff7033]/20'
-                          }`}>
-                            <p className="text-sm leading-relaxed">{msg.content}</p>
-                          </div>
-                          <div className={`flex items-center gap-2 mt-2 ${
-                            msg.type === 'user' ? 'justify-end' : 'justify-start'
-                          }`}>
-                            <Clock className="w-3 h-3 text-gray-500" />
-                            <span className="text-xs text-gray-500">{formatTime(msg.timestamp)}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  
-                  {isTyping && (
-                    <div className="flex justify-start">
-                      <div className="flex gap-4 max-w-[85%]">
-                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#020a1c] via-purple-900 to-[#020a1c] border-2 border-[#ff7033]/30 flex items-center justify-center shadow-lg">
-                          <Bot className="w-5 h-5 text-white animate-pulse" />
-                        </div>
-                        <div className="bg-gradient-to-br from-[#020a1c] via-purple-900 to-[#020a1c] border border-[#ff7033]/20 rounded-3xl px-6 py-4 shadow-lg">
-                          <div className="flex gap-2">
-                            <span className="w-3 h-3 bg-[#ff7033] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-                            <span className="w-3 h-3 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: '200ms' }}></span>
-                            <span className="w-3 h-3 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '400ms' }}></span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  
-                  <div ref={messagesEndRef} />
-                </div>
-              </ScrollArea>
-
-              {/* Quick Actions */}
-              {messages.length === 1 && (
-                <div className="px-8 py-4 border-t border-gray-200/50 bg-gradient-to-r from-white/80 to-white/60">
-                  <p className="text-sm font-semibold text-[#020a1c] mb-3">Quick questions to get started:</p>
-                  <div className="flex flex-wrap gap-3">
-                    {quickActions.map((action, index) => (
-                      <Button
-                        key={index}
-                        variant="outline"
-                        size="sm"
-                        className="text-xs border-2 border-transparent bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 p-[2px] text-white hover:text-[#ff7033] transition-all duration-300 hover:shadow-md hover:scale-105"
-                        onClick={() => {
-                          setMessage(action);
-                          inputRef.current?.focus();
-                        }}
-                        style={{
-                          background: 'linear-gradient(to bottom right, #ff7033, #f97316, #9333ea)',
-                          padding: '2px'
-                        }}
-                      >
-                        <span className="bg-[#020a1c] hover:bg-[#020a1c] px-3 py-1 rounded text-xs w-full h-full flex items-center justify-center">
-                          {action}
-                        </span>
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Input Area */}
-              <form onSubmit={handleSendMessage} className="p-6 border-t border-gray-200/50 bg-gradient-to-r from-white/90 to-white/70">
-                <div className="flex gap-4">
-                  <Input
-                    ref={inputRef}
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Type your message to Sai..."
-                    className="flex-1 border-2 border-gray-200 focus:border-[#ff7033] focus:ring-[#ff7033] rounded-2xl px-4 py-3 text-white placeholder:text-gray-400"
-                    disabled={isTyping}
-                  />
-                  <Button 
-                    type="submit" 
-                    size="icon"
-                    className="bg-gradient-to-r from-[#ff7033] to-orange-500 hover:from-orange-500 hover:to-[#ff7033] w-12 h-12 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                    disabled={!message.trim() || isTyping}
-                  >
-                    <Send className="w-5 h-5" />
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-
-          {/* Info Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg">
-                  <MessageCircle className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="font-bold text-white mb-2 text-lg">Instant Responses</h3>
-                <p className="text-sm text-white/80">Get immediate answers to your questions about our AI solutions</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 backdrop-blur-sm border-purple-600/20 shadow-2xl hover:scale-105 transition-all duration-300">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#020a1c] to-purple-900 flex items-center justify-center shadow-lg">
-                  <Sparkles className="w-8 h-8 text-[#ff7033]" />
-                </div>
-                <h3 className="font-bold text-white mb-2 text-lg">AI-Powered</h3>
-                <p className="text-sm text-white/80">Intelligent responses tailored to your specific needs</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg">
-                  <Clock className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="font-bold text-white mb-2 text-lg">Available 24/7</h3>
-                <p className="text-sm text-white/80">Always here to help, any time of day or night</p>
-              </CardContent>
-            </Card>
+      {hasError ? renderErrorState() : isLoading ? renderLoadingState() : (
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="max-w-5xl mx-auto">
+            <iframe
+              ref={iframeRef}
+              src={fullUrl}
+              className="w-full rounded-lg shadow-2xl border-0"
+              style={{
+                height: 'calc(100vh - 300px)',
+                minHeight: '600px',
+                backgroundColor: 'transparent'
+              }}
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+              allow="microphone; camera; clipboard-write; autoplay; fullscreen"
+              referrerPolicy="strict-origin"
+              title="Sai AI Assistant - Full Chat Experience"
+              onLoad={handleIframeLoad}
+              onError={handleIframeError}
+              data-testid="chatbot-full-iframe"
+            />
           </div>
         </div>
+      )}
+
+      {/* Coming Soon Banner - Mobile Only */}
+      <div className="md:hidden fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
+        <ComingSoonBadge size="md" variant="hero" className="text-sm font-semibold shadow-lg" />
       </div>
+
+      {/* Info Cards - Only show if chatbot loads successfully */}
+      {!hasError && !isLoading && (
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+              <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg">
+                    <MessageCircle className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-bold text-white mb-2 text-lg">Instant Responses</h3>
+                  <p className="text-sm text-white/80">Get immediate answers to your questions about our AI solutions</p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 backdrop-blur-sm border-purple-600/20 shadow-2xl hover:scale-105 transition-all duration-300">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#020a1c] to-purple-900 flex items-center justify-center shadow-lg">
+                    <Sparkles className="w-8 h-8 text-[#ff7033]" />
+                  </div>
+                  <h3 className="font-bold text-white mb-2 text-lg">AI-Powered</h3>
+                  <p className="text-sm text-white/80">Intelligent responses tailored to your specific needs</p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg">
+                    <Clock className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-bold text-white mb-2 text-lg">Available 24/7</h3>
+                  <p className="text-sm text-white/80">Always here to help, any time of day or night</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -716,15 +716,10 @@ export class AIROICalculator {
     const fiveYearROI = validatedAmount * (finalROIMultiplier - 1);
     const annualReturn = fiveYearROI / 5;
 
-    // Calculate payback period in months
-    const monthlyReturn = annualReturn / 12;
-    const paybackMonths = monthlyReturn > 0 ? Math.round(validatedAmount / monthlyReturn) : 60;
-
     return {
       fiveYearROI: `$${Math.round(fiveYearROI).toLocaleString()}`,
       timeSavings: `${Math.round(totalTimeSavings)}%`,
       annualReturn: `$${Math.round(annualReturn).toLocaleString()}`,
-      paybackMonths: Math.min(paybackMonths, 60),
       roiMultiplier: Number(finalROIMultiplier.toFixed(2))
     };
   }

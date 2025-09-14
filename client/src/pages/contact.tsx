@@ -202,14 +202,18 @@ const Contact = () => {
   const handleQuickAction = (action: string) => {
     switch (action) {
       case "demo":
-        setLocation('/demo');
+        setLocation('/request');
         break;
       case "brochure":
         setIsBrochureModalOpen(true);
         break;
       case "chat":
-        // Navigate to the full Sai chatbot page (ScrollToTop component will handle scrolling)
+        // Navigate to the full Sai chatbot page and ensure we scroll to top
         setLocation('/chatbot-sai');
+        // Ensure scroll to top after navigation
+        setTimeout(() => {
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        }, 100);
         break;
     }
   };

@@ -58,7 +58,7 @@ const ROICalculator = () => {
   const [calculatedROI, setCalculatedROI] = useState(0);
   const [timeSavings, setTimeSavings] = useState("0%");
   const [annualReturn, setAnnualReturn] = useState(0);
-  const [paybackMonths, setPaybackMonths] = useState(0);
+
   const [roiMultiplier, setRoiMultiplier] = useState(0);
 
   // Custom ordered list of industries for better UX
@@ -121,14 +121,12 @@ const ROICalculator = () => {
       setCalculatedROI(roiValue);
       setTimeSavings(result.timeSavings);
       setAnnualReturn(annualValue);
-      setPaybackMonths(result.paybackMonths);
       setRoiMultiplier(result.roiMultiplier);
     } else {
       // Reset values when no solutions are selected
       setCalculatedROI(0);
       setTimeSavings("0%");
       setAnnualReturn(0);
-      setPaybackMonths(0);
       setRoiMultiplier(0);
     }
   }, [selectedIndustry, selectedSolutions, investmentAmount]);
@@ -351,16 +349,6 @@ const ROICalculator = () => {
                     </div>
                     <div className="text-xs sm:text-sm text-muted-foreground">
                       Annual Return
-                    </div>
-                  </div>
-
-                  <div className="text-center p-2 sm:p-4 hero-gradient roi-badge rounded-lg border border-white/20">
-                    <Calculator className="text-purple-500 h-6 w-6 sm:h-8 sm:w-8 mx-auto mb-1 sm:mb-2" />
-                    <div className="text-lg sm:text-2xl font-bold text-purple-500">
-                      {paybackMonths} months
-                    </div>
-                    <div className="text-xs sm:text-sm text-muted-foreground">
-                      Payback Period
                     </div>
                   </div>
                 </div>
