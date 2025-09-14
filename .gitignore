@@ -31,6 +31,9 @@ build-test.log
 .replit
 vite.config.ts.*
 
+# Build test logs
+build-test.log
+
 # Development documentation and notes
 chat_logs/
 prompts/
@@ -47,7 +50,13 @@ update.md
 MCP_SETUP.md
 VERCEL_DEPLOYMENT.md
 fonts.md
+change_log.md
 .lighthouserc.json.original
+
+# GitIgnore management files (development only)
+.gitignore.dev
+.gitignore.prod
+GITIGNORE_SWITCH.md
 
 # System files
 .DS_Store
