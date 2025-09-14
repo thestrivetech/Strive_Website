@@ -64,24 +64,6 @@ Thumbs.db
 
 # Archives
 *.tar.gz
-<<<<<<< HEAD
-.env
-.replit
-change_log.md
-CLAUDE.md
-fonts.md
-MCP_SETUP.md
-replit.md
-update.md
-updates
-prompts
-docs
-copy-wireframes
-chat_logs
-.serena
-.claude
-.local
-=======
 *.zip
 *.rar
 
@@ -107,4 +89,3 @@ coverage/
 
 # nyc test coverage
 .nyc_output
->>>>>>> development_branch
