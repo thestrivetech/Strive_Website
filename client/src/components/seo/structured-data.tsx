@@ -1,3 +1,4 @@
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { organizationSchema, serviceSchemas, faqSchema } from '@/lib/seo-config';
 import { BreadcrumbListSchema } from '@/types/seo';

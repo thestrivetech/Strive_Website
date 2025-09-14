@@ -1,6 +1,6 @@
 // server/index.ts
 import dotenv2 from "dotenv";
-import express2 from "express";
+import express3 from "express";
 import compression from "compression";
 
 // server/routes.ts
@@ -830,6 +830,99 @@ if (isProduction) {
   });
 }
 
+// server/routes/sitemap.ts
+import express from "express";
+var router = express.Router();
+router.get("/sitemap.xml", async (req, res) => {
+  try {
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${baseUrl}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>${baseUrl}/solutions</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>${baseUrl}/company</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/portfolio</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/contact</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${baseUrl}/resources</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>${baseUrl}/assessment</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/request</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${baseUrl}/solutions/ai-automation</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/computer-vision</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/data-analytics</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/healthcare</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/financial</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/retail</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/manufacturing</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/education</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>`;
+    res.setHeader("Content-Type", "application/xml");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    res.send(sitemap);
+  } catch (error) {
+    console.error("Error generating sitemap:", error);
+    res.status(500).send("Error generating sitemap");
+  }
+});
+router.get("/sitemap", async (req, res) => {
+  try {
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap><loc>${baseUrl}/api/sitemap.xml</loc><lastmod>${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}</lastmod></sitemap>
+</sitemapindex>`;
+    res.setHeader("Content-Type", "application/xml");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    res.send(sitemapIndex);
+  } catch (error) {
+    console.error("Error generating sitemap index:", error);
+    res.status(500).send("Error generating sitemap index");
+  }
+});
+router.get("/sitemap-solutions.xml", async (req, res) => {
+  try {
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${baseUrl}/solutions</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>${baseUrl}/solutions/ai-automation</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/computer-vision</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/data-analytics</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/healthcare</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/financial</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/retail</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/manufacturing</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/education</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>`;
+    res.setHeader("Content-Type", "application/xml");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    res.send(sitemap);
+  } catch (error) {
+    console.error("Error generating solutions sitemap:", error);
+    res.status(500).send("Error generating solutions sitemap");
+  }
+});
+router.get("/sitemap-pages.xml", async (req, res) => {
+  try {
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${baseUrl}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>${baseUrl}/company</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/portfolio</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/contact</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${baseUrl}/resources</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>${baseUrl}/assessment</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/request</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+</urlset>`;
+    res.setHeader("Content-Type", "application/xml");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    res.send(sitemap);
+  } catch (error) {
+    console.error("Error generating pages sitemap:", error);
+    res.status(500).send("Error generating pages sitemap");
+  }
+});
+
 // server/routes.ts
 async function registerRoutes(app2) {
   app2.post("/api/contact", async (req, res) => {
@@ -1278,12 +1371,13 @@ async function registerRoutes(app2) {
       });
     }
   });
+  app2.use("/api", router);
   const httpServer = createServer(app2);
   return httpServer;
 }
 
 // server/vite.ts
-import express from "express";
+import express2 from "express";
 import fs from "fs";
 import path2 from "path";
 import { createServer as createViteServer, createLogger } from "vite";
@@ -1554,7 +1648,7 @@ function serveStatic(app2) {
       `Could not find the build directory: ${distPath}, make sure to build the client first`
     );
   }
-  app2.use(express.static(distPath, {
+  app2.use(express2.static(distPath, {
     maxAge: "1y",
     // Cache static assets for 1 year
     etag: true,
@@ -1713,7 +1807,7 @@ var applySecurity = [
 
 // server/index.ts
 dotenv2.config();
-var app = express2();
+var app = express3();
 app.set("trust proxy", true);
 app.use(applySecurity);
 app.use(compression({
@@ -1726,8 +1820,8 @@ app.use(compression({
     return compression.filter(req, res);
   }
 }));
-app.use(express2.json());
-app.use(express2.urlencoded({ extended: false }));
+app.use(express3.json());
+app.use(express3.urlencoded({ extended: false }));
 app.use((req, res, next) => {
   const start = Date.now();
   const path3 = req.path;
