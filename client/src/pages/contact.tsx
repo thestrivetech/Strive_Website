@@ -9,10 +9,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import { useLocation } from "wouter";
 import { validatePhone } from "@/lib/validation";
 
 const Contact = () => {
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -200,14 +202,14 @@ const Contact = () => {
   const handleQuickAction = (action: string) => {
     switch (action) {
       case "demo":
-        window.location.href = '/demo';
+        setLocation('/demo');
         break;
       case "brochure":
         setIsBrochureModalOpen(true);
         break;
       case "chat":
-        // Navigate to the full Sai chatbot page
-        window.location.href = '/chatbot-sai';
+        // Navigate to the full Sai chatbot page (ScrollToTop component will handle scrolling)
+        setLocation('/chatbot-sai');
         break;
     }
   };

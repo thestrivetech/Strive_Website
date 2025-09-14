@@ -1861,8 +1861,8 @@ app.use((req, res, next) => {
   }
   if (!process.env.VERCEL) {
     const port = parseInt(process.env.PORT || "5000", 10);
-    const host = process.platform === "win32" ? "127.0.0.1" : "0.0.0.0";
-    const options = process.platform === "win32" ? { port, host } : { port, host, reusePort: true };
+    const host = "0.0.0.0";
+    const options = { port, host };
     server.listen(options, () => {
       log2(`serving on port ${port} (${host})`);
     });
