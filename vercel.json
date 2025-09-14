@@ -9,16 +9,25 @@
         "buildCommand": "npm run build",
         "outputDirectory": "dist/public"
       }
-    },
-    {
-      "src": "dist/index.js",
-      "use": "@vercel/node"
     }
   ],
-  "rewrites": [
+  "functions": {
+    "dist/index.js": {
+      "runtime": "@vercel/node"
+    }
+  },
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/dist/index.js"
+      "src": "/api/(.*)",
+      "dest": "/dist/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/public/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/index.js"
     }
   ]
 }

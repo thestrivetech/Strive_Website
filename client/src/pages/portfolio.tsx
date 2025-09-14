@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Bot, Code, Blocks, Brain, BrainCircuit, Database, Globe, Zap, Eye, Play, ExternalLink, X, Github, Monitor, Smartphone, ChevronRight, Filter } from "lucide-react";
+import { Bot, Code, Blocks, Brain, BrainCircuit, Database, Globe, Zap, Eye, Play, ExternalLink, X, Github, Monitor, Smartphone, ChevronRight, Filter, ChevronDown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Import data from new modular structure
 import { Project, projects } from "@/data/portfolio";
@@ -82,18 +83,18 @@ const Portfolio = () => {
               </div>
             </div>
             <h1 
-              className="text-5xl md:text-7xl font-bold mb-6 text-white"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-white"
               data-testid="text-hero-title"
             >
               Unlock Time and Growth: <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">AI Solutions</span> for Ambitious Businesses
             </h1>
             <p 
-              className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
+              className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-8"
               data-testid="text-hero-subtitle"
             >
               Struggling with slow processes or information overload? Discover AI-powered solutions tailored for your business that are purpose-built to drive efficiency, lower costs, and free your team to focus on what matters most.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button 
                 size="lg" 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group
@@ -120,28 +121,110 @@ const Portfolio = () => {
       <section id="showcase" className="py-16 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Filter Navigation */}
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
-            {filters.map((filter) => (
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8 md:mb-12">
+            {/* Mobile Dropdown */}
+            <div className="sm:hidden w-full max-w-xs">
+              <Select value={selectedFilter} onValueChange={(value) => {
+                if (selectedFilter === value) {
+                  // Deselect if already selected
+                  setSelectedFilter("all");
+                } else {
+                  setSelectedFilter(value);
+                }
+              }}>
+                <SelectTrigger className="w-full bg-[#020a1c] border-orange-500 text-white focus:border-orange-400">
+                  <div className="flex items-center gap-2">
+                    <div className="flex-shrink-0">
+                      {filters.find(f => f.id === selectedFilter)?.icon}
+                    </div>
+                    <span className="flex-grow text-left">
+                      {filters.find(f => f.id === selectedFilter)?.name}
+                    </span>
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="bg-[#020a1c] border-orange-500">
+                  {filters.map((filter) => (
+                    <SelectItem 
+                      key={filter.id} 
+                      value={filter.id}
+                      className={`text-white cursor-pointer hover:bg-orange-500/20 focus:bg-orange-500/20 ${
+                        selectedFilter === filter.id 
+                          ? "bg-orange-500/20 text-orange-400" 
+                          : ""
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 w-full">
+                        {filter.icon}
+                        <span>{filter.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Desktop Buttons - Only All and Filter */}
+            <div className="hidden sm:flex gap-2">
               <Button
-                key={filter.id}
-                variant={selectedFilter === filter.id ? "default" : "outline"}
+                variant={selectedFilter === "all" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setSelectedFilter(filter.id)}
+                onClick={() => setSelectedFilter("all")}
                 className={`flex items-center gap-2 transition-all duration-300 ${
-                  selectedFilter === filter.id
+                  selectedFilter === "all"
                     ? 'bg-primary text-white shadow-lg scale-105'
                     : 'border-primary/20 text-foreground hover:border-primary hover:text-primary hover:scale-105'
                 }`}
-                data-testid={`button-filter-${filter.id}`}
               >
-                {filter.icon}
-                {filter.name}
+                <Globe className="h-4 w-4" />
+                All
               </Button>
-            ))}
+              <Select value={selectedFilter === "all" ? "" : selectedFilter} onValueChange={(value) => {
+                if (selectedFilter === value) {
+                  // Deselect if already selected
+                  setSelectedFilter("all");
+                } else {
+                  setSelectedFilter(value);
+                }
+              }}>
+                <SelectTrigger className={`w-auto min-w-[120px] transition-all duration-200 ${
+                  selectedFilter !== "all" && selectedFilter
+                    ? "bg-primary text-white shadow-lg scale-105 border-primary"
+                    : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
+                }`}>
+                  <div className="flex items-center gap-2">
+                    <Filter className="h-4 w-4 flex-shrink-0" />
+                    <span className="flex-grow text-left">
+                      {selectedFilter !== "all" && selectedFilter 
+                        ? filters.find(f => f.id === selectedFilter)?.name || "Filter"
+                        : "Filter"
+                      }
+                    </span>
+                  </div>
+                </SelectTrigger>
+                <SelectContent>
+                  {filters.filter(f => f.id !== "all").map((filter) => (
+                    <SelectItem 
+                      key={filter.id} 
+                      value={filter.id}
+                      className={`cursor-pointer hover:text-[#ff7033] hover:[&>div]:text-[#ff7033] ${
+                        selectedFilter === filter.id 
+                          ? "bg-[#ff7033]/10 text-[#ff7033] [&>div]:text-[#ff7033]" 
+                          : ""
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 w-full">
+                        {filter.icon}
+                        <span>{filter.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           {/* Project Gallery */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
             {filteredProjects.map((project) => (
               <Card 
                 key={project.id}
@@ -149,85 +232,90 @@ const Portfolio = () => {
                 onClick={() => setSelectedProject(project)}
                 data-testid={`card-project-${project.id}`}
               >
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={project.imageUrl} 
-                    alt={project.title}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                    data-testid={`img-project-${project.id}`}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <Badge className={`${getTypeColor(project.type)} text-white border-0`}>
-                      {project.type.toUpperCase()}
-                    </Badge>
-                  </div>
-                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="flex gap-2">
-                      {project.type === 'demo' && (
-                        <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
-                          <Play className="h-4 w-4" />
+                {/* Mobile: Horizontal Layout, Desktop: Vertical Layout */}
+                <div className="flex flex-row md:flex-col">
+                  {/* Image Container */}
+                  <div className="relative overflow-hidden w-28 h-48 md:w-full md:h-32 lg:h-48 flex-shrink-0">
+                    <img 
+                      src={project.imageUrl} 
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      data-testid={`img-project-${project.id}`}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute top-1 left-1 md:top-2 md:left-2 flex gap-1 md:gap-2">
+                      <Badge className={`${getTypeColor(project.type)} text-white border-0 text-xs px-1 py-0.5`}>
+                        {project.type.toUpperCase()}
+                      </Badge>
+                    </div>
+                    <div className="absolute bottom-1 right-1 md:bottom-2 md:right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="flex gap-1">
+                        {project.type === 'demo' && (
+                          <Button size="sm" variant="secondary" className="h-5 w-5 md:h-6 md:w-6 p-0">
+                            <Play className="h-2 w-2 md:h-3 md:w-3" />
+                          </Button>
+                        )}
+                        <Button size="sm" variant="secondary" className="h-5 w-5 md:h-6 md:w-6 p-0">
+                          <ExternalLink className="h-2 w-2 md:h-3 md:w-3" />
                         </Button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Content Container */}
+                  <CardContent className="p-3 md:p-6 flex-1 min-w-0">
+                    <div className="flex items-center gap-1 md:gap-2 mb-1 md:mb-3">
+                      <div className="text-primary text-sm">
+                        {getCategoryIcon(project.category)}
+                      </div>
+                      <span className="text-xs font-medium uppercase tracking-wide text-[#020a1c] hidden sm:inline">
+                        {project.category}
+                      </span>
+                    </div>
+                    
+                    <h3 className="text-sm md:text-xl font-bold text-[#ff7033] mb-1 md:mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                      {project.title}
+                    </h3>
+                    
+                    <p className="text-muted-foreground mb-2 md:mb-4 line-clamp-2 text-xs md:text-sm">
+                      {project.shortDescription}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-1 mb-2 md:mb-4">
+                      {project.technologies.slice(0, 2).map((tech, index) => (
+                        <Badge 
+                          key={index} 
+                          variant="secondary" 
+                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors px-1 py-0.5"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.location.href = `/resources?filter=tools-tech&tech=${encodeURIComponent(tech.toLowerCase())}`;
+                          }}
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                      {project.technologies.length > 2 && (
+                        <Badge variant="secondary" className="text-xs px-1 py-0.5">
+                          +{project.technologies.length - 2}
+                        </Badge>
                       )}
-                      <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
-                        <ExternalLink className="h-4 w-4" />
-                      </Button>
                     </div>
-                  </div>
+                    
+                    <Button 
+                      className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300 text-xs md:text-sm py-1 md:py-2"
+                      variant="outline"
+                    >
+                      {project.type === 'demo' ? 'View Demo' : 
+                       project.type === 'prototype' ? 'View Prototype' : 
+                       project.type === 'template' ? 'View Template' : 'View Details'}
+                      {project.type === 'demo' ? <Play className="ml-1 h-3 w-3 md:ml-2 md:h-4 md:w-4" /> :
+                       project.type === 'prototype' ? <Code className="ml-1 h-3 w-3 md:ml-2 md:h-4 md:w-4" /> :
+                       project.type === 'template' ? <Blocks className="ml-1 h-3 w-3 md:ml-2 md:h-4 md:w-4" /> :
+                       <Eye className="ml-1 h-3 w-3 md:ml-2 md:h-4 md:w-4" />}
+                    </Button>
+                  </CardContent>
                 </div>
-                
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="text-primary">
-                      {getCategoryIcon(project.category)}
-                    </div>
-                    <span className="text-sm font-medium uppercase tracking-wide text-[#020a1c]">
-                      {project.category}
-                    </span>
-                  </div>
-                  
-                  <h3 className="text-xl font-bold text-[#ff7033] mb-3 group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  
-                  <p className="text-muted-foreground mb-4 line-clamp-2">
-                    {project.shortDescription}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {project.technologies.slice(0, 3).map((tech, index) => (
-                      <Badge 
-                        key={index} 
-                        variant="secondary" 
-                        className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.location.href = `/resources?filter=tools-tech&tech=${encodeURIComponent(tech.toLowerCase())}`;
-                        }}
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
-                    {project.technologies.length > 3 && (
-                      <Badge variant="secondary" className="text-xs">
-                        +{project.technologies.length - 3}
-                      </Badge>
-                    )}
-                  </div>
-                  
-                  <Button 
-                    className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300"
-                    variant="outline"
-                  >
-                    {project.type === 'demo' ? 'View Demo' : 
-                     project.type === 'prototype' ? 'View Prototype' : 
-                     project.type === 'template' ? 'View Template' : 'View Details'}
-                    {project.type === 'demo' ? <Play className="ml-2 h-4 w-4" /> :
-                     project.type === 'prototype' ? <Code className="ml-2 h-4 w-4" /> :
-                     project.type === 'template' ? <Blocks className="ml-2 h-4 w-4" /> :
-                     <Eye className="ml-2 h-4 w-4" />}
-                  </Button>
-                </CardContent>
               </Card>
             ))}
           </div>

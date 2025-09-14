@@ -1,0 +1,81 @@
+
+> rest-express@1.0.0 build
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+[36mvite v5.4.20 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 2280 modules transformed.
+rendering chunks...
+computing gzip size...
+[2m../dist/public/[22m[32mregisterSW.js                                                            [39m[1m[2m  0.13 kB[22m[1m[22m
+[2m../dist/public/[22m[32mmanifest.webmanifest                                                     [39m[1m[2m  0.45 kB[22m[1m[22m
+[2m../dist/public/[22m[32mindex.html                                                               [39m[1m[2m  6.46 kB[22m[1m[22m[2m │ gzip:  2.45 kB[22m
+[2m../dist/public/[22m[32massets/images/STRIVE_Orange_Text_Transparent_1483 x 320px-Dm9iaYcW.webp  [39m[1m[2m  8.12 kB[22m[1m[22m
+[2m../dist/public/[22m[32massets/hero-section-B17lz9zb.tsx                                         [39m[1m[2m 16.29 kB[22m[1m[22m
+[2m../dist/public/[22m[32massets/images/Jeff-Headshot-D5Aqhhcz.webp                                [39m[1m[2m 39.65 kB[22m[1m[22m
+[2m../dist/public/[22m[32massets/images/Garrett-Headshot-BHItROmI.webp                             [39m[1m[2m236.48 kB[22m[1m[22m
+[2m../dist/public/[22m[32massets/images/Grant-Headshot-BUMPE_wH.webp                               [39m[1m[2m728.20 kB[22m[1m[22m
+[2m../dist/public/[22m[35massets/index-B_ecBdeP.css                                                [39m[1m[2m130.47 kB[22m[1m[22m[2m │ gzip: 19.91 kB[22m
+[2m../dist/public/[22m[36massets/js/charts-D3qOx1kw.js                                             [39m[1m[2m  0.03 kB[22m[1m[22m[2m │ gzip:  0.05 kB[22m
+[2m../dist/public/[22m[36massets/js/motion-CQTREa1Y.js                                             [39m[1m[2m  0.06 kB[22m[1m[22m[2m │ gzip:  0.07 kB[22m
+[2m../dist/public/[22m[36massets/js/STRIVE_Orange_Text_Transparent_1483 x 320px-BHzrF5sq.js        [39m[1m[2m  0.10 kB[22m[1m[22m[2m │ gzip:  0.12 kB[22m
+[2m../dist/public/[22m[36massets/js/label-XEsN6lMN.js                                              [39m[1m[2m  0.39 kB[22m[1m[22m[2m │ gzip:  0.28 kB[22m
+[2m../dist/public/[22m[36massets/js/textarea-hy5EYCbO.js                                           [39m[1m[2m  0.56 kB[22m[1m[22m[2m │ gzip:  0.36 kB[22m
+[2m../dist/public/[22m[36massets/js/input-CNBFPz7Z.js                                              [39m[1m[2m  0.64 kB[22m[1m[22m[2m │ gzip:  0.39 kB[22m
+[2m../dist/public/[22m[36massets/js/not-found-B8lmJdi3.js                                          [39m[1m[2m  0.80 kB[22m[1m[22m[2m │ gzip:  0.44 kB[22m
+[2m../dist/public/[22m[36massets/js/scroll-area-BoQnynMy.js                                        [39m[1m[2m  0.83 kB[22m[1m[22m[2m │ gzip:  0.43 kB[22m
+[2m../dist/public/[22m[36massets/js/tabs-B5sLH1n9.js                                               [39m[1m[2m  1.14 kB[22m[1m[22m[2m │ gzip:  0.48 kB[22m
+[2m../dist/public/[22m[36massets/js/validation-BcEreP1V.js                                         [39m[1m[2m  1.18 kB[22m[1m[22m[2m │ gzip:  0.62 kB[22m
+[2m../dist/public/[22m[36massets/js/solutions-mapping-Dau8tnTo.js                                  [39m[1m[2m  1.23 kB[22m[1m[22m[2m │ gzip:  0.37 kB[22m
+[2m../dist/public/[22m[36massets/js/privacy-DLezlqdW.js                                            [39m[1m[2m  2.67 kB[22m[1m[22m[2m │ gzip:  0.95 kB[22m
+[2m../dist/public/[22m[36massets/js/terms-BnK0nli8.js                                              [39m[1m[2m  2.90 kB[22m[1m[22m[2m │ gzip:  0.96 kB[22m
+[2m../dist/public/[22m[36massets/js/select-BlUBdX9v.js                                             [39m[1m[2m  2.96 kB[22m[1m[22m[2m │ gzip:  1.09 kB[22m
+[2m../dist/public/[22m[36massets/js/cookies-BN_FGVhk.js                                            [39m[1m[2m  2.99 kB[22m[1m[22m[2m │ gzip:  0.95 kB[22m
+[2m../dist/public/[22m[36massets/js/education-D_Znugn5.js                                          [39m[1m[2m  3.19 kB[22m[1m[22m[2m │ gzip:  1.24 kB[22m
+[2m../dist/public/[22m[36massets/js/financial-DQXjjeKy.js                                          [39m[1m[2m  3.23 kB[22m[1m[22m[2m │ gzip:  1.29 kB[22m
+[2m../dist/public/[22m[36massets/js/manufacturing-BPwkHfbK.js                                      [39m[1m[2m  3.23 kB[22m[1m[22m[2m │ gzip:  1.28 kB[22m
+[2m../dist/public/[22m[36massets/js/healthcare-BmvV736T.js                                         [39m[1m[2m  3.25 kB[22m[1m[22m[2m │ gzip:  1.30 kB[22m
+[2m../dist/public/[22m[36massets/js/retail-Bmbxtydk.js                                             [39m[1m[2m  3.25 kB[22m[1m[22m[2m │ gzip:  1.32 kB[22m
+[2m../dist/public/[22m[36massets/js/data-analytics-Ddch1J-y.js                                     [39m[1m[2m  3.58 kB[22m[1m[22m[2m │ gzip:  1.40 kB[22m
+[2m../dist/public/[22m[36massets/js/ai-automation-BkNrP0gS.js                                      [39m[1m[2m  3.60 kB[22m[1m[22m[2m │ gzip:  1.43 kB[22m
+[2m../dist/public/[22m[36massets/js/blockchain-BDvb9Gqn.js                                         [39m[1m[2m  3.61 kB[22m[1m[22m[2m │ gzip:  1.43 kB[22m
+[2m../dist/public/[22m[36massets/js/smart-business--9m--2pi.js                                     [39m[1m[2m  3.61 kB[22m[1m[22m[2m │ gzip:  1.42 kB[22m
+[2m../dist/public/[22m[36massets/js/computer-vision-BQd7IRgv.js                                    [39m[1m[2m  3.62 kB[22m[1m[22m[2m │ gzip:  1.40 kB[22m
+[2m../dist/public/[22m[36massets/js/security-compliance-h7-ZTeiD.js                                [39m[1m[2m  3.64 kB[22m[1m[22m[2m │ gzip:  1.39 kB[22m
+[2m../dist/public/[22m[36massets/js/router-ByN-MM34.js                                             [39m[1m[2m  4.92 kB[22m[1m[22m[2m │ gzip:  2.45 kB[22m
+[2m../dist/public/[22m[36massets/js/pwa-pECmu2PR.js                                                [39m[1m[2m  5.68 kB[22m[1m[22m[2m │ gzip:  2.34 kB[22m
+[2m../dist/public/[22m[36massets/js/performance-dashboard-wxa7G3RO.js                              [39m[1m[2m  6.00 kB[22m[1m[22m[2m │ gzip:  1.95 kB[22m
+[2m../dist/public/[22m[36massets/js/technology-2RfShU-U.js                                         [39m[1m[2m  6.22 kB[22m[1m[22m[2m │ gzip:  2.37 kB[22m
+[2m../dist/public/[22m[36massets/js/footer-CZ9CNFxL.js                                             [39m[1m[2m  6.75 kB[22m[1m[22m[2m │ gzip:  2.05 kB[22m
+[2m../dist/public/[22m[36massets/js/floating-chat-CHN3Qvl_.js                                      [39m[1m[2m  7.21 kB[22m[1m[22m[2m │ gzip:  2.14 kB[22m
+[2m../dist/public/[22m[36massets/js/dashboard-ddCOdbit.js                                          [39m[1m[2m  7.23 kB[22m[1m[22m[2m │ gzip:  2.18 kB[22m
+[2m../dist/public/[22m[36massets/js/navigation-CPYjswNb.js                                         [39m[1m[2m 10.43 kB[22m[1m[22m[2m │ gzip:  2.60 kB[22m
+[2m../dist/public/[22m[36massets/js/onboarding-CD37SPmQ.js                                         [39m[1m[2m 12.38 kB[22m[1m[22m[2m │ gzip:  3.17 kB[22m
+[2m../dist/public/[22m[36massets/js/chatbot-sai-49rc4-M8.js                                        [39m[1m[2m 12.40 kB[22m[1m[22m[2m │ gzip:  3.80 kB[22m
+[2m../dist/public/[22m[36massets/js/assessment-DWhAO7K-.js                                         [39m[1m[2m 17.29 kB[22m[1m[22m[2m │ gzip:  4.55 kB[22m
+[2m../dist/public/[22m[36massets/js/request-D6lUjFsO.js                                            [39m[1m[2m 19.77 kB[22m[1m[22m[2m │ gzip:  5.45 kB[22m
+[2m../dist/public/[22m[36massets/js/contact-lCKGhTWf.js                                            [39m[1m[2m 20.44 kB[22m[1m[22m[2m │ gzip:  5.68 kB[22m
+[2m../dist/public/[22m[36massets/js/utils-B2rm_Apj.js                                              [39m[1m[2m 21.03 kB[22m[1m[22m[2m │ gzip:  7.13 kB[22m
+[2m../dist/public/[22m[36massets/js/portfolio-DEigKPuL.js                                          [39m[1m[2m 22.57 kB[22m[1m[22m[2m │ gzip:  7.06 kB[22m
+[2m../dist/public/[22m[36massets/js/company-DEa2PUMG.js                                            [39m[1m[2m 23.06 kB[22m[1m[22m[2m │ gzip:  6.28 kB[22m
+[2m../dist/public/[22m[36massets/js/forms-C8r-ECAV.js                                              [39m[1m[2m 25.52 kB[22m[1m[22m[2m │ gzip:  9.57 kB[22m
+[2m../dist/public/[22m[36massets/js/query-BBjRnKUu.js                                              [39m[1m[2m 38.65 kB[22m[1m[22m[2m │ gzip: 11.54 kB[22m
+[2m../dist/public/[22m[36massets/js/solutions-TWN78rNp.js                                          [39m[1m[2m 43.83 kB[22m[1m[22m[2m │ gzip: 11.76 kB[22m
+[2m../dist/public/[22m[36massets/js/icons-CS86wwoY.js                                              [39m[1m[2m 46.10 kB[22m[1m[22m[2m │ gzip:  9.14 kB[22m
+[2m../dist/public/[22m[36massets/js/resources-DdlzC5z0.js                                          [39m[1m[2m102.48 kB[22m[1m[22m[2m │ gzip: 27.65 kB[22m
+[2m../dist/public/[22m[36massets/js/login-C014pqnU.js                                              [39m[1m[2m110.98 kB[22m[1m[22m[2m │ gzip: 28.84 kB[22m
+[2m../dist/public/[22m[36massets/js/ui-CfwPUCZ7.js                                                 [39m[1m[2m130.73 kB[22m[1m[22m[2m │ gzip: 42.00 kB[22m
+[2m../dist/public/[22m[36massets/js/vendor-Bt8UGjf5.js                                             [39m[1m[2m141.11 kB[22m[1m[22m[2m │ gzip: 45.35 kB[22m
+[2m../dist/public/[22m[36massets/js/index-4GvtiIlp.js                                              [39m[1m[2m161.50 kB[22m[1m[22m[2m │ gzip: 45.72 kB[22m
+[32m✓ built in 5.13s[39m
+
+PWA v1.0.3
+mode      generateSW
+precache  69 entries (2195.25 KiB)
+files generated
+  ../dist/public/sw.js
+  ../dist/public/workbox-ee742793.js
+
+  dist\index.js  64.8kb
+
+Done in 10ms

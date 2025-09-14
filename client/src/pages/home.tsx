@@ -1,13 +1,20 @@
 import { useState } from "react";
 import { 
   Trophy, Shield, Brain, TrendingUp, Clock, Users, BarChart, Cog, Calculator, ShieldCheck, 
-  Truck, Zap, ChevronRight,
+  Truck, Zap, ChevronRight, ChevronLeft, ChevronDown,
   Heart, DollarSign, Factory, ShoppingCart, Monitor, GraduationCap, Home as HomeIcon, Scale,
   Microscope, ClipboardList, CheckCircle, AlertTriangle, LineChart, UserCheck,
   Wrench, Eye, Package, Settings, Target, Coins, Globe,
   BookOpen, Clipboard, Award, PenTool, Building2, FileText, Search, ShieldAlert
 } from "lucide-react";
+import { MetaTags } from "@/components/seo/meta-tags";
+import { OrganizationStructuredData, FAQStructuredData } from "@/components/seo/structured-data";
+import { useSEO } from "@/hooks/use-seo";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 import { LightBulbIcon, RocketLaunchIcon, CpuChipIcon, StarIcon } from "@heroicons/react/24/outline";
 import HeroSection from "@/components/ui/hero-section";
 import SolutionCard from "@/components/ui/solution-card";
@@ -28,8 +35,12 @@ import { Link } from "wouter";
 import { BarChart3, Lock, ExternalLink } from "lucide-react";
 
 const Home = () => {
+  const { seoConfig } = useSEO();
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedSolution, setSelectedSolution] = useState<any | null>(null);
+  const [currentResourceIndex, setCurrentResourceIndex] = useState(0);
+  const [industryDropdownOpen, setIndustryDropdownOpen] = useState(false);
+  const [industrySearch, setIndustrySearch] = useState("");
 
   const handleGetStarted = () => {
     window.location.href = "/request";
@@ -37,6 +48,26 @@ const Home = () => {
 
   const handleWatchDemo = () => {
     window.location.href = "/assessment";
+  };
+
+  const nextResource = () => {
+    setCurrentResourceIndex((prev) => (prev + 1) % resources.length);
+  };
+
+  const prevResource = () => {
+    setCurrentResourceIndex((prev) => (prev - 1 + resources.length) % resources.length);
+  };
+
+  // Industry icons mapping for dropdown
+  const industryIcons = {
+    healthcare: <Heart className="h-4 w-4" />,
+    finance: <DollarSign className="h-4 w-4" />,
+    manufacturing: <Factory className="h-4 w-4" />,
+    retail: <ShoppingCart className="h-4 w-4" />,
+    technology: <Monitor className="h-4 w-4" />,
+    education: <GraduationCap className="h-4 w-4" />,
+    "real-estate": <HomeIcon className="h-4 w-4" />,
+    legal: <Scale className="h-4 w-4" />
   };
 
   const industrySpecificSolutions = {
@@ -135,7 +166,15 @@ const Home = () => {
 
 
   return (
-    <div className="pt-16">
+    <>
+      {/* SEO Meta Tags */}
+      <MetaTags seo={seoConfig} />
+      
+      {/* Structured Data */}
+      <OrganizationStructuredData />
+      <FAQStructuredData />
+      
+      <div className="pt-16">
       {/* Hero Section */}
       <HeroSection
         title="Transform Your Business with AI to Lead Your Industry, Not Just Compete"
@@ -168,8 +207,84 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Industry Selector */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-12">
+          {/* Industry Selector - Mobile Dropdown, Desktop Grid */}
+          {/* Mobile Dropdown */}
+          <div className="md:hidden mb-12">
+            <Popover open={industryDropdownOpen} onOpenChange={setIndustryDropdownOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={industryDropdownOpen}
+                  className="w-full max-w-sm mx-auto bg-[#020a1c] border-orange-500 text-white hover:bg-[#020a1c]/90 justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    {selectedIndustry && industryIcons[selectedIndustry as keyof typeof industryIcons]}
+                    <span className="truncate">
+                      {selectedIndustry ? 
+                        selectedIndustry.charAt(0).toUpperCase() + selectedIndustry.slice(1).replace('-', ' ') : 
+                        "Select your industry to see solutions"
+                      }
+                    </span>
+                  </div>
+                  <ChevronDown className="ml-2 h-4 w-4 flex-shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[350px] p-0 max-h-[300px]" align="center" side="bottom" sideOffset={5}>
+                <Command>
+                  <CommandInput 
+                    placeholder="Search industries..." 
+                    value={industrySearch}
+                    onValueChange={setIndustrySearch}
+                    className="border-b"
+                  />
+                  <CommandList className="max-h-[200px] overflow-y-auto">
+                    <CommandEmpty>No industry found.</CommandEmpty>
+                    <CommandGroup>
+                      {[
+                        { id: "healthcare", name: "Healthcare" },
+                        { id: "finance", name: "Finance" },
+                        { id: "manufacturing", name: "Manufacturing" },
+                        { id: "retail", name: "Retail" },
+                        { id: "technology", name: "Technology" },
+                        { id: "education", name: "Education" },
+                        { id: "real-estate", name: "Real Estate" },
+                        { id: "legal", name: "Legal" }
+                      ]
+                        .filter(industry => 
+                          industry.name.toLowerCase().includes(industrySearch.toLowerCase())
+                        )
+                        .map((industry) => (
+                        <CommandItem
+                          key={industry.id}
+                          value={industry.id}
+                          onSelect={() => {
+                            if (selectedIndustry === industry.id) {
+                              setSelectedIndustry(null);
+                            } else {
+                              setSelectedIndustry(industry.id);
+                            }
+                            setIndustryDropdownOpen(false);
+                            setIndustrySearch("");
+                          }}
+                          className={cn(
+                            "flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033]",
+                            selectedIndustry === industry.id && "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]"
+                          )}
+                        >
+                          {industryIcons[industry.id as keyof typeof industryIcons]}
+                          <span>{industry.name}</span>
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          {/* Desktop Grid */}
+          <div className="hidden md:grid grid-cols-4 lg:grid-cols-8 gap-4 mb-12">
             {[
               { id: "healthcare", name: "Healthcare", icon: <Heart className="w-8 h-8" /> },
               { id: "finance", name: "Finance", icon: <DollarSign className="w-8 h-8" /> },
@@ -211,10 +326,10 @@ const Home = () => {
                   ].find(industry => industry.id === selectedIndustry)?.name} Solutions
                 </h3>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 {industrySpecificSolutions[selectedIndustry as keyof typeof industrySpecificSolutions].map((solution, index) => (
                   <Card key={index} className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-300">
-                    <CardContent className="p-6 text-center">
+                    <CardContent className="p-3 md:p-6 text-center">
                       <div className="text-white mb-4 flex justify-center">{solution.icon}</div>
                       <h4 className="text-white font-semibold mb-2 text-sm leading-tight">
                         {solution.name}
@@ -295,28 +410,28 @@ const Home = () => {
           </div>
 
           {/* Solution Cards with Modal */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
             {solutions.map((solution, index) => (
               <Dialog key={index}>
                 <DialogTrigger asChild>
                   <Card 
-                    className="bg-gradient-to-br from-white to-gray-50 cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105 border border-gray-200 hover:border-primary/30 overflow-hidden relative group"
+                    className="bg-gradient-to-br from-white to-gray-50 cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105 border border-gray-200 hover:border-primary/30 overflow-hidden relative group h-full"
                     data-testid={`card-solution-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <CardContent className="p-6 relative">
-                      <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-orange-500/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                        {solution.icon}
+                    <CardContent className="p-2 sm:p-4 md:p-6 relative h-full flex flex-col">
+                      <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gradient-to-br from-primary/20 to-orange-500/20 rounded-xl flex items-center justify-center mb-2 sm:mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300 mx-auto">
+                        <div className="[&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-6 sm:[&>svg]:h-6">{solution.icon}</div>
                       </div>
-                      <h3 className="text-xl font-bold text-[#020a1c] mb-3 transition-colors duration-300 group-hover:text-[#ff7033]">
+                      <h3 className="text-xs sm:text-lg md:text-xl font-bold text-[#020a1c] mb-1 sm:mb-2 md:mb-3 transition-colors duration-300 group-hover:text-[#ff7033] text-center sm:text-left">
                         {solution.title}
                       </h3>
-                      <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
+                      <p className="text-muted-foreground mb-2 sm:mb-3 md:mb-4 text-xs leading-relaxed flex-grow text-center sm:text-left">
                         {solution.description}
                       </p>
-                      <div className="flex items-center text-[#020a1c] font-semibold transition-colors duration-300 group-hover:text-[#ff7033]">
-                        <span>View Details</span>
-                        <ChevronRight className="ml-1 h-4 w-4" />
+                      <div className="flex items-center text-[#020a1c] font-semibold transition-colors duration-300 group-hover:text-[#ff7033] mt-auto">
+                        <span className="text-xs md:text-sm">View Details</span>
+                        <ChevronRight className="ml-1 h-3 w-3 md:h-4 md:w-4" />
                       </div>
                     </CardContent>
                   </Card>
@@ -403,17 +518,17 @@ const Home = () => {
           </div>
 
           {/* Value Proposition Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 lg:gap-8">
             {/* Innovative Tech */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 min-h-[320px]">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <LightBulbIcon className="h-8 w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-3 md:p-6 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
+                <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <LightBulbIcon className="h-4 w-4 sm:h-6 sm:w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-innovative-tech-title">
+                <h3 className="text-sm md:text-xl font-bold text-white mb-2 md:mb-4" data-testid="text-innovative-tech-title">
                   Innovation Delivered
                 </h3>
-                <p className="text-white/80 text-sm leading-relaxed">
+                <p className="text-white/80 text-xs leading-relaxed flex-grow">
                   Always-outpacing the market with cutting-edge AI and automation technologies that keep you ahead.
                 </p>
               </div>
@@ -421,14 +536,14 @@ const Home = () => {
 
             {/* Scalable Solutions */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 min-h-[320px]">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <RocketLaunchIcon className="h-8 w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-3 md:p-6 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
+                <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <RocketLaunchIcon className="h-4 w-4 sm:h-6 sm:w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-scalable-solutions-title">
+                <h3 className="text-sm md:text-xl font-bold text-white mb-2 md:mb-4" data-testid="text-scalable-solutions-title">
                   Unmatched Scalability
                 </h3>
-                <p className="text-white/80 text-sm leading-relaxed">
+                <p className="text-white/80 text-xs leading-relaxed flex-grow">
                   Solutions that evolve with you. Our architecture scales seamlessly from startup to enterprise, adapting as you grow.
                 </p>
               </div>
@@ -436,14 +551,14 @@ const Home = () => {
 
             {/* Future-Proof Design */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 min-h-[320px]">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <CpuChipIcon className="h-8 w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-3 md:p-6 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
+                <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <CpuChipIcon className="h-4 w-4 sm:h-6 sm:w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-future-proof-title">
+                <h3 className="text-sm md:text-xl font-bold text-white mb-2 md:mb-4" data-testid="text-future-proof-title">
                   Future-Proof Design
                 </h3>
-                <p className="text-white/80 text-sm leading-relaxed">
+                <p className="text-white/80 text-xs leading-relaxed flex-grow">
                   Built to evolve. Our solutions integrate emerging technologies, ensuring your investment remains valuable for years.
                 </p>
               </div>
@@ -451,14 +566,14 @@ const Home = () => {
 
             {/* Proven Results */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 min-h-[320px]">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <StarIcon className="h-8 w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-3 md:p-6 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
+                <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <StarIcon className="h-4 w-4 sm:h-6 sm:w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4" data-testid="text-proven-results-title">
+                <h3 className="text-sm md:text-xl font-bold text-white mb-2 md:mb-4" data-testid="text-proven-results-title">
                   Proven Results
                 </h3>
-                <p className="text-white/80 text-sm leading-relaxed">
+                <p className="text-white/80 text-xs leading-relaxed flex-grow">
                   Track record of success. Our clients see 3x faster processing, 60% cost reduction, and 24/7 automated efficiency.
                 </p>
               </div>
@@ -517,16 +632,73 @@ const Home = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          {/* Mobile: Horizontal Swipe Carousel */}
+          <div className="md:hidden relative">
+            <div className="overflow-hidden rounded-2xl">
+              <div 
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${currentResourceIndex * 100}%)` }}
+              >
+                {resources.map((resource, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-4">
+                    <ResourceCard
+                      type={resource.type}
+                      title={resource.title}
+                      description={resource.description}
+                      imageUrl={resource.imageUrl}
+                      imageAlt={resource.imageAlt}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevResource}
+              className="absolute -left-6 top-1/2 -translate-y-1/2 rounded-full p-3 hover:scale-110 transition-all duration-300 z-10"
+              aria-label="Previous resource"
+            >
+              <ChevronLeft className="h-8 w-8 text-[#ff7033] hover:text-[#ff7033]/80" />
+            </button>
+            
+            <button
+              onClick={nextResource}
+              className="absolute -right-6 top-1/2 -translate-y-1/2 rounded-full p-3 hover:scale-110 transition-all duration-300 z-10"
+              aria-label="Next resource"
+            >
+              <ChevronRight className="h-8 w-8 text-[#ff7033] hover:text-[#ff7033]/80" />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center space-x-2 mt-6">
+              {resources.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentResourceIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentResourceIndex 
+                      ? 'bg-primary scale-125' 
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to resource ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: Original Grid Layout */}
+          <div className="hidden md:grid grid-cols-3 gap-6 lg:gap-8">
             {resources.map((resource, index) => (
-              <ResourceCard
-                key={index}
-                type={resource.type}
-                title={resource.title}
-                description={resource.description}
-                imageUrl={resource.imageUrl}
-                imageAlt={resource.imageAlt}
-              />
+              <div key={index}>
+                <ResourceCard
+                  type={resource.type}
+                  title={resource.title}
+                  description={resource.description}
+                  imageUrl={resource.imageUrl}
+                  imageAlt={resource.imageAlt}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -573,6 +745,7 @@ const Home = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

@@ -76,10 +76,42 @@ export function serveStatic(app: Express) {
     );
   }
 
-  app.use(express.static(distPath));
+  // Serve static files with optimized caching headers
+  app.use(express.static(distPath, {
+    maxAge: '1y', // Cache static assets for 1 year
+    etag: true, // Enable ETag generation
+    lastModified: true, // Send Last-Modified header
+    setHeaders: (res, filePath) => {
+      // Different cache strategies based on file type
+      const ext = path.extname(filePath).toLowerCase();
+
+      if (ext === '.html') {
+        // HTML files - short cache to allow updates
+        res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=300'); // 5 minutes
+      } else if (['.js', '.css', '.woff2', '.woff', '.ttf', '.otf'].includes(ext)) {
+        // JS, CSS, and font files - long cache as they're usually versioned
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 year, immutable
+      } else if (['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.svg', '.ico'].includes(ext)) {
+        // Images - medium cache
+        res.setHeader('Cache-Control', 'public, max-age=2592000'); // 30 days
+      } else {
+        // Default cache for other files
+        res.setHeader('Cache-Control', 'public, max-age=86400'); // 1 day
+      }
+
+      // Add security headers for static assets
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+
+      // Enable compression hint
+      if (['.js', '.css', '.html', '.json', '.xml', '.svg'].includes(ext)) {
+        res.setHeader('Vary', 'Accept-Encoding');
+      }
+    }
+  }));
 
   // fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
+    res.setHeader('Cache-Control', 'public, max-age=300'); // 5 minutes for SPA fallback
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }

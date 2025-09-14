@@ -62,6 +62,9 @@ export const generateToken = (user: { id: string; email: string; username: strin
 // Verify user session
 export const verifySession = async (token: string) => {
   try {
+    if (!supabase) {
+      return null;
+    }
     const { data: { user }, error } = await supabase.auth.getUser(token);
     if (error || !user) {
       return null;

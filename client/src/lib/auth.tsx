@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState, ReactNode, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 // Custom API request function that supports authorization headers
@@ -11,7 +11,7 @@ async function apiRequestWithAuth(
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
   };
-  
+
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
@@ -24,11 +24,34 @@ async function apiRequestWithAuth(
   });
 
   if (!res.ok) {
-    const text = await res.text() || res.statusText;
-    throw new Error(`${res.status}: ${text}`);
+    let errorMessage = res.statusText;
+
+    try {
+      const contentType = res.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const errorData = await res.json();
+        errorMessage = errorData.message || errorMessage;
+      } else {
+        const text = await res.text();
+        errorMessage = text || errorMessage;
+      }
+    } catch (parseError) {
+      // If we can't parse the error response, use status text
+      console.error('Error parsing error response:', parseError);
+    }
+
+    throw new Error(`${res.status}: ${errorMessage}`);
   }
 
-  return res.json();
+  // Check if response has content before trying to parse as JSON
+  const contentType = res.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return res.json();
+  } else {
+    // If response is not JSON, return the text or an empty object
+    const text = await res.text();
+    return text ? { message: text } : {};
+  }
 }
 
 interface User {
@@ -168,8 +191,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const isAuthenticated = !!token && !!user;
 
-  return (
-    <AuthContext.Provider value={{
+  // Memoize context value to prevent unnecessary re-renders
+  const contextValue = useMemo(
+    () => ({
       user,
       token,
       login,
@@ -177,7 +201,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       logout,
       isAuthenticated,
       isLoading: isLoading || loginMutation.isPending || signupMutation.isPending || logoutMutation.isPending,
-    }}>
+    }),
+    [
+      user,
+      token,
+      login,
+      signup,
+      logout,
+      isAuthenticated,
+      isLoading,
+      loginMutation.isPending,
+      signupMutation.isPending,
+      logoutMutation.isPending,
+    ]
+  );
+
+  return (
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

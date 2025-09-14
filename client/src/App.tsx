@@ -47,6 +47,7 @@ const SmartBusiness = lazy(() => import("@/pages/solutions/smart-business"));
 const ComputerVision = lazy(() => import("@/pages/solutions/computer-vision"));
 const SecurityCompliance = lazy(() => import("@/pages/solutions/security-compliance"));
 const NotFound = lazy(() => import("@/pages/not-found"));
+const PerformanceDashboard = lazy(() => import("@/pages/performance-dashboard"));
 
 function Router() {
   return (
@@ -85,6 +86,7 @@ function Router() {
             <Route path="/solutions/smart-business" component={SmartBusiness} />
             <Route path="/solutions/computer-vision" component={ComputerVision} />
             <Route path="/solutions/security-compliance" component={SecurityCompliance} />
+            <Route path="/performance" component={PerformanceDashboard} />
             <Route component={NotFound} />
           </Switch>
         </Suspense>

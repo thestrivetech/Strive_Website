@@ -1,4 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express, { type Request, Response, NextFunction } from "express";
+import compression from "compression";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { applySecurity } from "./middleware/security";
@@ -10,6 +14,17 @@ app.set('trust proxy', true);
 
 // Apply security middleware first
 app.use(applySecurity);
+
+// Enable compression with optimized settings
+app.use(compression({
+  level: 6, // Compression level (1-9, 6 is good balance of speed vs compression)
+  threshold: 1024, // Only compress responses larger than 1KB
+  filter: (req, res) => {
+    // Don't compress if already compressed or streaming
+    if (req.headers['x-no-compression']) return false;
+    return compression.filter(req, res);
+  }
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -70,12 +85,13 @@ app.use((req, res, next) => {
   // It is the only port that is not firewalled.
   if (!process.env.VERCEL) {
     const port = parseInt(process.env.PORT || '5000', 10);
-    server.listen({
-      port,
-      host: "0.0.0.0",
-      reusePort: true,
-    }, () => {
-      log(`serving on port ${port}`);
+    const host = process.platform === 'win32' ? '127.0.0.1' : '0.0.0.0';
+    const options = process.platform === 'win32'
+      ? { port, host }
+      : { port, host, reusePort: true };
+
+    server.listen(options, () => {
+      log(`serving on port ${port} (${host})`);
     });
   }
 })();

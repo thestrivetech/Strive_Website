@@ -1,5 +1,7 @@
 // server/index.ts
-import express2 from "express";
+import dotenv2 from "dotenv";
+import express3 from "express";
+import compression from "compression";
 
 // server/routes.ts
 import { createServer } from "http";
@@ -8,6 +10,7 @@ import { createServer } from "http";
 import { sql } from "drizzle-orm";
 import { pgTable, text, varchar, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 var users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
@@ -36,6 +39,61 @@ var newsletterSubscriptions = pgTable("newsletter_subscriptions", {
   email: text("email").notNull().unique(),
   subscribedAt: timestamp("subscribed_at").defaultNow().notNull()
 });
+var requests = pgTable("requests", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  // Contact Information
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+  fullName: text("full_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone"),
+  company: text("company").notNull(),
+  jobTitle: text("job_title"),
+  // Business Information
+  industry: text("industry"),
+  companySize: text("company_size"),
+  currentChallenges: text("current_challenges"),
+  // JSON array as text
+  projectTimeline: text("project_timeline"),
+  budgetRange: text("budget_range"),
+  // Request Information
+  requestTypes: text("request_types").notNull(),
+  // Comma-separated: 'demo,showcase,assessment'
+  demoFocusAreas: text("demo_focus_areas"),
+  // JSON array as text
+  additionalRequirements: text("additional_requirements"),
+  preferredDate: text("preferred_date"),
+  // Status and Assignment (Production Features)
+  status: text("status").notNull().default("pending"),
+  // pending, contacted, scheduled, completed, cancelled
+  assignedTo: text("assigned_to"),
+  // Team member assigned to handle this request
+  priority: text("priority").notNull().default("normal"),
+  // low, normal, high, urgent
+  // Audit Trail
+  submittedAt: timestamp("submitted_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  contactedAt: timestamp("contacted_at"),
+  // When first contact was made
+  scheduledAt: timestamp("scheduled_at"),
+  // When meeting/demo was scheduled
+  completedAt: timestamp("completed_at"),
+  // When request was completed
+  // Soft Delete Support
+  deletedAt: timestamp("deleted_at"),
+  // For GDPR compliance and data recovery
+  deletedBy: text("deleted_by"),
+  // Who deleted the record
+  // Analytics and Tracking
+  source: text("source").notNull().default("website"),
+  // website, referral, social, etc.
+  utm: text("utm_data"),
+  // UTM parameters as JSON for tracking
+  ipAddress: text("ip_address"),
+  // For security and analytics
+  userAgent: text("user_agent")
+  // Browser/device info
+});
 var insertUserSchema = createInsertSchema(users).pick({
   username: true,
   email: true,
@@ -52,22 +110,53 @@ var insertContactSubmissionSchema = createInsertSchema(contactSubmissions).pick(
   companySize: true,
   message: true,
   privacyConsent: true
+}).extend({
+  // Allow boolean values for privacyConsent and transform to string
+  privacyConsent: z.union([z.boolean(), z.string()]).transform((val) => String(val))
 });
 var insertNewsletterSubscriptionSchema = createInsertSchema(newsletterSubscriptions).pick({
   email: true
+});
+var insertRequestSchema = createInsertSchema(requests).pick({
+  firstName: true,
+  lastName: true,
+  fullName: true,
+  email: true,
+  phone: true,
+  company: true,
+  jobTitle: true,
+  industry: true,
+  companySize: true,
+  currentChallenges: true,
+  projectTimeline: true,
+  budgetRange: true,
+  requestTypes: true,
+  demoFocusAreas: true,
+  additionalRequirements: true,
+  preferredDate: true
 });
 
 // server/storage.ts
 import { randomUUID } from "crypto";
 
 // server/supabase.ts
+import dotenv from "dotenv";
 import { createClient } from "@supabase/supabase-js";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
+dotenv.config();
 var supabase = process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY ? createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY) : null;
 var databaseUrl = process.env.DATABASE_URL;
-if (!databaseUrl) {
-  throw new Error("DATABASE_URL or SUPABASE_URL is required for database connection");
+if (!databaseUrl || databaseUrl.includes("[PROJECT-ID]") || databaseUrl.includes("[DB-PASSWORD]")) {
+  if (!process.env.SUPABASE_URL) {
+    throw new Error("Either DATABASE_URL or SUPABASE_URL is required for database connection");
+  }
+  const projectId = process.env.SUPABASE_URL.match(/https:\/\/([^.]+)\.supabase\.co/)?.[1];
+  if (!projectId) {
+    throw new Error("Could not extract project ID from SUPABASE_URL");
+  }
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+  databaseUrl = `postgresql://postgres.${projectId}:${serviceKey}@aws-0-us-east-1.pooler.supabase.com:6543/postgres`;
 }
 var client = postgres(databaseUrl);
 var db = drizzle(client);
@@ -78,10 +167,12 @@ var MemStorage = class {
   users;
   contactSubmissions;
   newsletterSubscriptions;
+  requests;
   constructor() {
     this.users = /* @__PURE__ */ new Map();
     this.contactSubmissions = /* @__PURE__ */ new Map();
     this.newsletterSubscriptions = /* @__PURE__ */ new Map();
+    this.requests = /* @__PURE__ */ new Map();
   }
   async getUser(id) {
     return this.users.get(id);
@@ -147,6 +238,44 @@ var MemStorage = class {
       (subscription) => subscription.email === email
     );
   }
+  async createRequest(insertRequest) {
+    const id = randomUUID();
+    const now = /* @__PURE__ */ new Date();
+    const request = {
+      ...insertRequest,
+      id,
+      phone: insertRequest.phone || null,
+      jobTitle: insertRequest.jobTitle || null,
+      industry: insertRequest.industry || null,
+      companySize: insertRequest.companySize || null,
+      currentChallenges: insertRequest.currentChallenges || null,
+      projectTimeline: insertRequest.projectTimeline || null,
+      budgetRange: insertRequest.budgetRange || null,
+      demoFocusAreas: insertRequest.demoFocusAreas || null,
+      additionalRequirements: insertRequest.additionalRequirements || null,
+      preferredDate: insertRequest.preferredDate || null,
+      // Production fields
+      status: "pending",
+      assignedTo: null,
+      priority: "normal",
+      submittedAt: now,
+      updatedAt: now,
+      contactedAt: null,
+      scheduledAt: null,
+      completedAt: null,
+      deletedAt: null,
+      deletedBy: null,
+      source: "website",
+      utm: null,
+      ipAddress: null,
+      userAgent: null
+    };
+    this.requests.set(id, request);
+    return request;
+  }
+  async getRequests() {
+    return Array.from(this.requests.values());
+  }
 };
 var SupabaseStorage = class {
   async getUser(id) {
@@ -195,11 +324,18 @@ var SupabaseStorage = class {
     const result = await db.select().from(newsletterSubscriptions).where(eq(newsletterSubscriptions.email, email)).limit(1);
     return result[0];
   }
+  async createRequest(insertRequest) {
+    const result = await db.insert(requests).values(insertRequest).returning();
+    return result[0];
+  }
+  async getRequests() {
+    return await db.select().from(requests);
+  }
 };
 var storage = process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY ? new SupabaseStorage() : new MemStorage();
 
 // server/routes.ts
-import { z } from "zod";
+import { z as z2 } from "zod";
 import bcrypt from "bcrypt";
 
 // server/auth.ts
@@ -260,29 +396,52 @@ var EmailService = class {
       }
     };
     if (emailConfig.auth.user && emailConfig.auth.pass) {
-      this.transporter = nodemailer.createTransporter(emailConfig);
+      this.transporter = nodemailer.createTransport(emailConfig);
     } else {
       console.warn("Email service not configured. Set SMTP_USER and SMTP_PASS environment variables.");
     }
   }
-  async sendEmail(options) {
+  async sendEmail(options, retries = 3) {
     if (!this.transporter) {
       console.warn("Email not sent - email service not configured");
       return false;
     }
+    const mailOptions = {
+      from: process.env.SMTP_FROM || "noreply@strivetech.ai",
+      to: options.to.join(", "),
+      subject: options.subject,
+      text: options.text || options.html.replace(/<[^>]*>/g, ""),
+      html: options.html
+    };
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        await this.transporter.sendMail(mailOptions);
+        console.log(`Email sent successfully to: ${options.to.join(", ")} (attempt ${attempt})`);
+        return true;
+      } catch (error) {
+        console.error(`Email sending failed on attempt ${attempt}:`, error);
+        if (attempt === retries) {
+          console.error(`Failed to send email after ${retries} attempts to: ${options.to.join(", ")}`);
+          return false;
+        }
+        const waitTime = Math.pow(2, attempt - 1) * 1e3;
+        console.log(`Retrying email send in ${waitTime}ms...`);
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
+      }
+    }
+    return false;
+  }
+  async verifyConnection() {
+    if (!this.transporter) {
+      console.warn("Cannot verify email connection - transporter not configured");
+      return false;
+    }
     try {
-      const mailOptions = {
-        from: process.env.SMTP_FROM || "noreply@strivetech.ai",
-        to: options.to.join(", "),
-        subject: options.subject,
-        text: options.text || options.html.replace(/<[^>]*>/g, ""),
-        html: options.html
-      };
-      await this.transporter.sendMail(mailOptions);
-      console.log("Email sent successfully to:", options.to.join(", "));
+      await this.transporter.verify();
+      console.log("Email service connection verified successfully");
       return true;
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.error("Email service connection verification failed:", error);
       return false;
     }
   }
@@ -363,32 +522,467 @@ var EmailService = class {
       html
     });
   }
+  async sendContactFormConfirmation(formData) {
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #ff7033;">Thank You for Contacting Strive Tech!</h2>
+        <p>Dear ${formData.firstName},</p>
+        <p>Thank you for reaching out to us! We've received your message and will get back to you within one business day.</p>
+        
+        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0;">
+          <h3 style="color: #333; margin-top: 0;">Your Message Details:</h3>
+          <p><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</p>
+          <p><strong>Company:</strong> ${formData.company}</p>
+          <p><strong>Message:</strong></p>
+          <p style="background-color: white; padding: 15px; border-radius: 3px;">${formData.message}</p>
+        </div>
+
+        <p>In the meantime, feel free to explore our <a href="https://strivetech.ai/solutions" style="color: #ff7033;">AI solutions</a> and learn more about how we can help transform your business.</p>
+        
+        <p>Best regards,<br>The Strive Tech Team</p>
+        
+        <p style="color: #666; font-size: 12px; margin-top: 30px;">
+          This is an automated confirmation email. If you need immediate assistance, please call us directly.
+        </p>
+      </div>
+    `;
+    return await this.sendEmail({
+      to: [formData.email],
+      subject: "Thank you for contacting Strive Tech - We'll be in touch soon!",
+      html
+    });
+  }
+  async sendRequestConfirmation(requestData) {
+    const requestTypes = requestData.requestTypes ? requestData.requestTypes.split(",") : [];
+    const serviceList = requestTypes.map((type) => {
+      switch (type) {
+        case "demo":
+          return "Product Demo";
+        case "showcase":
+          return "Solution Showcase";
+        case "assessment":
+          return "AI Assessment";
+        default:
+          return type;
+      }
+    }).join(", ");
+    const currentChallenges = requestData.currentChallenges ? JSON.parse(requestData.currentChallenges) : [];
+    const demoFocusAreas = requestData.demoFocusAreas ? JSON.parse(requestData.demoFocusAreas) : [];
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #ff7033;">Your Request is Confirmed!</h2>
+        <p>Dear ${requestData.firstName || requestData.fullName.split(" ")[0]},</p>
+        <p>Thank you for your interest in Strive Tech's AI solutions! We've received your request for <strong>${serviceList}</strong> and will contact you within one business day to schedule your sessions.</p>
+        
+        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0;">
+          <h3 style="color: #333; margin-top: 0;">Your Request Details:</h3>
+          <p><strong>Name:</strong> ${requestData.fullName}</p>
+          <p><strong>Company:</strong> ${requestData.company}</p>
+          <p><strong>Services Requested:</strong> ${serviceList}</p>
+          ${requestData.industry ? `<p><strong>Industry:</strong> ${requestData.industry}</p>` : ""}
+          ${requestData.companySize ? `<p><strong>Company Size:</strong> ${requestData.companySize}</p>` : ""}
+          ${currentChallenges.length > 0 ? `<p><strong>Current Challenges:</strong> ${currentChallenges.join(", ")}</p>` : ""}
+          ${demoFocusAreas.length > 0 ? `<p><strong>Focus Areas:</strong> ${demoFocusAreas.join(", ")}</p>` : ""}
+          ${requestData.projectTimeline ? `<p><strong>Timeline:</strong> ${requestData.projectTimeline}</p>` : ""}
+          ${requestData.additionalRequirements ? `<p><strong>Additional Requirements:</strong></p><p style="background-color: white; padding: 15px; border-radius: 3px;">${requestData.additionalRequirements}</p>` : ""}
+        </div>
+
+        <div style="background-color: #e8f4fd; padding: 15px; border-radius: 5px; border-left: 4px solid #ff7033;">
+          <h3 style="color: #333; margin-top: 0;">What to Expect:</h3>
+          <ul style="margin: 10px 0;">
+            <li>A team member will contact you within 24 hours to confirm details</li>
+            <li>You'll receive calendar invites for all requested services</li>
+            <li>Sessions will be tailored to your specific business needs and industry</li>
+            ${requestTypes.includes("demo") ? "<li>Live product demonstrations of our AI solutions</li>" : ""}
+            ${requestTypes.includes("showcase") ? "<li>Custom solution presentations based on your challenges</li>" : ""}
+            ${requestTypes.includes("assessment") ? "<li>Comprehensive AI readiness evaluation and recommendations</li>" : ""}
+          </ul>
+        </div>
+        
+        <p>We're excited to show you how Strive Tech can help transform your business with cutting-edge AI solutions!</p>
+        
+        <p>Best regards,<br>The Strive Tech Team</p>
+        
+        <p style="color: #666; font-size: 12px; margin-top: 30px;">
+          This is an automated confirmation email. If you have any questions or need to reschedule, please reply to this email.
+        </p>
+      </div>
+    `;
+    return await this.sendEmail({
+      to: [requestData.email],
+      subject: `Your ${serviceList} Request with Strive Tech - Confirmed!`,
+      html
+    });
+  }
+  async sendRequestNotification(requestData) {
+    const recipients = [
+      "garrettholland@strivetech.ai",
+      "jeffmeyer@strivetech.ai",
+      "grantramey@strivetech.ai",
+      "contact@strivetech.ai"
+    ];
+    const requestTypes = requestData.requestTypes ? requestData.requestTypes.split(",") : [];
+    const serviceList = requestTypes.map((type) => {
+      switch (type) {
+        case "demo":
+          return "Product Demo";
+        case "showcase":
+          return "Solution Showcase";
+        case "assessment":
+          return "AI Assessment";
+        default:
+          return type;
+      }
+    }).join(", ");
+    const currentChallenges = requestData.currentChallenges ? JSON.parse(requestData.currentChallenges) : [];
+    const demoFocusAreas = requestData.demoFocusAreas ? JSON.parse(requestData.demoFocusAreas) : [];
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #ff7033;">New Service Request</h2>
+        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px;">
+          <p><strong>Services Requested:</strong> ${serviceList}</p>
+          <p><strong>Name:</strong> ${requestData.fullName}</p>
+          <p><strong>Email:</strong> ${requestData.email}</p>
+          <p><strong>Phone:</strong> ${requestData.phone || "Not provided"}</p>
+          <p><strong>Company:</strong> ${requestData.company}</p>
+          <p><strong>Job Title:</strong> ${requestData.jobTitle || "Not provided"}</p>
+          <p><strong>Industry:</strong> ${requestData.industry || "Not provided"}</p>
+          <p><strong>Company Size:</strong> ${requestData.companySize || "Not provided"}</p>
+          <p><strong>Timeline:</strong> ${requestData.projectTimeline || "Not specified"}</p>
+          <p><strong>Budget:</strong> ${requestData.budgetRange || "Not specified"}</p>
+          
+          ${currentChallenges.length > 0 ? `
+            <p><strong>Current Challenges:</strong></p>
+            <ul>${currentChallenges.map((challenge) => `<li>${challenge}</li>`).join("")}</ul>
+          ` : ""}
+          
+          ${demoFocusAreas.length > 0 ? `
+            <p><strong>Focus Areas:</strong></p>
+            <ul>${demoFocusAreas.map((area) => `<li>${area}</li>`).join("")}</ul>
+          ` : ""}
+          
+          ${requestData.additionalRequirements ? `
+            <p><strong>Additional Requirements:</strong></p>
+            <p style="background-color: white; padding: 15px; border-radius: 3px;">${requestData.additionalRequirements}</p>
+          ` : ""}
+        </div>
+        
+        <div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 15px; border-left: 4px solid #ff7033;">
+          <h3 style="color: #333; margin-top: 0;">Next Steps:</h3>
+          <ul style="margin: 10px 0;">
+            <li>Contact within 24 hours to schedule ${serviceList.toLowerCase()}</li>
+            <li>Send calendar invites for all requested services</li>
+            <li>Prepare materials based on their industry and challenges</li>
+            ${requestTypes.includes("assessment") ? "<li>Schedule technical assessment session</li>" : ""}
+          </ul>
+        </div>
+      </div>
+    `;
+    return await this.sendEmail({
+      to: recipients,
+      subject: `New ${serviceList} Request from ${requestData.fullName}`,
+      html
+    });
+  }
 };
 var emailService = new EmailService();
 
 // server/routes.ts
+import { sql as sql2 } from "drizzle-orm";
+
+// server/lib/logger.ts
+import winston from "winston";
+var isProduction = process.env.NODE_ENV === "production";
+var isDevelopment = process.env.NODE_ENV === "development";
+var logLevels = {
+  error: 0,
+  warn: 1,
+  info: 2,
+  debug: 3
+};
+var logColors = {
+  error: "red",
+  warn: "yellow",
+  info: "green",
+  debug: "blue"
+};
+winston.addColors(logColors);
+var developmentFormat = winston.format.combine(
+  winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+  winston.format.errors({ stack: true }),
+  winston.format.colorize({ all: true }),
+  winston.format.printf(({ level, message, timestamp: timestamp2, stack }) => {
+    if (stack) {
+      return `[${timestamp2}] ${level}: ${message}
+${stack}`;
+    }
+    return `[${timestamp2}] ${level}: ${message}`;
+  })
+);
+var productionFormat = winston.format.combine(
+  winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+  winston.format.errors({ stack: true }),
+  winston.format.json()
+);
+var transports = [];
+if (isDevelopment) {
+  transports.push(
+    new winston.transports.Console({
+      level: "debug",
+      format: developmentFormat
+    })
+  );
+} else {
+  transports.push(
+    new winston.transports.Console({
+      level: "info",
+      format: productionFormat
+    })
+  );
+  if (process.env.ENABLE_FILE_LOGGING === "true") {
+    transports.push(
+      new winston.transports.File({
+        filename: "logs/error.log",
+        level: "error",
+        format: productionFormat,
+        maxsize: 5242880,
+        // 5MB
+        maxFiles: 5
+      }),
+      new winston.transports.File({
+        filename: "logs/combined.log",
+        level: "info",
+        format: productionFormat,
+        maxsize: 5242880,
+        // 5MB
+        maxFiles: 5
+      })
+    );
+  }
+}
+var logger = winston.createLogger({
+  levels: logLevels,
+  level: isProduction ? "info" : "debug",
+  format: isProduction ? productionFormat : developmentFormat,
+  transports,
+  // Don't exit on handled exceptions
+  exitOnError: false
+});
+var log = {
+  error: (message, meta) => {
+    if (meta) {
+      logger.error(message, { meta });
+    } else {
+      logger.error(message);
+    }
+  },
+  warn: (message, meta) => {
+    if (meta) {
+      logger.warn(message, { meta });
+    } else {
+      logger.warn(message);
+    }
+  },
+  info: (message, meta) => {
+    if (meta) {
+      logger.info(message, { meta });
+    } else {
+      logger.info(message);
+    }
+  },
+  debug: (message, meta) => {
+    if (meta) {
+      logger.debug(message, { meta });
+    } else {
+      logger.debug(message);
+    }
+  },
+  // Special methods for common use cases
+  apiRequest: (method, url, meta) => {
+    logger.info(`API ${method} ${url}`, { meta, type: "api_request" });
+  },
+  apiResponse: (method, url, statusCode, responseTime) => {
+    const level = statusCode >= 500 ? "error" : statusCode >= 400 ? "warn" : "info";
+    logger[level](`API ${method} ${url} - ${statusCode}`, {
+      statusCode,
+      responseTime: responseTime ? `${responseTime}ms` : void 0,
+      type: "api_response"
+    });
+  },
+  database: (operation, meta) => {
+    logger.info(`Database: ${operation}`, { meta, type: "database" });
+  },
+  email: (operation, success, meta) => {
+    const level = success ? "info" : "warn";
+    logger[level](`Email: ${operation}`, { success, meta, type: "email" });
+  },
+  auth: (operation, username, meta) => {
+    logger.info(`Auth: ${operation}`, { username, meta, type: "auth" });
+  }
+};
+if (isProduction) {
+  process.on("uncaughtException", (error) => {
+    logger.error("Uncaught Exception:", error);
+    process.exit(1);
+  });
+  process.on("unhandledRejection", (reason, promise) => {
+    logger.error("Unhandled Rejection at:", { promise, reason });
+  });
+}
+
+// server/routes/sitemap.ts
+import express from "express";
+var router = express.Router();
+router.get("/sitemap.xml", async (req, res) => {
+  try {
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${baseUrl}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>${baseUrl}/solutions</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>${baseUrl}/company</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/portfolio</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/contact</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${baseUrl}/resources</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>${baseUrl}/assessment</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/request</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${baseUrl}/solutions/ai-automation</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/computer-vision</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/data-analytics</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/healthcare</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/financial</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/retail</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/manufacturing</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/education</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>`;
+    res.setHeader("Content-Type", "application/xml");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    res.send(sitemap);
+  } catch (error) {
+    console.error("Error generating sitemap:", error);
+    res.status(500).send("Error generating sitemap");
+  }
+});
+router.get("/sitemap", async (req, res) => {
+  try {
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap><loc>${baseUrl}/api/sitemap.xml</loc><lastmod>${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}</lastmod></sitemap>
+</sitemapindex>`;
+    res.setHeader("Content-Type", "application/xml");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    res.send(sitemapIndex);
+  } catch (error) {
+    console.error("Error generating sitemap index:", error);
+    res.status(500).send("Error generating sitemap index");
+  }
+});
+router.get("/sitemap-solutions.xml", async (req, res) => {
+  try {
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${baseUrl}/solutions</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>${baseUrl}/solutions/ai-automation</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/computer-vision</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/data-analytics</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/healthcare</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/financial</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/retail</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/manufacturing</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/solutions/education</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>`;
+    res.setHeader("Content-Type", "application/xml");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    res.send(sitemap);
+  } catch (error) {
+    console.error("Error generating solutions sitemap:", error);
+    res.status(500).send("Error generating solutions sitemap");
+  }
+});
+router.get("/sitemap-pages.xml", async (req, res) => {
+  try {
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${baseUrl}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>${baseUrl}/company</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/portfolio</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/contact</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${baseUrl}/resources</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>${baseUrl}/assessment</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${baseUrl}/request</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+</urlset>`;
+    res.setHeader("Content-Type", "application/xml");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    res.send(sitemap);
+  } catch (error) {
+    console.error("Error generating pages sitemap:", error);
+    res.status(500).send("Error generating pages sitemap");
+  }
+});
+
+// server/routes.ts
 async function registerRoutes(app2) {
   app2.post("/api/contact", async (req, res) => {
+    log.debug("Contact form submission received", {
+      body: req.body,
+      privacyConsent: {
+        value: req.body.privacyConsent,
+        type: typeof req.body.privacyConsent
+      }
+    });
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
-      const submission = await storage.createContactSubmission(validatedData);
-      await emailService.sendContactFormNotification(validatedData);
-      console.log("New contact submission:", submission);
+      log.debug("Contact form data validated successfully", {
+        privacyConsent: validatedData.privacyConsent,
+        privacyConsentType: typeof validatedData.privacyConsent
+      });
+      try {
+        await storage.createContactSubmission(validatedData);
+        log.database("Contact form stored successfully");
+      } catch (dbError) {
+        log.warn("Database unavailable, continuing without storing submission", dbError);
+      }
+      try {
+        const emailSent = await emailService.sendContactFormNotification(validatedData);
+        if (!emailSent) {
+          log.email("Contact form notification not sent - email service not configured", false);
+        } else {
+          log.email("Contact form notification email sent successfully", true);
+        }
+      } catch (emailError) {
+        log.email("Email sending failed", false, emailError);
+      }
+      try {
+        const confirmationSent = await emailService.sendContactFormConfirmation(validatedData);
+        if (!confirmationSent) {
+          log.email("Contact form confirmation email could not be sent", false);
+        } else {
+          log.email("Contact form confirmation email sent successfully", true);
+        }
+      } catch (confirmationError) {
+        log.email("Contact form confirmation email failed", false, confirmationError);
+      }
       res.json({
         success: true,
         message: "Thank you for your message. We'll get back to you within one business day."
       });
     } catch (error) {
-      if (error instanceof z.ZodError) {
+      log.error("Contact form submission error", error);
+      if (error instanceof z2.ZodError) {
+        log.error("Validation errors", error.errors);
         res.status(400).json({
           success: false,
-          message: "Invalid form data",
-          errors: error.errors
+          message: "Invalid form data - please check all required fields",
+          errors: error.errors,
+          details: error.errors.map((e) => `${e.path.join(".")}: ${e.message}`).join(", ")
         });
       } else {
         res.status(500).json({
           success: false,
-          message: "Failed to submit contact form"
+          message: "Failed to submit contact form. Please try again or contact us directly."
         });
       }
     }
@@ -396,23 +990,34 @@ async function registerRoutes(app2) {
   app2.post("/api/newsletter", async (req, res) => {
     try {
       const validatedData = insertNewsletterSubscriptionSchema.parse(req.body);
-      const existing = await storage.getNewsletterSubscriptionByEmail(validatedData.email);
-      if (existing) {
-        res.status(409).json({
-          success: false,
-          message: "Email is already subscribed to our newsletter."
-        });
-        return;
+      try {
+        const existing = await storage.getNewsletterSubscriptionByEmail(validatedData.email);
+        if (existing) {
+          res.status(409).json({
+            success: false,
+            message: "Email is already subscribed to our newsletter."
+          });
+          return;
+        }
+        await storage.createNewsletterSubscription(validatedData);
+      } catch (dbError) {
+        log.warn("Database unavailable for newsletter subscription", dbError);
       }
-      const subscription = await storage.createNewsletterSubscription(validatedData);
-      await emailService.sendNewsletterConfirmation(validatedData.email);
-      console.log("New newsletter subscription:", subscription);
+      try {
+        const emailSent = await emailService.sendNewsletterConfirmation(validatedData.email);
+        if (!emailSent) {
+          log.email("Newsletter confirmation not sent - email service not configured", false);
+        }
+      } catch (emailError) {
+        log.email("Newsletter confirmation email failed", false, emailError);
+      }
       res.json({
         success: true,
         message: "Successfully subscribed to our newsletter!"
       });
     } catch (error) {
-      if (error instanceof z.ZodError) {
+      log.error("Newsletter subscription error", error);
+      if (error instanceof z2.ZodError) {
         res.status(400).json({
           success: false,
           message: "Invalid email address",
@@ -421,7 +1026,51 @@ async function registerRoutes(app2) {
       } else {
         res.status(500).json({
           success: false,
-          message: "Failed to subscribe to newsletter"
+          message: "Failed to subscribe to newsletter. Please try again."
+        });
+      }
+    }
+  });
+  app2.post("/api/request", async (req, res) => {
+    try {
+      const validatedData = insertRequestSchema.parse(req.body);
+      try {
+        await storage.createRequest(validatedData);
+      } catch (dbError) {
+        log.warn("Database unavailable, continuing without storing request", dbError);
+      }
+      try {
+        const emailSent = await emailService.sendRequestNotification(validatedData);
+        if (!emailSent) {
+          log.email("Request notification not sent - email service not configured", false);
+        }
+      } catch (emailError) {
+        log.email("Request notification email failed", false, emailError);
+      }
+      try {
+        const confirmationSent = await emailService.sendRequestConfirmation(validatedData);
+        if (!confirmationSent) {
+          log.email("Request confirmation email could not be sent", false);
+        }
+      } catch (confirmationError) {
+        log.email("Request confirmation email failed", false, confirmationError);
+      }
+      res.json({
+        success: true,
+        message: "Thank you for your request! We'll contact you within one business day to schedule your demo."
+      });
+    } catch (error) {
+      log.error("Request submission error", error);
+      if (error instanceof z2.ZodError) {
+        res.status(400).json({
+          success: false,
+          message: "Invalid form data",
+          errors: error.errors
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: "Failed to submit request. Please try again or contact us directly."
         });
       }
     }
@@ -448,6 +1097,66 @@ async function registerRoutes(app2) {
       });
     }
   });
+  app2.get("/api/admin/requests", async (req, res) => {
+    try {
+      const requests2 = await storage.getRequests();
+      res.json(requests2);
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch requests"
+      });
+    }
+  });
+  app2.get("/api/health/database", async (req, res) => {
+    try {
+      const healthCheck = {
+        timestamp: (/* @__PURE__ */ new Date()).toISOString(),
+        database: {
+          connected: false,
+          type: "unknown",
+          tables: [],
+          error: null
+        },
+        supabase: {
+          configured: false,
+          url: null
+        }
+      };
+      if (process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY) {
+        healthCheck.supabase.configured = true;
+        healthCheck.supabase.url = process.env.SUPABASE_URL;
+      }
+      try {
+        const tablesResult = await db.execute(sql2`
+          SELECT table_name
+          FROM information_schema.tables
+          WHERE table_schema = 'public'
+          AND table_type = 'BASE TABLE'
+          ORDER BY table_name
+        `);
+        healthCheck.database.connected = true;
+        healthCheck.database.type = process.env.DATABASE_URL ? "postgresql" : "memory";
+        healthCheck.database.tables = Array.isArray(tablesResult) ? tablesResult.map((row) => row.table_name) : [];
+      } catch (dbError) {
+        healthCheck.database.error = dbError instanceof Error ? dbError.message : "Unknown database error";
+        if (storage instanceof MemStorage) {
+          healthCheck.database.connected = true;
+          healthCheck.database.type = "memory";
+          healthCheck.database.tables = ["memory_storage"];
+        }
+      }
+      const statusCode = healthCheck.database.connected ? 200 : 503;
+      res.status(statusCode).json(healthCheck);
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Health check failed",
+        error: error instanceof Error ? error.message : "Unknown error",
+        timestamp: (/* @__PURE__ */ new Date()).toISOString()
+      });
+    }
+  });
   app2.post("/api/auth/signup", async (req, res) => {
     try {
       const validatedData = insertUserSchema.parse(req.body);
@@ -471,7 +1180,6 @@ async function registerRoutes(app2) {
           }
         });
         if (error) {
-          console.error("Supabase signup error:", error);
           res.status(400).json({
             success: false,
             message: error.message || "Failed to create account"
@@ -517,8 +1225,7 @@ async function registerRoutes(app2) {
         });
       }
     } catch (error) {
-      console.error("Signup error:", error);
-      if (error instanceof z.ZodError) {
+      if (error instanceof z2.ZodError) {
         res.status(400).json({
           success: false,
           message: "Invalid form data",
@@ -556,7 +1263,6 @@ async function registerRoutes(app2) {
           password
         });
         if (error || !data.user) {
-          console.error("Supabase login error:", error);
           res.status(401).json({
             success: false,
             message: "Invalid credentials"
@@ -607,7 +1313,6 @@ async function registerRoutes(app2) {
         });
       }
     } catch (error) {
-      console.error("Login error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to login"
@@ -642,7 +1347,6 @@ async function registerRoutes(app2) {
         }
       });
     } catch (error) {
-      console.error("Get user error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to get user information"
@@ -654,7 +1358,6 @@ async function registerRoutes(app2) {
       if (supabase) {
         const { error } = await supabase.auth.signOut();
         if (error) {
-          console.error("Supabase logout error:", error);
         }
       }
       res.json({
@@ -662,19 +1365,19 @@ async function registerRoutes(app2) {
         message: "Logged out successfully"
       });
     } catch (error) {
-      console.error("Logout error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to logout"
       });
     }
   });
+  app2.use("/api", router);
   const httpServer = createServer(app2);
   return httpServer;
 }
 
 // server/vite.ts
-import express from "express";
+import express2 from "express";
 import fs from "fs";
 import path2 from "path";
 import { createServer as createViteServer, createLogger } from "vite";
@@ -683,9 +1386,100 @@ import { createServer as createViteServer, createLogger } from "vite";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import { visualizer } from "rollup-plugin-visualizer";
+import { VitePWA } from "vite-plugin-pwa";
 var vite_config_default = defineConfig({
   plugins: [
     react(),
+    // PWA Plugin with basic configuration
+    VitePWA({
+      registerType: "autoUpdate",
+      includeAssets: ["favicon.ico", "apple-touch-icon.png"],
+      manifest: {
+        name: "Strive Tech - AI-Powered Business Solutions",
+        short_name: "Strive Tech",
+        description: "Transform your business with AI-powered solutions and cutting-edge technology",
+        theme_color: "#00C5A1",
+        background_color: "#ffffff",
+        display: "standalone",
+        start_url: "/",
+        scope: "/",
+        icons: [
+          {
+            src: "android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png"
+          },
+          {
+            src: "android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png"
+          }
+        ]
+      },
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,avif}"],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts-cache",
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365
+              }
+            }
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "gstatic-fonts-cache",
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365
+              }
+            }
+          },
+          {
+            urlPattern: /\/api\/.*/,
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "api-cache",
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24
+              }
+            }
+          },
+          {
+            urlPattern: /\.(png|jpg|jpeg|svg|webp|avif)$/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "images-cache",
+              expiration: {
+                maxEntries: 200,
+                maxAgeSeconds: 60 * 60 * 24 * 90
+              }
+            }
+          }
+        ],
+        skipWaiting: true,
+        clientsClaim: true
+      },
+      devOptions: {
+        enabled: false
+      }
+    }),
+    // Bundle analyzer - generates stats.html after build
+    process.env.ANALYZE === "true" && visualizer({
+      filename: "dist/bundle-analyzer.html",
+      open: true,
+      brotliSize: true,
+      gzipSize: true,
+      template: "treemap"
+    }),
     // Temporarily disabled runtime error overlay due to frame property issues
     // runtimeErrorOverlay(),
     ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [
@@ -693,7 +1487,7 @@ var vite_config_default = defineConfig({
         (m) => m.cartographer()
       )
     ] : []
-  ],
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
@@ -704,7 +1498,86 @@ var vite_config_default = defineConfig({
   root: path.resolve(import.meta.dirname, "client"),
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
-    emptyOutDir: true
+    emptyOutDir: true,
+    // Enable source maps only in development
+    sourcemap: process.env.NODE_ENV === "development",
+    // Use esbuild for minification (faster than terser)
+    minify: "esbuild",
+    // Enable CSS code splitting
+    cssCodeSplit: true,
+    // Optimize chunk size
+    chunkSizeWarningLimit: 1e3,
+    rollupOptions: {
+      output: {
+        // Manual chunk optimization for better caching
+        manualChunks: {
+          // Vendor libraries that change rarely
+          vendor: ["react", "react-dom"],
+          router: ["wouter"],
+          // UI component libraries
+          ui: [
+            "@radix-ui/react-dialog",
+            "@radix-ui/react-select",
+            "@radix-ui/react-tooltip",
+            "@radix-ui/react-avatar",
+            "@radix-ui/react-checkbox",
+            "@radix-ui/react-collapsible",
+            "@radix-ui/react-label",
+            "@radix-ui/react-popover",
+            "@radix-ui/react-scroll-area",
+            "@radix-ui/react-separator",
+            "@radix-ui/react-slider",
+            "@radix-ui/react-slot",
+            "@radix-ui/react-switch",
+            "@radix-ui/react-tabs",
+            "@radix-ui/react-toast",
+            "@radix-ui/react-toggle",
+            "@radix-ui/react-toggle-group"
+          ],
+          // Utility libraries
+          utils: [
+            "date-fns",
+            "clsx",
+            "tailwind-merge",
+            "class-variance-authority"
+          ],
+          // Animation and motion
+          motion: ["framer-motion"],
+          // Data visualization
+          charts: ["recharts"],
+          // Icons and visual assets
+          icons: ["lucide-react", "@heroicons/react"],
+          // Form handling
+          forms: ["react-hook-form", "@hookform/resolvers"],
+          // Query and state management
+          query: ["@tanstack/react-query"],
+          // PWA and Service Worker
+          pwa: ["workbox-window", "idb"]
+        },
+        // Optimize asset file names for better caching
+        assetFileNames: (assetInfo) => {
+          if (!assetInfo.name) return "assets/[name]-[hash][extname]";
+          const info = assetInfo.name.split(".");
+          const ext = info[info.length - 1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp|avif/i.test(ext)) {
+            return `assets/images/[name]-[hash][extname]`;
+          }
+          if (/woff2?|ttf|otf|eot/i.test(ext)) {
+            return `assets/fonts/[name]-[hash][extname]`;
+          }
+          return `assets/[name]-[hash][extname]`;
+        },
+        chunkFileNames: "assets/js/[name]-[hash].js",
+        entryFileNames: "assets/js/[name]-[hash].js"
+      }
+    }
+  },
+  // Production-specific esbuild optimizations
+  esbuild: {
+    // Remove console.log and debugger statements in production
+    drop: process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
+    // Optimize for modern browsers in production
+    target: process.env.NODE_ENV === "production" ? "es2020" : "es2017"
   },
   server: {
     fs: {
@@ -717,7 +1590,7 @@ var vite_config_default = defineConfig({
 // server/vite.ts
 import { nanoid } from "nanoid";
 var viteLogger = createLogger();
-function log(message, source = "express") {
+function log2(message, source = "express") {
   const formattedTime = (/* @__PURE__ */ new Date()).toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
@@ -775,8 +1648,32 @@ function serveStatic(app2) {
       `Could not find the build directory: ${distPath}, make sure to build the client first`
     );
   }
-  app2.use(express.static(distPath));
+  app2.use(express2.static(distPath, {
+    maxAge: "1y",
+    // Cache static assets for 1 year
+    etag: true,
+    // Enable ETag generation
+    lastModified: true,
+    // Send Last-Modified header
+    setHeaders: (res, filePath) => {
+      const ext = path2.extname(filePath).toLowerCase();
+      if (ext === ".html") {
+        res.setHeader("Cache-Control", "public, max-age=300, s-maxage=300");
+      } else if ([".js", ".css", ".woff2", ".woff", ".ttf", ".otf"].includes(ext)) {
+        res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+      } else if ([".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".svg", ".ico"].includes(ext)) {
+        res.setHeader("Cache-Control", "public, max-age=2592000");
+      } else {
+        res.setHeader("Cache-Control", "public, max-age=86400");
+      }
+      res.setHeader("X-Content-Type-Options", "nosniff");
+      if ([".js", ".css", ".html", ".json", ".xml", ".svg"].includes(ext)) {
+        res.setHeader("Vary", "Accept-Encoding");
+      }
+    }
+  }));
   app2.use("*", (_req, res) => {
+    res.setHeader("Cache-Control", "public, max-age=300");
     res.sendFile(path2.resolve(distPath, "index.html"));
   });
 }
@@ -787,9 +1684,9 @@ import rateLimit from "express-rate-limit";
 import { body, validationResult } from "express-validator";
 var createRateLimiter = () => {
   const isReplit = !!(process.env.REPL_ID || process.env.REPLIT_DB_URL || process.env.REPL_SLUG);
-  const isDevelopment = process.env.NODE_ENV === "development";
-  const windowMs = isDevelopment || isReplit ? 1 * 60 * 1e3 : 15 * 60 * 1e3;
-  const maxRequests = isDevelopment || isReplit ? 1e3 : 500;
+  const isDevelopment2 = process.env.NODE_ENV === "development";
+  const windowMs = isDevelopment2 || isReplit ? 1 * 60 * 1e3 : 15 * 60 * 1e3;
+  const maxRequests = isDevelopment2 || isReplit ? 1e3 : 500;
   return rateLimit({
     windowMs,
     max: maxRequests,
@@ -803,7 +1700,7 @@ var createRateLimiter = () => {
     // Disable the `X-RateLimit-*` headers
     // Skip rate limiting entirely in development or Replit, partial skip in production
     skip: (req) => {
-      if (isDevelopment || isReplit) {
+      if (isDevelopment2 || isReplit) {
         return true;
       }
       return req.url.startsWith("/assets/") || req.url.startsWith("/favicon");
@@ -909,11 +1806,22 @@ var applySecurity = [
 ];
 
 // server/index.ts
-var app = express2();
+dotenv2.config();
+var app = express3();
 app.set("trust proxy", true);
 app.use(applySecurity);
-app.use(express2.json());
-app.use(express2.urlencoded({ extended: false }));
+app.use(compression({
+  level: 6,
+  // Compression level (1-9, 6 is good balance of speed vs compression)
+  threshold: 1024,
+  // Only compress responses larger than 1KB
+  filter: (req, res) => {
+    if (req.headers["x-no-compression"]) return false;
+    return compression.filter(req, res);
+  }
+}));
+app.use(express3.json());
+app.use(express3.urlencoded({ extended: false }));
 app.use((req, res, next) => {
   const start = Date.now();
   const path3 = req.path;
@@ -933,7 +1841,7 @@ app.use((req, res, next) => {
       if (logLine.length > 80) {
         logLine = logLine.slice(0, 79) + "\u2026";
       }
-      log(logLine);
+      log2(logLine);
     }
   });
   next();
@@ -951,12 +1859,16 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
-  const port = parseInt(process.env.PORT || "5000", 10);
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true
-  }, () => {
-    log(`serving on port ${port}`);
-  });
+  if (!process.env.VERCEL) {
+    const port = parseInt(process.env.PORT || "5000", 10);
+    const host = "0.0.0.0";
+    const options = { port, host };
+    server.listen(options, () => {
+      log2(`serving on port ${port} (${host})`);
+    });
+  }
 })();
+var index_default = app;
+export {
+  index_default as default
+};

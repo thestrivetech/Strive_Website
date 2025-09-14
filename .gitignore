@@ -1,8 +1,70 @@
-node_modules
-.DS_Store
-server/public
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+dist/
+build/
+server/public/
+
+# Development logs and artifacts
+*.log
+*.backup
+*.bak
+*.broken
+*.original
+*.tmp
+*.temp
+*.cache
+build-test.log
+
+# Development tools and configurations
+.claude/
+.serena/
+.local/
+.replit
 vite.config.ts.*
+
+# Build test logs
+build-test.log
+
+# Development documentation and notes
+chat_logs/
+prompts/
+attached_assets/
+copy-wireframes/
+migrations/
+tests/
+
+# Temporary development files
+2025-09-13-website-optimization-continue-please.txt
+supabase+drizzle.md
+replit.md
+update.md
+MCP_SETUP.md
+VERCEL_DEPLOYMENT.md
+fonts.md
+change_log.md
+.lighthouserc.json.original
+
+# GitIgnore management files (development only)
+.gitignore.dev
+.gitignore.prod
+GITIGNORE_SWITCH.md
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Archives
 *.tar.gz
+<<<<<<< HEAD
 .env
 .replit
 change_log.md
@@ -19,3 +81,30 @@ chat_logs
 .serena
 .claude
 .local
+=======
+*.zip
+*.rar
+
+# Project directory maps (generated files)
+project-directory-map.txt
+project-directory-map.json
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+>>>>>>> development_branch

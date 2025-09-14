@@ -699,7 +699,7 @@ export class AIROICalculator {
         // Calculate time savings with diminishing returns
         const rawTimeSavings = timeSavingsList.reduce((a, b) => a + b, 0);
         totalTimeSavings = timeSavingsList.length > 1 ? rawTimeSavings * 0.85 : rawTimeSavings;
-        totalTimeSavings = Math.min(totalTimeSavings, 65); // Cap at 65%
+
       }
     }
 
@@ -714,18 +714,12 @@ export class AIROICalculator {
 
     // Calculate returns
     const fiveYearROI = validatedAmount * (finalROIMultiplier - 1);
-    const annualGrowthRate = Math.pow(finalROIMultiplier, 1 / timeHorizonYears) - 1;
-    const annualReturn = validatedAmount * annualGrowthRate;
-
-    // Calculate payback period in months
-    const monthlyReturn = annualReturn / 12;
-    const paybackMonths = monthlyReturn > 0 ? Math.round(validatedAmount / monthlyReturn) : 60;
+    const annualReturn = fiveYearROI / 5;
 
     return {
       fiveYearROI: `$${Math.round(fiveYearROI).toLocaleString()}`,
       timeSavings: `${Math.round(totalTimeSavings)}%`,
       annualReturn: `$${Math.round(annualReturn).toLocaleString()}`,
-      paybackMonths: Math.min(paybackMonths, 60),
       roiMultiplier: Number(finalROIMultiplier.toFixed(2))
     };
   }

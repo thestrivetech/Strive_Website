@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Bebas+Neue:wght@400&family=Oswald:wght@400;500;600;700&display=swap');
+/* Font imports moved to index.html for better loading performance */
 
 @tailwind base;
 @tailwind components;
@@ -179,13 +179,15 @@
     transition: all 0.3s ease;
   }
 
-  /* Shimmer animation for buttons */
+  /* Shimmer animation for buttons and image loading */
   @keyframes shimmer {
     0% {
       transform: translateX(-100%) skewX(-12deg);
+      background-position: -200% 0;
     }
     100% {
       transform: translateX(200%) skewX(-12deg);
+      background-position: 200% 0;
     }
   }
 
@@ -253,7 +255,7 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%);
-    animation: coming-soon-shine 3s infinite;
+    animation: coming-soon-shine 8s infinite;
     pointer-events: none;
   }
 
@@ -379,7 +381,7 @@
   }
 
   .logo-font {
-    font-family: 'Bebas Neue', 'Oswald', 'Inter', sans-serif;
+    font-family: 'Bebas Neue', 'Space Grotesk', 'Inter', sans-serif;
     font-weight: 400;
     letter-spacing: 0.1em;
   }

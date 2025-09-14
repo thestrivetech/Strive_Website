@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type ContactSubmission, type InsertContactSubmission, type NewsletterSubscription, type InsertNewsletterSubscription, users, contactSubmissions, newsletterSubscriptions } from "@shared/schema";
+import { type User, type InsertUser, type ContactSubmission, type InsertContactSubmission, type NewsletterSubscription, type InsertNewsletterSubscription, type Request, type InsertRequest, users, contactSubmissions, newsletterSubscriptions, requests } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./supabase";
 import { eq } from "drizzle-orm";
@@ -14,17 +14,21 @@ export interface IStorage {
   createNewsletterSubscription(subscription: InsertNewsletterSubscription): Promise<NewsletterSubscription>;
   getNewsletterSubscriptions(): Promise<NewsletterSubscription[]>;
   getNewsletterSubscriptionByEmail(email: string): Promise<NewsletterSubscription | undefined>;
+  createRequest(request: InsertRequest): Promise<Request>;
+  getRequests(): Promise<Request[]>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
   private contactSubmissions: Map<string, ContactSubmission>;
   private newsletterSubscriptions: Map<string, NewsletterSubscription>;
+  private requests: Map<string, Request>;
 
   constructor() {
     this.users = new Map();
     this.contactSubmissions = new Map();
     this.newsletterSubscriptions = new Map();
+    this.requests = new Map();
   }
 
   async getUser(id: string): Promise<User | undefined> {
@@ -100,6 +104,46 @@ export class MemStorage implements IStorage {
       (subscription) => subscription.email === email,
     );
   }
+
+  async createRequest(insertRequest: InsertRequest): Promise<Request> {
+    const id = randomUUID();
+    const now = new Date();
+    const request: Request = {
+      ...insertRequest,
+      id,
+      phone: insertRequest.phone || null,
+      jobTitle: insertRequest.jobTitle || null,
+      industry: insertRequest.industry || null,
+      companySize: insertRequest.companySize || null,
+      currentChallenges: insertRequest.currentChallenges || null,
+      projectTimeline: insertRequest.projectTimeline || null,
+      budgetRange: insertRequest.budgetRange || null,
+      demoFocusAreas: insertRequest.demoFocusAreas || null,
+      additionalRequirements: insertRequest.additionalRequirements || null,
+      preferredDate: insertRequest.preferredDate || null,
+      // Production fields
+      status: "pending",
+      assignedTo: null,
+      priority: "normal",
+      submittedAt: now,
+      updatedAt: now,
+      contactedAt: null,
+      scheduledAt: null,
+      completedAt: null,
+      deletedAt: null,
+      deletedBy: null,
+      source: "website",
+      utm: null,
+      ipAddress: null,
+      userAgent: null,
+    };
+    this.requests.set(id, request);
+    return request;
+  }
+
+  async getRequests(): Promise<Request[]> {
+    return Array.from(this.requests.values());
+  }
 }
 
 export class SupabaseStorage implements IStorage {
@@ -161,6 +205,15 @@ export class SupabaseStorage implements IStorage {
   async getNewsletterSubscriptionByEmail(email: string): Promise<NewsletterSubscription | undefined> {
     const result = await db.select().from(newsletterSubscriptions).where(eq(newsletterSubscriptions.email, email)).limit(1);
     return result[0];
+  }
+
+  async createRequest(insertRequest: InsertRequest): Promise<Request> {
+    const result = await db.insert(requests).values(insertRequest).returning();
+    return result[0];
+  }
+
+  async getRequests(): Promise<Request[]> {
+    return await db.select().from(requests);
   }
 }
 

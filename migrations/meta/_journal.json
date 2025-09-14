@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1757706690072,
+      "tag": "0000_loose_ironclad",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1736837400000,
+      "tag": "0001_rename_demo_requests_to_requests",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1736838000000,
+      "tag": "0002_add_production_features",
+      "breakpoints": true
+    }
+  ]
+}

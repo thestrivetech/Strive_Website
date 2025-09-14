@@ -1,39 +1,84 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
-import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertUserSchema } from "@shared/schema";
+import { storage, MemStorage } from "./storage";
+import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertUserSchema, insertRequestSchema } from "@shared/schema";
 import { z } from "zod";
 import bcrypt from "bcrypt";
-import { supabase } from "./supabase";
+import { supabase, db } from "./supabase";
 import { authenticateToken, generateToken, type AuthenticatedRequest } from "./auth";
 import { emailService } from "./email";
+import { sql } from "drizzle-orm";
+import { log } from "./lib/logger";
+import { sitemapRouter } from "./routes/sitemap";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
   app.post("/api/contact", async (req, res) => {
+    log.debug('Contact form submission received', {
+      body: req.body,
+      privacyConsent: {
+        value: req.body.privacyConsent,
+        type: typeof req.body.privacyConsent
+      }
+    });
+
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
-      const submission = await storage.createContactSubmission(validatedData);
-      
-      // Send email notifications to all recipients
-      await emailService.sendContactFormNotification(validatedData);
-      console.log("New contact submission:", submission);
-      
-      res.json({ 
-        success: true, 
+      log.debug('Contact form data validated successfully', {
+        privacyConsent: validatedData.privacyConsent,
+        privacyConsentType: typeof validatedData.privacyConsent
+      });
+
+      // Store submission in database (if available)
+      try {
+        await storage.createContactSubmission(validatedData);
+        log.database('Contact form stored successfully');
+      } catch (dbError) {
+        log.warn('Database unavailable, continuing without storing submission', dbError);
+      }
+
+      // Send email notifications to all recipients (if email service is configured)
+      try {
+        const emailSent = await emailService.sendContactFormNotification(validatedData);
+        if (!emailSent) {
+          log.email('Contact form notification not sent - email service not configured', false);
+        } else {
+          log.email('Contact form notification email sent successfully', true);
+        }
+      } catch (emailError) {
+        log.email('Email sending failed', false, emailError);
+      }
+
+      // Send confirmation email to user
+      try {
+        const confirmationSent = await emailService.sendContactFormConfirmation(validatedData);
+        if (!confirmationSent) {
+          log.email('Contact form confirmation email could not be sent', false);
+        } else {
+          log.email('Contact form confirmation email sent successfully', true);
+        }
+      } catch (confirmationError) {
+        log.email('Contact form confirmation email failed', false, confirmationError);
+      }
+
+      res.json({
+        success: true,
         message: "Thank you for your message. We'll get back to you within one business day."
       });
     } catch (error) {
+      log.error('Contact form submission error', error);
       if (error instanceof z.ZodError) {
-        res.status(400).json({ 
-          success: false, 
-          message: "Invalid form data", 
-          errors: error.errors 
+        log.error('Validation errors', error.errors);
+        res.status(400).json({
+          success: false,
+          message: "Invalid form data - please check all required fields",
+          errors: error.errors,
+          details: error.errors.map(e => `${e.path.join('.')}: ${e.message}`).join(', ')
         });
       } else {
-        res.status(500).json({ 
-          success: false, 
-          message: "Failed to submit contact form" 
+        res.status(500).json({
+          success: false,
+          message: "Failed to submit contact form. Please try again or contact us directly."
         });
       }
     }
@@ -44,27 +89,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertNewsletterSubscriptionSchema.parse(req.body);
       
-      // Check if email already exists
-      const existing = await storage.getNewsletterSubscriptionByEmail(validatedData.email);
-      if (existing) {
-        res.status(409).json({ 
-          success: false, 
-          message: "Email is already subscribed to our newsletter." 
-        });
-        return;
+      // Check if email already exists (if database is available)
+      try {
+        const existing = await storage.getNewsletterSubscriptionByEmail(validatedData.email);
+        if (existing) {
+          res.status(409).json({ 
+            success: false, 
+            message: "Email is already subscribed to our newsletter." 
+          });
+          return;
+        }
+        
+        // Store subscription in database
+        await storage.createNewsletterSubscription(validatedData);
+      } catch (dbError) {
+        log.warn('Database unavailable for newsletter subscription', dbError);
       }
       
-      const subscription = await storage.createNewsletterSubscription(validatedData);
-      
-      // Send confirmation email to subscriber
-      await emailService.sendNewsletterConfirmation(validatedData.email);
-      console.log("New newsletter subscription:", subscription);
+      // Send confirmation email to subscriber (if email service is configured)
+      try {
+        const emailSent = await emailService.sendNewsletterConfirmation(validatedData.email);
+        if (!emailSent) {
+          log.email('Newsletter confirmation not sent - email service not configured', false);
+        }
+      } catch (emailError) {
+        log.email('Newsletter confirmation email failed', false, emailError);
+      }
       
       res.json({ 
         success: true, 
         message: "Successfully subscribed to our newsletter!"
       });
     } catch (error) {
+      log.error('Newsletter subscription error', error);
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
           success: false, 
@@ -74,7 +131,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } else {
         res.status(500).json({ 
           success: false, 
-          message: "Failed to subscribe to newsletter" 
+          message: "Failed to subscribe to newsletter. Please try again."
+        });
+      }
+    }
+  });
+
+  // Demo/Showcase request submission
+  app.post("/api/request", async (req, res) => {
+    try {
+      const validatedData = insertRequestSchema.parse(req.body);
+      
+      // Store request in database (if available)
+      try {
+        await storage.createRequest(validatedData);
+      } catch (dbError) {
+        log.warn('Database unavailable, continuing without storing request', dbError);
+      }
+      
+      // Send email notifications to team (if email service is configured)
+      try {
+        const emailSent = await emailService.sendRequestNotification(validatedData);
+        if (!emailSent) {
+          log.email('Request notification not sent - email service not configured', false);
+        }
+      } catch (emailError) {
+        log.email('Request notification email failed', false, emailError);
+      }
+
+      // Send confirmation email to user
+      try {
+        const confirmationSent = await emailService.sendRequestConfirmation(validatedData);
+        if (!confirmationSent) {
+          log.email('Request confirmation email could not be sent', false);
+        }
+      } catch (confirmationError) {
+        log.email('Request confirmation email failed', false, confirmationError);
+      }
+      
+      res.json({ 
+        success: true, 
+        message: "Thank you for your request! We'll contact you within one business day to schedule your demo."
+      });
+    } catch (error) {
+      log.error('Request submission error', error);
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ 
+          success: false, 
+          message: "Invalid form data", 
+          errors: error.errors 
+        });
+      } else {
+        res.status(500).json({ 
+          success: false, 
+          message: "Failed to submit request. Please try again or contact us directly."
         });
       }
     }
@@ -102,6 +212,84 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         success: false, 
         message: "Failed to fetch newsletter subscriptions" 
+      });
+    }
+  });
+
+  // Get all requests (admin endpoint) - Demo, Assessment, Solution Showcase
+  app.get("/api/admin/requests", async (req, res) => {
+    try {
+      const requests = await storage.getRequests();
+      res.json(requests);
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch requests"
+      });
+    }
+  });
+
+  // Database health check endpoint
+  app.get("/api/health/database", async (req, res) => {
+    try {
+      // Test basic database connectivity
+      const healthCheck = {
+        timestamp: new Date().toISOString(),
+        database: {
+          connected: false,
+          type: 'unknown',
+          tables: [] as string[],
+          error: null as string | null
+        },
+        supabase: {
+          configured: false,
+          url: null as string | null
+        }
+      };
+
+      // Check Supabase configuration
+      if (process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY) {
+        healthCheck.supabase.configured = true;
+        healthCheck.supabase.url = process.env.SUPABASE_URL;
+      }
+
+      // Test database connection by querying information schema
+      try {
+        // Use raw SQL to check table existence
+        const tablesResult = await db.execute(sql`
+          SELECT table_name
+          FROM information_schema.tables
+          WHERE table_schema = 'public'
+          AND table_type = 'BASE TABLE'
+          ORDER BY table_name
+        `);
+
+        healthCheck.database.connected = true;
+        healthCheck.database.type = process.env.DATABASE_URL ? 'postgresql' : 'memory';
+        healthCheck.database.tables = Array.isArray(tablesResult)
+          ? tablesResult.map((row: any) => row.table_name)
+          : [];
+
+      } catch (dbError) {
+        healthCheck.database.error = dbError instanceof Error ? dbError.message : 'Unknown database error';
+
+        // Fallback check - if using memory storage, it's still "healthy"
+        if (storage instanceof MemStorage) {
+          healthCheck.database.connected = true;
+          healthCheck.database.type = 'memory';
+          healthCheck.database.tables = ['memory_storage'];
+        }
+      }
+
+      const statusCode = healthCheck.database.connected ? 200 : 503;
+      res.status(statusCode).json(healthCheck);
+
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Health check failed",
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString()
       });
     }
   });
@@ -137,7 +325,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
 
         if (error) {
-          console.error('Supabase signup error:', error);
           res.status(400).json({ 
             success: false, 
             message: error.message || "Failed to create account" 
@@ -188,7 +375,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
     } catch (error) {
-      console.error('Signup error:', error);
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
           success: false, 
@@ -235,7 +421,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
 
         if (error || !data.user) {
-          console.error('Supabase login error:', error);
           res.status(401).json({ 
             success: false, 
             message: "Invalid credentials" 
@@ -293,7 +478,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
     } catch (error) {
-      console.error('Login error:', error);
       res.status(500).json({ 
         success: false, 
         message: "Failed to login" 
@@ -333,7 +517,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       });
     } catch (error) {
-      console.error('Get user error:', error);
       res.status(500).json({ 
         success: false, 
         message: "Failed to get user information" 
@@ -349,7 +532,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const { error } = await supabase.auth.signOut();
         
         if (error) {
-          console.error('Supabase logout error:', error);
+          // Supabase logout error handled silently
         }
       }
 
@@ -358,13 +541,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "Logged out successfully" 
       });
     } catch (error) {
-      console.error('Logout error:', error);
       res.status(500).json({ 
         success: false, 
         message: "Failed to logout" 
       });
     }
   });
+
+  // SEO and Sitemap routes
+  app.use("/api", sitemapRouter);
 
   const httpServer = createServer(app);
   return httpServer;

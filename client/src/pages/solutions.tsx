@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Bot, BarChart, Blocks, ShieldCheck, Eye, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory, Building2, DollarSign, Home as HomeIcon, Scale, Cloud, Cog, Target, Filter, Check, Lightbulb, ChevronDown, Search, Gamepad2, Trophy, Cpu, Play, Leaf, Film, Zap, Truck, Hotel } from "lucide-react";
+import { MetaTags } from "@/components/seo/meta-tags";
+import { useSEO } from "@/hooks/use-seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +12,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Link } from "wouter";
 
 const Solutions = () => {
+  const { seoConfig } = useSEO();
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedIndustry, setSelectedIndustry] = useState("");
   const [selectedSolutionType, setSelectedSolutionType] = useState("");
@@ -624,7 +627,11 @@ const Solutions = () => {
   };
 
   return (
-    <div className="pt-16">
+    <>
+      {/* SEO Meta Tags */}
+      <MetaTags seo={seoConfig} />
+      
+      <div className="pt-16">
       {/* Hero Section with AI-themed animated background */}
       <section className="py-20 hero-gradient relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
@@ -660,7 +667,7 @@ const Solutions = () => {
               Unlock the Power of AI to <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Transform Your Business</span> for Tomorrow
             </h1>
             <p 
-              className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-8"
+              className="text-xl md:text-2xl text-[#94a3b8] max-w-4xl mx-auto mb-8"
               data-testid="text-solutions-hero-subtitle"
             >
               We help industry leaders conquer operational challenges, maximize efficiency, and drive growth with AI solutions designed just for your field.
@@ -899,7 +906,7 @@ const Solutions = () => {
           </div>
 
           {/* Solutions Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
             {filteredSolutions.map((solution) => (
               <Card
                 key={solution.id}
@@ -907,7 +914,7 @@ const Solutions = () => {
                 onClick={() => setSelectedSolution(solution)}
                 data-testid={`solution-card-${solution.id}`}
               >
-                <CardContent className="p-6 flex flex-col h-full relative">
+                <CardContent className="p-3 md:p-6 flex flex-col md:flex-col h-full relative">
                   {/* Decorative gradient overlay */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-3xl" />
                   
@@ -915,7 +922,7 @@ const Solutions = () => {
                   {solution.hasDemo && (
                     <Button 
                       size="sm"
-                      className="absolute top-4 right-4 bg-green-500 hover:bg-green-600 text-white text-xs px-3 py-1 h-7 shadow-md transition-all duration-200 z-10"
+                      className="absolute top-2 right-2 md:top-4 md:right-4 bg-green-500 hover:bg-green-600 text-white text-xs px-2 md:px-3 py-0.5 md:py-1 h-6 md:h-7 shadow-md transition-all duration-200 z-10"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleViewDemo(solution.demoType || "");
@@ -926,35 +933,46 @@ const Solutions = () => {
                     </Button>
                   )}
                   
-                  {/* Header Section */}
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="text-primary transition-transform duration-300 group-hover:scale-110">
-                      {solution.icon}
+                  {/* Mobile: Optimized layout with centered header, Desktop: Vertical layout */}
+                  <div className="flex flex-col h-full">
+                    {/* Mobile: Centered Icon and Title */}
+                    <div className="flex flex-col md:flex-col items-center md:items-start mb-3 md:mb-3">
+                      {/* Icon Section */}
+                      <div className="mb-2 md:mb-2">
+                        <div className="text-primary transition-transform duration-300 group-hover:scale-110 text-2xl md:text-xl flex justify-center">
+                          {solution.icon}
+                        </div>
+                      </div>
+                      
+                      {/* Title Section - Centered on mobile */}
+                      <h3 className="text-base md:text-xl font-bold text-[#ff7033] group-hover:text-primary transition-colors duration-300 line-clamp-2 text-center md:text-left">
+                        {solution.title}
+                      </h3>
+                      
+                      {/* Category - Desktop only */}
+                      <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-[#020a1c] hidden md:inline mt-1">
+                        {solution.category}
+                      </span>
                     </div>
-                    <span className="text-sm font-medium uppercase tracking-wide text-[#020a1c]">
-                      {solution.category}
-                    </span>
-                  </div>
+                    
+                    {/* Content Section - Left aligned */}
+                    <div className="flex-1 flex flex-col text-left">
                   
-                  <h3 className="text-xl font-bold text-[#ff7033] mb-3 group-hover:text-primary transition-colors duration-300">
-                    {solution.title}
-                  </h3>
-                  
-                  {/* Description Section */}
-                  <div className="flex-grow mb-6">
-                    <p className="text-muted-foreground line-clamp-3 leading-relaxed">
-                      {solution.shortDescription}
-                    </p>
-                  </div>
-                  
-                  {/* Technologies Section */}
-                  <div className="mb-6">
-                    <div className="flex flex-wrap gap-2">
-                      {solution.technologies.slice(0, 3).map((tech, index) => (
+                      {/* Description Section */}
+                      <div className="flex-grow mb-3 md:mb-6">
+                        <p className="text-muted-foreground line-clamp-2 md:line-clamp-3 leading-relaxed text-sm md:text-sm">
+                          {solution.shortDescription}
+                        </p>
+                      </div>
+                      
+                      {/* Technologies Section */}
+                      <div className="mb-3 md:mb-6">
+                        <div className="flex flex-wrap gap-1 md:gap-2 justify-center md:justify-start">
+                      {solution.technologies.slice(0, 2).map((tech, index) => (
                         <Badge 
                           key={index} 
                           variant="secondary" 
-                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
+                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors px-2 md:px-2 py-1 md:py-1"
                           onClick={(e) => {
                             e.stopPropagation();
                             // Navigate to resources page with filter
@@ -964,34 +982,36 @@ const Solutions = () => {
                           {tech}
                         </Badge>
                       ))}
-                      {solution.technologies.length > 3 && (
+                      {solution.technologies.length > 2 && (
                         <Badge 
                           variant="secondary" 
-                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
+                          className="text-xs cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors px-2 md:px-2 py-1 md:py-1"
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedSolution(solution);
                           }}
                         >
-                          +{solution.technologies.length - 3} more
+                          +{solution.technologies.length - 2} more
                         </Badge>
                       )}
                     </div>
                   </div>
                   
-                  {/* Action Button Section */}
-                  <div className="mt-auto pt-2">
-                    <Button 
-                      className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300"
-                      variant="outline"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedSolution(solution);
-                      }}
-                    >
-                      View Details
-                      <Eye className="ml-2 h-4 w-4" />
-                    </Button>
+                      {/* Action Button Section */}
+                      <div className="mt-auto pt-2">
+                        <Button 
+                          className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300 text-sm py-2 min-h-[44px]"
+                          variant="outline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedSolution(solution);
+                          }}
+                        >
+                          View Details
+                          <Eye className="ml-2 h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -1072,12 +1092,12 @@ const Solutions = () => {
                 </div>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-6 border-t">
+              <div className="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t">
                 {selectedSolution.hasDemo ? (
                   <>
                     <Button 
                       size="lg" 
-                      className="flex-1 bg-green-500 hover:bg-green-600 text-white"
+                      className="w-full sm:flex-1 bg-green-500 hover:bg-green-600 text-white px-6 py-3 text-sm font-semibold min-h-[48px]"
                       onClick={() => handleViewDemo(selectedSolution.demoType || "")}
                     >
                       View {selectedSolution.demoType} Demo
@@ -1085,7 +1105,7 @@ const Solutions = () => {
                     <Button 
                       size="lg" 
                       variant="outline" 
-                      className="flex-1 border-primary text-primary hover:bg-primary hover:text-white" 
+                      className="w-full sm:flex-1 border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 text-sm font-semibold min-h-[48px]" 
                       onClick={() => window.location.href = '/request'}
                     >
                       Request Custom Demo
@@ -1095,7 +1115,7 @@ const Solutions = () => {
                   <>
                     <Button 
                       size="lg" 
-                      className="flex-1 bg-primary hover:bg-primary/90" 
+                      className="w-full sm:flex-1 bg-primary hover:bg-primary/90 px-6 py-3 text-sm font-semibold min-h-[48px]" 
                       onClick={() => window.location.href = '/request'}
                     >
                       Request Demo
@@ -1103,7 +1123,7 @@ const Solutions = () => {
                     <Button 
                       size="lg" 
                       variant="outline" 
-                      className="flex-1 border-primary text-primary hover:bg-primary hover:text-white" 
+                      className="w-full sm:flex-1 border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 text-sm font-semibold min-h-[48px]" 
                       onClick={() => window.location.href = '/contact'}
                     >
                       Contact Sales
@@ -1116,6 +1136,7 @@ const Solutions = () => {
         </DialogContent>
       </Dialog>
     </div>
+    </>
   );
 };
 

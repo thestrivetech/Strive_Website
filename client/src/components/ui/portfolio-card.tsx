@@ -1,5 +1,7 @@
+import { memo } from "react";
 import { ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import LazyImage from "@/components/ui/lazy-image";
 
 interface PortfolioCardProps {
   category: string;
@@ -12,7 +14,7 @@ interface PortfolioCardProps {
   className?: string;
 }
 
-const PortfolioCard = ({ 
+const PortfolioCard = memo(({ 
   category, 
   title, 
   description, 
@@ -35,9 +37,13 @@ const PortfolioCard = ({
       data-testid={`card-portfolio-${title.toLowerCase().replace(/\s+/g, "-")}`}
     >
       <div className="aspect-video overflow-hidden">
-        <img 
-          src={imageUrl} 
+        <LazyImage
+          src={imageUrl}
           alt={imageAlt}
+          width={400}
+          height={225}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          loading="lazy"
           className="w-full h-full object-cover"
           data-testid={`img-${title.toLowerCase().replace(/\s+/g, "-")}`}
         />
@@ -78,6 +84,8 @@ const PortfolioCard = ({
       </CardContent>
     </Card>
   );
-};
+});
+
+PortfolioCard.displayName = "PortfolioCard";
 
 export default PortfolioCard;
