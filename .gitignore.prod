@@ -1,3 +1,7 @@
+# PRODUCTION DEPLOYMENT .gitignore
+# This is the comprehensive gitignore for clean production deployments
+# To switch to production mode: cp .gitignore.prod .gitignore
+
 # Dependencies
 node_modules/
 
