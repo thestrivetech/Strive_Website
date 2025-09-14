@@ -249,13 +249,9 @@ Upgrade visuals on Solutions page to be on par with Portfolio
 
 # FINAL STEPS FOR DEPLOYMENT #
 
-- Update my headshot photo
-
 - Edit all fill out forms (request, assessment, and contact forms) to where users/clients can provide their company's website URL - This should be optional
   - Once this is done, please make sure to edit the database schema and tables to take this update/change into account
-
-- Finalize mobile design updates
-  - Center Chat bot icon or move the coming soon banner to be cockeyed / slanted on the top left of the chatbot icon
+  
 
 - Test request and contact forms 
   - Test Email confirmations (make templates as well)
@@ -266,8 +262,6 @@ Upgrade visuals on Solutions page to be on par with Portfolio
   - Make sure all pop out cards on the site are worded correctly and accurately
 
 - Finish company page (icons for values and mission & update the paragraph text with our story or goal as a company)
-
-- Remove flashing effect from coming soon banner on ChatBot page
 
 - Update website for SEO
   - Look at C:\Users\zochr\Desktop\GitHub\Strive_Website_Replit\docs\website-plan.md for instructions (can probably do more than what it )
