@@ -104,6 +104,16 @@ const Request = () => {
     const script = document.createElement('script');
     script.src = 'https://assets.calendly.com/assets/external/widget.js';
     script.async = true;
+    
+    script.onload = () => {
+      // Small delay to ensure DOM is ready, then initialize
+      setTimeout(() => {
+        if (window.Calendly) {
+          window.Calendly.initializeInlineWidgets();
+        }
+      }, 100);
+    };
+    
     document.body.appendChild(script);
 
     return () => {
@@ -657,7 +667,6 @@ const Request = () => {
                                 className="calendly-inline-widget" 
                                 data-url="https://calendly.com/strivetech/solution-showcase" 
                                 style={{ minWidth: '320px', height: '500px' }}
-                                data-processed="true"
                               ></div>
                             </div>
                             <div className="mt-3 md:mt-4 p-3 md:p-4 rounded-lg border border-gray-200 bg-white shadow-sm">

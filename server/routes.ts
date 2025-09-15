@@ -216,6 +216,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Email service debug endpoint
+  app.get("/api/debug/email", async (req, res) => {
+    try {
+      console.log('🔍 Email service debug endpoint called');
+
+      // Check if email service is initialized
+      const isConnected = await emailService.verifyConnection();
+
+      // Try sending a test email
+      let testEmailResult = null;
+      if (isConnected) {
+        console.log('🧪 Attempting to send test email...');
+        testEmailResult = await emailService.sendEmail({
+          to: ['grantramey@strivetech.ai'],
+          subject: 'Email Service Debug Test',
+          html: `
+            <h2>Email Service Debug Test</h2>
+            <p>This is a test email sent from the debug endpoint at ${new Date().toISOString()}</p>
+            <p>If you receive this, the email service is working correctly in production!</p>
+          `
+        });
+      }
+
+      res.json({
+        success: true,
+        emailService: {
+          initialized: !!emailService,
+          connectionVerified: isConnected,
+          testEmailSent: testEmailResult,
+          smtpConfig: {
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT,
+            secure: process.env.SMTP_SECURE,
+            user: process.env.SMTP_USER,
+            from: process.env.SMTP_FROM,
+            passConfigured: !!process.env.SMTP_PASS
+          }
+        }
+      });
+    } catch (error) {
+      console.error('❌ Email debug endpoint error:', error);
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        emailService: {
+          initialized: !!emailService,
+          smtpConfig: {
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT,
+            secure: process.env.SMTP_SECURE,
+            user: process.env.SMTP_USER,
+            from: process.env.SMTP_FROM,
+            passConfigured: !!process.env.SMTP_PASS
+          }
+        }
+      });
+    }
+  });
+
   // Get all requests (admin endpoint) - Demo, Assessment, Solution Showcase
   app.get("/api/admin/requests", async (req, res) => {
     try {
