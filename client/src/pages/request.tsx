@@ -653,22 +653,22 @@ const Request = () => {
                           <div className="px-0 md:px-4 pb-3 md:pb-4">
                             {/* Calendly Integration */}
                             <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
-                              <iframe
-                                src="https://calendly.com/strivetech"
-                                width="100%"
-                                height="500"
-                                frameBorder="0"
-                                title="Schedule Your Showcase - Strive Tech"
-                                className="md:h-[630px]"
-                                style={{ borderRadius: '0px' }}
-                              />
+                              <div 
+                                className="calendly-inline-widget" 
+                                data-url="https://calendly.com/strivetech/solution-showcase" 
+                                style={{ minWidth: '320px', height: '500px' }}
+                                data-processed="true"
+                              ></div>
                             </div>
-                            <div className="mt-3 md:mt-4 p-2 md:p-3 rounded-lg border border-gray-200 bg-off-white">
-                              <div className="space-y-1 md:space-y-2 text-xs">
-                                <p style={{ color: '#ff7033' }}><strong>Your Details:</strong></p>
-                                <p style={{ color: '#ff7033' }}>Contact: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.fullName}</span></p>
-                                <p style={{ color: '#ff7033' }}>Email: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.email}</span></p>
-                                <p style={{ color: '#ff7033' }}>Company: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.companyName}</span></p>
+                            <div className="mt-3 md:mt-4 p-3 md:p-4 rounded-lg border border-gray-200 bg-white shadow-sm">
+                              <div className="space-y-2 md:space-y-3 text-sm">
+                                <h4 className="text-center font-semibold text-lg mb-3" style={{ color: '#ff7033' }}>— Your Details —</h4>
+                                <div className="space-y-1">
+                                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Communication Method:</span> <span className="font-medium" style={{ color: '#020a1c' }}>Google Meet</span></p>
+                                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Contact:</span> <span className="font-medium" style={{ color: '#020a1c' }}>{formData.fullName}</span></p>
+                                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Email:</span> <span className="font-medium" style={{ color: '#020a1c' }}>{formData.email}</span></p>
+                                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Company:</span> <span className="font-medium" style={{ color: '#020a1c' }}>{formData.companyName}</span></p>
+                                </div>
                               </div>
                             </div>
                             <p className="text-xs md:text-sm text-muted-foreground mt-2 text-center">

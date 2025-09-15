@@ -386,6 +386,7 @@ var EmailService = class {
     this.initializeTransporter();
   }
   initializeTransporter() {
+    console.log("\u{1F527} Initializing email service...");
     const emailConfig = {
       host: process.env.SMTP_HOST || "smtp.gmail.com",
       port: parseInt(process.env.SMTP_PORT || "587"),
@@ -395,15 +396,29 @@ var EmailService = class {
         pass: process.env.SMTP_PASS || ""
       }
     };
+    console.log(`\u{1F4E7} Email config: ${emailConfig.host}:${emailConfig.port} | User: ${emailConfig.auth.user} | Secure: ${emailConfig.secure}`);
+    console.log(`\u{1F511} Auth configured: User=${!!emailConfig.auth.user} | Pass=${!!emailConfig.auth.pass} (${emailConfig.auth.pass.length} chars)`);
     if (emailConfig.auth.user && emailConfig.auth.pass) {
-      this.transporter = nodemailer.createTransport(emailConfig);
+      try {
+        this.transporter = nodemailer.createTransporter(emailConfig);
+        console.log("\u2705 Email transporter created successfully");
+        this.verifyConnection().catch((error) => {
+          console.error("\u274C Email connection verification failed during initialization:", error);
+        });
+      } catch (error) {
+        console.error("\u274C Failed to create email transporter:", error);
+        this.transporter = null;
+      }
     } else {
-      console.warn("Email service not configured. Set SMTP_USER and SMTP_PASS environment variables.");
+      console.warn("\u26A0\uFE0F Email service not configured. Missing SMTP_USER or SMTP_PASS environment variables.");
+      console.log(`   SMTP_USER present: ${!!process.env.SMTP_USER}`);
+      console.log(`   SMTP_PASS present: ${!!process.env.SMTP_PASS}`);
     }
   }
   async sendEmail(options, retries = 3) {
+    console.log(`\u{1F4E4} Attempting to send email to: ${options.to.join(", ")} | Subject: "${options.subject}"`);
     if (!this.transporter) {
-      console.warn("Email not sent - email service not configured");
+      console.error("\u274C Email not sent - email service not configured or transporter is null");
       return false;
     }
     const mailOptions = {
@@ -413,19 +428,33 @@ var EmailService = class {
       text: options.text || options.html.replace(/<[^>]*>/g, ""),
       html: options.html
     };
+    console.log(`\u{1F4E7} Mail options: From=${mailOptions.from} | To=${mailOptions.to}`);
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
-        await this.transporter.sendMail(mailOptions);
-        console.log(`Email sent successfully to: ${options.to.join(", ")} (attempt ${attempt})`);
+        console.log(`\u{1F504} Email send attempt ${attempt}/${retries}...`);
+        const info = await this.transporter.sendMail(mailOptions);
+        console.log(`\u2705 Email sent successfully to: ${options.to.join(", ")} (attempt ${attempt})`);
+        console.log(`\u{1F4C4} Message info:`, {
+          messageId: info.messageId,
+          response: info.response,
+          accepted: info.accepted,
+          rejected: info.rejected
+        });
         return true;
       } catch (error) {
-        console.error(`Email sending failed on attempt ${attempt}:`, error);
+        console.error(`\u274C Email sending failed on attempt ${attempt}:`, error);
+        if (error instanceof Error) {
+          console.error(`   Error name: ${error.name}`);
+          console.error(`   Error message: ${error.message}`);
+          if ("code" in error) console.error(`   Error code: ${error.code}`);
+          if ("command" in error) console.error(`   SMTP command: ${error.command}`);
+        }
         if (attempt === retries) {
-          console.error(`Failed to send email after ${retries} attempts to: ${options.to.join(", ")}`);
+          console.error(`\u{1F4A5} Failed to send email after ${retries} attempts to: ${options.to.join(", ")}`);
           return false;
         }
         const waitTime = Math.pow(2, attempt - 1) * 1e3;
-        console.log(`Retrying email send in ${waitTime}ms...`);
+        console.log(`\u23F3 Retrying email send in ${waitTime}ms...`);
         await new Promise((resolve) => setTimeout(resolve, waitTime));
       }
     }
@@ -433,15 +462,23 @@ var EmailService = class {
   }
   async verifyConnection() {
     if (!this.transporter) {
-      console.warn("Cannot verify email connection - transporter not configured");
+      console.warn("\u26A0\uFE0F Cannot verify email connection - transporter not configured");
       return false;
     }
     try {
+      console.log("\u{1F50D} Verifying SMTP connection...");
       await this.transporter.verify();
-      console.log("Email service connection verified successfully");
+      console.log("\u2705 Email service connection verified successfully");
       return true;
     } catch (error) {
-      console.error("Email service connection verification failed:", error);
+      console.error("\u274C Email service connection verification failed:", error);
+      if (error instanceof Error) {
+        console.error(`   Verification error: ${error.name}: ${error.message}`);
+        if ("code" in error) console.error(`   Error code: ${error.code}`);
+        if ("errno" in error) console.error(`   Error number: ${error.errno}`);
+        if ("syscall" in error) console.error(`   System call: ${error.syscall}`);
+        if ("hostname" in error) console.error(`   Hostname: ${error.hostname}`);
+      }
       return false;
     }
   }
@@ -1861,8 +1898,8 @@ app.use((req, res, next) => {
   }
   if (!process.env.VERCEL) {
     const port = parseInt(process.env.PORT || "5000", 10);
-    const host = process.platform === "win32" ? "127.0.0.1" : "0.0.0.0";
-    const options = process.platform === "win32" ? { port, host } : { port, host, reusePort: true };
+    const host = process.env.NODE_ENV === "development" ? "127.0.0.1" : "0.0.0.0";
+    const options = { port, host };
     server.listen(options, () => {
       log2(`serving on port ${port} (${host})`);
     });

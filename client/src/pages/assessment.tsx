@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,6 +35,21 @@ const Assessment = () => {
   // Validation functions using reusable utilities
   const isEmailValid = (email: string) => validateEmail(email).isValid;
   const isPhoneValid = (phone: string) => validatePhone(phone, true).isValid;
+
+  // Load Calendly script when component mounts
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // Cleanup script when component unmounts
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
 
   const handleInputChange = (field: string, value: string) => {
     setContactData(prev => ({ ...prev, [field]: value }));
@@ -419,24 +434,23 @@ Project Description: ${contactData.projectDescription || 'Not provided'}`,
           <CardContent className="p-0 md:p-6">
             {/* Calendly Integration */}
             <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
-              <iframe
-                src="https://calendly.com/strivetech"
-                width="100%"
-                height="500"
-                frameBorder="0"
-                title="Schedule Your Assessment - Strive Tech"
-                className="md:h-[630px]"
-                style={{ borderRadius: '0px' }}
-              />
+              <div 
+                className="calendly-inline-widget" 
+                data-url="https://calendly.com/strivetech/solution-showcase" 
+                style={{ minWidth: '320px', height: '500px' }}
+                data-processed="true"
+              ></div>
             </div>
-            <div className="mt-3 md:mt-4 mx-3 md:mx-0 p-2 md:p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <div className="space-y-1 md:space-y-2 text-xs text-muted-foreground">
-                <p><strong>Your Details:</strong></p>
-                <p>Communication Method: <span className="font-medium text-foreground">
-                  {communicationMethods.find(m => m.id === contactData.communicationMethod)?.name}
-                </span></p>
-                <p>Contact: <span className="font-medium text-foreground">{contactData.firstName} {contactData.lastName}</span></p>
-                <p>Email: <span className="font-medium text-foreground">{contactData.email}</span></p>
+            <div className="mt-3 md:mt-4 mx-3 md:mx-0 p-3 md:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
+              <div className="space-y-2 md:space-y-3 text-sm">
+                <h4 className="text-center font-semibold text-lg mb-3" style={{ color: '#ff7033' }}>— Your Details —</h4>
+                <div className="space-y-1">
+                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Communication Method:</span> <span className="font-medium" style={{ color: '#020a1c' }}>
+                    {communicationMethods.find(m => m.id === contactData.communicationMethod)?.name}
+                  </span></p>
+                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Contact:</span> <span className="font-medium" style={{ color: '#020a1c' }}>{contactData.firstName} {contactData.lastName}</span></p>
+                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Email:</span> <span className="font-medium" style={{ color: '#020a1c' }}>{contactData.email}</span></p>
+                </div>
               </div>
             </div>
             
