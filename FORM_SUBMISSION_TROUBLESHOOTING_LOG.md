@@ -194,15 +194,9 @@ Each API route includes:
 - **User Confirmations**: Sent to the form submitter
 - **SMTP Configuration**: Uses environment variables from `.env`
 
-## Environment Variables Required
+## Environment Variables Required (check .env file)
 ```env
-# Email Service Configuration (SMTP)
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=contact@strivetech.ai
-SMTP_PASS=dphw dcrd wkbj crku
-SMTP_FROM=contact@strivetech.ai
+
 ```
 
 ## Testing Results

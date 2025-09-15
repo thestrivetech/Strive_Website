@@ -197,6 +197,8 @@ const Request = () => {
       
       if (response.ok && result.success) {
         setIsSubmitted(true);
+        // Scroll to top to show success message
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         console.log("Request submitted successfully:", result);
       } else {
         console.error("Request submission failed:", result);
