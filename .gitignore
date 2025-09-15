@@ -1,103 +1,11 @@
-# Dependencies
-node_modules/
-
-# Environment files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Build outputs
+node_modules
+dist
 dist/
-build/
-server/public/
-
-# Development logs and artifacts
-*.log
-*.backup
-*.bak
-*.broken
-*.original
-*.tmp
-*.temp
-*.cache
-build-test.log
-
-# Development tools and configurations
-.claude/
-.serena/
-.local/
-.replit
-vite.config.ts.*
-
-# Build test logs
-build-test.log
-
-# Development documentation and notes
-chat_logs/
-prompts
-copy-wireframes/
-docs/
-tests/
-
-# Database migrations (not needed for Vercel deployment)
-migrations/
-
-# Supabase temporary files (not needed for deployment)
-supabase/migrations_archive/
-supabase/.temp/
-
-# Temporary development files
-2025-09-13-website-optimization-continue-please.txt
-supabase+drizzle.md
-replit.md
-update.md
-MCP_SETUP.md
-VERCEL_DEPLOYMENT.md
-fonts.md
-change_log.md
-.lighthouserc.json.original
-
-# GitIgnore management files (development only)
-.gitignore.dev
-.gitignore.prod
-GITIGNORE_SWITCH.md
-
-# System files
+.env
 .DS_Store
-Thumbs.db
-
-# Archives
-*.tar.gz
-*.zip
-*.rar
-
-# Project directory maps (generated files)
-project-directory-map.txt
-project-directory-map.json
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory used by tools like istanbul
-coverage/
-*.lcov
-
-# nyc test coverage
-.nyc_output
-
-
-CLAUDE.md
-.vercel
+.idea
+.vscode
+*.log
+*.tmp
 .env 2.vercel
 .env.vercel
