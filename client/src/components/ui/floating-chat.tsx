@@ -252,8 +252,8 @@ const FloatingChat = () => {
       </div>
 
       {/* Coming Soon Badge - Always visible, centered under chat button */}
-      <div className="fixed bottom-1 right-4 sm:right-16 z-[60] flex justify-center w-14">
-        <ComingSoonBadge size="sm" variant="hero" className="text-[9px] px-1.5 py-0.5 whitespace-nowrap" />
+      <div className="fixed bottom-2 right-4 sm:right-16 z-[60] flex justify-center w-16">
+        <ComingSoonBadge size="sm" variant="hero" className="text-[9px] px-1.5 py-0.5 whitespace-nowrap overflow-visible" />
       </div>
 
       {/* Chat Window */}
