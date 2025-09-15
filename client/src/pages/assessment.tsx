@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,30 +36,7 @@ const Assessment = () => {
   const isEmailValid = (email: string) => validateEmail(email).isValid;
   const isPhoneValid = (phone: string) => validatePhone(phone, true).isValid;
 
-  // Load Calendly script when component mounts
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    
-    script.onload = () => {
-      // Small delay to ensure DOM is ready, then initialize
-      setTimeout(() => {
-        if (window.Calendly) {
-          window.Calendly.initializeInlineWidgets();
-        }
-      }, 100);
-    };
-    
-    document.body.appendChild(script);
-
-    return () => {
-      // Cleanup script when component unmounts
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, []);
+  // Calendly script is now loaded globally in HTML head
 
   const handleInputChange = (field: string, value: string) => {
     setContactData(prev => ({ ...prev, [field]: value }));
@@ -446,8 +423,8 @@ Project Description: ${contactData.projectDescription || 'Not provided'}`,
             <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
               <div 
                 className="calendly-inline-widget" 
-                data-url="https://calendly.com/strivetech/solution-showcase" 
-                style={{ minWidth: '320px', height: '500px' }}
+                data-url="https://calendly.com/strivetech" 
+                style={{ minWidth: '320px', height: '700px' }}
               ></div>
             </div>
             <div className="mt-3 md:mt-4 mx-3 md:mx-0 p-3 md:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">

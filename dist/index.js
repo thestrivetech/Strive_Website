@@ -400,7 +400,7 @@ var EmailService = class {
     console.log(`\u{1F511} Auth configured: User=${!!emailConfig.auth.user} | Pass=${!!emailConfig.auth.pass} (${emailConfig.auth.pass.length} chars)`);
     if (emailConfig.auth.user && emailConfig.auth.pass) {
       try {
-        this.transporter = nodemailer.createTransporter(emailConfig);
+        this.transporter = nodemailer.createTransport(emailConfig);
         console.log("\u2705 Email transporter created successfully");
         this.verifyConnection().catch((error) => {
           console.error("\u274C Email connection verification failed during initialization:", error);
@@ -1131,6 +1131,58 @@ async function registerRoutes(app2) {
       res.status(500).json({
         success: false,
         message: "Failed to fetch newsletter subscriptions"
+      });
+    }
+  });
+  app2.get("/api/debug/email", async (req, res) => {
+    try {
+      console.log("\u{1F50D} Email service debug endpoint called");
+      const isConnected = await emailService.verifyConnection();
+      let testEmailResult = null;
+      if (isConnected) {
+        console.log("\u{1F9EA} Attempting to send test email...");
+        testEmailResult = await emailService.sendEmail({
+          to: ["grantramey@strivetech.ai"],
+          subject: "Email Service Debug Test",
+          html: `
+            <h2>Email Service Debug Test</h2>
+            <p>This is a test email sent from the debug endpoint at ${(/* @__PURE__ */ new Date()).toISOString()}</p>
+            <p>If you receive this, the email service is working correctly in production!</p>
+          `
+        });
+      }
+      res.json({
+        success: true,
+        emailService: {
+          initialized: !!emailService,
+          connectionVerified: isConnected,
+          testEmailSent: testEmailResult,
+          smtpConfig: {
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT,
+            secure: process.env.SMTP_SECURE,
+            user: process.env.SMTP_USER,
+            from: process.env.SMTP_FROM,
+            passConfigured: !!process.env.SMTP_PASS
+          }
+        }
+      });
+    } catch (error) {
+      console.error("\u274C Email debug endpoint error:", error);
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+        emailService: {
+          initialized: !!emailService,
+          smtpConfig: {
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT,
+            secure: process.env.SMTP_SECURE,
+            user: process.env.SMTP_USER,
+            from: process.env.SMTP_FROM,
+            passConfigured: !!process.env.SMTP_PASS
+          }
+        }
       });
     }
   });

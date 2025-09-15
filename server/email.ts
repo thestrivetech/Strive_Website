@@ -32,7 +32,7 @@ class EmailService {
 
     if (emailConfig.auth.user && emailConfig.auth.pass) {
       try {
-        this.transporter = nodemailer.createTransporter(emailConfig);
+        this.transporter = nodemailer.createTransport(emailConfig);
         console.log('✅ Email transporter created successfully');
 
         // Test the connection immediately
