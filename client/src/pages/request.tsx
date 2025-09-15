@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { 
   Users, Target, Calendar, Clock, CheckCircle, ChevronRight, Zap
 } from "lucide-react";
@@ -11,6 +11,50 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { validateEmail, validatePhone } from "@/lib/validation";
 import { CalendlyFallback } from "@/components/ui/calendly-fallback";
+import React from "react";
+
+// Calendly Iframe Component - extracted outside to prevent re-creation on re-renders
+const CalendlyIframe = React.memo(({ onError, onLoad }: { onError: (error: string) => void; onLoad: () => void }) => {
+  const [iframeStatus, setIframeStatus] = React.useState<'loading' | 'loaded' | 'error'>('loading');
+  
+  const handleIframeLoad = React.useCallback(() => {
+    console.log('[Calendly] Iframe loaded successfully');
+    setIframeStatus('loaded');
+    onLoad();
+  }, [onLoad]);
+
+  const handleIframeError = React.useCallback(() => {
+    console.error('[Calendly] Iframe failed to load');
+    setIframeStatus('error');
+    onError('Iframe failed to load');
+  }, [onError]);
+
+  return (
+    <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
+      {iframeStatus === 'loading' && (
+        <div className="absolute inset-0 bg-gray-50 flex items-center justify-center z-10">
+          <div className="text-center space-y-2">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary mx-auto"></div>
+            <p className="text-sm text-muted-foreground">Loading calendar...</p>
+          </div>
+        </div>
+      )}
+      <iframe
+        src="https://calendly.com/strivetech"
+        width="100%"
+        height="500"
+        frameBorder="0"
+        title="Schedule Your Showcase - Strive Tech"
+        className="md:h-[630px]"
+        style={{ borderRadius: '0px' }}
+        onLoad={handleIframeLoad}
+        onError={handleIframeError}
+      />
+    </div>
+  );
+});
+
+CalendlyIframe.displayName = 'CalendlyIframe';
 
 const Request = () => {
   const [formStep, setFormStep] = useState(1);
@@ -105,46 +149,18 @@ const Request = () => {
   const [calendlyError, setCalendlyError] = useState<string>('');
   const [retryCount, setRetryCount] = useState(0);
 
-  // Calendly Iframe Component with error handling
-  const CalendlyIframe = ({ onError, onLoad }: { onError: (error: string) => void; onLoad: () => void }) => {
-    const [iframeStatus, setIframeStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
-    
-    const handleIframeLoad = () => {
-      console.log('[Calendly] Iframe loaded successfully');
-      setIframeStatus('loaded');
-      onLoad();
-    };
+  // Stable callback functions for CalendlyIframe to prevent unnecessary re-renders
+  const handleCalendlyError = useCallback((error: string) => {
+    console.error('[Calendly] Iframe error:', error);
+    setCalendlyStatus('error');
+    setCalendlyError('The calendar widget failed to load properly.');
+  }, []);
 
-    const handleIframeError = () => {
-      console.error('[Calendly] Iframe failed to load');
-      setIframeStatus('error');
-      onError('Iframe failed to load');
-    };
+  const handleCalendlyLoad = useCallback(() => {
+    console.log('[Calendly] Iframe loaded successfully');
+  }, []);
 
-    return (
-      <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
-        {iframeStatus === 'loading' && (
-          <div className="absolute inset-0 bg-gray-50 flex items-center justify-center z-10">
-            <div className="text-center space-y-2">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary mx-auto"></div>
-              <p className="text-sm text-muted-foreground">Loading calendar...</p>
-            </div>
-          </div>
-        )}
-        <iframe
-          src="https://calendly.com/strivetech"
-          width="100%"
-          height="500"
-          frameBorder="0"
-          title="Schedule Your Showcase - Strive Tech"
-          className="md:h-[630px]"
-          style={{ borderRadius: '0px' }}
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
-        />
-      </div>
-    );
-  };
+
 
   // Load Calendly script when component mounts
   useEffect(() => {
@@ -245,16 +261,11 @@ const Request = () => {
       return;
     }
     
-    // Parse fullName into firstName and lastName
-    const nameParts = formData.fullName.split(' ');
-    const firstName = nameParts[0] || '';
-    const lastName = nameParts.slice(1).join(' ') || '';
-    
     // Include custom challenge text in the submission if "Other" is selected
     const submissionData = {
-      firstName,
-      lastName,
-      fullName: formData.fullName,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      fullName: `${formData.firstName} ${formData.lastName}`,
       email: formData.email,
       phone: formData.phone,
       company: formData.companyName,
@@ -304,7 +315,8 @@ const Request = () => {
   const isStepComplete = (step: number) => {
     switch (step) {
       case 1:
-        return formData.fullName && 
+        return formData.firstName && 
+               formData.lastName && 
                formData.email && 
                isEmailValid(formData.email) &&
                formData.companyName &&
@@ -422,36 +434,49 @@ const Request = () => {
                     <div className="space-y-4 md:space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         <div>
-                          <Label htmlFor="fullName" className="text-white text-sm md:text-base">Full Name *</Label>
+                          <Label htmlFor="firstName" className="text-white text-sm md:text-base">First Name *</Label>
                           <Input
-                            id="fullName"
-                            value={formData.fullName}
-                            onChange={(e) => handleInputChange("fullName", e.target.value)}
-                            placeholder="John Doe"
+                            id="firstName"
+                            value={formData.firstName}
+                            onChange={(e) => handleInputChange("firstName", e.target.value)}
+                            placeholder="John"
                             className="h-11 md:h-10"
                             style={inputStyle}
                             required
                           />
                         </div>
                         <div>
-                          <Label htmlFor="email" className="text-white text-sm md:text-base">Email Address *</Label>
+                          <Label htmlFor="lastName" className="text-white text-sm md:text-base">Last Name *</Label>
                           <Input
-                            id="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => handleInputChange("email", e.target.value)}
-                            placeholder="john@company.com"
+                            id="lastName"
+                            value={formData.lastName}
+                            onChange={(e) => handleInputChange("lastName", e.target.value)}
+                            placeholder="Doe"
                             className="h-11 md:h-10"
-                            style={{
-                              ...inputStyle,
-                              borderColor: validationErrors.email ? '#ef4444' : '#ff7033'
-                            }}
+                            style={inputStyle}
                             required
                           />
-                          {validationErrors.email && (
-                            <p className="text-sm text-red-400 mt-1">{validationErrors.email}</p>
-                          )}
                         </div>
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor="email" className="text-white text-sm md:text-base">Email Address *</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => handleInputChange("email", e.target.value)}
+                          placeholder="john@company.com"
+                          className="h-11 md:h-10"
+                          style={{
+                            ...inputStyle,
+                            borderColor: validationErrors.email ? '#ef4444' : '#ff7033'
+                          }}
+                          required
+                        />
+                        {validationErrors.email && (
+                          <p className="text-sm text-red-400 mt-1">{validationErrors.email}</p>
+                        )}
                       </div>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
@@ -744,14 +769,8 @@ const Request = () => {
                             {/* Calendly Integration with Error Handling */}
                             {calendlyStatus === 'loaded' ? (
                               <CalendlyIframe 
-                                onError={(error) => {
-                                  console.error('[Calendly] Iframe error:', error);
-                                  setCalendlyStatus('error');
-                                  setCalendlyError('The calendar widget failed to load properly.');
-                                }}
-                                onLoad={() => {
-                                  console.log('[Calendly] Iframe loaded successfully');
-                                }}
+                                onError={handleCalendlyError}
+                                onLoad={handleCalendlyLoad}
                               />
                             ) : (
                               <CalendlyFallback 
@@ -770,7 +789,7 @@ const Request = () => {
                                 <h4 className="text-center font-semibold text-lg mb-3" style={{ color: '#ff7033' }}>— Your Details —</h4>
                                 <div className="space-y-1">
                                   <p><span className="font-medium" style={{ color: '#ff7033' }}>Communication Method:</span> <span className="font-medium" style={{ color: '#020a1c' }}>Google Meet</span></p>
-                                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Contact:</span> <span className="font-medium" style={{ color: '#020a1c' }}>{formData.fullName}</span></p>
+                                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Contact:</span> <span className="font-medium" style={{ color: '#020a1c' }}>{formData.firstName} {formData.lastName}</span></p>
                                   <p><span className="font-medium" style={{ color: '#ff7033' }}>Email:</span> <span className="font-medium" style={{ color: '#020a1c' }}>{formData.email}</span></p>
                                   <p><span className="font-medium" style={{ color: '#ff7033' }}>Company:</span> <span className="font-medium" style={{ color: '#020a1c' }}>{formData.companyName}</span></p>
                                 </div>
@@ -801,7 +820,16 @@ const Request = () => {
                       <Button
                         type="button"
                         className="ml-auto bg-primary hover:bg-primary/90"
-                        onClick={() => setFormStep(formStep + 1)}
+                        onClick={() => {
+                          const nextStep = formStep + 1;
+                          setFormStep(nextStep);
+                          // Scroll to top when reaching the Calendly step (step 3)
+                          if (nextStep === 3) {
+                            setTimeout(() => {
+                              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                            }, 100);
+                          }
+                        }}
                         disabled={!isStepComplete(formStep)}
                       >
                         Next

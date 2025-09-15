@@ -269,12 +269,12 @@ class EmailService {
     const html = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #ff7033;">Your Request is Confirmed!</h2>
-        <p>Dear ${requestData.firstName || requestData.fullName.split(' ')[0]},</p>
+        <p>Dear ${requestData.firstName},</p>
         <p>Thank you for your interest in Strive Tech's AI solutions! We've received your request for <strong>${serviceList}</strong> and will contact you within one business day to schedule your sessions.</p>
         
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0;">
           <h3 style="color: #333; margin-top: 0;">Your Request Details:</h3>
-          <p><strong>Name:</strong> ${requestData.fullName}</p>
+          <p><strong>Name:</strong> ${requestData.firstName} ${requestData.lastName}</p>
           <p><strong>Company:</strong> ${requestData.company}</p>
           <p><strong>Services Requested:</strong> ${serviceList}</p>
           ${requestData.industry ? `<p><strong>Industry:</strong> ${requestData.industry}</p>` : ''}
@@ -341,7 +341,7 @@ class EmailService {
         <h2 style="color: #ff7033;">New Service Request</h2>
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px;">
           <p><strong>Services Requested:</strong> ${serviceList}</p>
-          <p><strong>Name:</strong> ${requestData.fullName}</p>
+          <p><strong>Name:</strong> ${requestData.firstName} ${requestData.lastName}</p>
           <p><strong>Email:</strong> ${requestData.email}</p>
           <p><strong>Phone:</strong> ${requestData.phone || 'Not provided'}</p>
           <p><strong>Company:</strong> ${requestData.company}</p>
@@ -381,7 +381,7 @@ class EmailService {
 
     return await this.sendEmail({
       to: recipients,
-      subject: `New ${serviceList} Request from ${requestData.fullName}`,
+      subject: `New ${serviceList} Request from ${requestData.firstName} ${requestData.lastName}`,
       html,
     });
   }
