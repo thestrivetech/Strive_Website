@@ -667,7 +667,7 @@ const Resources = () => {
 
           {/* Resource Grid */}
           {activeFilter !== "Quizzes" && activeFilter !== "Tools & Tech" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-6 lg:gap-8">
               {filteredResources.map((resource) => (
               <Card 
                 key={resource.id}
@@ -676,11 +676,11 @@ const Resources = () => {
                 data-testid={`card-resource-${resource.id}`}
               >
                 {/* Mobile: Horizontal Layout, Desktop: Vertical Layout */}
-                <div className="flex flex-row md:flex-col">
+                <div className="flex flex-row md:flex-col h-full">
                   {/* Left Side - Photo and Metadata (Mobile) / Top (Desktop) */}
                   <div className="flex flex-col justify-between flex-shrink-0 w-28 md:w-full">
                     {/* Image Container */}
-                    <div className="relative overflow-hidden w-28 h-40 md:w-full md:h-32 lg:h-48 flex-grow">
+                    <div className="relative overflow-hidden w-28 h-40 md:w-full md:h-48 lg:h-48 flex-shrink-0">
                       <img 
                         src={resource.imageUrl} 
                         alt={resource.imageAlt}
@@ -688,30 +688,30 @@ const Resources = () => {
                         data-testid={`img-resource-${resource.id}`}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className="absolute top-1 left-1 md:top-2 md:left-2">
-                        <Badge className={`${getTypeColor(resource.type)} text-white border-0 text-xs px-1 py-0.5`}>
+                      <div className="absolute top-2 left-2">
+                        <Badge className={`${getTypeColor(resource.type)} text-white border-0 text-xs px-2 py-1`}>
                           {resource.type}
                         </Badge>
                       </div>
-                      <div className="absolute bottom-1 right-1 md:bottom-2 md:right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="flex gap-1">
-                          <Button size="sm" variant="secondary" className="h-5 w-5 md:h-6 md:w-6 p-0">
-                            <Eye className="h-2 w-2 md:h-3 md:w-3" />
+                          <Button size="sm" variant="secondary" className="h-6 w-6 p-0">
+                            <Eye className="h-3 w-3" />
                           </Button>
-                          <Button size="sm" variant="secondary" className="h-5 w-5 md:h-6 md:w-6 p-0">
-                            <Download className="h-2 w-2 md:h-3 md:w-3" />
+                          <Button size="sm" variant="secondary" className="h-6 w-6 p-0">
+                            <Download className="h-3 w-3" />
                           </Button>
                         </div>
                       </div>
                     </div>
                     
-                    {/* Mobile-only Metadata Section - Aligned with bottom */}
-                    <div className="md:hidden px-1 py-1 mt-auto">
-                      <div className="flex flex-col gap-0.5 text-xs text-[#1e3a8a]">
-                        <span className="truncate" data-testid={`text-resource-metadata-${resource.id}`}>
+                    {/* Mobile-only Metadata Section */}
+                    <div className="md:hidden px-2 py-2 mt-auto">
+                      <div className="flex flex-col gap-1 text-xs text-[#1e3a8a]">
+                        <span className="truncate font-medium" data-testid={`text-resource-metadata-${resource.id}`}>
                           {resource.metadata}
                         </span>
-                        <span className="truncate" data-testid={`text-resource-date-${resource.id}`}>
+                        <span className="truncate text-muted-foreground" data-testid={`text-resource-date-${resource.id}`}>
                           {resource.date}
                         </span>
                       </div>
@@ -719,9 +719,9 @@ const Resources = () => {
                   </div>
                   
                   {/* Right Side - Content (Mobile) / Below photo (Desktop) */}
-                  <CardContent className="p-3 md:p-6 flex flex-col flex-grow min-w-0">
-                    <div className="flex items-center gap-1 md:gap-2 mb-1 md:mb-3">
-                      <div className="text-primary text-sm">
+                  <CardContent className="p-4 md:p-6 flex flex-col flex-grow min-w-0">
+                    <div className="flex items-center gap-2 mb-2 md:mb-3">
+                      <div className="text-primary">
                         {getTypeIcon(resource.type)}
                       </div>
                       <span className="text-xs font-medium uppercase tracking-wide text-[#020a1c] hidden sm:inline">
@@ -729,43 +729,43 @@ const Resources = () => {
                       </span>
                     </div>
                     
-                    <h3 className="text-sm md:text-xl font-bold text-[#ff7033] mb-1 md:mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                    <h3 className="text-sm md:text-xl font-bold text-[#ff7033] mb-2 md:mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2 leading-tight">
                       {resource.title}
                     </h3>
                     
-                    <p className="text-muted-foreground mb-2 md:mb-4 line-clamp-2 text-xs md:text-sm flex-grow">
+                    <p className="text-muted-foreground mb-3 md:mb-4 line-clamp-3 text-xs md:text-sm flex-grow leading-relaxed">
                       {resource.shortDescription}
                     </p>
                     
-                    <div className="flex gap-1 mb-2 md:mb-4 overflow-hidden">
+                    <div className="flex gap-1 mb-3 md:mb-4 overflow-hidden">
                       {resource.tags.slice(0, 2).map((tag, index) => (
-                        <Badge key={index} variant="secondary" className="text-xs px-1 py-0.5 whitespace-nowrap flex-shrink-0">
+                        <Badge key={index} variant="secondary" className="text-xs px-2 py-1 whitespace-nowrap flex-shrink-0">
                           {tag}
                         </Badge>
                       ))}
                       {resource.tags.length > 2 && (
-                        <Badge variant="secondary" className="text-xs px-1 py-0.5 whitespace-nowrap flex-shrink-0">
+                        <Badge variant="secondary" className="text-xs px-2 py-1 whitespace-nowrap flex-shrink-0">
                           +{resource.tags.length - 2}
                         </Badge>
                       )}
                     </div>
                     
-                    {/* Desktop-only Metadata Section - Below content */}
-                    <div className="hidden md:flex items-center justify-between text-sm text-muted-foreground mb-2 md:mb-4">
-                      <span className="text-xs md:text-sm" data-testid={`text-resource-metadata-${resource.id}`}>
+                    {/* Desktop-only Metadata Section */}
+                    <div className="hidden md:flex items-center justify-between text-sm text-muted-foreground mb-4">
+                      <span className="text-sm font-medium" data-testid={`text-resource-metadata-${resource.id}`}>
                         {resource.metadata}
                       </span>
-                      <span className="text-xs md:text-sm" data-testid={`text-resource-date-${resource.id}`}>
+                      <span className="text-sm" data-testid={`text-resource-date-${resource.id}`}>
                         {resource.date}
                       </span>
                     </div>
                     
                     <Button 
-                      className="w-full mt-auto group-hover:bg-primary group-hover:text-white transition-all duration-300 text-xs md:text-sm py-1 md:py-2"
+                      className="w-full mt-auto group-hover:bg-primary group-hover:text-white transition-all duration-300 text-sm py-2 min-h-[40px]"
                       variant="outline"
                     >
                       View Details
-                      <Eye className="ml-1 h-3 w-3 md:ml-2 md:h-4 md:w-4" />
+                      <Eye className="ml-2 h-4 w-4" />
                     </Button>
                   </CardContent>
                 </div>

@@ -99,3 +99,5 @@ coverage/
 
 CLAUDE.md
 .vercel
+.env 2.vercel
+.env.vercel
