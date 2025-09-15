@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { validateEmail, validatePhone } from "@/lib/validation";
 import { CalendlyFallback } from "@/components/ui/calendly-fallback";
+import { getCalendlyConfig } from "@/lib/browser-detection";
 import React from "react";
 
 // Calendly Iframe Component - extracted outside to prevent re-creation on re-renders
@@ -49,6 +50,9 @@ const CalendlyIframe = React.memo(({ onError, onLoad }: { onError: (error: strin
         style={{ borderRadius: '0px' }}
         onLoad={handleIframeLoad}
         onError={handleIframeError}
+        allow="camera; microphone; geolocation"
+        referrerPolicy="strict-origin-when-cross-origin"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
       />
     </div>
   );
@@ -168,7 +172,20 @@ const Request = () => {
     let script: HTMLScriptElement;
 
     const loadCalendlyScript = () => {
+      // Check browser compatibility first
+      const calendlyConfig = getCalendlyConfig();
+      calendlyConfig.logBrowserInfo();
+      
       console.log(`[Calendly] Attempting to load script (attempt ${retryCount + 1})`);
+      
+      // If browser has compatibility issues, skip to fallback
+      if (calendlyConfig.shouldUseFallback) {
+        console.log('[Calendly] Browser compatibility issues detected, using fallback');
+        setCalendlyStatus('error');
+        setCalendlyError(`${calendlyConfig.browserInfo.name} browser detected. Using direct calendar link for better compatibility.`);
+        return;
+      }
+      
       setCalendlyStatus('loading');
       setCalendlyError('');
 
