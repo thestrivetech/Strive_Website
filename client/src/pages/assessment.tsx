@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle, ArrowRight, Calendar, Clock, Phone, Video, MapPin, Users, Building, Target, Lightbulb, AlertCircle } from "lucide-react";
 import { validateEmail, validatePhone } from "@/lib/validation";
+import { CalendlyFallback } from "@/components/ui/calendly-fallback";
 
 const Assessment = () => {
   const [step, setStep] = useState(1);
@@ -32,11 +33,113 @@ const Assessment = () => {
     phone: ""
   });
 
+  // State for Calendly loading and error handling
+  const [calendlyStatus, setCalendlyStatus] = useState<'loading' | 'loaded' | 'error' | 'timeout'>('loading');
+  const [calendlyError, setCalendlyError] = useState<string>('');
+  const [retryCount, setRetryCount] = useState(0);
+
+  // Calendly Iframe Component with error handling
+  const CalendlyIframe = ({ onError, onLoad }: { onError: (error: string) => void; onLoad: () => void }) => {
+    const [iframeStatus, setIframeStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
+    
+    const handleIframeLoad = () => {
+      console.log('[Calendly] Iframe loaded successfully');
+      setIframeStatus('loaded');
+      onLoad();
+    };
+
+    const handleIframeError = () => {
+      console.error('[Calendly] Iframe failed to load');
+      setIframeStatus('error');
+      onError('Iframe failed to load');
+    };
+
+    return (
+      <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
+        {iframeStatus === 'loading' && (
+          <div className="absolute inset-0 bg-gray-50 flex items-center justify-center z-10">
+            <div className="text-center space-y-2">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary mx-auto"></div>
+              <p className="text-sm text-muted-foreground">Loading calendar...</p>
+            </div>
+          </div>
+        )}
+        <iframe
+          src="https://calendly.com/strivetech"
+          width="100%"
+          height="500"
+          frameBorder="0"
+          title="Schedule Your Assessment - Strive Tech"
+          className="md:h-[630px]"
+          style={{ borderRadius: '0px' }}
+          onLoad={handleIframeLoad}
+          onError={handleIframeError}
+        />
+      </div>
+    );
+  };
+
   // Validation functions using reusable utilities
   const isEmailValid = (email: string) => validateEmail(email).isValid;
   const isPhoneValid = (phone: string) => validatePhone(phone, true).isValid;
 
-  // Calendly script is now loaded globally in HTML head
+  // Load Calendly script when component mounts
+  useEffect(() => {
+    let scriptLoadTimeout: NodeJS.Timeout;
+    let script: HTMLScriptElement;
+
+    const loadCalendlyScript = () => {
+      console.log(`[Calendly] Attempting to load script (attempt ${retryCount + 1})`);
+      setCalendlyStatus('loading');
+      setCalendlyError('');
+
+      // Check if script already exists
+      const existingScript = document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]');
+      if (existingScript) {
+        console.log('[Calendly] Script already exists, checking if loaded');
+        setCalendlyStatus('loaded');
+        return;
+      }
+
+      script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+
+      // Success handler
+      script.onload = () => {
+        console.log('[Calendly] Script loaded successfully');
+        setCalendlyStatus('loaded');
+        if (scriptLoadTimeout) clearTimeout(scriptLoadTimeout);
+      };
+
+      // Error handler
+      script.onerror = (error) => {
+        console.error('[Calendly] Script failed to load:', error);
+        setCalendlyStatus('error');
+        setCalendlyError('Failed to load Calendly script. This may be due to network issues or ad blockers.');
+        if (scriptLoadTimeout) clearTimeout(scriptLoadTimeout);
+      };
+
+      // Timeout handler (10 seconds)
+      scriptLoadTimeout = setTimeout(() => {
+        console.warn('[Calendly] Script loading timed out after 10 seconds');
+        setCalendlyStatus('timeout');
+        setCalendlyError('Calendly is taking longer than expected to load. Please check your internet connection.');
+      }, 10000);
+
+      document.body.appendChild(script);
+    };
+
+    loadCalendlyScript();
+
+    return () => {
+      // Cleanup
+      if (scriptLoadTimeout) clearTimeout(scriptLoadTimeout);
+      if (script && document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, [retryCount]);
 
   const handleInputChange = (field: string, value: string) => {
     setContactData(prev => ({ ...prev, [field]: value }));
@@ -419,14 +522,30 @@ Project Description: ${contactData.projectDescription || 'Not provided'}`,
             </p>
           </CardHeader>
           <CardContent className="p-0 md:p-6">
-            {/* Calendly Integration */}
-            <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
-              <div 
-                className="calendly-inline-widget" 
-                data-url="https://calendly.com/strivetech" 
-                style={{ minWidth: '320px', height: '700px' }}
-              ></div>
-            </div>
+            {/* Calendly Integration with Error Handling */}
+            {calendlyStatus === 'loaded' ? (
+              <CalendlyIframe 
+                onError={(error) => {
+                  console.error('[Calendly] Iframe error:', error);
+                  setCalendlyStatus('error');
+                  setCalendlyError('The calendar widget failed to load properly.');
+                }}
+                onLoad={() => {
+                  console.log('[Calendly] Iframe loaded successfully');
+                }}
+              />
+            ) : (
+              <CalendlyFallback 
+                status={calendlyStatus}
+                error={calendlyError}
+                onRetry={() => {
+                  if (retryCount < 3) {
+                    setRetryCount(prev => prev + 1);
+                  }
+                }}
+                retryCount={retryCount}
+              />
+            )}
             <div className="mt-3 md:mt-4 mx-3 md:mx-0 p-3 md:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
               <div className="space-y-2 md:space-y-3 text-sm">
                 <h4 className="text-center font-semibold text-lg mb-3" style={{ color: '#ff7033' }}>— Your Details —</h4>
