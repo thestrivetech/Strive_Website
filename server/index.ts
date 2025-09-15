@@ -85,10 +85,9 @@ app.use((req, res, next) => {
   // It is the only port that is not firewalled.
   if (!process.env.VERCEL) {
     const port = parseInt(process.env.PORT || '5000', 10);
-    const host = process.platform === 'win32' ? '127.0.0.1' : '0.0.0.0';
-    const options = process.platform === 'win32'
-      ? { port, host }
-      : { port, host, reusePort: true };
+    // Use localhost for development on macOS/Darwin, works on all platforms
+    const host = process.env.NODE_ENV === 'development' ? '127.0.0.1' : '0.0.0.0';
+    const options = { port, host };
 
     server.listen(options, () => {
       log(`serving on port ${port} (${host})`);
