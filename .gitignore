@@ -36,8 +36,7 @@ build-test.log
 
 # Development documentation and notes
 chat_logs/
-prompts/
-attached_assets/
+prompts
 copy-wireframes/
 docs/
 tests/
