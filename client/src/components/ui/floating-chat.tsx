@@ -326,7 +326,7 @@ const FloatingChat = () => {
         <div
           ref={containerRef}
           className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
-            isMinimized ? 'w-72 h-14' : 'w-96 h-[500px]'
+            isMinimized ? 'w-72 h-14' : 'w-[420px] h-[550px]'
           }`}
         >
           {/* Widget Header (for minimize/close) */}
@@ -363,7 +363,7 @@ const FloatingChat = () => {
 
           {/* Chat Content */}
           {!isMinimized && (
-            <div className="bg-white rounded-b-lg shadow-2xl h-[calc(100%-40px)] relative overflow-auto">
+            <div className="bg-white rounded-b-lg shadow-2xl h-[calc(100%-40px)] relative overflow-hidden">
               {/* Loading State */}
               {isLoading && (
                 <div className="absolute inset-0 bg-gray-900 flex items-center justify-center z-10">
@@ -409,10 +409,8 @@ const FloatingChat = () => {
                   src={widgetUrl}
                   className="w-full h-full border-none"
                   style={{
-                    transform: 'scale(0.85)',
-                    transformOrigin: 'top left',
-                    width: '117.6%',
-                    height: '117.6%'
+                    width: '100%',
+                    height: '100%'
                   }}
                   onLoad={handleIframeLoad}
                   onError={handleIframeError}

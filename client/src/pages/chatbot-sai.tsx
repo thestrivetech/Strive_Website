@@ -10,7 +10,7 @@ const ChatBotSai = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [shouldLoadIframe, setShouldLoadIframe] = useState(false);
+  const [shouldLoadIframe, setShouldLoadIframe] = useState(true);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const performanceId = useRef(`fullpage-${Date.now()}`);
@@ -35,12 +35,12 @@ const ChatBotSai = () => {
     prefetchLink.href = chatbotUrl;
     document.head.appendChild(prefetchLink);
 
-    // Intersection Observer for progressive loading
+    // Intersection Observer for performance tracking (iframe already loads immediately)
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !shouldLoadIframe) {
-            setShouldLoadIframe(true);
+          if (entry.isIntersecting) {
+            performanceMonitor.trackEvent(performanceId.current, 'chatbot_container_visible');
           }
         });
       },
