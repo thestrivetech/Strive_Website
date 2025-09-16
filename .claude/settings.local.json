@@ -18,7 +18,13 @@
       "mcp__serena__replace_regex",
       "mcp__serena__find_symbol",
       "Bash(npm run check:*)",
-      "mcp__serena__create_text_file"
+      "mcp__serena__create_text_file",
+      "mcp__serena__execute_shell_command",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(del package-lock.json)",
+      "Bash(npm run test:run:*)"
     ],
     "deny": [],
     "ask": []

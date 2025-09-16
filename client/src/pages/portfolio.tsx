@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 import { Bot, Code, Blocks, Brain, BrainCircuit, Database, Globe, Zap, Eye, Play, ExternalLink, X, Github, Monitor, Smartphone, ChevronRight, Filter, ChevronDown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -32,7 +33,7 @@ const Portfolio = () => {
     : projects.filter(project => project.type === selectedFilter);
 
   const getCategoryIcon = (category: string) => {
-    const iconMap: { [key: string]: JSX.Element } = {
+    const iconMap: { [key: string]: React.ReactElement } = {
       "AI Agent": <Bot className="h-5 w-5" />,
       "AI Model": <Brain className="h-5 w-5" />,
       "RAG Solution": <Database className="h-5 w-5" />,

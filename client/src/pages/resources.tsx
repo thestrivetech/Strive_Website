@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import React from "react";
 import { Download, FileText, BookOpen, BarChart3, Sparkles, Eye, X, ExternalLink, Clock, User, Calendar, BrainCircuit, Play, CheckCircle, AlertCircle, Trophy, Target, Wrench, Filter, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -180,7 +181,7 @@ const Resources = () => {
   };
 
   const getTypeIcon = (type: string) => {
-    const iconMap: { [key: string]: JSX.Element } = {
+    const iconMap: { [key: string]: React.ReactElement } = {
       "BLOG POST": <BookOpen className="h-5 w-5" />,
       "WHITEPAPER": <FileText className="h-5 w-5" />,
       "CASE STUDY": <BarChart3 className="h-5 w-5" />

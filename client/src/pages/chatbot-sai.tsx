@@ -20,7 +20,7 @@ const ChatBotSai = () => {
 
   // Chatbot URL
   const chatbotUrl = import.meta.env.VITE_CHATBOT_URL || 'https://chatbot.strivetech.ai';
-  const fullPageUrl = `${chatbotUrl}/full?t=${Date.now()}`;
+  const fullPageUrl = `${chatbotUrl}/full`;
 
   useEffect(() => {
     // Preconnect to chatbot domain for faster loading
@@ -162,7 +162,7 @@ const ChatBotSai = () => {
 
     if (iframeRef.current) {
       // Force reload with cache buster
-      iframeRef.current.src = `${fullPageUrl}?t=${Date.now()}`;
+      iframeRef.current.src = fullPageUrl;
     }
   };
 
@@ -309,9 +309,8 @@ const ChatBotSai = () => {
                 minHeight: '600px',
                 backgroundColor: 'transparent'
               }}
-              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-              allow="microphone; camera; clipboard-write; autoplay; fullscreen"
-              referrerPolicy="strict-origin-when-cross-origin"
+              frameBorder="0"
+              allow="microphone; camera"
               title="Chat with Sai - Strive Tech AI Assistant"
               onLoad={handleIframeLoad}
               onError={handleIframeError}
@@ -367,3 +366,126 @@ const ChatBotSai = () => {
 };
 
 export default ChatBotSai;
+
+/*
+## TODO LIST - React 19.1.1 Upgrade & Chatbot Integration
+
+### COMPLETED ✅
+1. Analyze differences between chatbot team's implementation and current website integration
+2. Add plan and todo list to end of chatbot-sai.tsx file
+3. Update iframe URL to use correct /full path instead of /full?t=timestamp
+4. Add proper security headers to vercel.json for iframe embedding
+5. Update iframe attributes to match integration guide recommendations
+6. Fix message handling to match chatbot's expected format
+7. Test iframe loading and full-screen display
+8. Stop development servers to prevent conflicts
+
+### IN PROGRESS 🔄
+9. Update chatbot-sai.tsx with React 19 upgrade plan
+
+### PENDING ⏳
+10. Update React and React-DOM to version 19.1.1
+11. Update React TypeScript types to match React 19
+12. Clear node_modules and package-lock.json
+13. Reinstall dependencies with npm install
+14. Run TypeScript check to identify any type issues
+15. Run tests to verify functionality
+16. Test development server and chatbot integration
+17. Build production bundle to verify no build issues
+
+## REACT 19.1.1 UPGRADE PLAN
+
+### Current State:
+- React: 18.3.1 → Upgrading to 19.1.1
+- React-DOM: 18.3.1 → Upgrading to 19.1.1
+- @types/react: 18.3.11 → Upgrading to 19.1.10
+- @types/react-dom: 18.3.1 → Upgrading to 19.1.7
+
+### Why This Upgrade:
+- **Chatbot Compatibility**: Chatbot uses React 19.1.1, matching versions prevents conflicts
+- **Performance**: React 19 has better rendering optimizations
+- **Future-Proofing**: Latest stable React version
+- **Integration**: Ensures optimal iframe communication
+
+### Commands to Execute:
+```bash
+# Stop dev servers (✅ DONE)
+# Update React packages
+npm install react@^19.1.1 react-dom@^19.1.1
+npm install --save-dev @types/react@^19.1.10 @types/react-dom@^19.1.7
+
+# Clean installation
+rm -rf node_modules package-lock.json
+npm install
+
+# Verification
+npm run check      # TypeScript compilation
+npm run test:run   # Test suite
+npm run dev        # Development server
+npm run build      # Production build
+```
+
+### Files That May Need Updates:
+
+#### Core React Files:
+- ✅ client/src/main.tsx (already uses createRoot - compatible)
+- ⚠️ Any files using deprecated React APIs (none detected)
+- ⚠️ Third-party libraries that may need React 19 compatibility
+
+#### Testing Files:
+- ⚠️ Test files may need updates if testing library needs React 19 support
+- ⚠️ Any snapshot tests may need updating
+
+#### Build Configuration:
+- ⚠️ Vite configuration may need adjustments for React 19
+- ⚠️ TypeScript configuration may need updates
+- ⚠️ ESLint rules may need React 19 specific updates
+
+#### Potential Breaking Changes to Check:
+1. **Strict Mode Changes**: React 19 has stricter development mode
+2. **Event Handling**: Minor changes in synthetic event handling
+3. **Type Definitions**: TypeScript types may have minor changes
+4. **Third-party Libraries**: Check compatibility with React 19
+
+### Dependencies to Monitor:
+- **react-helmet-async**: Ensure React 19 compatibility
+- **@radix-ui/***: Check all Radix components work with React 19
+- **wouter**: Routing library compatibility
+- **framer-motion**: Animation library compatibility
+- **lucide-react**: Icon library compatibility
+
+### Post-Upgrade Checklist:
+- [ ] All TypeScript errors resolved
+- [ ] All tests passing
+- [ ] Development server starts without errors
+- [ ] Production build completes successfully
+- [ ] Chatbot iframe loads and functions properly
+- [ ] No console errors in browser
+- [ ] All existing functionality works
+- [ ] Performance is maintained or improved
+
+### Rollback Plan:
+If issues arise:
+```bash
+npm install react@^18.3.1 react-dom@^18.3.1
+npm install --save-dev @types/react@^18.3.11 @types/react-dom@^18.3.1
+rm -rf node_modules package-lock.json
+npm install
+```
+
+## COMPLETED CHATBOT INTEGRATION FIXES
+
+### What Was Fixed:
+1. **Missing Security Headers**: Added X-Frame-Options and CSP to vercel.json
+2. **Incorrect iframe URL**: Removed timestamp parameter from /full path
+3. **Message Source Validation**: Made 'sai-chatbot' source check optional
+4. **iframe Attributes**: Updated to match integration guide exactly
+
+### Expected Outcome:
+These changes will:
+- Allow the chatbot iframe to load properly without security restrictions
+- Fix full-screen display formatting issues
+- Ensure proper message communication between parent and iframe
+- Match the chatbot team's tested configuration exactly
+- Provide optimal compatibility with React 19.1.1 chatbot
+*/

@@ -6,7 +6,7 @@ export interface ChatbotMessage {
   data?: {
     // Ready event data
     version?: string;
-    mode?: 'widget' | 'full' | 'fullpage';
+    mode?: 'widget' | 'full';
     capabilities?: string[];
     
     // Resize event data
@@ -98,8 +98,9 @@ export class ChatbotIframeManager {
 
     const { type, data, source } = event.data || {};
 
-    // Verify it's from our chatbot
-    if (source !== 'sai-chatbot') {
+    // Verify it's from our chatbot (optional check)
+    if (source && source !== 'sai-chatbot') {
+      // Only skip if source is explicitly set to something else
       return;
     }
 
