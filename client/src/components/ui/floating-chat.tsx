@@ -1,124 +1,187 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { MessageCircle, X, BotMessageSquare, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
-import { chatbotManager, preconnectToChatbot, createSecureIframe } from "@/lib/chatbot-iframe-communication";
+import chatbotManager from "@/lib/chatbot-iframe-communication";
+import performanceMonitor from "@/lib/chatbot-performance-monitor";
 
 const FloatingChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [isPreconnected, setIsPreconnected] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const performanceId = useRef(`widget-${Date.now()}`);
+  const retryCount = useRef(0);
+  const maxRetries = 3;
 
-  // Chatbot configuration
-  const chatbotOrigin = process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3001'
-    : 'https://chat.strivetech.ai';
-  const widgetUrl = `${chatbotOrigin}/widget`;
+  // Chatbot URL - can be environment variable
+  const chatbotUrl = import.meta.env.VITE_CHATBOT_URL || 'https://chatbot.strivetech.ai';
+  const widgetUrl = `${chatbotUrl}/widget`;
 
-  // Setup chatbot communication
   useEffect(() => {
     // Setup message handlers
-    chatbotManager.onMessage('ready', () => {
-      setIsLoading(false);
-      setHasError(false);
-    });
+    const unsubscribeReady = chatbotManager.onMessage('ready', handleChatbotReady);
+    const unsubscribeError = chatbotManager.onMessage('error', handleChatbotError);
+    const unsubscribeClose = chatbotManager.onMessage('close', handleChatbotClose);
+    const unsubscribeMinimize = chatbotManager.onMessage('minimize', handleChatbotMinimize);
+    const unsubscribeAnalytics = chatbotManager.onMessage('analytics', handleAnalytics);
 
-    chatbotManager.onMessage('close', () => {
-      setIsOpen(false);
-    });
+    // Preconnect to chatbot domain for performance
+    preconnectToChatbot();
 
-    chatbotManager.onMessage('minimize', () => {
-      setIsOpen(false);
-    });
-
-    chatbotManager.onMessage('error', (data) => {
-      console.error('Chatbot error:', data);
-      setHasError(true);
-      setIsLoading(false);
-    });
-
-    chatbotManager.onMessage('navigate', (data) => {
-      if (data?.url) {
-        // Close chat and navigate
-        setIsOpen(false);
-        setTimeout(() => {
-          window.location.href = data.url;
-        }, 100);
-      }
-    });
-
-    // Cleanup on unmount
     return () => {
-      chatbotManager.offMessage('ready');
-      chatbotManager.offMessage('close');
-      chatbotManager.offMessage('minimize');
-      chatbotManager.offMessage('error');
-      chatbotManager.offMessage('navigate');
+      unsubscribeReady();
+      unsubscribeError();
+      unsubscribeClose();
+      unsubscribeMinimize();
+      unsubscribeAnalytics();
+      performanceMonitor.cleanup(performanceId.current);
     };
+  }, []);
+
+  const preconnectToChatbot = () => {
+    // DNS prefetch
+    const dnsPrefetch = document.createElement('link');
+    dnsPrefetch.rel = 'dns-prefetch';
+    dnsPrefetch.href = chatbotUrl;
+    document.head.appendChild(dnsPrefetch);
+
+    // Preconnect
+    const preconnect = document.createElement('link');
+    preconnect.rel = 'preconnect';
+    preconnect.href = chatbotUrl;
+    preconnect.crossOrigin = 'anonymous';
+    document.head.appendChild(preconnect);
+  };
+
+  const handleOpen = useCallback(() => {
+    setIsOpen(true);
+    setIsLoading(true);
+    setHasError(false);
+    setIsMinimized(false);
+    retryCount.current = 0;
+
+    // Start performance tracking
+    performanceMonitor.startTracking(performanceId.current);
+    performanceMonitor.trackEvent(performanceId.current, 'open_clicked');
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+    setIsLoading(false);
+    setHasError(false);
+    setUnreadCount(0);
+
+    // End performance tracking
+    const report = performanceMonitor.endTracking(performanceId.current);
+    console.log('Chat session performance:', report);
+
+    // Send analytics
+    if (window.gtag) {
+      window.gtag('event', 'chatbot_closed', {
+        session_duration: report?.totalTime
+      });
+    }
+  }, []);
+
+  const handleMinimize = useCallback(() => {
+    setIsMinimized(true);
+  }, []);
+
+  const handleRestore = useCallback(() => {
+    setIsMinimized(false);
+  }, []);
+
+  const handleChatbotReady = useCallback((data: any) => {
+    setIsLoading(false);
+    setHasError(false);
+    performanceMonitor.trackEvent(performanceId.current, 'chatbot_ready', data);
+
+    // Register iframe
+    if (iframeRef.current) {
+      chatbotManager.registerIframe(iframeRef.current);
+    }
+  }, []);
+
+  const handleChatbotError = useCallback((data: any) => {
+    console.error('Chatbot error:', data);
+    setIsLoading(false);
+    setHasError(true);
+    performanceMonitor.trackEvent(performanceId.current, 'chatbot_error', data);
+  }, []);
+
+  const handleChatbotClose = useCallback(() => {
+    handleClose();
+  }, [handleClose]);
+
+  const handleChatbotMinimize = useCallback(() => {
+    handleMinimize();
+  }, [handleMinimize]);
+
+  const handleAnalytics = useCallback((data: any) => {
+    // Forward analytics to your analytics service
+    if (window.gtag) {
+      window.gtag('event', `chatbot_${data.event}`, data.properties);
+    }
   }, []);
 
   // Handle chat open/close
   const handleChatToggle = () => {
     if (isOpen) {
-      setIsOpen(false);
+      handleClose();
       return;
     }
 
-    // Open chat and load iframe if needed
-    setIsOpen(true);
-    setIsLoading(true);
-    setHasError(false);
+    handleOpen();
+  };
 
-    // Preconnect if not already done
-    if (!isPreconnected) {
-      preconnectToChatbot(chatbotOrigin);
-      setIsPreconnected(true);
+  const handleIframeLoad = useCallback(() => {
+    performanceMonitor.trackEvent(performanceId.current, 'iframe_loaded');
+    // Don't set loading to false here - wait for 'ready' message
+  }, []);
+
+  const handleIframeError = useCallback(() => {
+    performanceMonitor.trackEvent(performanceId.current, 'iframe_error');
+
+    if (retryCount.current < maxRetries) {
+      retryCount.current++;
+      setTimeout(() => {
+        setIsLoading(true);
+        setHasError(false);
+        // Force reload by updating key
+        if (iframeRef.current) {
+          iframeRef.current.src = `${widgetUrl}?retry=${retryCount.current}`;
+        }
+      }, 1000 * retryCount.current);
+    } else {
+      setIsLoading(false);
+      setHasError(true);
     }
-  };
-
-  // Handle iframe load
-  const handleIframeLoad = () => {
-    if (iframeRef.current) {
-      chatbotManager.setIframe(iframeRef.current);
-      // Notify iframe of container visibility
-      chatbotManager.notifyVisibilityChange(isOpen);
-    }
-  };
-
-  // Handle iframe error
-  const handleIframeError = () => {
-    setHasError(true);
-    setIsLoading(false);
-  };
+  }, [widgetUrl]);
 
   // Preconnect on hover for better performance
   const handleMouseEnter = () => {
     setIsHovered(true);
-    if (!isPreconnected) {
-      preconnectToChatbot(chatbotOrigin);
-      setIsPreconnected(true);
-    }
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
 
-  // Handle retry
-  const handleRetry = () => {
-    setHasError(false);
+  const handleRetry = useCallback(() => {
+    retryCount.current = 0;
     setIsLoading(true);
-
-    // Reload iframe
+    setHasError(false);
     if (iframeRef.current) {
       iframeRef.current.src = widgetUrl;
     }
-  };
+  }, [widgetUrl]);
 
   // Render error state
   const renderErrorState = () => (
@@ -243,6 +306,11 @@ const FloatingChat = () => {
           data-testid="button-floating-chat"
           aria-label={isOpen ? "Close chat" : "Open chat with Sai"}
         >
+          {unreadCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {unreadCount}
+            </span>
+          )}
           {isOpen ? (
             <X className="w-6 h-6" />
           ) : (
@@ -256,33 +324,101 @@ const FloatingChat = () => {
         <ComingSoonBadge size="sm" variant="hero" className="text-[9px] px-1.5 py-0.5 whitespace-nowrap overflow-visible" />
       </div>
 
-      {/* Chat Window */}
+      {/* Chat Widget Container */}
       {isOpen && (
         <div
           ref={containerRef}
-          className="fixed bottom-28 right-16 w-96 h-[500px] z-40"
-          style={{
-            transform: isOpen ? 'translateY(0)' : 'translateY(100%)',
-            transition: 'transform 0.3s ease-out'
-          }}
+          className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
+            isMinimized ? 'w-72 h-14' : 'w-96 h-[500px]'
+          }`}
         >
-          {hasError ? renderErrorState() : isLoading ? renderLoadingState() : (
-            <iframe
-              ref={iframeRef}
-              src={widgetUrl}
-              className="w-full h-full border-none rounded-lg shadow-2xl"
-              style={{
-                backgroundColor: 'transparent',
-                colorScheme: 'normal'
-              }}
-              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-              allow="microphone; camera; clipboard-write; autoplay"
-              referrerPolicy="strict-origin"
-              title="Sai AI Assistant Chat"
-              onLoad={handleIframeLoad}
-              onError={handleIframeError}
-              data-testid="chatbot-iframe"
-            />
+          {/* Widget Header (for minimize/close) */}
+          <div className="bg-gray-800 rounded-t-lg px-4 py-2 flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-white text-sm font-medium">Sai AI Assistant</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={isMinimized ? handleRestore : handleMinimize}
+                className="text-gray-400 hover:text-white transition-colors"
+                aria-label={isMinimized ? 'Restore' : 'Minimize'}
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {isMinimized ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  )}
+                </svg>
+              </button>
+              <button
+                onClick={handleClose}
+                className="text-gray-400 hover:text-white transition-colors"
+                aria-label="Close chat"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Chat Content */}
+          {!isMinimized && (
+            <div className="bg-white rounded-b-lg shadow-2xl h-[calc(100%-40px)] relative overflow-hidden">
+              {/* Loading State */}
+              {isLoading && (
+                <div className="absolute inset-0 bg-gray-900 flex items-center justify-center z-10">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+                    <p className="text-gray-300 text-sm">Connecting to Sai...</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Error State */}
+              {hasError && (
+                <div className="absolute inset-0 bg-gray-900 flex items-center justify-center z-10">
+                  <div className="text-center px-6">
+                    <div className="text-red-500 mb-4">
+                      <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="text-white font-medium mb-2">Connection Failed</h3>
+                    <p className="text-gray-400 text-sm mb-4">
+                      Unable to connect to the chat service. Please try again.
+                    </p>
+                    <button
+                      onClick={handleRetry}
+                      className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                    >
+                      Try Again
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Iframe */}
+              <iframe
+                ref={iframeRef}
+                src={widgetUrl}
+                className="w-full h-full border-none"
+                onLoad={handleIframeLoad}
+                onError={handleIframeError}
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                allow="microphone; camera; clipboard-write; autoplay"
+                referrerPolicy="strict-origin-when-cross-origin"
+                title="Sai AI Assistant Chat"
+                loading="lazy"
+              />
+            </div>
           )}
         </div>
       )}

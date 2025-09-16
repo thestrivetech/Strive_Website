@@ -2,158 +2,153 @@
 // Handles secure postMessage communication between parent site and chatbot iframe
 
 export interface ChatbotMessage {
-  type: 'resize' | 'navigate' | 'analytics' | 'ready' | 'close' | 'minimize' | 'error';
+  type: 'resize' | 'navigate' | 'analytics' | 'ready' | 'close' | 'minimize' | 'error' | 'ping' | 'visibility' | 'mode';
   data?: {
     height?: number;
     url?: string;
     event?: string;
     properties?: Record<string, any>;
     error?: string;
+    visible?: boolean;
+    mode?: string;
+    timestamp?: number;
   };
   timestamp: number;
+  source?: string;
 }
 
 export class ChatbotIframeManager {
-  private iframe: HTMLIFrameElement | null = null;
   private chatbotOrigin: string;
-  private messageHandlers: Map<string, (data: any) => void> = new Map();
-  private isReady: boolean = false;
+  private eventHandlers: Map<string, (data: any, event?: MessageEvent) => void> = new Map();
+  private iframes: Set<HTMLIFrameElement> = new Set();
+  private isListening: boolean = false;
+  private messageLog: Array<{
+    time: string;
+    origin: string;
+    data: any;
+  }> = [];
 
-  constructor(chatbotOrigin: string = 'https://chat.strivetech.ai') {
-    this.chatbotOrigin = chatbotOrigin;
-    this.setupMessageListener();
+  constructor() {
+    // Use environment variable or default to production
+    this.chatbotOrigin = import.meta.env.VITE_CHATBOT_URL || 'https://chatbot.strivetech.ai';
+
+    // Start listening immediately
+    this.startListening();
   }
 
-  private setupMessageListener() {
-    window.addEventListener('message', (event) => {
-      // Security: Only accept messages from trusted chatbot origin
-      if (event.origin !== this.chatbotOrigin) {
-        console.warn('Ignored message from untrusted origin:', event.origin);
-        return;
-      }
+  startListening() {
+    if (this.isListening) return;
 
-      try {
-        const message: ChatbotMessage = event.data;
-        this.handleMessage(message);
-      } catch (error) {
-        console.error('Error processing chatbot message:', error);
-      }
-    });
+    window.addEventListener('message', this.handleMessage.bind(this));
+    this.isListening = true;
+
+    console.log('ChatbotIframeManager: Listening for messages from', this.chatbotOrigin);
   }
 
-  private handleMessage(message: ChatbotMessage) {
-    const { type, data } = message;
+  stopListening() {
+    if (!this.isListening) return;
 
-    switch (type) {
-      case 'ready':
-        this.isReady = true;
-        this.executeHandler('ready', data);
-        break;
-
-      case 'resize':
-        if (data?.height && this.iframe) {
-          this.iframe.style.height = `${data.height}px`;
-        }
-        this.executeHandler('resize', data);
-        break;
-
-      case 'navigate':
-        if (data?.url) {
-          // Handle navigation requests from chatbot
-          window.location.href = data.url;
-        }
-        this.executeHandler('navigate', data);
-        break;
-
-      case 'analytics':
-        // Handle analytics events from chatbot
-        this.trackAnalytics(data?.event, data?.properties);
-        this.executeHandler('analytics', data);
-        break;
-
-      case 'close':
-        // Handle chatbot close request
-        this.executeHandler('close', data);
-        break;
-
-      case 'minimize':
-        // Handle chatbot minimize request
-        this.executeHandler('minimize', data);
-        break;
-
-      case 'error':
-        console.error('Chatbot error:', data?.error);
-        this.executeHandler('error', data);
-        break;
-
-      default:
-        console.warn('Unknown chatbot message type:', type);
-    }
+    window.removeEventListener('message', this.handleMessage.bind(this));
+    this.isListening = false;
   }
 
-  private executeHandler(type: string, data: any) {
-    const handler = this.messageHandlers.get(type);
-    if (handler) {
-      try {
-        handler(data);
-      } catch (error) {
-        console.error(`Error executing handler for ${type}:`, error);
-      }
-    }
-  }
+  handleMessage(event: MessageEvent) {
+    // Security: validate origin
+    const allowedOrigins = [
+      this.chatbotOrigin,
+      'https://chatbot.strivetech.ai',
+      'http://localhost:5173', // Chatbot dev server
+      'http://localhost:3001'  // Alternative port
+    ];
 
-  private trackAnalytics(event?: string, properties?: Record<string, any>) {
-    // Integrate with your analytics service (Google Analytics, Mixpanel, etc.)
-    if (event) {
-      console.log('Chatbot Analytics:', event, properties);
-      // Example: gtag('event', event, properties);
-    }
-  }
-
-  // Public API methods
-  public setIframe(iframe: HTMLIFrameElement) {
-    this.iframe = iframe;
-  }
-
-  public sendMessage(type: string, data?: any) {
-    if (!this.iframe?.contentWindow) {
-      console.warn('Cannot send message: iframe not ready');
+    if (!allowedOrigins.includes(event.origin)) {
+      console.warn('Ignored message from untrusted origin:', event.origin);
       return;
     }
 
-    const message: ChatbotMessage = {
-      type: type as any,
+    // Log message for debugging
+    if (import.meta.env.DEV) {
+      console.log('Received message:', event.data);
+      this.messageLog.push({
+        time: new Date().toISOString(),
+        origin: event.origin,
+        data: event.data
+      });
+    }
+
+    const { type, data, source } = event.data || {};
+
+    // Verify it's from our chatbot
+    if (source !== 'sai-chatbot') {
+      return;
+    }
+
+    // Call registered handlers
+    const handler = this.eventHandlers.get(type);
+    if (handler) {
+      handler(data, event);
+    }
+
+    // Call global handler if exists
+    const globalHandler = this.eventHandlers.get('*');
+    if (globalHandler) {
+      globalHandler({ type, data }, event);
+    }
+  }
+
+  registerIframe(iframe: HTMLIFrameElement) {
+    this.iframes.add(iframe);
+    return () => this.iframes.delete(iframe);
+  }
+
+  onMessage(type: string, handler: (data: any, event?: MessageEvent) => void) {
+    this.eventHandlers.set(type, handler);
+    return () => this.eventHandlers.delete(type);
+  }
+
+  offMessage(type: string) {
+    this.eventHandlers.delete(type);
+  }
+
+  sendMessage(type: string, data = {}, targetIframe: HTMLIFrameElement | null = null) {
+    const message = {
+      type,
       data,
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      source: 'strivetech-website'
     };
 
-    this.iframe.contentWindow.postMessage(message, this.chatbotOrigin);
+    if (targetIframe && targetIframe.contentWindow) {
+      // Send to specific iframe
+      targetIframe.contentWindow.postMessage(message, this.chatbotOrigin);
+    } else {
+      // Send to all registered iframes
+      this.iframes.forEach(iframe => {
+        if (iframe.contentWindow) {
+          iframe.contentWindow.postMessage(message, this.chatbotOrigin);
+        }
+      });
+    }
   }
 
-  public onMessage(type: string, handler: (data: any) => void) {
-    this.messageHandlers.set(type, handler);
+  // Utility methods
+  ping(iframe?: HTMLIFrameElement) {
+    this.sendMessage('ping', { timestamp: Date.now() }, iframe);
   }
 
-  public offMessage(type: string) {
-    this.messageHandlers.delete(type);
+  getMessageLog() {
+    return this.messageLog;
   }
 
-  public isIframeReady(): boolean {
-    return this.isReady;
+  clearMessageLog() {
+    this.messageLog = [];
   }
 
-  public notifyVisibilityChange(isVisible: boolean) {
-    this.sendMessage('visibility', { visible: isVisible });
-  }
-
-  public notifyResize(width: number, height: number) {
-    this.sendMessage('container_resize', { width, height });
-  }
-
-  public destroy() {
-    this.messageHandlers.clear();
-    this.iframe = null;
-    this.isReady = false;
+  destroy() {
+    this.stopListening();
+    this.eventHandlers.clear();
+    this.iframes.clear();
+    this.messageLog = [];
   }
 }
 
@@ -244,12 +239,9 @@ export const createIframeWithFallback = (
   });
 };
 
-// Export singleton instance for global use
-export const chatbotManager = new ChatbotIframeManager();
+// Create singleton instance
+const chatbotManager = new ChatbotIframeManager();
 
-// Development mode configuration
-const devManager = process.env.NODE_ENV === 'development'
-  ? new ChatbotIframeManager('http://localhost:3001')
-  : chatbotManager;
-
-export { devManager as chatbotManagerDev };
+// Export for use in components
+export default chatbotManager;
+export { chatbotManager };

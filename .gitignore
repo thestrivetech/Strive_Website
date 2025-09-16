@@ -9,3 +9,4 @@ dist/
 *.tmp
 .env 2.vercel
 .env.vercel
+STRIVE_WEBSITE_INTEGRATION.md
