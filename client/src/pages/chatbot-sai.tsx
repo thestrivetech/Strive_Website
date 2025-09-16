@@ -11,6 +11,7 @@ const ChatBotSai = () => {
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [shouldLoadIframe, setShouldLoadIframe] = useState(true);
+  const [iframeReady, setIframeReady] = useState(false);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const performanceId = useRef(`fullpage-${Date.now()}`);
@@ -19,7 +20,7 @@ const ChatBotSai = () => {
 
   // Chatbot URL
   const chatbotUrl = import.meta.env.VITE_CHATBOT_URL || 'https://chatbot.strivetech.ai';
-  const fullPageUrl = `${chatbotUrl}/full`;
+  const fullPageUrl = `${chatbotUrl}/full?t=${Date.now()}`;
 
   useEffect(() => {
     // Preconnect to chatbot domain for faster loading
@@ -60,14 +61,20 @@ const ChatBotSai = () => {
     const unsubscribeNavigate = chatbotManager.onMessage('navigate', handleNavigate);
     const unsubscribeAnalytics = chatbotManager.onMessage('analytics', handleAnalytics);
 
-    // Set a timeout for loading
+    // Set a timeout for loading - more forgiving
     const loadTimeout = setTimeout(() => {
-      if (isLoading) {
-        setHasError(true);
-        setErrorMessage('The chat service is taking longer than expected to load.');
-        setIsLoading(false);
+      if (isLoading && !iframeReady) {
+        console.warn('Chatbot taking longer than expected, but continuing to wait...');
+        // Don't set error immediately, give it more time
+        setTimeout(() => {
+          if (isLoading && !iframeReady) {
+            setHasError(true);
+            setErrorMessage('The chat service is taking longer than expected to load.');
+            setIsLoading(false);
+          }
+        }, 10000); // Additional 10 seconds
       }
-    }, 10000); // 10 second timeout
+    }, 15000); // 15 second initial timeout
 
     return () => {
       observer.disconnect();
@@ -85,12 +92,13 @@ const ChatBotSai = () => {
       document.head.removeChild(preconnectLink);
       document.head.removeChild(prefetchLink);
     };
-  }, [isLoading]);
+  }, [isLoading, iframeReady, chatbotUrl]);
 
   const handleChatbotReady = (data: any) => {
     setIsLoading(false);
     setHasError(false);
     setErrorMessage('');
+    setIframeReady(true);
 
     performanceMonitor.trackEvent(performanceId.current, 'chatbot_ready', data);
 

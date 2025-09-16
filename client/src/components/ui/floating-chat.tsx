@@ -144,6 +144,16 @@ const FloatingChat = () => {
   const handleIframeLoad = useCallback(() => {
     performanceMonitor.trackEvent(performanceId.current, 'iframe_loaded');
     // Don't set loading to false here - wait for 'ready' message
+    
+    // Send message to control scroll position - keep at top
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      setTimeout(() => {
+        chatbotManager.sendMessage('scroll_control', { 
+          position: 'top',
+          focusInput: true 
+        }, iframeRef.current);
+      }, 500);
+    }
   }, []);
 
   const handleIframeError = useCallback(() => {
@@ -326,7 +336,7 @@ const FloatingChat = () => {
         <div
           ref={containerRef}
           className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
-            isMinimized ? 'w-72 h-14' : 'w-[420px] h-[550px]'
+            isMinimized ? 'w-72 h-14' : 'w-[400px] h-[600px]'
           }`}
         >
           {/* Widget Header (for minimize/close) */}
@@ -363,7 +373,7 @@ const FloatingChat = () => {
 
           {/* Chat Content */}
           {!isMinimized && (
-            <div className="bg-white rounded-b-lg shadow-2xl h-[calc(100%-40px)] relative overflow-hidden">
+            <div className="bg-white rounded-b-lg shadow-2xl h-[calc(100%-40px)] relative">
               {/* Loading State */}
               {isLoading && (
                 <div className="absolute inset-0 bg-gray-900 flex items-center justify-center z-10">
@@ -410,8 +420,10 @@ const FloatingChat = () => {
                   className="w-full h-full border-none"
                   style={{
                     width: '100%',
-                    height: '100%'
+                    height: '100%',
+                    overflow: 'auto'
                   }}
+                  scrolling="yes"
                   onLoad={handleIframeLoad}
                   onError={handleIframeError}
                   sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
