@@ -606,24 +606,8 @@ const Solutions = () => {
     // Close the modal first
     setSelectedSolution(null);
     
-    // Navigate based on demo type
-    switch (demoType) {
-      case "ChatBots":
-        // Open ChatBot demo - could be embedded or external
-        window.open('https://chat.openai.com', '_blank');
-        break;
-      case "Computer Vision Models":
-        // Open Computer Vision demo - could be embedded or external  
-        window.open('https://teachablemachine.withgoogle.com/models/eOXUP2LPq/', '_blank');
-        break;
-      case "Predictive Models":
-        // Open Predictive Analytics demo - could be embedded or external
-        window.open('https://www.kaggle.com/code/dansbecker/your-first-machine-learning-model', '_blank');
-        break;
-      default:
-        // Fallback to get started page
-        window.location.href = '/request';
-    }
+    // Demo links removed - buttons now only close modal
+    // Future: Add actual demo implementations here
   };
 
   return (
