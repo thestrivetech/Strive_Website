@@ -10,16 +10,47 @@ const ChatBotSai = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [shouldLoadIframe, setShouldLoadIframe] = useState(false);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const performanceId = useRef(`fullpage-${Date.now()}`);
   const retryTimeoutRef = useRef<number | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   // Chatbot URL
   const chatbotUrl = import.meta.env.VITE_CHATBOT_URL || 'https://chatbot.strivetech.ai';
   const fullPageUrl = `${chatbotUrl}/full`;
 
   useEffect(() => {
+    // Preconnect to chatbot domain for faster loading
+    const preconnectLink = document.createElement('link');
+    preconnectLink.rel = 'preconnect';
+    preconnectLink.href = chatbotUrl;
+    preconnectLink.crossOrigin = 'anonymous';
+    document.head.appendChild(preconnectLink);
+
+    // DNS prefetch
+    const prefetchLink = document.createElement('link');
+    prefetchLink.rel = 'dns-prefetch';
+    prefetchLink.href = chatbotUrl;
+    document.head.appendChild(prefetchLink);
+
+    // Intersection Observer for progressive loading
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !shouldLoadIframe) {
+            setShouldLoadIframe(true);
+          }
+        });
+      },
+      { rootMargin: '100px' }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
     // Start performance tracking
     performanceMonitor.startTracking(performanceId.current);
 
@@ -39,6 +70,7 @@ const ChatBotSai = () => {
     }, 10000); // 10 second timeout
 
     return () => {
+      observer.disconnect();
       unsubscribeReady();
       unsubscribeError();
       unsubscribeNavigate();
@@ -48,6 +80,10 @@ const ChatBotSai = () => {
         clearTimeout(retryTimeoutRef.current);
       }
       performanceMonitor.cleanup(performanceId.current);
+      
+      // Cleanup preconnect links
+      document.head.removeChild(preconnectLink);
+      document.head.removeChild(prefetchLink);
     };
   }, [isLoading]);
 
@@ -128,10 +164,9 @@ const ChatBotSai = () => {
 
   // Render error state
   const renderErrorState = () => (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="max-w-2xl mx-auto text-center">
-        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
-          <CardContent className="p-12">
+    <div className="w-full">
+      <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
+        <CardContent className="p-12">
             <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-6" />
             <h2 className="text-2xl font-bold mb-4">Unable to Connect</h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
@@ -163,18 +198,16 @@ const ChatBotSai = () => {
                 </p>
               </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 
-  // Render loading state
+  // Render loading state with skeleton UI
   const renderLoadingState = () => (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="max-w-5xl mx-auto">
-        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
-          <CardHeader className="bg-gradient-to-r from-[#020a1c] via-purple-900 to-[#020a1c] text-white p-6">
+    <div className="w-full">
+      <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
+        <CardHeader className="bg-gradient-to-r from-[#020a1c] via-purple-900 to-[#020a1c] text-white p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="relative">
@@ -215,9 +248,8 @@ const ChatBotSai = () => {
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 
@@ -249,9 +281,17 @@ const ChatBotSai = () => {
       </div>
 
       {/* Chat Interface */}
-      {hasError ? renderErrorState() : isLoading ? renderLoadingState() : (
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="max-w-5xl mx-auto">
+      <div ref={containerRef} className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-5xl mx-auto">
+          {hasError ? (
+            <div className="h-[600px] flex items-center justify-center">
+              {renderErrorState()}
+            </div>
+          ) : isLoading || !shouldLoadIframe ? (
+            <div className="h-[600px] flex items-center justify-center">
+              {renderLoadingState()}
+            </div>
+          ) : (
             <iframe
               ref={iframeRef}
               src={fullPageUrl}
@@ -270,9 +310,9 @@ const ChatBotSai = () => {
               data-testid="chatbot-full-iframe"
               loading="eager"
             />
-          </div>
+          )}
         </div>
-      )}
+      </div>
 
 
 

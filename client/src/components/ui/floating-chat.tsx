@@ -363,7 +363,7 @@ const FloatingChat = () => {
 
           {/* Chat Content */}
           {!isMinimized && (
-            <div className="bg-white rounded-b-lg shadow-2xl h-[calc(100%-40px)] relative overflow-hidden">
+            <div className="bg-white rounded-b-lg shadow-2xl h-[calc(100%-40px)] relative overflow-auto">
               {/* Loading State */}
               {isLoading && (
                 <div className="absolute inset-0 bg-gray-900 flex items-center justify-center z-10">
@@ -402,19 +402,27 @@ const FloatingChat = () => {
                 </div>
               )}
 
-              {/* Iframe */}
-              <iframe
-                ref={iframeRef}
-                src={widgetUrl}
-                className="w-full h-full border-none"
-                onLoad={handleIframeLoad}
-                onError={handleIframeError}
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-                allow="microphone; camera; clipboard-write; autoplay"
-                referrerPolicy="strict-origin-when-cross-origin"
-                title="Sai AI Assistant Chat"
-                loading="lazy"
-              />
+              {/* Iframe - Only load when widget is opened */}
+              {isOpen && (
+                <iframe
+                  ref={iframeRef}
+                  src={widgetUrl}
+                  className="w-full h-full border-none"
+                  style={{
+                    transform: 'scale(0.85)',
+                    transformOrigin: 'top left',
+                    width: '117.6%',
+                    height: '117.6%'
+                  }}
+                  onLoad={handleIframeLoad}
+                  onError={handleIframeError}
+                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                  allow="microphone; camera; clipboard-write; autoplay"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  title="Sai AI Assistant Chat"
+                  loading="eager"
+                />
+              )}
             </div>
           )}
         </div>
