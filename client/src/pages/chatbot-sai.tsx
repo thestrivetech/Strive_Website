@@ -4,77 +4,127 @@ import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState, useRef, useEffect } from "react";
-import { chatbotManager, preconnectToChatbot } from "@/lib/chatbot-iframe-communication";
+import chatbotManager from "@/lib/chatbot-iframe-communication";
+import performanceMonitor from "@/lib/chatbot-performance-monitor";
 
 const ChatBotSai = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const [isPreconnected, setIsPreconnected] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const performanceId = useRef(`fullpage-${Date.now()}`);
+  const retryTimeoutRef = useRef<number | null>(null);
 
-  // Chatbot configuration
-  const chatbotOrigin = process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3001'
-    : 'https://chat.strivetech.ai';
-  const fullUrl = `${chatbotOrigin}/full`;
+  // Chatbot URL
+  const chatbotUrl = import.meta.env.VITE_CHATBOT_URL || 'https://chatbot.strivetech.ai';
+  const fullPageUrl = `${chatbotUrl}/full`;
 
-  // Setup chatbot communication and preconnect immediately
   useEffect(() => {
-    // Preconnect immediately for best performance
-    preconnectToChatbot(chatbotOrigin);
-    setIsPreconnected(true);
+    // Start performance tracking
+    performanceMonitor.startTracking(performanceId.current);
 
     // Setup message handlers
-    chatbotManager.onMessage('ready', () => {
-      setIsLoading(false);
-      setHasError(false);
-    });
+    const unsubscribeReady = chatbotManager.onMessage('ready', handleChatbotReady);
+    const unsubscribeError = chatbotManager.onMessage('error', handleChatbotError);
+    const unsubscribeNavigate = chatbotManager.onMessage('navigate', handleNavigate);
+    const unsubscribeAnalytics = chatbotManager.onMessage('analytics', handleAnalytics);
 
-    chatbotManager.onMessage('error', (data) => {
-      console.error('Chatbot error:', data);
-      setHasError(true);
-      setIsLoading(false);
-    });
-
-    chatbotManager.onMessage('navigate', (data) => {
-      if (data?.url) {
-        // Handle navigation requests from full-page chatbot
-        window.location.href = data.url;
+    // Set a timeout for loading
+    const loadTimeout = setTimeout(() => {
+      if (isLoading) {
+        setHasError(true);
+        setErrorMessage('The chat service is taking longer than expected to load.');
+        setIsLoading(false);
       }
-    });
+    }, 10000); // 10 second timeout
 
-    // Cleanup on unmount
     return () => {
-      chatbotManager.offMessage('ready');
-      chatbotManager.offMessage('error');
-      chatbotManager.offMessage('navigate');
+      unsubscribeReady();
+      unsubscribeError();
+      unsubscribeNavigate();
+      unsubscribeAnalytics();
+      clearTimeout(loadTimeout);
+      if (retryTimeoutRef.current) {
+        clearTimeout(retryTimeoutRef.current);
+      }
+      performanceMonitor.cleanup(performanceId.current);
     };
-  }, [chatbotOrigin]);
+  }, [isLoading]);
 
-  // Handle iframe load
-  const handleIframeLoad = () => {
+  const handleChatbotReady = (data: any) => {
+    setIsLoading(false);
+    setHasError(false);
+    setErrorMessage('');
+
+    performanceMonitor.trackEvent(performanceId.current, 'chatbot_ready', data);
+
+    // Register iframe
     if (iframeRef.current) {
-      chatbotManager.setIframe(iframeRef.current);
-      // Notify iframe it's in full-page mode
-      chatbotManager.sendMessage('mode', { type: 'fullpage' });
+      chatbotManager.registerIframe(iframeRef.current);
+    }
+
+    // Track page view
+    if (window.gtag) {
+      window.gtag('event', 'page_view', {
+        page_title: 'Chat with Sai',
+        page_location: window.location.href
+      });
     }
   };
 
-  // Handle iframe error
-  const handleIframeError = () => {
+  const handleChatbotError = (data: any) => {
+    console.error('Chatbot error:', data);
     setHasError(true);
+    setErrorMessage(data.error || 'An error occurred while loading the chat.');
+    setIsLoading(false);
+
+    performanceMonitor.trackEvent(performanceId.current, 'chatbot_error', data);
+  };
+
+  const handleNavigate = (data: any) => {
+    if (data.url) {
+      // Handle navigation requests from chatbot
+      if (data.url.startsWith('http')) {
+        window.open(data.url, '_blank');
+      } else {
+        window.location.href = data.url;
+      }
+    }
+  };
+
+  const handleAnalytics = (data: any) => {
+    // Forward analytics events
+    if (window.gtag) {
+      window.gtag('event', `chatbot_${data.event}`, data.properties);
+    }
+  };
+
+  const handleIframeLoad = () => {
+    performanceMonitor.trackEvent(performanceId.current, 'iframe_loaded');
+    // Don't set loading to false here - wait for 'ready' message
+  };
+
+  const handleIframeError = () => {
+    performanceMonitor.trackEvent(performanceId.current, 'iframe_error');
+    setHasError(true);
+    setErrorMessage('Failed to load the chat service.');
     setIsLoading(false);
   };
 
-  // Handle retry
   const handleRetry = () => {
-    setHasError(false);
     setIsLoading(true);
+    setHasError(false);
+    setErrorMessage('');
 
-    // Reload iframe
     if (iframeRef.current) {
-      iframeRef.current.src = fullUrl;
+      // Force reload with cache buster
+      iframeRef.current.src = `${fullPageUrl}?t=${Date.now()}`;
     }
+  };
+
+  const handleContactSupport = () => {
+    window.location.href = '/contact';
   };
 
   // Render error state
@@ -84,43 +134,31 @@ const ChatBotSai = () => {
         <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
           <CardContent className="p-12">
             <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-6" />
-            <h2 className="text-2xl font-bold mb-4">Chat Service Unavailable</h2>
+            <h2 className="text-2xl font-bold mb-4">Unable to Connect</h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              We're experiencing technical difficulties with our chat service.
-              Our team has been notified and is working to resolve this issue as quickly as possible.
+              {errorMessage || 'We\'re experiencing technical difficulties with our chat service. Our team has been notified and is working to resolve this issue as quickly as possible.'}
             </p>
 
             <div className="space-y-4">
-              <Button
-                onClick={handleRetry}
-                className="w-full bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white hover:from-orange-500 hover:to-[#ff7033] shadow-lg"
-                size="lg"
-              >
-                <Loader2 className="w-4 h-4 mr-2" />
-                Try Again
-              </Button>
-
-              <div className="flex space-x-4">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button
-                  onClick={() => window.location.href = '/contact'}
-                  variant="outline"
-                  className="flex-1"
+                  onClick={handleRetry}
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
                 >
-                  Contact Support
+                  Try Again
                 </Button>
                 <Button
-                  onClick={() => window.location.href = '/'}
-                  variant="outline"
-                  className="flex-1"
+                  onClick={handleContactSupport}
+                  className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
                 >
-                  Return Home
+                  Contact Support
                 </Button>
               </div>
 
               <div className="pt-4 border-t">
                 <p className="text-sm text-muted-foreground">
-                  Need immediate assistance? Call us at{' '}
-                  <a href="tel:+17314312320" className="text-primary hover:underline font-medium">
+                  You can also call us at{' '}
+                  <a href="tel:+17314312320" className="text-orange-500 hover:text-orange-400">
                     (731) 431-2320
                   </a>
                 </p>
@@ -217,7 +255,7 @@ const ChatBotSai = () => {
           <div className="max-w-5xl mx-auto">
             <iframe
               ref={iframeRef}
-              src={fullUrl}
+              src={fullPageUrl}
               className="w-full rounded-lg shadow-2xl border-0"
               style={{
                 height: 'calc(100vh - 300px)',
@@ -226,11 +264,12 @@ const ChatBotSai = () => {
               }}
               sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
               allow="microphone; camera; clipboard-write; autoplay; fullscreen"
-              referrerPolicy="strict-origin"
-              title="Sai AI Assistant - Full Chat Experience"
+              referrerPolicy="strict-origin-when-cross-origin"
+              title="Chat with Sai - Strive Tech AI Assistant"
               onLoad={handleIframeLoad}
               onError={handleIframeError}
               data-testid="chatbot-full-iframe"
+              loading="eager"
             />
           </div>
         </div>
