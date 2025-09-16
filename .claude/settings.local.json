@@ -13,7 +13,12 @@
       "Bash(npm run dev:*)",
       "Bash(curl:*)",
       "Bash(npm run build:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "mcp__serena__get_symbols_overview",
+      "mcp__serena__replace_regex",
+      "mcp__serena__find_symbol",
+      "Bash(npm run check:*)",
+      "mcp__serena__create_text_file"
     ],
     "deny": [],
     "ask": []

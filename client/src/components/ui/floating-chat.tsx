@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { MessageCircle, X, BotMessageSquare, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
+
 import chatbotManager from "@/lib/chatbot-iframe-communication";
 import performanceMonitor from "@/lib/chatbot-performance-monitor";
 
@@ -319,10 +319,7 @@ const FloatingChat = () => {
         </button>
       </div>
 
-      {/* Coming Soon Badge - Always visible, centered under chat button */}
-      <div className="fixed bottom-2 right-4 sm:right-16 z-[60] flex justify-center w-16">
-        <ComingSoonBadge size="sm" variant="hero" className="text-[9px] px-1.5 py-0.5 whitespace-nowrap overflow-visible" />
-      </div>
+
 
       {/* Chat Widget Container */}
       {isOpen && (

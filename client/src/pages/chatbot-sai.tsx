@@ -1,6 +1,6 @@
 import { Bot, Sparkles, AlertCircle, Loader2, MessageCircle, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
+
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState, useRef, useEffect } from "react";
@@ -275,10 +275,7 @@ const ChatBotSai = () => {
         </div>
       )}
 
-      {/* Coming Soon Banner - Mobile Only */}
-      <div className="md:hidden fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
-        <ComingSoonBadge size="md" variant="hero" className="text-sm font-semibold shadow-lg" />
-      </div>
+
 
       {/* Info Cards - Only show if chatbot loads successfully */}
       {!hasError && !isLoading && (
