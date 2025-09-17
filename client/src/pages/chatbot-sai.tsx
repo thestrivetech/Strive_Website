@@ -24,6 +24,17 @@ const ChatBotSai = () => {
   const fullPageUrl = `${chatbotUrl}/full`;
 
   useEffect(() => {
+    // DEBUGGING: Log all postMessage events
+    const debugMessageListener = (event: MessageEvent) => {
+      console.group('🔍 PostMessage Debug - Chatbot Integration');
+      console.log('📡 Origin:', event.origin);
+      console.log('📦 Data:', event.data);
+      console.log('🕒 Timestamp:', new Date().toISOString());
+      console.groupEnd();
+    };
+    
+    window.addEventListener('message', debugMessageListener);
+
     // Preconnect to chatbot domain for faster loading
     const preconnectLink = document.createElement('link');
     preconnectLink.rel = 'preconnect';
@@ -78,6 +89,7 @@ const ChatBotSai = () => {
     }, 15000); // 15 second initial timeout
 
     // Immediately show the iframe instead of waiting for widget interaction
+    console.log('🚀 Starting iframe load process...');
     setShouldLoadIframe(true);
 
     return () => {
@@ -95,6 +107,9 @@ const ChatBotSai = () => {
       }
       performanceMonitor.cleanup(performanceId.current);
       
+      // Cleanup debug listener
+      window.removeEventListener('message', debugMessageListener);
+      
       // Cleanup preconnect links
       document.head.removeChild(preconnectLink);
       document.head.removeChild(prefetchLink);
@@ -102,8 +117,11 @@ const ChatBotSai = () => {
   }, [isLoading, iframeReady, chatbotUrl]);
 
   const handleChatbotReady = (data: any) => {
+    console.log('✅ Received chatbot ready message!', data);
+    
     // Clear fallback timeout since we got the proper ready message
     if (fallbackTimeoutRef.current) {
+      console.log('⏱️ Clearing fallback timeout - proper ready message received');
       clearTimeout(fallbackTimeoutRef.current);
       fallbackTimeoutRef.current = null;
     }
@@ -130,7 +148,7 @@ const ChatBotSai = () => {
   };
 
   const handleChatbotError = (data: any) => {
-    console.error('Chatbot error:', data);
+    console.error('❌ Chatbot error received:', data);
     setHasError(true);
     setErrorMessage(data.error || 'An error occurred while loading the chat.');
     setIsLoading(false);
@@ -157,12 +175,15 @@ const ChatBotSai = () => {
   };
 
   const handleIframeLoad = () => {
+    console.log('🔗 Iframe loaded successfully:', fullPageUrl);
     performanceMonitor.trackEvent(performanceId.current, 'iframe_loaded');
     
     // Fallback: If no ready message received within 3 seconds, assume chatbot is ready
+    console.log('⏱️ Starting 3-second fallback timer for chatbot ready state');
     fallbackTimeoutRef.current = window.setTimeout(() => {
       if (isLoading && !iframeReady && !hasError) {
-        console.log('Chatbot ready message timeout - activating fallback ready state');
+        console.warn('⚠️ Chatbot ready message timeout - activating fallback ready state');
+        console.log('🔧 This indicates the chatbot is not sending the required postMessage');
         setIsLoading(false);
         setIframeReady(true);
         setHasError(false);
@@ -211,7 +232,7 @@ const ChatBotSai = () => {
   // Render error state
   const renderErrorState = () => (
     <div className="w-full">
-      <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
+      <Card className="shadow-2xl border-0 bg-transparent">
         <CardContent className="p-12">
             <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-6" />
             <h2 className="text-2xl font-bold mb-4">Unable to Connect</h2>
@@ -252,7 +273,7 @@ const ChatBotSai = () => {
   // Render loading state with skeleton UI
   const renderLoadingState = () => (
     <div className="w-full">
-      <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
+      <Card className="shadow-2xl border-0 bg-transparent">
         <CardHeader className="bg-gradient-to-r from-[#020a1c] via-purple-900 to-[#020a1c] text-white p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -261,7 +282,7 @@ const ChatBotSai = () => {
                 </div>
                 <div>
                   <span className="font-bold text-lg">Connecting to Sai...</span>
-                  <p className="text-white/80 text-sm">Intelligent Assistant</p>
+
                 </div>
               </div>
               <Badge className="bg-gradient-to-r from-[#ff7033] to-yellow-500 text-white px-4 py-2">
@@ -271,7 +292,7 @@ const ChatBotSai = () => {
           </CardHeader>
 
           <CardContent className="p-0">
-            <div className="h-[600px] flex items-center justify-center bg-gradient-to-b from-white/50 to-white/80">
+            <div className="h-[600px] flex items-center justify-center">
               <div className="text-center">
                 <div className="relative mb-6">
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#ff7033] to-purple-600 flex items-center justify-center shadow-2xl mx-auto">
@@ -298,7 +319,7 @@ const ChatBotSai = () => {
   );
 
   return (
-    <div className="pt-16 min-h-screen bg-gradient-to-b from-[#020a1c] to-[#020a1c]">
+    <div className="pt-16 min-h-screen hero-gradient">
       {/* Header */}
       <div className="relative py-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#ff7033]/10 via-transparent to-purple-600/10"></div>
