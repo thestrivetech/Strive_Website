@@ -24,7 +24,9 @@
       "Bash(findstr:*)",
       "Bash(taskkill:*)",
       "Bash(del package-lock.json)",
-      "Bash(npm run test:run:*)"
+      "Bash(npm run test:run:*)",
+      "mcp__serena__list_memories",
+      "mcp__serena__read_memory"
     ],
     "deny": [],
     "ask": []

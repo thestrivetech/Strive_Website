@@ -16,6 +16,7 @@ const ChatBotSai = () => {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const performanceId = useRef(`fullpage-${Date.now()}`);
   const retryTimeoutRef = useRef<number | null>(null);
+  const fallbackTimeoutRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   // Chatbot URL
@@ -89,6 +90,9 @@ const ChatBotSai = () => {
       if (retryTimeoutRef.current) {
         clearTimeout(retryTimeoutRef.current);
       }
+      if (fallbackTimeoutRef.current) {
+        clearTimeout(fallbackTimeoutRef.current);
+      }
       performanceMonitor.cleanup(performanceId.current);
       
       // Cleanup preconnect links
@@ -98,6 +102,12 @@ const ChatBotSai = () => {
   }, [isLoading, iframeReady, chatbotUrl]);
 
   const handleChatbotReady = (data: any) => {
+    // Clear fallback timeout since we got the proper ready message
+    if (fallbackTimeoutRef.current) {
+      clearTimeout(fallbackTimeoutRef.current);
+      fallbackTimeoutRef.current = null;
+    }
+
     setIsLoading(false);
     setHasError(false);
     setErrorMessage('');
@@ -148,7 +158,32 @@ const ChatBotSai = () => {
 
   const handleIframeLoad = () => {
     performanceMonitor.trackEvent(performanceId.current, 'iframe_loaded');
-    // Don't set loading to false here - wait for 'ready' message
+    
+    // Fallback: If no ready message received within 3 seconds, assume chatbot is ready
+    fallbackTimeoutRef.current = window.setTimeout(() => {
+      if (isLoading && !iframeReady && !hasError) {
+        console.log('Chatbot ready message timeout - activating fallback ready state');
+        setIsLoading(false);
+        setIframeReady(true);
+        setHasError(false);
+        
+        // Track fallback activation
+        performanceMonitor.trackEvent(performanceId.current, 'chatbot_ready_fallback');
+        
+        // Register iframe
+        if (iframeRef.current) {
+          chatbotManager.registerIframe(iframeRef.current);
+        }
+        
+        // Track page view
+        if (window.gtag) {
+          window.gtag('event', 'page_view', {
+            page_title: 'Chat with Sai - Fallback Ready',
+            page_location: window.location.href
+          });
+        }
+      }
+    }, 3000); // 3 second fallback timeout
   };
 
   const handleIframeError = () => {
@@ -265,7 +300,7 @@ const ChatBotSai = () => {
   );
 
   return (
-    <div className="pt-16 min-h-screen bg-white">
+    <div className="pt-16 min-h-screen hero-gradient">
       {/* Header */}
       <div className="relative py-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#ff7033]/10 via-transparent to-purple-600/10"></div>
@@ -326,44 +361,42 @@ const ChatBotSai = () => {
 
 
 
-      {/* Info Cards - Only show if chatbot loads successfully */}
-      {!hasError && !isLoading && (
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-              <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg">
-                    <MessageCircle className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="font-bold text-white mb-2 text-lg">Instant Responses</h3>
-                  <p className="text-sm text-white/80">Get immediate answers to your questions about our AI solutions</p>
-                </CardContent>
-              </Card>
+      {/* Info Cards */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg">
+                  <MessageCircle className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="font-bold text-white mb-2 text-lg">Instant Responses</h3>
+                <p className="text-sm text-white/80">Get immediate answers to your questions about our AI solutions</p>
+              </CardContent>
+            </Card>
 
-              <Card className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 backdrop-blur-sm border-purple-600/20 shadow-2xl hover:scale-105 transition-all duration-300">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#020a1c] to-purple-900 flex items-center justify-center shadow-lg">
-                    <Sparkles className="w-8 h-8 text-[#ff7033]" />
-                  </div>
-                  <h3 className="font-bold text-white mb-2 text-lg">AI-Powered</h3>
-                  <p className="text-sm text-white/80">Intelligent responses tailored to your specific needs</p>
-                </CardContent>
-              </Card>
+            <Card className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 backdrop-blur-sm border-purple-600/20 shadow-2xl hover:scale-105 transition-all duration-300">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#020a1c] to-purple-900 flex items-center justify-center shadow-lg">
+                  <Sparkles className="w-8 h-8 text-[#ff7033]" />
+                </div>
+                <h3 className="font-bold text-white mb-2 text-lg">AI-Powered</h3>
+                <p className="text-sm text-white/80">Intelligent responses tailored to your specific needs</p>
+              </CardContent>
+            </Card>
 
-              <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg">
-                    <Clock className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="font-bold text-white mb-2 text-lg">Available 24/7</h3>
-                  <p className="text-sm text-white/80">Always here to help, any time of day or night</p>
-                </CardContent>
-              </Card>
-            </div>
+            <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg">
+                  <Clock className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="font-bold text-white mb-2 text-lg">Available 24/7</h3>
+                <p className="text-sm text-white/80">Always here to help, any time of day or night</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
