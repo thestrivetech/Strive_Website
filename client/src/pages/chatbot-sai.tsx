@@ -7,7 +7,7 @@ import chatbotManager from "@/lib/chatbot-iframe-communication";
 import performanceMonitor from "@/lib/chatbot-performance-monitor";
 
 const ChatBotSai = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Start false, only true when user clicks Enter Chat
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [shouldLoadIframe, setShouldLoadIframe] = useState(false);
@@ -15,8 +15,8 @@ const ChatBotSai = () => {
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const performanceId = useRef(`fullpage-${Date.now()}`);
-  const retryTimeoutRef = useRef<number | null>(null);
-  const fallbackTimeoutRef = useRef<number | null>(null);
+  const retryTimeoutRef = useRef<NodeJS.Timeout | number | null>(null);
+  const fallbackTimeoutRef = useRef<NodeJS.Timeout | number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   // Chatbot URL
@@ -24,36 +24,19 @@ const ChatBotSai = () => {
   const fullPageUrl = `${chatbotUrl}/full`;
 
   useEffect(() => {
-    // DEBUGGING: Enhanced logging to catch ALL messages before validation
+    // Enhanced message debugging for development
     const debugMessageListener = (event: MessageEvent) => {
-      console.group('🔍 PostMessage Debug - ALL Messages (Pre-Validation)');
-      console.log('📡 Origin:', event.origin);
-      console.log('📦 Full Event:', event);
-      console.log('📦 Data:', event.data);
-      console.log('🕒 Received at:', new Date().toISOString());
-      
-      // Check if it looks like our expected message
-      if (event.data && typeof event.data === 'object') {
-        console.log('✅ Object message detected');
-        console.log('Type:', event.data.type);
-        console.log('Source:', event.data.source);
-        
-        // Specifically check for our expected ready message
-        if (event.data.type === 'ready') {
-          console.log('🎯 READY MESSAGE DETECTED!');
-          console.log('From expected origin?', event.origin === 'https://chatbot.strivetech.ai');
-          console.log('Has sai-chatbot source?', event.data.source === 'sai-chatbot');
-        }
-      } else {
-        console.log('❓ Non-object message:', typeof event.data);
+      if (import.meta.env.DEV && event.data?.type) {
+        console.log(`🔍 PostMessage: ${event.data.type} from ${event.origin}`);
       }
-      console.groupEnd();
     };
     
     window.addEventListener('message', debugMessageListener);
 
     // Setup message handlers IMMEDIATELY (before iframe loads)
-    console.log('🔧 Setting up chatbot message handlers...');
+    if (import.meta.env.DEV) {
+      console.log('🔧 Setting up chatbot message handlers...');
+    }
     const unsubscribeReady = chatbotManager.onMessage('ready', handleChatbotReady);
     const unsubscribeError = chatbotManager.onMessage('error', handleChatbotError);
     const unsubscribeNavigate = chatbotManager.onMessage('navigate', handleNavigate);
@@ -91,24 +74,14 @@ const ChatBotSai = () => {
     // Start performance tracking
     performanceMonitor.startTracking(performanceId.current);
 
-    // Set a timeout for loading - more forgiving
-    const loadTimeout = setTimeout(() => {
-      if (isLoading && !iframeReady) {
-        console.warn('Chatbot taking longer than expected, but continuing to wait...');
-        // Don't set error immediately, give it more time
-        setTimeout(() => {
-          if (isLoading && !iframeReady) {
-            setHasError(true);
-            setErrorMessage('The chat service is taking longer than expected to load.');
-            setIsLoading(false);
-          }
-        }, 10000); // Additional 10 seconds
-      }
-    }, 15000); // 15 second initial timeout
+    // Loading timeout will be set up when user clicks "Enter Chat"
+    // No timeout needed on page load since iframe doesn't auto-load
 
-    // Immediately show the iframe instead of waiting for widget interaction
-    console.log('🚀 Starting iframe load process...');
-    setShouldLoadIframe(true);
+    // DON'T auto-load iframe - wait for user to click "Enter Chat" button
+    if (import.meta.env.DEV) {
+      console.log('🚀 Chat page loaded - waiting for user to initiate chat...');
+    }
+    // setShouldLoadIframe(true); // Removed auto-loading
 
     return () => {
       observer.disconnect();
@@ -116,7 +89,7 @@ const ChatBotSai = () => {
       unsubscribeError();
       unsubscribeNavigate();
       unsubscribeAnalytics();
-      clearTimeout(loadTimeout);
+      // loadTimeout removed - now handled in handleEnterChat
       if (retryTimeoutRef.current) {
         clearTimeout(retryTimeoutRef.current);
       }
@@ -196,12 +169,22 @@ const ChatBotSai = () => {
     console.log('🔗 Iframe loaded successfully:', fullPageUrl);
     performanceMonitor.trackEvent(performanceId.current, 'iframe_loaded');
     
-    // Fallback: If no ready message received within 3 seconds, assume chatbot is ready
-    console.log('⏱️ Starting 3-second fallback timer for chatbot ready state');
+    // Clear any existing fallback timeout before setting a new one
+    if (fallbackTimeoutRef.current) {
+      clearTimeout(fallbackTimeoutRef.current);
+      fallbackTimeoutRef.current = null;
+    }
+    
+    // Fallback: If no ready message received within 5 seconds, assume chatbot is ready
+    if (import.meta.env.DEV) {
+      console.log('⏱️ Starting 5-second fallback timer for chatbot ready state');
+    }
     fallbackTimeoutRef.current = window.setTimeout(() => {
       if (isLoading && !iframeReady && !hasError) {
-        console.warn('⚠️ Chatbot ready message timeout - activating fallback ready state');
-        console.log('🔧 This indicates the chatbot is not sending the required postMessage');
+        if (import.meta.env.DEV) {
+          console.warn('⚠️ Chatbot ready message timeout - activating fallback ready state');
+          console.log('🔧 This indicates the chatbot is not sending the required postMessage');
+        }
         setIsLoading(false);
         setIframeReady(true);
         setHasError(false);
@@ -222,29 +205,138 @@ const ChatBotSai = () => {
           });
         }
       }
-    }, 3000); // 3 second fallback timeout
+    }, 5000); // 5 second fallback for better reliability timeout
   };
 
   const handleIframeError = () => {
+    console.error('❌ Iframe failed to load:', fullPageUrl);
     performanceMonitor.trackEvent(performanceId.current, 'iframe_error');
+    
+    // Clear any timeouts since we have an error
+    if (fallbackTimeoutRef.current) {
+      clearTimeout(fallbackTimeoutRef.current);
+      fallbackTimeoutRef.current = null;
+    }
+    if (retryTimeoutRef.current) {
+      clearTimeout(retryTimeoutRef.current);
+      retryTimeoutRef.current = null;
+    }
+    
     setHasError(true);
-    setErrorMessage('Failed to load the chat service.');
+    setErrorMessage('Unable to connect to the chat service. This might be due to network connectivity or the service being temporarily unavailable.');
     setIsLoading(false);
-  };
-
-  const handleRetry = () => {
-    setIsLoading(true);
-    setHasError(false);
-    setErrorMessage('');
-
-    if (iframeRef.current) {
-      // Force reload with cache buster
-      iframeRef.current.src = fullPageUrl;
+    setIframeReady(false);
+    
+    // Track error analytics
+    if (window.gtag) {
+      window.gtag('event', 'chatbot_error', {
+        error_type: 'iframe_load_failed',
+        page_location: window.location.href
+      });
     }
   };
 
+  const handleRetry = () => {
+    console.log('🔄 User initiated retry...');
+    
+    // Clear any existing timeouts
+    if (retryTimeoutRef.current) {
+      clearTimeout(retryTimeoutRef.current);
+      retryTimeoutRef.current = null;
+    }
+    if (fallbackTimeoutRef.current) {
+      clearTimeout(fallbackTimeoutRef.current);
+      fallbackTimeoutRef.current = null;
+    }
+    
+    // Reset states
+    setIsLoading(true);
+    setHasError(false);
+    setErrorMessage('');
+    setIframeReady(false);
+
+    if (iframeRef.current) {
+      // Force reload with cache buster to avoid cached errors
+      const timestamp = Date.now();
+      iframeRef.current.src = `${fullPageUrl}?retry=${timestamp}`;
+    }
+    
+    // Set up new timeout for retry attempt
+    const retryTimeout = setTimeout(() => {
+      if (isLoading && !iframeReady) {
+        console.warn('Retry attempt taking longer than expected...');
+        retryTimeoutRef.current = window.setTimeout(() => {
+          if (isLoading && !iframeReady && !hasError) {
+            setHasError(true);
+            setErrorMessage('The chat service is still unavailable after retry. Please check your internet connection and try again later.');
+            setIsLoading(false);
+          }
+        }, 10000);
+      }
+    }, 15000);
+    
+    retryTimeoutRef.current = retryTimeout;
+    
+    // Track retry analytics
+    if (window.gtag) {
+      window.gtag('event', 'chatbot_retry', {
+        page_location: window.location.href
+      });
+    }
+  };;
+
   const handleContactSupport = () => {
     window.location.href = '/contact';
+  };
+
+  const handleEnterChat = () => {
+    console.log('🚀 User clicked Enter Chat - starting iframe load...');
+    
+    // Clear any existing timeouts
+    if (retryTimeoutRef.current) {
+      clearTimeout(retryTimeoutRef.current);
+      retryTimeoutRef.current = null;
+    }
+    if (fallbackTimeoutRef.current) {
+      clearTimeout(fallbackTimeoutRef.current);
+      fallbackTimeoutRef.current = null;
+    }
+    
+    // Reset all states for fresh start
+    setIsLoading(true);
+    setHasError(false);
+    setErrorMessage('');
+    setIframeReady(false);
+    setShouldLoadIframe(true);
+    
+    // Set up loading timeout ONLY after user initiates chat
+    const loadTimeout = setTimeout(() => {
+      if (isLoading && !iframeReady) {
+        console.warn('Chatbot taking longer than expected, but continuing to wait...');
+        // Don't set error immediately, give it more time
+        retryTimeoutRef.current = window.setTimeout(() => {
+          if (isLoading && !iframeReady && !hasError) {
+            setHasError(true);
+            setErrorMessage('The chat service is taking longer than expected to load. Please try refreshing the page.');
+            setIsLoading(false);
+          }
+        }, 10000); // Additional 10 seconds
+      }
+    }, 15000); // 15 second initial timeout
+    
+    // Store timeout reference for cleanup
+    retryTimeoutRef.current = loadTimeout;
+    
+    // Track the manual initiation
+    performanceMonitor.trackEvent(performanceId.current, 'manual_chat_start');
+    
+    // Analytics
+    if (window.gtag) {
+      window.gtag('event', 'chat_initiated', {
+        method: 'enter_chat_button',
+        page_location: window.location.href
+      });
+    }
   };
 
   // Render error state
@@ -283,6 +375,49 @@ const ChatBotSai = () => {
                 </p>
               </div>
             </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  // Render welcome state with Enter Chat button
+  const renderWelcomeState = () => (
+    <div className="w-full">
+      <Card className="shadow-2xl border-0 bg-transparent">
+        <CardContent className="p-0">
+          <div className="h-[600px] flex items-center justify-center">
+            <div className="text-center max-w-md mx-auto px-6 animate-fade-in">
+              <div className="relative mb-8">
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#ff7033] to-purple-600 flex items-center justify-center shadow-2xl mx-auto">
+                  <Bot className="h-12 w-12 text-white" />
+                </div>
+                <div className="absolute -top-2 -right-2 w-10 h-10 rounded-full bg-gradient-to-r from-yellow-400 to-[#ff7033] flex items-center justify-center animate-pulse">
+                  <Sparkles className="h-5 w-5 text-white" />
+                </div>
+              </div>
+
+              <h3 className="text-3xl font-bold text-white mb-4">Ready to Chat with Sai?</h3>
+              <p className="text-white/80 mb-8 leading-relaxed">
+                Your AI-powered business assistant is standing by to help with solutions, 
+                answer questions, and provide expert guidance tailored to your needs.
+              </p>
+
+              <button
+                onClick={handleEnterChat}
+                className="w-full bg-gradient-to-r from-[#ff7033] to-orange-500 hover:from-orange-500 hover:to-[#ff7033] text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group
+                before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
+              >
+                <span className="flex items-center justify-center gap-3">
+                  <MessageCircle className="w-6 h-6" />
+                  Enter Chat
+                </span>
+              </button>
+
+              <p className="text-white/60 text-sm mt-4">
+                Click to start your conversation with Sai
+              </p>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>
@@ -429,7 +564,11 @@ const ChatBotSai = () => {
             <div className="h-[600px] flex items-center justify-center">
               {renderErrorState()}
             </div>
-          ) : isLoading || !shouldLoadIframe ? (
+          ) : !shouldLoadIframe ? (
+            <div className="h-[600px] flex items-center justify-center">
+              {renderWelcomeState()}
+            </div>
+          ) : isLoading ? (
             <div className="h-[600px] flex items-center justify-center">
               {renderLoadingState()}
             </div>
@@ -437,7 +576,9 @@ const ChatBotSai = () => {
             <iframe
               ref={iframeRef}
               src={fullPageUrl}
-              className="w-full rounded-lg shadow-2xl border-0"
+              className={`w-full rounded-lg shadow-2xl border-0 transition-opacity duration-500 ${
+                iframeReady ? 'opacity-100' : 'opacity-0'
+              }`}
               style={{
                 height: 'calc(100vh - 300px)',
                 minHeight: '600px',

@@ -153,16 +153,7 @@ const FloatingChat = () => {
   const handleIframeLoad = useCallback(() => {
     performanceMonitor.trackEvent(performanceId.current, 'iframe_loaded');
     // Don't set loading to false here - wait for 'ready' message
-    
-    // Send message to control scroll position - keep at top
-    if (iframeRef.current && iframeRef.current.contentWindow) {
-      setTimeout(() => {
-        chatbotManager.sendMessage('scroll_control', { 
-          position: 'top',
-          focusInput: true 
-        }, iframeRef.current);
-      }, 500);
-    }
+    // Note: Removed scroll_control message that was interfering with natural scrolling
   }, []);
 
   const handleIframeError = useCallback(() => {
@@ -426,11 +417,12 @@ const FloatingChat = () => {
                 <iframe
                   ref={iframeRef}
                   src={widgetUrl}
-                  className="w-full h-full border-none"
+                  className="w-full h-full border-none rounded-b-lg"
                   style={{
                     width: '100%',
                     height: '100%',
-                    overflow: 'auto'
+                    border: 'none',
+                    borderRadius: '0 0 0.5rem 0.5rem'
                   }}
                   scrolling="yes"
                   onLoad={handleIframeLoad}
