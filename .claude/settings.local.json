@@ -26,7 +26,8 @@
       "Bash(del package-lock.json)",
       "Bash(npm run test:run:*)",
       "mcp__serena__list_memories",
-      "mcp__serena__read_memory"
+      "mcp__serena__read_memory",
+      "Bash(npx vercel:*)"
     ],
     "deny": [],
     "ask": []
