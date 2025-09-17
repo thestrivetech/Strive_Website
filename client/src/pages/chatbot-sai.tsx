@@ -10,7 +10,7 @@ const ChatBotSai = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [shouldLoadIframe, setShouldLoadIframe] = useState(true);
+  const [shouldLoadIframe, setShouldLoadIframe] = useState(false);
   const [iframeReady, setIframeReady] = useState(false);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -75,6 +75,9 @@ const ChatBotSai = () => {
         }, 10000); // Additional 10 seconds
       }
     }, 15000); // 15 second initial timeout
+
+    // Immediately show the iframe instead of waiting for widget interaction
+    setShouldLoadIframe(true);
 
     return () => {
       observer.disconnect();
@@ -262,7 +265,7 @@ const ChatBotSai = () => {
   );
 
   return (
-    <div className="pt-16 min-h-screen hero-gradient">
+    <div className="pt-16 min-h-screen bg-white">
       {/* Header */}
       <div className="relative py-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#ff7033]/10 via-transparent to-purple-600/10"></div>
