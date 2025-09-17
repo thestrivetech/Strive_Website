@@ -336,7 +336,7 @@ const FloatingChat = () => {
         <div
           ref={containerRef}
           className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
-            isMinimized ? 'w-72 h-14' : 'w-[400px] h-[600px]'
+            isMinimized ? 'w-72 h-14' : 'w-[calc(100vw-48px)] h-[calc(100vh-120px)] sm:w-[400px] sm:h-[calc(100vh-80px)] max-h-[700px]'
           }`}
         >
           {/* Widget Header (for minimize/close) */}
