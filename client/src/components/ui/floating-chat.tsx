@@ -373,7 +373,7 @@ const FloatingChat = () => {
 
           {/* Chat Content */}
           {!isMinimized && (
-            <div className="bg-white rounded-b-lg shadow-2xl h-[calc(100%-40px)] relative">
+            <div className="bg-white rounded-b-lg shadow-2xl h-[calc(100%-40px)] relative overflow-hidden">
               {/* Loading State */}
               {isLoading && (
                 <div className="absolute inset-0 bg-white/95 backdrop-blur-sm flex items-center justify-center z-10 rounded-b-lg">
@@ -414,16 +414,18 @@ const FloatingChat = () => {
 
               {/* Iframe - Only load when widget is opened */}
               {isOpen && (
-                <iframe
+                <div className="w-full h-full overflow-y-auto rounded-b-lg">
+                  <iframe
                   ref={iframeRef}
                   src={widgetUrl}
-                  className="w-full h-full border-none rounded-b-lg"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    border: 'none',
-                    borderRadius: '0 0 0.5rem 0.5rem'
-                  }}
+                    className="w-full border-none rounded-b-lg min-h-full"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      minHeight: '100%',
+                      border: 'none',
+                      borderRadius: '0 0 0.5rem 0.5rem'
+                    }}
                   scrolling="yes"
                   onLoad={handleIframeLoad}
                   onError={handleIframeError}
@@ -431,8 +433,9 @@ const FloatingChat = () => {
                   allow="microphone; camera; clipboard-write; autoplay"
                   referrerPolicy="strict-origin-when-cross-origin"
                   title="Sai AI Assistant Chat"
-                  loading="eager"
-                />
+                    loading="eager"
+                  />
+                </div>
               )}
             </div>
           )}
