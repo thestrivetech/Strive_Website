@@ -78,17 +78,24 @@ export class ChatbotIframeManager {
       this.chatbotOrigin,
       'https://chatbot.strivetech.ai',
       'http://localhost:5173', // Chatbot dev server
-      'http://localhost:3001'  // Alternative port
+      'http://localhost:3000',  // Common chatbot dev port
+      'http://localhost:3001'   // Alternative port
     ];
 
     if (!allowedOrigins.includes(event.origin)) {
-      console.warn('Ignored message from untrusted origin:', event.origin);
+      console.warn('🚫 Message rejected - untrusted origin:', {
+        receivedOrigin: event.origin,
+        allowedOrigins: allowedOrigins,
+        messageData: event.data
+      });
       return;
     }
 
+    console.log('✅ Origin validated:', event.origin);
+
     // Log message for debugging
     if (import.meta.env.DEV) {
-      console.log('Received message:', event.data);
+      console.log('📨 Received message in iframe manager:', event.data);
       this.messageLog.push({
         time: new Date().toISOString(),
         origin: event.origin,
@@ -98,11 +105,18 @@ export class ChatbotIframeManager {
 
     const { type, data, source } = event.data || {};
 
-    // Verify it's from our chatbot (optional check)
-    if (source && source !== 'sai-chatbot') {
-      // Only skip if source is explicitly set to something else
+    // Enhanced source validation with logging
+    if (source !== undefined && source !== 'sai-chatbot') {
+      console.warn('🚫 Message rejected - wrong source:', {
+        receivedSource: source,
+        expectedSource: 'sai-chatbot',
+        messageType: type,
+        messageData: data
+      });
       return;
     }
+
+    console.log('✅ Source validated:', source || 'undefined (accepted)');
 
     // Call registered handlers
     const handler = this.eventHandlers.get(type);

@@ -24,16 +24,40 @@ const ChatBotSai = () => {
   const fullPageUrl = `${chatbotUrl}/full`;
 
   useEffect(() => {
-    // DEBUGGING: Log all postMessage events
+    // DEBUGGING: Enhanced logging to catch ALL messages before validation
     const debugMessageListener = (event: MessageEvent) => {
-      console.group('🔍 PostMessage Debug - Chatbot Integration');
+      console.group('🔍 PostMessage Debug - ALL Messages (Pre-Validation)');
       console.log('📡 Origin:', event.origin);
+      console.log('📦 Full Event:', event);
       console.log('📦 Data:', event.data);
-      console.log('🕒 Timestamp:', new Date().toISOString());
+      console.log('🕒 Received at:', new Date().toISOString());
+      
+      // Check if it looks like our expected message
+      if (event.data && typeof event.data === 'object') {
+        console.log('✅ Object message detected');
+        console.log('Type:', event.data.type);
+        console.log('Source:', event.data.source);
+        
+        // Specifically check for our expected ready message
+        if (event.data.type === 'ready') {
+          console.log('🎯 READY MESSAGE DETECTED!');
+          console.log('From expected origin?', event.origin === 'https://chatbot.strivetech.ai');
+          console.log('Has sai-chatbot source?', event.data.source === 'sai-chatbot');
+        }
+      } else {
+        console.log('❓ Non-object message:', typeof event.data);
+      }
       console.groupEnd();
     };
     
     window.addEventListener('message', debugMessageListener);
+
+    // Setup message handlers IMMEDIATELY (before iframe loads)
+    console.log('🔧 Setting up chatbot message handlers...');
+    const unsubscribeReady = chatbotManager.onMessage('ready', handleChatbotReady);
+    const unsubscribeError = chatbotManager.onMessage('error', handleChatbotError);
+    const unsubscribeNavigate = chatbotManager.onMessage('navigate', handleNavigate);
+    const unsubscribeAnalytics = chatbotManager.onMessage('analytics', handleAnalytics);
 
     // Preconnect to chatbot domain for faster loading
     const preconnectLink = document.createElement('link');
@@ -66,12 +90,6 @@ const ChatBotSai = () => {
 
     // Start performance tracking
     performanceMonitor.startTracking(performanceId.current);
-
-    // Setup message handlers
-    const unsubscribeReady = chatbotManager.onMessage('ready', handleChatbotReady);
-    const unsubscribeError = chatbotManager.onMessage('error', handleChatbotError);
-    const unsubscribeNavigate = chatbotManager.onMessage('navigate', handleNavigate);
-    const unsubscribeAnalytics = chatbotManager.onMessage('analytics', handleAnalytics);
 
     // Set a timeout for loading - more forgiving
     const loadTimeout = setTimeout(() => {
@@ -344,6 +362,65 @@ const ChatBotSai = () => {
           </div>
         </div>
       </div>
+
+      {/* Debug Panel - Development Mode Only */}
+      {import.meta.env.DEV && (
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="max-w-5xl mx-auto">
+            <Card className="bg-yellow-50 border-yellow-200">
+              <CardContent className="p-4">
+                <h3 className="font-bold text-yellow-800 mb-3">🔧 Debug Tools (Dev Mode Only)</h3>
+                <div className="flex flex-wrap gap-3 mb-3">
+                  <Button
+                    onClick={() => {
+                      console.log('🧪 Manual Ready Trigger');
+                      handleChatbotReady({ 
+                        version: 'manual-test', 
+                        mode: 'full',
+                        timestamp: Date.now() 
+                      });
+                    }}
+                    className="bg-green-600 hover:bg-green-700 text-white text-sm"
+                    size="sm"
+                  >
+                    🚀 Manual Ready Trigger
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      console.log('🧪 Manual Error Trigger');
+                      handleChatbotError({ error: 'Manual test error' });
+                    }}
+                    className="bg-red-600 hover:bg-red-700 text-white text-sm"
+                    size="sm"
+                  >
+                    ❌ Manual Error Trigger
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      console.log('🧪 Send Test Message to iframe');
+                      if (iframeRef.current && iframeRef.current.contentWindow) {
+                        iframeRef.current.contentWindow.postMessage({
+                          type: 'test',
+                          data: { test: true },
+                          source: 'website-debug'
+                        }, '*');
+                      }
+                    }}
+                    className="bg-blue-600 hover:bg-blue-700 text-white text-sm"
+                    size="sm"
+                  >
+                    📤 Send Test to iframe
+                  </Button>
+                </div>
+                <div className="text-sm text-yellow-700">
+                  <p><strong>Status:</strong> Loading: {isLoading.toString()}, Ready: {iframeReady.toString()}, Error: {hasError.toString()}</p>
+                  <p><strong>iframe URL:</strong> {fullPageUrl}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      )}
 
       {/* Chat Interface */}
       <div ref={containerRef} className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
