@@ -12,6 +12,7 @@ const FloatingChat = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [hasBeenInitiated, setHasBeenInitiated] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -65,6 +66,7 @@ const FloatingChat = () => {
     setIsLoading(true);
     setHasError(false);
     setIsMinimized(false);
+    setHasBeenInitiated(true);
     retryCount.current = 0;
 
     // Start performance tracking
@@ -92,10 +94,12 @@ const FloatingChat = () => {
 
   const handleMinimize = useCallback(() => {
     setIsMinimized(true);
+    setIsOpen(false);
   }, []);
 
   const handleRestore = useCallback(() => {
     setIsMinimized(false);
+    setIsOpen(true);
   }, []);
 
   const handleChatbotReady = useCallback((data: any) => {
@@ -133,11 +137,16 @@ const FloatingChat = () => {
 
   // Handle chat open/close
   const handleChatToggle = () => {
-    if (isOpen) {
+    if (isOpen && !isMinimized) {
       handleClose();
       return;
     }
-
+    
+    if (isMinimized) {
+      handleRestore();
+      return;
+    }
+    
     handleOpen();
   };
 
@@ -295,7 +304,7 @@ const FloatingChat = () => {
       {/* Chat Button */}
       <div className="floating-chat fixed bottom-8 right-4 sm:bottom-12 sm:right-16 z-50">
         {/* Peek-a-boo preview panel */}
-        {!isOpen && isHovered && (
+        {!isOpen && !hasBeenInitiated && isHovered && (
           <div
             className="absolute bottom-16 right-0 bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white px-4 py-2 rounded-lg shadow-lg whitespace-nowrap transform transition-all duration-300 ease-out animate-in slide-in-from-right-2 fade-in"
             style={{ zIndex: 1000 }}
@@ -312,7 +321,7 @@ const FloatingChat = () => {
           onClick={handleChatToggle}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className="w-14 h-14 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg border-none outline-none flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110"
+          className={`w-14 h-14 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg outline-none flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110 ${hasBeenInitiated ? 'border-2 border-green-500' : 'border-none'}`}
           data-testid="button-floating-chat"
           aria-label={isOpen ? "Close chat" : "Open chat with Sai"}
         >
@@ -332,17 +341,17 @@ const FloatingChat = () => {
 
 
       {/* Chat Widget Container */}
-      {isOpen && (
+      {isOpen && !isMinimized && (
         <div
           ref={containerRef}
-          className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
+          className={`fixed bottom-24 right-6 z-50 transition-all duration-300 ${
             isMinimized ? 'w-72 h-14' : 'w-[calc(100vw-48px)] h-[calc(100vh-120px)] sm:w-[400px] sm:h-[calc(100vh-80px)] max-h-[700px]'
           }`}
         >
           {/* Widget Header (for minimize/close) */}
           <div className="bg-gradient-to-r from-[#ff7033] to-orange-500 rounded-t-lg px-4 py-2 flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
               <span className="text-white text-sm font-medium">Sai AI Assistant</span>
             </div>
             <div className="flex items-center space-x-2">

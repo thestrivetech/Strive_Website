@@ -271,11 +271,6 @@ const ROICalculator = () => {
                               >
                                 <div className="flex items-center justify-between w-full">
                                   <span className="text-left">{solution}</span>
-                                  {solutionDetails && (
-                                    <span className="text-xs opacity-70 ml-2 hidden sm:inline">
-                                      {solutionDetails.timeSavingsPercent}% time saved
-                                    </span>
-                                  )}
                                 </div>
                               </Badge>
                             </TooltipTrigger>
