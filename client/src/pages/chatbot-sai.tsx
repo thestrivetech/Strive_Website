@@ -277,9 +277,7 @@ const ChatBotSai = () => {
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#ff7033] to-purple-600 flex items-center justify-center shadow-2xl mx-auto">
                     <Bot className="h-8 w-8 text-white" />
                   </div>
-                  <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-r from-yellow-400 to-[#ff7033] flex items-center justify-center animate-pulse">
-                    <Sparkles className="h-3 w-3 text-white" />
-                  </div>
+
                 </div>
 
                 <h3 className="text-xl font-semibold text-[#020a1c] mb-2">Loading Sai...</h3>
@@ -300,7 +298,7 @@ const ChatBotSai = () => {
   );
 
   return (
-    <div className="pt-16 min-h-screen hero-gradient">
+    <div className="pt-16 min-h-screen bg-gradient-to-b from-[#020a1c] to-[#020a1c]">
       {/* Header */}
       <div className="relative py-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#ff7033]/10 via-transparent to-purple-600/10"></div>
