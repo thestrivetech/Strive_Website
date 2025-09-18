@@ -40,8 +40,14 @@ function reportMetric(metric: WebVitalsMetric) {
 
   // Send to analytics in production
   if (process.env.NODE_ENV === 'production') {
-    // You can integrate with your analytics service here
-    // Example: Google Analytics 4
+    // Send to our analytics system
+    import('./analytics-tracker').then(({ trackWebVitals }) => {
+      trackWebVitals(metric);
+    }).catch(() => {
+      // Silently fail - analytics shouldn't break the app
+    });
+
+    // Example: Google Analytics 4 (if enabled)
     if (typeof (window as any).gtag !== 'undefined') {
       (window as any).gtag('event', metric.name, {
         value: Math.round(metric.value),
@@ -50,24 +56,6 @@ function reportMetric(metric: WebVitalsMetric) {
         metric_id: metric.id,
       });
     }
-
-    // Example: Send to custom analytics endpoint
-    fetch('/api/analytics/web-vitals', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        metric: metric.name,
-        value: metric.value,
-        rating: metric.rating,
-        id: metric.id,
-        timestamp: Date.now(),
-        url: window.location.href,
-        userAgent: navigator.userAgent,
-      }),
-      keepalive: true,
-    }).catch(() => {
-      // Silently fail - analytics shouldn't break the app
-    });
   }
 }
 

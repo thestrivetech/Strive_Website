@@ -10,6 +10,7 @@ import { emailService } from "./email";
 import { sql } from "drizzle-orm";
 import { log } from "./lib/logger";
 import { sitemapRouter } from "./routes/sitemap";
+import analyticsRouter from "./routes/analytics";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -606,6 +607,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
+  // Analytics routes
+  app.use("/api/analytics", analyticsRouter);
 
   // SEO and Sitemap routes
   app.use("/api", sitemapRouter);
