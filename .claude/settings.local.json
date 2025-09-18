@@ -41,7 +41,8 @@
       "Bash(PORT=5001 npm run dev)",
       "mcp__serena__insert_after_symbol",
       "Bash(/bashes)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(PORT=3000 npm run dev)"
     ],
     "deny": [],
     "ask": []
