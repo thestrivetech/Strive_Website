@@ -49,6 +49,7 @@ const ComputerVision = lazy(() => import("@/pages/solutions/computer-vision"));
 const SecurityCompliance = lazy(() => import("@/pages/solutions/security-compliance"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 const PerformanceDashboard = lazy(() => import("@/pages/performance-dashboard"));
+const AnalyticsDashboard = lazy(() => import("@/pages/analytics-dashboard"));
 
 function Router() {
   const [location] = useLocation();
@@ -91,6 +92,7 @@ function Router() {
             <Route path="/solutions/computer-vision" component={ComputerVision} />
             <Route path="/solutions/security-compliance" component={SecurityCompliance} />
             <Route path="/performance" component={PerformanceDashboard} />
+            <Route path="/analytics-dashboard" component={AnalyticsDashboard} />
             <Route component={NotFound} />
           </Switch>
         </Suspense>
