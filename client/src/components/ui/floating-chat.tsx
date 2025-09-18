@@ -14,6 +14,10 @@ const FloatingChat = () => {
   const [isMinimized, setIsMinimized] = useState(false);
   const [hasBeenInitiated, setHasBeenInitiated] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+  
+  // Mobile viewport states for keyboard detection
+  const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -44,6 +48,50 @@ const FloatingChat = () => {
       unsubscribeAnalytics();
       performanceMonitor.cleanup(performanceId.current);
     };
+  }, []);
+
+  // Mobile viewport and keyboard detection
+  useEffect(() => {
+    const handleViewportChange = () => {
+      if (window.visualViewport) {
+        const newHeight = window.visualViewport.height;
+        const initialHeight = window.screen.height;
+        const heightDiff = initialHeight - newHeight;
+        
+        setViewportHeight(newHeight);
+        // Consider keyboard visible if viewport height reduced by more than 150px
+        setIsKeyboardVisible(heightDiff > 150);
+      } else {
+        // Fallback for older browsers
+        const handleResize = () => {
+          const newHeight = window.innerHeight;
+          setViewportHeight(newHeight);
+          // Simple heuristic: if height reduced by more than 150px, keyboard is likely visible
+          setIsKeyboardVisible(window.screen.height - newHeight > 150);
+        };
+        
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }
+    };
+
+    // Setup visual viewport listener if available
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', handleViewportChange);
+      return () => {
+        window.visualViewport?.removeEventListener('resize', handleViewportChange);
+      };
+    } else {
+      // Fallback for older browsers
+      const handleResize = () => {
+        const newHeight = window.innerHeight;
+        setViewportHeight(newHeight);
+        setIsKeyboardVisible(window.screen.height - newHeight > 150);
+      };
+      
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
   }, []);
 
   const preconnectToChatbot = () => {
@@ -293,7 +341,11 @@ const FloatingChat = () => {
   return (
     <>
       {/* Chat Button */}
-      <div className="floating-chat fixed bottom-8 right-4 sm:bottom-12 sm:right-16 z-50">
+      <div className="floating-chat fixed bottom-6 right-4 sm:bottom-12 sm:right-16 z-50"
+           style={{ 
+             /* Ensure button stays above mobile browser UI */
+             bottom: 'max(1.5rem, env(safe-area-inset-bottom))'
+           }}>
         {/* Peek-a-boo preview panel */}
         {!isOpen && !hasBeenInitiated && isHovered && (
           <div
@@ -312,9 +364,17 @@ const FloatingChat = () => {
           onClick={handleChatToggle}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className={`w-14 h-14 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg outline-none flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110 ${hasBeenInitiated ? 'border-2 border-green-500' : 'border-none'}`}
+          className={`w-14 h-14 min-w-[3.5rem] min-h-[3.5rem] rounded-full bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/80 shadow-lg outline-none flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110 active:scale-105 touch-manipulation ${hasBeenInitiated ? 'border-2 border-green-500' : 'border-none'}`}
           data-testid="button-floating-chat"
           aria-label={isOpen ? "Close chat" : "Open chat with Sai"}
+          style={{
+            /* Better touch target and prevent text selection */
+            WebkitTouchCallout: 'none',
+            WebkitUserSelect: 'none',
+            userSelect: 'none',
+            /* Prevent iOS button styling */
+            WebkitAppearance: 'none'
+          }}
         >
           {unreadCount > 0 && (
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -335,9 +395,26 @@ const FloatingChat = () => {
       {isOpen && !isMinimized && (
         <div
           ref={containerRef}
-          className={`fixed bottom-24 right-6 z-50 transition-all duration-300 ${
-            isMinimized ? 'w-72 h-14' : 'w-[calc(100vw-48px)] h-[calc(100vh-120px)] sm:w-[400px] sm:h-[calc(100vh-80px)] max-h-[700px]'
+          className={`fixed z-50 transition-all duration-300 ${
+            isMinimized 
+              ? 'w-72 h-14 bottom-24 right-6' 
+              : `w-[calc(100vw-48px)] sm:w-[400px] right-4 sm:right-6 max-h-[700px]
+                 ${isKeyboardVisible 
+                   ? 'bottom-2 h-[calc(100vh-240px)] sm:h-[calc(100vh-220px)]' 
+                   : 'bottom-20 sm:bottom-24 h-[calc(100vh-140px)] sm:h-[calc(100vh-80px)]'
+                 }`
           }`}
+          style={{
+            /* Ensure proper positioning with safe areas on mobile */
+            right: 'max(1rem, env(safe-area-inset-right))',
+            bottom: isKeyboardVisible 
+              ? 'max(0.5rem, env(safe-area-inset-bottom))' 
+              : 'max(5rem, env(safe-area-inset-bottom))',
+            /* Support for dynamic viewport height units */
+            height: isKeyboardVisible 
+              ? 'min(calc(100vh - 240px), calc(100dvh - 240px))' 
+              : 'min(calc(100vh - 140px), calc(100dvh - 140px), 700px)'
+          }}
         >
           {/* Widget Header (for minimize/close) */}
           <div className="bg-gradient-to-r from-[#ff7033] to-orange-500 rounded-t-lg px-4 py-2 flex items-center justify-between">
@@ -414,17 +491,29 @@ const FloatingChat = () => {
 
               {/* Iframe - Only load when widget is opened */}
               {isOpen && (
-                <div className="w-full h-full overflow-y-auto rounded-b-lg">
+                <div 
+                  className="w-full h-full rounded-b-lg mobile-scroll-container"
+                  style={{
+                    /* Remove conflicting overflow, let iframe handle scrolling */
+                    overflow: 'hidden',
+                    WebkitOverflowScrolling: 'touch', /* Smooth scrolling on iOS */
+                    touchAction: 'manipulation' /* Optimize touch performance */
+                  }}
+                >
                   <iframe
                   ref={iframeRef}
                   src={widgetUrl}
-                    className="w-full border-none rounded-b-lg min-h-full"
+                    className="w-full border-none rounded-b-lg mobile-iframe"
                     style={{
                       width: '100%',
                       height: '100%',
                       minHeight: '100%',
                       border: 'none',
-                      borderRadius: '0 0 0.5rem 0.5rem'
+                      borderRadius: '0 0 0.5rem 0.5rem',
+                      /* Ensure iframe handles its own scrolling */
+                      WebkitOverflowScrolling: 'touch',
+                      /* Prevent zoom on iOS */
+                      WebkitTransform: 'translate3d(0,0,0)'
                     }}
                   scrolling="yes"
                   onLoad={handleIframeLoad}

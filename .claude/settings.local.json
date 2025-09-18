@@ -27,7 +27,12 @@
       "Bash(npm run test:run:*)",
       "mcp__serena__list_memories",
       "mcp__serena__read_memory",
-      "Bash(npx vercel:*)"
+      "Bash(npx vercel:*)",
+      "Read(//c/Users/zochr/Desktop/GitHub/**)",
+      "Bash(tasklist)",
+      "Bash(cmd //c:*)",
+      "mcp__serena__think_about_whether_you_are_done",
+      "mcp__serena__write_memory"
     ],
     "deny": [],
     "ask": []

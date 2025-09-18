@@ -2,9 +2,79 @@ import { Bot, Sparkles, AlertCircle, Loader2, MessageCircle, Clock } from "lucid
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import chatbotManager from "@/lib/chatbot-iframe-communication";
 import performanceMonitor from "@/lib/chatbot-performance-monitor";
+
+// Responsive viewport detection hook
+const useViewport = () => {
+  const [viewport, setViewport] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 1024,
+    height: typeof window !== 'undefined' ? window.innerHeight : 768,
+    isMobile: false,
+    isTablet: false,
+    isDesktop: false
+  });
+
+  useEffect(() => {
+    const updateViewport = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      setViewport({
+        width,
+        height,
+        isMobile: width < 768,
+        isTablet: width >= 768 && width < 1024,
+        isDesktop: width >= 1024
+      });
+    };
+
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+    return () => window.removeEventListener('resize', updateViewport);
+  }, []);
+
+  return viewport;
+};
+
+// Dynamic chat height calculation hook
+const useDynamicChatHeight = () => {
+  const [chatHeight, setChatHeight] = useState('70vh');
+  const viewport = useViewport();
+
+  const calculateHeight = useCallback(() => {
+    const vh = viewport.height;
+    const vw = viewport.width;
+
+    // Calculate space taken by fixed elements
+    const navbarHeight = 64; // pt-16 = 4rem = 64px
+    const headerHeight = vw < 768 ? 120 : 200; // Responsive header
+    const debugHeight = 0; // Only in dev, ignore for calculation
+    const paddingAndMargins = 32; // Container padding
+    const infoCardsHeight = viewport.isMobile ? 0 : 200; // Hide on mobile
+
+    let availableHeight = vh - navbarHeight - headerHeight - paddingAndMargins;
+
+    if (viewport.isMobile) {
+      // Mobile: Use most of viewport, prioritize chat
+      availableHeight = Math.max(vh - navbarHeight - 100, 400);
+    } else if (viewport.isTablet) {
+      // Tablet: Balanced layout
+      availableHeight = vh - navbarHeight - headerHeight - 100;
+    } else {
+      // Desktop: Full layout with space for info cards
+      availableHeight = vh - navbarHeight - headerHeight - infoCardsHeight - 50;
+    }
+
+    setChatHeight(`${Math.max(availableHeight, 350)}px`);
+  }, [viewport]);
+
+  useEffect(() => {
+    calculateHeight();
+  }, [calculateHeight]);
+
+  return { chatHeight, viewport };
+};
 
 const ChatBotSai = () => {
   const [isIframeVisible, setIsIframeVisible] = useState(false);
@@ -19,6 +89,9 @@ const ChatBotSai = () => {
   const loadTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const visibilityTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const startTime = useRef<number>(Date.now());
+
+  // Use responsive hooks
+  const { chatHeight, viewport } = useDynamicChatHeight();
 
   // Chatbot URL
   const chatbotUrl = import.meta.env.VITE_CHATBOT_URL || 'https://chatbot.strivetech.ai';
@@ -309,26 +382,26 @@ const ChatBotSai = () => {
   );
 
   return (
-    <div className="pt-16 min-h-screen hero-gradient">
+    <div className={`pt-16 min-h-screen hero-gradient flex flex-col ${viewport.isMobile ? 'pb-16' : ''}`}>
       {/* Header */}
-      <div className="relative py-12 overflow-hidden">
+      <div className={`relative ${viewport.isMobile ? 'py-6' : viewport.isTablet ? 'py-8' : 'py-12'} overflow-hidden flex-shrink-0`}>
         <div className="absolute inset-0 bg-gradient-to-br from-[#ff7033]/10 via-transparent to-purple-600/10"></div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <div className="flex items-center justify-center mb-6">
+            <div className={`flex items-center justify-center ${viewport.isMobile ? 'mb-4' : 'mb-6'}`}>
               <div className="relative">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#ff7033] to-purple-600 flex items-center justify-center shadow-2xl">
-                  <Bot className="h-10 w-10 text-white" />
+                <div className={`${viewport.isMobile ? 'w-16 h-16' : 'w-20 h-20'} rounded-full bg-gradient-to-br from-[#ff7033] to-purple-600 flex items-center justify-center shadow-2xl`}>
+                  <Bot className={`${viewport.isMobile ? 'h-8 w-8' : 'h-10 w-10'} text-white`} />
                 </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-[#ff7033] flex items-center justify-center animate-pulse">
-                  <Sparkles className="h-4 w-4 text-white" />
+                <div className={`absolute -top-2 -right-2 ${viewport.isMobile ? 'w-6 h-6' : 'w-8 h-8'} rounded-full bg-gradient-to-r from-yellow-400 to-[#ff7033] flex items-center justify-center animate-pulse`}>
+                  <Sparkles className={`${viewport.isMobile ? 'h-3 w-3' : 'h-4 w-4'} text-white`} />
                 </div>
               </div>
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+            <h1 className={`${viewport.isMobile ? 'text-2xl' : viewport.isTablet ? 'text-3xl md:text-4xl' : 'text-4xl md:text-6xl'} font-bold text-white mb-4`}>
               Chat with <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Sai</span>
             </h1>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+            <p className={`${viewport.isMobile ? 'text-base' : 'text-xl'} text-white/90 max-w-2xl mx-auto`}>
               Your AI-Powered Business Solutions Assistant - Available 24/7
             </p>
           </div>
@@ -363,18 +436,19 @@ const ChatBotSai = () => {
       )}
 
       {/* Chat Interface */}
-      <div ref={containerRef} className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-5xl mx-auto">
-          <div className="relative">
+      <div ref={containerRef} className={`container mx-auto px-4 sm:px-6 lg:px-8 ${viewport.isMobile ? 'py-4' : 'py-8'} flex-1 flex flex-col`}>
+        <div className="max-w-5xl mx-auto flex-1 flex flex-col">
+          <div className="relative flex-1 flex flex-col">
             {/* Always render iframe */}
             {isIframeVisible && (
               <iframe
                 ref={iframeRef}
                 src={fullPageUrl}
-                className="w-full rounded-lg shadow-2xl border-0 bg-white"
+                className="w-full rounded-lg shadow-2xl border-0 bg-white transition-all duration-300"
                 style={{
-                  height: 'calc(100vh - 300px)',
-                  minHeight: '600px'
+                  height: chatHeight,
+                  minHeight: viewport.isMobile ? '350px' : '400px',
+                  maxHeight: '85vh'
                 }}
                 frameBorder="0"
                 allow="microphone; camera; clipboard-write; autoplay"
@@ -395,42 +469,64 @@ const ChatBotSai = () => {
         </div>
       </div>
 
-      {/* Info Cards */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-            <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg">
-                  <MessageCircle className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="font-bold text-white mb-2 text-lg">Instant Responses</h3>
-                <p className="text-sm text-white/80">Get immediate answers to your questions about our AI solutions</p>
-              </CardContent>
-            </Card>
+      {/* Responsive Info Cards */}
+      {!viewport.isMobile && (
+        <div className={`container mx-auto px-4 sm:px-6 lg:px-8 ${viewport.isTablet ? 'py-4' : 'py-8'}`}>
+          <div className="max-w-5xl mx-auto">
+            <div className={`grid ${viewport.isTablet ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-3 gap-6'} mt-4`}>
+              <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
+                <CardContent className={`${viewport.isTablet ? 'p-4' : 'p-6'} text-center`}>
+                  <div className={`${viewport.isTablet ? 'w-12 h-12' : 'w-16 h-16'} mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg`}>
+                    <MessageCircle className={`${viewport.isTablet ? 'w-6 h-6' : 'w-8 h-8'} text-white`} />
+                  </div>
+                  <h3 className={`font-bold text-white mb-2 ${viewport.isTablet ? 'text-base' : 'text-lg'}`}>Instant Responses</h3>
+                  <p className="text-sm text-white/80">Get immediate answers to your questions about our AI solutions</p>
+                </CardContent>
+              </Card>
 
-            <Card className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 backdrop-blur-sm border-purple-600/20 shadow-2xl hover:scale-105 transition-all duration-300">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#020a1c] to-purple-900 flex items-center justify-center shadow-lg">
-                  <Sparkles className="w-8 h-8 text-[#ff7033]" />
-                </div>
-                <h3 className="font-bold text-white mb-2 text-lg">AI-Powered</h3>
-                <p className="text-sm text-white/80">Intelligent responses tailored to your specific needs</p>
-              </CardContent>
-            </Card>
+              <Card className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 backdrop-blur-sm border-purple-600/20 shadow-2xl hover:scale-105 transition-all duration-300">
+                <CardContent className={`${viewport.isTablet ? 'p-4' : 'p-6'} text-center`}>
+                  <div className={`${viewport.isTablet ? 'w-12 h-12' : 'w-16 h-16'} mx-auto mb-4 rounded-full bg-gradient-to-r from-[#020a1c] to-purple-900 flex items-center justify-center shadow-lg`}>
+                    <Sparkles className={`${viewport.isTablet ? 'w-6 h-6' : 'w-8 h-8'} text-[#ff7033]`} />
+                  </div>
+                  <h3 className={`font-bold text-white mb-2 ${viewport.isTablet ? 'text-base' : 'text-lg'}`}>AI-Powered</h3>
+                  <p className="text-sm text-white/80">Intelligent responses tailored to your specific needs</p>
+                </CardContent>
+              </Card>
 
-            <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg">
-                  <Clock className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="font-bold text-white mb-2 text-lg">Available 24/7</h3>
-                <p className="text-sm text-white/80">Always here to help, any time of day or night</p>
-              </CardContent>
-            </Card>
+              <Card className="bg-gradient-to-br from-[#020a1c]/90 to-purple-900/90 backdrop-blur-sm border-[#ff7033]/20 shadow-2xl hover:scale-105 transition-all duration-300">
+                <CardContent className={`${viewport.isTablet ? 'p-4' : 'p-6'} text-center`}>
+                  <div className={`${viewport.isTablet ? 'w-12 h-12' : 'w-16 h-16'} mx-auto mb-4 rounded-full bg-gradient-to-r from-[#ff7033] to-orange-500 flex items-center justify-center shadow-lg`}>
+                    <Clock className={`${viewport.isTablet ? 'w-6 h-6' : 'w-8 h-8'} text-white`} />
+                  </div>
+                  <h3 className={`font-bold text-white mb-2 ${viewport.isTablet ? 'text-base' : 'text-lg'}`}>Available 24/7</h3>
+                  <p className="text-sm text-white/80">Always here to help, any time of day or night</p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {/* Mobile Info Banner - Alternative for small screens */}
+      {viewport.isMobile && (
+        <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-[#020a1c]/95 to-purple-900/95 backdrop-blur-sm border-t border-[#ff7033]/20 p-3 z-30">
+          <div className="flex items-center justify-center space-x-6 text-white">
+            <div className="flex items-center space-x-2">
+              <MessageCircle className="w-4 h-4 text-[#ff7033]" />
+              <span className="text-xs font-medium">Instant</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Sparkles className="w-4 h-4 text-[#ff7033]" />
+              <span className="text-xs font-medium">AI-Powered</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Clock className="w-4 h-4 text-[#ff7033]" />
+              <span className="text-xs font-medium">24/7</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
