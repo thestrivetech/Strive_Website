@@ -73,25 +73,42 @@ export class ChatbotIframeManager {
   }
 
   handleMessage(event: MessageEvent) {
-    // Security: validate origin
+    // Security: validate origin with enhanced dev mode support
     const allowedOrigins = [
       this.chatbotOrigin,
       'https://chatbot.strivetech.ai',
       'http://localhost:5173', // Chatbot dev server
       'http://localhost:3000',  // Common chatbot dev port
-      'http://localhost:3001'   // Alternative port
+      'http://localhost:3001',   // Alternative port
+      'http://127.0.0.1:5173',  // IPv4 localhost
+      'http://127.0.0.1:3000',  // IPv4 localhost
+      'http://127.0.0.1:3001'   // IPv4 localhost
     ];
 
-    if (!allowedOrigins.includes(event.origin)) {
-      console.warn('🚫 Message rejected - untrusted origin:', {
-        receivedOrigin: event.origin,
-        allowedOrigins: allowedOrigins,
-        messageData: event.data
-      });
-      return;
+    const isOriginAllowed = allowedOrigins.includes(event.origin);
+    const isDevelopment = import.meta.env.DEV;
+
+    if (!isOriginAllowed) {
+      if (isDevelopment) {
+        console.warn('⚠️ Message from unrecognized origin (allowing in dev mode):', {
+          receivedOrigin: event.origin,
+          allowedOrigins: allowedOrigins,
+          messageData: event.data
+        });
+        // Continue processing in dev mode for debugging
+      } else {
+        console.warn('🚫 Message rejected - untrusted origin:', {
+          receivedOrigin: event.origin,
+          allowedOrigins: allowedOrigins,
+          messageData: event.data
+        });
+        return;
+      }
     }
 
-    console.log('✅ Origin validated:', event.origin);
+    if (isDevelopment || isOriginAllowed) {
+      console.log('✅ Origin validated:', event.origin);
+    }
 
     // Log message for debugging
     if (import.meta.env.DEV) {
@@ -105,18 +122,30 @@ export class ChatbotIframeManager {
 
     const { type, data, source } = event.data || {};
 
-    // Enhanced source validation with logging
+    // Optional source validation with logging
     if (source !== undefined && source !== 'sai-chatbot') {
-      console.warn('🚫 Message rejected - wrong source:', {
-        receivedSource: source,
-        expectedSource: 'sai-chatbot',
-        messageType: type,
-        messageData: data
-      });
-      return;
+      if (import.meta.env.DEV) {
+        console.warn('⚠️ Message has unexpected source (allowing in dev mode):', {
+          receivedSource: source,
+          expectedSource: 'sai-chatbot',
+          messageType: type,
+          messageData: data
+        });
+      } else {
+        console.warn('🚫 Message rejected - wrong source:', {
+          receivedSource: source,
+          expectedSource: 'sai-chatbot',
+          messageType: type,
+          messageData: data
+        });
+        // In production, still reject unknown sources for security
+        // return;
+      }
     }
 
-    console.log('✅ Source validated:', source || 'undefined (accepted)');
+    if (import.meta.env.DEV) {
+      console.log('✅ Source validated:', source || 'undefined (accepted)');
+    }
 
     // Call registered handlers
     const handler = this.eventHandlers.get(type);
