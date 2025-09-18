@@ -62,8 +62,8 @@ const useDynamicChatHeight = () => {
       // Tablet: Balanced layout
       availableHeight = vh - navbarHeight - headerHeight - 100;
     } else {
-      // Desktop: Use maximum available height for full-page chat
-      availableHeight = Math.max(vh - navbarHeight - headerHeight - 50, 600);
+      // Desktop: Use full viewport for true full-page chat experience
+      availableHeight = vh - navbarHeight - 20; // Minimal padding for full-page experience
     }
 
     setChatHeight(`${Math.max(availableHeight, 350)}px`);
@@ -436,8 +436,8 @@ const ChatBotSai = () => {
       )}
 
       {/* Chat Interface */}
-      <div ref={containerRef} className={`container mx-auto px-4 sm:px-6 lg:px-8 ${viewport.isMobile ? 'py-4' : 'py-8'} flex-1 flex flex-col`}>
-        <div className="max-w-5xl mx-auto flex-1 flex flex-col">
+      <div ref={containerRef} className={`container mx-auto ${viewport.isDesktop ? 'px-0' : 'px-4 sm:px-6'} ${viewport.isMobile ? 'py-4' : 'py-8'} flex-1 flex flex-col`}>
+        <div className="w-full flex-1 flex flex-col">
           <div className="relative flex-1 flex flex-col">
             {/* Always render iframe */}
             {isIframeVisible && (

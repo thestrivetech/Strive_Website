@@ -34,7 +34,11 @@
       "mcp__serena__think_about_whether_you_are_done",
       "mcp__serena__write_memory",
       "Bash(echo:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "mcp__serena__delete_memory",
+      "Bash(set PORT=5001)",
+      "Bash(cross-env PORT=5001 npm run dev)",
+      "Bash(PORT=5001 npm run dev)"
     ],
     "deny": [],
     "ask": []
