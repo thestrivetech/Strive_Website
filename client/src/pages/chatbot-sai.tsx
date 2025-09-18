@@ -48,7 +48,7 @@ const useDynamicChatHeight = () => {
 
     // Calculate space taken by fixed elements
     const navbarHeight = 64; // pt-16 = 4rem = 64px
-    const headerHeight = vw < 768 ? 120 : 200; // Responsive header
+    const headerHeight = vw < 768 ? 120 : 150; // Responsive header
     const debugHeight = 0; // Only in dev, ignore for calculation
     const paddingAndMargins = 32; // Container padding
     const infoCardsHeight = viewport.isMobile ? 0 : 200; // Hide on mobile
@@ -62,8 +62,8 @@ const useDynamicChatHeight = () => {
       // Tablet: Balanced layout
       availableHeight = vh - navbarHeight - headerHeight - 100;
     } else {
-      // Desktop: Use full viewport for true full-page chat experience
-      availableHeight = vh - navbarHeight - 20; // Minimal padding for full-page experience
+      // Desktop: Maximize iframe height for full-page chat experience
+      availableHeight = vh - navbarHeight; // Use full available height
     }
 
     setChatHeight(`${Math.max(availableHeight, 350)}px`);
