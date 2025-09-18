@@ -62,8 +62,8 @@ const useDynamicChatHeight = () => {
       // Tablet: Balanced layout
       availableHeight = vh - navbarHeight - headerHeight - 100;
     } else {
-      // Desktop: Full layout with space for info cards
-      availableHeight = vh - navbarHeight - headerHeight - infoCardsHeight - 50;
+      // Desktop: Use maximum available height for full-page chat
+      availableHeight = Math.max(vh - navbarHeight - headerHeight - 50, 600);
     }
 
     setChatHeight(`${Math.max(availableHeight, 350)}px`);
