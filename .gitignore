@@ -102,3 +102,5 @@ CLAUDE.md
 .vercel/
 .env.production
 STRIVE_WEBSITE_INTEGRATION.md
+.env 2.vercel
+.env.vercel
