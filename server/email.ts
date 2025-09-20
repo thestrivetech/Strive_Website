@@ -417,7 +417,7 @@ class EmailService {
 
   async sendNewsletterConfirmation(email: string) {
     // Generate member ID and welcome sequence
-    const memberId = `VIP-${Date.now().toString().slice(-6)}-${Math.random().toString(36).slice(-3).toUpperCase()}`;
+    const memberId = `SUB-${Date.now().toString().slice(-6)}-${Math.random().toString(36).slice(-3).toUpperCase()}`;
     const joinDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     const nextNewsletter = new Date();
     nextNewsletter.setDate(nextNewsletter.getDate() + (9 - nextNewsletter.getDay()) % 7); // Next Tuesday
@@ -434,7 +434,7 @@ class EmailService {
     <tr>
       <td class="content-padding" style="padding: 40px 30px;">
         
-        <!-- VIP Welcome Animation -->
+        <!-- Newsletter Welcome -->
         <div style="text-align: center; margin-bottom: 40px;">
           <div style="background: linear-gradient(135deg, #fef3e2 0%, #fef3e2 100%); padding: 40px 30px; border-radius: 20px; border: 1px solid #fed7aa; margin-bottom: 30px; position: relative; overflow: hidden;">
             <!-- Celebration Elements -->
@@ -450,7 +450,7 @@ class EmailService {
               </div>
               
               <h1 class="heading-xl text-gray-900" style="color: #111827; font-size: 32px; line-height: 38px; font-weight: 700; margin: 0 0 16px 0;">
-                Welcome to VIP Status!
+                Welcome to Strive Tech!
               </h1>
               
               <!-- Animated Divider -->
@@ -463,7 +463,7 @@ class EmailService {
               <!-- Member ID Badge -->
               <div style="background: rgba(255, 255, 255, 0.8); padding: 12px 20px; border-radius: 8px; display: inline-block; border: 1px solid #fed7aa;">
                 <p class="body-sm text-gray-600" style="color: #4b5563; font-size: 12px; margin: 0 0 4px 0; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;">
-                  VIP Member ID
+                  Subscriber ID
                 </p>
                 <p class="heading-md text-primary" style="color: #ff7033; font-size: 16px; line-height: 20px; font-weight: 700; margin: 0; letter-spacing: 2px; font-family: monospace;">
                   ${memberId}
@@ -475,7 +475,7 @@ class EmailService {
           <!-- Member Since Badge -->
           <div style="background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); padding: 16px 24px; border-radius: 12px; border: 1px solid #bbf7d0; display: inline-block;">
             <p class="body-sm" style="color: #166534; font-size: 14px; margin: 0; font-weight: 600;">
-              🌟 VIP Member Since: ${joinDate}
+              🌟 Subscriber Since: ${joinDate}
             </p>
           </div>
         </div>
@@ -484,17 +484,17 @@ class EmailService {
         <div class="card-premium" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-radius: 16px; border: 1px solid #d1d5db; border-left: 4px solid #ff7033; padding: 35px; margin: 35px 0;">
           <div style="text-align: center; margin-bottom: 30px;">
             <h2 class="heading-lg text-gray-900" style="color: #111827; font-size: 24px; line-height: 30px; font-weight: 600; margin: 0 0 12px 0;">
-              🎁 Your Exclusive VIP Benefits
+              🎁 Your Subscriber Benefits
             </h2>
             <p class="body-base text-gray-600" style="color: #4b5563; font-size: 16px; margin: 0; line-height: 1.6;">
-              As a VIP member, you get access to premium content and experiences unavailable anywhere else.
+              As a subscriber, you get access to weekly AI insights, case studies, and implementation resources delivered directly to your inbox.
             </p>
           </div>
           
           <div style="display: grid; gap: 25px;">
             ${this.createFeatureHighlight('🚀', 'AI Industry Intelligence', 'Weekly insider insights, breakthrough technologies, and trend analysis from our research team - delivered every Tuesday.')}
             ${this.createFeatureHighlight('📊', 'Exclusive Case Studies', 'In-depth transformation stories with ROI data, implementation details, and lessons learned from real companies.')}
-            ${this.createFeatureHighlight('🎯', 'VIP-Only Resources', 'Premium whitepapers, implementation guides, templates, and tools exclusively for newsletter subscribers.')}
+            ${this.createFeatureHighlight('🎯', 'Subscriber Resources', 'Weekly industry insights, case studies, implementation guides, and AI strategy resources delivered to your inbox.')}
             ${this.createFeatureHighlight('⚡', 'Early Access Privileges', 'First access to new services, exclusive webinars, beta features, and subscriber-only discounts up to 25%.')}
             ${this.createFeatureHighlight('🧠', 'Expert Office Hours', 'Monthly live Q&A sessions with our AI experts - ask questions directly and get personalized advice.')}
             ${this.createFeatureHighlight('🎥', 'Premium Video Library', 'Access to our complete library of solution demos, case study videos, and technical deep-dives.')}
@@ -534,7 +534,7 @@ class EmailService {
           
           <div style="text-align: center; margin-top: 25px; padding-top: 25px; border-top: 1px solid #bbf7d0;">
             <p style="color: #15803d; font-size: 13px; margin: 0; font-style: italic;">
-              💡 Pro Tip: Download all four resources throughout your first month as a VIP member
+              💡 Pro Tip: Download all four resources throughout your first month as a subscriber
             </p>
           </div>
         </div>
@@ -546,7 +546,7 @@ class EmailService {
               <span style="font-size: 24px;">📅</span>
             </div>
             <h2 class="heading-lg" style="color: #ea580c; font-size: 22px; line-height: 28px; font-weight: 600; margin: 0 0 12px 0;">
-              Your VIP Content Calendar
+              Your Content Calendar
             </h2>
             <p style="color: #9a3412; font-size: 16px; margin: 0; line-height: 1.6;">
               Premium content delivered on a schedule designed for busy executives.
@@ -623,7 +623,7 @@ class EmailService {
               </div>
               <div style="flex: 1; margin-right: 20px;">
                 <h4 style="color: #111827; font-size: 16px; font-weight: 600; margin: 0 0 6px 0;">Solution Demo Library</h4>
-                <p style="color: #4b5563; font-size: 14px; margin: 0;">Watch our AI solutions in action across different industries</p>
+                <p style="color: #4b5563; font-size: 14px; margin: 0;">Watch AI & Automation, Data Analytics, and Business Intelligence solutions in action</p>
               </div>
               ${this.createQuickActionButton('Watch Now', 'https://strivetech.ai/demos', 'primary', '▶️')}
             </div>
@@ -633,7 +633,7 @@ class EmailService {
                 <span style="font-size: 20px;">📚</span>
               </div>
               <div style="flex: 1; margin-right: 20px;">
-                <h4 style="color: #111827; font-size: 16px; font-weight: 600; margin: 0 0 6px 0;">VIP Resource Center</h4>
+                <h4 style="color: #111827; font-size: 16px; font-weight: 600; margin: 0 0 6px 0;">Resource Center</h4>
                 <p style="color: #4b5563; font-size: 14px; margin: 0;">Access whitepapers, guides, and tools exclusive to members</p>
               </div>
               ${this.createQuickActionButton('Browse', 'https://strivetech.ai/vip-resources', 'secondary', '📖')}
@@ -658,7 +658,7 @@ class EmailService {
             <span style="font-size: 24px;">🤝</span>
           </div>
           <h2 style="color: #0369a1; font-size: 20px; margin: 0 0 15px 0; font-weight: 600;">
-            Join the VIP Community
+            Join the Community
           </h2>
           <p style="color: #0284c7; margin: 0 0 25px 0; font-size: 16px; line-height: 1.6;">
             Connect with fellow AI pioneers, share insights, and get answers from our expert community.
@@ -670,7 +670,7 @@ class EmailService {
           </div>
           
           <p style="color: #0284c7; font-size: 13px; margin: 15px 0 0 0;">
-            <strong>2,847 VIP members</strong> are already transforming their businesses together
+            <strong>2,847 subscribers</strong> are already transforming their businesses together
           </p>
         </div>
 
@@ -712,16 +712,16 @@ class EmailService {
             Ready to Transform Your Business?
           </h2>
           <p style="color: #15803d; margin: 0 0 25px 0; font-size: 16px; line-height: 1.6;">
-            Don't just read about AI transformation - experience it. Schedule a free consultation with our experts.
+            Don't just read about AI transformation - experience it. Schedule a free assessment with our experts.
           </p>
           
           <div style="margin: 20px 0;">
-            ${this.createQuickActionButton('🎯 Free Consultation', 'https://strivetech.ai/request', 'success')}
+            ${this.createQuickActionButton('🎯 Schedule Assessment', 'https://strivetech.ai/request', 'success')}
             ${this.createQuickActionButton('📊 ROI Assessment', 'https://strivetech.ai/assessment', 'secondary')}
           </div>
           
           <p style="color: #15803d; font-size: 13px; margin: 15px 0 0 0;">
-            <strong>VIP Member Benefit:</strong> Fast-track scheduling and priority support
+            <strong>Subscriber Benefit:</strong> Priority scheduling and dedicated support
           </p>
         </div>
 
@@ -730,7 +730,7 @@ class EmailService {
           <div style="text-align: center; margin-bottom: 30px;">
             <span style="color: #ff7033; font-size: 32px; display: block; margin-bottom: 16px;">👥</span>
             <h2 class="heading-lg text-gray-900" style="color: #111827; font-size: 20px; line-height: 26px; font-weight: 600; margin: 0 0 12px 0;">
-              Meet Your VIP Support Team
+              Meet Your Support Team
             </h2>
             <p class="body-base text-gray-600" style="color: #4b5563; font-size: 16px; margin: 0; line-height: 1.6;">
               The experts behind your premium content and available for direct consultation.
@@ -739,11 +739,11 @@ class EmailService {
           
           ${this.createTeamMemberCard('Garrett Holland', 'CEO & Chief AI Strategist', 'garrettholland@strivetech.ai')}
           ${this.createTeamMemberCard('Jeff Meyer', 'CTO & Technical Innovation Lead', 'jeffmeyer@strivetech.ai')}
-          ${this.createTeamMemberCard('Grant Ramey', 'VP of VIP Member Success', 'grantramey@strivetech.ai')}
+          ${this.createTeamMemberCard('Grant Ramey', 'VP of Member Success', 'grantramey@strivetech.ai')}
           
           <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #e2e8f0; text-align: center;">
             <p style="color: #4b5563; font-size: 14px; margin: 0;">
-              <strong>VIP Perk:</strong> Direct access to our leadership team for strategic AI guidance
+              <strong>Subscriber Perk:</strong> Direct access to our leadership team for strategic AI guidance
             </p>
           </div>
         </div>
@@ -754,7 +754,7 @@ class EmailService {
             Welcome to the future of business intelligence,
           </p>
           <p class="heading-lg text-primary" style="color: #ff7033; font-size: 24px; line-height: 30px; font-weight: 700; margin: 0 0 8px 0;">
-            The Strive Tech VIP Team
+            The Strive Tech Team
           </p>
           <p class="body-sm text-gray-600" style="color: #4b5563; font-size: 14px; margin: 0; font-style: italic;">
             Your dedicated AI transformation partners
@@ -765,7 +765,7 @@ class EmailService {
         <div style="background: #f8fafc; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; margin-top: 35px;">
           <div style="text-align: center; margin-bottom: 20px;">
             <h4 style="color: #374151; font-size: 16px; margin: 0 0 16px 0; font-weight: 600;">
-              VIP Membership Management
+              Newsletter Management
             </h4>
           </div>
           
@@ -786,13 +786,13 @@ class EmailService {
               <span style="color: #ff7033; font-size: 16px;">⚙️</span>
               <a href="https://strivetech.ai/preferences?email=${encodeURIComponent(email)}" style="color: #ff7033; text-decoration: none; font-weight: 600; font-size: 14px;">Manage Preferences</a>
               <span style="color: #d1d5db;">•</span>
-              <a href="mailto:contact@strivetech.ai?subject=VIP%20Member%20Support%20-%20${memberId}" style="color: #ff7033; text-decoration: none; font-weight: 600; font-size: 14px;">VIP Support</a>
+              <a href="mailto:contact@strivetech.ai?subject=Newsletter%20Support%20-%20${memberId}" style="color: #ff7033; text-decoration: none; font-weight: 600; font-size: 14px;">Newsletter Support</a>
             </div>
           </div>
           
           <div style="border-top: 1px solid #e2e8f0; margin: 20px 0 0 0; padding: 15px 0 0 0;">
             <p style="color: #64748b; font-size: 12px; margin: 0; text-align: center; line-height: 1.4;">
-              Questions about your VIP membership? Contact our dedicated VIP support team anytime.
+              Questions about your newsletter subscription? Contact our support team anytime.
               <br>To update preferences or unsubscribe, 
               <a href="mailto:contact@strivetech.ai?subject=VIP%20Newsletter%20-%20${memberId}" style="color: #ff7033; text-decoration: none;">email us directly</a>.
             </p>
@@ -807,7 +807,7 @@ class EmailService {
 
     return await this.sendEmail({
       to: [email],
-      subject: `👑 Welcome to VIP Status! Your AI intelligence starts now (Member: ${memberId})`,
+      subject: `🚀 Welcome to Strive Tech! Your AI intelligence starts now (Subscriber: ${memberId})`,
       html,
     });
   }
@@ -861,7 +861,7 @@ class EmailService {
     <tr>
       <td class="content-padding" style="padding: 0;">
         
-        <!-- Meeting Coordination Hub Header -->
+        <!-- Meeting Request Notification -->
         <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); padding: 40px; text-align: center; position: relative; overflow: hidden;">
           <!-- Animated background pattern -->
           <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.03) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.03) 0%, transparent 50%), radial-gradient(circle at 40% 60%, rgba(255,255,255,0.03) 0%, transparent 50%);"></div>
@@ -873,7 +873,7 @@ class EmailService {
             </div>
             
             <h1 style="color: white; font-size: 32px; font-weight: 800; margin: 0 0 12px 0; line-height: 1.2; text-shadow: 0 2px 8px rgba(0,0,0,0.5);">
-              Meeting Coordination Hub
+              Meeting Request Notification
             </h1>
             <div style="width: 100px; height: 3px; background: linear-gradient(90deg, #3b82f6, #2563eb); margin: 0 auto 16px; border-radius: 2px;"></div>
             <p style="color: #cbd5e1; font-size: 18px; font-weight: 500; margin: 0;">
@@ -1075,14 +1075,14 @@ class EmailService {
           </div>
         </div>
 
-        <!-- Coordination Action Plan -->
+        <!-- Meeting Action Plan -->
         <div style="background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); padding: 40px;">
           <div style="text-align: center; margin-bottom: 35px;">
             <div style="background: linear-gradient(135deg, #16a34a, #15803d); color: white; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 10px 30px rgba(22,163,74,0.3);">
               <span style="font-size: 28px;">📋</span>
             </div>
             <h2 style="color: #166534; font-size: 24px; font-weight: 700; margin: 0 0 8px 0;">
-              Meeting Coordination Action Plan
+              Meeting Action Plan
             </h2>
             <p style="color: #15803d; font-size: 16px; margin: 0;">
               Step-by-step coordination protocol for optimal meeting success
@@ -1218,9 +1218,9 @@ class EmailService {
                 </div>
               </div>
 
-              <!-- Team Coordination Checklist -->
+              <!-- Team Action Checklist -->
               <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 12px; border: 1px solid rgba(245,158,11,0.2);">
-                <h4 style="color: #ea580c; font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">✅ Team Coordination Checklist</h4>
+                <h4 style="color: #ea580c; font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">✅ Team Action Checklist</h4>
                 <div style="display: grid; gap: 8px;">
                   <div style="color: #9a3412; font-size: 13px; padding: 8px 0; border-bottom: 1px solid rgba(245,158,11,0.2); display: flex; align-items: center;">
                     <span style="background: #16a34a; color: white; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; margin-right: 12px;">✓</span>
@@ -1309,7 +1309,7 @@ class EmailService {
               </h3>
               <div style="background: #f0f9ff; padding: 16px; border-radius: 8px; border: 1px solid #bae6fd;">
                 <p style="color: #0284c7; font-size: 13px; margin: 0; line-height: 1.6;">
-                  <strong>24-Hour Rule:</strong> Send comprehensive follow-up with meeting summary, resource links, and clear next steps within 24 hours of meeting completion. Include calendar invites for any scheduled follow-ups and ensure all promised materials are delivered promptly.
+                  <strong>Quick Follow-up:</strong> Our team will send comprehensive follow-up with meeting summary, resource links, and clear next steps within 2-4 hours of meeting completion. Calendar invites for any scheduled follow-ups and all promised materials will be delivered promptly.
                 </p>
               </div>
             </div>
@@ -1317,16 +1317,16 @@ class EmailService {
           </div>
         </div>
 
-        <!-- Coordination Hub Footer -->
+        <!-- Meeting Notification Footer -->
         <div style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); padding: 30px 40px; text-align: center;">
           <h3 style="color: white; font-size: 18px; font-weight: 600; margin: 0 0 20px 0;">
-            📅 Meeting Request Logged - Coordination Active
+            📅 Meeting Request Logged - Team Notified
           </h3>
           <p style="color: #cbd5e1; font-size: 14px; margin: 0 0 20px 0; line-height: 1.6;">
             This meeting request has been processed and is ready for team coordination. Begin immediate scheduling and preparation procedures.
           </p>
           
-          <!-- Quick Coordination Stats -->
+          <!-- Quick Response Stats -->
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; margin: 20px 0; max-width: 600px; margin-left: auto; margin-right: auto;">
             <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
               <div style="color: white; font-size: 20px; font-weight: 700;">${priorityScore}</div>
@@ -1357,7 +1357,7 @@ class EmailService {
                 hour: 'numeric', 
                 minute: '2-digit'
               })}<br>
-              Automated notification from Strive Tech Meeting Coordination System.
+              Automated notification from Strive Tech Meeting System.
             </p>
           </div>
         </div>
@@ -1464,7 +1464,7 @@ class EmailService {
             ${this.createTimelineStep(1, 'Message Received', 'Your inquiry has been logged and categorized', 'completed')}
             ${this.createTimelineStep(2, 'Expert Assignment', 'Routing to our best specialist for your needs', 'active', 'In Progress')}
             ${this.createTimelineStep(3, 'Personalized Response', `Detailed response from ${responseInfo.specialist}`, 'pending', `By ${responseTime.toLocaleString()}`)}
-            ${this.createTimelineStep(4, 'Solution Discovery', 'Schedule follow-up consultation if needed', 'pending', '1-3 days')}
+            ${this.createTimelineStep(4, 'Solution Discovery', 'Schedule follow-up assessment if needed', 'pending', '1-3 days')}
           </div>
           
           <!-- Urgency Indicator -->
@@ -1561,7 +1561,7 @@ class EmailService {
           
           <div style="display: grid; gap: 20px;">
             ${this.createFeatureHighlight('📚', 'Exclusive Resource Library', 'Access our comprehensive AI implementation guides and industry best practices while we prepare your response.')}
-            ${this.createFeatureHighlight('🎥', 'Solution Preview Videos', 'Watch real demonstrations of our AI solutions in action across different industries.')}
+            ${this.createFeatureHighlight('🎥', 'Solution Preview Videos', 'Watch real demonstrations of AI & Automation, Data Analytics, and Computer Vision solutions across different industries.')}
             ${this.createFeatureHighlight('📊', 'ROI Calculator Tool', 'Estimate the potential return on investment for AI implementation in your specific business context.')}
             ${this.createFeatureHighlight('🏆', 'Success Story Gallery', 'Explore detailed case studies from companies similar to yours who have transformed with our solutions.')}
           </div>
@@ -1600,7 +1600,7 @@ class EmailService {
             Our Concierge Service Guarantee
           </h3>
           <p style="color: #9a3412; margin: 0; font-size: 15px; line-height: 1.6;">
-            If we don't respond within our promised timeframe, your next consultation is complimentary. 
+            If we don't respond within our promised timeframe, your next assessment is complimentary. 
             We're committed to delivering exceptional service that matches our technological excellence.
           </p>
         </div>
@@ -1671,7 +1671,7 @@ class EmailService {
 
     return await this.sendEmail({
       to: [formData.email],
-      subject: `✅ Your inquiry is confirmed (${ticketId}) - ${responseInfo.specialist} will respond within ${responseInfo.hours} hours`,
+      subject: `✅ Thank you for contacting Strive Tech - We'll respond within 2-4 hours`,
       html,
     });
   }
@@ -1681,9 +1681,9 @@ class EmailService {
     const requestTypes = requestData.requestTypes ? requestData.requestTypes.split(',') : [];
     const serviceList = requestTypes.map((type: string) => {
       switch(type) {
-        case 'demo': return 'Product Demo';
+        case 'demo': return 'Demo Showcase';
         case 'showcase': return 'Solution Showcase';
-        case 'assessment': return 'AI Assessment';
+        case 'assessment': return 'AI Assessment Meeting';
         default: return type;
       }
     }).join(', ');
@@ -1750,7 +1750,7 @@ class EmailService {
                 <div style="text-align: right;">
                   <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 25px; border-radius: 16px; box-shadow: 0 10px 30px rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.2);">
                     <h3 style="color: white; font-size: 18px; font-weight: 600; margin: 0 0 8px 0;">📞 Personal Outreach</h3>
-                    <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 0 0 12px 0;">Within next 24 hours</p>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 0 0 12px 0;">Within next 2-4 hours</p>
                     <p style="color: rgba(255,255,255,0.8); font-size: 13px; margin: 0; line-height: 1.4;">Dedicated team member contacts you to confirm details and understand your specific needs</p>
                   </div>
                 </div>
@@ -1866,9 +1866,9 @@ class EmailService {
                 <div style="display: flex; flex-wrap: wrap; gap: 12px;">
                   ${requestTypes.map(type => {
                     const serviceConfig = {
-                      'demo': { label: 'Product Demo', color: '#10b981', bg: '#f0fdf4' },
+                      'demo': { label: 'Demo Showcase', color: '#10b981', bg: '#f0fdf4' },
                       'showcase': { label: 'Solution Showcase', color: '#3b82f6', bg: '#f0f9ff' },
-                      'assessment': { label: 'AI Assessment', color: '#8b5cf6', bg: '#faf5ff' }
+                      'assessment': { label: 'AI Assessment Meeting', color: '#8b5cf6', bg: '#faf5ff' }
                     };
                     const config = serviceConfig[type] || { label: type, color: '#64748b', bg: '#f8fafc' };
                     return `
@@ -2109,7 +2109,7 @@ class EmailService {
               </div>
               <div style="flex: 1; margin-right: 20px;">
                 <h3 style="color: #0f172a; font-size: 18px; font-weight: 600; margin: 0 0 8px 0;">Solution Demo Library</h3>
-                <p style="color: #64748b; font-size: 14px; margin: 0; line-height: 1.5;">Watch our AI solutions in action across ${requestData.industry || 'various'} industries with real ROI data</p>
+                <p style="color: #64748b; font-size: 14px; margin: 0; line-height: 1.5;">Watch AI & Automation, Data Analytics, and Business Intelligence solutions in action across ${requestData.industry || 'various'} industries with real ROI data</p>
               </div>
               ${this.createQuickActionButton('▶️ Watch Demos', 'https://strivetech.ai/demos', 'primary')}
             </div>
@@ -2270,9 +2270,9 @@ class EmailService {
     const requestTypes = requestData.requestTypes ? requestData.requestTypes.split(',') : [];
     const serviceList = requestTypes.map((type: string) => {
       switch(type) {
-        case 'demo': return 'Product Demo';
+        case 'demo': return 'Demo Showcase';
         case 'showcase': return 'Solution Showcase';  
-        case 'assessment': return 'AI Assessment';
+        case 'assessment': return 'AI Assessment Meeting';
         default: return type;
       }
     }).join(', ');
@@ -2479,9 +2479,9 @@ class EmailService {
                     <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
                       ${requestTypes.map(type => {
                         const serviceConfig = {
-                          'demo': { label: 'Product Demo', color: '#10b981', bg: '#f0fdf4' },
+                          'demo': { label: 'Demo Showcase', color: '#10b981', bg: '#f0fdf4' },
                           'showcase': { label: 'Solution Showcase', color: '#3b82f6', bg: '#f0f9ff' },
-                          'assessment': { label: 'AI Assessment', color: '#8b5cf6', bg: '#faf5ff' }
+                          'assessment': { label: 'AI Assessment Meeting', color: '#8b5cf6', bg: '#faf5ff' }
                         };
                         const config = serviceConfig[type] || { label: type, color: '#64748b', bg: '#f8fafc' };
                         return `
@@ -2613,7 +2613,7 @@ class EmailService {
                 <h3 style="color: #166534; font-size: 18px; font-weight: 600; margin: 0;">Immediate Actions Required</h3>
               </div>
               <ul style="color: #15803d; margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.8;">
-                <li><strong>Contact within 24 hours</strong> to schedule ${serviceList.toLowerCase()} sessions</li>
+                <li><strong>Contact within 2-4 hours</strong> to schedule ${serviceList.toLowerCase()} sessions</li>
                 <li><strong>Send personalized calendar invites</strong> for all requested services with preparation materials</li>
                 <li><strong>Prepare industry-specific materials</strong> based on ${requestData.industry || 'their sector'} and documented challenges</li>
                 ${requestTypes.includes('assessment') ? '<li><strong>Schedule technical discovery session</strong> to assess AI readiness and infrastructure</li>' : ''}
@@ -2666,7 +2666,7 @@ class EmailService {
                 <span style="font-size: 28px;">👥</span>
               </div>
               <h2 style="color: #ea580c; font-size: 24px; font-weight: 700; margin: 0 0 8px 0;">
-                Team Assignment & Coordination
+                Team Assignment & Management
               </h2>
               <p style="color: #9a3412; font-size: 16px; margin: 0;">
                 Recommended team structure for optimal engagement
@@ -2715,7 +2715,7 @@ class EmailService {
 
               <!-- Internal Notes -->
               <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 12px; border: 1px solid rgba(245,158,11,0.2);">
-                <h4 style="color: #ea580c; font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">📝 Internal Coordination Notes</h4>
+                <h4 style="color: #ea580c; font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">📝 Internal Team Notes</h4>
                 <ul style="color: #9a3412; margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.6;">
                   <li>Update CRM with all prospect details and priority classification</li>
                   <li>Create shared preparation document for team coordination</li>
@@ -3175,7 +3175,6 @@ class EmailService {
           </tr>
           
           <!-- Main Content Container -->`;
-  }
   }
 
   private getEmailFooter(): string {
