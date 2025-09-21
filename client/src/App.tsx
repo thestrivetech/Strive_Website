@@ -9,11 +9,13 @@ import { AuthProvider } from "@/lib/auth";
 import ScrollToTop from "@/components/scroll-to-top";
 import PageSkeleton from "@/components/ui/page-skeleton";
 import ErrorBoundary from "@/components/ui/error-boundary";
+import { usePageTracking } from "@/hooks/usePageTracking";
 
 // Lazy load layout components for better performance
 const Navigation = lazy(() => import("@/components/layout/navigation"));
 const Footer = lazy(() => import("@/components/layout/footer"));
 const FloatingChat = lazy(() => import("@/components/ui/floating-chat"));
+const ConsentBanner = lazy(() => import("@/components/analytics/consent-banner").then(module => ({ default: module.ConsentBanner })));
 
 // Keep home page loaded immediately for best UX
 import Home from "@/pages/home";
@@ -54,6 +56,9 @@ const AnalyticsDashboard = lazy(() => import("@/pages/analytics-dashboard"));
 function Router() {
   const [location] = useLocation();
   const hideChatWidget = location === '/chatbot-sai';
+
+  // Enable automatic page tracking
+  usePageTracking();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -105,6 +110,9 @@ function Router() {
           <FloatingChat />
         </Suspense>
       )}
+      <Suspense fallback={null}>
+        <ConsentBanner />
+      </Suspense>
     </div>
   );
 }

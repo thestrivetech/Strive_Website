@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Calendar, Download, MessageCircle, ChevronDown, ChevronUp, Users, Eye, FileText } from "lucide-react";
-import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -67,7 +67,6 @@ const Contact = () => {
         <span className="flex items-center gap-1.5">
           <span className="hidden sm:inline">Download Brochure</span>
           <span className="sm:hidden text-xs">Download</span>
-          <ComingSoonBadge size="sm" variant="hero" className="text-[8px] sm:text-[9px] px-1 sm:px-1.5 py-0.5" />
         </span>
       ),
       action: "brochure"
@@ -78,7 +77,6 @@ const Contact = () => {
         <span className="flex items-center gap-1 sm:gap-2">
           <span className="hidden sm:inline">Chat Live with AI Specialist</span>
           <span className="sm:hidden text-xs leading-tight">Chat with AI</span>
-          <ComingSoonBadge size="sm" variant="hero" className="text-[8px] sm:text-[10px] px-1 sm:px-1.5 py-0.5" />
         </span>
       ),
       action: "chat"
@@ -208,12 +206,8 @@ const Contact = () => {
         setIsBrochureModalOpen(true);
         break;
       case "chat":
-        // Navigate to the full Sai chatbot page and ensure we scroll to top
+        // Navigate to the full Sai chatbot page
         setLocation('/chatbot-sai');
-        // Ensure scroll to top after navigation
-        setTimeout(() => {
-          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-        }, 100);
         break;
     }
   };

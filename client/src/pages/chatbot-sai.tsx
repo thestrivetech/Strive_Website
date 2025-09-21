@@ -110,6 +110,9 @@ const ChatBotSai = () => {
   useEffect(() => {
     addDebugInfo('ChatBot component mounted');
 
+    // Ensure we scroll to top when component mounts
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
     // Start loading iframe immediately on mount
     setIsIframeVisible(true);
     addDebugInfo('Iframe set to visible, starting load');
@@ -150,6 +153,8 @@ const ChatBotSai = () => {
       addDebugInfo('Visibility timeout reached - assuming iframe is ready');
       setShowLoadingOverlay(false);
       setConnectionStatus('ready');
+      // Ensure we're still at the top after iframe loads
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }, 2000); // 2 second timeout for smooth UX
 
     visibilityTimeoutRef.current = visibilityTimeout;
@@ -216,6 +221,9 @@ const ChatBotSai = () => {
 
   const handleIframeLoad = () => {
     addDebugInfo('Iframe onLoad event fired');
+
+    // Ensure we scroll to top when iframe loads (common cause of unwanted scrolling)
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
     // Don't automatically set ready - let the visibility timeout handle it
     // This prevents premature loading state removal

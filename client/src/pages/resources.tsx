@@ -1045,8 +1045,8 @@ const Resources = () => {
                           variant={userAnswers[currentQuestionIndex] === index ? "default" : "outline"}
                           className={`w-full text-left justify-start p-4 h-auto ${
                             userAnswers[currentQuestionIndex] === index 
-                              ? "bg-blue-600 text-white hover:bg-blue-700" 
-                              : "bg-off-white text-slate-700 hover:bg-blue-50 border-slate-200"
+                              ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white" 
+                              : "bg-off-white text-slate-700 hover:bg-blue-50 hover:text-slate-800 border-slate-200"
                           }`}
                           onClick={() => handleQuizAnswer(index)}
                           data-testid={`button-quiz-option-${index}`}

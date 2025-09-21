@@ -6,7 +6,7 @@ import { z } from "zod";
 import bcrypt from "bcrypt";
 import { supabase, db } from "./supabase";
 import { authenticateToken, generateToken, type AuthenticatedRequest } from "./auth";
-import { emailService } from "./email";
+import { emailService } from "./services/email";
 import { sql } from "drizzle-orm";
 import { log } from "./lib/logger";
 import { sitemapRouter } from "./routes/sitemap";

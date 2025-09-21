@@ -10,7 +10,7 @@ import {
 import { MetaTags } from "@/components/seo/meta-tags";
 import { OrganizationStructuredData, FAQStructuredData } from "@/components/seo/structured-data";
 import { useSEO } from "@/hooks/use-seo";
-import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
@@ -388,9 +388,7 @@ const Home = () => {
       <section className="py-12 sm:py-16 md:py-24 bg-[#ffffffeb] text-[#f8fafc]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <div className="mb-6">
-              <ComingSoonBadge size="sm" variant="hero" />
-            </div>
+
             <div 
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-section-label"

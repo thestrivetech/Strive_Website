@@ -13,14 +13,11 @@ import { Link } from "wouter";
 
 const Solutions = () => {
   const { seoConfig } = useSEO();
-  const [activeFilter, setActiveFilter] = useState("All");
-  const [selectedIndustry, setSelectedIndustry] = useState("");
-  const [selectedSolutionType, setSelectedSolutionType] = useState("");
+  // Unified filter state management
+  const [selectedFilter, setSelectedFilter] = useState<{type: 'all' | 'industry' | 'solution', value: string}>({type: 'all', value: 'All'});
   const [selectedSolution, setSelectedSolution] = useState<any>(null);
-  const [industryDropdownOpen, setIndustryDropdownOpen] = useState(false);
-  const [productDropdownOpen, setProductDropdownOpen] = useState(false);
-  const [industrySearch, setIndustrySearch] = useState("");
-  const [productSearch, setProductSearch] = useState("");
+  const [unifiedDropdownOpen, setUnifiedDropdownOpen] = useState(false);
+  const [filterSearch, setFilterSearch] = useState("");
 
   // Handle URL parameters for auto-opening solution modals
   useEffect(() => {
@@ -47,11 +44,43 @@ const Solutions = () => {
     }
   }, []);
   
-  const filters = [
-    { name: "All", icon: null },
-    { name: "Health", icon: <Building2 className="h-4 w-4 mr-2" /> },
-    { name: "Solution Type", icon: <Cog className="h-4 w-4 mr-2" /> },
-  ];
+  // Calculate solution counts for each industry
+  const getIndustrySolutionCount = (industryValue: string) => {
+    return solutions.filter(solution => 
+      solution.industry?.toLowerCase() === industryValue || 
+      (industryValue === 'all-industries' && solution.type === 'service')
+    ).length;
+  };
+
+  const getSolutionTypeSolutionCount = (solutionValue: string) => {
+    return solutions.filter(solution => 
+      solution.technologies?.some(tech => tech.toLowerCase().includes(solutionValue.split('-')[0])) ||
+      solution.category?.toLowerCase().includes(solutionValue.split('-')[0]) ||
+      (solutionValue === 'all-solutions' && solution.type === 'product')
+    ).length;
+  };
+
+  // Function to get primary solution type badge for each solution
+  const getPrimarySolutionType = (solution: any) => {
+    // For industry solutions, use the primary technology they focus on
+    if (solution.type === 'service' && solution.technologies) {
+      // Return the first/primary technology
+      return solution.technologies[0];
+    }
+    // For product solutions, use category or derive from title
+    if (solution.type === 'product') {
+      if (solution.category === 'NLP') return 'NLP';
+      if (solution.category === 'Computer Vision') return 'Computer Vision';
+      if (solution.category === 'Predictive Model') return 'Predictive Analytics';
+      if (solution.category === 'Web3') return 'Blockchain';
+      if (solution.category === 'Solution Type') return 'Security & Compliance';
+      if (solution.category === 'Offline Solutions') return 'Offline AI';
+      // Fallback to category
+      return solution.category;
+    }
+    // Default fallback
+    return solution.category || 'AI Solution';
+  };
 
   const industryOptions = [
     { value: "healthcare", label: "Healthcare", icon: <Heart className="h-4 w-4" /> },
@@ -62,20 +91,20 @@ const Solutions = () => {
     { value: "education", label: "Education", icon: <GraduationCap className="h-4 w-4" /> },
     { value: "real-estate", label: "Real Estate", icon: <HomeIcon className="h-4 w-4" /> },
     { value: "legal", label: "Legal", icon: <Scale className="h-4 w-4" /> },
-    { value: "logistics", label: "Logistics & Supply Chain", icon: <Factory className="h-4 w-4" /> },
-    { value: "hospitality", label: "Hospitality & Tourism", icon: <Building2 className="h-4 w-4" /> },
-    { value: "energy", label: "Energy & Utilities", icon: <Cog className="h-4 w-4" /> },
+    { value: "logistics", label: "Logistics & Supply Chain", icon: <Truck className="h-4 w-4" /> },
+    { value: "hospitality", label: "Hospitality & Tourism", icon: <Hotel className="h-4 w-4" /> },
+    { value: "energy", label: "Energy & Utilities", icon: <Zap className="h-4 w-4" /> },
     { value: "government", label: "Government & Public Sector", icon: <Building2 className="h-4 w-4" /> },
     { value: "insurance", label: "Insurance", icon: <ShieldCheck className="h-4 w-4" /> },
     { value: "automotive", label: "Automotive", icon: <Factory className="h-4 w-4" /> },
-    { value: "agriculture", label: "Agriculture", icon: <Building2 className="h-4 w-4" /> },
-    { value: "media", label: "Media & Entertainment", icon: <Laptop className="h-4 w-4" /> },
+    { value: "agriculture", label: "Agriculture", icon: <Leaf className="h-4 w-4" /> },
+    { value: "media", label: "Media & Entertainment", icon: <Film className="h-4 w-4" /> },
     { value: "gaming", label: "Gaming", icon: <Gamepad2 className="h-4 w-4" /> },
     { value: "esports", label: "eSports", icon: <Trophy className="h-4 w-4" /> },
     { value: "nonprofit", label: "Non-profit Organizations", icon: <Heart className="h-4 w-4" /> }
   ];
 
-  const productOptions = [
+  const solutionTypeOptions = [
     { value: "ai-automation", label: "AI & Automation", icon: <Bot className="h-4 w-4" /> },
     { value: "computer-vision", label: "Computer Vision", icon: <Eye className="h-4 w-4" /> },
     { value: "data-analytics", label: "Data Analytics", icon: <BarChart className="h-4 w-4" /> },
@@ -567,17 +596,28 @@ const Solutions = () => {
     }
   ];
   
-  const filteredSolutions = activeFilter === "All" 
+  // Updated filtering logic for unified dropdown
+  const filteredSolutions = selectedFilter.type === 'all' 
     ? solutions 
-    : activeFilter === "Health"
-    ? selectedIndustry === "All Industries" 
+    : selectedFilter.type === 'industry'
+    ? selectedFilter.value === 'all-industries'
       ? solutions.filter(solution => solution.type === "service")
-      : solutions.filter(solution => solution.industry === selectedIndustry.replace("Financial Services", "Finance"))
-    : activeFilter === "Solution Type"
-    ? selectedSolutionType === "All Solutions"
+      : solutions.filter(solution => {
+          const targetIndustry = industryOptions.find(opt => opt.value === selectedFilter.value);
+          return solution.industry?.toLowerCase() === targetIndustry?.label.toLowerCase() ||
+                 solution.industry?.toLowerCase() === targetIndustry?.label.replace("Financial Services", "Finance").toLowerCase();
+        })
+    : selectedFilter.type === 'solution'
+    ? selectedFilter.value === 'all-solutions'
       ? solutions.filter(solution => solution.type === "product")
-      : solutions.filter(solution => solution.title.includes(selectedSolutionType.split(" ")[0]) || solution.category === "Solution Type")
-    : solutions.filter(solution => solution.category === activeFilter);
+      : solutions.filter(solution => {
+          const solutionType = solutionTypeOptions.find(opt => opt.value === selectedFilter.value);
+          return solution.technologies?.some(tech => 
+            tech.toLowerCase().includes(solutionType?.label.split(' ')[0].toLowerCase() || '') ||
+            tech.toLowerCase().includes(solutionType?.label.toLowerCase() || '')
+          ) || solution.category?.toLowerCase().includes(solutionType?.label.toLowerCase() || '');
+        })
+    : solutions;
 
   // Handle deep linking from Home page industry selector
   useEffect(() => {
@@ -585,18 +625,16 @@ const Solutions = () => {
     const industry = urlParams.get('industry');
     
     if (industry) {
-      // Find the industry solution by matching the industry ID
-      const industrySolution = solutions.find(solution => 
-        solution.type === 'industry' && 
-        solution.industry?.toLowerCase() === industry.toLowerCase()
+      // Find the industry option by matching the industry ID
+      const industryOption = industryOptions.find(option => 
+        option.value.toLowerCase() === industry.toLowerCase()
       );
       
-      if (industrySolution) {
-        // Set filter to Health and auto-open the modal
-        setActiveFilter("Health");
-        setSelectedSolution(industrySolution);
+      if (industryOption) {
+        // Set filter to the specific industry
+        setSelectedFilter({type: 'industry', value: industryOption.value});
         
-        // Clean the URL after opening the modal
+        // Clean the URL after setting the filter
         window.history.replaceState({}, document.title, '/solutions');
       }
     }
@@ -686,22 +724,20 @@ const Solutions = () => {
           {/* Filter Instruction Text */}
           <div className="text-center mb-8">
             <p className="text-lg text-muted-foreground">
-              Easily Find Your Custom AI Solution: Select your industry to see proven strategies and results for companies just like yours.
+              Discover Your Perfect AI Solution: Choose your industry to see tailored strategies, or browse by solution type to find specific capabilities across all sectors.
             </p>
           </div>
           
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+          {/* Unified Filter Dropdown */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-12 px-4 sm:px-0">
             {/* All Filter */}
             <Button
-              variant={activeFilter === "All" ? "default" : "outline"}
+              variant={selectedFilter.type === "all" ? "default" : "outline"}
               onClick={() => {
-                setActiveFilter("All");
-                setSelectedIndustry("");
-                setSelectedSolutionType("");
+                setSelectedFilter({type: 'all', value: 'All'});
               }}
-              className={`flex items-center px-6 py-3 transition-all duration-200 ${
-                activeFilter === "All"
+              className={`flex items-center px-4 sm:px-6 py-3 transition-all duration-200 ${
+                selectedFilter.type === "all"
                   ? "bg-primary text-white shadow-lg scale-105"
                   : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
               }`}
@@ -710,176 +746,159 @@ const Solutions = () => {
               All
             </Button>
 
-            {/* By Industry Dropdown */}
-            <Popover open={industryDropdownOpen} onOpenChange={setIndustryDropdownOpen}>
+            {/* Unified Solutions Dropdown */}
+            <Popover open={unifiedDropdownOpen} onOpenChange={setUnifiedDropdownOpen}>
               <PopoverTrigger asChild>
                 <Button
-                  variant={activeFilter === "Health" ? "default" : "outline"}
+                  variant={selectedFilter.type !== "all" ? "default" : "outline"}
                   onClick={() => {
-                    // Toggle dropdown open/closed
-                    setIndustryDropdownOpen(!industryDropdownOpen);
+                    setUnifiedDropdownOpen(!unifiedDropdownOpen);
                   }}
-                  className={`flex items-center px-6 py-3 min-w-[200px] transition-all duration-200 ${
-                    activeFilter === "Health"
+                  className={`flex items-center px-4 sm:px-6 py-3 w-full sm:min-w-[280px] sm:w-auto transition-all duration-200 ${
+                    selectedFilter.type !== "all"
                       ? "bg-primary text-white shadow-lg scale-105"
                       : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
                   }`}
-                  data-testid="filter-by-industry"
+                  data-testid="filter-unified"
                 >
-                  <Building2 className="h-4 w-4 mr-2 flex-shrink-0" />
-                  <span className="flex-grow text-left">{selectedIndustry || "Industry"}</span>
+                  <Target className="h-4 w-4 mr-2 flex-shrink-0" />
+                  <span className="flex-grow text-left">
+                    {selectedFilter.value === 'All' ? 'Solutions' : 
+                     selectedFilter.type === 'industry' ? 
+                       (selectedFilter.value === 'all-industries' ? 'All Industries' : 
+                        industryOptions.find(opt => opt.value === selectedFilter.value)?.label || selectedFilter.value) :
+                     selectedFilter.type === 'solution' ?
+                       (selectedFilter.value === 'all-solutions' ? 'All Solutions' :
+                        solutionTypeOptions.find(opt => opt.value === selectedFilter.value)?.label || selectedFilter.value) :
+                     'Solutions'}
+                  </span>
                   <Badge variant="secondary" className="ml-auto mr-2 text-xs">
-                    {industryOptions.length}
+                    {filteredSolutions.length}
                   </Badge>
                   <ChevronDown className="h-4 w-4 flex-shrink-0" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-64 p-0" align="start" side="bottom" sideOffset={5} avoidCollisions={false}>
+              <PopoverContent className="w-[calc(100vw-2rem)] sm:w-96 max-w-md p-0" align="start" side="bottom" sideOffset={5} avoidCollisions={true}>
                 <Command>
                   <CommandInput 
-                    placeholder="Search industries..." 
-                    value={industrySearch}
-                    onValueChange={setIndustrySearch}
+                    placeholder="Search industries or solutions..." 
+                    value={filterSearch}
+                    onValueChange={setFilterSearch}
+                    className="h-12 sm:h-10 text-base sm:text-sm"
                   />
-                  <CommandList>
-                    <CommandEmpty>No industries found.</CommandEmpty>
-                    <CommandGroup>
+                  <CommandList className="max-h-[300px] sm:max-h-[400px] overflow-y-auto">
+                    <CommandEmpty>No matches found.</CommandEmpty>
+                    
+                    {/* Industries Section */}
+                    <CommandGroup heading="Industries">
                       <CommandItem
                         value="all-industries"
                         onSelect={() => {
-                          if (selectedIndustry === "All Industries") {
-                            // Deselect if already selected
-                            setSelectedIndustry("");
-                            setActiveFilter("All");
+                          if (selectedFilter.value === "All Industries") {
+                            setSelectedFilter({type: 'all', value: 'All'});
                           } else {
-                            setActiveFilter("Health");
-                            setSelectedIndustry("All Industries");
+                            setSelectedFilter({type: 'industry', value: 'all-industries'});
                           }
-                          setIndustryDropdownOpen(false);
-                          setIndustrySearch("");
+                          setUnifiedDropdownOpen(false);
+                          setFilterSearch("");
                         }}
-                        className={`flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] ${
-                          selectedIndustry === "All Industries" ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
+                        className={`flex items-center justify-between gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-2 py-3 sm:py-2 ${
+                          selectedFilter.type === 'industry' && selectedFilter.value === 'all-industries' ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
                         }`}
                       >
-                        <Building2 className="h-4 w-4" />
-                        <span>All Industries</span>
+                        <div className="flex items-center gap-2">
+                          <Building2 className="h-4 w-4" />
+                          <span>All Industries</span>
+                        </div>
+                        <Badge variant="secondary" className="text-xs">
+                          {getIndustrySolutionCount('all-industries')}
+                        </Badge>
                       </CommandItem>
                       {industryOptions
                         .filter(option => 
-                          option.label.toLowerCase().includes(industrySearch.toLowerCase())
+                          option.label.toLowerCase().includes(filterSearch.toLowerCase())
                         )
                         .map((option) => (
                         <CommandItem
                           key={option.value}
                           value={option.value}
                           onSelect={() => {
-                            if (selectedIndustry === option.label) {
-                              // Deselect if already selected
-                              setSelectedIndustry("");
-                              setActiveFilter("All");
+                            if (selectedFilter.type === 'industry' && selectedFilter.value === option.value) {
+                              setSelectedFilter({type: 'all', value: 'All'});
                             } else {
-                              setActiveFilter("Health");
-                              setSelectedIndustry(option.label);
+                              setSelectedFilter({type: 'industry', value: option.value});
                             }
-                            setIndustryDropdownOpen(false);
-                            setIndustrySearch("");
+                            setUnifiedDropdownOpen(false);
+                            setFilterSearch("");
                           }}
-                          className={`flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] ${
-                            selectedIndustry === option.label ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
+                          className={`flex items-center justify-between gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-2 py-3 sm:py-2 ${
+                            selectedFilter.type === 'industry' && selectedFilter.value === option.value ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
                           }`}
                         >
-                          {option.icon}
-                          <span>{option.label}</span>
+                          <div className="flex items-center gap-2">
+                            {option.icon}
+                            <span>{option.label}</span>
+                          </div>
+                          <Badge variant="secondary" className="text-xs">
+                            {getIndustrySolutionCount(option.value)}
+                          </Badge>
                         </CommandItem>
                       ))}
                     </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-
-            {/* Solution Type Dropdown */}
-            <Popover open={productDropdownOpen} onOpenChange={setProductDropdownOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant={activeFilter === "Solution Type" ? "default" : "outline"}
-                  onClick={() => {
-                    // Toggle dropdown open/closed
-                    setProductDropdownOpen(!productDropdownOpen);
-                  }}
-                  className={`flex items-center px-6 py-3 min-w-[220px] transition-all duration-200 ${
-                    activeFilter === "Solution Type"
-                      ? "bg-primary text-white shadow-lg scale-105"
-                      : "border-primary/20 text-foreground hover:border-primary hover:text-primary"
-                  }`}
-                  data-testid="filter-by-product-service"
-                >
-                  <Cog className="h-4 w-4 mr-2 flex-shrink-0" />
-                  <span className="flex-grow text-left">{selectedSolutionType || "Solution Type"}</span>
-                  <Badge variant="secondary" className="ml-auto mr-2 text-xs">
-                    {productOptions.length}
-                  </Badge>
-                  <ChevronDown className="h-4 w-4 flex-shrink-0" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-64 p-0" align="start" side="bottom" sideOffset={5} avoidCollisions={false}>
-                <Command>
-                  <CommandInput 
-                    placeholder="Search solutions..." 
-                    value={productSearch}
-                    onValueChange={setProductSearch}
-                  />
-                  <CommandList>
-                    <CommandEmpty>No products or services found.</CommandEmpty>
-                    <CommandGroup>
+                    
+                    {/* Solution Types Section */}
+                    <CommandGroup heading="Solution Types">
                       <CommandItem
                         value="all-solutions"
                         onSelect={() => {
-                          if (selectedSolutionType === "All Solutions") {
-                            // Deselect if already selected
-                            setSelectedSolutionType("");
-                            setActiveFilter("All");
+                          if (selectedFilter.value === "All Solutions") {
+                            setSelectedFilter({type: 'all', value: 'All'});
                           } else {
-                            setActiveFilter("Solution Type");
-                            setSelectedSolutionType("All Solutions");
+                            setSelectedFilter({type: 'solution', value: 'all-solutions'});
                           }
-                          setProductDropdownOpen(false);
-                          setProductSearch("");
+                          setUnifiedDropdownOpen(false);
+                          setFilterSearch("");
                         }}
-                        className={`flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] ${
-                          selectedSolutionType === "All Solutions" ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
+                        className={`flex items-center justify-between gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-2 py-3 sm:py-2 ${
+                          selectedFilter.type === 'solution' && selectedFilter.value === 'all-solutions' ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
                         }`}
                       >
-                        <Cog className="h-4 w-4" />
-                        <span>All Solutions</span>
+                        <div className="flex items-center gap-2">
+                          <Cog className="h-4 w-4" />
+                          <span>All Solutions</span>
+                        </div>
+                        <Badge variant="secondary" className="text-xs">
+                          {getSolutionTypeSolutionCount('all-solutions')}
+                        </Badge>
                       </CommandItem>
-                      {productOptions
+                      {solutionTypeOptions
                         .filter(option => 
-                          option.label.toLowerCase().includes(productSearch.toLowerCase())
+                          option.label.toLowerCase().includes(filterSearch.toLowerCase())
                         )
                         .map((option) => (
                         <CommandItem
                           key={option.value}
                           value={option.value}
                           onSelect={() => {
-                            if (selectedSolutionType === option.label) {
-                              // Deselect if already selected
-                              setSelectedSolutionType("");
-                              setActiveFilter("All");
+                            if (selectedFilter.type === 'solution' && selectedFilter.value === option.value) {
+                              setSelectedFilter({type: 'all', value: 'All'});
                             } else {
-                              setActiveFilter("Solution Type");
-                              setSelectedSolutionType(option.label);
+                              setSelectedFilter({type: 'solution', value: option.value});
                             }
-                            setProductDropdownOpen(false);
-                            setProductSearch("");
+                            setUnifiedDropdownOpen(false);
+                            setFilterSearch("");
                           }}
-                          className={`flex items-center gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] ${
-                            selectedSolutionType === option.label ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
+                          className={`flex items-center justify-between gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-2 py-3 sm:py-2 ${
+                            selectedFilter.type === 'solution' && selectedFilter.value === option.value ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : ""
                           }`}
                         >
-                          {option.icon}
-                          <span>{option.label}</span>
+                          <div className="flex items-center gap-2">
+                            {option.icon}
+                            <span>{option.label}</span>
+                          </div>
+                          <Badge variant="secondary" className="text-xs">
+                            {getSolutionTypeSolutionCount(option.value)}
+                          </Badge>
                         </CommandItem>
                       ))}
                     </CommandGroup>
@@ -937,6 +956,28 @@ const Solutions = () => {
                       <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-[#020a1c] hidden md:inline mt-1">
                         {solution.category}
                       </span>
+                      
+                      {/* Solution Type Badge - Prominent display */}
+                      <div className="mt-2 md:mt-3 flex justify-center md:justify-start">
+                        <Badge 
+                          variant="outline"
+                          className="bg-[#ff7033]/10 text-[#ff7033] border-[#ff7033]/20 font-semibold px-2 sm:px-3 py-1 text-xs hover:bg-[#ff7033] hover:text-white transition-colors cursor-pointer min-h-[28px] flex items-center"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            // Filter by this solution type
+                            const solutionType = getPrimarySolutionType(solution);
+                            const matchingOption = solutionTypeOptions.find(opt => 
+                              opt.label.toLowerCase().includes(solutionType.toLowerCase()) ||
+                              solutionType.toLowerCase().includes(opt.label.toLowerCase())
+                            );
+                            if (matchingOption) {
+                              setSelectedFilter({type: 'solution', value: matchingOption.value});
+                            }
+                          }}
+                        >
+                          {getPrimarySolutionType(solution)}
+                        </Badge>
+                      </div>
                     </div>
                     
                     {/* Content Section - Left aligned */}
