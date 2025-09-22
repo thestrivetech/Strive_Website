@@ -9,6 +9,7 @@ import { AuthProvider } from "@/lib/auth";
 import ScrollToTop from "@/components/scroll-to-top";
 import PageSkeleton from "@/components/ui/page-skeleton";
 import ErrorBoundary from "@/components/ui/error-boundary";
+import AnalyticsErrorBoundary from "@/components/ui/analytics-error-boundary";
 import { usePageTracking } from "@/hooks/usePageTracking";
 
 // Lazy load layout components for better performance
@@ -57,8 +58,13 @@ function Router() {
   const [location] = useLocation();
   const hideChatWidget = location === '/chatbot-sai' || location === '/';
 
-  // Enable automatic page tracking
-  usePageTracking();
+  // Enable automatic page tracking with error handling
+  try {
+    usePageTracking();
+  } catch (error) {
+    console.error('📊 Page tracking initialization failed:', error);
+    // Continue app execution - analytics failure shouldn't break the app
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -111,7 +117,9 @@ function Router() {
         </Suspense>
       )}
       <Suspense fallback={null}>
-        <ConsentBanner />
+        <AnalyticsErrorBoundary componentName="ConsentBanner">
+          <ConsentBanner />
+        </AnalyticsErrorBoundary>
       </Suspense>
     </div>
   );

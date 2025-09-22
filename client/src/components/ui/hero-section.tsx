@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 // Removed unused imports: Play, Pause, ChevronLeft, ChevronRight
 import LazyImage from "@/components/ui/lazy-image";
+import IframeErrorBoundary from "@/components/ui/iframe-error-boundary";
 
 interface HeroSectionProps {
   title: string;
@@ -27,6 +28,41 @@ const HeroSection = ({
   // Chatbot URL - using the same URL as the floating widget
   const chatbotUrl = import.meta.env.VITE_CHATBOT_URL || 'https://chatbot.strivetech.ai';
   const widgetUrl = `${chatbotUrl}/widget`;
+
+  // Validate environment variables and URLs
+  const [urlError, setUrlError] = useState<string | null>(null);
+  const [showIframe, setShowIframe] = useState(false);
+
+  useEffect(() => {
+    // Validate chatbot URL
+    try {
+      if (!chatbotUrl) {
+        setUrlError('Chatbot URL not configured');
+        return;
+      }
+
+      const url = new URL(widgetUrl);
+      if (!url.protocol || !url.hostname) {
+        setUrlError('Invalid chatbot URL format');
+        return;
+      }
+
+      setUrlError(null);
+      console.log('✅ Chatbot URL validated:', widgetUrl);
+    } catch (error) {
+      console.error('❌ Chatbot URL validation failed:', error);
+      setUrlError(`Invalid URL: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  }, [chatbotUrl, widgetUrl]);
+
+  const handleViewDemo = () => {
+    if (urlError) {
+      // Fallback to chatbot page
+      window.location.href = '/chatbot-sai';
+    } else {
+      setShowIframe(true);
+    }
+  };
 
 
 
@@ -95,29 +131,72 @@ const HeroSection = ({
                     <span className="text-white text-sm font-medium">Chat with Sai AI Assistant</span>
                   </div>
                   <div className="text-white text-xs opacity-75">
-                    Live Demo
+                    {showIframe ? 'Live Demo' : 'Interactive Demo'}
                   </div>
                 </div>
 
-                {/* Chatbot Iframe */}
-                <div className="h-[calc(100%-48px)] bg-white">
-                  <iframe
-                    src={widgetUrl}
-                    className="w-full h-full border-none"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      border: 'none',
-                      background: 'white'
-                    }}
-                    scrolling="yes"
-                    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-                    allow="microphone; camera; clipboard-write; autoplay"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    title="Sai AI Assistant Chat Demo"
-                    loading="eager"
-                    data-testid="hero-chatbot-iframe"
-                  />
+                {/* Chatbot Content */}
+                <div className="h-[calc(100%-48px)] bg-white flex items-center justify-center">
+                  {!showIframe ? (
+                    /* View Demo Button */
+                    <div className="text-center p-8">
+                      <div className="mb-6">
+                        <div className="w-16 h-16 bg-gradient-to-br from-[#ff7033] to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                          </svg>
+                        </div>
+                        <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                          Try Sai AI Assistant
+                        </h3>
+                        <p className="text-sm text-gray-600 mb-6">
+                          Experience our AI-powered assistant that helps transform your business operations.
+                        </p>
+                      </div>
+                      <Button
+                        onClick={handleViewDemo}
+                        className="bg-gradient-to-r from-[#ff7033] to-orange-500 hover:from-[#e85a29] hover:to-orange-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                        data-testid="button-view-demo"
+                      >
+                        View Interactive Demo
+                      </Button>
+                      {urlError && (
+                        <p className="text-xs text-amber-600 mt-2">
+                          Note: Will redirect to full chat experience
+                        </p>
+                      )}
+                    </div>
+                  ) : (
+                    /* Iframe with Error Boundary */
+                    <IframeErrorBoundary
+                      fallbackTitle="Chat Demo Unavailable"
+                      iframeSrc={widgetUrl}
+                      componentName="HeroSection-ChatbotDemo"
+                    >
+                      <iframe
+                        src={widgetUrl}
+                        className="w-full h-full border-none"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          border: 'none',
+                          background: 'white'
+                        }}
+                        scrolling="yes"
+                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                        allow="microphone; camera; clipboard-write; autoplay"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        title="Sai AI Assistant Chat Demo"
+                        loading="eager"
+                        data-testid="hero-chatbot-iframe"
+                        onLoad={() => console.log('✅ Hero iframe loaded successfully')}
+                        onError={(e) => {
+                          console.error('❌ Hero iframe failed to load:', e);
+                          setUrlError('Failed to load chat demo');
+                        }}
+                      />
+                    </IframeErrorBoundary>
+                  )}
                 </div>
               </div>
             </div>

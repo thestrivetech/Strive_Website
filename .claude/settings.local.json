@@ -70,7 +70,8 @@
       "Bash(pkill:*)",
       "Bash(PORT=3001 npm start)",
       "Bash(find:*)",
-      "Bash(timeout 30 npm start)"
+      "Bash(timeout 30 npm start)",
+      "Bash(timeout 30 npm run dev)"
     ],
     "deny": [],
     "ask": []

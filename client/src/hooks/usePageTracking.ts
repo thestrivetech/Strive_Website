@@ -10,22 +10,34 @@ export function usePageTracking() {
 
   useEffect(() => {
     // Initialize analytics if not already done
-    if (analytics.hasConsent()) {
-      analytics.init({
-        enableAutoTracking: true,
-        requireConsent: false,
-      });
+    try {
+      if (analytics.hasConsent()) {
+        analytics.init({
+          enableAutoTracking: true,
+          requireConsent: false,
+        });
+        console.log('📊 Analytics initialized via page tracking');
+      }
+    } catch (error) {
+      console.error('❌ Analytics initialization failed in page tracking:', error);
+      // Continue execution - analytics failure shouldn't break page navigation
     }
   }, []);
 
   useEffect(() => {
     // Track page view when location changes
-    if (analytics.hasConsent()) {
-      analytics.trackPageView({
-        path: location,
-        title: document.title,
-        referrer: document.referrer,
-      });
+    try {
+      if (analytics.hasConsent()) {
+        analytics.trackPageView({
+          path: location,
+          title: document.title,
+          referrer: document.referrer,
+        });
+        console.log('📊 Page view tracked:', location);
+      }
+    } catch (error) {
+      console.error('❌ Page view tracking failed:', error, { location });
+      // Continue execution - tracking failure shouldn't break page navigation
     }
   }, [location]);
 }
