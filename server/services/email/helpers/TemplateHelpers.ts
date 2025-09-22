@@ -265,7 +265,7 @@ export function calculateServiceComplexity(requestTypes: string[]): ServiceCompl
  */
 export function determineServiceTeam(requestTypes: string[], complexity: ServiceComplexity): TeamAssignment {
   const teamMapping: { [key: string]: string } = {
-    'demo': 'Sales Engineering',
+    'demo': 'Solutions Architecture',
     'showcase': 'Solutions Architecture',
     'consultation': 'Strategy Team',
     'assessment': 'Technical Assessment',
@@ -389,7 +389,7 @@ export function parseRequestTypes(requestTypes: string): Array<{
   icon: string;
 }> {
   const serviceMapping: { [key: string]: { name: string; category: string; icon: string } } = {
-    'demo': { name: 'Demo Showcase', category: 'Sales', icon: '🎥' },
+    'demo': { name: 'Solution Showcase', category: 'Pre-Sales', icon: '🏆' },
     'showcase': { name: 'Solution Showcase', category: 'Pre-Sales', icon: '🏆' },
     'assessment': { name: 'AI Assessment Meeting', category: 'Consulting', icon: '🔍' },
     'consultation': { name: 'Strategic Consultation', category: 'Consulting', icon: '💡' },

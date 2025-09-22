@@ -615,7 +615,7 @@ Project Description: ${contactData.projectDescription || 'Not provided'}`,
             <div>
               <h4 className="font-semibold text-blue-900">Email Confirmations</h4>
               <p className="text-sm text-blue-700 mt-1">
-                You'll receive email confirmations immediately after booking, plus reminders 24 hours and 1 hour before your meeting.
+                You'll receive email confirmations immediately after booking, plus reminders 24 hours before, 2 hours before, and 15 minutes before your scheduled meeting time.
               </p>
             </div>
           </div>

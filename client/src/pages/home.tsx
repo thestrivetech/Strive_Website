@@ -5,7 +5,8 @@ import {
   Heart, DollarSign, Factory, ShoppingCart, Monitor, GraduationCap, Home as HomeIcon, Scale,
   Microscope, ClipboardList, CheckCircle, AlertTriangle, LineChart, UserCheck,
   Wrench, Eye, Package, Settings, Target, Coins, Globe,
-  BookOpen, Clipboard, Award, PenTool, Building2, FileText, Search, ShieldAlert
+  BookOpen, Clipboard, Award, PenTool, Building2, FileText, Search, ShieldAlert,
+  Download, Play, BrainCircuit, Building
 } from "lucide-react";
 import { MetaTags } from "@/components/seo/meta-tags";
 import { OrganizationStructuredData, FAQStructuredData } from "@/components/seo/structured-data";
@@ -630,74 +631,157 @@ const Home = () => {
             </a>
           </div>
 
-          {/* Mobile: Horizontal Swipe Carousel */}
-          <div className="md:hidden relative">
-            <div className="overflow-hidden rounded-2xl">
-              <div 
-                className="flex transition-transform duration-300 ease-in-out"
-                style={{ transform: `translateX(-${currentResourceIndex * 100}%)` }}
-              >
-                {resources.map((resource, index) => (
-                  <div key={index} className="w-full flex-shrink-0 px-4">
-                    <ResourceCard
-                      type={resource.type}
-                      title={resource.title}
-                      description={resource.description}
-                      imageUrl={resource.imageUrl}
-                      imageAlt={resource.imageAlt}
-                    />
+          {/* Resource Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {/* Whitepaper Card */}
+            <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 h-full flex flex-col">
+              <div className="relative overflow-hidden flex-shrink-0">
+                <div className="h-48 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <FileText className="w-16 h-16 mx-auto mb-4 opacity-80" />
+                    <div className="text-sm font-medium uppercase tracking-wide">
+                      Comprehensive Guide
+                    </div>
                   </div>
-                ))}
+                </div>
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-blue-500 text-white border-0 text-xs px-2 py-1">
+                    Whitepaper
+                  </Badge>
+                </div>
               </div>
-            </div>
-            
-            {/* Navigation Arrows */}
-            <button
-              onClick={prevResource}
-              className="absolute -left-6 top-1/2 -translate-y-1/2 rounded-full p-3 hover:scale-110 transition-all duration-300 z-10"
-              aria-label="Previous resource"
-            >
-              <ChevronLeft className="h-8 w-8 text-[#ff7033] hover:text-[#ff7033]/80" />
-            </button>
-            
-            <button
-              onClick={nextResource}
-              className="absolute -right-6 top-1/2 -translate-y-1/2 rounded-full p-3 hover:scale-110 transition-all duration-300 z-10"
-              aria-label="Next resource"
-            >
-              <ChevronRight className="h-8 w-8 text-[#ff7033] hover:text-[#ff7033]/80" />
-            </button>
+              
+              <CardContent className="p-6 text-gray-900 flex flex-col flex-grow">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                  AI & Machine Learning Complete Guide
+                </h4>
+                
+                <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3 flex-grow">
+                  Comprehensive overview of AI implementation strategies, best practices, and real-world applications for modern businesses.
+                </p>
+                
+                <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1">
+                      <FileText className="h-3 w-3" />
+                      25 pages
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      15 min read
+                    </div>
+                  </div>
+                </div>
+                
+                <Button 
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white border-0 mt-auto"
+                  onClick={() => window.location.href = "/resources?filter=Whitepapers"}
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  Learn More
+                </Button>
+              </CardContent>
+            </Card>
 
-            {/* Dots Indicator */}
-            <div className="flex justify-center space-x-2 mt-6">
-              {resources.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentResourceIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentResourceIndex 
-                      ? 'bg-primary scale-125' 
-                      : 'bg-gray-300 hover:bg-gray-400'
-                  }`}
-                  aria-label={`Go to resource ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop: Original Grid Layout */}
-          <div className="hidden md:grid grid-cols-3 gap-6 lg:gap-8">
-            {resources.map((resource, index) => (
-              <div key={index}>
-                <ResourceCard
-                  type={resource.type}
-                  title={resource.title}
-                  description={resource.description}
-                  imageUrl={resource.imageUrl}
-                  imageAlt={resource.imageAlt}
-                />
+            {/* Case Study Card */}
+            <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 h-full flex flex-col">
+              <div className="relative overflow-hidden flex-shrink-0">
+                <div className="h-48 bg-gradient-to-br from-green-600 to-teal-600 flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <TrendingUp className="w-16 h-16 mx-auto mb-4 opacity-80" />
+                    <div className="text-sm font-medium uppercase tracking-wide">
+                      Success Story
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-green-500 text-white border-0 text-xs px-2 py-1">
+                    Case Study
+                  </Badge>
+                </div>
               </div>
-            ))}
+              
+              <CardContent className="p-6 text-gray-900 flex flex-col flex-grow">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-green-600 transition-colors line-clamp-2">
+                  Enterprise AI Implementation
+                </h4>
+                
+                <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3 flex-grow">
+                  How a Fortune 500 company achieved 40% cost reduction and 60% efficiency improvement through strategic AI implementation.
+                </p>
+                
+                <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1">
+                      <Building className="h-3 w-3" />
+                      Enterprise
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      10 min read
+                    </div>
+                  </div>
+                </div>
+                
+                <Button 
+                  className="w-full bg-green-600 hover:bg-green-700 text-white border-0 mt-auto"
+                  onClick={() => window.location.href = "/resources?filter=Case Studies"}
+                >
+                  <Eye className="h-4 w-4 mr-2" />
+                  Learn More
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Quiz Card - Adjusted height to match others */}
+            <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 h-full flex flex-col">
+              <div className="relative overflow-hidden flex-shrink-0">
+                <div className="h-48 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <BrainCircuit className="w-16 h-16 mx-auto mb-4 opacity-80" />
+                    <div className="text-sm font-medium uppercase tracking-wide">
+                      Test Your Knowledge
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-purple-500 text-white border-0 text-xs px-2 py-1">
+                    Interactive Quiz
+                  </Badge>
+                </div>
+              </div>
+              
+              <CardContent className="p-6 text-gray-900 flex flex-col flex-grow">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-purple-600 transition-colors line-clamp-2">
+                  AI Knowledge Assessment
+                </h4>
+                
+                <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3 flex-grow">
+                  Test your understanding of AI fundamentals and discover personalized learning recommendations based on your expertise level.
+                </p>
+                
+                <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1">
+                      <Target className="h-3 w-3" />
+                      Multiple topics
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      5-15 min
+                    </div>
+                  </div>
+                </div>
+                
+                <Button 
+                  className="w-full bg-purple-600 hover:bg-purple-700 text-white border-0 mt-auto"
+                  onClick={() => window.location.href = "/resources?filter=Quizzes"}
+                >
+                  <Play className="h-4 w-4 mr-2" />
+                  Learn More
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

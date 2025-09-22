@@ -11,6 +11,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { validatePhone } from "@/lib/validation";
+import ProfessionalBrochure from "@/components/ui/professional-brochure";
+import { generatePDF } from "@/lib/pdf-generator";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -163,7 +165,7 @@ const Contact = () => {
       if (response.ok && result.success) {
         toast({
           title: "Message sent successfully!",
-          description: result.message || "We'll get back to you within one business day.",
+          description: result.message || "We'll get back to you within one business day. If you schedule a meeting, you'll receive 3 reminders: 24 hours before, 2 hours before, and 15 minutes before your scheduled meeting time.",
         });
 
         // Reset form
@@ -212,19 +214,32 @@ const Contact = () => {
     }
   };
 
-  const handleDownloadBrochure = () => {
-    // Create a mock PDF download
-    const link = document.createElement('a');
-    link.href = 'data:application/pdf;base64,';
-    link.download = 'Strive-Business-Solutions-Brochure.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    toast({ 
-      title: "Brochure Downloaded!", 
-      description: "The Strive brochure has been downloaded to your device." 
-    });
+  const handleDownloadBrochure = async () => {
+    try {
+      toast({
+        title: "Generating PDF...",
+        description: "Please wait while we prepare your brochure download."
+      });
+
+      await generatePDF('professional-brochure', {
+        filename: 'Strive-Business-Solutions-Brochure.pdf',
+        quality: 0.95,
+        format: 'a4',
+        orientation: 'portrait'
+      });
+
+      toast({
+        title: "Brochure Downloaded!",
+        description: "The Strive brochure has been downloaded to your device."
+      });
+    } catch (error) {
+      console.error('Error downloading brochure:', error);
+      toast({
+        title: "Download Failed",
+        description: "There was an error downloading the brochure. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   const toggleFaq = (index: number) => {
@@ -561,116 +576,15 @@ const Contact = () => {
 
       {/* Brochure Modal */}
       <Dialog open={isBrochureModalOpen} onOpenChange={setIsBrochureModalOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] w-[95vw] sm:w-auto overflow-y-auto modal-scrollbar">
+        <DialogContent className="max-w-6xl max-h-[90vh] w-[95vw] sm:w-auto overflow-y-auto modal-scrollbar">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold flex items-center gap-2">
               <FileText className="w-6 h-6 text-primary" />
               Strive Business Solutions Brochure
             </DialogTitle>
           </DialogHeader>
-          
-          <div className="space-y-8 py-6">
-            {/* Brochure Header */}
-            <div className="text-center space-y-4">
-              <div className="w-20 h-20 bg-gradient-to-br from-primary to-blue-600 rounded-xl flex items-center justify-center mx-auto">
-                <span className="text-3xl font-bold text-white">S</span>
-              </div>
-              <h2 className="text-3xl font-bold bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Strive</h2>
-              <p className="text-xl text-muted-foreground">Transforming Business Through AI Innovation</p>
-            </div>
 
-            {/* About Section */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold">Company Overview</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Strive is a leading provider of AI-powered business solutions, helping organizations across industries 
-                transform their operations, improve efficiency, and drive growth. Our comprehensive suite of services 
-                includes AI automation, data analytics, cloud infrastructure, and security compliance solutions.
-              </p>
-            </div>
-
-            {/* Services Grid */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold">Our Solutions</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border rounded-lg p-4 space-y-2">
-                  <h4 className="font-semibold text-primary">AI & Automation</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Intelligent process automation, machine learning models, and predictive analytics platforms.
-                  </p>
-                </div>
-                <div className="border rounded-lg p-4 space-y-2">
-                  <h4 className="font-semibold text-primary">Data Analytics</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Real-time dashboards, business intelligence platforms, and advanced data visualization.
-                  </p>
-                </div>
-                <div className="border rounded-lg p-4 space-y-2">
-                  <h4 className="font-semibold text-primary">Cloud Infrastructure</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Scalable cloud solutions, DevOps automation, and modern application architecture.
-                  </p>
-                </div>
-                <div className="border rounded-lg p-4 space-y-2">
-                  <h4 className="font-semibold text-primary">Security & Compliance</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Enterprise security, compliance monitoring, and data protection solutions.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Industries */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold">Industries We Serve</h3>
-              <div className="flex flex-wrap gap-2">
-                {['Healthcare', 'Financial Services', 'Manufacturing', 'Retail', 'Technology', 'Education', 'Real Estate', 'Legal'].map((industry) => (
-                  <span key={industry} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
-                    {industry}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Contact Info */}
-            <div className="border-t pt-6 space-y-4">
-              <h3 className="text-xl font-semibold">Get Started Today</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-primary" />
-                    <span>(731)-431-2320</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-primary" />
-                    <span>hello@strive.com</span>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-primary" />
-                    <span>123 Business District, Tech City, TC 12345</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-primary" />
-                    <span>Mon-Fri: 8:00 AM - 8:00 PM EST</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Download Button */}
-            <div className="flex justify-center pt-6 border-t">
-              <Button 
-                onClick={handleDownloadBrochure}
-                className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 text-white px-8 py-3 text-lg"
-                data-testid="button-download-brochure"
-              >
-                <Download className="w-5 h-5 mr-2" />
-                Download PDF Brochure
-              </Button>
-            </div>
-          </div>
+          <ProfessionalBrochure onDownload={handleDownloadBrochure} />
         </DialogContent>
       </Dialog>
     </div>

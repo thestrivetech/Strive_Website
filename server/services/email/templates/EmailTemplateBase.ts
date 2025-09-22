@@ -55,16 +55,28 @@ export abstract class EmailTemplateBase {
    * Main render method that wraps content with email structure
    */
   async render(data: EmailTemplateData, options: TemplateRenderOptions = {}): Promise<TemplateResult> {
+    console.log(`🎨 Starting template render: ${this.templateName}`);
+    console.log(`📊 Template data received:`, JSON.stringify(data, null, 2));
+    console.log(`⚙️ Template options:`, JSON.stringify(options, null, 2));
+
     try {
+      console.log(`📝 Step 1: Generating subject for ${this.templateName}...`);
       const subject = this.generateSubject(data);
+      console.log(`✅ Subject generated: "${subject}"`);
+
+      console.log(`🎯 Step 2: Rendering content for ${this.templateName}...`);
       const content = this.renderContent(data, options);
-      
+      console.log(`✅ Content rendered successfully (${content.length} characters)`);
+
+      console.log(`🏗️ Step 3: Creating email wrapper...`);
       const emailHTML = createEmailWrapper(`
         ${createEmailHeader()}
         ${content}
         ${createEmailFooter()}
       `);
+      console.log(`✅ Email HTML created successfully (${emailHTML.length} characters)`);
 
+      console.log(`🎉 Template ${this.templateName} rendered successfully!`);
       return {
         subject,
         html: emailHTML,
@@ -72,7 +84,16 @@ export abstract class EmailTemplateBase {
         success: true
       };
     } catch (error) {
-      console.error(`Error rendering ${this.templateName} template:`, error);
+      console.error(`❌ CRITICAL ERROR rendering ${this.templateName} template:`);
+      console.error(`🔍 Error details:`, {
+        name: error instanceof Error ? error.name : 'Unknown',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : 'No stack trace',
+        data: JSON.stringify(data, null, 2),
+        options: JSON.stringify(options, null, 2)
+      });
+
+      // Return detailed error info to help debug
       return {
         subject: 'Strive Tech - Update',
         html: this.generateErrorTemplate(),
@@ -200,7 +221,7 @@ export class ContactFormConfirmationTemplate extends EmailTemplateBase {
       `)}
       
       ${createContentSection(`
-        <h3 style="color: ${EMAIL_COLORS.dark}; font-size: 18px; font-weight: bold; margin: 30px 0 20px 0;">
+        <h3 style="color: ${EMAIL_COLORS.darkBlue}; font-size: 18px; font-weight: bold; margin: 30px 0 20px 0;">
           🚀 What Happens Next?
         </h3>
         
@@ -211,7 +232,7 @@ export class ContactFormConfirmationTemplate extends EmailTemplateBase {
       `)}
       
       ${createContentSection(`
-        <h3 style="color: ${EMAIL_COLORS.dark}; font-size: 18px; font-weight: bold; margin: 30px 0 20px 0;">
+        <h3 style="color: ${EMAIL_COLORS.darkBlue}; font-size: 18px; font-weight: bold; margin: 30px 0 20px 0; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">
           👥 Meet Your Expert Team
         </h3>
         
@@ -289,7 +310,7 @@ export class NewsletterConfirmationTemplate extends EmailTemplateBase {
       `)}
       
       ${createContentSection(`
-        <h3 style="color: ${EMAIL_COLORS.dark}; font-size: 18px; font-weight: bold; margin: 30px 0 20px 0;">
+        <h3 style="color: ${EMAIL_COLORS.darkBlue}; font-size: 18px; font-weight: bold; margin: 30px 0 20px 0;">
           📚 What You'll Receive
         </h3>
         
@@ -842,7 +863,7 @@ export class ServiceRequestConfirmationTemplate extends EmailTemplateBase {
       `) : ''}
       
       ${createContentSection(`
-        <h3 style="color: ${EMAIL_COLORS.dark}; font-size: 18px; font-weight: bold; margin: 30px 0 20px 0;">
+        <h3 style="color: ${EMAIL_COLORS.darkBlue}; font-size: 18px; font-weight: bold; margin: 30px 0 20px 0;">
           🚀 What Happens Next?
         </h3>
         
@@ -853,7 +874,7 @@ export class ServiceRequestConfirmationTemplate extends EmailTemplateBase {
       `)}
       
       ${createContentSection(`
-        <h3 style="color: ${EMAIL_COLORS.dark}; font-size: 18px; font-weight: bold; margin: 30px 0 20px 0;">
+        <h3 style="color: ${EMAIL_COLORS.darkBlue}; font-size: 18px; font-weight: bold; margin: 30px 0 20px 0; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">
           👥 Meet Your Expert Team
         </h3>
         
@@ -888,5 +909,230 @@ export class ServiceRequestConfirmationTemplate extends EmailTemplateBase {
       
       ${createSpacer(20)}
     `;
+  }
+}
+
+/**
+ * Newsletter Email Template - Standalone Design
+ * This template does NOT use the standard header/footer
+ */
+export class NewsletterEmailTemplate extends EmailTemplateBase {
+  constructor() {
+    super('newsletter-email');
+  }
+
+  generateSubject(data: EmailTemplateData): string {
+    const newsletterData = data as NewsletterData;
+    return `🚀 NEW STRIVELETTER - Innovation at the Core`;
+  }
+
+  // Override the base render method to NOT include header/footer
+  async render(data: EmailTemplateData, options: TemplateRenderOptions = {}): Promise<TemplateResult> {
+    try {
+      const subject = this.generateSubject(data);
+      const content = this.renderContent(data, options);
+      
+      // Create standalone newsletter wrapper without standard header/footer
+      const emailHTML = this.createNewsletterWrapper(content);
+
+      return {
+        subject,
+        html: emailHTML,
+        text: this.generateNewsletterTextVersion(data),
+        success: true
+      };
+    } catch (error) {
+      console.error(`Error rendering ${this.templateName} template:`, error);
+      return {
+        subject: 'Strive Tech Newsletter',
+        html: this.generateErrorTemplate(),
+        text: 'Thank you for subscribing to Strive Tech Newsletter.',
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  renderContent(data: EmailTemplateData, options: TemplateRenderOptions): string {
+    const newsletterData = data as NewsletterData;
+    
+    return `
+      <!-- Main Newsletter Content -->
+      <tr>
+        <td style="padding: 0; background: linear-gradient(135deg, ${EMAIL_COLORS.darkBlue} 0%, #1a2b3d 100%); position: relative; min-height: 600px;">
+          <!-- Network/Connection Background Pattern -->
+          <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(circle at 20% 30%, rgba(255,112,51,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(255,112,51,0.08) 0%, transparent 50%); z-index: 1;"></div>
+          
+          <!-- Decorative network lines -->
+          <div style="position: absolute; top: 50px; left: 20px; width: 100px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,112,51,0.3), transparent); z-index: 2;"></div>
+          <div style="position: absolute; top: 150px; right: 30px; width: 80px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,112,51,0.3), transparent); z-index: 2;"></div>
+          
+          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="position: relative; z-index: 3;">
+            <tr>
+              <td style="padding: 60px 40px 40px;">
+                
+                <!-- Header Section -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                  <tr>
+                    <td style="text-align: right; padding-bottom: 30px;">
+                      <div style="color: ${EMAIL_COLORS.primary}; font-size: 14px; font-weight: 600; letter-spacing: 1px;">
+                        STRIVE TECH
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Geometric Arrow Elements -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                  <tr>
+                    <td style="padding-bottom: 40px;">
+                      <div style="display: flex; align-items: center; gap: 15px;">
+                        <!-- Geometric arrows -->
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                          <div style="width: 20px; height: 3px; background: rgba(255,255,255,0.6); transform: skew(-20deg);"></div>
+                          <div style="width: 25px; height: 3px; background: rgba(255,255,255,0.8); transform: skew(-20deg);"></div>
+                          <div style="width: 30px; height: 3px; background: ${EMAIL_COLORS.primary}; transform: skew(-20deg);"></div>
+                          <div style="width: 25px; height: 3px; background: rgba(255,255,255,0.8); transform: skew(-20deg);"></div>
+                          <div style="width: 20px; height: 3px; background: rgba(255,255,255,0.6); transform: skew(-20deg);"></div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Main Title -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                  <tr>
+                    <td style="padding-bottom: 30px;">
+                      <div style="color: rgba(255,255,255,0.7); font-size: 14px; font-weight: 400; margin-bottom: 10px; letter-spacing: 2px;">
+                        NEW
+                      </div>
+                      <div style="color: ${EMAIL_COLORS.white}; font-size: 42px; font-weight: 900; line-height: 48px; margin-bottom: 20px;">
+                        STRIVE<span style="color: ${EMAIL_COLORS.primary};">LETTER</span>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Newsletter Content Area -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                  <tr>
+                    <td style="padding-bottom: 50px;">
+                      <div style="color: rgba(255,255,255,0.9); font-size: 16px; line-height: 24px; margin-bottom: 30px;">
+                        ${newsletterData.content || 'Welcome to the latest insights from Strive Tech. Discover how AI innovation is shaping the future of industry and transforming businesses worldwide.'}
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Innovation Section -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                  <tr>
+                    <td style="padding-bottom: 40px;">
+                      <div style="color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 600; margin-bottom: 15px; letter-spacing: 1px;">
+                        INNOVATION AT THE CORE:
+                      </div>
+                      <div style="color: ${EMAIL_COLORS.white}; font-size: 24px; font-weight: 700; line-height: 30px; margin-bottom: 20px;">
+                        SHAPING THE FUTURE OF<br>INDUSTRY
+                      </div>
+                      <div style="color: rgba(255,255,255,0.8); font-size: 14px; line-height: 22px;">
+                        ${newsletterData.excerpt || 'Discover breakthrough technologies, industry insights, and strategic innovations that are defining the next generation of business solutions. From AI automation to data analytics, explore how forward-thinking companies are leveraging technology to drive unprecedented growth and efficiency.'}
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <!-- Footer Bar -->
+      <tr>
+        <td style="background-color: ${EMAIL_COLORS.darkBlue}; padding: 20px 40px; border-top: 1px solid rgba(255,112,51,0.3);">
+          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+              <!-- Website -->
+              <td style="text-align: left; vertical-align: middle; width: 33.33%;">
+                <div style="color: rgba(255,255,255,0.8); font-size: 12px; display: flex; align-items: center;">
+                  🌐 www.strivetech.ai
+                </div>
+              </td>
+              
+              <!-- Logo -->
+              <td style="text-align: center; vertical-align: middle; width: 33.33%;">
+                <div style="display: inline-block; width: 40px; height: 40px; background: ${EMAIL_COLORS.primary}; border-radius: 8px; position: relative;">
+                  <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: ${EMAIL_COLORS.white}; font-size: 16px; font-weight: 900;">ST</span>
+                  <span style="position: absolute; top: 25%; right: 15%; color: ${EMAIL_COLORS.white}; font-size: 10px;">→</span>
+                </div>
+              </td>
+              
+              <!-- Phone -->
+              <td style="text-align: right; vertical-align: middle; width: 33.33%;">
+                <div style="color: rgba(255,255,255,0.8); font-size: 12px;">
+                  📞 (731) 431-2320
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    `;
+  }
+
+  private createNewsletterWrapper(content: string): string {
+    return `
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="x-apple-disable-message-reformatting">
+  <title>Strive Tech Newsletter</title>
+  
+  <style type="text/css">
+    body { margin: 0; padding: 0; background-color: ${EMAIL_COLORS.background}; font-family: Arial, Helvetica, sans-serif; }
+    table { border-collapse: collapse; }
+    img { border: 0; }
+    .container { max-width: 600px; margin: 0 auto; background-color: ${EMAIL_COLORS.white}; }
+    
+    @media only screen and (max-width: 600px) {
+      .container { width: 100% !important; }
+      .mobile-padding { padding: 20px !important; }
+      .mobile-text-center { text-align: center !important; }
+    }
+  </style>
+</head>
+<body>
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: ${EMAIL_COLORS.background};">
+    <tr>
+      <td align="center" style="padding: 0;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" class="container" style="max-width: 600px; background-color: ${EMAIL_COLORS.white}; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+          ${content}
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+  }
+
+  private generateNewsletterTextVersion(data: EmailTemplateData): string {
+    const newsletterData = data as NewsletterData;
+    return `
+🚀 NEW STRIVELETTER - Innovation at the Core
+
+${newsletterData.content || 'Welcome to the latest insights from Strive Tech. Discover how AI innovation is shaping the future of industry and transforming businesses worldwide.'}
+
+INNOVATION AT THE CORE: SHAPING THE FUTURE OF INDUSTRY
+
+${newsletterData.excerpt || 'Discover breakthrough technologies, industry insights, and strategic innovations that are defining the next generation of business solutions.'}
+
+---
+🌐 www.strivetech.ai | 📞 (731) 431-2320
+
+Strive Tech - AI Solutions Company
+    `.trim();
   }
 }

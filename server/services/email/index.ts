@@ -64,8 +64,7 @@ export {
   createQuickActionButton,
   createPriorityBadge,
   createTeamMemberCard,
-  createServiceTypeIndicator,
-  createTimelineStep,
+createTimelineStep,
   createFeatureHighlight,
   wrapEmailContent,
   createDivider,
@@ -99,8 +98,7 @@ export type {
   QuickActionButtonOptions,
   PriorityBadgeOptions,
   TeamMemberCardOptions,
-  ServiceTypeIndicatorOptions,
-  TimelineStepOptions,
+TimelineStepOptions,
   FeatureHighlightOptions,
   
   // Configuration types
@@ -206,21 +204,6 @@ export async function sendEmail(options: EmailOptions, retries?: number): Promis
 }
 
 // ===== Legacy Compatibility =====
-
-/**
- * Legacy export for complete backward compatibility
- * 
- * @deprecated Use named exports instead for better tree-shaking
- * @example
- * ```typescript
- * // Instead of:
- * import EmailService from './services/email';
- * 
- * // Use:
- * import { emailService } from './services/email';
- * ```
- */
-export default emailService;
 
 // ===== Module Metadata =====
 

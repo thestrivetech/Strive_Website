@@ -13,6 +13,33 @@ import { sitemapRouter } from "./routes/sitemap";
 import analyticsRouter from "./routes/analytics";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Health check endpoint for production monitoring
+  app.get("/api/health/database", async (req, res) => {
+    const checks = {
+      supabase_configured: !!(process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY),
+      database_url_configured: !!process.env.DATABASE_URL,
+      storage_type: storage.constructor.name === 'SupabaseStorage' ? 'supabase' : 'memory',
+      connection_test: false
+    };
+
+    if (storage.constructor.name === 'SupabaseStorage') {
+      try {
+        await storage.getContactSubmissions();
+        checks.connection_test = true;
+      } catch (error) {
+        checks.connection_test = false;
+      }
+    }
+
+    const healthy = checks.supabase_configured && checks.connection_test;
+
+    res.status(healthy ? 200 : 503).json({
+      healthy,
+      checks,
+      timestamp: new Date().toISOString()
+    });
+  });
+
   // Contact form submission
   app.post("/api/contact", async (req, res) => {
     log.debug('Contact form submission received', {
@@ -31,10 +58,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       // Store submission in database (if available)
+      let databaseStored = true;
       try {
         await storage.createContactSubmission(validatedData);
         log.database('Contact form stored successfully');
       } catch (dbError) {
+        databaseStored = false;
         log.warn('Database unavailable, continuing without storing submission', dbError);
       }
 
@@ -64,7 +93,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json({
         success: true,
-        message: "Thank you for your message. We'll get back to you within one business day."
+        message: databaseStored 
+          ? "Thank you for your message. We'll get back to you within one business day."
+          : "Thank you for your message. We'll get back to you within one business day. Note: Your message was sent but there was a temporary database issue.",
+        databaseStored
       });
     } catch (error) {
       log.error('Contact form submission error', error);
@@ -144,9 +176,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const validatedData = insertRequestSchema.parse(req.body);
       
       // Store request in database (if available)
+      let databaseStored = true;
       try {
         await storage.createRequest(validatedData);
       } catch (dbError) {
+        databaseStored = false;
         log.warn('Database unavailable, continuing without storing request', dbError);
       }
       
@@ -172,7 +206,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json({ 
         success: true, 
-        message: "Thank you for your request! We'll contact you within one business day to schedule your demo."
+        message: databaseStored
+          ? "Thank you for your request! We'll contact you within one business day to schedule your demo."
+          : "Thank you for your request! We'll contact you within one business day to schedule your demo. Note: Your request was sent but there was a temporary database issue.",
+        databaseStored
       });
     } catch (error) {
       log.error('Request submission error', error);
@@ -608,6 +645,144 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Email template testing and preview endpoints
+  app.get("/api/debug/email-templates", async (req, res) => {
+    try {
+      const availableTemplates = emailService.getTemplateEngine().getAvailableTemplates();
+      const serviceStatus = emailService.getServiceStatus();
+
+      res.json({
+        success: true,
+        availableTemplates,
+        serviceStatus,
+        message: "Email template debug information"
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to get email template debug info",
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  app.get("/api/debug/email-preview/:type", async (req, res) => {
+    try {
+      const { type } = req.params;
+
+      // Sample data for different template types
+      const sampleData: { [key: string]: any } = {
+        'contact-form-confirmation': {
+          firstName: 'John',
+          lastName: 'Smith',
+          email: 'john.smith@techcorp.com',
+          company: 'TechCorp Solutions',
+          companySize: '100-500 employees',
+          jobTitle: 'Chief Technology Officer',
+          phone: '+1 (555) 123-4567',
+          message: 'We are interested in implementing AI automation solutions for our customer service department. We currently handle 500+ inquiries daily and need a scalable solution.'
+        },
+        'contact-form-notification': {
+          firstName: 'John',
+          lastName: 'Smith',
+          email: 'john.smith@techcorp.com',
+          company: 'TechCorp Solutions',
+          companySize: '100-500 employees',
+          jobTitle: 'Chief Technology Officer',
+          phone: '+1 (555) 123-4567',
+          message: 'We are interested in implementing AI automation solutions for our customer service department. We currently handle 500+ inquiries daily and need a scalable solution.'
+        },
+        'newsletter-confirmation': {
+          email: 'subscriber@example.com',
+          firstName: 'Sarah',
+          interests: ['AI Automation', 'Data Analytics', 'Business Intelligence'],
+          source: 'Website signup'
+        },
+        'service-request-confirmation': {
+          firstName: 'Michael',
+          lastName: 'Johnson',
+          email: 'michael.johnson@enterprise.com',
+          company: 'Enterprise Analytics Corp',
+          serviceType: 'AI Automation Implementation',
+          timeline: '3-6 months',
+          budget: '$100,000+',
+          projectDescription: 'We need comprehensive AI automation across customer service, data analysis, and reporting systems.'
+        },
+        'service-request-notification': {
+          firstName: 'Michael',
+          lastName: 'Johnson',
+          email: 'michael.johnson@enterprise.com',
+          company: 'Enterprise Analytics Corp',
+          companySize: '500+ employees',
+          jobTitle: 'Chief Technology Officer',
+          phone: '+1 (555) 987-6543',
+          serviceType: 'AI Automation Implementation',
+          timeline: '3-6 months',
+          budget: '$100,000+',
+          projectDescription: 'We need comprehensive AI automation across customer service, data analysis, and reporting systems.',
+          currentSoftware: 'Salesforce, Microsoft Dynamics, Custom Python scripts',
+          desiredOutcomes: 'Reduce customer response time by 60%, automate 80% of routine processing'
+        }
+      };
+
+      const templateData = sampleData[type];
+      if (!templateData) {
+        return res.status(400).json({
+          success: false,
+          message: `No sample data available for template type: ${type}`,
+          availableTypes: Object.keys(sampleData)
+        });
+      }
+
+      console.log(`🔍 Preview request for template: ${type}`);
+      const result = await emailService.getTemplateEngine().renderTemplate(type as any, templateData);
+
+      if (result.success) {
+        res.setHeader('Content-Type', 'text/html');
+        res.send(`
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Preview: ${type}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .preview-info { background: #f0f0f0; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .email-content { border: 2px solid #ddd; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="preview-info">
+        <h2>📧 Email Template Preview: ${type}</h2>
+        <p><strong>Subject:</strong> ${result.subject}</p>
+        <p><strong>Success:</strong> ${result.success ? '✅ Yes' : '❌ No'}</p>
+        ${result.error ? `<p><strong>Error:</strong> ${result.error}</p>` : ''}
+        <p><strong>HTML Length:</strong> ${result.html.length} characters</p>
+        <p><strong>Text Length:</strong> ${result.text?.length || 0} characters</p>
+    </div>
+    <div class="email-content">
+        ${result.html}
+    </div>
+</body>
+</html>
+        `);
+      } else {
+        res.status(500).json({
+          success: false,
+          message: "Template rendering failed",
+          error: result.error,
+          subject: result.subject
+        });
+      }
+    } catch (error) {
+      console.error('❌ Preview endpoint error:', error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to preview email template",
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   // Analytics routes
   app.use("/api/analytics", analyticsRouter);
 
@@ -617,3 +792,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const httpServer = createServer(app);
   return httpServer;
 }
+
+  // Database connection verification
+  const checkDatabaseConnection = async () => {
+    if (!process.env.DATABASE_URL && !process.env.SUPABASE_URL) {
+      console.error('⚠️ DATABASE NOT CONFIGURED - Data will not persist! Forms will work but data is lost on restart.');
+      console.error('   Add DATABASE_URL or SUPABASE_URL to environment variables for persistent storage.');
+      return false;
+    }
+    
+    try {
+      // Test connection by attempting to query a table
+      await storage.getContactSubmissions();
+      console.log('✅ Supabase database connection verified - Data will persist');
+      return true;
+    } catch (error) {
+      console.error('❌ Supabase connection failed - Using memory storage (data lost on restart):', error);
+      return false;
+    }
+  };
+
+  // Verify database connection on startup
+  await checkDatabaseConnection();

@@ -101,17 +101,17 @@ export const PROFILE_STYLES = `
 .team-avatar { width: 60px !important; height: 60px !important; border-radius: 50% !important; margin: 0 auto 12px !important; overflow: hidden !important; }`;
 
 export const COLOR_STYLES = `
-/* Premium Color System */
+/* Premium Color System - Updated Brand Colors */
 .bg-gradient-primary {
-  background: linear-gradient(135deg, #ff7033 0%, #f97316 100%) !important;
+  background: linear-gradient(135deg, #ff7033 0%, #d6551e 100%) !important;
 }
 
 .bg-gradient-dark {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+  background: linear-gradient(135deg, #020a1c 0%, #1a2b3d 100%) !important;
 }
 
 .bg-gradient-light {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+  background: linear-gradient(135deg, #ffffffeb 0%, #f8fafc 100%) !important;
 }
 
 .bg-gradient-blue {
@@ -135,7 +135,8 @@ export const COLOR_STYLES = `
 }
 
 .text-primary { color: #ff7033 !important; }
-.text-primary-dark { color: #e6541c !important; }
+.text-primary-dark { color: #d6551e !important; }
+.text-dark-blue { color: #020a1c !important; }
 .text-white { color: #ffffff !important; }
 .text-gray-900 { color: #111827 !important; }
 .text-gray-700 { color: #374151 !important; }
@@ -144,9 +145,12 @@ export const COLOR_STYLES = `
 .text-gray-400 { color: #9ca3af !important; }
 
 .bg-white { background-color: #ffffff !important; }
+.bg-off-white { background-color: #ffffffeb !important; }
 .bg-gray-50 { background-color: #f9fafb !important; }
 .bg-gray-100 { background-color: #f3f4f6 !important; }
 .bg-primary { background-color: #ff7033 !important; }
+.bg-primary-dark { background-color: #d6551e !important; }
+.bg-dark-blue { background-color: #020a1c !important; }
 .bg-success { background-color: #10b981 !important; }
 .bg-warning { background-color: #f59e0b !important; }
 .bg-error { background-color: #ef4444 !important; }
@@ -494,9 +498,9 @@ export class EmailStyles {
   constructor(theme: EmailThemeOptions = {}, customStyles: string = '') {
     this.theme = {
       primaryColor: '#ff7033',
-      secondaryColor: '#f97316',
-      backgroundColor: '#f3f4f6',
-      textColor: '#111827',
+      secondaryColor: '#d6551e',
+      backgroundColor: '#ffffffeb',
+      textColor: '#020a1c',
       accentColor: '#10b981',
       borderRadius: '8px',
       fontFamily: "'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
@@ -583,7 +587,7 @@ export class EmailStyles {
     const baseStyle = 'display: inline-block; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; line-height: 20px; cursor: pointer; border: none;';
     
     const variants = {
-      primary: 'background: linear-gradient(135deg, #ff7033 0%, #f97316 100%); color: #ffffff; box-shadow: 0 4px 6px -1px rgba(255, 112, 51, 0.25);',
+      primary: 'background: linear-gradient(135deg, #ff7033 0%, #d6551e 100%); color: #ffffff; box-shadow: 0 4px 6px -1px rgba(255, 112, 51, 0.25);',
       secondary: 'background: #ffffff; color: #ff7033; border: 2px solid #ff7033; padding: 12px 26px;',
       success: 'background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.25);',
       warning: 'background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #ffffff; box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.25);',
@@ -601,7 +605,7 @@ export class EmailStyles {
     
     const variants = {
       default: 'background: #ffffff; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);',
-      premium: 'background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 1px solid #d1d5db; border-left: 4px solid #ff7033;',
+      premium: 'background: linear-gradient(135deg, #ffffffeb 0%, #f8fafc 100%); border: 1px solid #d1d5db; border-left: 4px solid #ff7033;',
       success: 'background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border: 1px solid #bbf7d0;',
       warning: 'background: linear-gradient(135deg, #fef3e2 0%, #fef3e2 100%); border: 1px solid #fed7aa;',
       error: 'background: linear-gradient(135deg, #fef2f2 0%, #fef2f2 100%); border: 1px solid #fecaca;',
@@ -649,12 +653,12 @@ export class EmailStyles {
 
   ${this.generateCompleteCSS()}
 </head>
-<body style="margin: 0; padding: 0; background-color: #f3f4f6; font-family: ${this.theme.fontFamily};">
+<body style="margin: 0; padding: 0; background-color: #ffffffeb; font-family: ${this.theme.fontFamily};">
   <div style="display: none; font-size: 1px; line-height: 1px; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all;">
     Professional AI solutions for modern businesses - Discover how Strive Tech can transform your operations
   </div>
 
-  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 0; padding: 0; background-color: #f3f4f6;">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 0; padding: 0; background-color: #ffffffeb;">
     <tr>
       <td style="padding: 20px 0; text-align: center;">
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 680px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); overflow: hidden;">`;
@@ -677,27 +681,7 @@ export class EmailStyles {
 </html>`;
   }
 
-  /**
-   * Get branded header HTML
-   */
-  public getHeaderHTML(): string {
-    return `
-    <tr>
-      <td class="bg-gradient-dark" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 40px 30px; text-align: center; position: relative;">
-        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"grain\" width=\"100\" height=\"100\" patternUnits=\"userSpaceOnUse\"><circle cx=\"50\" cy=\"50\" r=\"1\" fill=\"%23ffffff\" opacity=\"0.05\"/></pattern></defs><rect width=\"100\" height=\"100\" fill=\"url(%23grain)\"/></svg>') repeat; opacity: 0.3;"></div>
-        <div style="position: relative; z-index: 2;">
-          <img src="https://strivetech.ai/assets/STRIVE_Orange_Text_Transparent_1483x320px.webp"
-               alt="Strive Tech"
-               class="header-logo animate-fade-in"
-               style="height: 60px; max-width: 240px; display: block; margin: 0 auto; filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));">
-          <div style="height: 3px; background: linear-gradient(90deg, transparent, #ff7033, #f97316, transparent); margin: 30px auto 20px; max-width: 320px; border-radius: 2px; box-shadow: 0 2px 4px rgba(255, 112, 51, 0.3);"></div>
-          <p style="color: rgba(255, 255, 255, 0.9); font-size: 16px; margin: 0; font-weight: 500; letter-spacing: 0.5px;">
-            AI Solutions That Transform Business
-          </p>
-        </div>
-      </td>
-    </tr>`;
-  }
+
 }
 
 /**
@@ -723,10 +707,5 @@ export const EmailStyleUtils = {
     return defaultEmailStyles.getEmailWrapperEnd();
   },
 
-  /**
-   * Generate header with logo and gradient background
-   */
-  getHeaderHTML: (): string => {
-    return defaultEmailStyles.getHeaderHTML();
-  },
+
 };

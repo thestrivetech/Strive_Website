@@ -38,6 +38,8 @@ export interface NewsletterData {
   lastName?: string;
   interests?: string[];
   source?: string;
+  content?: string;
+  excerpt?: string;
 }
 
 // Meeting request data interface
@@ -195,13 +197,6 @@ export interface TeamMemberCardOptions {
   phone?: string;
   avatar?: string;
   department?: string;
-}
-
-export interface ServiceTypeIndicatorOptions {
-  serviceType: string;
-  description?: string;
-  icon?: string;
-  color?: string;
 }
 
 export interface TimelineStepOptions {

@@ -11,8 +11,7 @@ import type {
   QuickActionButtonOptions,
   PriorityBadgeOptions,
   TeamMemberCardOptions,
-  ServiceTypeIndicatorOptions,
-  TimelineStepOptions,
+TimelineStepOptions,
   FeatureHighlightOptions,
 } from '../types/index.js';
 
@@ -222,32 +221,7 @@ export function createTeamMemberCard(options: TeamMemberCardOptions): string {
  * @returns HTML string for the service type indicator component
  */
 /**
- * Legacy compatibility function - redirects to createServiceTypeIndicators
- * @deprecated Use createServiceTypeIndicators instead
- */
-export function createServiceTypeIndicator(options: ServiceTypeIndicatorOptions): string {
-  const { serviceType, description, icon, color = '#ff7033' } = options;
-  
-  const serviceIcons: { [key: string]: string } = {
-    'demo': '🎥', 'showcase': '🏆', 'assessment': '🔍', 'consultation': '💡',
-    'implementation': '⚙️', 'training': '📚', 'ai-automation': '🤖', 'data-analytics': '📊',
-    'custom-development': '💻', 'integration': '🔗', 'optimization': '⚡', 'support': '🛠️'
-  };
-  
-  const displayIcon = icon || serviceIcons[serviceType.toLowerCase()] || '🎯';
-  
-  return `
-    <div style="display: inline-flex; align-items: center; gap: 8px; margin: 8px;">
-      <span style="background: rgba(255, 112, 51, 0.1); color: ${color}; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
-        <span>${displayIcon}</span>
-        ${serviceType}
-      </span>
-      ${description ? `<span style="color: #6b7280; font-size: 12px; margin-left: 8px;">${description}</span>` : ''}
-    </div>
-  `;
-}
-
-/**
+ * Create journey timeline component/**
  * Create journey timeline component for multi-step processes
  */
 /**
@@ -612,8 +586,7 @@ export const EmailComponents = {
   createQuickActionButton,
   createPriorityBadge,
   createTeamMemberCard,
-  createServiceTypeIndicator,
-  createTimelineStep,
+createTimelineStep,
   createFeatureHighlight,
   wrapEmailContent,
   createDivider,

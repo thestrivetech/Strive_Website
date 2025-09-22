@@ -120,22 +120,12 @@ export class MemStorage implements IStorage {
       budgetRange: insertRequest.budgetRange || null,
       demoFocusAreas: insertRequest.demoFocusAreas || null,
       additionalRequirements: insertRequest.additionalRequirements || null,
-      preferredDate: insertRequest.preferredDate || null,
       // Production fields
       status: "pending",
-      assignedTo: null,
       priority: "normal",
       submittedAt: now,
       updatedAt: now,
-      contactedAt: null,
-      scheduledAt: null,
-      completedAt: null,
-      deletedAt: null,
-      deletedBy: null,
       source: "website",
-      utm: null,
-      ipAddress: null,
-      userAgent: null,
     };
     this.requests.set(id, request);
     return request;

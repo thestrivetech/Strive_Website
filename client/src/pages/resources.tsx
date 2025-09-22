@@ -530,7 +530,7 @@ const Resources = () => {
                     
                     <CardContent className="p-3 md:p-6 text-white flex flex-col flex-grow">
                       {/* Mobile: Centered title, Desktop: Left-aligned */}
-                      <h4 className="text-base md:text-xl font-bold mb-2 md:mb-3 group-hover:text-blue-300 transition-colors line-clamp-2 text-center md:text-left">
+                      <h4 className="text-base md:text-xl font-bold mb-2 md:mb-3 group-hover:text-blue-600 transition-colors line-clamp-2 text-center md:text-left">
                         {quiz.title}
                       </h4>
                       

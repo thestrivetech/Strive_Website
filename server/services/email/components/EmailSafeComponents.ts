@@ -8,19 +8,23 @@
  * - Outlook VML support where needed
  */
 
-// Email-safe color palette
+import fs from 'fs';
+import path from 'path';
+
+// Email-safe color palette - Updated Brand Colors
 export const EMAIL_COLORS = {
-  primary: '#ff6b35',
-  primaryDark: '#e55a2b', 
+  primary: '#ff7033',
+  primaryDark: '#d6551e', 
+  darkBlue: '#020a1c',
   secondary: '#0066cc',
   success: '#28a745',
   warning: '#ffc107',
   danger: '#dc3545',
-  dark: '#333333',
+  dark: '#020a1c',
   darkGray: '#666666',
   mediumGray: '#999999',
   lightGray: '#cccccc',
-  background: '#f8f9fa',
+  background: '#ffffffeb',
   white: '#ffffff',
   black: '#000000'
 } as const;
@@ -67,55 +71,37 @@ export function createEmailWrapper(content: string, maxWidth: number = 600): str
 }
 
 /**
- * Creates email header with logo and branding
+ * Creates email header with custom STRIVE design
  */
 export function createEmailHeader(): string {
+  // Base64 encoded custom header image
+  const headerBase64 = fs.readFileSync(path.join(process.cwd(), 'attached_assets/email-templates/Email Header&Footer/Email Header.png')).toString('base64');
+  
   return `
   <tr>
-    <td style="background-color: ${EMAIL_COLORS.dark}; padding: 30px 40px; text-align: center;">
-      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-        <tr>
-          <td align="center">
-            <div style="color: ${EMAIL_COLORS.white}; font-size: 24px; font-weight: bold; margin-bottom: 8px;">
-              STRIVE TECH
-            </div>
-            <div style="color: ${EMAIL_COLORS.primary}; font-size: 14px; letter-spacing: 1px;">
-              AI Solutions That Transform Business
-            </div>
-          </td>
-        </tr>
-      </table>
+    <td style="padding: 0; margin: 0; text-align: center;">
+      <img src="data:image/png;base64,${headerBase64}" 
+           alt="Strive Tech Header" 
+           style="width: 100%; max-width: 600px; height: auto; display: block; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" 
+           border="0">
     </td>
   </tr>`;
 }
 
 /**
- * Creates email footer with contact information
+ * Creates email footer with custom STRIVE design
  */
 export function createEmailFooter(): string {
+  // Base64 encoded custom footer image
+  const footerBase64 = fs.readFileSync(path.join(process.cwd(), 'attached_assets/email-templates/Email Header&Footer/Email-footer.png')).toString('base64');
+  
   return `
   <tr>
-    <td style="background-color: ${EMAIL_COLORS.background}; padding: 30px 40px; text-align: center; border-top: 1px solid ${EMAIL_COLORS.lightGray};">
-      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-        <tr>
-          <td align="center">
-            <div style="color: ${EMAIL_COLORS.darkGray}; font-size: 14px; margin-bottom: 15px;">
-              <strong>Strive Tech</strong><br>
-              AI Solutions &amp; Business Transformation
-            </div>
-            <div style="color: ${EMAIL_COLORS.mediumGray}; font-size: 12px; line-height: 18px;">
-              📧 contact@strivetech.ai<br>
-              🌐 strivetech.ai<br>
-              📱 Connect with us for AI-powered solutions
-            </div>
-            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid ${EMAIL_COLORS.lightGray}; color: ${EMAIL_COLORS.mediumGray}; font-size: 11px;">
-              You received this email because you contacted Strive Tech or subscribed to our newsletter.<br>
-              <a href="#" style="color: ${EMAIL_COLORS.secondary}; text-decoration: none;">Unsubscribe</a> | 
-              <a href="#" style="color: ${EMAIL_COLORS.secondary}; text-decoration: none;">Update Preferences</a>
-            </div>
-          </td>
-        </tr>
-      </table>
+    <td style="padding: 0; margin: 0; text-align: center;">
+      <img src="data:image/png;base64,${footerBase64}" 
+           alt="Strive Tech Footer" 
+           style="width: 100%; max-width: 600px; height: auto; display: block; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" 
+           border="0">
     </td>
   </tr>`;
 }

@@ -55,7 +55,7 @@ const AnalyticsDashboard = lazy(() => import("@/pages/analytics-dashboard"));
 
 function Router() {
   const [location] = useLocation();
-  const hideChatWidget = location === '/chatbot-sai';
+  const hideChatWidget = location === '/chatbot-sai' || location === '/';
 
   // Enable automatic page tracking
   usePageTracking();

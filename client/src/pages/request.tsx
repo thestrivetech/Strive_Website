@@ -15,9 +15,17 @@ import { getCalendlyConfig } from "@/lib/browser-detection";
 import React from "react";
 
 // Calendly Iframe Component - extracted outside to prevent re-creation on re-renders
-const CalendlyIframe = React.memo(({ onError, onLoad }: { onError: (error: string) => void; onLoad: () => void }) => {
+const CalendlyIframe = React.memo(({
+  onError,
+  onLoad,
+  formData
+}: {
+  onError: (error: string) => void;
+  onLoad: () => void;
+  formData: any;
+}) => {
   const [iframeStatus, setIframeStatus] = React.useState<'loading' | 'loaded' | 'error'>('loading');
-  
+
   const handleIframeLoad = React.useCallback(() => {
     console.log('[Calendly] Iframe loaded successfully');
     setIframeStatus('loaded');
@@ -30,6 +38,30 @@ const CalendlyIframe = React.memo(({ onError, onLoad }: { onError: (error: strin
     onError('Iframe failed to load');
   }, [onError]);
 
+  // Build Calendly URL with prefilled data
+  const buildCalendlyUrl = () => {
+    const baseUrl = "https://calendly.com/strivetech";
+    const params = new URLSearchParams();
+
+    if (formData.firstName && formData.lastName) {
+      params.append('name', `${formData.firstName} ${formData.lastName}`);
+    }
+    if (formData.email) {
+      params.append('email', formData.email);
+    }
+    if (formData.companyName) {
+      params.append('a1', formData.companyName);
+    }
+    if (formData.phone) {
+      params.append('a2', formData.phone);
+    }
+    if (formData.requestTypes.length > 0) {
+      params.append('a3', formData.requestTypes.join(', '));
+    }
+
+    return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+  };
+
   return (
     <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
       {iframeStatus === 'loading' && (
@@ -41,7 +73,7 @@ const CalendlyIframe = React.memo(({ onError, onLoad }: { onError: (error: strin
         </div>
       )}
       <iframe
-        src="https://calendly.com/strivetech"
+        src={buildCalendlyUrl()}
         width="100%"
         height="500"
         frameBorder="0"
@@ -126,8 +158,7 @@ const Request = () => {
   ];
 
   const requestTypeOptions = [
-    { value: "demo", label: "Product Demo", description: "See our AI solutions in action with live demonstrations" },
-    { value: "showcase", label: "Solution Showcase", description: "Tailored presentation of AI solutions for your industry" },
+    { value: "showcase", label: "Solution Showcase", description: "Tailored presentation with personalized demo of AI solutions customized for your specific business needs" },
     { value: "assessment", label: "AI Assessment", description: "Comprehensive evaluation of your AI readiness and opportunities" }
   ];
 
@@ -684,7 +715,14 @@ const Request = () => {
                         <Label className="text-white text-sm md:text-base">Services Requested * (Select all that apply)</Label>
                         <div className="grid grid-cols-1 gap-3 md:gap-4 mt-3">
                           {requestTypeOptions.map((option) => (
-                            <div key={option.value} className="border border-gray-300 rounded-lg p-3 md:p-4 bg-white/10 backdrop-blur-sm">
+                            <div
+                              key={option.value}
+                              className="border border-gray-300 rounded-lg p-3 md:p-4 bg-white/10 backdrop-blur-sm cursor-pointer hover:bg-white/20 transition-colors"
+                              onClick={() => {
+                                const isCurrentlyChecked = formData.requestTypes.includes(option.value);
+                                handleCheckboxChange("requestTypes", option.value, !isCurrentlyChecked);
+                              }}
+                            >
                               <div className="flex items-center space-x-3">
                                 <Checkbox
                                   id={option.value}
@@ -695,8 +733,8 @@ const Request = () => {
                                   className="border-white data-[state=checked]:bg-[#ff7033] data-[state=checked]:border-[#ff7033]"
                                 />
                                 <div>
-                                  <Label 
-                                    htmlFor={option.value} 
+                                  <Label
+                                    htmlFor={option.value}
                                     className="text-white font-semibold cursor-pointer text-sm md:text-base"
                                   >
                                     {option.label}
@@ -785,9 +823,10 @@ const Request = () => {
                           <div className="px-0 md:px-4 pb-3 md:pb-4">
                             {/* Calendly Integration with Error Handling */}
                             {calendlyStatus === 'loaded' ? (
-                              <CalendlyIframe 
+                              <CalendlyIframe
                                 onError={handleCalendlyError}
                                 onLoad={handleCalendlyLoad}
+                                formData={formData}
                               />
                             ) : (
                               <CalendlyFallback 
@@ -813,7 +852,7 @@ const Request = () => {
                               </div>
                             </div>
                             <p className="text-xs md:text-sm text-muted-foreground mt-2 text-center">
-                              * You'll receive a calendar invite and confirmation email after scheduling
+                              * You'll receive a calendar invite and confirmation email after scheduling, plus 3 reminders: 24 hours before, 2 hours before, and 15 minutes before your meeting
                             </p>
                           </div>
                         </div>

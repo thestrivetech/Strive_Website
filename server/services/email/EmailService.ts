@@ -279,18 +279,12 @@ export class EmailService {
    */
   public async sendMeetingRequestNotification(requestData: MeetingRequestData): Promise<boolean> {
     try {
-      console.log('📧 Meeting request notification - using fallback implementation...');
+      console.log('📧 Generating meeting request notification email...');
       
-      // For now, use a simple email format until we implement the full template
-      const subject = `New Meeting Request from ${requestData.firstName} ${requestData.lastName}`;
-      const html = `
-        <h2>New Meeting Request</h2>
-        <p><strong>From:</strong> ${requestData.firstName} ${requestData.lastName}</p>
-        <p><strong>Email:</strong> ${requestData.email}</p>
-        <p><strong>Company:</strong> ${requestData.company || 'Not specified'}</p>
-        <p><strong>Meeting Type:</strong> ${requestData.meetingType}</p>
-        <p><strong>Message:</strong> ${requestData.message || 'No message provided'}</p>
-      `;
+      const result = await this.templateEngine.renderTemplate(
+        'meeting-request-notification',
+        requestData
+      );
 
       const recipients = [
         'garrettholland@strivetech.ai',
@@ -301,11 +295,39 @@ export class EmailService {
 
       return await this.sendEmail({
         to: recipients,
-        subject,
-        html,
+        subject: result.subject,
+        html: result.html,
+        text: result.text,
       });
     } catch (error) {
       console.error('❌ Failed to send meeting request notification:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Send meeting request confirmation to user
+   * 
+   * @param requestData - Meeting request data
+   * @returns Promise resolving to true if sent successfully
+   */
+  public async sendMeetingRequestConfirmation(requestData: MeetingRequestData): Promise<boolean> {
+    try {
+      console.log('📧 Generating meeting request confirmation email...');
+      
+      const result = await this.templateEngine.renderTemplate(
+        'meeting-request-confirmation',
+        requestData
+      );
+
+      return await this.sendEmail({
+        to: [requestData.email],
+        subject: result.subject,
+        html: result.html,
+        text: result.text,
+      });
+    } catch (error) {
+      console.error('❌ Failed to send meeting request confirmation:', error);
       return false;
     }
   }
@@ -318,30 +340,18 @@ export class EmailService {
    */
   public async sendRequestConfirmation(requestData: ServiceRequestData): Promise<boolean> {
     try {
-      console.log('📧 Service request confirmation - using fallback implementation...');
+      console.log('📧 Generating service request confirmation email...');
       
-      // Map requestTypes to serviceType for consistency
-      const serviceType = requestData.serviceType || requestData.requestTypes || 'General Inquiry';
-      
-      const subject = `Thank you for your service request, ${requestData.firstName}!`;
-      const html = `
-        <h2>Service Request Received</h2>
-        <p>Dear ${requestData.firstName},</p>
-        <p>Thank you for your interest in our ${serviceType} services.</p>
-        <p>We will review your request and get back to you within 24 hours.</p>
-        <p><strong>Request Details:</strong></p>
-        <ul>
-          <li>Service Type: ${serviceType}</li>
-          <li>Company: ${requestData.company || 'Individual'}</li>
-          <li>Timeline: ${requestData.timeline || 'Not specified'}</li>
-        </ul>
-        <p>Best regards,<br>The Strive Tech Team</p>
-      `;
+      const result = await this.templateEngine.renderTemplate(
+        'service-request-confirmation',
+        requestData
+      );
 
       return await this.sendEmail({
         to: [requestData.email],
-        subject,
-        html,
+        subject: result.subject,
+        html: result.html,
+        text: result.text,
       });
     } catch (error) {
       console.error('❌ Failed to send service request confirmation:', error);
@@ -357,26 +367,12 @@ export class EmailService {
    */
   public async sendRequestNotification(requestData: ServiceRequestData): Promise<boolean> {
     try {
-      console.log('📧 Service request notification - using fallback implementation...');
+      console.log('📧 Generating service request notification email...');
       
-      // Map requestTypes to serviceType and provide default projectDescription
-      const serviceType = requestData.serviceType || requestData.requestTypes || 'General Inquiry';
-      const projectDescription = requestData.projectDescription || requestData.businessObjectives || 'No description provided';
-      
-      const subject = `New Service Request: ${serviceType} from ${requestData.firstName} ${requestData.lastName}`;
-      const html = `
-        <h2>New Service Request</h2>
-        <p><strong>From:</strong> ${requestData.firstName} ${requestData.lastName}</p>
-        <p><strong>Email:</strong> ${requestData.email}</p>
-        <p><strong>Company:</strong> ${requestData.company || 'Individual'}</p>
-        <p><strong>Service Type:</strong> ${serviceType}</p>
-        <p><strong>Project Description:</strong> ${projectDescription}</p>
-        <p><strong>Timeline:</strong> ${requestData.timeline || 'Not specified'}</p>
-        <p><strong>Budget:</strong> ${requestData.budget || 'Not specified'}</p>
-        ${requestData.jobTitle ? `<p><strong>Job Title:</strong> ${requestData.jobTitle}</p>` : ''}
-        ${requestData.currentSoftware ? `<p><strong>Current Software:</strong> ${requestData.currentSoftware}</p>` : ''}
-        ${requestData.desiredOutcomes ? `<p><strong>Desired Outcomes:</strong> ${requestData.desiredOutcomes}</p>` : ''}
-      `;
+      const result = await this.templateEngine.renderTemplate(
+        'service-request-notification',
+        requestData
+      );
 
       const recipients = [
         'garrettholland@strivetech.ai',
@@ -387,8 +383,9 @@ export class EmailService {
 
       return await this.sendEmail({
         to: recipients,
-        subject,
-        html,
+        subject: result.subject,
+        html: result.html,
+        text: result.text,
       });
     } catch (error) {
       console.error('❌ Failed to send service request notification:', error);
@@ -472,17 +469,6 @@ export class EmailService {
       if ('code' in error) console.error(`   Error code: ${(error as any).code}`);
       if ('command' in error) console.error(`   SMTP command: ${(error as any).command}`);
     }
-  }
-
-  /**
-   * Extract keywords from text (legacy method for backward compatibility)
-   * @private
-   */
-  private extractKeywords(text: string): string[] {
-    const keywords = ['AI', 'automation', 'analytics', 'implementation', 'ROI', 'efficiency', 'integration', 'solution', 'consulting'];
-    return keywords.filter(keyword => 
-      text.toLowerCase().includes(keyword.toLowerCase())
-    ).slice(0, 5);
   }
 }
 
