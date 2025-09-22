@@ -1474,13 +1474,15 @@ const Solutions = () => {
                             selectedFilter.type === 'industry' && selectedFilter.value === 'all-industries' ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : "hover:bg-gray-50"
                           }`}
                         >
-                          <div className="flex items-center gap-2">
-                            <Building2 className="h-4 w-4" />
-                            <span className="text-sm">All Industries</span>
+                          <div className="flex flex-col items-center gap-1">
+                            <Badge variant="secondary" className="text-lg font-bold">
+                              21
+                            </Badge>
+                            <div className="flex items-center gap-2">
+                              <Building2 className="h-4 w-4" />
+                              <span className="text-sm">Industries</span>
+                            </div>
                           </div>
-                          <Badge variant="secondary" className="text-xs">
-                            {getIndustrySolutionCount('all-industries')} industries
-                          </Badge>
                         </div>
 
                         {/* Individual Industries */}
@@ -1560,13 +1562,15 @@ const Solutions = () => {
                             selectedFilter.type === 'solution' && selectedFilter.value === 'all-solutions' ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : "hover:bg-gray-50"
                           }`}
                         >
-                          <div className="flex items-center gap-2">
-                            <Cog className="h-4 w-4" />
-                            <span className="text-sm">All Solutions</span>
+                          <div className="flex flex-col items-center gap-1">
+                            <Badge variant="secondary" className="text-lg font-bold">
+                              27
+                            </Badge>
+                            <div className="flex items-center gap-2">
+                              <Cog className="h-4 w-4" />
+                              <span className="text-sm">Solution Types</span>
+                            </div>
                           </div>
-                          <Badge variant="secondary" className="text-xs">
-                            {getSolutionTypeSolutionCount('all-solutions')} solution types
-                          </Badge>
                         </div>
 
                         {/* Individual Solution Types */}
@@ -1774,13 +1778,8 @@ const Solutions = () => {
                         {item.title}
                       </h3>
                       
-                      {/* Category - Desktop only */}
-                      <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-[#020a1c] hidden md:inline mt-1">
-                        {item.category}
-                      </span>
-                      
-                      {/* Solution Type Badge - Prominent display */}
-                      <div className="mt-2 md:mt-3 flex justify-center md:justify-start">
+                      {/* Solution Type Badge - Replaces old subheading in same position */}
+                      <div className="mt-1 flex justify-center md:justify-start">
                         <Badge 
                           variant="outline"
                           className="bg-[#ff7033]/10 text-[#ff7033] border-[#ff7033]/20 font-semibold px-2 sm:px-3 py-1 text-xs hover:bg-[#ff7033] hover:text-white transition-colors cursor-pointer min-h-[28px] flex items-center"

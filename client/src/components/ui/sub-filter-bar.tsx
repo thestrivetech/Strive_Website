@@ -21,7 +21,7 @@ interface SubFilterBarProps {
   maxVisibleCategories?: number;
 }
 
-export const export const SubFilterBar: React.FC<SubFilterBarProps> = ({
+export const SubFilterBar: React.FC<SubFilterBarProps> = ({
   searchTerm,
   selectedCategory,
   options,
