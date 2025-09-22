@@ -789,10 +789,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // SEO and Sitemap routes
   app.use("/api", sitemapRouter);
 
-  const httpServer = createServer(app);
-  return httpServer;
-}
-
   // Database connection verification
   const checkDatabaseConnection = async () => {
     if (!process.env.DATABASE_URL && !process.env.SUPABASE_URL) {
@@ -800,7 +796,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error('   Add DATABASE_URL or SUPABASE_URL to environment variables for persistent storage.');
       return false;
     }
-    
+
     try {
       // Test connection by attempting to query a table
       await storage.getContactSubmissions();
@@ -814,3 +810,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Verify database connection on startup
   await checkDatabaseConnection();
+
+  const httpServer = createServer(app);
+  return httpServer;
+}

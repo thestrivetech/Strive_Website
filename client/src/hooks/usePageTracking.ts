@@ -13,8 +13,7 @@ export function usePageTracking() {
     if (analytics.hasConsent()) {
       analytics.init({
         enableAutoTracking: true,
-        enableWebVitals: true,
-        enableErrorTracking: true,
+        requireConsent: false,
       });
     }
   }, []);
