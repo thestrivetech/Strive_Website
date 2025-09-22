@@ -179,7 +179,7 @@ const Resources = () => {
 
   const getSubFilterOptionsForActiveFilter = (resourceList: Resource[]) => {
     const options: Array<{ value: string; label: string; count: number }> = [
-      { value: 'all', label: 'All', count: resourceList.length }
+      { value: 'all', label: 'All', count: activeFilter === "Tools & Tech" ? technologyCards.length : resourceList.length }
     ];
 
     let categories: string[] = [];
@@ -195,8 +195,31 @@ const Resources = () => {
         categories = extractUniqueCategories(resourceList, 'tags');
         break;
       case "Tools & Tech":
-        // For tech cards, we'll extract categories from their data structure
-        categories = Array.from(new Set(technologyCards.map(card => card.type || 'Technology'))).sort();
+        // Create meaningful categories based on technology card tags and content
+        const techCategories = new Set<string>();
+        
+        technologyCards.forEach(card => {
+          card.tags.forEach(tag => {
+            // Categorize based on common patterns in tags
+            const tagLower = tag.toLowerCase();
+            
+            if (['gpt-4', 'claude', 'gemini', 'grok', 'deepseek', 'nemotron', 'perplexity', 'ai assistant', 'llm'].some(term => tagLower.includes(term))) {
+              techCategories.add('LLMs & AI Models');
+            } else if (['python', 'typescript', 'rust', 'javascript', 'programming'].some(term => tagLower.includes(term))) {
+              techCategories.add('Programming Languages');
+            } else if (['tensorflow', 'langchain', 'fastapi', 'multi-agent', 'langgraph', 'computer vision', 'machine learning', 'ai development'].some(term => tagLower.includes(term))) {
+              techCategories.add('AI/ML Frameworks');
+            } else if (['docker', 'kubernetes', 'redis', 'supabase', 'node.js', 'vector database', 'drizzle', 'websocket', 'infrastructure', 'devops'].some(term => tagLower.includes(term))) {
+              techCategories.add('Infrastructure & DevOps');
+            } else if (['n8n', 'atlassian', 'openrouter', 'tailwind', 'recharts', 'development', 'tools'].some(term => tagLower.includes(term))) {
+              techCategories.add('Development Tools');
+            } else if (['f5', 'red hat', 'vmware', 'graph rag', 'knowledge graph', 'mcp', 'enterprise'].some(term => tagLower.includes(term))) {
+              techCategories.add('Enterprise Solutions');
+            }
+          });
+        });
+        
+        categories = Array.from(techCategories).sort();
         break;
       case "Quizzes":
         // For quizzes, extract difficulty levels
@@ -211,7 +234,7 @@ const Resources = () => {
       const count = countResourcesByCategory(resourceList, category, activeFilter);
       if (count > 0) {
         options.push({
-          value: category.toLowerCase().replace(/\s+/g, '-'),
+          value: category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and'),
           label: category,
           count
         });
@@ -219,9 +242,63 @@ const Resources = () => {
     });
 
     return options;
-  };
+  };;
 
   const countResourcesByCategory = (resourceList: Resource[], category: string, filterType: string) => {
+    if (filterType === "Tools & Tech") {
+      // Count technology cards that match the category
+      return technologyCards.filter(card => {
+        const categoryLower = category.toLowerCase();
+        
+        switch (categoryLower) {
+          case 'llms & ai models':
+          case 'llms-and-ai-models':
+            return card.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['gpt-4', 'claude', 'gemini', 'grok', 'deepseek', 'nemotron', 'perplexity', 'ai assistant', 'llm'].some(term => tagLower.includes(term));
+            });
+          case 'programming languages':
+          case 'programming-languages':
+            return card.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['python', 'typescript', 'rust', 'javascript', 'programming'].some(term => tagLower.includes(term));
+            });
+          case 'ai/ml frameworks':
+          case 'ai-ml-frameworks':
+          case 'aiml-frameworks':
+            return card.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['tensorflow', 'langchain', 'fastapi', 'multi-agent', 'langgraph', 'computer vision', 'machine learning', 'ai development'].some(term => tagLower.includes(term));
+            });
+          case 'infrastructure & devops':
+          case 'infrastructure-and-devops':
+            return card.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['docker', 'kubernetes', 'redis', 'supabase', 'node.js', 'vector database', 'drizzle', 'websocket', 'infrastructure', 'devops'].some(term => tagLower.includes(term));
+            });
+          case 'development tools':
+          case 'development-tools':
+            return card.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['n8n', 'atlassian', 'openrouter', 'tailwind', 'recharts', 'development', 'tools'].some(term => tagLower.includes(term));
+            });
+          case 'enterprise solutions':
+          case 'enterprise-solutions':
+            return card.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['f5', 'red hat', 'vmware', 'graph rag', 'knowledge graph', 'mcp', 'enterprise'].some(term => tagLower.includes(term));
+            });
+          default:
+            return false;
+        }
+      }).length;
+    }
+
+    if (filterType === "Quizzes") {
+      // Count quizzes by difficulty level
+      return allQuizzes.filter(quiz => quiz.difficulty.toLowerCase() === category.toLowerCase()).length;
+    }
+
     return resourceList.filter(resource => {
       switch (filterType) {
         case "Blog Posts":
@@ -230,19 +307,76 @@ const Resources = () => {
         case "Case Studies":
           return resource.metadata?.toLowerCase() === category.toLowerCase() ||
                  resource.tags.some(tag => tag.toLowerCase() === category.toLowerCase());
-        case "Tools & Tech":
-          // This would need to check technologyCards
-          return true;
-        case "Quizzes":
-          // This would need to check allQuizzes
-          return true;
         default:
           return false;
       }
     }).length;
-  };
+  };;
 
   const applySubFilters = (resourceList: Resource[]) => {
+    // For Tools & Tech, we need to handle filtering differently since it uses technologyCards
+    if (activeFilter === "Tools & Tech") {
+      let filteredTech = technologyCards;
+
+      // Apply category filter for tech cards
+      if (subFilter.category !== 'all') {
+        const categoryLower = subFilter.category;
+        
+        filteredTech = filteredTech.filter(card => {
+          switch (categoryLower) {
+            case 'llms-and-ai-models':
+              return card.tags.some(tag => {
+                const tagLower = tag.toLowerCase();
+                return ['gpt-4', 'claude', 'gemini', 'grok', 'deepseek', 'nemotron', 'perplexity', 'ai assistant', 'llm'].some(term => tagLower.includes(term));
+              });
+            case 'programming-languages':
+              return card.tags.some(tag => {
+                const tagLower = tag.toLowerCase();
+                return ['python', 'typescript', 'rust', 'javascript', 'programming'].some(term => tagLower.includes(term));
+              });
+            case 'ai-ml-frameworks':
+            case 'aiml-frameworks':
+              return card.tags.some(tag => {
+                const tagLower = tag.toLowerCase();
+                return ['tensorflow', 'langchain', 'fastapi', 'multi-agent', 'langgraph', 'computer vision', 'machine learning', 'ai development'].some(term => tagLower.includes(term));
+              });
+            case 'infrastructure-and-devops':
+              return card.tags.some(tag => {
+                const tagLower = tag.toLowerCase();
+                return ['docker', 'kubernetes', 'redis', 'supabase', 'node.js', 'vector database', 'drizzle', 'websocket', 'infrastructure', 'devops'].some(term => tagLower.includes(term));
+              });
+            case 'development-tools':
+              return card.tags.some(tag => {
+                const tagLower = tag.toLowerCase();
+                return ['n8n', 'atlassian', 'openrouter', 'tailwind', 'recharts', 'development', 'tools'].some(term => tagLower.includes(term));
+              });
+            case 'enterprise-solutions':
+              return card.tags.some(tag => {
+                const tagLower = tag.toLowerCase();
+                return ['f5', 'red hat', 'vmware', 'graph rag', 'knowledge graph', 'mcp', 'enterprise'].some(term => tagLower.includes(term));
+              });
+            default:
+              return false;
+          }
+        });
+      }
+
+      // Apply search filter for tech cards
+      if (subFilter.searchTerm.trim()) {
+        const searchTerm = subFilter.searchTerm.toLowerCase();
+        filteredTech = filteredTech.filter(card => 
+          card.title.toLowerCase().includes(searchTerm) ||
+          card.shortDescription.toLowerCase().includes(searchTerm) ||
+          card.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
+          card.type?.toLowerCase().includes(searchTerm)
+        );
+      }
+
+      // Return as Resource[] to maintain type compatibility
+      return filteredTech as Resource[];
+    }
+
+    // For other filter types, use the original logic
     let filtered = resourceList;
 
     // Apply category filter
@@ -268,7 +402,7 @@ const Resources = () => {
     }
 
     return filtered;
-  };
+  };;
 
   // Updated filtering logic that applies both main filter and subfilters
   const getMainFilteredResources = () => {
@@ -278,14 +412,16 @@ const Resources = () => {
       if (activeFilter === "Blog Posts") return resource.type === "BLOG POST";
       if (activeFilter === "Whitepapers") return resource.type === "WHITEPAPER";
       if (activeFilter === "Case Studies") return resource.type === "CASE STUDY";
-      return true;
+      if (activeFilter === "Tools & Tech") return false; // Tech cards are handled separately
+      if (activeFilter === "Quizzes") return false; // Quizzes are handled separately
+      return false; // Default to false to prevent showing unfiltered resources
     });
-  };
+  };;
 
   const mainFilteredResources = getMainFilteredResources();
   const filteredResources = applySubFilters(mainFilteredResources);
 
-  const filteredTechCards = activeFilter === "Tools & Tech" ? technologyCards : [];
+  const filteredTechCards = activeFilter === "Tools & Tech" ? applySubFilters(mainFilteredResources) as Resource[] : [];
 
   const filteredQuizzes = activeFilter === "Quizzes" ? allQuizzes : [];
 
@@ -1227,22 +1363,25 @@ const Resources = () => {
                         <Button
                           key={index}
                           variant={userAnswers[currentQuestionIndex] === index ? "default" : "outline"}
-                          className={`w-full text-left justify-start p-4 h-auto ${
+                          className={`w-full text-left justify-start p-4 h-auto transition-all duration-200 group ${
                             userAnswers[currentQuestionIndex] === index 
-                              ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white" 
-                              : "bg-off-white text-slate-700 hover:bg-blue-50 hover:text-slate-800 border-slate-200"
+                              ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white shadow-lg" 
+                              : "bg-off-white text-slate-700 hover:bg-blue-500 hover:text-white hover:shadow-md hover:scale-[1.02] border-slate-200 hover:border-blue-500"
                           }`}
                           onClick={() => handleQuizAnswer(index)}
                           data-testid={`button-quiz-option-${index}`}
                         >
                           <div className="flex items-center gap-3">
-                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
                               userAnswers[currentQuestionIndex] === index 
                                 ? "border-off-white bg-off-white" 
-                                : "border-slate-300"
+                                : "border-slate-300 group-hover:border-white group-hover:bg-blue-400"
                             }`}>
                               {userAnswers[currentQuestionIndex] === index && (
                                 <CheckCircle className="w-4 h-4 text-blue-600" />
+                              )}
+                              {userAnswers[currentQuestionIndex] !== index && (
+                                <div className="w-3 h-3 rounded-full bg-slate-300 group-hover:bg-white transition-all duration-200" />
                               )}
                             </div>
                             <span className="text-sm">{option}</span>
