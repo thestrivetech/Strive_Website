@@ -370,7 +370,7 @@ const Company = () => {
                 className="group"
                 data-testid={`card-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100 h-full flex flex-col">
                   <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                     <div className="text-primary text-2xl">
                       {item.icon}
@@ -383,7 +383,7 @@ const Company = () => {
                     {item.title}
                   </h3>
                   <p 
-                    className="text-base text-muted-foreground leading-relaxed"
+                    className="text-base text-muted-foreground leading-relaxed flex-grow"
                     data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-description`}
                   >
                     {item.description}
@@ -502,7 +502,7 @@ const Company = () => {
           <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {teamMembers.map((member, index) => (
               <div key={index} className="group">
-                <div className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-gray-100 overflow-hidden relative">
+                <div className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-gray-100 overflow-hidden relative h-full flex flex-col">
                   {/* Gradient overlay on hover */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
                   
@@ -518,14 +518,14 @@ const Company = () => {
                     <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-t-3xl transition-colors duration-500"></div>
                   </div>
                   
-                  <div className="p-8 relative z-10">
+                  <div className="p-8 relative z-10 flex-grow flex flex-col">
                     <h3 className="text-2xl font-bold mb-3 text-[#020a1c] group-hover:text-primary transition-colors duration-300">
                       {member.name}
                     </h3>
                     <p className="text-primary font-bold mb-4 text-lg tracking-wide">
                       {member.title}
                     </p>
-                    <p className="text-muted-foreground leading-relaxed text-base">
+                    <p className="text-muted-foreground leading-relaxed text-base flex-grow">
                       {member.description}
                     </p>
                     

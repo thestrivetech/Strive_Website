@@ -4,33 +4,32 @@ export const dockerContainerization: Resource = {
   id: 114,
   type: "TECH GUIDE",
   title: "Docker Containerization",
-  shortDescription: "Container platform for consistent deployment and scalable application architecture.",
-  fullDescription: "Docker revolutionizes application deployment by providing lightweight, portable containers that ensure consistency across development, testing, and production environments. This comprehensive guide covers Docker fundamentals, Dockerfile optimization, multi-stage builds, Docker Compose for multi-container applications, and integration with orchestration platforms like Kubernetes. Learn best practices for container security, image optimization, and CI/CD pipeline integration.",
+  shortDescription: "Docker enables seamless packaging, deployment, and scaling of applications using lightweight containers. It is foundational for rapid iteration, microservices, and reproducible AI/ML model workflows.",
+  fullDescription: "Docker enables seamless packaging, deployment, and scaling of applications using lightweight containers that provide foundational support for rapid iteration, microservices architecture, and reproducible AI/ML model workflows. Package and deploy AI microservices as container images, reproduce experiments and environments for ML ops and research, and automate batch inference or data engineering jobs at scale.",
   imageUrl: "https://images.unsplash.com/photo-1605745341112-85968b19335a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
   imageAlt: "Docker container technology",
   metadata: "Containerization",
   date: "Docker 24+",
   author: "Strive DevOps Team",
   readTime: "22 min",
-  tags: ["Docker", "Containerization", "DevOps", "Deployment"],
+  tags: ["Docker", "Containerization", "DevOps", "AI/ML", "Microservices"],
   content: {
     keyPoints: [
-      "Lightweight, portable containers for consistent deployments",
-      "Dockerfile for reproducible image building",
-      "Docker Compose for multi-container applications",
-      "Integration with CI/CD pipelines and orchestration",
-      "Strong security features and image scanning capabilities"
+      "Isolates applications with all dependencies for frictionless portability",
+      "Accelerates software delivery with standardized DevOps pipelines",
+      "Supports multi-environment builds—from laptops to the cloud",
+      "Integrates natively with Kubernetes and popular CI/CD tools",
+      "Reduces infrastructure costs by optimizing resource usage"
     ],
     insights: [
-      "Docker reduces deployment inconsistencies by 95%",
-      "Container startup time is 10x faster than virtual machines",
-      "Development environment setup time reduced by 80%"
+      "70% of global enterprises use Docker in production workflows",
+      "Speeds up onboarding and deployments, reducing time-to-market by 40% on average",
+      "A must-have for ML/AI engineers sharing and scaling model training environments"
     ],
     actionItems: [
-      "Install Docker and understand container basics",
-      "Create optimized Dockerfiles for your applications",
-      "Use Docker Compose for local development environments",
-      "Implement Docker in CI/CD pipelines for consistent deployments"
+      "Containerize your AI apps and models for reproducible results",
+      "Leverage Docker Compose for multi-service stack orchestration",
+      "Tie into cloud platforms or Kubernetes for production workloads"
     ]
   }
 };

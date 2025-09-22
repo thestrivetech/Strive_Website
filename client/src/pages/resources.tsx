@@ -16,6 +16,7 @@ import { Resource, technologyCards, resources } from "@/data/resources";
 import { Quiz, QuizQuestion, QuizResult, allQuizzes } from "@/data/resources/quizzes";
 import { featuredResource } from "@/data/resources/featured";
 import { getSolutionById } from "@/data/solutions-mapping";
+import { SubFilterBar } from "@/components/ui/sub-filter-bar";
 
 // Types are now imported from the modular structure
 
@@ -35,6 +36,17 @@ const Resources = () => {
   const [quizResult, setQuizResult] = useState<QuizResult | null>(null);
   const [showQuizResult, setShowQuizResult] = useState(false);
   
+  // Subfilter state
+  const [subFilter, setSubFilter] = useState<{
+    category: string;
+    searchTerm: string;
+  }>({ category: 'all', searchTerm: '' });
+  
+  const [subFilterOptions, setSubFilterOptions] = useState<Array<{
+    value: string;
+    label: string;
+    count: number;
+  }>>([]);
 
   
   const filters = [
@@ -104,16 +116,174 @@ const Resources = () => {
     }
   }, [technologyCards]);
 
-  // quizzes is now imported from @/data/quizzes as allQuizzes
-
-  const filteredResources = activeFilter === "All" 
-    ? resources 
-    : resources.filter(resource => {
+  // Update subfilter options when active filter changes
+  useEffect(() => {
+    if (activeFilter === "All") {
+      setSubFilterOptions([]);
+      setSubFilter({ category: 'all', searchTerm: '' });
+    } else {
+      const mainFiltered = resources.filter(resource => {
         if (activeFilter === "Blog Posts") return resource.type === "BLOG POST";
         if (activeFilter === "Whitepapers") return resource.type === "WHITEPAPER";
         if (activeFilter === "Case Studies") return resource.type === "CASE STUDY";
         return true;
       });
+      
+      const options = getSubFilterOptionsForActiveFilter(mainFiltered);
+      setSubFilterOptions(options);
+      setSubFilter({ category: 'all', searchTerm: '' });
+    }
+  }, [activeFilter, resources, technologyCards, allQuizzes]);
+
+  // quizzes is now imported from @/data/quizzes as allQuizzes
+
+  // Helper functions for subfilter categories
+  const extractUniqueCategories = (resourceList: Resource[], categoryType: string) => {
+    const categories = new Set<string>();
+    
+    resourceList.forEach(resource => {
+      switch (categoryType) {
+        case 'tags':
+          resource.tags.forEach(tag => categories.add(tag));
+          break;
+        case 'metadata':
+          if (resource.metadata) categories.add(resource.metadata);
+          break;
+        case 'author':
+          if (resource.author) categories.add(resource.author);
+          break;
+        case 'industry':
+          // For case studies, extract industry from metadata or infer from tags
+          if (resource.type === "CASE STUDY") {
+            if (resource.metadata) categories.add(resource.metadata);
+            // Also add relevant tags that represent industries
+            const industryTags = resource.tags.filter(tag => 
+              ['Healthcare', 'Finance', 'Technology', 'Manufacturing', 'Retail', 'Education', 
+               'Agriculture', 'Automotive', 'Gaming', 'Legal', 'Insurance', 'Energy', 
+               'Media', 'Transportation', 'Government'].includes(tag)
+            );
+            industryTags.forEach(tag => categories.add(tag));
+          }
+          break;
+        case 'difficulty':
+          // For quizzes, extract difficulty levels
+          if (activeFilter === "Quizzes") {
+            // This would be handled by the quizzes separately
+          }
+          break;
+      }
+    });
+    
+    return Array.from(categories).sort();
+  };
+
+  const getSubFilterOptionsForActiveFilter = (resourceList: Resource[]) => {
+    const options: Array<{ value: string; label: string; count: number }> = [
+      { value: 'all', label: 'All', count: resourceList.length }
+    ];
+
+    let categories: string[] = [];
+    
+    switch (activeFilter) {
+      case "Blog Posts":
+        categories = extractUniqueCategories(resourceList, 'tags');
+        break;
+      case "Case Studies":
+        categories = extractUniqueCategories(resourceList, 'industry');
+        break;
+      case "Whitepapers":
+        categories = extractUniqueCategories(resourceList, 'tags');
+        break;
+      case "Tools & Tech":
+        // For tech cards, we'll extract categories from their data structure
+        categories = Array.from(new Set(technologyCards.map(card => card.type || 'Technology'))).sort();
+        break;
+      case "Quizzes":
+        // For quizzes, extract difficulty levels
+        categories = Array.from(new Set(allQuizzes.map(quiz => quiz.difficulty))).sort();
+        break;
+      default:
+        return options;
+    }
+
+    // Add category options with counts
+    categories.forEach(category => {
+      const count = countResourcesByCategory(resourceList, category, activeFilter);
+      if (count > 0) {
+        options.push({
+          value: category.toLowerCase().replace(/\s+/g, '-'),
+          label: category,
+          count
+        });
+      }
+    });
+
+    return options;
+  };
+
+  const countResourcesByCategory = (resourceList: Resource[], category: string, filterType: string) => {
+    return resourceList.filter(resource => {
+      switch (filterType) {
+        case "Blog Posts":
+        case "Whitepapers":
+          return resource.tags.some(tag => tag.toLowerCase() === category.toLowerCase());
+        case "Case Studies":
+          return resource.metadata?.toLowerCase() === category.toLowerCase() ||
+                 resource.tags.some(tag => tag.toLowerCase() === category.toLowerCase());
+        case "Tools & Tech":
+          // This would need to check technologyCards
+          return true;
+        case "Quizzes":
+          // This would need to check allQuizzes
+          return true;
+        default:
+          return false;
+      }
+    }).length;
+  };
+
+  const applySubFilters = (resourceList: Resource[]) => {
+    let filtered = resourceList;
+
+    // Apply category filter
+    if (subFilter.category !== 'all') {
+      filtered = filtered.filter(resource => {
+        const categoryMatch = resource.tags.some(tag => 
+          tag.toLowerCase().replace(/\s+/g, '-') === subFilter.category
+        ) || (resource.metadata?.toLowerCase().replace(/\s+/g, '-') === subFilter.category);
+        return categoryMatch;
+      });
+    }
+
+    // Apply search filter
+    if (subFilter.searchTerm.trim()) {
+      const searchTerm = subFilter.searchTerm.toLowerCase();
+      filtered = filtered.filter(resource => 
+        resource.title.toLowerCase().includes(searchTerm) ||
+        resource.shortDescription.toLowerCase().includes(searchTerm) ||
+        resource.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
+        resource.author?.toLowerCase().includes(searchTerm) ||
+        resource.metadata?.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    return filtered;
+  };
+
+  // Updated filtering logic that applies both main filter and subfilters
+  const getMainFilteredResources = () => {
+    if (activeFilter === "All") return resources;
+    
+    return resources.filter(resource => {
+      if (activeFilter === "Blog Posts") return resource.type === "BLOG POST";
+      if (activeFilter === "Whitepapers") return resource.type === "WHITEPAPER";
+      if (activeFilter === "Case Studies") return resource.type === "CASE STUDY";
+      return true;
+    });
+  };
+
+  const mainFilteredResources = getMainFilteredResources();
+  const filteredResources = applySubFilters(mainFilteredResources);
 
   const filteredTechCards = activeFilter === "Tools & Tech" ? technologyCards : [];
 
@@ -488,6 +658,20 @@ const Resources = () => {
               </Select>
             </div>
           </div>
+
+          {/* SubFilter Bar - Only show when a specific filter is selected */}
+          {activeFilter !== "All" && subFilterOptions.length > 0 && (
+            <div className="mb-8">
+              <SubFilterBar
+                searchTerm={subFilter.searchTerm}
+                selectedCategory={subFilter.category}
+                options={subFilterOptions}
+                onSearchChange={(term) => setSubFilter(prev => ({ ...prev, searchTerm: term }))}
+                onCategoryChange={(category) => setSubFilter(prev => ({ ...prev, category }))}
+                maxVisibleCategories={5}
+              />
+            </div>
+          )}
 
           {/* AI Knowledge Quizzes Section */}
           {activeFilter === "Quizzes" && (

@@ -633,152 +633,146 @@ const Home = () => {
 
           {/* Resource Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {/* Whitepaper Card */}
+            {/* Whitepaper Card - AI & Machine Learning Complete Guide */}
             <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 h-full flex flex-col">
               <div className="relative overflow-hidden flex-shrink-0">
-                <div className="h-48 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <FileText className="w-16 h-16 mx-auto mb-4 opacity-80" />
-                    <div className="text-sm font-medium uppercase tracking-wide">
-                      Comprehensive Guide
-                    </div>
-                  </div>
-                </div>
+                <img 
+                  src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+                  alt="AI and machine learning neural network visualization"
+                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute top-4 left-4">
-                  <Badge className="bg-blue-500 text-white border-0 text-xs px-2 py-1">
-                    Whitepaper
+                  <Badge className="bg-purple-500 text-white border-0 text-xs px-2 py-1">
+                    WHITEPAPER
                   </Badge>
                 </div>
               </div>
               
               <CardContent className="p-6 text-gray-900 flex flex-col flex-grow">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
-                  AI & Machine Learning Complete Guide
+                <h4 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                  AI & Machine Learning: Complete Guide
                 </h4>
                 
                 <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3 flex-grow">
-                  Comprehensive overview of AI implementation strategies, best practices, and real-world applications for modern businesses.
+                  Comprehensive overview of AI/ML technologies, implementation strategies, and business applications for modern enterprises.
                 </p>
                 
                 <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
                       <FileText className="h-3 w-3" />
-                      25 pages
+                      Technology Guide
                     </div>
                     <div className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      15 min read
+                      <Download className="h-3 w-3" />
+                      3,450 downloads
                     </div>
                   </div>
                 </div>
                 
                 <Button 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white border-0 mt-auto"
-                  onClick={() => window.location.href = "/resources?filter=Whitepapers"}
+                  className="w-full bg-slate-800 text-white hover:bg-primary hover:text-white transition-all duration-300 border-0"
+                  onClick={() => window.location.href = "/resources?filter=Whitepapers&tech=ai-ml"}
                 >
-                  <Download className="h-4 w-4 mr-2" />
-                  Learn More
+                  <Eye className="h-4 w-4 mr-2" />
+                  View Details
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Case Study Card */}
+            {/* Case Study Card - Microsoft AI Transformation */}
             <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 h-full flex flex-col">
               <div className="relative overflow-hidden flex-shrink-0">
-                <div className="h-48 bg-gradient-to-br from-green-600 to-teal-600 flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <TrendingUp className="w-16 h-16 mx-auto mb-4 opacity-80" />
-                    <div className="text-sm font-medium uppercase tracking-wide">
-                      Success Story
-                    </div>
-                  </div>
-                </div>
+                <img 
+                  src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+                  alt="Microsoft technology workspace with AI-powered productivity tools and cloud computing infrastructure"
+                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute top-4 left-4">
                   <Badge className="bg-green-500 text-white border-0 text-xs px-2 py-1">
-                    Case Study
+                    CASE STUDY
                   </Badge>
                 </div>
               </div>
               
               <CardContent className="p-6 text-gray-900 flex flex-col flex-grow">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-green-600 transition-colors line-clamp-2">
-                  Enterprise AI Implementation
+                <h4 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                  Microsoft's AI Transformation: $18.3B Revenue Blueprint
                 </h4>
                 
                 <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3 flex-grow">
-                  How a Fortune 500 company achieved 40% cost reduction and 60% efficiency improvement through strategic AI implementation.
+                  Microsoft's strategic AI implementation generated $18.3 billion in annual revenue while achieving 47% ROI and 55% productivity improvement.
                 </p>
                 
                 <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
                       <Building className="h-3 w-3" />
-                      Enterprise
+                      Technology
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock className="h-3 w-3" />
-                      10 min read
+                      16 min read
                     </div>
                   </div>
                 </div>
                 
                 <Button 
-                  className="w-full bg-green-600 hover:bg-green-700 text-white border-0 mt-auto"
+                  className="w-full bg-slate-800 text-white hover:bg-primary hover:text-white transition-all duration-300 border-0"
                   onClick={() => window.location.href = "/resources?filter=Case Studies"}
                 >
                   <Eye className="h-4 w-4 mr-2" />
-                  Learn More
+                  View Details
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Quiz Card - Adjusted height to match others */}
+            {/* Quiz Card - AI Model Types & Architectures */}
             <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 h-full flex flex-col">
               <div className="relative overflow-hidden flex-shrink-0">
-                <div className="h-48 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <BrainCircuit className="w-16 h-16 mx-auto mb-4 opacity-80" />
-                    <div className="text-sm font-medium uppercase tracking-wide">
-                      Test Your Knowledge
-                    </div>
-                  </div>
-                </div>
+                <img 
+                  src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+                  alt="AI neural network architecture visualization with interconnected nodes"
+                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute top-4 left-4">
-                  <Badge className="bg-purple-500 text-white border-0 text-xs px-2 py-1">
-                    Interactive Quiz
+                  <Badge className="bg-blue-500 text-white border-0 text-xs px-2 py-1">
+                    INTERACTIVE QUIZ
                   </Badge>
                 </div>
               </div>
               
               <CardContent className="p-6 text-gray-900 flex flex-col flex-grow">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-purple-600 transition-colors line-clamp-2">
-                  AI Knowledge Assessment
+                <h4 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                  AI Model Types & Architectures
                 </h4>
                 
                 <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3 flex-grow">
-                  Test your understanding of AI fundamentals and discover personalized learning recommendations based on your expertise level.
+                  Explore different AI model architectures, from transformers to diffusion models. Test your advanced understanding.
                 </p>
                 
                 <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
                       <Target className="h-3 w-3" />
-                      Multiple topics
+                      Advanced Level
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock className="h-3 w-3" />
-                      5-15 min
+                      30 min
                     </div>
                   </div>
                 </div>
                 
                 <Button 
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white border-0 mt-auto"
+                  className="w-full bg-slate-800 text-white hover:bg-primary hover:text-white transition-all duration-300 border-0"
                   onClick={() => window.location.href = "/resources?filter=Quizzes"}
                 >
                   <Play className="h-4 w-4 mr-2" />
-                  Learn More
+                  Start Quiz
                 </Button>
               </CardContent>
             </Card>

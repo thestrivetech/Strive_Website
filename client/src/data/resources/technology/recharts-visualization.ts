@@ -4,33 +4,32 @@ export const rechartsVisualization: Resource = {
   id: 112,
   type: "TECH GUIDE",
   title: "Recharts Visualization",
-  shortDescription: "React charting library for creating beautiful, responsive data visualizations and dashboards.",
-  fullDescription: "Recharts is a composable React charting library built on D3.js components, providing a comprehensive solution for data visualization needs. This guide covers chart types, customization options, responsive design patterns, and integration with real-time data sources. Learn to create interactive dashboards, animate chart transitions, and implement custom chart components for business intelligence applications.",
+  shortDescription: "Recharts is a composable React charting library that simplifies building customizable, responsive data visualizations for dashboards, reports, and AI-driven analytics products.",
+  fullDescription: "Real-time business dashboards, performance reporting, and analytics. Visualizing ML/AI outputs and KPIs for technical and business audiences. Customer-facing portals or product intelligence visualizations.",
   imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-  imageAlt: "Data visualization with charts and graphs",
-  metadata: "Visualization Library",
-  date: "Recharts 2.x",
-  author: "Strive Data Viz Team",
-  readTime: "12 min",
-  tags: ["Recharts", "Data Visualization", "Charts", "React"],
+  imageAlt: "Recharts data visualization",
+  metadata: "Data Visualization",
+  date: "Recharts 2.8",
+  author: "Strive AI Team",
+  readTime: "16 min",
+  tags: ["Recharts", "Data Visualization", "React", "Charts", "Analytics"],
   content: {
     keyPoints: [
-      "Declarative React components for various chart types",
-      "Responsive design with automatic resizing",
-      "Customizable themes and styling options",
-      "Animation support for smooth transitions",
-      "Integration with real-time data sources"
+      "Declarative API enables rapid development of rich, modern charts",
+      "Extensive support for line, bar, pie, area, and custom visualizations",
+      "Built for React—seamless integration with app state and props",
+      "Responsive and mobile-friendly out of the box",
+      "Theming and extensibility for branded, interactive experiences"
     ],
     insights: [
-      "Visual dashboards improve decision making by 65%",
-      "Interactive charts increase user engagement by 50%",
-      "Recharts reduces data visualization development time by 40%"
+      "Accelerates analytics dashboard delivery by 3–5x versus vanilla charting solutions",
+      "Widely adopted across SaaS, enterprise, and data-centric web apps",
+      "Active open-source contributions and frequent ecosystem updates"
     ],
     actionItems: [
-      "Install Recharts and set up basic chart components",
-      "Create responsive charts with dynamic data",
-      "Implement custom styling and themes",
-      "Build interactive dashboard with multiple chart types"
+      "Combine Recharts with React state, Redux, or context to drive live data",
+      "Leverage theming, animation, and event hooks for engaging UX",
+      "Use as a front-end for ML/AI model insights, monitoring, and visual storytelling"
     ]
   }
-};
+};;
