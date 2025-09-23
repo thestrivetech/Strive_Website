@@ -1,4 +1,5 @@
 import { onCLS, onFCP, onLCP, onTTFB } from 'web-vitals';
+import { trackWebVitals } from './analytics-tracker';
 // FID is deprecated in favor of INP, but we'll still track it if available
 let onFID: any;
 try {
@@ -41,11 +42,11 @@ function reportMetric(metric: WebVitalsMetric) {
   // Send to analytics in production
   if (process.env.NODE_ENV === 'production') {
     // Send to our analytics system
-    import('./analytics-tracker').then(({ trackWebVitals }) => {
+    try {
       trackWebVitals(metric);
-    }).catch(() => {
+    } catch {
       // Silently fail - analytics shouldn't break the app
-    });
+    }
 
     // Example: Google Analytics 4 (if enabled)
     if (typeof (window as any).gtag !== 'undefined') {
