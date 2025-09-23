@@ -20,12 +20,14 @@ Update all sources for case studies
 Create full pages for case studies - currently linked through the "sources" section on pop-out cards
     - Create "view full case study" button for users to see full case study in pop-out card
     - Make sure ALL case studies are actually relevant to the industry theyre linked to (check government and legal - one of the two current case study articles isn't linked to industry)
+    - Validate all case study links (use claude walkthrough folders/files and perplexity to validate)
 Change generic stock photos that don't match topics or categories (some cards still don't have photos)
-
 
 Upload Whitepaper and finish resource page feature section
 
 Make sure email templates are good to go and database is fully operational on all form submissions
+
+See if main domain is finally working and if not, find solution. Try deleting the project and remaking it. (Ask claude before doing this to troubleshoot)
 
 # Chat bot fixes (in other dev environment)
 
