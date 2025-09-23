@@ -1438,7 +1438,9 @@ const Solutions = () => {
                      'Solutions'}
                   </span>
                   <Badge variant="secondary" className="ml-auto mr-2 text-xs">
-                    {filteredSolutions.length}
+                    {selectedFilter.type === 'industry' && selectedFilter.value === 'all-industries' ? '21' : 
+                     selectedFilter.type === 'solution' && selectedFilter.value === 'all-solutions' ? '27' :
+                     filteredSolutions.length}
                   </Badge>
                   <ChevronDown className="h-4 w-4 flex-shrink-0" />
                 </Button>
@@ -1459,7 +1461,7 @@ const Solutions = () => {
                       <div className="space-y-2">
                         <h3 className="text-sm font-semibold text-muted-foreground px-2 py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center justify-between">
                           Industries
-                          <Badge variant="secondary" className="text-lg font-bold">21</Badge>
+                          <Badge variant="secondary" className="text-xs px-2 py-1 h-6 flex items-center">21</Badge>
                         </h3>
                         
                         {/* All Industries Option */}
@@ -1519,19 +1521,19 @@ const Solutions = () => {
                                     {option.icon}
                                     <span className="text-sm font-medium">{option.label}</span>
                                   </div>
-                                  <Badge variant="secondary" className="text-xs">
+                                  <Badge variant="secondary" className="text-xs px-2 py-1 h-6 flex items-center">
                                     {getIndustrySolutionCount(option.value)} solutions
                                   </Badge>
                                 </div>
                                 {/* Correlation badges */}
                                 <div className="flex flex-wrap gap-1 ml-6">
                                   {correlations.shown.map((solution: string, idx: number) => (
-                                    <Badge key={idx} variant="outline" className="text-xs px-1.5 py-0.5 h-5 bg-blue-50 text-blue-700 border-blue-200">
+                                    <Badge key={idx} variant="outline" className="text-xs px-2 py-1 h-6 bg-blue-50 text-blue-700 border-blue-200 flex items-center">
                                       {solution}
                                     </Badge>
                                   ))}
                                   {correlations.remaining > 0 && (
-                                    <Badge variant="outline" className="text-xs px-1.5 py-0.5 h-5 bg-gray-50 text-gray-600 border-gray-200">
+                                    <Badge variant="outline" className="text-xs px-2 py-1 h-6 bg-gray-50 text-gray-600 border-gray-200 flex items-center">
                                       +{correlations.remaining} more
                                     </Badge>
                                   )}
@@ -1545,7 +1547,7 @@ const Solutions = () => {
                       <div className="space-y-2">
                         <h3 className="text-sm font-semibold text-muted-foreground px-2 py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center justify-between">
                           Solution Types
-                          <Badge variant="secondary" className="text-lg font-bold">9</Badge>
+                          <Badge variant="secondary" className="text-xs px-2 py-1 h-6 flex items-center">9</Badge>
                         </h3>
                         
                         {/* All Solutions Option */}
@@ -1568,7 +1570,7 @@ const Solutions = () => {
                               <Cog className="h-4 w-4" />
                               <span className="text-sm">All Solutions</span>
                             </div>
-                            <Badge variant="secondary" className="text-xs">
+                            <Badge variant="secondary" className="text-xs px-2 py-1 h-6 flex items-center">
                               27
                             </Badge>
                           </div>
@@ -1610,19 +1612,19 @@ const Solutions = () => {
                                     {option.icon}
                                     <span className="text-sm font-medium">{option.label}</span>
                                   </div>
-                                  <Badge variant="secondary" className="text-xs">
+                                  <Badge variant="secondary" className="text-xs px-2 py-1 h-6 flex items-center">
                                     {getSolutionTypeSolutionCount(option.value)} solutions
                                   </Badge>
                                 </div>
                                 {/* Correlation badges */}
                                 <div className="flex flex-wrap gap-1 ml-6">
                                   {correlations.shown.map((industry: string, idx: number) => (
-                                    <Badge key={idx} variant="outline" className="text-xs px-1.5 py-0.5 h-5 bg-green-50 text-green-700 border-green-200">
+                                    <Badge key={idx} variant="outline" className="text-xs px-2 py-1 h-6 bg-green-50 text-green-700 border-green-200 flex items-center">
                                       {industry}
                                     </Badge>
                                   ))}
                                   {correlations.remaining > 0 && (
-                                    <Badge variant="outline" className="text-xs px-1.5 py-0.5 h-5 bg-gray-50 text-gray-600 border-gray-200">
+                                    <Badge variant="outline" className="text-xs px-2 py-1 h-6 bg-gray-50 text-gray-600 border-gray-200 flex items-center">
                                       +{correlations.remaining} more
                                     </Badge>
                                   )}

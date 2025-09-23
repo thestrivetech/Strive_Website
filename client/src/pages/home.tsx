@@ -797,7 +797,7 @@ const Home = () => {
                   variant="outline"
                   className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[200px] relative overflow-hidden"
                   size="lg"
-                  onClick={() => window.location.href = "/demo"}
+                  onClick={() => window.location.href = "/request"}
                   data-testid="button-request-demo"
                 >
                   Request Free Demo

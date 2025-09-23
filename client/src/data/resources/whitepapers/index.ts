@@ -11,8 +11,9 @@ import { computerVisionIntelligence } from './computer-vision-intelligence';
 import { nlpMastery } from './nlp-mastery';
 
 export const whitepapers = [
-  cloudSecurityBestPractices,
-  aiMlCompleteGuide,
-  computerVisionIntelligence,
-  nlpMastery
+  // Temporarily hiding existing whitepapers - only showing featured whitepaper
+  // cloudSecurityBestPractices,
+  // aiMlCompleteGuide,
+  // computerVisionIntelligence,
+  // nlpMastery
 ];

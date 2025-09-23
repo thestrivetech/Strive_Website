@@ -1,7 +1,7 @@
 import { Resource } from '../types';
 
 export const aiImplementationStrategiesSmallBusiness: Resource = {
-  id: 6,
+  id: 15,
   type: "BLOG POST",
   title: "AI Implementation Strategies for Small Business: Complete 2025 Roadmap",
   shortDescription: "Step-by-step guide for small businesses to implement AI successfully. Learn cost-effective strategies, avoid common pitfalls, and achieve measurable ROI with practical AI solutions tailored for SMBs.",

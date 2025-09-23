@@ -186,7 +186,30 @@ const Resources = () => {
     
     switch (activeFilter) {
       case "Blog Posts":
-        categories = extractUniqueCategories(resourceList, 'tags');
+        // Create meaningful topic-based categories for blog posts
+        const blogCategories = new Set<string>();
+
+        resourceList.forEach(resource => {
+          resource.tags.forEach(tag => {
+            const tagLower = tag.toLowerCase();
+
+            if (['ai/ml', 'artificial intelligence', 'machine learning', 'neural networks', 'deep learning', 'llm', 'gpt', 'ai models'].some(term => tagLower.includes(term.toLowerCase()))) {
+              blogCategories.add('AI & Machine Learning');
+            } else if (['business', 'strategy', 'productivity', 'efficiency', 'roi', 'automation benefits'].some(term => tagLower.includes(term.toLowerCase()))) {
+              blogCategories.add('Business Strategy');
+            } else if (['tutorial', 'how-to', 'guide', 'implementation', 'setup', 'getting started'].some(term => tagLower.includes(term.toLowerCase()))) {
+              blogCategories.add('Tutorials & Guides');
+            } else if (['industry', 'trends', 'news', 'updates', 'market', 'forecast'].some(term => tagLower.includes(term.toLowerCase()))) {
+              blogCategories.add('Industry Insights');
+            } else if (['technology', 'tools', 'software', 'platform', 'framework', 'development'].some(term => tagLower.includes(term.toLowerCase()))) {
+              blogCategories.add('Technology & Tools');
+            } else if (['automation', 'workflow', 'process', 'optimization', 'efficiency'].some(term => tagLower.includes(term.toLowerCase()))) {
+              blogCategories.add('Process Automation');
+            }
+          });
+        });
+
+        categories = Array.from(blogCategories).sort();
         break;
       case "Case Studies":
         categories = extractUniqueCategories(resourceList, 'industry');
@@ -317,7 +340,39 @@ const Resources = () => {
     return resourceList.filter(resource => {
       switch (filterType) {
         case "Blog Posts":
-          return resource.tags.some(tag => tag.toLowerCase() === category.toLowerCase());
+          const categoryLowerBlog = category.toLowerCase();
+          if (categoryLowerBlog === 'ai & machine learning' || categoryLowerBlog === 'ai-machine-learning') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['ai/ml', 'artificial intelligence', 'machine learning', 'neural networks', 'deep learning', 'llm', 'gpt', 'ai models'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          } else if (categoryLowerBlog === 'business strategy' || categoryLowerBlog === 'business-strategy') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['business', 'strategy', 'productivity', 'efficiency', 'roi', 'automation benefits'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          } else if (categoryLowerBlog === 'tutorials & guides' || categoryLowerBlog === 'tutorials-guides') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['tutorial', 'how-to', 'guide', 'implementation', 'setup', 'getting started'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          } else if (categoryLowerBlog === 'industry insights' || categoryLowerBlog === 'industry-insights') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['industry', 'trends', 'news', 'updates', 'market', 'forecast'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          } else if (categoryLowerBlog === 'technology & tools' || categoryLowerBlog === 'technology-tools') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['technology', 'tools', 'software', 'platform', 'framework', 'development'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          } else if (categoryLowerBlog === 'process automation' || categoryLowerBlog === 'process-automation') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['automation', 'workflow', 'process', 'optimization', 'efficiency'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          }
+          return false;
         case "Whitepapers":
           const categoryLower = category.toLowerCase();
           if (categoryLower === 'ai & machine learning' || categoryLower === 'ai-machine-learning') {
@@ -435,6 +490,43 @@ const Resources = () => {
     // Apply category filter
     if (subFilter.category !== 'all') {
       filtered = filtered.filter(resource => {
+        // Handle Blog Posts with grouped categories
+        if (activeFilter === "Blog Posts") {
+          const categoryLower = subFilter.category;
+          if (categoryLower === 'ai-machine-learning') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['ai/ml', 'artificial intelligence', 'machine learning', 'neural networks', 'deep learning', 'llm', 'gpt', 'ai models'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          } else if (categoryLower === 'business-strategy') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['business', 'strategy', 'productivity', 'efficiency', 'roi', 'automation benefits'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          } else if (categoryLower === 'tutorials-guides') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['tutorial', 'how-to', 'guide', 'implementation', 'setup', 'getting started'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          } else if (categoryLower === 'industry-insights') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['industry', 'trends', 'news', 'updates', 'market', 'forecast'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          } else if (categoryLower === 'technology-tools') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['technology', 'tools', 'software', 'platform', 'framework', 'development'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          } else if (categoryLower === 'process-automation') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['automation', 'workflow', 'process', 'optimization', 'efficiency'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          }
+          return false;
+        }
+
         // Handle Whitepapers with grouped categories
         if (activeFilter === "Whitepapers") {
           const categoryLower = subFilter.category;
@@ -1110,14 +1202,7 @@ const Resources = () => {
           {/* Resource Grid */}
           {(activeFilter === "Blog Posts" || activeFilter === "Case Studies" || activeFilter === "Whitepapers" || activeFilter === "All") && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-6 lg:gap-8">
-              {filteredResources.filter(resource => {
-                // Additional type guard to ensure proper filtering
-                if (activeFilter === "Blog Posts") return resource.type === "BLOG POST";
-                if (activeFilter === "Case Studies") return resource.type === "CASE STUDY";
-                if (activeFilter === "Whitepapers") return resource.type === "WHITEPAPER";
-                if (activeFilter === "All") return ["BLOG POST", "CASE STUDY", "WHITEPAPER"].includes(resource.type);
-                return false;
-              }).map((resource) => (
+              {filteredResources.map((resource) => (
               <Card 
                 key={resource.id}
                 className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 h-full flex flex-col"

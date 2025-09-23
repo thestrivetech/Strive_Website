@@ -160,21 +160,21 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
                 <Target className="w-6 h-6" />
               </div>
               <h3 className="font-semibold mb-2" style={{ color: '#020a1c' }}>Our Mission</h3>
-              <p className="text-sm text-gray-600">Democratizing AI to make intelligent solutions accessible to businesses of all sizes</p>
+              <p className="text-sm text-gray-800">Democratizing AI to make intelligent solutions accessible to businesses of all sizes</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 bg-[#ff7033] text-white rounded-lg flex items-center justify-center mx-auto mb-3">
                 <Zap className="w-6 h-6" />
               </div>
               <h3 className="font-semibold mb-2" style={{ color: '#020a1c' }}>Our Vision</h3>
-              <p className="text-sm text-gray-600">Creating a future where AI amplifies human potential and drives innovation</p>
+              <p className="text-sm text-gray-800">Creating a future where AI amplifies human potential and drives innovation</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 bg-[#ff7033] text-white rounded-lg flex items-center justify-center mx-auto mb-3">
                 <Award className="w-6 h-6" />
               </div>
               <h3 className="font-semibold mb-2" style={{ color: '#020a1c' }}>Our Values</h3>
-              <p className="text-sm text-gray-600">Innovation, integrity, and impact in everything we deliver</p>
+              <p className="text-sm text-gray-800">Innovation, integrity, and impact in everything we deliver</p>
             </div>
           </div>
         </div>
@@ -196,7 +196,7 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
                   <h3 className="font-semibold text-lg mb-2" style={{ color: '#020a1c' }}>
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-800 text-sm leading-relaxed">
                     {service.description}
                   </p>
                 </div>
@@ -211,7 +211,7 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
         <h2 className="text-3xl font-bold text-center" style={{ color: '#020a1c' }}>
           Industry Expertise
         </h2>
-        <p className="text-center text-gray-600 max-w-3xl mx-auto">
+        <p className="text-center text-gray-800 max-w-3xl mx-auto">
           We bring deep domain knowledge and industry-specific AI solutions to help you navigate unique challenges and opportunities.
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -283,7 +283,7 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
                 <h3 className="font-semibold text-lg mb-2" style={{ color: '#020a1c' }}>
                   {reason.title}
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-800 text-sm">
                   {reason.description}
                 </p>
               </div>
@@ -330,19 +330,19 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
               <h3 className="text-xl font-semibold mb-4" style={{ color: '#020a1c' }}>
                 Ready to Transform Your Business?
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-800 mb-6">
                 Schedule a free consultation to discuss how AI can accelerate your growth and competitive advantage.
               </p>
               <div className="space-y-3">
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
+                <div className="flex items-center space-x-2 text-sm text-gray-800">
                   <CheckCircle className="w-4 h-4 text-green-500" />
                   <span>Free initial consultation</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
+                <div className="flex items-center space-x-2 text-sm text-gray-800">
                   <CheckCircle className="w-4 h-4 text-green-500" />
                   <span>Custom AI strategy development</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
+                <div className="flex items-center space-x-2 text-sm text-gray-800">
                   <CheckCircle className="w-4 h-4 text-green-500" />
                   <span>ROI-focused implementation</span>
                 </div>

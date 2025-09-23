@@ -1,7 +1,7 @@
 import { Resource } from '../types';
 
 export const aiForBeginnersCompleteGuide: Resource = {
-  id: 2,
+  id: 14,
   type: "BLOG POST",
   title: "AI for Beginners: Complete Guide to Using Artificial Intelligence in 2025",
   shortDescription: "Master AI basics with this complete beginner's guide. Learn what artificial intelligence is, how to use AI tools like ChatGPT and Claude, and get hands-on tutorials for 2025.",
