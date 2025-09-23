@@ -25,6 +25,8 @@ Change generic stock photos that don't match topics or categories (some cards st
 
 Upload Whitepaper and finish resource page feature section
 
+Make sure email templates are good to go and database is fully operational on all form submissions
+
 # Chat bot fixes (in other dev environment)
 
 Chat bot project - Fix chatbot CTA buttons to take users to the request page or assessment pages (Add a calendly option at the end of contact form which appears after the user has submitted the contact form) - Need to change one of the CTA buttons to "Request Showcase" which takes the user to the request page
