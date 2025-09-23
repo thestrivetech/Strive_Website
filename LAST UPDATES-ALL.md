@@ -1,5 +1,6 @@
 # Last Update Sessions
 
+Request Free Demo at bottom of home page doesn't work.
 
 Fix solution page dropdown menu for filter to be formatted correctly (you can notice some badges are bigger or look weird because certain filter buttons aren't aligned)
 
