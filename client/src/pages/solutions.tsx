@@ -1457,7 +1457,10 @@ const Solutions = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 p-2 md:p-4">
                       {/* Left Column - Industries */}
                       <div className="space-y-2">
-                        <h3 className="text-sm font-semibold text-muted-foreground px-2 py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2">Industries</h3>
+                        <h3 className="text-sm font-semibold text-muted-foreground px-2 py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center justify-between">
+                          Industries
+                          <Badge variant="secondary" className="text-lg font-bold">21</Badge>
+                        </h3>
                         
                         {/* All Industries Option */}
                         <div
@@ -1474,14 +1477,9 @@ const Solutions = () => {
                             selectedFilter.type === 'industry' && selectedFilter.value === 'all-industries' ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : "hover:bg-gray-50"
                           }`}
                         >
-                          <div className="flex flex-col items-center gap-1">
-                            <Badge variant="secondary" className="text-lg font-bold">
-                              21
-                            </Badge>
-                            <div className="flex items-center gap-2">
-                              <Building2 className="h-4 w-4" />
-                              <span className="text-sm">Industries</span>
-                            </div>
+                          <div className="flex items-center gap-2">
+                            <Building2 className="h-4 w-4" />
+                            <span className="text-sm">All Industries</span>
                           </div>
                         </div>
 
@@ -1545,7 +1543,10 @@ const Solutions = () => {
 
                       {/* Right Column - Solution Types */}
                       <div className="space-y-2">
-                        <h3 className="text-sm font-semibold text-muted-foreground px-2 py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2">Solution Types</h3>
+                        <h3 className="text-sm font-semibold text-muted-foreground px-2 py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center justify-between">
+                          Solution Types
+                          <Badge variant="secondary" className="text-lg font-bold">9</Badge>
+                        </h3>
                         
                         {/* All Solutions Option */}
                         <div
@@ -1562,14 +1563,14 @@ const Solutions = () => {
                             selectedFilter.type === 'solution' && selectedFilter.value === 'all-solutions' ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : "hover:bg-gray-50"
                           }`}
                         >
-                          <div className="flex flex-col items-center gap-1">
-                            <Badge variant="secondary" className="text-lg font-bold">
-                              27
-                            </Badge>
+                          <div className="flex items-center justify-between gap-2 w-full">
                             <div className="flex items-center gap-2">
                               <Cog className="h-4 w-4" />
-                              <span className="text-sm">Solution Types</span>
+                              <span className="text-sm">All Solutions</span>
                             </div>
+                            <Badge variant="secondary" className="text-xs">
+                              27
+                            </Badge>
                           </div>
                         </div>
 

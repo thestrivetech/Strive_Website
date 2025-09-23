@@ -61,7 +61,6 @@ export const SubFilterBar: React.FC<SubFilterBarProps> = ({
 
   const handleCategoryClick = (categoryValue: string) => {
     onCategoryChange(categoryValue);
-    setShowAllCategories(false); // Collapse after selection
   };
 
   // Determine which categories to show
@@ -140,67 +139,6 @@ export const SubFilterBar: React.FC<SubFilterBarProps> = ({
               size="sm"
               onClick={() => setShowAllCategories(!showAllCategories)}
               className="border-slate-200 text-white hover:border-orange-500 hover:text-orange-600 hover:bg-orange-50 bg-slate-700"
-            >
-              {showAllCategories ? (
-                <>
-                  <ChevronUp className="h-4 w-4 mr-1" />
-                  Show Less
-                </>
-              ) : (
-                <>
-                  <ChevronDown className="h-4 w-4 mr-1" />
-                  +{hiddenCategoriesCount} more
-                </>
-              )}
-            </Button>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-          )}
-        </div>
-      </div>
-
-      {/* Category Filter Buttons */}
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="flex flex-wrap gap-2 flex-1 sm:flex-row overflow-x-auto sm:overflow-x-visible scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent pb-2 sm:pb-0">
-          {categoriesToShow.map((option) => (
-            <Button
-              key={option.value}
-              variant={selectedCategory === option.value ? "default" : "outline"}
-              size="sm"
-              onClick={() => handleCategoryClick(option.value)}
-              className={cn(
-                "flex items-center gap-2 transition-all duration-200",
-                selectedCategory === option.value
-                  ? "bg-orange-500 text-white hover:bg-orange-600 shadow-md"
-                  : "border-slate-200 text-slate-700 hover:border-orange-500 hover:text-orange-600 hover:bg-orange-50"
-              )}
-            >
-              <span className="text-sm font-medium">{option.label}</span>
-              <Badge 
-                variant="secondary" 
-                className={cn(
-                  "text-xs px-1.5 py-0.5 min-w-[20px] h-5",
-                  selectedCategory === option.value
-                    ? "bg-orange-400 text-white"
-                    : "bg-slate-200 text-slate-600"
-                )}
-              >
-                {option.count}
-              </Badge>
-            </Button>
-          ))}
-          
-          {/* Show More/Less Button */}
-          {hasMoreCategories && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowAllCategories(!showAllCategories)}
-              className="border-slate-200 text-slate-600 hover:border-orange-500 hover:text-orange-600 hover:bg-orange-50"
             >
               {showAllCategories ? (
                 <>

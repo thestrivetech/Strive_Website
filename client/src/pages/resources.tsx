@@ -179,7 +179,7 @@ const Resources = () => {
 
   const getSubFilterOptionsForActiveFilter = (resourceList: Resource[]) => {
     const options: Array<{ value: string; label: string; count: number }> = [
-      { value: 'all', label: 'All', count: activeFilter === "Tools & Tech" ? technologyCards.length : resourceList.length }
+      { value: 'all', label: 'All', count: activeFilter === "Tools & Tech" ? technologyCards.length : activeFilter === "Quizzes" ? allQuizzes.length : resourceList.length }
     ];
 
     let categories: string[] = [];
@@ -192,7 +192,22 @@ const Resources = () => {
         categories = extractUniqueCategories(resourceList, 'industry');
         break;
       case "Whitepapers":
-        categories = extractUniqueCategories(resourceList, 'tags');
+        // Create meaningful categories based on whitepaper tags
+        const whitepaperCategories = new Set<string>();
+
+        resourceList.forEach(resource => {
+          resource.tags.forEach(tag => {
+            const tagLower = tag.toLowerCase();
+
+            if (['ai/ml', 'deep learning', 'neural networks', 'predictive analytics', 'nlp', 'language models', 'conversational ai', 'computer vision', 'image recognition', 'object detection', 'visual ai', 'text analytics'].some(term => tagLower.includes(term.toLowerCase()))) {
+              whitepaperCategories.add('AI & Machine Learning');
+            } else if (['cloud security', 'compliance', 'risk management', 'cybersecurity'].some(term => tagLower.includes(term.toLowerCase()))) {
+              whitepaperCategories.add('Security & Compliance');
+            }
+          });
+        });
+
+        categories = Array.from(whitepaperCategories).sort();
         break;
       case "Tools & Tech":
         // Create meaningful categories based on technology card tags and content
@@ -302,8 +317,21 @@ const Resources = () => {
     return resourceList.filter(resource => {
       switch (filterType) {
         case "Blog Posts":
-        case "Whitepapers":
           return resource.tags.some(tag => tag.toLowerCase() === category.toLowerCase());
+        case "Whitepapers":
+          const categoryLower = category.toLowerCase();
+          if (categoryLower === 'ai & machine learning' || categoryLower === 'ai-machine-learning') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['ai/ml', 'deep learning', 'neural networks', 'predictive analytics', 'nlp', 'language models', 'conversational ai', 'computer vision', 'image recognition', 'object detection', 'visual ai', 'text analytics'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          } else if (categoryLower === 'security & compliance' || categoryLower === 'security-compliance') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['cloud security', 'compliance', 'risk management', 'cybersecurity'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          }
+          return false;
         case "Case Studies":
           return resource.metadata?.toLowerCase() === category.toLowerCase() ||
                  resource.tags.some(tag => tag.toLowerCase() === category.toLowerCase());
@@ -376,13 +404,56 @@ const Resources = () => {
       return filteredTech as Resource[];
     }
 
-    // For other filter types, use the original logic
+    // For Quizzes, handle separately
+    if (activeFilter === "Quizzes") {
+      let filteredQuizzes = allQuizzes;
+
+      // Apply difficulty filter for quizzes
+      if (subFilter.category !== 'all') {
+        filteredQuizzes = filteredQuizzes.filter(quiz => 
+          quiz.difficulty.toLowerCase().replace(/\s+/g, '-') === subFilter.category
+        );
+      }
+
+      // Apply search filter for quizzes
+      if (subFilter.searchTerm.trim()) {
+        const searchTerm = subFilter.searchTerm.toLowerCase();
+        filteredQuizzes = filteredQuizzes.filter(quiz => 
+          quiz.title.toLowerCase().includes(searchTerm) ||
+          quiz.description.toLowerCase().includes(searchTerm) ||
+          quiz.topic.toLowerCase().includes(searchTerm)
+        );
+      }
+
+      // Return as Resource[] to maintain type compatibility
+      return filteredQuizzes as unknown as Resource[];
+    }
+
+    // For regular resource types (Blog Posts, Case Studies, Whitepapers), use the original logic
     let filtered = resourceList;
 
     // Apply category filter
     if (subFilter.category !== 'all') {
       filtered = filtered.filter(resource => {
-        const categoryMatch = resource.tags.some(tag => 
+        // Handle Whitepapers with grouped categories
+        if (activeFilter === "Whitepapers") {
+          const categoryLower = subFilter.category;
+          if (categoryLower === 'ai-machine-learning') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['ai/ml', 'deep learning', 'neural networks', 'predictive analytics', 'nlp', 'language models', 'conversational ai', 'computer vision', 'image recognition', 'object detection', 'visual ai', 'text analytics'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          } else if (categoryLower === 'security-compliance') {
+            return resource.tags.some(tag => {
+              const tagLower = tag.toLowerCase();
+              return ['cloud security', 'compliance', 'risk management', 'cybersecurity'].some(term => tagLower.includes(term.toLowerCase()));
+            });
+          }
+          return false;
+        }
+
+        // Handle other resource types with direct tag matching
+        const categoryMatch = resource.tags.some(tag =>
           tag.toLowerCase().replace(/\s+/g, '-') === subFilter.category
         ) || (resource.metadata?.toLowerCase().replace(/\s+/g, '-') === subFilter.category);
         return categoryMatch;
@@ -402,7 +473,7 @@ const Resources = () => {
     }
 
     return filtered;
-  };;
+  };;;
 
   // Updated filtering logic that applies both main filter and subfilters
   const getMainFilteredResources = () => {
@@ -421,9 +492,9 @@ const Resources = () => {
   const mainFilteredResources = getMainFilteredResources();
   const filteredResources = applySubFilters(mainFilteredResources);
 
-  const filteredTechCards = activeFilter === "Tools & Tech" ? applySubFilters(mainFilteredResources) as Resource[] : [];
+  const filteredTechCards = activeFilter === "Tools & Tech" ? (applySubFilters(technologyCards as Resource[]) as Resource[]) : [];
 
-  const filteredQuizzes = activeFilter === "Quizzes" ? allQuizzes : [];
+  const filteredQuizzes = activeFilter === "Quizzes" ? (applySubFilters([]) as unknown as Quiz[]) : [];
 
   // Quiz functionality
   const startQuiz = (quiz: Quiz) => {
@@ -795,6 +866,73 @@ const Resources = () => {
             </div>
           </div>
 
+          {/* Section Descriptions */}
+          {activeFilter === "All" && (
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                Complete Resource <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Collection</span>
+              </h3>
+              <p className="text-slate-600 text-lg">
+                Browse our full library of blog posts, case studies, whitepapers, tools, and interactive quizzes.
+              </p>
+            </div>
+          )}
+
+          {activeFilter === "Blog Posts" && (
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                Expert Insights & <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Tutorials</span>
+              </h3>
+              <p className="text-slate-600 text-lg">
+                Stay ahead with the latest AI trends, practical tutorials, and expert analysis from industry leaders.
+              </p>
+            </div>
+          )}
+
+          {activeFilter === "Case Studies" && (
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                Success Stories & <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Impact</span>
+              </h3>
+              <p className="text-slate-600 text-lg">
+                Discover how leading organizations transformed their operations with AI-powered solutions.
+              </p>
+            </div>
+          )}
+
+          {activeFilter === "Whitepapers" && (
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                Research & Deep <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Dives</span>
+              </h3>
+              <p className="text-slate-600 text-lg">
+                Access comprehensive guides, technical frameworks, and strategic insights for enterprise AI adoption.
+              </p>
+            </div>
+          )}
+
+          {activeFilter === "Tools & Tech" && (
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                Technology <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Stack</span>
+              </h3>
+              <p className="text-slate-600 text-lg">
+                Explore the cutting-edge technologies powering our solutions and learn how to implement them.
+              </p>
+            </div>
+          )}
+
+          {activeFilter === "Quizzes" && (
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                AI Knowledge <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Quizzes</span>
+              </h3>
+              <p className="text-slate-600 text-lg">
+                Test your AI expertise across different domains and difficulty levels.
+              </p>
+            </div>
+          )}
+
           {/* SubFilter Bar - Only show when a specific filter is selected */}
           {activeFilter !== "All" && subFilterOptions.length > 0 && (
             <div className="mb-8">
@@ -812,14 +950,6 @@ const Resources = () => {
           {/* AI Knowledge Quizzes Section */}
           {activeFilter === "Quizzes" && (
             <div className="mb-16">
-              <div className="text-center mb-12">
-                <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                  AI Knowledge <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Quizzes</span>
-                </h3>
-                <p className="text-slate-600 text-lg">
-                  Test your AI expertise across different domains and difficulty levels.
-                </p>
-              </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredQuizzes.map((quiz) => (
@@ -899,15 +1029,6 @@ const Resources = () => {
           {/* Technology Cards Section */}
           {activeFilter === "Tools & Tech" && (
             <div className="mb-16">
-              <div className="text-center mb-12">
-                <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                  Technology <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Stack</span>
-                </h3>
-                <p className="text-slate-600 text-lg">
-                  Explore the cutting-edge technologies powering our solutions and learn how to implement them.
-                </p>
-              </div>
-              
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredTechCards.map((tech) => (
                   <Card 
@@ -987,9 +1108,16 @@ const Resources = () => {
           )}
 
           {/* Resource Grid */}
-          {activeFilter !== "Quizzes" && activeFilter !== "Tools & Tech" && (
+          {(activeFilter === "Blog Posts" || activeFilter === "Case Studies" || activeFilter === "Whitepapers" || activeFilter === "All") && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-6 lg:gap-8">
-              {filteredResources.map((resource) => (
+              {filteredResources.filter(resource => {
+                // Additional type guard to ensure proper filtering
+                if (activeFilter === "Blog Posts") return resource.type === "BLOG POST";
+                if (activeFilter === "Case Studies") return resource.type === "CASE STUDY";
+                if (activeFilter === "Whitepapers") return resource.type === "WHITEPAPER";
+                if (activeFilter === "All") return ["BLOG POST", "CASE STUDY", "WHITEPAPER"].includes(resource.type);
+                return false;
+              }).map((resource) => (
               <Card 
                 key={resource.id}
                 className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 h-full flex flex-col"
@@ -1245,26 +1373,28 @@ const Resources = () => {
                   </div>
                 </div>
                 
-                <div>
-                  <h3 className="text-lg font-semibold mb-3">Solutions</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedResource.relatedSolutions?.map((solutionId: string, index: number) => {
-                      const solution = getSolutionById(solutionId);
-                      return solution ? (
-                        <Badge 
-                          key={index} 
-                          variant="secondary" 
-                          className="px-3 py-1 cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
-                          onClick={() => {
-                            window.location.href = `/solutions?solution=${solutionId}`;
-                          }}
-                        >
-                          {solution.title}
-                        </Badge>
-                      ) : null;
-                    })}
+                {selectedResource.type === "CASE STUDY" && selectedResource.relatedSolutions && (
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">Solutions</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedResource.relatedSolutions?.map((solutionId: string, index: number) => {
+                        const solution = getSolutionById(solutionId);
+                        return solution ? (
+                          <Badge 
+                            key={index} 
+                            variant="secondary" 
+                            className="px-3 py-1 cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
+                            onClick={() => {
+                              window.location.href = `/solutions?solution=${solutionId}`;
+                            }}
+                          >
+                            {solution.title}
+                          </Badge>
+                        ) : null;
+                      })}
+                    </div>
                   </div>
-                </div>
+                )}
                 
                 <div>
                   <h3 className="text-lg font-semibold mb-3">Sources</h3>
