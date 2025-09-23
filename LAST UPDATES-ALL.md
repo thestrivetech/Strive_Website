@@ -3,6 +3,10 @@
 
 Fix solution page dropdown menu for filter to be formatted correctly (you can notice some badges are bigger or look weird because certain filter buttons aren't aligned)
 
+Two blog post cards are still showing up when any subfilter is selected - MUST FIX, this hasn't been able to be resolved in multiple sessions
+
+Subfilter system is still using all tags to provide a filter system rather than by topic or industry or any other identifiers - Have to fix this for easier UX
+
 See if it's possible to autofill the users calendly information with their information from the fillout forms so users don't have to fill out their information more than once.
 
 Brush up the brochure and make it finalized and top tier
