@@ -38,9 +38,6 @@ Make sure email templates are good to go and database is fully operational on al
 
 Chat bot project - Fix chatbot CTA buttons to take users to the request page or assessment pages (Add a calendly option at the end of contact form which appears after the user has submitted the contact form) - Need to change one of the CTA buttons to "Request Showcase" which takes the user to the request page
 
-
-Fix browser caching issue (check claude desktop chat)
-
 Fix homepage chatbot window to be smaller and to fit on all screens and devices
 
 Fix home page hero section chatbot iframe (currently way too small and is not formatted correctly for all devices)
