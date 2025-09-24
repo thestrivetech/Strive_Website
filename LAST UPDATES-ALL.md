@@ -44,3 +44,8 @@ Fix browser caching issue (check claude desktop chat)
 Fix home page hero section chatbot iframe (currently way too small and is not formatted correctly for all devices)
 
 Fix chatbot-sai page, the window is small on laptop so try to make sure it's formatted/configured properly on all devices
+
+
+Please go through all solutions and make adjustments, some of them need to be switched out (we currently have robotics -_-) 
+    - After doing this we need to make sure that all industries have the right number of applicable solutions attached to them and the number is being shown in the dropdown filter
+
