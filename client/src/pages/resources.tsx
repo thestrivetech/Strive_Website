@@ -304,6 +304,8 @@ const Resources = () => {
           case 'ai/ml frameworks':
           case 'ai-ml-frameworks':
           case 'aiml-frameworks':
+          case 'ai/ml-frameworks':
+          case 'ai-and-ml-frameworks':
             return card.tags.some(tag => {
               const tagLower = tag.toLowerCase();
               return ['tensorflow', 'langchain', 'fastapi', 'multi-agent', 'langgraph', 'computer vision', 'machine learning', 'ai development'].some(term => tagLower.includes(term));
@@ -341,7 +343,7 @@ const Resources = () => {
       switch (filterType) {
         case "Blog Posts":
           const categoryLowerBlog = category.toLowerCase();
-          if (categoryLowerBlog === 'ai & machine learning' || categoryLowerBlog === 'ai-machine-learning') {
+          if (categoryLowerBlog === 'ai & machine learning' || categoryLowerBlog === 'ai-machine-learning' || categoryLowerBlog === 'ai-and-machine-learning') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
               return ['ai/ml', 'artificial intelligence', 'machine learning', 'neural networks', 'deep learning', 'llm', 'gpt', 'ai models'].some(term => tagLower.includes(term.toLowerCase()));
@@ -351,7 +353,7 @@ const Resources = () => {
               const tagLower = tag.toLowerCase();
               return ['business', 'strategy', 'productivity', 'efficiency', 'roi', 'automation benefits'].some(term => tagLower.includes(term.toLowerCase()));
             });
-          } else if (categoryLowerBlog === 'tutorials & guides' || categoryLowerBlog === 'tutorials-guides') {
+          } else if (categoryLowerBlog === 'tutorials & guides' || categoryLowerBlog === 'tutorials-guides' || categoryLowerBlog === 'tutorials-and-guides') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
               return ['tutorial', 'how-to', 'guide', 'implementation', 'setup', 'getting started'].some(term => tagLower.includes(term.toLowerCase()));
@@ -361,7 +363,7 @@ const Resources = () => {
               const tagLower = tag.toLowerCase();
               return ['industry', 'trends', 'news', 'updates', 'market', 'forecast'].some(term => tagLower.includes(term.toLowerCase()));
             });
-          } else if (categoryLowerBlog === 'technology & tools' || categoryLowerBlog === 'technology-tools') {
+          } else if (categoryLowerBlog === 'technology & tools' || categoryLowerBlog === 'technology-tools' || categoryLowerBlog === 'technology-and-tools') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
               return ['technology', 'tools', 'software', 'platform', 'framework', 'development'].some(term => tagLower.includes(term.toLowerCase()));
@@ -419,6 +421,8 @@ const Resources = () => {
               });
             case 'ai-ml-frameworks':
             case 'aiml-frameworks':
+            case 'ai/ml-frameworks':
+            case 'ai-and-ml-frameworks':
               return card.tags.some(tag => {
                 const tagLower = tag.toLowerCase();
                 return ['tensorflow', 'langchain', 'fastapi', 'multi-agent', 'langgraph', 'computer vision', 'machine learning', 'ai development'].some(term => tagLower.includes(term));
@@ -493,7 +497,7 @@ const Resources = () => {
         // Handle Blog Posts with grouped categories
         if (activeFilter === "Blog Posts") {
           const categoryLower = subFilter.category;
-          if (categoryLower === 'ai-machine-learning') {
+          if (categoryLower === 'ai-machine-learning' || categoryLower === 'ai-and-machine-learning') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
               return ['ai/ml', 'artificial intelligence', 'machine learning', 'neural networks', 'deep learning', 'llm', 'gpt', 'ai models'].some(term => tagLower.includes(term.toLowerCase()));
@@ -503,7 +507,7 @@ const Resources = () => {
               const tagLower = tag.toLowerCase();
               return ['business', 'strategy', 'productivity', 'efficiency', 'roi', 'automation benefits'].some(term => tagLower.includes(term.toLowerCase()));
             });
-          } else if (categoryLower === 'tutorials-guides') {
+          } else if (categoryLower === 'tutorials-guides' || categoryLower === 'tutorials-and-guides') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
               return ['tutorial', 'how-to', 'guide', 'implementation', 'setup', 'getting started'].some(term => tagLower.includes(term.toLowerCase()));
@@ -513,7 +517,7 @@ const Resources = () => {
               const tagLower = tag.toLowerCase();
               return ['industry', 'trends', 'news', 'updates', 'market', 'forecast'].some(term => tagLower.includes(term.toLowerCase()));
             });
-          } else if (categoryLower === 'technology-tools') {
+          } else if (categoryLower === 'technology-tools' || categoryLower === 'technology-and-tools') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
               return ['technology', 'tools', 'software', 'platform', 'framework', 'development'].some(term => tagLower.includes(term.toLowerCase()));

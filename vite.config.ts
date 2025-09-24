@@ -85,7 +85,10 @@ export default defineConfig({
           }
         ],
         skipWaiting: true,
-        clientsClaim: true
+        clientsClaim: true,
+        // Add cache invalidation for deployments
+        navigateFallback: '/index.html',
+        navigateFallbackDenylist: [/^\/api/]
       },
       devOptions: {
         enabled: false

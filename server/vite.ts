@@ -91,8 +91,8 @@ export function serveStatic(app: Express) {
       const ext = path.extname(filePath).toLowerCase();
 
       if (ext === '.html') {
-        // HTML files - short cache to allow updates
-        res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=300'); // 5 minutes
+        // HTML files - no cache to ensure users always get latest version
+        res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
       } else if (['.js', '.css', '.woff2', '.woff', '.ttf', '.otf'].includes(ext)) {
         // JS, CSS, and font files - long cache as they're usually versioned
         res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 year, immutable
@@ -116,7 +116,7 @@ export function serveStatic(app: Express) {
 
   // fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
-    res.setHeader('Cache-Control', 'public, max-age=300'); // 5 minutes for SPA fallback
+    res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate'); // No cache for SPA fallback
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }

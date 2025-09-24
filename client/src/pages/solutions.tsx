@@ -52,25 +52,25 @@ const Solutions = () => {
     // Map industry option values to actual solution technology names
     const industryMapping: { [key: string]: string[] } = {
       "healthcare": ["Healthcare"],
-      "finance": ["Financial Services", "Finance", "Banking"],
+      "finance": ["Financial Services", "Banking"],
       "manufacturing": ["Manufacturing", "Smart Manufacturing"],
       "retail": ["Retail", "E-commerce"],
-      "technology": ["Technology", "Technology Companies", "All Software Development", "Enterprise Cybersecurity", "Executive Support", "Sales", "Customer Service", "Smart Cities", "All Knowledge-Intensive Industries"],
-      "education": ["Education"],
+      "technology": ["Technology", "Technology Companies", "All Software Development", "Enterprise Cybersecurity", "Smart Cities", "All Knowledge-Intensive Industries"],
+      "education": ["Customer Service", "All Content-Driven Industries", "Executive Support"],
       "real-estate": ["Real Estate", "Smart Buildings"],
-      "legal": ["Legal", "Legal Services"],
-      "logistics": ["Logistics", "Supply Chain", "Logistics & Supply Chain"],
-      "hospitality": ["Hospitality", "Hospitality & Tourism", "Smart Home"],
-      "energy": ["Energy", "Energy & Utilities"],
-      "government": ["Government", "Government & Public Sector", "Security Operations Centers", "Incident Response Teams"],
+      "legal": ["Legal Services"],
+      "logistics": ["Supply Chain"],
+      "hospitality": ["Smart Home"],
+      "energy": ["Energy"],
+      "government": ["Government", "Security Operations Centers", "Incident Response Teams"],
       "insurance": ["Insurance"],
       "automotive": ["Automotive", "Autonomous Vehicles"],
       "agriculture": ["Agriculture"],
-      "media": ["Media", "Media & Entertainment", "Content and Media", "Content Creation", "All Content-Driven Industries", "Marketing"],
-      "gaming": ["Gaming"],
-      "esports": ["eSports"],
-      "nonprofit": ["Non-profit", "Non-profit Organizations"],
-      "telecommunications": ["Telecommunications"],
+      "media": ["Content and Media", "All Content-Driven Industries"],
+      "gaming": ["Customer Service", "All Content-Driven Industries"],
+      "esports": ["Customer Service", "All Content-Driven Industries"],
+      "nonprofit": ["Customer Service", "All Content-Driven Industries", "Government"],
+      "telecommunications": ["Technology", "Technology Companies", "Customer Service", "Enterprise Cybersecurity"],
       "transportation": ["Transportation"]
     };
 
@@ -119,23 +119,23 @@ const Solutions = () => {
     { value: "healthcare", label: "Healthcare", icon: <Heart className="h-4 w-4" /> },
     { value: "finance", label: "Financial Services", icon: <DollarSign className="h-4 w-4" /> },
     { value: "manufacturing", label: "Manufacturing", icon: <Factory className="h-4 w-4" /> },
-    { value: "retail", label: "Retail", icon: <ShoppingCart className="h-4 w-4" /> },
-    { value: "technology", label: "Technology", icon: <Laptop className="h-4 w-4" /> },
     { value: "education", label: "Education", icon: <GraduationCap className="h-4 w-4" /> },
-    { value: "real-estate", label: "Real Estate", icon: <HomeIcon className="h-4 w-4" /> },
-    { value: "legal", label: "Legal", icon: <Scale className="h-4 w-4" /> },
     { value: "logistics", label: "Logistics & Supply Chain", icon: <Truck className="h-4 w-4" /> },
     { value: "hospitality", label: "Hospitality & Tourism", icon: <Hotel className="h-4 w-4" /> },
     { value: "energy", label: "Energy & Utilities", icon: <Zap className="h-4 w-4" /> },
+    { value: "nonprofit", label: "Non-profit Organizations", icon: <Heart className="h-4 w-4" /> },
+    { value: "media", label: "Media & Entertainment", icon: <Film className="h-4 w-4" /> },
+    { value: "telecommunications", label: "Telecommunications", icon: <Building2 className="h-4 w-4" /> },
     { value: "government", label: "Government & Public Sector", icon: <Building2 className="h-4 w-4" /> },
+    { value: "legal", label: "Legal", icon: <Scale className="h-4 w-4" /> },
+    { value: "real-estate", label: "Real Estate", icon: <HomeIcon className="h-4 w-4" /> },
+    { value: "technology", label: "Technology", icon: <Laptop className="h-4 w-4" /> },
+    { value: "retail", label: "Retail", icon: <ShoppingCart className="h-4 w-4" /> },
     { value: "insurance", label: "Insurance", icon: <ShieldCheck className="h-4 w-4" /> },
     { value: "automotive", label: "Automotive", icon: <Factory className="h-4 w-4" /> },
     { value: "agriculture", label: "Agriculture", icon: <Leaf className="h-4 w-4" /> },
-    { value: "media", label: "Media & Entertainment", icon: <Film className="h-4 w-4" /> },
     { value: "gaming", label: "Gaming", icon: <Gamepad2 className="h-4 w-4" /> },
     { value: "esports", label: "eSports", icon: <Trophy className="h-4 w-4" /> },
-    { value: "nonprofit", label: "Non-profit Organizations", icon: <Heart className="h-4 w-4" /> },
-    { value: "telecommunications", label: "Telecommunications", icon: <Building2 className="h-4 w-4" /> },
     { value: "transportation", label: "Transportation", icon: <Truck className="h-4 w-4" /> }
   ];
 
@@ -172,6 +172,7 @@ const Solutions = () => {
     gaming: ["Computer Vision", "Machine Learning & Analytics", "Conversational AI", "AI Security", "Process Automation", "Generative AI"],
     esports: ["Machine Learning & Analytics", "Computer Vision", "Conversational AI", "AI Security", "Natural Language Processing", "Process Automation"],
     nonprofit: ["Conversational AI", "Machine Learning & Analytics", "Natural Language Processing", "Process Automation", "AI Security", "Generative AI"],
+    telecommunications: ["Machine Learning & Analytics", "AI Security", "Process Automation", "Conversational AI", "Local AI Deployment", "Natural Language Processing"],
     transportation: ["Machine Learning & Analytics", "Non-AI Solutions", "Process Automation", "Computer Vision", "AI Security", "Local AI Deployment"]
   };
 
@@ -1445,7 +1446,7 @@ const Solutions = () => {
                   <ChevronDown className="h-4 w-4 flex-shrink-0" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[calc(100vw-2rem)] sm:w-[500px] md:w-[600px] lg:w-[700px] max-w-none p-0" align="start" side="bottom" sideOffset={5} avoidCollisions={false}>
+              <PopoverContent className="w-[calc(100vw-2rem)] sm:w-[500px] md:w-[750px] lg:w-[900px] xl:w-[1000px] max-w-none p-0" align="center" side="bottom" sideOffset={5} avoidCollisions={false}>
                 <Command>
                   <CommandInput 
                     placeholder="Search industries or solutions..." 
@@ -1453,18 +1454,19 @@ const Solutions = () => {
                     onValueChange={setFilterSearch}
                     className="h-12 sm:h-10 text-base sm:text-sm"
                   />
-                  <CommandList className="max-h-[300px] sm:max-h-[350px] overflow-y-auto">
+                  <CommandList className="max-h-[400px] sm:max-h-[450px] overflow-y-auto">
                     
-                    {/* Two-column layout with responsive design */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 p-2 md:p-4">
-                      {/* Left Column - Industries */}
-                      <div className="space-y-2">
-                        <h3 className="text-sm font-semibold text-muted-foreground px-2 py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center justify-between">
+                    {/* Three-column layout with responsive design */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 p-3 md:p-6">
+                      {/* Industries Section - Spanning 2 columns */}
+                      <div className="md:col-span-2 space-y-2 border-r border-gray-200">
+                        {/* Industries Header - Spanning both columns */}
+                        <h3 className="text-sm font-semibold text-muted-foreground py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center gap-2 -mr-[1px]">
                           Industries
                           <Badge variant="secondary" className="text-xs px-2 py-1 h-6 flex items-center">21</Badge>
                         </h3>
                         
-                        {/* All Industries Option */}
+                        {/* All Industries Option - Spanning both columns */}
                         <div
                           onClick={() => {
                             if (selectedFilter.value === "All Industries") {
@@ -1475,8 +1477,8 @@ const Solutions = () => {
                             setUnifiedDropdownOpen(false);
                             setFilterSearch("");
                           }}
-                          className={`flex items-center justify-between gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-2 py-3 sm:py-2 rounded-md transition-colors ${
-                            selectedFilter.type === 'industry' && selectedFilter.value === 'all-industries' ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : "hover:bg-gray-50"
+                          className={`flex items-center justify-between gap-2 cursor-pointer text-white [&>svg]:text-white hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-2 py-3 sm:py-2 rounded-md transition-colors mb-2 ${
+                            "hover:bg-gray-50"
                           }`}
                         >
                           <div className="flex items-center gap-2">
@@ -1484,22 +1486,34 @@ const Solutions = () => {
                             <span className="text-sm">All Industries</span>
                           </div>
                         </div>
+                        
+                        {/* Industry Items Grid - 2 columns within the Industries section */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
 
-                        {/* Individual Industries */}
-                        {industryOptions
-                          .filter(option => {
-                            const searchTerm = filterSearch.toLowerCase();
-                            // Direct name match
-                            const nameMatch = option.label.toLowerCase().includes(searchTerm);
-                            // Correlation match - check if search term matches any related solutions
-                            const correlations = industryCorrelations[option.value as keyof typeof industryCorrelations];
-                            const correlationMatch = correlations && correlations.some((solution: string) => 
-                              solution.toLowerCase().includes(searchTerm)
-                            );
-                            return nameMatch || correlationMatch;
-                          })
-                          .map((option) => {
-                            const correlations = getCorrelationBadges(option.value, 'industry', 2);
+                          {/* First Half Column */}
+                          <div className="space-y-2 pl--2 pr-2 border-r border-gray-200">
+                            {industryOptions
+                              .filter(option => {
+                                const searchTerm = filterSearch.toLowerCase();
+                                // Direct name match
+                                const nameMatch = option.label.toLowerCase().includes(searchTerm);
+                                // Correlation match - check if search term matches any related solutions
+                                const correlations = industryCorrelations[option.value as keyof typeof industryCorrelations];
+                                const correlationMatch = correlations && correlations.some((solution: string) => 
+                                  solution.toLowerCase().includes(searchTerm)
+                                );
+                                return nameMatch || correlationMatch;
+                              })
+                              .slice(0, Math.ceil(industryOptions.filter(option => {
+                                const searchTerm = filterSearch.toLowerCase();
+                                const nameMatch = option.label.toLowerCase().includes(searchTerm);
+                                const correlations = industryCorrelations[option.value as keyof typeof industryCorrelations];
+                                const correlationMatch = correlations && correlations.some((solution: string) => 
+                                  solution.toLowerCase().includes(searchTerm)
+                                );
+                                return nameMatch || correlationMatch;
+                              }).length / 2))
+                              .map((option) => {
                             return (
                               <div
                                 key={option.value}
@@ -1512,40 +1526,87 @@ const Solutions = () => {
                                   setUnifiedDropdownOpen(false);
                                   setFilterSearch("");
                                 }}
-                                className={`cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-2 py-3 sm:py-2 rounded-md transition-colors ${
+                                className={`cursor-pointer text-white [&>svg]:text-white hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-3 py-2 rounded-md transition-colors ${
                                   selectedFilter.type === 'industry' && selectedFilter.value === option.value ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : "hover:bg-gray-50"
                                 }`}
                               >
-                                <div className="flex items-center justify-between gap-2 mb-2">
+                                <div className="flex items-center justify-between gap-2">
                                   <div className="flex items-center gap-2">
                                     {option.icon}
                                     <span className="text-sm font-medium">{option.label}</span>
                                   </div>
-                                  <Badge variant="secondary" className="text-xs px-2 py-1 h-6 flex items-center">
-                                    {getIndustrySolutionCount(option.value)} solutions
+                                  <Badge variant="secondary" className="text-xs px-2 py-1 h-5 flex items-center gap-1">
+                                    <span className="text-[11px] font-semibold">{getIndustrySolutionCount(option.value)}</span>
+                                    <span className="text-[11px]">solutions</span>
                                   </Badge>
                                 </div>
-                                {/* Correlation badges */}
-                                <div className="flex flex-wrap gap-1 ml-6">
-                                  {correlations.shown.map((solution: string, idx: number) => (
-                                    <Badge key={idx} variant="outline" className="text-xs px-2 py-1 h-6 bg-blue-50 text-blue-700 border-blue-200 flex items-center">
-                                      {solution}
-                                    </Badge>
-                                  ))}
-                                  {correlations.remaining > 0 && (
-                                    <Badge variant="outline" className="text-xs px-2 py-1 h-6 bg-gray-50 text-gray-600 border-gray-200 flex items-center">
-                                      +{correlations.remaining} more
-                                    </Badge>
-                                  )}
+
+                              </div>
+                            );
+                          })}
+                      
+                      </div>
+
+                          {/* Second Half Column */}
+                          <div className="space-y-2 pl--4 pr-5">
+                        
+                        {/* Individual Industries - Second Half */}
+                        {industryOptions
+                          .filter(option => {
+                            const searchTerm = filterSearch.toLowerCase();
+                            const nameMatch = option.label.toLowerCase().includes(searchTerm);
+                            const correlations = industryCorrelations[option.value as keyof typeof industryCorrelations];
+                            const correlationMatch = correlations && correlations.some((solution: string) => 
+                              solution.toLowerCase().includes(searchTerm)
+                            );
+                            return nameMatch || correlationMatch;
+                          })
+                          .slice(Math.ceil(industryOptions.filter(option => {
+                            const searchTerm = filterSearch.toLowerCase();
+                            const nameMatch = option.label.toLowerCase().includes(searchTerm);
+                            const correlations = industryCorrelations[option.value as keyof typeof industryCorrelations];
+                            const correlationMatch = correlations && correlations.some((solution: string) => 
+                              solution.toLowerCase().includes(searchTerm)
+                            );
+                            return nameMatch || correlationMatch;
+                          }).length / 2))
+                          .map((option) => {
+                            return (
+                              <div
+                                key={option.value}
+                                onClick={() => {
+                                  if (selectedFilter.type === 'industry' && selectedFilter.value === option.value) {
+                                    setSelectedFilter({type: 'all', value: 'All'});
+                                  } else {
+                                    setSelectedFilter({type: 'industry', value: option.value});
+                                  }
+                                  setUnifiedDropdownOpen(false);
+                                  setFilterSearch("");
+                                }}
+                                className={`cursor-pointer text-white [&>svg]:text-white hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-3 py-2 rounded-md transition-colors ${
+                                  selectedFilter.type === 'industry' && selectedFilter.value === option.value ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : "hover:bg-gray-50"
+                                }`}
+                              >
+                                <div className="flex items-center justify-between gap-2">
+                                  <div className="flex items-center gap-2">
+                                    {option.icon}
+                                    <span className="text-sm font-medium">{option.label}</span>
+                                  </div>
+                                  <Badge variant="secondary" className="text-xs px-2 py-1 h-5 flex items-center gap-1">
+                                    <span className="text-[11px] font-semibold">{getIndustrySolutionCount(option.value)}</span>
+                                    <span className="text-[11px]">solutions</span>
+                                  </Badge>
                                 </div>
                               </div>
                             );
                           })}
                       </div>
+                        </div>
+                      </div>
 
                       {/* Right Column - Solution Types */}
                       <div className="space-y-2">
-                        <h3 className="text-sm font-semibold text-muted-foreground px-2 py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center justify-between">
+                        <h3 className="text-sm font-semibold text-muted-foreground py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center gap-2 -ml-[1px]">
                           Solution Types
                           <Badge variant="secondary" className="text-xs px-2 py-1 h-6 flex items-center">9</Badge>
                         </h3>
@@ -1561,8 +1622,8 @@ const Solutions = () => {
                             setUnifiedDropdownOpen(false);
                             setFilterSearch("");
                           }}
-                          className={`flex items-center justify-between gap-2 cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-2 py-3 sm:py-2 rounded-md transition-colors ${
-                            selectedFilter.type === 'solution' && selectedFilter.value === 'all-solutions' ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : "hover:bg-gray-50"
+                          className={`flex items-center justify-between gap-2 cursor-pointer text-white [&>svg]:text-white hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-2 py-3 sm:py-2 rounded-md transition-colors mb-2 ${
+                            "hover:bg-gray-50"
                           }`}
                         >
                           <div className="flex items-center justify-between gap-2 w-full">
@@ -1603,36 +1664,25 @@ const Solutions = () => {
                                   setUnifiedDropdownOpen(false);
                                   setFilterSearch("");
                                 }}
-                                className={`cursor-pointer hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-2 py-3 sm:py-2 rounded-md transition-colors ${
+                                className={`cursor-pointer text-white [&>svg]:text-white hover:text-[#ff7033] hover:[&>svg]:text-[#ff7033] min-h-[48px] px-3 py-2 rounded-md transition-colors ${
                                   selectedFilter.type === 'solution' && selectedFilter.value === option.value ? "bg-[#ff7033]/10 text-[#ff7033] [&>svg]:text-[#ff7033]" : "hover:bg-gray-50"
                                 }`}
                               >
-                                <div className="flex items-center justify-between gap-2 mb-2">
+                                <div className="flex items-center justify-between gap-2">
                                   <div className="flex items-center gap-2">
                                     {option.icon}
                                     <span className="text-sm font-medium">{option.label}</span>
                                   </div>
-                                  <Badge variant="secondary" className="text-xs px-2 py-1 h-6 flex items-center">
-                                    {getSolutionTypeSolutionCount(option.value)} solutions
+                                  <Badge variant="secondary" className="text-xs px-2 py-1 h-5 flex items-center gap-1">
+                                    <span className="text-[11px] font-semibold">{getSolutionTypeSolutionCount(option.value)}</span>
+                                    <span className="text-[11px]">solutions</span>
                                   </Badge>
                                 </div>
-                                {/* Correlation badges */}
-                                <div className="flex flex-wrap gap-1 ml-6">
-                                  {correlations.shown.map((industry: string, idx: number) => (
-                                    <Badge key={idx} variant="outline" className="text-xs px-2 py-1 h-6 bg-green-50 text-green-700 border-green-200 flex items-center">
-                                      {industry}
-                                    </Badge>
-                                  ))}
-                                  {correlations.remaining > 0 && (
-                                    <Badge variant="outline" className="text-xs px-2 py-1 h-6 bg-gray-50 text-gray-600 border-gray-200 flex items-center">
-                                      +{correlations.remaining} more
-                                    </Badge>
-                                  )}
-                                </div>
+
                               </div>
                             );
                           })}
-                      </div>
+                          </div>
                     </div>
                   </CommandList>
                 </Command>
@@ -1647,7 +1697,7 @@ const Solutions = () => {
                 // Industry Card Component
                 <Card
                   key={item.id}
-                  className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 h-full flex flex-col border-l-4 border-l-orange-500"
+                  className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 cursor-pointer hover:-translate-y-2 hero-gradient h-full flex flex-col border-l-4 border-l-primary/50"
                   onClick={() => {
                     // Filter to show solutions for this industry
                     setSelectedFilter({type: 'industry', value: item.industryValue});
@@ -1660,7 +1710,7 @@ const Solutions = () => {
                     
                     {/* Industry Badge - Positioned in upper right */}
                     <div className="absolute top-2 right-2 md:top-4 md:right-4">
-                      <Badge className="bg-orange-500 hover:bg-orange-600 text-white text-xs px-2 md:px-3 py-0.5 md:py-1 h-6 md:h-7 shadow-md">
+                      <Badge className="bg-white hover:hero-gradient hover:border-[#ff7033] hover:text-white text-[#020a1c] text-xs px-2 md:px-3 py-0.5 md:py-1 h-6 md:h-7 shadow-md">
                         Industry Overview
                       </Badge>
                     </div>
@@ -1671,18 +1721,18 @@ const Solutions = () => {
                       <div className="flex flex-col items-center md:items-start mb-3 md:mb-3">
                         {/* Icon */}
                         <div className="mb-2 md:mb-2">
-                          <div className="text-orange-500 transition-transform duration-300 group-hover:scale-110 text-2xl md:text-xl flex justify-center">
+                          <div className="text-[#ff7033] transition-transform duration-300 group-hover:scale-110 text-2xl md:text-xl flex justify-center">
                             {item.icon}
                           </div>
                         </div>
                         
                         {/* Title */}
-                        <h3 className="text-base md:text-xl font-bold text-orange-600 group-hover:text-orange-700 transition-colors duration-300 line-clamp-2 text-center md:text-left">
+                        <h3 className="text-base md:text-xl font-bold text-[#ff7033] line-clamp-2 text-center md:text-left">
                           {item.title}
                         </h3>
                         
                         {/* Category - Desktop only */}
-                        <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-orange-700 hidden md:inline mt-1">
+                        <span className="text-xs md:text-sm font-medium uppercase tracking-wide text-[#ff7033] hidden md:inline mt-1">
                           {item.category}
                         </span>
                       </div>
@@ -1691,7 +1741,7 @@ const Solutions = () => {
                       <div className="flex-1 flex flex-col text-left">
                         {/* Description */}
                         <div className="flex-grow mb-3 md:mb-4">
-                          <p className="text-gray-700 line-clamp-2 md:line-clamp-3 leading-relaxed text-sm md:text-sm">
+                          <p className="text-white line-clamp-2 md:line-clamp-3 leading-relaxed text-sm md:text-sm">
                             {item.shortDescription}
                           </p>
                         </div>
@@ -1703,7 +1753,7 @@ const Solutions = () => {
                               <Badge 
                                 key={index} 
                                 variant="outline" 
-                                className="text-xs cursor-pointer hover:bg-orange-500 hover:text-white transition-colors px-2 md:px-2 py-1 md:py-1 border-orange-300 text-orange-700"
+                                className="text-xs cursor-pointer bg-white hover:hero-gradient hover:border-[#ff7033] hover:text-white transition-colors px-2 md:px-2 py-1 md:py-1 border-gray-300 text-[#020a1c]"
                               >
                                 {app}
                               </Badge>
@@ -1711,7 +1761,7 @@ const Solutions = () => {
                             {item.keyApplications.length > 2 && (
                               <Badge 
                                 variant="outline" 
-                                className="text-xs cursor-pointer hover:bg-orange-500 hover:text-white transition-colors px-2 md:px-2 py-1 md:py-1 border-orange-300 text-orange-700"
+                                className="text-xs cursor-pointer bg-white hover:hero-gradient hover:border-[#ff7033] hover:text-white transition-colors px-2 md:px-2 py-1 md:py-1 border-gray-300 text-[#020a1c]"
                               >
                                 +{item.keyApplications.length - 2} more
                               </Badge>
@@ -1722,7 +1772,7 @@ const Solutions = () => {
                         {/* Action Button */}
                         <div className="mt-auto pt-2">
                           <Button 
-                            className="w-full group-hover:bg-orange-500 group-hover:text-white transition-all duration-300 text-sm py-2 min-h-[44px] border-orange-300 text-orange-600 hover:border-orange-500"
+                            className="w-full bg-[#ff7033] text-white hover:hero-gradient hover:border-[#ff7033] hover:scale-105 hover:shadow-xl transition-all duration-300 relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 border text-sm py-2 min-h-[48px]"
                             variant="outline"
                             onClick={(e) => {
                               e.stopPropagation();
@@ -1849,7 +1899,7 @@ const Solutions = () => {
                       {/* Action Button Section */}
                       <div className="mt-auto pt-2">
                         <Button 
-                          className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300 text-sm py-2 min-h-[44px]"
+                          className="w-full group-hover:bg-primary group-hover:text-white transition-all duration-300 text-sm py-2 min-h-[48px]"
                           variant="outline"
                           onClick={(e) => {
                             e.stopPropagation();
