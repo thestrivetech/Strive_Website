@@ -4,8 +4,6 @@ import path from "path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { VitePWA } from "vite-plugin-pwa";
 import { vitePluginVersion } from "./client/src/lib/vite-plugin-version";
-// Temporarily disabled to fix frame property error
-// import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
   plugins: [
@@ -72,16 +70,6 @@ export default defineConfig({
       gzipSize: true,
       template: "treemap",
     }),
-    // Temporarily disabled runtime error overlay due to frame property issues
-    // runtimeErrorOverlay(),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
-      ? [
-          await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer(),
-          ),
-        ]
-      : []),
   ].filter(Boolean),
   resolve: {
     alias: {

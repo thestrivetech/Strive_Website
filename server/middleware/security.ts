@@ -3,15 +3,13 @@ import rateLimit from 'express-rate-limit';
 import { body, validationResult } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
 
-// Rate limiting configuration optimized for Replit
+// Rate limiting configuration
 export const createRateLimiter = () => {
-  // Detect if running in Replit environment
-  const isReplit = !!(process.env.REPL_ID || process.env.REPLIT_DB_URL || process.env.REPL_SLUG);
   const isDevelopment = process.env.NODE_ENV === 'development';
   
-  // More permissive limits for development/Replit environments
-  const windowMs = (isDevelopment || isReplit) ? 1 * 60 * 1000 : 15 * 60 * 1000; // 1 min for dev, 15 min for prod
-  const maxRequests = (isDevelopment || isReplit) ? 1000 : 500; // 1000 for dev/Replit, 500 for prod
+  // More permissive limits for development environments
+  const windowMs = isDevelopment ? 1 * 60 * 1000 : 15 * 60 * 1000; // 1 min for dev, 15 min for prod
+  const maxRequests = isDevelopment ? 1000 : 500; // 1000 for dev, 500 for prod
   
   return rateLimit({
     windowMs,
@@ -22,11 +20,11 @@ export const createRateLimiter = () => {
     },
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-    // Skip rate limiting entirely in development or Replit, partial skip in production
+    // Skip rate limiting in development, partial skip in production
     skip: (req: Request) => {
-      // Always skip for development or Replit environments
-      if (isDevelopment || isReplit) {
-        return true; // Skip all rate limiting in development/Replit
+      // Always skip for development environments
+      if (isDevelopment) {
+        return true; // Skip all rate limiting in development
       }
       // In production, skip for static assets
       return req.url.startsWith('/assets/') || req.url.startsWith('/favicon');
@@ -34,7 +32,7 @@ export const createRateLimiter = () => {
   });
 };
 
-// Enhanced helmet configuration for Replit environment
+// Enhanced helmet configuration
 export const securityHeaders = helmet({
   contentSecurityPolicy: {
     directives: {

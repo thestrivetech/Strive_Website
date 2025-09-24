@@ -28,7 +28,6 @@ build-test.log
 .claude/
 .serena/
 .local/
-.replit
 vite.config.ts.*
 
 # Build test logs
@@ -51,7 +50,6 @@ supabase/.temp/
 # Temporary development files
 2025-09-13-website-optimization-continue-please.txt
 supabase+drizzle.md
-replit.md
 update.md
 MCP_SETUP.md
 VERCEL_DEPLOYMENT.md

@@ -9,7 +9,7 @@ import { applySecurity } from "./middleware/security";
 
 const app = express();
 
-// Enable trust proxy for Replit environment  
+// Enable trust proxy for production environment  
 app.set('trust proxy', true);
 
 // Apply security middleware first

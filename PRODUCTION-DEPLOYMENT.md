@@ -95,10 +95,10 @@ vercel login
 vercel
 
 # Follow the prompts:
-# ? Set up and deploy "Strive_Website_Replit"? [Y/n] y
+# ? Set up and deploy "Strive_Website"? [Y/n] y
 # ? Which scope do you want to deploy to? (your-team)
 # ? Link to existing project? [y/N] n
-# ? What's your project's name? strive-website
+# ? What's your project's name? Strive_Website
 # ? In which directory is your code located? ./
 
 # Add environment variables to Vercel
