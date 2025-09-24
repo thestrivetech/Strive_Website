@@ -39,12 +39,12 @@ export const aiForBeginnersCompleteGuide: Resource = {
   sources: [
     {
       title: "AI Training Programs",
-      url: "https://www.strivetech.ai/services/ai-training",
+      url: "/services/ai-training",
       description: "Beginner-friendly AI education and consulting services"
     },
     {
       title: "Enterprise AI Integration",
-      url: "https://www.strivetech.ai/solutions/enterprise-ai",
+      url: "/solutions/enterprise-ai",
       description: "Scalable AI implementation for organizations"
     },
     {

@@ -39,17 +39,17 @@ export const aiTrends2025Analysis: Resource = {
   sources: [
     {
       title: "Strive Tech AI Implementation Guide",
-      url: "https://www.strivetech.ai/solutions/ai-strategy",
+      url: "/solutions/ai-strategy",
       description: "Strategic AI planning and implementation support"
     },
     {
       title: "Multimodal AI Solutions",
-      url: "https://www.strivetech.ai/solutions/multimodal-ai",
+      url: "/solutions/multimodal-ai",
       description: "Enterprise-scale multimodal AI deployment"
     },
     {
       title: "AI Agent Ecosystems",
-      url: "https://www.strivetech.ai/solutions/ai-agents",
+      url: "/solutions/ai-agents",
       description: "Collaborative AI agent system design and implementation"
     }
   ],

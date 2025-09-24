@@ -39,17 +39,17 @@ export const aiJobDisplacementOpportunityAnalysis: Resource = {
   sources: [
     {
       title: "Responsible AI Implementation",
-      url: "https://www.strivetech.ai/services/responsible-ai",
+      url: "/services/responsible-ai",
       description: "Ethical AI strategies that enhance human potential"
     },
     {
       title: "AI Strategy Consulting",
-      url: "https://www.strivetech.ai/services/ai-strategy",
+      url: "/services/ai-strategy",
       description: "Navigate AI transformation while protecting workforce"
     },
     {
       title: "Ethical AI Specialists",
-      url: "https://www.strivetech.ai/contact",
+      url: "/contact",
       description: "Human-centered AI development and governance support"
     }
   ],

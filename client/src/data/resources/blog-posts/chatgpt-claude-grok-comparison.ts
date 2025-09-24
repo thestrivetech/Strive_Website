@@ -39,17 +39,17 @@ export const chatgptClaudeGrokComparison: Resource = {
   sources: [
     {
       title: "AI Assistant Selection Guide",
-      url: "https://www.strivetech.ai/services/ai-consulting",
+      url: "/services/ai-consulting",
       description: "Expert guidance on choosing and implementing AI assistants"
     },
     {
       title: "Claude AI Solutions",
-      url: "https://www.strivetech.ai/solutions/claude-ai",
+      url: "/solutions/claude-ai",
       description: "Claude-based business intelligence and decision support"
     },
     {
       title: "Enterprise AI Strategy",
-      url: "https://www.strivetech.ai/contact",
+      url: "/contact",
       description: "Customized AI implementation strategies and support"
     }
   ],

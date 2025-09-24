@@ -42,6 +42,13 @@ export abstract class EmailTemplateBase {
   }
 
   /**
+   * Get the site URL from environment variable or default
+   */
+  protected getSiteUrl(): string {
+    return process.env.SITE_URL || 'http://localhost:5000';
+  }
+
+  /**
    * Abstract method that subclasses must implement
    */
   abstract renderContent(data: EmailTemplateData, options: TemplateRenderOptions): string;
@@ -254,7 +261,7 @@ export class ContactFormConfirmationTemplate extends EmailTemplateBase {
         <div style="text-align: center; margin: 30px 0;">
           ${createButton(
             'View AI Solutions Overview',
-            'https://strivetech.ai/solutions',
+            `${this.getSiteUrl()}/solutions`,
             EMAIL_COLORS.primary
           )}
         </div>
@@ -324,7 +331,7 @@ export class NewsletterConfirmationTemplate extends EmailTemplateBase {
         <div style="text-align: center; margin: 30px 0;">
           ${createButton(
             'Explore Our Resources',
-            'https://strivetech.ai/resources',
+            `${this.getSiteUrl()}/resources`,
             EMAIL_COLORS.secondary
           )}
         </div>
@@ -431,7 +438,7 @@ export class ServiceRequestNotificationTemplate extends EmailTemplateBase {
         <div style="text-align: center; margin: 30px 0;">
           ${createButton(
             'Review in Admin Panel',
-            'https://strivetech.ai/admin/requests',
+            `${this.getSiteUrl()}/admin/requests`,
             EMAIL_COLORS.primary
           )}
           ${createButton(
@@ -684,7 +691,7 @@ export class ContactFormNotificationTemplate extends EmailTemplateBase {
         <div style="text-align: center; margin: 30px 0;">
           ${createButton(
             'View in Admin Dashboard',
-            'https://strivetech.ai/admin/contacts',
+            `${this.getSiteUrl()}/admin/contacts`,
             EMAIL_COLORS.primary
           )}
           ${createButton(
@@ -896,12 +903,12 @@ export class ServiceRequestConfirmationTemplate extends EmailTemplateBase {
         <div style="text-align: center; margin: 30px 0;">
           ${createButton(
             'View Our Case Studies',
-            'https://strivetech.ai/case-studies',
+            `${this.getSiteUrl()}/case-studies`,
             EMAIL_COLORS.primary
           )}
           ${createButton(
             'Download AI Guide',
-            'https://strivetech.ai/resources/ai-implementation-guide',
+            `${this.getSiteUrl()}/resources/ai-implementation-guide`,
             EMAIL_COLORS.secondary
           )}
         </div>

@@ -39,17 +39,17 @@ export const aiImplementationStrategiesSmallBusiness: Resource = {
   sources: [
     {
       title: "Small Business AI Consulting",
-      url: "https://www.strivetech.ai/solutions/small-business-ai",
+      url: "/solutions/small-business-ai",
       description: "Tailored AI implementation strategies for SMBs"
     },
     {
       title: "AI Readiness Assessment",
-      url: "https://www.strivetech.ai/assessment",
+      url: "/assessment",
       description: "Free evaluation of your business's AI opportunities"
     },
     {
       title: "Implementation Support",
-      url: "https://www.strivetech.ai/contact",
+      url: "/contact",
       description: "Expert guidance for small business AI transformation"
     }
   ],

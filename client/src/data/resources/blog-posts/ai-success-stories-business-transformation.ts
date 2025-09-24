@@ -39,17 +39,17 @@ export const aiSuccessStoriesBusinessTransformation: Resource = {
   sources: [
     {
       title: "Predictive Analytics Solutions",
-      url: "https://www.strivetech.ai/solutions/predictive-analytics",
+      url: "/solutions/predictive-analytics",
       description: "AI inventory management and business optimization"
     },
     {
       title: "Education AI Platforms",
-      url: "https://www.strivetech.ai/solutions/education-ai",
+      url: "/solutions/education-ai",
       description: "Adaptive learning systems for personalized education"
     },
     {
       title: "Healthcare AI Solutions",
-      url: "https://www.strivetech.ai/industries/healthcare",
+      url: "/industries/healthcare",
       description: "Clinical documentation and patient care enhancement"
     }
   ],

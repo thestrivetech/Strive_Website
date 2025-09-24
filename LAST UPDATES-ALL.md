@@ -55,6 +55,10 @@ Make sure mobile is completely optimized with all new content
 
 Refactor entire codebase for easier maintenance. This is essential for when the site is converted to next.js and the user side is put into the site
 
+Change "Company" to "Our Company"
+
+Fix all buttons and make sure SEO and site speeds are up to par - including lazy loading
+
 # Case Studies
 
 Nice tagline that I want to use: "Real, Verified Case Studies - Use only documented implementations from real companies with published results"
