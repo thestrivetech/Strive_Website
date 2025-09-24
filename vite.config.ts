@@ -3,29 +3,35 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { VitePWA } from "vite-plugin-pwa";
+import { vitePluginVersion } from "./client/src/lib/vite-plugin-version";
 // Temporarily disabled to fix frame property error
 // import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
   plugins: [
     react(),
+    vitePluginVersion(),
 
     // PWA Plugin with basic configuration
     VitePWA({
+      mode: 'production',
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
+      injectRegister: 'auto',
       manifest: {
-        name: 'Strive Tech - AI-Powered Business Solutions',
-        short_name: 'Strive Tech',
-        description: 'Transform your business with AI-powered solutions and cutting-edge technology',
-        theme_color: '#00C5A1',
+        name: 'Strive Tech',
+        short_name: 'Strive',
+        theme_color: '#000000',
         background_color: '#ffffff',
         display: 'standalone',
-        start_url: '/',
+        orientation: 'portrait',
         scope: '/',
+        start_url: '/',
         icons: [
           {
-            src: 'android-chrome-192x192.png',
+            src: 'favicon-192x192.png',
             sizes: '192x192',
             type: 'image/png'
           },
@@ -36,73 +42,22 @@ export default defineConfig({
           }
         ]
       },
-      workbox: {
-        // Exclude HTML files from service worker caching to ensure fresh content
+      injectManifest: {
         globPatterns: ['**/*.{js,css,ico,png,svg,webp,avif,woff2,woff,ttf}'],
-        // Don't cache HTML files - they should always be fresh
-        globIgnores: ['**/index.html', '**/*.html'],
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365
-              }
-            }
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'gstatic-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365
-              }
-            }
-          },
-          {
-            urlPattern: /\/api\/.*/,
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'api-cache',
-              expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24
-              }
-            }
-          },
-          {
-            urlPattern: /\.(png|jpg|jpeg|svg|webp|avif)$/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'images-cache',
-              expiration: {
-                maxEntries: 200,
-                maxAgeSeconds: 60 * 60 * 24 * 90
-              }
-            }
+        // Explicitly exclude HTML files
+        globIgnores: ['**/*.html', 'index.html'],
+        // Don't include sw.js itself
+        swDest: 'dist/public/sw.js',
+        // Custom replacements
+        manifestTransforms: [
+          (manifestEntries) => {
+            const manifest = manifestEntries.filter(entry => {
+              // Exclude HTML files from manifest
+              return !entry.url.endsWith('.html');
+            });
+            return { manifest };
           }
-        ],
-        skipWaiting: true,
-        clientsClaim: true,
-        // Force immediate activation of new service worker
-        cleanupOutdatedCaches: true,
-        // Don't use navigation fallback to avoid serving cached HTML
-        navigateFallback: null,
-        navigateFallbackDenylist: [/^\/api/],
-        // Add version-based cache invalidation
-        additionalManifestEntries: [
-          {
-            url: '/index.html',
-            revision: `${Date.now()}`  // This will force cache invalidation on each build
-          }
-        ],
-        // Import custom service worker extension for aggressive cache busting
-        importScripts: ['/sw-extension.js']
+        ]
       },
       devOptions: {
         enabled: false
