@@ -68,7 +68,7 @@
       ]
     },
     {
-      "source": "/(.*)\.html",
+      "source": "/(.*)\\.html",
       "headers": [
         {
           "key": "Cache-Control",
@@ -86,7 +86,7 @@
       ]
     },
     {
-      "source": "/(favicon\.ico|favicon-\d+x\d+\.png|apple-touch-icon\.png|android-chrome-\d+x\d+\.png|site\.webmanifest|manifest\.webmanifest|robots\.txt|sitemap\.xml)",
+      "source": "/(favicon\\.ico|favicon-\\d+x\\d+\\.png|apple-touch-icon\\.png|android-chrome-\\d+x\\d+\\.png|site\\.webmanifest|manifest\\.webmanifest|robots\\.txt|sitemap\\.xml)",
       "headers": [
         {
           "key": "Cache-Control",
