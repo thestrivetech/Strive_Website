@@ -3,7 +3,7 @@ import {
   Lightbulb, Filter, Play, Heart, DollarSign, Factory, GraduationCap, 
   Truck, Hotel, Zap, Film, Building2, Scale, HomeIcon, Laptop,
   ShoppingCart, ShieldCheck, Leaf, Gamepad2, Trophy, Eye, Bot, 
-  Brain, Cloud, BarChart, Target, Cog, Cpu
+  Brain, Cloud, BarChart, Target, Cog, Cpu, ChevronDown
 } from "lucide-react";
 import { MetaTags } from "@/components/seo/meta-tags";
 import { useSEO } from "@/hooks/use-seo";
@@ -11,6 +11,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { Command, CommandInput, CommandList } from "@/components/ui/command";
 import { Link } from "wouter";
 
 // Import centralized data and components
@@ -26,6 +28,10 @@ const Solutions = () => {
   // Unified filter state management
   const [selectedFilter, setSelectedFilter] = useState<FilterSelection>({type: 'all', value: 'All'});
   const [selectedSolution, setSelectedSolution] = useState<any>(null);
+  
+  // Dropdown state management
+  const [unifiedDropdownOpen, setUnifiedDropdownOpen] = useState(false);
+  const [filterSearch, setFilterSearch] = useState("");
 
   // Handle URL parameters for auto-opening solution modals
   useEffect(() => {
@@ -50,6 +56,13 @@ const Solutions = () => {
       }
     }
   }, []);
+  
+  // Reset filter search when dropdown closes
+  useEffect(() => {
+    if (!unifiedDropdownOpen) {
+      setFilterSearch("");
+    }
+  }, [unifiedDropdownOpen]);
   
   // Calculate solution counts for each industry
   const getIndustrySolutionCount = (industryValue: string) => {
