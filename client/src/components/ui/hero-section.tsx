@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 // Removed unused imports: Play, Pause, ChevronLeft, ChevronRight
 import LazyImage from "@/components/ui/lazy-image";
-import IframeErrorBoundary from "@/components/ui/iframe-error-boundary";
 
 interface HeroSectionProps {
   title: string;
@@ -23,45 +22,8 @@ const HeroSection = ({
 }: HeroSectionProps) => {
   const [isHovering, setIsHovering] = useState(false);
 
-
-
-  // Chatbot URL - using the same URL as the floating widget
-  const chatbotUrl = import.meta.env.VITE_CHATBOT_URL || 'https://chatbot.strivetech.ai';
-  const widgetUrl = `${chatbotUrl}/widget`;
-
-  // Validate environment variables and URLs
-  const [urlError, setUrlError] = useState<string | null>(null);
-  const [showIframe, setShowIframe] = useState(false);
-
-  useEffect(() => {
-    // Validate chatbot URL
-    try {
-      if (!chatbotUrl) {
-        setUrlError('Chatbot URL not configured');
-        return;
-      }
-
-      const url = new URL(widgetUrl);
-      if (!url.protocol || !url.hostname) {
-        setUrlError('Invalid chatbot URL format');
-        return;
-      }
-
-      setUrlError(null);
-      console.log('✅ Chatbot URL validated:', widgetUrl);
-    } catch (error) {
-      console.error('❌ Chatbot URL validation failed:', error);
-      setUrlError(`Invalid URL: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    }
-  }, [chatbotUrl, widgetUrl]);
-
   const handleViewDemo = () => {
-    if (urlError) {
-      // Fallback to chatbot page
-      window.location.href = '/chatbot-sai';
-    } else {
-      setShowIframe(true);
-    }
+    window.location.href = '/chatbot-sai';
   };
 
 
@@ -116,13 +78,16 @@ const HeroSection = ({
           </div>
 
           {/* Right Chatbot Widget */}
-          <div className="space-y-4 lg:space-y-8 slide-in-right mt-8 lg:mt-0 order-1 lg:order-2">
-            <div className="chatbot-container w-full max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl mx-auto">
+          <div className="slide-in-right mt-8 lg:mt-0 order-1 lg:order-2">
+            <div className="w-full">
               <div 
-                className="relative rounded-2xl overflow-hidden shadow-2xl bg-white"
+                className="relative rounded-2xl overflow-hidden shadow-2xl bg-white mx-auto"
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
-                style={{ aspectRatio: '400/600' }} // Same aspect ratio as floating widget
+                style={{ 
+                  width: '100%',
+                  maxWidth: '800px'
+                }}
               >
                 {/* Chatbot Header */}
                 <div className="bg-gradient-to-r from-[#ff7033] to-orange-500 px-4 py-3 flex items-center justify-between">
@@ -131,93 +96,39 @@ const HeroSection = ({
                     <span className="text-white text-sm font-medium">Chat with Sai AI Assistant</span>
                   </div>
                   <div className="text-white text-xs opacity-75">
-                    {showIframe ? 'Live Demo' : 'Interactive Demo'}
+                    Interactive Demo
                   </div>
                 </div>
 
                 {/* Chatbot Content */}
-                <div className="h-[calc(100%-48px)] bg-white flex items-center justify-center">
-                  {!showIframe ? (
-                    /* View Demo Button */
-                    <div className="text-center p-8">
-                      <div className="mb-6">
-                        <div className="w-16 h-16 bg-gradient-to-br from-[#ff7033] to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                          </svg>
-                        </div>
-                        <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                          Try Sai AI Assistant
-                        </h3>
-                        <p className="text-sm text-gray-600 mb-6">
-                          Experience our AI-powered assistant that helps transform your business operations.
-                        </p>
+                <div className="bg-white flex items-center justify-center" style={{ paddingTop: '2rem', paddingBottom: '2rem', minHeight: '500px' }}>
+                  <div className="text-center p-8">
+                    <div className="mb-6">
+                      <div className="w-16 h-16 bg-gradient-to-br from-[#ff7033] to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
                       </div>
-                      <Button
-                        onClick={handleViewDemo}
-                        className="bg-gradient-to-r from-[#ff7033] to-orange-500 hover:from-[#e85a29] hover:to-orange-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-                        data-testid="button-view-demo"
-                      >
-                        View Interactive Demo
-                      </Button>
-                      {urlError && (
-                        <p className="text-xs text-amber-600 mt-2">
-                          Note: Will redirect to full chat experience
-                        </p>
-                      )}
+                      <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                        Try Sai AI Assistant
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-6">
+                        Experience our AI-powered assistant that helps transform your business operations.
+                      </p>
                     </div>
-                  ) : (
-                    /* Iframe with Error Boundary */
-                    <IframeErrorBoundary
-                      fallbackTitle="Chat Demo Unavailable"
-                      iframeSrc={widgetUrl}
-                      componentName="HeroSection-ChatbotDemo"
+                    <Button
+                      onClick={handleViewDemo}
+                      className="bg-gradient-to-r from-[#ff7033] to-orange-500 hover:from-[#e85a29] hover:to-orange-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                      data-testid="button-view-demo"
                     >
-                      <iframe
-                        src={widgetUrl}
-                        className="w-full h-full border-none"
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          border: 'none',
-                          background: 'white'
-                        }}
-                        scrolling="yes"
-                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-                        allow="microphone; camera; clipboard-write; autoplay"
-                        referrerPolicy="strict-origin-when-cross-origin"
-                        title="Sai AI Assistant Chat Demo"
-                        loading="eager"
-                        data-testid="hero-chatbot-iframe"
-                        onLoad={() => console.log('✅ Hero iframe loaded successfully')}
-                        onError={(e) => {
-                          console.error('❌ Hero iframe failed to load:', e);
-                          setUrlError('Failed to load chat demo');
-                        }}
-                      />
-                    </IframeErrorBoundary>
-                  )}
+                      View Interactive Demo
+                    </Button>
+                    <p className="text-xs text-gray-500 mt-4">
+                      Try Sai now • Get instant AI assistance
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Full Chat Button */}
-            <div className="text-center mt-4">
-              <Button
-                onClick={() => window.location.href = '/chatbot-sai'}
-                variant="outline"
-                className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-                data-testid="button-open-full-chat"
-              >
-                Open Full Chat
-              </Button>
-            </div>
-
-            {/* Info text */}
-            <div className="text-center">
-              <p className="text-sm text-muted-foreground">
-                Try Sai now • Get instant AI assistance
-              </p>
             </div>
           </div>
         </div>{/* Close grid line 77 */}  
