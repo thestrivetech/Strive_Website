@@ -41,6 +41,8 @@ Chat bot project - Fix chatbot CTA buttons to take users to the request page or 
 
 Fix browser caching issue (check claude desktop chat)
 
+Fix homepage chatbot window to be smaller and to fit on all screens and devices
+
 Fix home page hero section chatbot iframe (currently way too small and is not formatted correctly for all devices)
 
 Fix chatbot-sai page, the window is small on laptop so try to make sure it's formatted/configured properly on all devices
@@ -49,3 +51,4 @@ Fix chatbot-sai page, the window is small on laptop so try to make sure it's for
 Please go through all solutions and make adjustments, some of them need to be switched out (we currently have robotics -_-) 
     - After doing this we need to make sure that all industries have the right number of applicable solutions attached to them and the number is being shown in the dropdown filter
 
+Refactor entire codebase for easier maintenance. This is essential for when the site is converted to next.js and the user side is put into the site

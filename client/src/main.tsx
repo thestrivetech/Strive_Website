@@ -4,6 +4,7 @@ import App from "./App";
 import "./index.css";
 import { initWebVitals } from "./lib/web-vitals";
 import { initializeServiceWorker, setupNetworkHandlers } from "./lib/service-worker";
+import { initServiceWorkerUpdates } from "./lib/sw-update";
 
 // Initialize Web Vitals monitoring with error handling
 try {
@@ -36,6 +37,15 @@ try {
 } catch (error) {
   console.error('❌ Service Worker initialization failed:', error);
   // Continue app execution - service worker failure shouldn't break the app
+}
+
+// Initialize Service Worker Update Manager for aggressive cache invalidation
+try {
+  initServiceWorkerUpdates();
+  console.log('✅ Service Worker update manager initialized');
+} catch (error) {
+  console.error('❌ Service Worker update manager failed:', error);
+  // Continue app execution
 }
 
 // Setup network status handlers with error handling

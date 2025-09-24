@@ -37,7 +37,10 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,avif}'],
+        // Exclude HTML files from service worker caching to ensure fresh content
+        globPatterns: ['**/*.{js,css,ico,png,svg,webp,avif,woff2,woff,ttf}'],
+        // Don't cache HTML files - they should always be fresh
+        globIgnores: ['**/index.html', '**/*.html'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/,
@@ -86,9 +89,20 @@ export default defineConfig({
         ],
         skipWaiting: true,
         clientsClaim: true,
-        // Add cache invalidation for deployments
-        navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/api/]
+        // Force immediate activation of new service worker
+        cleanupOutdatedCaches: true,
+        // Don't use navigation fallback to avoid serving cached HTML
+        navigateFallback: null,
+        navigateFallbackDenylist: [/^\/api/],
+        // Add version-based cache invalidation
+        additionalManifestEntries: [
+          {
+            url: '/index.html',
+            revision: `${Date.now()}`  // This will force cache invalidation on each build
+          }
+        ],
+        // Import custom service worker extension for aggressive cache busting
+        importScripts: ['/sw-extension.js']
       },
       devOptions: {
         enabled: false

@@ -1,5 +1,24 @@
 # 🚀 Production Deployment Guide - Supabase + Vercel
 
+# Precheck before pushing to production #
+
+  Here's the pre-production checklist:
+
+  Essential:
+  npm run check          # TypeScript type checking (REQUIRED)
+  npm run build          # Verify production build works
+
+  Recommended:
+  npm run test:run       # Run all tests once
+  npm run test:e2e       # Run end-to-end tests (if applicable)
+
+  Optional but helpful:
+  npm run build:analyze  # Check bundle sizes
+  npm run test:coverage  # Check test coverage
+
+  The build process now automatically injects cache-busting versions, so the new cache fixes will be applied automatically on your next deployment to production.
+
+
 ## Prerequisites
 ```bash
 # Install required CLIs

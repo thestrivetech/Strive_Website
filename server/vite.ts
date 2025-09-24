@@ -91,8 +91,15 @@ export function serveStatic(app: Express) {
       const ext = path.extname(filePath).toLowerCase();
 
       if (ext === '.html') {
-        // HTML files - no cache to ensure users always get latest version
-        res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        // HTML files - absolutely no caching with strong headers
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
+        res.setHeader('Last-Modified', new Date().toUTCString());
+        // Add ETag based on current timestamp for HTML files
+        res.setHeader('ETag', `"html-${Date.now()}"`);
+        // Prevent transformation by proxies
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, no-transform');
       } else if (['.js', '.css', '.woff2', '.woff', '.ttf', '.otf'].includes(ext)) {
         // JS, CSS, and font files - long cache as they're usually versioned
         res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 year, immutable
@@ -116,7 +123,12 @@ export function serveStatic(app: Express) {
 
   // fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
-    res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate'); // No cache for SPA fallback
+    // Strongest possible no-cache headers for SPA fallback
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, no-transform');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('Last-Modified', new Date().toUTCString());
+    res.setHeader('ETag', `"spa-fallback-${Date.now()}"`); // Dynamic ETag for SPA fallback
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }
