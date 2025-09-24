@@ -48,6 +48,8 @@ Fix home page hero section chatbot iframe (currently way too small and is not fo
 Fix chatbot-sai page, the window is small on laptop so try to make sure it's formatted/configured properly on all devices
 
 
+# Final fixes
+
 Please go through all solutions and make adjustments, some of them need to be switched out (we currently have robotics -_-) 
     - After doing this we need to make sure that all industries have the right number of applicable solutions attached to them and the number is being shown in the dropdown filter
 
@@ -55,4 +57,8 @@ Change home page hero section for mobile to where the main header text is above 
 Make sure mobile is completely optimized with all new content
 
 Refactor entire codebase for easier maintenance. This is essential for when the site is converted to next.js and the user side is put into the site
+
+# Case Studies
+
+Nice tagline that I want to use: "Real, Verified Case Studies - Use only documented implementations from real companies with published results"
 
