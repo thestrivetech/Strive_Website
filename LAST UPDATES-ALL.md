@@ -52,3 +52,4 @@ Please go through all solutions and make adjustments, some of them need to be sw
     - After doing this we need to make sure that all industries have the right number of applicable solutions attached to them and the number is being shown in the dropdown filter
 
 Refactor entire codebase for easier maintenance. This is essential for when the site is converted to next.js and the user side is put into the site
+
