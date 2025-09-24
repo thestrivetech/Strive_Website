@@ -44,7 +44,7 @@ Fix home page hero section chatbot iframe (currently way too small and is not fo
 
 Fix chatbot-sai page, the window is small on laptop so try to make sure it's formatted/configured properly on all devices
 
-
+Change Chatbot-sai page to have chatbot be the center focus and maybe take out the hero section?
 # Final fixes
 
 Please go through all solutions and make adjustments, some of them need to be switched out (we currently have robotics -_-) 
