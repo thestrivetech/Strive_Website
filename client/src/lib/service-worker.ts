@@ -4,6 +4,7 @@
  */
 
 import { Workbox } from 'workbox-window';
+import { VersionManager } from './version-manager';
 
 interface ServiceWorkerOptions {
   onNeedRefresh?: () => void;
@@ -20,6 +21,9 @@ class ServiceWorkerManager {
   async initialize(options: ServiceWorkerOptions = {}) {
     if ('serviceWorker' in navigator) {
       try {
+        // Clean up old service workers first
+        await this.cleanupOldServiceWorkers();
+
         this.workbox = new Workbox('/sw.js');
 
         // Handle service worker lifecycle events
@@ -32,6 +36,9 @@ class ServiceWorkerManager {
         if (this.registration) {
           options.onRegistered?.(this.registration);
         }
+
+        // Initialize version manager
+        VersionManager.initialize();
 
         // Check for updates every 60 seconds
         this.setupUpdateCheck();
@@ -89,6 +96,23 @@ class ServiceWorkerManager {
         await this.registration.update();
       }
     });
+  }
+
+  /**
+   * Clean up any old service workers that might be registered
+   */
+  private async cleanupOldServiceWorkers() {
+    if ('serviceWorker' in navigator) {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      
+      for (const registration of registrations) {
+        // Unregister any service workers that are not our main SW
+        if (registration.active && !registration.active.scriptURL.endsWith('/sw.js')) {
+          await registration.unregister();
+          console.log('🧹 Cleaned up old service worker:', registration.active.scriptURL);
+        }
+      }
+    }
   }
 
   /**

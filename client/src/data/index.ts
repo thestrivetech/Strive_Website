@@ -4,5 +4,10 @@ export * from './resources';
 // Export all portfolio page data
 export * from './portfolio';
 
-// Future page data exports will be added here:
-// export * from './solutions';
+// Export industries and solutions data
+export * from './industries';
+export * from './solutions';
+export * from './industry-cards';
+
+// Export solutions mapping
+export * from './solutions-mapping';

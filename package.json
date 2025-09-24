@@ -74,6 +74,7 @@
     "express-rate-limit": "^8.0.1",
     "express-session": "^1.18.1",
     "express-validator": "^7.2.1",
+    "fast-glob": "^3.3.3",
     "framer-motion": "^11.13.1",
     "helmet": "^8.1.0",
     "html2canvas": "^1.4.1",

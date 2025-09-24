@@ -1,11 +1,36 @@
 import type { Plugin } from 'vite';
+import { writeFileSync, mkdirSync } from 'fs';
+import { resolve, dirname } from 'path';
 
 export function vitePluginVersion(): Plugin {
   const buildTimestamp = Date.now().toString();
   const buildVersion = `v${buildTimestamp}`;
+  const isoTimestamp = new Date(parseInt(buildTimestamp)).toISOString();
+  let isServe = false;
   
   return {
     name: 'vite-plugin-version',
+    
+    configResolved(config) {
+      isServe = config.command === 'serve';
+    },
+    
+    // Write version.json during dev server startup
+    configureServer(server) {
+      const versionData = {
+        version: buildVersion,
+        timestamp: isoTimestamp,
+        buildTime: parseInt(buildTimestamp)
+      };
+      
+      // Write to public directory for dev server
+      const versionPath = resolve('client/public/version.json');
+      mkdirSync(dirname(versionPath), { recursive: true });
+      writeFileSync(versionPath, JSON.stringify(versionData, null, 2));
+      
+      console.log(`\n✨ Dev Version: ${buildVersion}`);
+      console.log(`📁 Version file written to: ${versionPath}\n`);
+    },
     
     // Transform HTML files
     transformIndexHtml: {
@@ -47,10 +72,26 @@ export function vitePluginVersion(): Plugin {
       return code;
     },
     
-    // Add version info to build output
-    generateBundle() {
+    // Generate version.json file for production builds
+    writeBundle(options) {
+      const versionData = {
+        version: buildVersion,
+        timestamp: isoTimestamp,
+        buildTime: parseInt(buildTimestamp)
+      };
+      
+      // Write to the public directory in dist
+      const versionPath = resolve('dist/public/version.json');
+      
+      // Ensure directory exists
+      mkdirSync(dirname(versionPath), { recursive: true });
+      
+      // Write version.json
+      writeFileSync(versionPath, JSON.stringify(versionData, null, 2));
+      
       console.log(`\n✨ Build Version: ${buildVersion}`);
-      console.log(`📅 Build Timestamp: ${new Date(parseInt(buildTimestamp)).toISOString()}\n`);
+      console.log(`📅 Build Timestamp: ${isoTimestamp}`);
+      console.log(`📁 Version file written to: ${versionPath}\n`);
     }
   };
 }

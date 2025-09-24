@@ -1,23 +1,26 @@
 import { useState, useEffect } from "react";
-import { Bot, BarChart, Blocks, ShieldCheck, Eye, Heart, Brain, ShoppingCart, Laptop, GraduationCap, Factory, Building2, DollarSign, Home as HomeIcon, Scale, Cloud, Cog, Target, Filter, Check, Lightbulb, ChevronDown, Search, Gamepad2, Trophy, Cpu, Play, Leaf, Film, Zap, Truck, Hotel } from "lucide-react";
+import { Lightbulb, Filter, Play } from "lucide-react";
 import { MetaTags } from "@/components/seo/meta-tags";
 import { useSEO } from "@/hooks/use-seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Input } from "@/components/ui/input";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Link } from "wouter";
+
+// Import centralized data and components
+import { UnifiedFilterDropdown, type FilterSelection } from "@/components/filters/unified-filter-dropdown";
+import { solutions } from "@/data/solutions";
+import { industryCards } from "@/data/industry-cards";
+import { industryOptions } from "@/data/industries";
+import { solutionTypeOptions } from "@/data/solutions";
+import { getFilteredContent, isSolution, isIndustryCard } from "@/lib/data-helpers";
 
 const Solutions = () => {
   const { seoConfig } = useSEO();
   // Unified filter state management
-  const [selectedFilter, setSelectedFilter] = useState<{type: 'all' | 'industry' | 'solution', value: string}>({type: 'all', value: 'All'});
+  const [selectedFilter, setSelectedFilter] = useState<FilterSelection>({type: 'all', value: 'All'});
   const [selectedSolution, setSelectedSolution] = useState<any>(null);
-  const [unifiedDropdownOpen, setUnifiedDropdownOpen] = useState(false);
-  const [filterSearch, setFilterSearch] = useState("");
 
   // Handle URL parameters for auto-opening solution modals
   useEffect(() => {

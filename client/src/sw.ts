@@ -1,185 +1,218 @@
 /// <reference lib="webworker" />
-import { clientsClaim } from 'workbox-core';
-import { ExpirationPlugin } from 'workbox-expiration';
-import { precacheAndRoute, cleanupOutdatedCaches, createHandlerBoundToURL } from 'workbox-precaching';
+/// <reference types="./types/sw" />
+
+import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
 import { NetworkFirst, CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { ExpirationPlugin } from 'workbox-expiration';
+import { skipWaiting, clientsClaim } from 'workbox-core';
 
 declare let self: ServiceWorkerGlobalScope;
 
-// Force immediate activation and claim all clients
-self.skipWaiting();
+// Version management - CRITICAL FOR UPDATES
+const CACHE_VERSION = 'v1';
+const BUILD_TIMESTAMP = '__BUILD_TIMESTAMP__';  // Will be replaced at build time
+
+// Force immediate activation
+skipWaiting();
 clientsClaim();
 
-// Clean up old caches
+// Clean up old versions
 cleanupOutdatedCaches();
 
-// Inject build timestamp for cache busting
-const BUILD_TIMESTAMP = '__BUILD_TIMESTAMP__';
-console.log(`Service Worker: Build timestamp ${BUILD_TIMESTAMP}`);
+// Log version for debugging
+console.log(`[SW] Installing Service Worker Version: ${CACHE_VERSION}-${BUILD_TIMESTAMP}`);
 
-// Get manifest entries but EXCLUDE HTML files
-const manifest = self.__WB_MANIFEST.filter(entry => {
-  if (typeof entry === 'string') {
-    return !entry.endsWith('.html');
-  }
-  return entry.url && !entry.url.endsWith('.html');
+// Handle chatbot SW coexistence (if it ever exists)
+self.addEventListener('install', (event) => {
+  console.log('[SW] Service Worker installing...');
+  
+  event.waitUntil(
+    caches.keys().then(names => {
+      // Only delete non-chatbot caches from old versions
+      const oldCaches = names.filter(name => 
+        !name.startsWith('chatbot-') && 
+        !name.startsWith(CACHE_VERSION)
+      );
+      return Promise.all(oldCaches.map(name => caches.delete(name)));
+    })
+  );
 });
 
-// Precache all static assets EXCEPT HTML
+// Get precache manifest but EXCLUDE HTML
+const manifest = self.__WB_MANIFEST.filter(entry => {
+  const url = typeof entry === 'string' ? entry : entry.url;
+  // Exclude HTML files and chatbot resources
+  return !url.endsWith('.html') && 
+         url !== '/' && 
+         !url.includes('/chatbot/');
+});
+
+// Precache static assets only (NOT HTML)
 precacheAndRoute(manifest);
 
-// CRITICAL: HTML Navigation - ALWAYS go to network, NEVER cache
+// CRITICAL: HTML Strategy - Network First with proper fallback
 registerRoute(
   ({ request, url }) => {
-    return request.mode === 'navigate' || 
-           request.destination === 'document' ||
-           (request.headers.get('accept') && request.headers.get('accept')!.includes('text/html'));
+    // Only handle navigation requests not in chatbot scope
+    return request.mode === 'navigate' && !url.pathname.startsWith('/chatbot/');
   },
   new NetworkFirst({
-    cacheName: 'html-cache',
+    cacheName: `${CACHE_VERSION}-html`,
     networkTimeoutSeconds: 3,
     plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
       {
-        cacheWillUpdate: async () => {
-          // NEVER cache HTML responses
-          return null;
+        // Custom plugin to ensure HTML is always fresh
+        requestWillFetch: async ({ request }) => {
+          // Add cache-busting parameter
+          const url = new URL(request.url);
+          url.searchParams.set('sw-cache', BUILD_TIMESTAMP);
+          return new Request(url.href, request);
         },
         fetchDidSucceed: async ({ response }) => {
-          // Clone response and add no-cache headers
+          // Clone response to read body
           const clonedResponse = response.clone();
+          
+          // Never cache HTML responses
           const headers = new Headers(clonedResponse.headers);
           headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
-          headers.set('X-SW-Timestamp', BUILD_TIMESTAMP);
+          headers.set('X-SW-Version', `${CACHE_VERSION}-${BUILD_TIMESTAMP}`);
           
           return new Response(clonedResponse.body, {
             status: clonedResponse.status,
             statusText: clonedResponse.statusText,
-            headers: headers
+            headers,
           });
-        }
-      }
-    ]
+        },
+      },
+    ],
   })
 );
 
-// JavaScript and CSS files - cache with content hash
+// JavaScript and CSS - Cache with version awareness
 registerRoute(
-  ({ url }) => url.pathname.match(/\.(js|css)$/),
+  ({ request, url }) => {
+    // Skip chatbot resources
+    return /\.(js|css)$/.test(url.pathname) && !url.pathname.includes('/chatbot/');
+  },
   new CacheFirst({
-    cacheName: 'static-resources',
+    cacheName: `${CACHE_VERSION}-static`,
     plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
       new ExpirationPlugin({
         maxEntries: 100,
         maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
-        purgeOnQuotaError: true
-      })
-    ]
+        purgeOnQuotaError: true,
+      }),
+    ],
   })
 );
 
-// Images - cache first
+// Images - Cache with expiration
 registerRoute(
-  ({ url }) => url.pathname.match(/\.(png|jpg|jpeg|svg|gif|webp|avif|ico)$/),
+  ({ url }) => /\.(png|jpg|jpeg|svg|gif|webp|avif|ico)$/.test(url.pathname),
   new CacheFirst({
-    cacheName: 'images',
+    cacheName: `${CACHE_VERSION}-images`,
     plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
       new ExpirationPlugin({
         maxEntries: 200,
-        maxAgeSeconds: 90 * 24 * 60 * 60, // 90 days
-        purgeOnQuotaError: true
-      })
-    ]
+        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+        purgeOnQuotaError: true,
+      }),
+    ],
   })
 );
 
-// Fonts - cache first
-registerRoute(
-  ({ url }) => url.pathname.match(/\.(woff|woff2|ttf|otf)$/),
-  new CacheFirst({
-    cacheName: 'fonts',
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 30,
-        maxAgeSeconds: 365 * 24 * 60 * 60, // 1 year
-        purgeOnQuotaError: true
-      })
-    ]
-  })
-);
-
-// API calls - network first with fallback
+// API calls - Network first with cache fallback
 registerRoute(
   ({ url }) => url.pathname.startsWith('/api/'),
   new NetworkFirst({
-    cacheName: 'api-cache',
+    cacheName: `${CACHE_VERSION}-api`,
     networkTimeoutSeconds: 5,
     plugins: [
       new ExpirationPlugin({
         maxEntries: 50,
-        maxAgeSeconds: 5 * 60 // 5 minutes
-      })
-    ]
+        maxAgeSeconds: 5 * 60, // 5 minutes
+      }),
+    ],
   })
 );
 
-// Google Fonts
-registerRoute(
-  ({ url }) => url.origin === 'https://fonts.googleapis.com' || url.origin === 'https://fonts.gstatic.com',
-  new CacheFirst({
-    cacheName: 'google-fonts',
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 30,
-        maxAgeSeconds: 365 * 24 * 60 * 60 // 1 year
-      })
-    ]
-  })
-);
-
-// Listen for version check messages
+// Version check endpoint
 self.addEventListener('message', (event) => {
-  if (event.data?.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-  
-  if (event.data?.type === 'CHECK_VERSION') {
+  if (event.data?.type === 'GET_VERSION') {
     event.ports[0].postMessage({
-      type: 'VERSION',
-      timestamp: BUILD_TIMESTAMP
+      version: CACHE_VERSION,
+      timestamp: BUILD_TIMESTAMP,
     });
   }
   
-  if (event.data?.type === 'CLEAR_ALL_CACHE') {
+  if (event.data?.type === 'SKIP_WAITING') {
+    skipWaiting();
+  }
+  
+  if (event.data?.type === 'CLEAR_CACHE') {
     caches.keys().then(names => {
-      Promise.all(names.map(name => caches.delete(name)));
+      names.forEach(name => {
+        // Don't delete chatbot caches
+        if (name.startsWith(CACHE_VERSION) && !name.startsWith('chatbot-')) {
+          caches.delete(name);
+        }
+      });
     });
   }
 });
 
-// On activation, clear ALL caches to ensure fresh start
+// Clean up old caches on activation
 self.addEventListener('activate', (event) => {
+  console.log('[SW] Service Worker activating...');
+  
   event.waitUntil(
     (async () => {
-      // Get all cache names
+      // Delete all caches that don't match current version or chatbot
       const cacheNames = await caches.keys();
-      
-      // Delete HTML cache specifically to ensure fresh content
-      const htmlCache = cacheNames.find(name => name.includes('html'));
-      if (htmlCache) {
-        await caches.delete(htmlCache);
-        console.log('Service Worker: Deleted HTML cache');
-      }
-      
-      // Clean up any outdated caches
-      await cleanupOutdatedCaches();
+      await Promise.all(
+        cacheNames
+          .filter(name => !name.startsWith(CACHE_VERSION) && !name.startsWith('chatbot-'))
+          .map(name => {
+            console.log(`[SW] Deleting old cache: ${name}`);
+            return caches.delete(name);
+          })
+      );
       
       // Claim all clients
-      await self.clients.claim();
+      await clients.claim();
       
-      console.log('Service Worker: Activated and claimed all clients');
+      console.log(`[SW] Service Worker activated: ${CACHE_VERSION}-${BUILD_TIMESTAMP}`);
     })()
   );
 });
 
-console.log('Service Worker: Custom SW loaded with HTML exclusion');
+// Add error handling
+self.addEventListener('error', (event) => {
+  console.error('[SW] Service Worker error:', event.error);
+});
+
+// Log fetch errors for debugging
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    (async () => {
+      try {
+        // Let workbox handle it through registered routes
+        return await fetch(event.request);
+      } catch (error) {
+        console.error('[SW] Fetch error:', error);
+        throw error;
+      }
+    })()
+  );
+});

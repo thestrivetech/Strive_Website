@@ -4,7 +4,6 @@ import App from "./App";
 import "./index.css";
 import { initWebVitals } from "./lib/web-vitals";
 import { initializeServiceWorker, setupNetworkHandlers } from "./lib/service-worker";
-import { initVersionChecker } from "./lib/version-check";
 
 // Initialize Web Vitals monitoring with error handling
 try {
@@ -39,14 +38,8 @@ try {
   // Continue app execution - service worker failure shouldn't break the app
 }
 
-// Initialize Version Checker for aggressive cache invalidation
-try {
-  initVersionChecker();
-  console.log('✅ Version checker initialized');
-} catch (error) {
-  console.error('❌ Version checker failed:', error);
-  // Continue app execution
-}
+// Version manager is now initialized automatically by the service worker
+// This ensures proper coordination between SW updates and version checks
 
 // Setup network status handlers with error handling
 try {
