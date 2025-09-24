@@ -253,5 +253,5 @@ export class VersionManager {
   }
 }
 
-// Export singleton instance
-export const versionManager = new VersionManager();
+// Export singleton initialization function
+export const versionManager = VersionManager.initialize();

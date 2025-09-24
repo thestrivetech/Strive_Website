@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { Lightbulb, Filter, Play } from "lucide-react";
+import { 
+  Lightbulb, Filter, Play, Heart, DollarSign, Factory, GraduationCap, 
+  Truck, Hotel, Zap, Film, Building2, Scale, HomeIcon, Laptop,
+  ShoppingCart, ShieldCheck, Leaf, Gamepad2, Trophy, Eye, Bot, 
+  Brain, Cloud, BarChart, Target, Cog, Cpu
+} from "lucide-react";
 import { MetaTags } from "@/components/seo/meta-tags";
 import { useSEO } from "@/hooks/use-seo";
 import { Card, CardContent } from "@/components/ui/card";

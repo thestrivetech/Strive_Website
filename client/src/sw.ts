@@ -190,7 +190,7 @@ self.addEventListener('activate', (event) => {
       );
       
       // Claim all clients
-      await clients.claim();
+      await self.clients.claim();
       
       console.log(`[SW] Service Worker activated: ${CACHE_VERSION}-${BUILD_TIMESTAMP}`);
     })()

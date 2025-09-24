@@ -4,7 +4,7 @@ import {
   Truck, Zap, ChevronRight, ChevronLeft,
   AlertTriangle, 
   Download, Play, BrainCircuit, Building,
-  BarChart3, Lock
+  BarChart3, Lock, FileText, Eye, Target
 } from "lucide-react";
 import { MetaTags } from "@/components/seo/meta-tags";
 import { OrganizationStructuredData, FAQStructuredData } from "@/components/seo/structured-data";
