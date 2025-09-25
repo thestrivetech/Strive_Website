@@ -143,3 +143,10 @@ POSSIBLE MASSIVE PIVOT -> Cater everything to the Intelligent Assistant (ChatBot
    important technical debt (caching) but failed to complete most
    of the specific user-facing bugs and improvements that were
   requested.
+
+
+
+# Device Specific Formatting #
+
+- Laptop home screen formatting
+![alt text](image.png)
