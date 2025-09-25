@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { 
   Users, Target, Calendar, Clock, CheckCircle, ChevronRight, Zap
 } from "lucide-react";
@@ -11,10 +11,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { validateEmail, validatePhone } from "@/lib/validation";
 import { CalendlyFallback } from "@/components/ui/calendly-fallback";
-import { getCalendlyConfig } from "@/lib/browser-detection";
+import { useCalendlyIntegration } from "@/hooks/useCalendlyIntegration";
 import React from "react";
 
-// Calendly Iframe Component - extracted outside to prevent re-creation on re-renders
+// Enhanced Calendly Iframe Component with robust error handling
 const CalendlyIframe = React.memo(({
   onError,
   onLoad,
@@ -25,21 +25,30 @@ const CalendlyIframe = React.memo(({
   formData: any;
 }) => {
   const [iframeStatus, setIframeStatus] = React.useState<'loading' | 'loaded' | 'error'>('loading');
+  const [loadTimeout, setLoadTimeout] = React.useState<NodeJS.Timeout | null>(null);
 
   const handleIframeLoad = React.useCallback(() => {
     console.log('[Calendly] Iframe loaded successfully');
     setIframeStatus('loaded');
+    if (loadTimeout) {
+      clearTimeout(loadTimeout);
+      setLoadTimeout(null);
+    }
     onLoad();
-  }, [onLoad]);
+  }, [onLoad, loadTimeout]);
 
   const handleIframeError = React.useCallback(() => {
     console.error('[Calendly] Iframe failed to load');
     setIframeStatus('error');
-    onError('Iframe failed to load');
-  }, [onError]);
+    if (loadTimeout) {
+      clearTimeout(loadTimeout);
+      setLoadTimeout(null);
+    }
+    onError('Iframe failed to load properly');
+  }, [onError, loadTimeout]);
 
   // Build Calendly URL with prefilled data
-  const buildCalendlyUrl = () => {
+  const buildCalendlyUrl = React.useCallback(() => {
     const baseUrl = "https://calendly.com/strivetech";
     const params = new URLSearchParams();
 
@@ -55,12 +64,29 @@ const CalendlyIframe = React.memo(({
     if (formData.phone) {
       params.append('a2', formData.phone);
     }
-    if (formData.requestTypes.length > 0) {
+    if (formData.requestTypes && formData.requestTypes.length > 0) {
       params.append('a3', formData.requestTypes.join(', '));
     }
 
     return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
-  };
+  }, [formData]);
+
+  // Set a timeout for iframe loading
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (iframeStatus === 'loading') {
+        console.warn('[Calendly] Iframe loading timeout');
+        setIframeStatus('error');
+        onError('Calendar is taking too long to load');
+      }
+    }, 15000); // 15 second timeout for iframe
+
+    setLoadTimeout(timeout);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [iframeStatus, onError]);
 
   return (
     <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
@@ -85,6 +111,7 @@ const CalendlyIframe = React.memo(({
         allow="camera; microphone; geolocation"
         referrerPolicy="strict-origin-when-cross-origin"
         sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+        loading="lazy"
       />
     </div>
   );
@@ -179,16 +206,13 @@ const Request = () => {
   const isEmailValid = (email: string) => validateEmail(email).isValid;
   const isPhoneValid = (phone: string) => validatePhone(phone, true).isValid;
 
-  // State for Calendly loading and error handling
-  const [calendlyStatus, setCalendlyStatus] = useState<'loading' | 'loaded' | 'error' | 'timeout'>('loading');
-  const [calendlyError, setCalendlyError] = useState<string>('');
-  const [retryCount, setRetryCount] = useState(0);
+  // Use the robust Calendly integration hook
+  const calendlyIntegration = useCalendlyIntegration();
 
   // Stable callback functions for CalendlyIframe to prevent unnecessary re-renders
   const handleCalendlyError = useCallback((error: string) => {
     console.error('[Calendly] Iframe error:', error);
-    setCalendlyStatus('error');
-    setCalendlyError('The calendar widget failed to load properly.');
+    // The hook manages the error state, but we can log additional context here
   }, []);
 
   const handleCalendlyLoad = useCallback(() => {
@@ -197,76 +221,7 @@ const Request = () => {
 
 
 
-  // Load Calendly script when component mounts
-  useEffect(() => {
-    let scriptLoadTimeout: NodeJS.Timeout;
-    let script: HTMLScriptElement;
 
-    const loadCalendlyScript = () => {
-      // Check browser compatibility first
-      const calendlyConfig = getCalendlyConfig();
-      calendlyConfig.logBrowserInfo();
-      
-      console.log(`[Calendly] Attempting to load script (attempt ${retryCount + 1})`);
-      
-      // If browser has compatibility issues, skip to fallback
-      if (calendlyConfig.shouldUseFallback) {
-        console.log('[Calendly] Browser compatibility issues detected, using fallback');
-        setCalendlyStatus('error');
-        setCalendlyError(`${calendlyConfig.browserInfo.name} browser detected. Using direct calendar link for better compatibility.`);
-        return;
-      }
-      
-      setCalendlyStatus('loading');
-      setCalendlyError('');
-
-      // Check if script already exists
-      const existingScript = document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]');
-      if (existingScript) {
-        console.log('[Calendly] Script already exists, checking if loaded');
-        setCalendlyStatus('loaded');
-        return;
-      }
-
-      script = document.createElement('script');
-      script.src = 'https://assets.calendly.com/assets/external/widget.js';
-      script.async = true;
-
-      // Success handler
-      script.onload = () => {
-        console.log('[Calendly] Script loaded successfully');
-        setCalendlyStatus('loaded');
-        if (scriptLoadTimeout) clearTimeout(scriptLoadTimeout);
-      };
-
-      // Error handler
-      script.onerror = (error) => {
-        console.error('[Calendly] Script failed to load:', error);
-        setCalendlyStatus('error');
-        setCalendlyError('Failed to load Calendly script. This may be due to network issues or ad blockers.');
-        if (scriptLoadTimeout) clearTimeout(scriptLoadTimeout);
-      };
-
-      // Timeout handler (10 seconds)
-      scriptLoadTimeout = setTimeout(() => {
-        console.warn('[Calendly] Script loading timed out after 10 seconds');
-        setCalendlyStatus('timeout');
-        setCalendlyError('Calendly is taking longer than expected to load. Please check your internet connection.');
-      }, 10000);
-
-      document.body.appendChild(script);
-    };
-
-    loadCalendlyScript();
-
-    return () => {
-      // Cleanup
-      if (scriptLoadTimeout) clearTimeout(scriptLoadTimeout);
-      if (script && document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, [retryCount]);
 
   const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -293,12 +248,21 @@ const Request = () => {
   };
 
   const handleCheckboxChange = (field: string, value: string, checked: boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: checked 
-        ? [...prev[field as keyof typeof prev] as string[], value]
-        : (prev[field as keyof typeof prev] as string[]).filter((item: string) => item !== value)
-    }));
+    setFormData(prev => {
+      const currentArray = prev[field as keyof typeof prev] as string[];
+      // Ensure we have a valid array
+      if (!Array.isArray(currentArray)) {
+        console.error(`Field ${field} is not an array:`, currentArray);
+        return prev;
+      }
+
+      return {
+        ...prev,
+        [field]: checked
+          ? [...currentArray, value]
+          : currentArray.filter((item: string) => item !== value)
+      };
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -718,7 +682,11 @@ const Request = () => {
                             <div
                               key={option.value}
                               className="border border-gray-300 rounded-lg p-3 md:p-4 bg-white/10 backdrop-blur-sm cursor-pointer hover:bg-white/20 transition-colors"
-                              onClick={() => {
+                              onClick={(e) => {
+                                // Prevent double-click issue when clicking on checkbox directly
+                                if ((e.target as HTMLElement).closest('[role="checkbox"]')) {
+                                  return;
+                                }
                                 const isCurrentlyChecked = formData.requestTypes.includes(option.value);
                                 handleCheckboxChange("requestTypes", option.value, !isCurrentlyChecked);
                               }}
@@ -821,8 +789,8 @@ const Request = () => {
                             </p>
                           </div>
                           <div className="px-0 md:px-4 pb-3 md:pb-4">
-                            {/* Calendly Integration with Error Handling */}
-                            {calendlyStatus === 'loaded' ? (
+                            {/* Enhanced Calendly Integration with Robust Error Handling */}
+                            {calendlyIntegration.status === 'loaded' ? (
                               <CalendlyIframe
                                 onError={handleCalendlyError}
                                 onLoad={handleCalendlyLoad}
@@ -830,14 +798,10 @@ const Request = () => {
                               />
                             ) : (
                               <CalendlyFallback 
-                                status={calendlyStatus}
-                                error={calendlyError}
-                                onRetry={() => {
-                                  if (retryCount < 3) {
-                                    setRetryCount(prev => prev + 1);
-                                  }
-                                }}
-                                retryCount={retryCount}
+                                status={calendlyIntegration.status}
+                                error={calendlyIntegration.error}
+                                onRetry={calendlyIntegration.retry}
+                                retryCount={calendlyIntegration.retryCount}
                               />
                             )}
                             <div className="mt-3 md:mt-4 p-3 md:p-4 rounded-lg border border-gray-200 bg-white shadow-sm">

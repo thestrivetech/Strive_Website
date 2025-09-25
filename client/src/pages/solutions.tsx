@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { 
-  Lightbulb, Filter, Play, Heart, DollarSign, Factory, GraduationCap, 
+import {
+  Lightbulb, Filter, Play, Heart, DollarSign, Factory, GraduationCap,
   Truck, Hotel, Zap, Film, Building2, Scale, HomeIcon, Laptop,
-  ShoppingCart, ShieldCheck, Leaf, Gamepad2, Trophy, Eye, Bot, 
-  Brain, Cloud, BarChart, Target, Cog, Cpu, ChevronDown
+  ShoppingCart, ShieldCheck, Leaf, Gamepad2, Trophy, Eye, Bot,
+  Brain, Cloud, BarChart, Target, Cog, Cpu, ChevronDown, CheckCircle, ArrowRight
 } from "lucide-react";
 import { MetaTags } from "@/components/seo/meta-tags";
 import { useSEO } from "@/hooks/use-seo";
@@ -28,6 +28,7 @@ const Solutions = () => {
   // Unified filter state management
   const [selectedFilter, setSelectedFilter] = useState<FilterSelection>({type: 'all', value: 'All'});
   const [selectedSolution, setSelectedSolution] = useState<any>(null);
+  const [selectedIndustry, setSelectedIndustry] = useState<any>(null);
   
   // Dropdown state management
   const [unifiedDropdownOpen, setUnifiedDropdownOpen] = useState(false);
@@ -1482,7 +1483,7 @@ const Solutions = () => {
                       {/* Industries Section - Spanning 2 columns */}
                       <div className="md:col-span-2 space-y-2 border-r border-gray-200">
                         {/* Industries Header - Spanning both columns */}
-                        <h3 className="text-sm font-semibold text-muted-foreground py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center gap-2 -mr-[1px]">
+                        <h3 className="text-sm font-semibold text-muted-foreground py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center gap-2" style={{ marginRight: '-1px', borderBottomWidth: '1px' }}>
                           Industries
                           <Badge variant="secondary" className="text-xs px-2 py-1 h-6 flex items-center">21</Badge>
                         </h3>
@@ -1720,8 +1721,8 @@ const Solutions = () => {
                   key={item.id}
                   className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 cursor-pointer hover:-translate-y-2 hero-gradient h-full flex flex-col border-l-4 border-l-primary/50"
                   onClick={() => {
-                    // Filter to show solutions for this industry
-                    setSelectedFilter({type: 'industry', value: item.industryValue});
+                    // Open industry detail modal
+                    setSelectedIndustry(item);
                   }}
                   data-testid={`industry-card-${item.industryValue}`}
                 >
@@ -1821,22 +1822,7 @@ const Solutions = () => {
                   {/* Decorative gradient overlay */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-3xl" />
                   
-                  {/* View Demo Button - Positioned in upper right */}
-                  {item.hasDemo && (
-                    <Button 
-                      size="sm"
-                      className="absolute top-2 right-2 md:top-4 md:right-4 bg-green-500 hover:bg-green-600 text-white text-xs px-2 md:px-3 py-0.5 md:py-1 h-6 md:h-7 shadow-md transition-all duration-200 z-10"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleViewDemo(item.demoType || "");
-                      }}
-                    >
-                      <Play className="h-3 w-3 mr-1" />
-                      Demo
-                    </Button>
-                  )}
-                  
-                  {/* Mobile: Optimized layout with centered header, Desktop: Vertical layout */}
+{/* Mobile: Optimized layout with centered header, Desktop: Vertical layout */}
                   <div className="flex flex-col h-full">
                     {/* Mobile: Centered Icon and Title */}
                     <div className="flex flex-col md:flex-col items-center md:items-start mb-3 md:mb-3">
@@ -2051,6 +2037,134 @@ const Solutions = () => {
                     </Button>
                   </>
                 )}
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Industry Detail Modal */}
+      <Dialog open={!!selectedIndustry} onOpenChange={(open) => !open && setSelectedIndustry(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          {selectedIndustry && (
+            <>
+              {/* Header */}
+              <div className="pb-6 border-b">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-primary/10 rounded-lg">
+                    {selectedIndustry.icon}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h2 className="text-2xl font-bold text-foreground">{selectedIndustry.title}</h2>
+                      <Badge variant="secondary" className="px-3 py-1">Industry Focus</Badge>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {selectedIndustry.fullDescription}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Content Grid */}
+              <div className="py-6 space-y-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Key Applications */}
+                  <div>
+                    <h4 className="text-lg font-semibold mb-4 text-foreground">Key AI Applications</h4>
+                    <ul className="space-y-3">
+                      {selectedIndustry.keyApplications?.map((app: string, index: number) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                          <span className="text-muted-foreground">{app}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Primary Solutions */}
+                  <div>
+                    <h4 className="text-lg font-semibold mb-4 text-foreground">Recommended Solutions</h4>
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {selectedIndustry.primarySolutions?.map((solution: string, index: number) => (
+                        <Badge
+                          key={index}
+                          variant="secondary"
+                          className="px-3 py-1 hover:bg-primary hover:text-white transition-colors cursor-pointer"
+                          onClick={() => {
+                            // Find and open the corresponding solution
+                            const targetSolution = solutions.find(s =>
+                              s.category.toLowerCase().includes(solution.toLowerCase()) ||
+                              solution.toLowerCase().includes(s.category.toLowerCase())
+                            );
+                            if (targetSolution) {
+                              setSelectedIndustry(null);
+                              setSelectedSolution(targetSolution);
+                            }
+                          }}
+                        >
+                          {solution}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Metrics */}
+                {selectedIndustry.metrics && (
+                  <div>
+                    <h4 className="text-lg font-semibold mb-4 text-foreground">Industry Impact Metrics</h4>
+                    <div className="grid grid-cols-3 gap-4">
+                      {Object.entries(selectedIndustry.metrics).map(([key, value]) => (
+                        <div key={key} className="bg-muted/50 rounded-lg p-4 text-center">
+                          <div className="text-2xl font-bold text-primary mb-1">{value as string}</div>
+                          <div className="text-sm text-muted-foreground">{key}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Benefits */}
+                {selectedIndustry.benefits && (
+                  <div>
+                    <h4 className="text-lg font-semibold mb-4 text-foreground">Key Benefits</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {selectedIndustry.benefits.map((benefit: string, index: number) => (
+                        <div key={index} className="flex items-start gap-3">
+                          <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                          <span className="text-muted-foreground text-sm">{benefit}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Footer */}
+              <div className="pt-6 border-t flex items-center justify-between">
+                <Button
+                  onClick={() => {
+                    setSelectedIndustry(null);
+                    setSelectedFilter({type: 'industry', value: selectedIndustry.industryValue});
+                  }}
+                  variant="outline"
+                  className="gap-2"
+                >
+                  <Filter className="w-4 h-4" />
+                  View All {selectedIndustry.title} Solutions
+                </Button>
+
+                <Button
+                  onClick={() => {
+                    setSelectedIndustry(null);
+                    handleViewDemo("assessment");
+                  }}
+                  className="gap-2 bg-primary text-white hover:bg-primary/90"
+                >
+                  Get Started
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
               </div>
             </>
           )}

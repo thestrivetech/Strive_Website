@@ -11,8 +11,8 @@ import { skipWaiting, clientsClaim } from 'workbox-core';
 declare let self: ServiceWorkerGlobalScope;
 
 // Version management - CRITICAL FOR UPDATES
-const CACHE_VERSION = 'v1';
 const BUILD_TIMESTAMP = '__BUILD_TIMESTAMP__';  // Will be replaced at build time
+const CACHE_VERSION = `v2-${BUILD_TIMESTAMP}`;  // Dynamic version with timestamp
 
 // Force immediate activation
 skipWaiting();
@@ -40,51 +40,49 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Get precache manifest but EXCLUDE HTML
+// Get precache manifest but EXCLUDE HTML (original approach was correct)
 const manifest = self.__WB_MANIFEST.filter(entry => {
   const url = typeof entry === 'string' ? entry : entry.url;
-  // Exclude HTML files and chatbot resources
-  return !url.endsWith('.html') && 
-         url !== '/' && 
+  // Exclude HTML files AND chatbot resources - HTML should come from server with no-cache headers
+  return !url.endsWith('.html') &&
+         url !== '/' &&
          !url.includes('/chatbot/');
 });
 
-// Precache static assets only (NOT HTML)
+// Precache static assets only (HTML excluded - served fresh from server)
 precacheAndRoute(manifest);
 
-// CRITICAL: HTML Strategy - Network First with proper fallback
+// HTML Strategy - NetworkFirst to always get fresh HTML from server
 registerRoute(
   ({ request, url }) => {
     // Only handle navigation requests not in chatbot scope
     return request.mode === 'navigate' && !url.pathname.startsWith('/chatbot/');
   },
   new NetworkFirst({
-    cacheName: `${CACHE_VERSION}-html`,
+    cacheName: `${CACHE_VERSION}-html-fallback`,
     networkTimeoutSeconds: 3,
     plugins: [
       new CacheableResponsePlugin({
         statuses: [0, 200],
       }),
+      new ExpirationPlugin({
+        maxAgeSeconds: 60, // Cache HTML for max 1 minute as emergency fallback only
+        maxEntries: 10,
+      }),
       {
-        // Custom plugin to ensure HTML is always fresh
+        // Custom plugin to ensure HTML always tries network first
         requestWillFetch: async ({ request }) => {
-          // Add cache-busting parameter
+          // Add cache-busting parameters to ensure fresh HTML
           const url = new URL(request.url);
-          url.searchParams.set('sw-cache', BUILD_TIMESTAMP);
-          return new Request(url.href, request);
-        },
-        fetchDidSucceed: async ({ response }) => {
-          // Clone response to read body
-          const clonedResponse = response.clone();
-          
-          // Never cache HTML responses
-          const headers = new Headers(clonedResponse.headers);
-          headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
-          headers.set('X-SW-Version', `${CACHE_VERSION}-${BUILD_TIMESTAMP}`);
-          
-          return new Response(clonedResponse.body, {
-            status: clonedResponse.status,
-            statusText: clonedResponse.statusText,
+          url.searchParams.set('v', BUILD_TIMESTAMP);
+          url.searchParams.set('t', Date.now().toString());
+
+          const headers = new Headers(request.headers);
+          headers.set('Cache-Control', 'no-cache');
+          headers.set('X-SW-Version', CACHE_VERSION);
+
+          return new Request(url.href, {
+            ...request,
             headers,
           });
         },
@@ -147,7 +145,7 @@ registerRoute(
   })
 );
 
-// Version check endpoint
+// Version check endpoint and forced update system
 self.addEventListener('message', (event) => {
   if (event.data?.type === 'GET_VERSION') {
     event.ports[0].postMessage({
@@ -155,20 +153,52 @@ self.addEventListener('message', (event) => {
       timestamp: BUILD_TIMESTAMP,
     });
   }
-  
+
   if (event.data?.type === 'SKIP_WAITING') {
     skipWaiting();
   }
-  
+
   if (event.data?.type === 'CLEAR_CACHE') {
     caches.keys().then(names => {
       names.forEach(name => {
         // Don't delete chatbot caches
-        if (name.startsWith(CACHE_VERSION) && !name.startsWith('chatbot-')) {
+        if (!name.startsWith('chatbot-')) {
           caches.delete(name);
         }
       });
     });
+  }
+
+  if (event.data?.type === 'CHECK_UPDATE') {
+    // Force check for updates and reload if needed
+    fetch('/api/version', { cache: 'no-cache' })
+      .then(response => response.json())
+      .then(serverVersion => {
+        const currentVersion = CACHE_VERSION;
+        if (serverVersion.version !== currentVersion) {
+          // Clear all caches and force reload
+          caches.keys().then(names => {
+            Promise.all(
+              names.filter(name => !name.startsWith('chatbot-'))
+                   .map(name => caches.delete(name))
+            ).then(() => {
+              // Notify all clients to reload
+              self.clients.matchAll().then(clients => {
+                clients.forEach(client => {
+                  client.postMessage({
+                    type: 'FORCE_RELOAD',
+                    oldVersion: currentVersion,
+                    newVersion: serverVersion.version,
+                  });
+                });
+              });
+            });
+          });
+        }
+      })
+      .catch(error => {
+        console.error('[SW] Version check failed:', error);
+      });
   }
 });
 

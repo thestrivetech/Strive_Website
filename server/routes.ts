@@ -40,6 +40,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  // Version endpoint for cache invalidation
+  app.get("/api/version", async (req, res) => {
+    const version = `v2-${process.env.BUILD_TIMESTAMP || Date.now()}`;
+
+    // Strong no-cache headers for version endpoint
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, no-transform');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('ETag', `"version-${Date.now()}"`);
+
+    res.json({
+      version,
+      timestamp: process.env.BUILD_TIMESTAMP || Date.now().toString(),
+      deploymentTime: new Date().toISOString(),
+      nodeEnv: process.env.NODE_ENV || 'development'
+    });
+  });
+
   // Contact form submission
   app.post("/api/contact", async (req, res) => {
     log.debug('Contact form submission received', {

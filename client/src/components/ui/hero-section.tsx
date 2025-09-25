@@ -38,15 +38,15 @@ const HeroSection = ({
           <div className="space-y-6 lg:space-y-8 slide-in-left order-2 lg:order-1">
             <div className="space-y-4 lg:space-y-6">
               
-              <h1 
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-white"
+              <h1
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white"
                 data-testid="hero-title"
               >
                 Custom <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">AI Solutions</span> Built for Real World Performance
               </h1>
               
-              <p 
-                className="text-sm sm:text-base lg:text-lg xl:text-xl text-muted-foreground leading-relaxed"
+              <p
+                className="text-lg sm:text-xl lg:text-2xl text-muted-foreground leading-relaxed"
                 data-testid="hero-subtitle"
               >
                 {subtitle}

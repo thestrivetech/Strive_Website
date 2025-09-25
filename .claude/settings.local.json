@@ -73,7 +73,10 @@
       "Bash(timeout 30 npm start)",
       "Bash(timeout 30 npm run dev)",
       "Bash(grep:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(xargs basename:*)",
+      "mcp__serena__get_current_config",
+      "Bash(PORT=3000 npm start)"
     ],
     "deny": [],
     "ask": []

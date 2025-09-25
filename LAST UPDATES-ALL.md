@@ -63,3 +63,9 @@ Fix all buttons and make sure SEO and site speeds are up to par - including lazy
 
 Nice tagline that I want to use: "Real, Verified Case Studies - Use only documented implementations from real companies with published results"
 
+
+# Home Page
+
+"AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES" needs to be bigger and text below it smaller?
+
+Change Industry pain point and solution section to automatically show the Healthcare pain point and solution badges so the user knows that this section has more to it rather than having to discover the industry badges are clickable.

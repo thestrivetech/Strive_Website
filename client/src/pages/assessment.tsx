@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,24 +8,78 @@ import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle, ArrowRight, Calendar, Clock, Phone, Video, MapPin, Users, Building, Target, Lightbulb, AlertCircle } from "lucide-react";
 import { validateEmail, validatePhone } from "@/lib/validation";
 import { CalendlyFallback } from "@/components/ui/calendly-fallback";
-import { getCalendlyConfig } from "@/lib/browser-detection";
+import { useCalendlyIntegration } from "@/hooks/useCalendlyIntegration";
 import React from "react";
 
-// Calendly Iframe Component - extracted outside to prevent re-creation on re-renders
-const CalendlyIframe = React.memo(({ onError, onLoad }: { onError: (error: string) => void; onLoad: () => void }) => {
+// Enhanced Calendly Iframe Component with robust error handling for Assessment
+const CalendlyIframe = React.memo(({ onError, onLoad, contactData }: { 
+  onError: (error: string) => void; 
+  onLoad: () => void;
+  contactData?: any;
+}) => {
   const [iframeStatus, setIframeStatus] = React.useState<'loading' | 'loaded' | 'error'>('loading');
+  const [loadTimeout, setLoadTimeout] = React.useState<NodeJS.Timeout | null>(null);
   
   const handleIframeLoad = React.useCallback(() => {
-    console.log('[Calendly] Iframe loaded successfully');
+    console.log('[Calendly] Assessment iframe loaded successfully');
     setIframeStatus('loaded');
+    if (loadTimeout) {
+      clearTimeout(loadTimeout);
+      setLoadTimeout(null);
+    }
     onLoad();
-  }, [onLoad]);
+  }, [onLoad, loadTimeout]);
 
   const handleIframeError = React.useCallback(() => {
-    console.error('[Calendly] Iframe failed to load');
+    console.error('[Calendly] Assessment iframe failed to load');
     setIframeStatus('error');
-    onError('Iframe failed to load');
-  }, [onError]);
+    if (loadTimeout) {
+      clearTimeout(loadTimeout);
+      setLoadTimeout(null);
+    }
+    onError('Assessment calendar failed to load properly');
+  }, [onError, loadTimeout]);
+
+  // Build Calendly URL with prefilled assessment data
+  const buildCalendlyUrl = React.useCallback(() => {
+    const baseUrl = "https://calendly.com/strivetech";
+    const params = new URLSearchParams();
+
+    if (contactData?.firstName && contactData?.lastName) {
+      params.append('name', `${contactData.firstName} ${contactData.lastName}`);
+    }
+    if (contactData?.email) {
+      params.append('email', contactData.email);
+    }
+    if (contactData?.company) {
+      params.append('a1', contactData.company);
+    }
+    if (contactData?.phone) {
+      params.append('a2', contactData.phone);
+    }
+    if (contactData?.industry) {
+      params.append('a3', `Industry: ${contactData.industry}`);
+    }
+
+    return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+  }, [contactData]);
+
+  // Set a timeout for iframe loading
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (iframeStatus === 'loading') {
+        console.warn('[Calendly] Assessment iframe loading timeout');
+        setIframeStatus('error');
+        onError('Assessment calendar is taking too long to load');
+      }
+    }, 15000); // 15 second timeout for iframe
+
+    setLoadTimeout(timeout);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [iframeStatus, onError]);
 
   return (
     <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
@@ -33,12 +87,12 @@ const CalendlyIframe = React.memo(({ onError, onLoad }: { onError: (error: strin
         <div className="absolute inset-0 bg-gray-50 flex items-center justify-center z-10">
           <div className="text-center space-y-2">
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary mx-auto"></div>
-            <p className="text-sm text-muted-foreground">Loading calendar...</p>
+            <p className="text-sm text-muted-foreground">Loading assessment calendar...</p>
           </div>
         </div>
       )}
       <iframe
-        src="https://calendly.com/strivetech"
+        src={buildCalendlyUrl()}
         width="100%"
         height="500"
         frameBorder="0"
@@ -50,6 +104,7 @@ const CalendlyIframe = React.memo(({ onError, onLoad }: { onError: (error: strin
         allow="camera; microphone; geolocation"
         referrerPolicy="strict-origin-when-cross-origin"
         sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+        loading="lazy"
       />
     </div>
   );
@@ -81,20 +136,17 @@ const Assessment = () => {
     phone: ""
   });
 
-  // State for Calendly loading and error handling
-  const [calendlyStatus, setCalendlyStatus] = useState<'loading' | 'loaded' | 'error' | 'timeout'>('loading');
-  const [calendlyError, setCalendlyError] = useState<string>('');
-  const [retryCount, setRetryCount] = useState(0);
+  // Use the robust Calendly integration hook
+  const calendlyIntegration = useCalendlyIntegration();
 
   // Stable callback functions for CalendlyIframe to prevent unnecessary re-renders
   const handleCalendlyError = useCallback((error: string) => {
-    console.error('[Calendly] Iframe error:', error);
-    setCalendlyStatus('error');
-    setCalendlyError('The calendar widget failed to load properly.');
+    console.error('[Calendly] Assessment iframe error:', error);
+    // The hook manages the error state, but we can log additional context here
   }, []);
 
   const handleCalendlyLoad = useCallback(() => {
-    console.log('[Calendly] Iframe loaded successfully');
+    console.log('[Calendly] Assessment iframe loaded successfully');
   }, []);
 
 
@@ -103,76 +155,7 @@ const Assessment = () => {
   const isEmailValid = (email: string) => validateEmail(email).isValid;
   const isPhoneValid = (phone: string) => validatePhone(phone, true).isValid;
 
-  // Load Calendly script when component mounts
-  useEffect(() => {
-    let scriptLoadTimeout: NodeJS.Timeout;
-    let script: HTMLScriptElement;
 
-    const loadCalendlyScript = () => {
-      // Check browser compatibility first
-      const calendlyConfig = getCalendlyConfig();
-      calendlyConfig.logBrowserInfo();
-      
-      console.log(`[Calendly] Attempting to load script (attempt ${retryCount + 1})`);
-      
-      // If browser has compatibility issues, skip to fallback
-      if (calendlyConfig.shouldUseFallback) {
-        console.log('[Calendly] Browser compatibility issues detected, using fallback');
-        setCalendlyStatus('error');
-        setCalendlyError(`${calendlyConfig.browserInfo.name} browser detected. Using direct calendar link for better compatibility.`);
-        return;
-      }
-      
-      setCalendlyStatus('loading');
-      setCalendlyError('');
-
-      // Check if script already exists
-      const existingScript = document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]');
-      if (existingScript) {
-        console.log('[Calendly] Script already exists, checking if loaded');
-        setCalendlyStatus('loaded');
-        return;
-      }
-
-      script = document.createElement('script');
-      script.src = 'https://assets.calendly.com/assets/external/widget.js';
-      script.async = true;
-
-      // Success handler
-      script.onload = () => {
-        console.log('[Calendly] Script loaded successfully');
-        setCalendlyStatus('loaded');
-        if (scriptLoadTimeout) clearTimeout(scriptLoadTimeout);
-      };
-
-      // Error handler
-      script.onerror = (error) => {
-        console.error('[Calendly] Script failed to load:', error);
-        setCalendlyStatus('error');
-        setCalendlyError('Failed to load Calendly script. This may be due to network issues or ad blockers.');
-        if (scriptLoadTimeout) clearTimeout(scriptLoadTimeout);
-      };
-
-      // Timeout handler (10 seconds)
-      scriptLoadTimeout = setTimeout(() => {
-        console.warn('[Calendly] Script loading timed out after 10 seconds');
-        setCalendlyStatus('timeout');
-        setCalendlyError('Calendly is taking longer than expected to load. Please check your internet connection.');
-      }, 10000);
-
-      document.body.appendChild(script);
-    };
-
-    loadCalendlyScript();
-
-    return () => {
-      // Cleanup
-      if (scriptLoadTimeout) clearTimeout(scriptLoadTimeout);
-      if (script && document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, [retryCount]);
 
   const handleInputChange = (field: string, value: string) => {
     setContactData(prev => ({ ...prev, [field]: value }));
@@ -559,22 +542,19 @@ Project Description: ${contactData.projectDescription || 'Not provided'}`,
             </p>
           </CardHeader>
           <CardContent className="p-0 md:p-6">
-            {/* Calendly Integration with Error Handling */}
-            {calendlyStatus === 'loaded' ? (
+            {/* Enhanced Calendly Integration with Robust Error Handling */}
+            {calendlyIntegration.status === 'loaded' ? (
               <CalendlyIframe 
                 onError={handleCalendlyError}
                 onLoad={handleCalendlyLoad}
+                contactData={contactData}
               />
             ) : (
               <CalendlyFallback 
-                status={calendlyStatus}
-                error={calendlyError}
-                onRetry={() => {
-                  if (retryCount < 3) {
-                    setRetryCount(prev => prev + 1);
-                  }
-                }}
-                retryCount={retryCount}
+                status={calendlyIntegration.status}
+                error={calendlyIntegration.error}
+                onRetry={calendlyIntegration.retry}
+                retryCount={calendlyIntegration.retryCount}
               />
             )}
             <div className="mt-3 md:mt-4 mx-3 md:mx-0 p-3 md:p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
