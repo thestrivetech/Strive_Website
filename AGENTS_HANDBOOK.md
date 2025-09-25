@@ -1,6 +1,6 @@
 # Strive Tech Agents Handbook
 *Comprehensive guide for leveraging Claude Code agents in the Strive Tech website project*
-*40 relevant agents selected for this project (from 80+ available)*
+*34 relevant agents selected for this project (from 80+ available)*
 
 ## ⚡ Parallel Execution Support
 **Agents CAN run in parallel!** Use the `+` operator or `&&` to execute multiple agents simultaneously:

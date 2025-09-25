@@ -79,6 +79,7 @@ ROI Calculator - Fix Annual return calculations to match 5 year ROI
 POSSIBLE MASSIVE PIVOT -> Cater everything to the Intelligent Assistant (ChatBot) by wording everything as add ons, even though everything else is still their own solution / solution type, the intelligent assistant is the main marketing and sale point that we can speak on consistently. This also allows us to make an app/platform for the Assistant (and Strive) where all clients can access and manage their Assistants.
     - This assistant can be a chatbot, extra team member, sales lead generator, lead marketer, security specialist, etc. 
     - This allows us continue doing what we're doing but be more precise on how we market ourselves.
+    - Solution types stays and then we put the "tools" into each solution type
 
 
     HONEST ASSESSMENT: What Was ACTUALLY Accomplished vs. What Was 
