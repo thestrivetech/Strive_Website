@@ -1479,14 +1479,16 @@ const Solutions = () => {
                   <CommandList className="max-h-[400px] sm:max-h-[450px] overflow-y-auto">
                     
                     {/* Three-column layout with responsive design */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 p-3 md:p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 p-3 md:p-6 relative">
                       {/* Industries Section - Spanning 2 columns */}
-                      <div className="md:col-span-2 space-y-2 border-r border-gray-200">
+                      <div className="md:col-span-2 space-y-2 md:pr-6">
                         {/* Industries Header - Spanning both columns */}
-                        <h3 className="text-sm font-semibold text-muted-foreground py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center gap-2" style={{ marginRight: '-1px', borderBottomWidth: '1px' }}>
+                        <h3 className="text-sm font-semibold text-muted-foreground py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center gap-2">
                           Industries
                           <Badge variant="secondary" className="text-xs px-2 py-1 h-6 flex items-center">21</Badge>
                         </h3>
+                        {/* Container with right border that starts AFTER the header */}
+                        <div className="md:border-r md:border-gray-200 md:mr-[-24px] md:pr-[24px] md:-mt-[8px]">
                         
                         {/* All Industries Option - Spanning both columns */}
                         <div
@@ -1513,7 +1515,7 @@ const Solutions = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
 
                           {/* First Half Column */}
-                          <div className="space-y-2 pl--2 pr-2 border-r border-gray-200">
+                          <div className="space-y-2 pl-2 pr-2 md:border-r md:border-gray-200">
                             {industryOptions
                               .filter(option => {
                                 const searchTerm = filterSearch.toLowerCase();
@@ -1570,7 +1572,7 @@ const Solutions = () => {
                       </div>
 
                           {/* Second Half Column */}
-                          <div className="space-y-2 pl--4 pr-5">
+                          <div className="space-y-2 pl-4 pr-5">
                         
                         {/* Individual Industries - Second Half */}
                         {industryOptions
@@ -1624,11 +1626,12 @@ const Solutions = () => {
                           })}
                       </div>
                         </div>
+                        </div>
                       </div>
 
                       {/* Right Column - Solution Types */}
                       <div className="space-y-2">
-                        <h3 className="text-sm font-semibold text-muted-foreground py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center gap-2 -ml-[1px]">
+                        <h3 className="text-sm font-semibold text-muted-foreground py-1.5 uppercase tracking-wide border-b border-gray-200 mb-2 flex items-center gap-2 md:-ml-6 md:pl-6">
                           Solution Types
                           <Badge variant="secondary" className="text-xs px-2 py-1 h-6 flex items-center">9</Badge>
                         </h3>

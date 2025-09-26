@@ -17,7 +17,6 @@ const Navigation = lazy(() => import("@/components/layout/navigation"));
 const Footer = lazy(() => import("@/components/layout/footer"));
 const FloatingChat = lazy(() => import("@/components/ui/floating-chat"));
 const ConsentBanner = lazy(() => import("@/components/analytics/consent-banner").then(module => ({ default: module.ConsentBanner })));
-const UpdateNotification = lazy(() => import("@/components/ui/update-notification"));
 
 // Keep home page loaded immediately for best UX
 import Home from "@/pages/home";
@@ -121,9 +120,6 @@ function Router() {
         <AnalyticsErrorBoundary componentName="ConsentBanner">
           <ConsentBanner />
         </AnalyticsErrorBoundary>
-      </Suspense>
-      <Suspense fallback={null}>
-        <UpdateNotification position="top" />
       </Suspense>
     </div>
   );

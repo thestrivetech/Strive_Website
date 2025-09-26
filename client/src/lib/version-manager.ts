@@ -174,24 +174,11 @@ export class VersionManager {
   }
   
   private async promptForUpdate(): Promise<boolean> {
-    // For now, auto-update after a short delay
-    // You can replace this with a UI prompt
-    console.log('[Version Manager] Auto-updating in 3 seconds...');
-    
-    // Optional: Show a notification
-    if (typeof window !== 'undefined' && window.customElements) {
-      const notification = document.createElement('div');
-      notification.innerHTML = `
-        <div style="position: fixed; top: 20px; right: 20px; background: #4CAF50; color: white; padding: 16px; border-radius: 4px; z-index: 9999; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
-          New version available! Updating in 3 seconds...
-        </div>
-      `;
-      document.body.appendChild(notification);
-      
-      setTimeout(() => notification.remove(), 3000);
-    }
-    
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    // Auto-update silently without user notification
+    console.log('[Version Manager] Auto-updating silently...');
+
+    // Small delay to ensure proper cache clearing
+    await new Promise(resolve => setTimeout(resolve, 1000));
     return true;
   }
   

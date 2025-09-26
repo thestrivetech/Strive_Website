@@ -31,32 +31,32 @@ interface ProfessionalBrochureProps {
 const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload }) => {
   const services = [
     {
-      icon: <Brain className="w-8 h-8 text-primary" />,
+      icon: <Brain className="w-8 h-8" style={{ color: '#ff7033' }} />,
       title: "AI & Machine Learning Solutions",
       description: "Custom AI models, machine learning pipelines, and intelligent automation systems tailored to your business needs."
     },
     {
-      icon: <Cog className="w-8 h-8 text-primary" />,
+      icon: <Cog className="w-8 h-8" style={{ color: '#ff7033' }} />,
       title: "Intelligent Process Automation",
       description: "Streamline operations with AI-powered automation that reduces costs and improves efficiency."
     },
     {
-      icon: <BarChart3 className="w-8 h-8 text-primary" />,
+      icon: <BarChart3 className="w-8 h-8" style={{ color: '#ff7033' }} />,
       title: "Predictive Analytics & BI",
       description: "Transform data into actionable insights with advanced analytics and real-time business intelligence."
     },
     {
-      icon: <Code className="w-8 h-8 text-primary" />,
+      icon: <Code className="w-8 h-8" style={{ color: '#ff7033' }} />,
       title: "Custom AI Development",
       description: "End-to-end development of bespoke AI solutions that integrate seamlessly with your existing systems."
     },
     {
-      icon: <Database className="w-8 h-8 text-primary" />,
+      icon: <Database className="w-8 h-8" style={{ color: '#ff7033' }} />,
       title: "Data Engineering & Architecture",
       description: "Robust data infrastructure design and implementation for scalable AI and analytics platforms."
     },
     {
-      icon: <Cloud className="w-8 h-8 text-primary" />,
+      icon: <Cloud className="w-8 h-8" style={{ color: '#ff7033' }} />,
       title: "Cloud Infrastructure & DevOps",
       description: "Modern cloud architecture with automated deployment pipelines and infrastructure management."
     }
@@ -89,22 +89,22 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
 
   const whyChooseStrive = [
     {
-      icon: <Award className="w-6 h-6 text-primary" />,
+      icon: <Award className="w-6 h-6" style={{ color: '#ff7033' }} />,
       title: "Proven Track Record",
       description: "500+ successful AI implementations across diverse industries"
     },
     {
-      icon: <Users className="w-6 h-6 text-primary" />,
+      icon: <Users className="w-6 h-6" style={{ color: '#ff7033' }} />,
       title: "Expert Team",
       description: "Certified AI engineers, data scientists, and business strategists"
     },
     {
-      icon: <Zap className="w-6 h-6 text-primary" />,
+      icon: <Zap className="w-6 h-6" style={{ color: '#ff7033' }} />,
       title: "End-to-End Solutions",
       description: "From strategy to deployment, we handle every aspect of your AI journey"
     },
     {
-      icon: <Shield className="w-6 h-6 text-primary" />,
+      icon: <Shield className="w-6 h-6" style={{ color: '#ff7033' }} />,
       title: "24/7 Support",
       description: "Continuous monitoring, maintenance, and optimization of your AI systems"
     }

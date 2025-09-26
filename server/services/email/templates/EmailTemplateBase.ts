@@ -45,7 +45,7 @@ export abstract class EmailTemplateBase {
    * Get the site URL from environment variable or default
    */
   protected getSiteUrl(): string {
-    return process.env.SITE_URL || 'http://localhost:5000';
+    return process.env.SITE_URL || 'http://localhost:3000';
   }
 
   /**

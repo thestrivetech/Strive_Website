@@ -15,7 +15,7 @@ cp .env.example .env
 
 # 3. Start development
 npm run dev
-# → Server at http://localhost:5000
+# → Server at http://localhost:3000
 ```
 
 ### First Development Session
@@ -25,8 +25,8 @@ npm run check          # TypeScript validation
 npm run build         # Ensure build works
 
 # Make changes, then test
-curl http://localhost:5000/api/debug/email    # Email service
-curl http://localhost:5000/api/health/database # Database
+curl http://localhost:3000/api/debug/email    # Email service
+curl http://localhost:3000/api/health/database # Database
 ```
 
 ## 🔄 Standard Development Cycle
@@ -93,7 +93,7 @@ public async sendNewTemplate(data: any): Promise<boolean> {
 }
 
 // 4. Test with curl
-curl -X POST localhost:5000/api/endpoint -H "Content-Type: application/json" -d '{...}'
+curl -X POST localhost:3000/api/endpoint -H "Content-Type: application/json" -d '{...}'
 ```
 
 ### Email Component Development
@@ -172,7 +172,7 @@ npm run db:push
 // Add to server/routes.ts
 
 # 6. Test with curl
-curl -X POST localhost:5000/api/new-endpoint -H "Content-Type: application/json" -d '{...}'
+curl -X POST localhost:3000/api/new-endpoint -H "Content-Type: application/json" -d '{...}'
 ```
 
 ### API Endpoint Development
@@ -247,13 +247,13 @@ npm run check
 npm run build
 
 # 3. Email system test
-curl -X POST localhost:5000/api/contact -H "Content-Type: application/json" -d '{"firstName":"Test","lastName":"User","email":"grantramey@strivetech.ai","company":"Test Corp","message":"Test","privacyConsent":true}'
+curl -X POST localhost:3000/api/contact -H "Content-Type: application/json" -d '{"firstName":"Test","lastName":"User","email":"grantramey@strivetech.ai","company":"Test Corp","message":"Test","privacyConsent":true}'
 
 # 4. Database health
-curl http://localhost:5000/api/health/database
+curl http://localhost:3000/api/health/database
 
 # 5. Service status
-curl http://localhost:5000/api/debug/email
+curl http://localhost:3000/api/debug/email
 ```
 
 ### Automated Testing (When Available)
@@ -361,8 +361,8 @@ npm run build
 npm start
 
 # 3. Health checks
-curl http://localhost:5000/api/health/database
-curl http://localhost:5000/api/debug/email
+curl http://localhost:3000/api/health/database
+curl http://localhost:3000/api/debug/email
 
 # 4. Smoke test critical features
 # Contact form, newsletter, service requests

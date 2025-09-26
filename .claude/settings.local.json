@@ -76,7 +76,12 @@
       "Bash(rg:*)",
       "Bash(xargs basename:*)",
       "mcp__serena__get_current_config",
-      "Bash(PORT=3000 npm start)"
+      "Bash(PORT=3000 npm start)",
+      "Bash(uvx:*)",
+      "Bash(claude mcp add:*)",
+      "Bash(claude config get)",
+      "Bash(claude mcp:*)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": [],
     "ask": []

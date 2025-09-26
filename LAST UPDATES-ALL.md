@@ -2,10 +2,6 @@
 
 # 1
 
-Fix solution page dropdown menu text and icon color to always be orange (it's already orange on hover effect) - This will help with UX 
-
-Change Inddustry cards on Solutions page to be the same gradient color as the fill out forms on the Requests page - Make the button collors the same color as the orange buttons as well - Keep text color scheme the same on all industry cards on the solutions page
-
 Subfilter system for blog posts is not configured correctly, it shows multiple categories with numbers but there isn't any content/cards that appear ("AI & Machine Learning
 " & "Technology & Tools" & "Tutorials & Guides") 
     - This same issue is occuring on the "Tools & Tech" main filter. AI/ML Frameworks shows "8" but nothing appears when the subfilter button is selected.
@@ -17,6 +13,10 @@ See if it's possible to autofill the users calendly information with their infor
 
 Brush up the brochure and make it finalized. All that needs to be done is editing the text color. Make sure any text color that's used isn't the same color as the background. Currently a lot of the text color (mainly headings & titles) blends in with the background.
 
+
+# 2 
+
+Remove the Featured Whitepaper Section from all pages except for the initial Resources page where all resource cards are being shown and the Whitepaper filtered page
 
 # 3
 
@@ -52,7 +52,7 @@ Please go through all solutions and make adjustments, some of them need to be sw
     - Pivot and make sure Solutions cards are made for specific industries (3 each) - Can still be categorized by solution type
     - Edit Industry cards to where the pop-out activates when the main button is pushed (the 3-4 solutions that are specific to that industry -> maybe even have the 3-4 industry specific solutions as the badges on the industry cards) -> Currently, you can only see the pop-out cards by clicking the industry overview badge (which I kinda like)
 
-Change home page hero section for mobile to where the main header text is above the chatbot preview
+Change home page hero section for mobile to where the main header text is above the chatbot preview window
 Make sure mobile is completely optimized with all new content
 
 Refactor entire codebase for easier maintenance. This is essential for when the site is converted to next.js and the user side is put into the site
@@ -76,11 +76,11 @@ ROI Calculator - Fix Annual return calculations to match 5 year ROI
 
 
 
-POSSIBLE MASSIVE PIVOT -> Cater everything to the Intelligent Assistant (ChatBot) by wording everything as add ons, even though everything else is still their own solution / solution type, the intelligent assistant is the main marketing and sale point that we can speak on consistently. This also allows us to make an app/platform for the Assistant (and Strive) where all clients can access and manage their Assistants.
+# POSSIBLE MASSIVE PIVOT -> Cater everything to the Intelligent Assistant (ChatBot) by wording everything as add ons, even though everything else is still their own solution / solution type, the intelligent assistant is the main marketing and sale point that we can speak on consistently. This also allows us to make an app/platform for the Assistant (and Strive) where all clients can access and manage their Assistants.
     - This assistant can be a chatbot, extra team member, sales lead generator, lead marketer, security specialist, etc. 
     - This allows us continue doing what we're doing but be more precise on how we market ourselves.
     - Solution types stays and then we put the "tools" into each solution type
-
+    - Take this into accont for the dropdown menu on the solutions page how all of the "solution" cards will be changed to tools -> See if we need to update the Solution Types in order to take this pivot into account
 
     HONEST ASSESSMENT: What Was ACTUALLY Accomplished vs. What Was 
   Claimed

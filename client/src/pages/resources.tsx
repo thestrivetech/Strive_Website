@@ -193,17 +193,22 @@ const Resources = () => {
           resource.tags.forEach(tag => {
             const tagLower = tag.toLowerCase();
 
-            if (['ai/ml', 'artificial intelligence', 'machine learning', 'neural networks', 'deep learning', 'llm', 'gpt', 'ai models'].some(term => tagLower.includes(term.toLowerCase()))) {
+            if (['ai', 'artificial intelligence', 'machine learning', 'ml', 'neural', 'deep learning', 'llm', 'gpt', 'ai model', 'claude', 'chatgpt', 'gemini', 'grok'].some(term => tagLower.includes(term))) {
               blogCategories.add('AI & Machine Learning');
-            } else if (['business', 'strategy', 'productivity', 'efficiency', 'roi', 'automation benefits'].some(term => tagLower.includes(term.toLowerCase()))) {
+            }
+            if (['business', 'strategy', 'productivity', 'efficiency', 'roi', 'success', 'metric', 'value', 'transformation'].some(term => tagLower.includes(term))) {
               blogCategories.add('Business Strategy');
-            } else if (['tutorial', 'how-to', 'guide', 'implementation', 'setup', 'getting started'].some(term => tagLower.includes(term.toLowerCase()))) {
+            }
+            if (['tutorial', 'how-to', 'guide', 'implementation', 'setup', 'getting started', 'beginner', 'step'].some(term => tagLower.includes(term))) {
               blogCategories.add('Tutorials & Guides');
-            } else if (['industry', 'trends', 'news', 'updates', 'market', 'forecast'].some(term => tagLower.includes(term.toLowerCase()))) {
+            }
+            if (['industry', 'trends', 'news', 'updates', 'market', 'forecast', '2025', 'future', 'analysis'].some(term => tagLower.includes(term))) {
               blogCategories.add('Industry Insights');
-            } else if (['technology', 'tools', 'software', 'platform', 'framework', 'development'].some(term => tagLower.includes(term.toLowerCase()))) {
+            }
+            if (['technology', 'tools', 'software', 'platform', 'framework', 'development', 'comparison', 'chatgpt', 'claude', 'grok'].some(term => tagLower.includes(term))) {
               blogCategories.add('Technology & Tools');
-            } else if (['automation', 'workflow', 'process', 'optimization', 'efficiency'].some(term => tagLower.includes(term.toLowerCase()))) {
+            }
+            if (['automation', 'workflow', 'process', 'optimization', 'efficiency', 'roi'].some(term => tagLower.includes(term))) {
               blogCategories.add('Process Automation');
             }
           });
@@ -306,9 +311,10 @@ const Resources = () => {
           case 'aiml-frameworks':
           case 'ai/ml-frameworks':
           case 'ai-and-ml-frameworks':
+          case 'aiandml-frameworks':
             return card.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['tensorflow', 'langchain', 'fastapi', 'multi-agent', 'langgraph', 'computer vision', 'machine learning', 'ai development'].some(term => tagLower.includes(term));
+              return ['tensorflow', 'langchain', 'fastapi', 'multi-agent', 'langgraph', 'computer vision', 'machine learning', 'ai development', 'ai framework'].some(term => tagLower.includes(term));
             });
           case 'infrastructure & devops':
           case 'infrastructure-and-devops':
@@ -346,32 +352,32 @@ const Resources = () => {
           if (categoryLowerBlog === 'ai & machine learning' || categoryLowerBlog === 'ai-machine-learning' || categoryLowerBlog === 'ai-and-machine-learning') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['ai/ml', 'artificial intelligence', 'machine learning', 'neural networks', 'deep learning', 'llm', 'gpt', 'ai models'].some(term => tagLower.includes(term.toLowerCase()));
+              return ['ai', 'artificial intelligence', 'machine learning', 'ml', 'neural', 'deep learning', 'llm', 'gpt', 'ai model', 'claude', 'chatgpt', 'gemini', 'grok'].some(term => tagLower.includes(term));
             });
           } else if (categoryLowerBlog === 'business strategy' || categoryLowerBlog === 'business-strategy') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['business', 'strategy', 'productivity', 'efficiency', 'roi', 'automation benefits'].some(term => tagLower.includes(term.toLowerCase()));
+              return ['business', 'strategy', 'productivity', 'efficiency', 'roi', 'success', 'metric', 'value', 'transformation'].some(term => tagLower.includes(term));
             });
           } else if (categoryLowerBlog === 'tutorials & guides' || categoryLowerBlog === 'tutorials-guides' || categoryLowerBlog === 'tutorials-and-guides') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['tutorial', 'how-to', 'guide', 'implementation', 'setup', 'getting started'].some(term => tagLower.includes(term.toLowerCase()));
+              return ['tutorial', 'how-to', 'guide', 'implementation', 'setup', 'getting started', 'beginner', 'step'].some(term => tagLower.includes(term));
             });
           } else if (categoryLowerBlog === 'industry insights' || categoryLowerBlog === 'industry-insights') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['industry', 'trends', 'news', 'updates', 'market', 'forecast'].some(term => tagLower.includes(term.toLowerCase()));
+              return ['industry', 'trends', 'news', 'updates', 'market', 'forecast', '2025', 'future', 'analysis'].some(term => tagLower.includes(term));
             });
           } else if (categoryLowerBlog === 'technology & tools' || categoryLowerBlog === 'technology-tools' || categoryLowerBlog === 'technology-and-tools') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['technology', 'tools', 'software', 'platform', 'framework', 'development'].some(term => tagLower.includes(term.toLowerCase()));
+              return ['technology', 'tools', 'software', 'platform', 'framework', 'development', 'comparison', 'chatgpt', 'claude', 'grok'].some(term => tagLower.includes(term));
             });
           } else if (categoryLowerBlog === 'process automation' || categoryLowerBlog === 'process-automation') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['automation', 'workflow', 'process', 'optimization', 'efficiency'].some(term => tagLower.includes(term.toLowerCase()));
+              return ['automation', 'workflow', 'process', 'optimization', 'efficiency', 'roi'].some(term => tagLower.includes(term));
             });
           }
           return false;
@@ -423,9 +429,10 @@ const Resources = () => {
             case 'aiml-frameworks':
             case 'ai/ml-frameworks':
             case 'ai-and-ml-frameworks':
+            case 'aiandml-frameworks':
               return card.tags.some(tag => {
                 const tagLower = tag.toLowerCase();
-                return ['tensorflow', 'langchain', 'fastapi', 'multi-agent', 'langgraph', 'computer vision', 'machine learning', 'ai development'].some(term => tagLower.includes(term));
+                return ['tensorflow', 'langchain', 'fastapi', 'multi-agent', 'langgraph', 'computer vision', 'machine learning', 'ai development', 'ai framework'].some(term => tagLower.includes(term));
               });
             case 'infrastructure-and-devops':
               return card.tags.some(tag => {
@@ -500,32 +507,32 @@ const Resources = () => {
           if (categoryLower === 'ai-machine-learning' || categoryLower === 'ai-and-machine-learning') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['ai/ml', 'artificial intelligence', 'machine learning', 'neural networks', 'deep learning', 'llm', 'gpt', 'ai models'].some(term => tagLower.includes(term.toLowerCase()));
+              return ['ai', 'artificial intelligence', 'machine learning', 'ml', 'neural', 'deep learning', 'llm', 'gpt', 'ai model', 'claude', 'chatgpt', 'gemini', 'grok'].some(term => tagLower.includes(term));
             });
           } else if (categoryLower === 'business-strategy') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['business', 'strategy', 'productivity', 'efficiency', 'roi', 'automation benefits'].some(term => tagLower.includes(term.toLowerCase()));
+              return ['business', 'strategy', 'productivity', 'efficiency', 'roi', 'success', 'metric', 'value', 'transformation'].some(term => tagLower.includes(term));
             });
           } else if (categoryLower === 'tutorials-guides' || categoryLower === 'tutorials-and-guides') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['tutorial', 'how-to', 'guide', 'implementation', 'setup', 'getting started'].some(term => tagLower.includes(term.toLowerCase()));
+              return ['tutorial', 'how-to', 'guide', 'implementation', 'setup', 'getting started', 'beginner', 'step'].some(term => tagLower.includes(term));
             });
           } else if (categoryLower === 'industry-insights') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['industry', 'trends', 'news', 'updates', 'market', 'forecast'].some(term => tagLower.includes(term.toLowerCase()));
+              return ['industry', 'trends', 'news', 'updates', 'market', 'forecast', '2025', 'future', 'analysis'].some(term => tagLower.includes(term));
             });
           } else if (categoryLower === 'technology-tools' || categoryLower === 'technology-and-tools') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['technology', 'tools', 'software', 'platform', 'framework', 'development'].some(term => tagLower.includes(term.toLowerCase()));
+              return ['technology', 'tools', 'software', 'platform', 'framework', 'development', 'comparison', 'chatgpt', 'claude', 'grok'].some(term => tagLower.includes(term));
             });
           } else if (categoryLower === 'process-automation') {
             return resource.tags.some(tag => {
               const tagLower = tag.toLowerCase();
-              return ['automation', 'workflow', 'process', 'optimization', 'efficiency'].some(term => tagLower.includes(term.toLowerCase()));
+              return ['automation', 'workflow', 'process', 'optimization', 'efficiency', 'roi'].some(term => tagLower.includes(term));
             });
           }
           return false;
@@ -799,65 +806,67 @@ const Resources = () => {
             </p>
           </div>
 
-          {/* Featured Resource */}
-          <div className="bg-off-white rounded-2xl overflow-hidden mb-16 shadow-lg border border-slate-100">
-            <div className="md:flex">
-              <div className="md:w-1/2">
-                <div className="relative">
-                  <img 
-                    src={featuredResource.imageUrl} 
-                    alt={featuredResource.imageAlt}
-                    className="w-full h-64 md:h-full object-cover"
-                    data-testid="img-featured-resource"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span 
-                      className="bg-slate-800 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center"
-                      data-testid="text-trending-badge"
-                    >
-                      📈 TRENDING
-                    </span>
+          {/* Featured Resource - Only show on All or Whitepapers view */}
+          {(activeFilter === "All" || activeFilter === "Whitepapers") && (
+            <div className="bg-off-white rounded-2xl overflow-hidden mb-16 shadow-lg border border-slate-100">
+              <div className="md:flex">
+                <div className="md:w-1/2">
+                  <div className="relative">
+                    <img
+                      src={featuredResource.imageUrl}
+                      alt={featuredResource.imageAlt}
+                      className="w-full h-64 md:h-full object-cover"
+                      data-testid="img-featured-resource"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <span
+                        className="bg-slate-800 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center"
+                        data-testid="text-trending-badge"
+                      >
+                        📈 TRENDING
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="md:w-1/2 p-8 md:p-12">
-                <div 
-                  className="text-sm text-orange-500 uppercase tracking-wide font-semibold mb-4 flex items-center"
-                  data-testid="text-featured-type"
-                >
-                  <Sparkles className="h-4 w-4 mr-2" />
-                  {featuredResource.type}
-                </div>
-                <h3 
-                  className="text-2xl md:text-3xl font-bold mb-4 text-slate-800"
-                  data-testid="text-featured-title"
-                >
-                  {featuredResource.title}
-                </h3>
-                <p 
-                  className="text-slate-600 mb-6 leading-relaxed"
-                  data-testid="text-featured-description"
-                >
-                  {featuredResource.description}
-                </p>
-                <div className="flex items-center justify-between">
-                  <Button 
-                    className="bg-orange-500 text-white hover:bg-orange-600 px-6 py-2"
-                    data-testid="button-download-featured"
+                <div className="md:w-1/2 p-8 md:p-12">
+                  <div
+                    className="text-sm text-orange-500 uppercase tracking-wide font-semibold mb-4 flex items-center"
+                    data-testid="text-featured-type"
                   >
-                    <Download className="h-4 w-4 mr-2" />
-                    Download Now
-                  </Button>
-                  <div className="text-sm text-slate-500 flex items-center">
-                    <Download className="h-4 w-4 mr-1" />
-                    <span data-testid="text-download-count">
-                      {featuredResource.downloads} downloads
-                    </span>
+                    <Sparkles className="h-4 w-4 mr-2" />
+                    {featuredResource.type}
+                  </div>
+                  <h3
+                    className="text-2xl md:text-3xl font-bold mb-4 text-slate-800"
+                    data-testid="text-featured-title"
+                  >
+                    {featuredResource.title}
+                  </h3>
+                  <p
+                    className="text-slate-600 mb-6 leading-relaxed"
+                    data-testid="text-featured-description"
+                  >
+                    {featuredResource.description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <Button
+                      className="bg-orange-500 text-white hover:bg-orange-600 px-6 py-2"
+                      data-testid="button-download-featured"
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Download Now
+                    </Button>
+                    <div className="text-sm text-slate-500 flex items-center">
+                      <Download className="h-4 w-4 mr-1" />
+                      <span data-testid="text-download-count">
+                        {featuredResource.downloads} downloads
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Resource Categories */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8 md:mb-12">

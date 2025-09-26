@@ -18,7 +18,7 @@ This is the Strive Tech website - a full-stack TypeScript application for an AI-
 
 ### Development
 ```bash
-npm run dev          # Start development server at localhost:5000
+npm run dev          # Start development server at localhost:3000
 npm run build        # Build for production (client + server via esbuild)
 npm run build:analyze # Build with rollup bundle analyzer → stats.html
 npm start           # Start production server
@@ -116,7 +116,7 @@ supabase/           # Supabase configuration
 - Requires Node.js 22.x (specified in engines)
 - Environment variables: `DATABASE_URL`, `SMTP_*` for email service
 - Uses ES modules (`"type": "module"` in package.json)
-- Development server runs on port 5000 by default
+- Development server runs on port 3000 by default
 
 ### Code Conventions
 - Strict TypeScript with full type coverage
@@ -155,23 +155,43 @@ supabase/           # Supabase configuration
 **API Endpoint Testing:**
 ```bash
 # Test contact form
-curl -X POST http://localhost:5000/api/contact \
+curl -X POST http://localhost:3000/api/contact \
   -H "Content-Type: application/json" \
   -d '{"firstName":"Test","lastName":"User","email":"test@example.com","company":"Test Corp","companySize":"50-100 employees","message":"Test message","privacyConsent":true}'
 
 # Health checks
-curl http://localhost:5000/api/health/database
-curl http://localhost:5000/api/debug/email
+curl http://localhost:3000/api/health/database
+curl http://localhost:3000/api/debug/email
 ```
 
 **Process Management:**
 ```bash
-# Find process on port 5000 (Windows)
-netstat -ano | findstr :5000
+# Find process on port 3000 (Windows)
+netstat -ano | findstr :3000
 taskkill /PID [PID] /F
 
 # Alternative port usage
-cross-env PORT=5001 npm run dev
+cross-env PORT=3001 npm run dev
 ```
 
 Always run `npm run check` before committing to ensure TypeScript compliance.
+
+## Additional Configuration Notes
+
+### Build & Bundle Analysis
+- Bundle analyzer available via `npm run build:analyze` → generates `dist/bundle-analyzer.html`
+- Sophisticated manual chunk splitting for optimal caching and performance
+- Asset optimization with organized directory structure (images, fonts, js, css)
+
+### PWA Configuration
+- Service Worker with `injectManifest` strategy via vite-plugin-pwa
+- Workbox caching with glob patterns for static assets
+- Strict HTML exclusion from service worker manifest
+
+### Vercel Deployment
+- Comprehensive caching headers configured in `vercel.json`:
+  - Static assets: 1 year immutable cache
+  - Images: 90 days cache
+  - HTML/API: no-cache policy
+- Security headers with CSP for iframe embedding support
+- API routes under `/api/` with no-cache headers

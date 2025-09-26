@@ -49,7 +49,7 @@ CLAUDE.md                          # Project documentation
 ## ⚡ Essential Commands (Copy-Paste)
 ```bash
 # Development (Most Used)
-npm run dev          # Start dev server (port 5000)
+npm run dev          # Start dev server (port 3000)
 npm run check        # TypeScript validation
 npm run build        # Production build
 
