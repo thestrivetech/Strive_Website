@@ -96,3 +96,20 @@ Refactor entire codebase for easier maintenance. This is essential for when the 
 # Solutions Page
 
 Still need to fix the dropdown menu horizontal lines - They somehow no longer connect again...
+
+# Email
+
+Change wording on some of the emails to be more accurate to what the process looks like
+
+Change the peoples names on the emails, they're still random peoples names
+
+Change Github link in footer to facebook link
+
+# Mobile
+
+"Our Vision" card on the our company page is smaller than "Our Mission" which looks weird - Make it the same sized card
+
+Add swipe ability on the headshot photos of the employees on the Our Company page
+
+Need to come up with a better dropdown filter menu for the solututions page on mobile and smaller screen sizes -> Currently, users have to scroll forever to see all results
+    - Also need to make it to where the screen shifts and makes the dropdown menu the center of the screen when the filter button is pressed on mobile devices.
