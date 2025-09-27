@@ -93,3 +93,6 @@ Refactor entire codebase for easier maintenance. This is essential for when the 
     - Take this into accont for the dropdown menu on the solutions page how all of the "solution" cards will be changed to tools -> See if we need to update the Solution Types in order to take this pivot into account
 
 
+# Solutions Page
+
+Still need to fix the dropdown menu horizontal lines - They somehow no longer connect again...
