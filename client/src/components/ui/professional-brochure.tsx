@@ -144,7 +144,7 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
 
       {/* Company Overview */}
       <div className="space-y-6 px-6">
-        <h2 className="text-3xl font-black text-center text-gray-900">
+        <h2 className="text-3xl font-black text-center" style={{ color: '#ff7033' }}>
           Company Overview
         </h2>
         <div className="bg-gray-50 rounded-xl p-6 space-y-4">
@@ -159,22 +159,22 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
               <div className="w-12 h-12 bg-[#ff7033] text-white rounded-lg flex items-center justify-center mx-auto mb-3">
                 <Target className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold mb-2" style={{ color: '#020a1c' }}>Our Mission</h3>
-              <p className="text-sm text-gray-800">Democratizing AI to make intelligent solutions accessible to businesses of all sizes</p>
+              <h3 className="font-semibold mb-2" style={{ color: '#ff7033' }}>Our Mission</h3>
+              <p className="text-sm text-gray-700">Democratizing AI to make intelligent solutions accessible to businesses of all sizes</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 bg-[#ff7033] text-white rounded-lg flex items-center justify-center mx-auto mb-3">
                 <Zap className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold mb-2" style={{ color: '#020a1c' }}>Our Vision</h3>
-              <p className="text-sm text-gray-800">Creating a future where AI amplifies human potential and drives innovation</p>
+              <h3 className="font-semibold mb-2" style={{ color: '#ff7033' }}>Our Vision</h3>
+              <p className="text-sm text-gray-700">Creating a future where AI amplifies human potential and drives innovation</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 bg-[#ff7033] text-white rounded-lg flex items-center justify-center mx-auto mb-3">
                 <Award className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold mb-2" style={{ color: '#020a1c' }}>Our Values</h3>
-              <p className="text-sm text-gray-800">Innovation, integrity, and impact in everything we deliver</p>
+              <h3 className="font-semibold mb-2" style={{ color: '#ff7033' }}>Our Values</h3>
+              <p className="text-sm text-gray-700">Innovation, integrity, and impact in everything we deliver</p>
             </div>
           </div>
         </div>
@@ -182,7 +182,7 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
 
       {/* Services & Solutions */}
       <div className="space-y-6 px-6">
-        <h2 className="text-3xl font-black text-center text-gray-900">
+        <h2 className="text-3xl font-black text-center" style={{ color: '#ff7033' }}>
           Services & Solutions
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -193,10 +193,10 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
                   {service.icon}
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2" style={{ color: '#020a1c' }}>
+                  <h3 className="font-semibold text-lg mb-2" style={{ color: '#ff7033' }}>
                     {service.title}
                   </h3>
-                  <p className="text-gray-800 text-sm leading-relaxed">
+                  <p className="text-gray-700 text-sm leading-relaxed">
                     {service.description}
                   </p>
                 </div>
@@ -208,17 +208,17 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
 
       {/* Industry Expertise */}
       <div className="space-y-6 px-6">
-        <h2 className="text-3xl font-bold text-center" style={{ color: '#020a1c' }}>
-          Industry Expertise
+        <h2 className="text-3xl font-bold text-center" style={{ color: '#ff7033' }}>
+          Industry Expertise - 20+ Industries Served
         </h2>
-        <p className="text-center text-gray-800 max-w-3xl mx-auto">
-          We bring deep domain knowledge and industry-specific AI solutions to help you navigate unique challenges and opportunities.
+        <p className="text-center text-[#94a3b8] max-w-3xl mx-auto font-medium">
+          We bring deep domain knowledge and industry-specific AI solutions across 20+ industries to help you navigate unique challenges and opportunities.
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {industries.map((industry, index) => (
             <div key={index} className="text-center p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
               <div className="text-3xl mb-2">{industry.icon}</div>
-              <p className="text-sm font-medium" style={{ color: '#020a1c' }}>{industry.name}</p>
+              <p className="text-sm font-medium text-gray-700">{industry.name}</p>
             </div>
           ))}
         </div>
@@ -226,7 +226,7 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
 
       {/* Success Metrics */}
       <div className="space-y-6 px-6">
-        <h2 className="text-3xl font-bold text-center" style={{ color: '#020a1c' }}>
+        <h2 className="text-3xl font-bold text-center" style={{ color: '#ff7033' }}>
           Proven Results
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -238,7 +238,7 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
               <div className="text-3xl font-bold mb-2 bg-gradient-to-br from-[#ff7033] to-purple-600 bg-clip-text text-transparent">
                 {metric.number}
               </div>
-              <p className="text-sm font-medium" style={{ color: '#020a1c' }}>{metric.label}</p>
+              <p className="text-sm font-medium text-[#94a3b8]">{metric.label}</p>
             </div>
           ))}
         </div>
@@ -246,7 +246,7 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
 
       {/* Technology Stack */}
       <div className="space-y-6 px-6">
-        <h2 className="text-3xl font-bold text-center" style={{ color: '#020a1c' }}>
+        <h2 className="text-3xl font-bold text-center" style={{ color: '#ff7033' }}>
           Technology Stack
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -270,7 +270,7 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
 
       {/* Why Choose Strive */}
       <div className="space-y-6 px-6">
-        <h2 className="text-3xl font-bold text-center" style={{ color: '#020a1c' }}>
+        <h2 className="text-3xl font-bold text-center" style={{ color: '#ff7033' }}>
           Why Choose Strive?
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -280,10 +280,10 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
                 {reason.icon}
               </div>
               <div>
-                <h3 className="font-semibold text-lg mb-2" style={{ color: '#020a1c' }}>
+                <h3 className="font-semibold text-lg mb-2" style={{ color: '#ff7033' }}>
                   {reason.title}
                 </h3>
-                <p className="text-gray-800 text-sm">
+                <p className="text-gray-700 text-sm">
                   {reason.description}
                 </p>
               </div>
@@ -294,55 +294,55 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
 
       {/* Contact Information */}
       <div className="space-y-6 px-6">
-        <h2 className="text-3xl font-bold text-center" style={{ color: '#020a1c' }}>
+        <h2 className="text-3xl font-bold text-center" style={{ color: '#ff7033' }}>
           Get Started Today
         </h2>
         <div className="bg-gradient-to-br from-[#ff7033]/5 to-purple-600/5 rounded-xl p-8 border border-[#ff7033]/20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold mb-4" style={{ color: '#020a1c' }}>
+              <h3 className="text-xl font-semibold mb-4" style={{ color: '#ff7033' }}>
                 Contact Information
               </h3>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <Phone className="w-5 h-5 text-[#ff7033]" />
-                  <span className="text-gray-700">(731)-431-2320</span>
+                  <span className="text-[#94a3b8]">(731)-431-2320</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-[#ff7033]" />
-                  <span className="text-gray-700">contact@strivetech.ai</span>
+                  <span className="text-[#94a3b8]">contact@strivetech.ai</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin className="w-5 h-5 text-[#ff7033]" />
-                  <span className="text-gray-700">Nashville, TN</span>
+                  <span className="text-[#94a3b8]">Nashville, TN</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Clock className="w-5 h-5 text-[#ff7033]" />
-                  <span className="text-gray-700">Mon-Fri: 8:00 AM - 8:00 PM EST</span>
+                  <span className="text-[#94a3b8]">Mon-Fri: 8:00 AM - 8:00 PM EST</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Globe className="w-5 h-5 text-[#ff7033]" />
-                  <span className="text-gray-700">www.strivetech.ai</span>
+                  <span className="text-[#94a3b8]">www.strivetech.ai</span>
                 </div>
               </div>
             </div>
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold mb-4" style={{ color: '#020a1c' }}>
+              <h3 className="text-xl font-semibold mb-4" style={{ color: '#ff7033' }}>
                 Ready to Transform Your Business?
               </h3>
-              <p className="text-gray-800 mb-6">
+              <p className="text-[#94a3b8] mb-6">
                 Schedule a free consultation to discuss how AI can accelerate your growth and competitive advantage.
               </p>
               <div className="space-y-3">
-                <div className="flex items-center space-x-2 text-sm text-gray-800">
+                <div className="flex items-center space-x-2 text-sm text-[#94a3b8]">
                   <CheckCircle className="w-4 h-4 text-green-500" />
                   <span>Free initial consultation</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-800">
+                <div className="flex items-center space-x-2 text-sm text-[#94a3b8]">
                   <CheckCircle className="w-4 h-4 text-green-500" />
                   <span>Custom AI strategy development</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-800">
+                <div className="flex items-center space-x-2 text-sm text-[#94a3b8]">
                   <CheckCircle className="w-4 h-4 text-green-500" />
                   <span>ROI-focused implementation</span>
                 </div>

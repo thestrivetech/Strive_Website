@@ -40,6 +40,9 @@ export interface NewsletterData {
   source?: string;
   content?: string;
   excerpt?: string;
+  title?: string;
+  readingTime?: number;
+  articleUrl?: string;
 }
 
 // Meeting request data interface
@@ -60,6 +63,7 @@ export interface MeetingRequestData {
   timeframe?: string;
   currentChallenges?: string[];
   goals?: string[];
+  preferredContact?: 'email' | 'phone' | 'video-call';
 }
 
 // Service request data interface

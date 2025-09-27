@@ -21,7 +21,7 @@ export const baseSEO: SEOConfig = {
   ogImage: '/images/og-default.jpg',
   ogType: 'website',
   twitterCard: 'summary_large_image',
-  canonical: 'https://strive-tech-website.com',
+  canonical: 'https://strivetech.ai',
 };
 
 // Page-specific SEO configurations
@@ -145,8 +145,8 @@ export const organizationSchema: OrganizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Strive Tech',
-  url: 'https://strive-tech-website.com',
-  logo: 'https://strive-tech-website.com/logo.png',
+  url: 'https://strivetech.ai',
+  logo: 'https://strivetech.ai/logo.png',
   description: 'Leading AI consulting firm specializing in machine learning, automation, and data analytics solutions for businesses.',
   address: {
     '@type': 'PostalAddress',
@@ -281,7 +281,7 @@ export function getPageSEO(pathname: string): SEOConfig {
     ...pageConfig,
     title: pageConfig.title || baseSEO.title,
     description: pageConfig.description || baseSEO.description,
-    canonical: `https://strive-tech-website.com${pathname}`,
+    canonical: `https://strivetech.ai${pathname}`,
     keywords: [...(baseSEO.keywords || []), ...(pageConfig.keywords || [])]
   };
 }

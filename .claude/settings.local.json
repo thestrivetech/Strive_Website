@@ -81,7 +81,12 @@
       "Bash(claude mcp add:*)",
       "Bash(claude config get)",
       "Bash(claude mcp:*)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(timeout 15 npm run dev)",
+      "Read(//c/Users/zochr/.claude/**)",
+      "Bash(claude auth status)",
+      "Bash(sed:*)",
+      "Bash(npx tsx:*)"
     ],
     "deny": [],
     "ask": []

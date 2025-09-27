@@ -34,7 +34,7 @@ import { IndustrySolutionsGrid } from "@/components/industry/industry-solutions-
 
 const Home = () => {
   const { seoConfig } = useSEO();
-  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+  const [selectedIndustry, setSelectedIndustry] = useState<string | null>("healthcare");
   const [selectedSolution, setSelectedSolution] = useState<any | null>(null);
   const [currentResourceIndex, setCurrentResourceIndex] = useState(0);
 
@@ -145,19 +145,19 @@ const Home = () => {
       <section className="py-16 hero-gradient">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div 
-              className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
+            <div
+              className="text-lg md:text-xl lg:text-2xl uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-industry-label"
             >
               AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES
             </div>
-            <h2 
-              className="text-2xl md:text-3xl font-bold mb-4 text-white"
+            <h2
+              className="text-xl md:text-2xl font-bold mb-4 text-white"
               data-testid="text-industry-title"
             >
               No two industries are the same, which is why every solution we deliver is built around your goals
             </h2>
-            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+            <p className="text-white/80 text-base md:text-lg max-w-2xl mx-auto">
               Select your industry below to see proven strategies and results for companies just like yours.
             </p>
           </div>
@@ -444,47 +444,47 @@ const Home = () => {
 
           {/* Resource Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {/* Whitepaper Card - AI & Machine Learning Complete Guide */}
+            {/* Whitepaper Card - Strive Tech Business Solutions Whitepaper */}
             <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 h-full flex flex-col">
               <div className="relative overflow-hidden flex-shrink-0">
-                <img 
-                  src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
-                  alt="AI and machine learning neural network visualization"
+                <img
+                  src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400"
+                  alt="Strive Tech AI business solutions and transformation"
                   className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute top-4 left-4">
                   <Badge className="bg-purple-500 text-white border-0 text-xs px-2 py-1">
-                    WHITEPAPER
+                    FEATURED WHITEPAPER
                   </Badge>
                 </div>
               </div>
-              
+
               <CardContent className="p-6 text-gray-900 flex flex-col flex-grow">
                 <h4 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                  AI & Machine Learning: Complete Guide
+                  Strive Tech Business Tools Whitepaper
                 </h4>
-                
+
                 <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3 flex-grow">
-                  Comprehensive overview of AI/ML technologies, implementation strategies, and business applications for modern enterprises.
+                  Discover how Strive Tech transforms businesses through cutting-edge AI tools. From intelligent automation to predictive analytics, learn how our comprehensive suite drives growth and efficiency.
                 </p>
-                
+
                 <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
                       <FileText className="h-3 w-3" />
-                      Technology Guide
+                      Business Guide
                     </div>
                     <div className="flex items-center gap-1">
                       <Download className="h-3 w-3" />
-                      3,450 downloads
+                      2,543 downloads
                     </div>
                   </div>
                 </div>
-                
-                <Button 
+
+                <Button
                   className="w-full bg-slate-800 text-white hover:bg-primary hover:text-white transition-all duration-300 border-0"
-                  onClick={() => window.location.href = "/resources?filter=Whitepapers&tech=ai-ml"}
+                  onClick={() => window.location.href = "/resources?filter=Whitepapers"}
                 >
                   <Eye className="h-4 w-4 mr-2" />
                   View Details

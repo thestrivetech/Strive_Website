@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MapPin, Phone, Mail, Clock, Calendar, Download, MessageCircle, ChevronDown, ChevronUp, Users, Eye, FileText } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { validatePhone } from "@/lib/validation";
 import ProfessionalBrochure from "@/components/ui/professional-brochure";
-import { generatePDF } from "@/lib/pdf-generator";
+import { generatePDF, generateProfessionalBrochurePDF } from "@/lib/pdf-generator";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -34,6 +34,54 @@ const Contact = () => {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Load saved form data from localStorage on mount
+  useEffect(() => {
+    try {
+      const savedData = localStorage.getItem('contactFormData');
+      if (savedData) {
+        const parsed = JSON.parse(savedData);
+        // Only restore fields that were actually filled
+        setFormData(prev => ({
+          ...prev,
+          firstName: parsed.firstName || prev.firstName,
+          lastName: parsed.lastName || prev.lastName,
+          email: parsed.email || prev.email,
+          company: parsed.company || prev.company,
+          phone: parsed.phone || prev.phone,
+          companySize: parsed.companySize || prev.companySize
+          // Don't restore message or privacyConsent for security
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to load saved contact form data:', error);
+    }
+  }, []);
+
+  // Save form data to localStorage when it changes (debounced)
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      try {
+        // Only save if there's actual data entered
+        if (formData.firstName || formData.lastName || formData.email || formData.company) {
+          const dataToSave = {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            company: formData.company,
+            phone: formData.phone,
+            companySize: formData.companySize
+            // Don't save message or privacyConsent for security
+          };
+          localStorage.setItem('contactFormData', JSON.stringify(dataToSave));
+        }
+      } catch (error) {
+        console.error('Failed to save contact form data:', error);
+      }
+    }, 500); // Debounce by 500ms
+
+    return () => clearTimeout(timeout);
+  }, [formData]);
 
   // Validation function using reusable utility
   const isPhoneValid = (phone: string) => validatePhone(phone, false).isValid;
@@ -96,7 +144,7 @@ const Contact = () => {
     },
     {
       question: "Which industries have you helped?",
-      answer: "We empower teams in manufacturing, finance, logistics, healthcare, retail, and beyond. If your industry isn't listed, chances are, we can help."
+      answer: "We empower teams in real estate, dental practices, finance, logistics, healthcare, and beyond. If your industry isn't listed, chances are, we can help."
     },
     {
       question: "How does Strive protect our data?",
@@ -168,6 +216,13 @@ const Contact = () => {
           description: result.message || "We'll get back to you within one business day. If you schedule a meeting, you'll receive 3 reminders: 24 hours before, 2 hours before, and 15 minutes before your scheduled meeting time.",
         });
 
+        // Clear localStorage
+        try {
+          localStorage.removeItem('contactFormData');
+        } catch (error) {
+          console.error('Failed to clear contact form data:', error);
+        }
+
         // Reset form
         setFormData({
           firstName: "",
@@ -221,11 +276,8 @@ const Contact = () => {
         description: "Please wait while we prepare your brochure download."
       });
 
-      await generatePDF('professional-brochure', {
-        filename: 'Strive-Business-Solutions-Brochure.pdf',
-        quality: 0.95,
-        format: 'a4',
-        orientation: 'portrait'
+      await generateProfessionalBrochurePDF({
+        filename: 'Strive-Business-Solutions-Brochure.pdf'
       });
 
       toast({

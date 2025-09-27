@@ -33,37 +33,37 @@ export const getIndustrySolutions = (industryId: string): IndustrySolution[] => 
 
 // Solution helper functions
 export const getSolutionsByIndustry = (industryValue: string): Solution[] => {
-  // Map industry values to technology names used in solutions
+  // Map industry values to industry names used in solutions
   const industryMapping: Record<string, string[]> = {
     "healthcare": ["Healthcare"],
-    "finance": ["Financial Services", "Finance", "Banking"],
-    "manufacturing": ["Manufacturing", "Smart Manufacturing"],
+    "finance": ["Financial Services"],
+    "manufacturing": ["Manufacturing"],
     "retail": ["Retail", "E-commerce"],
-    "technology": ["Technology", "Technology Companies", "All Software Development", "Enterprise Cybersecurity", "Executive Support", "Sales", "Customer Service", "Smart Cities", "All Knowledge-Intensive Industries"],
+    "technology": ["Technology"],
     "education": ["Education"],
-    "real-estate": ["Real Estate", "Smart Buildings"],
+    "real-estate": ["Real Estate"],
     "legal": ["Legal", "Legal Services"],
-    "logistics": ["Logistics", "Supply Chain", "Logistics & Supply Chain"],
-    "hospitality": ["Hospitality", "Hospitality & Tourism", "Smart Home"],
-    "energy": ["Energy", "Energy & Utilities"],
-    "government": ["Government", "Government & Public Sector", "Security Operations Centers", "Incident Response Teams"],
+    "logistics": ["Supply Chain"],
+    "hospitality": ["Hospitality"],
+    "energy": ["Energy"],
+    "government": ["Government"],
     "insurance": ["Insurance"],
-    "automotive": ["Automotive", "Autonomous Vehicles"],
+    "automotive": ["Automotive"],
     "agriculture": ["Agriculture"],
-    "media": ["Media", "Media & Entertainment", "Content and Media", "Content Creation", "All Content-Driven Industries", "Marketing"],
+    "media": ["Media", "Content Media", "Marketing", "Content Creation"],
     "gaming": ["Gaming"],
     "esports": ["eSports"],
-    "nonprofit": ["Non-profit", "Non-profit Organizations"],
+    "nonprofit": ["Non-profit"],
     "telecommunications": ["Telecommunications"],
     "transportation": ["Transportation"]
   };
   
   const targetIndustries = industryMapping[industryValue] || [];
   return solutions.filter(solution =>
-    solution.technologies.some(tech => 
+    solution.applicableIndustries.some(industry =>
       targetIndustries.some(targetIndustry =>
-        tech.toLowerCase().includes(targetIndustry.toLowerCase()) ||
-        targetIndustry.toLowerCase().includes(tech.toLowerCase())
+        industry.toLowerCase().includes(targetIndustry.toLowerCase()) ||
+        targetIndustry.toLowerCase().includes(industry.toLowerCase())
       )
     )
   );

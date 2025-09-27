@@ -681,27 +681,7 @@ const Request = () => {
                           {requestTypeOptions.map((option) => (
                             <div
                               key={option.value}
-                              className="border border-gray-300 rounded-lg p-3 md:p-4 bg-white/10 backdrop-blur-sm cursor-pointer hover:bg-white/20 transition-colors"
-                              onClick={(e) => {
-                                // Prevent event bubbling conflicts with checkbox
-                                const target = e.target as HTMLElement;
-                                const isCheckboxClick = target.closest('button[role="checkbox"]') || 
-                                                      target.closest('[data-radix-collection-item]') ||
-                                                      target.hasAttribute('role') ||
-                                                      target.tagName.toLowerCase() === 'button';
-                                
-                                if (isCheckboxClick) {
-                                  return;
-                                }
-                                
-                                // Safe toggle when clicking the card area (not the checkbox)
-                                try {
-                                  const isCurrentlyChecked = formData.requestTypes.includes(option.value);
-                                  handleCheckboxChange("requestTypes", option.value, !isCurrentlyChecked);
-                                } catch (error) {
-                                  console.error('Error toggling service request:', error);
-                                }
-                              }}
+                              className="border border-gray-300 rounded-lg p-3 md:p-4 bg-white/10 backdrop-blur-sm"
                             >
                               <div className="flex items-center space-x-3">
                                 <Checkbox
@@ -712,10 +692,10 @@ const Request = () => {
                                   }}
                                   className="border-white data-[state=checked]:bg-[#ff7033] data-[state=checked]:border-[#ff7033]"
                                 />
-                                <div>
+                                <div className="flex-1">
                                   <Label
                                     htmlFor={option.value}
-                                    className="text-white font-semibold cursor-pointer text-sm md:text-base"
+                                    className="text-white font-semibold cursor-pointer text-sm md:text-base block"
                                   >
                                     {option.label}
                                   </Label>

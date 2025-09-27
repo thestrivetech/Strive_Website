@@ -32,7 +32,7 @@ export const useSEO = (options: UseSEOOptions = {}) => {
       ...(options.noindex !== undefined && { noindex: options.noindex }),
       ...(options.nofollow !== undefined && { nofollow: options.nofollow }),
       ...(options.structuredData && { structuredData: options.structuredData }),
-      canonical: `https://strive-tech-website.com${location}`
+      canonical: `https://strivetech.ai${location}`
     };
     
     return customSEO;

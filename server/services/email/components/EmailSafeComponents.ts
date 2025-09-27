@@ -1,21 +1,22 @@
 /**
  * Email-Safe Component Library
- * 
+ *
  * Built specifically for maximum email client compatibility using:
  * - Table-based layouts only
- * - Inline styles exclusively
+ * - Enhanced CSS framework integration
  * - Email-safe colors and fonts
  * - Outlook VML support where needed
  */
 
-import fs from 'fs';
-import path from 'path';
+import { defaultEmailStyles } from '../styles/EmailStyles.js';
 
-// Email-safe color palette - Updated Brand Colors
+
+// Email-safe color palette - Website-Matched Brand Colors
 export const EMAIL_COLORS = {
   primary: '#ff7033',
-  primaryDark: '#d6551e', 
+  primaryDark: '#d6551e',
   darkBlue: '#020a1c',
+  darkBlueMid: '#0f172a',
   secondary: '#0066cc',
   success: '#28a745',
   warning: '#ffc107',
@@ -26,6 +27,11 @@ export const EMAIL_COLORS = {
   lightGray: '#cccccc',
   background: '#ffffffeb',
   white: '#ffffff',
+  white90: 'rgba(255,255,255,0.9)',
+  white80: 'rgba(255,255,255,0.8)',
+  white60: 'rgba(255,255,255,0.6)',
+  white20: 'rgba(255,255,255,0.2)',
+  white10: 'rgba(255,255,255,0.1)',
   black: '#000000'
 } as const;
 
@@ -38,6 +44,7 @@ export const EMAIL_FONTS = {
 
 /**
  * Creates the main email wrapper with proper table structure
+ * Enhanced with mobile responsiveness and accessibility
  */
 export function createEmailWrapper(content: string, maxWidth: number = 600): string {
   return `
@@ -47,6 +54,7 @@ export function createEmailWrapper(content: string, maxWidth: number = 600): str
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="x-apple-disable-message-reformatting">
+  <meta name="format-detection" content="telephone=no">
   <title>Strive Tech</title>
   <!--[if mso]>
   <xml>
@@ -55,12 +63,80 @@ export function createEmailWrapper(content: string, maxWidth: number = 600): str
     </o:OfficeDocumentSettings>
   </xml>
   <![endif]-->
+
+  <!-- Enhanced CSS Framework Integration -->
+  ${defaultEmailStyles.generateCompleteCSS()}
+
+  <!-- Mobile Responsive Styles -->
+  <style type="text/css">
+    /* Mobile-first responsive design */
+    @media only screen and (max-width: 600px) {
+      .email-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 0 !important;
+      }
+      .mobile-padding {
+        padding: 20px !important;
+      }
+      .mobile-hide {
+        display: none !important;
+      }
+      .mobile-text-center {
+        text-align: center !important;
+      }
+      .mobile-full-width {
+        width: 100% !important;
+        display: block !important;
+      }
+      /* Increase touch target sizes for mobile */
+      .button-link {
+        min-height: 44px !important;
+        padding: 14px 30px !important;
+        font-size: 16px !important;
+      }
+      /* Stack columns on mobile */
+      .mobile-stack {
+        display: block !important;
+        width: 100% !important;
+      }
+      /* Adjust font sizes for mobile readability */
+      .heading-xl {
+        font-size: 28px !important;
+      }
+      .heading-lg {
+        font-size: 24px !important;
+      }
+      .heading-md {
+        font-size: 20px !important;
+      }
+      /* Logo responsive sizing */
+      .email-logo {
+        width: 140px !important;
+        height: auto !important;
+      }
+      .email-logo-icon {
+        width: 44px !important;
+        height: 44px !important;
+      }
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      .email-body {
+        background-color: #1a1a1a !important;
+      }
+      .email-container {
+        background-color: #2d2d2d !important;
+      }
+    }
+  </style>
 </head>
-<body style="margin: 0; padding: 0; background-color: ${EMAIL_COLORS.background}; font-family: ${EMAIL_FONTS.primary};">
-  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: ${EMAIL_COLORS.background};">
+<body class="email-body" style="margin: 0; padding: 0; background-color: ${EMAIL_COLORS.background}; font-family: ${EMAIL_FONTS.primary};">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="email-wrapper" style="background-color: ${EMAIL_COLORS.background};">
     <tr>
-      <td align="center" style="padding: 20px 0;">
-        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="${maxWidth}" style="max-width: ${maxWidth}px; background-color: ${EMAIL_COLORS.white}; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <td align="center" style="padding: 20px 10px;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="${maxWidth}" class="email-container" style="max-width: ${maxWidth}px; background-color: ${EMAIL_COLORS.white}; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
           ${content}
         </table>
       </td>
@@ -71,37 +147,149 @@ export function createEmailWrapper(content: string, maxWidth: number = 600): str
 }
 
 /**
- * Creates email header with custom STRIVE design
+ * Creates email header with logo image - Website-matched design
+ * Real logo image with exact gradient and styling from website
  */
-export function createEmailHeader(): string {
-  // Base64 encoded custom header image
-  const headerBase64 = fs.readFileSync(path.join(process.cwd(), 'attached_assets/email-templates/Email Header&Footer/Email Header.png')).toString('base64');
-  
+export function createEmailHeader(emailType?: string): string {
   return `
   <tr>
-    <td style="padding: 0; margin: 0; text-align: center;">
-      <img src="data:image/png;base64,${headerBase64}" 
-           alt="Strive Tech Header" 
-           style="width: 100%; max-width: 600px; height: auto; display: block; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" 
-           border="0">
+    <td style="padding: 24px 40px; background: linear-gradient(135deg, ${EMAIL_COLORS.darkBlue} 0%, ${EMAIL_COLORS.darkBlueMid} 100%); border-bottom: 1px solid ${EMAIL_COLORS.white10}; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+          <td align="center">
+            <a href="https://strivetech.ai" style="text-decoration: none; display: inline-block;">
+              <img
+                src="https://strivetech.ai/email-assets/strive-logo-200.png"
+                alt="Strive Tech - AI Solutions & Innovation"
+                width="200"
+                height="43"
+                class="email-logo"
+                style="display: block; border: 0; outline: none;"
+              />
+            </a>
+            ${emailType ? `
+            <div style="margin-top: 12px; color: ${EMAIL_COLORS.white80}; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;">
+              ${emailType}
+            </div>
+            ` : ''}
+          </td>
+        </tr>
+      </table>
     </td>
   </tr>`;
 }
 
 /**
- * Creates email footer with custom STRIVE design
+ * Creates email footer with logo - Website-matched design
+ * Real logo icon with exact gradient and styling from website
  */
-export function createEmailFooter(): string {
-  // Base64 encoded custom footer image
-  const footerBase64 = fs.readFileSync(path.join(process.cwd(), 'attached_assets/email-templates/Email Header&Footer/Email-footer.png')).toString('base64');
-  
+export function createEmailFooter(includeUnsubscribe: boolean = false): string {
   return `
   <tr>
-    <td style="padding: 0; margin: 0; text-align: center;">
-      <img src="data:image/png;base64,${footerBase64}" 
-           alt="Strive Tech Footer" 
-           style="width: 100%; max-width: 600px; height: auto; display: block; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" 
-           border="0">
+    <td style="padding: 40px; background: linear-gradient(135deg, ${EMAIL_COLORS.darkBlue} 0%, ${EMAIL_COLORS.darkBlueMid} 100%); text-align: center; border-top: 1px solid ${EMAIL_COLORS.white10};">
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+          <td style="padding-bottom: 20px;">
+            <!-- ST Icon Logo -->
+            <img
+              src="https://strivetech.ai/email-assets/st-icon-60.png"
+              alt="ST"
+              width="60"
+              height="60"
+              class="email-logo-icon"
+              style="display: block; margin: 0 auto 16px; border: 0;"
+            />
+
+            <!-- Company Info -->
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tr>
+                <td style="text-align: center; padding-bottom: 20px;">
+                  <div style="color: ${EMAIL_COLORS.white}; font-size: 24px; font-weight: 900; margin-bottom: 8px; font-family: ${EMAIL_FONTS.primary};">
+                    STRIVE<span style="color: ${EMAIL_COLORS.primary};">TECH</span>
+                  </div>
+                  <div style="color: ${EMAIL_COLORS.white80}; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600;">
+                    AI Solutions & Innovation
+                  </div>
+                  <div style="color: ${EMAIL_COLORS.white60}; font-size: 11px; margin-top: 8px;">
+                    📍 Memphis, TN | Serving clients nationwide
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Contact Info -->
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-top: 1px solid ${EMAIL_COLORS.white10}; padding-top: 20px; margin-top: 5px;">
+              <tr>
+                <td style="text-align: center; padding: 15px 0;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 0 auto;">
+                    <tr>
+                      <td style="padding: 0 12px; border-right: 1px solid ${EMAIL_COLORS.white20};">
+                        <a href="mailto:contact@strivetech.ai" style="color: ${EMAIL_COLORS.primary}; text-decoration: none; font-size: 13px; font-weight: 500;">📧 contact@strivetech.ai</a>
+                      </td>
+                      <td style="padding: 0 12px; border-right: 1px solid ${EMAIL_COLORS.white20};">
+                        <a href="https://strivetech.ai" style="color: ${EMAIL_COLORS.primary}; text-decoration: none; font-size: 13px; font-weight: 500;">🌐 strivetech.ai</a>
+                      </td>
+                      <td style="padding: 0 12px;">
+                        <a href="tel:+17314312320" style="color: ${EMAIL_COLORS.white80}; text-decoration: none; font-size: 13px;">📞 (731) 431-2320</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Social Media Links -->
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-top: 20px;">
+              <tr>
+                <td style="text-align: center; padding: 15px 0;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 0 auto;">
+                    <tr>
+                      <td style="padding: 0 10px;">
+                        <a href="https://www.linkedin.com/company/strivetech" style="display: inline-block; width: 36px; height: 36px; background-color: rgba(255,112,51,0.15); border-radius: 6px; text-align: center; line-height: 36px; text-decoration: none; font-size: 18px; transition: background-color 0.3s;" title="LinkedIn">
+                          <span style="color: ${EMAIL_COLORS.primary};">in</span>
+                        </a>
+                      </td>
+                      <td style="padding: 0 10px;">
+                        <a href="https://twitter.com/strivetech" style="display: inline-block; width: 36px; height: 36px; background-color: rgba(255,112,51,0.15); border-radius: 6px; text-align: center; line-height: 36px; text-decoration: none; font-size: 18px;" title="Twitter/X">
+                          <span style="color: ${EMAIL_COLORS.primary};">𝕏</span>
+                        </a>
+                      </td>
+                      <td style="padding: 0 10px;">
+                        <a href="https://github.com/strivetech" style="display: inline-block; width: 36px; height: 36px; background-color: rgba(255,112,51,0.15); border-radius: 6px; text-align: center; line-height: 36px; text-decoration: none; font-size: 18px;" title="GitHub">
+                          <span style="color: ${EMAIL_COLORS.primary};">⚡</span>
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Legal Links & Copyright -->
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tr>
+                <td style="text-align: center; padding-top: 20px; border-top: 1px solid ${EMAIL_COLORS.white10}; margin-top: 20px;">
+                  <!-- Legal Links -->
+                  <div style="margin-bottom: 15px;">
+                    <a href="https://strivetech.ai/privacy" style="color: ${EMAIL_COLORS.white60}; text-decoration: none; font-size: 11px; margin: 0 10px;">Privacy Policy</a>
+                    <span style="color: ${EMAIL_COLORS.white20};">|</span>
+                    <a href="https://strivetech.ai/terms" style="color: ${EMAIL_COLORS.white60}; text-decoration: none; font-size: 11px; margin: 0 10px;">Terms of Service</a>
+                    ${includeUnsubscribe ? `
+                    <span style="color: ${EMAIL_COLORS.white20};">|</span>
+                    <a href="{{unsubscribe_url}}" style="color: ${EMAIL_COLORS.white60}; text-decoration: none; font-size: 11px; margin: 0 10px;">Unsubscribe</a>
+                    ` : ''}
+                  </div>
+                  <!-- Copyright -->
+                  <p style="color: ${EMAIL_COLORS.white60}; font-size: 11px; margin: 5px 0; line-height: 16px;">
+                    © ${new Date().getFullYear()} Strive Tech, LLC. All rights reserved.<br>
+                    <span style="font-size: 10px; color: ${EMAIL_COLORS.white60};">Empowering businesses with cutting-edge AI solutions since 2024.</span>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
     </td>
   </tr>`;
 }
@@ -110,24 +298,24 @@ export function createEmailFooter(): string {
  * Creates a hero section with title and subtitle
  */
 export function createHeroSection(
-  title: string, 
-  subtitle: string, 
+  title: string,
+  subtitle: string,
   icon: string = '🚀',
   backgroundColor: string = EMAIL_COLORS.white
 ): string {
   return `
   <tr>
-    <td style="background-color: ${backgroundColor}; padding: 40px 40px 30px; text-align: center;">
+    <td class="hero-section" style="background-color: ${backgroundColor}; padding: 40px 40px 30px; text-align: center;">
       <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
         <tr>
           <td align="center">
-            <div style="background-color: ${EMAIL_COLORS.primary}; color: ${EMAIL_COLORS.white}; width: 60px; height: 60px; border-radius: 30px; font-size: 24px; line-height: 60px; margin: 0 auto 20px; text-align: center;">
+            <div class="hero-icon" style="background-color: ${EMAIL_COLORS.primary}; color: ${EMAIL_COLORS.white}; width: 60px; height: 60px; border-radius: 30px; font-size: 24px; line-height: 60px; margin: 0 auto 20px; text-align: center;">
               ${icon}
             </div>
-            <h1 style="color: ${EMAIL_COLORS.dark}; font-size: 28px; font-weight: bold; margin: 0 0 15px 0; line-height: 34px;">
+            <h1 class="heading-xl" style="color: ${EMAIL_COLORS.dark}; margin: 0 0 15px 0;">
               ${title}
             </h1>
-            <p style="color: ${EMAIL_COLORS.darkGray}; font-size: 16px; line-height: 24px; margin: 0; max-width: 480px; margin-left: auto; margin-right: auto;">
+            <p class="body-base" style="color: ${EMAIL_COLORS.darkGray}; margin: 0; max-width: 480px; margin-left: auto; margin-right: auto;">
               ${subtitle}
             </p>
           </td>
@@ -153,8 +341,8 @@ export function createContentSection(content: string, backgroundColor: string = 
  * Creates an email-safe button using table structure
  */
 export function createButton(
-  text: string, 
-  url: string, 
+  text: string,
+  url: string,
   buttonColor: string = EMAIL_COLORS.primary,
   textColor: string = EMAIL_COLORS.white
 ): string {
@@ -166,10 +354,10 @@ export function createButton(
   </v:roundrect>
   <![endif]-->
   <!--[if !mso]><!-->
-  <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 20px auto;">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" class="email-button" style="margin: 20px auto;">
     <tr>
-      <td style="background-color: ${buttonColor}; border-radius: 6px; text-align: center;">
-        <a href="${url}" style="display: inline-block; color: ${textColor}; font-family: ${EMAIL_FONTS.primary}; font-size: 16px; font-weight: bold; text-decoration: none; padding: 12px 30px; border-radius: 6px;">
+      <td class="button-cell" style="background-color: ${buttonColor}; border-radius: 6px; text-align: center;">
+        <a href="${url}" class="button-link body-base" style="display: inline-block; color: ${textColor}; font-family: ${EMAIL_FONTS.primary}; font-weight: bold; text-decoration: none; padding: 12px 30px; border-radius: 6px;">
           ${text}
         </a>
       </td>
@@ -183,13 +371,13 @@ export function createButton(
  */
 export function createInfoCard(title: string, content: string, borderColor: string = EMAIL_COLORS.lightGray): string {
   return `
-  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 20px 0; border: 1px solid ${borderColor}; border-radius: 6px;">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="info-card" style="margin: 20px 0; border: 1px solid ${borderColor}; border-radius: 6px;">
     <tr>
-      <td style="padding: 20px; background-color: ${EMAIL_COLORS.white}; border-radius: 6px;">
-        <h3 style="color: ${EMAIL_COLORS.dark}; font-size: 16px; font-weight: bold; margin: 0 0 10px 0;">
+      <td class="card-content" style="padding: 20px; background-color: ${EMAIL_COLORS.white}; border-radius: 6px;">
+        <h3 class="heading-md" style="color: ${EMAIL_COLORS.dark}; margin: 0 0 10px 0;">
           ${title}
         </h3>
-        <div style="color: ${EMAIL_COLORS.darkGray}; font-size: 14px; line-height: 20px;">
+        <div class="body-sm" style="color: ${EMAIL_COLORS.darkGray};">
           ${content}
         </div>
       </td>

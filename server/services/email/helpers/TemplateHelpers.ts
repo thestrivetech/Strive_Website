@@ -3,7 +3,7 @@
  * Extracts common functionality to reduce code duplication
  */
 
-import type { ServiceRequestData, MeetingRequestData } from '../types/index.js';
+import type { ServiceRequestData, MeetingRequestData, ContactFormData } from '../types/index.js';
 
 /**
  * Priority levels with consistent thresholds across templates
@@ -39,6 +39,12 @@ export function calculateServiceRequestPriority(data: ServiceRequestData): {
   level: PriorityLevel;
   factors: string[];
   urgencyIndicators: string[];
+  color: string;
+  action: string;
+  responseTime: string;
+  potentialValue: string;
+  indicators: string[];
+  nextSteps: string;
 } {
   let score = 0;
   const factors: string[] = [];
@@ -108,18 +114,55 @@ export function calculateServiceRequestPriority(data: ServiceRequestData): {
 
   // Determine priority level (ORIGINAL THRESHOLDS)
   let level: PriorityLevel;
+  let color: string;
+  let action: string;
+  let responseTime: string;
+  let potentialValue: string;
+  let nextSteps: string;
+
   if (score >= 80) {
     level = 'urgent';
+    color = '#dc3545';
+    action = 'Contact within 1 hour';
+    responseTime = '1 hour';
+    potentialValue = '$100,000+ potential';
+    nextSteps = 'Schedule immediate discovery call with senior team';
     urgencyIndicators.push('🚨 Urgent priority level');
-  } else if (score >= 60) { // FIXED: Original was 60, not 80
+  } else if (score >= 60) {
     level = 'high';
+    color = '#fd7e14';
+    action = 'Contact within 4 hours';
+    responseTime = '4 hours';
+    potentialValue = '$50,000-$100,000 potential';
+    nextSteps = 'Schedule discovery call within 24 hours';
   } else if (score >= 40) {
     level = 'medium';
+    color = '#ffc107';
+    action = 'Contact within 12 hours';
+    responseTime = '12 hours';
+    potentialValue = '$25,000-$50,000 potential';
+    nextSteps = 'Send detailed response and schedule consultation';
   } else {
     level = 'low';
+    color = '#6c757d';
+    action = 'Contact within 24 hours';
+    responseTime = '24 hours';
+    potentialValue = 'Up to $25,000 potential';
+    nextSteps = 'Send standard response with resources';
   }
 
-  return { score, level, factors, urgencyIndicators };
+  return {
+    score,
+    level,
+    factors,
+    urgencyIndicators,
+    color,
+    action,
+    responseTime,
+    potentialValue,
+    indicators: factors, // alias for backward compatibility
+    nextSteps
+  };
 }
 
 /**
@@ -416,6 +459,149 @@ export function parseRequestTypes(requestTypes: string): Array<{
 }
 
 /**
+ * Calculate priority score for contact form leads
+ */
+export function calculateContactFormPriority(data: ContactFormData): {
+  score: number;
+  level: PriorityLevel;
+  factors: string[];
+  urgencyIndicators: string[];
+  responseTime: string;
+  potentialValue: string;
+  nextSteps: string;
+  color: string;
+  action: string;
+  indicators: string[];
+} {
+  let score = 0;
+  const factors: string[] = [];
+  const urgencyIndicators: string[] = [];
+
+  // Company scoring
+  if (data.company) {
+    score += 20;
+    factors.push('Company information provided');
+  }
+
+  // Company size scoring
+  if (data.companySize) {
+    if (data.companySize.includes('1000+') || data.companySize.includes('Enterprise')) {
+      score += 30;
+      factors.push('Enterprise scale (1000+ employees)');
+      urgencyIndicators.push('🏢 Major enterprise client');
+    } else if (data.companySize.includes('500-999')) {
+      score += 25;
+      factors.push('Large company (500-999 employees)');
+    } else if (data.companySize.includes('100-499')) {
+      score += 20;
+      factors.push('Medium company (100-499 employees)');
+    } else if (data.companySize.includes('50-100')) {
+      score += 15;
+      factors.push('Small-medium company (50-100 employees)');
+    } else {
+      score += 10;
+      factors.push('Small company opportunity');
+    }
+  }
+
+  // Job title scoring
+  if (data.jobTitle) {
+    const title = data.jobTitle.toLowerCase();
+    if (title.includes('ceo') || title.includes('cto') || title.includes('president') || title.includes('founder')) {
+      score += 25;
+      factors.push('Executive role');
+      urgencyIndicators.push('👑 C-level executive');
+    } else if (title.includes('director') || title.includes('vp') || title.includes('vice president')) {
+      score += 20;
+      factors.push('Director level');
+    } else if (title.includes('manager') || title.includes('lead')) {
+      score += 15;
+      factors.push('Management role');
+    }
+  }
+
+  // Message content analysis
+  if (data.message) {
+    const message = data.message.toLowerCase();
+    const urgentKeywords = ['urgent', 'asap', 'quickly', 'immediate', 'deadline', 'rush'];
+    const valueKeywords = ['budget', 'investment', 'million', 'enterprise', 'scale', 'revenue'];
+    const techKeywords = ['ai', 'automation', 'integration', 'system', 'platform', 'machine learning'];
+
+    urgentKeywords.forEach(keyword => {
+      if (message.includes(keyword)) {
+        score += 5;
+        urgencyIndicators.push(`⚡ Urgent keyword: ${keyword}`);
+      }
+    });
+
+    valueKeywords.forEach(keyword => {
+      if (message.includes(keyword)) {
+        score += 5;
+        factors.push(`💰 High-value indicator: ${keyword}`);
+      }
+    });
+
+    techKeywords.forEach(keyword => {
+      if (message.includes(keyword)) {
+        score += 3;
+        factors.push(`🔧 Technical requirement: ${keyword}`);
+      }
+    });
+  }
+
+  // Determine priority level
+  let level: PriorityLevel;
+  let responseTime: string;
+  let potentialValue: string;
+  let nextSteps: string;
+  let color: string;
+  let action: string;
+
+  if (score >= 70) {
+    level = 'urgent';
+    responseTime = '2 hours';
+    potentialValue = '$100K-$500K';
+    nextSteps = 'Immediate response, schedule executive call';
+    color = '#dc3545';
+    action = 'Contact within 2 hours';
+  } else if (score >= 50) {
+    level = 'high';
+    responseTime = '4 hours';
+    potentialValue = '$50K-$200K';
+    nextSteps = 'Same-day response, schedule discovery call';
+    color = '#fd7e14';
+    action = 'Contact within 4 hours';
+  } else if (score >= 30) {
+    level = 'medium';
+    responseTime = '24 hours';
+    potentialValue = '$10K-$100K';
+    nextSteps = 'Next business day response, qualify lead';
+    color = '#ffc107';
+    action = 'Contact within 24 hours';
+  } else {
+    level = 'low';
+    responseTime = '48 hours';
+    potentialValue = '$5K-$50K';
+    nextSteps = 'Standard response, nurture lead';
+    color = '#6c757d';
+    action = 'Contact within 48 hours';
+  }
+
+  return {
+    score,
+    level,
+    factors,
+    urgencyIndicators,
+    responseTime,
+    potentialValue,
+    nextSteps,
+    color,
+    action,
+    indicators: factors // alias for backward compatibility
+  };
+}
+
+/**
  * Generate response deadline based on priority level
  */
 export function getResponseDeadline(priorityLevel: PriorityLevel): {
@@ -462,6 +648,7 @@ export function getResponseDeadline(priorityLevel: PriorityLevel): {
 export const TemplateHelpers = {
   calculateServiceRequestPriority,
   calculateMeetingRequestPriority,
+  calculateContactFormPriority,
   calculateServiceComplexity,
   determineServiceTeam,
   calculateRevenuePotential,

@@ -797,14 +797,17 @@ const Resources = () => {
       {/* Resource Library Section - White Background */}
       <section id="resource-library" className="py-16 bg-[#ffffffeb] shadow-lg">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 text-slate-800" data-testid="text-library-title">
-              Explore Our Resource Library
-            </h2>
-            <p className="text-slate-600 text-lg" data-testid="text-library-subtitle">
-              Find tailored playbooks, case studies, and guides, each designed to help you solve your top business challenges with AI.
-            </p>
-          </div>
+          {/* Only show "Explore Our Resource Library" on All filter */}
+          {activeFilter === "All" && (
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4 text-slate-800" data-testid="text-library-title">
+                Explore Our Resource Library
+              </h2>
+              <p className="text-slate-600 text-lg" data-testid="text-library-subtitle">
+                Find tailored playbooks, case studies, and guides, each designed to help you solve your top business challenges with AI.
+              </p>
+            </div>
+          )}
 
           {/* Featured Resource - Only show on All or Whitepapers view */}
           {(activeFilter === "All" || activeFilter === "Whitepapers") && (
@@ -868,7 +871,74 @@ const Resources = () => {
             </div>
           )}
 
-          {/* Resource Categories */}
+          {/* Section Descriptions - Moved before filter buttons */}
+          {activeFilter === "All" && (
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                Complete Resource <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Collection</span>
+              </h3>
+              <p className="text-slate-600 text-lg">
+                Browse our full library of blog posts, case studies, whitepapers, tools, and interactive quizzes.
+              </p>
+            </div>
+          )}
+
+          {activeFilter === "Blog Posts" && (
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                Expert Insights & <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Tutorials</span>
+              </h3>
+              <p className="text-slate-600 text-lg">
+                Stay ahead with the latest AI trends, practical tutorials, and expert analysis from industry leaders.
+              </p>
+            </div>
+          )}
+
+          {activeFilter === "Case Studies" && (
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                Success Stories & <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Impact</span>
+              </h3>
+              <p className="text-slate-600 text-lg">
+                Real, verified case studies from documented implementations with published results you can trust.
+              </p>
+            </div>
+          )}
+
+          {activeFilter === "Whitepapers" && (
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                Research & Deep <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Dives</span>
+              </h3>
+              <p className="text-slate-600 text-lg">
+                Access comprehensive guides, technical frameworks, and strategic insights for enterprise AI adoption.
+              </p>
+            </div>
+          )}
+
+          {activeFilter === "Tools & Tech" && (
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                Technology <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Stack</span>
+              </h3>
+              <p className="text-slate-600 text-lg">
+                Explore the cutting-edge technologies powering our solutions and learn how to implement them.
+              </p>
+            </div>
+          )}
+
+          {activeFilter === "Quizzes" && (
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4 text-slate-800">
+                AI Knowledge <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Quizzes</span>
+              </h3>
+              <p className="text-slate-600 text-lg">
+                Test your AI expertise across different domains and difficulty levels.
+              </p>
+            </div>
+          )}
+
+          {/* Resource Categories - Filter buttons moved after section titles */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8 md:mb-12">
             {/* Mobile Dropdown */}
             <div className="sm:hidden w-full max-w-xs">
@@ -970,73 +1040,6 @@ const Resources = () => {
               </Select>
             </div>
           </div>
-
-          {/* Section Descriptions */}
-          {activeFilter === "All" && (
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                Complete Resource <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Collection</span>
-              </h3>
-              <p className="text-slate-600 text-lg">
-                Browse our full library of blog posts, case studies, whitepapers, tools, and interactive quizzes.
-              </p>
-            </div>
-          )}
-
-          {activeFilter === "Blog Posts" && (
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                Expert Insights & <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Tutorials</span>
-              </h3>
-              <p className="text-slate-600 text-lg">
-                Stay ahead with the latest AI trends, practical tutorials, and expert analysis from industry leaders.
-              </p>
-            </div>
-          )}
-
-          {activeFilter === "Case Studies" && (
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                Success Stories & <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Impact</span>
-              </h3>
-              <p className="text-slate-600 text-lg">
-                Discover how leading organizations transformed their operations with AI-powered solutions.
-              </p>
-            </div>
-          )}
-
-          {activeFilter === "Whitepapers" && (
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                Research & Deep <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Dives</span>
-              </h3>
-              <p className="text-slate-600 text-lg">
-                Access comprehensive guides, technical frameworks, and strategic insights for enterprise AI adoption.
-              </p>
-            </div>
-          )}
-
-          {activeFilter === "Tools & Tech" && (
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                Technology <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Stack</span>
-              </h3>
-              <p className="text-slate-600 text-lg">
-                Explore the cutting-edge technologies powering our solutions and learn how to implement them.
-              </p>
-            </div>
-          )}
-
-          {activeFilter === "Quizzes" && (
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                AI Knowledge <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Quizzes</span>
-              </h3>
-              <p className="text-slate-600 text-lg">
-                Test your AI expertise across different domains and difficulty levels.
-              </p>
-            </div>
-          )}
 
           {/* SubFilter Bar - Only show when a specific filter is selected */}
           {activeFilter !== "All" && subFilterOptions.length > 0 && (

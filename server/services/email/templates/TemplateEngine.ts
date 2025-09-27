@@ -7,12 +7,23 @@
 
 import {
   ContactFormConfirmationTemplate,
-  ContactFormNotificationTemplate,
+  ContactFormNotificationTemplate
+} from './ContactFormTemplates.js';
+
+import {
   NewsletterConfirmationTemplate,
-  NewsletterEmailTemplate,
+  NewsletterEmailTemplate
+} from './NewsletterTemplates.js';
+
+import {
   ServiceRequestNotificationTemplate,
   ServiceRequestConfirmationTemplate
-} from './EmailTemplateBase.js';
+} from './ServiceRequestTemplates.js';
+
+import {
+  MeetingRequestConfirmationTemplate,
+  MeetingRequestNotificationTemplate
+} from './MeetingRequestTemplates.js';
 
 import {
   EmailTemplateData,
@@ -43,176 +54,6 @@ export interface EmailTemplate {
   render(data: EmailTemplateData, options?: TemplateRenderOptions): Promise<TemplateResult>;
 }
 
-/**
- * Simple meeting request template (placeholder for future enhancement)
- */
-class MeetingRequestNotificationTemplate implements EmailTemplate {
-  async render(data: EmailTemplateData, options: TemplateRenderOptions = {}): Promise<TemplateResult> {
-    const meetingData = data as any; // Type as needed when MeetingRequestData is defined
-
-    const subject = `New Meeting Request from ${meetingData.firstName} ${meetingData.lastName}`;
-    const html = `
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Strive Tech - Meeting Request</title>
-</head>
-<body style="margin: 0; padding: 0; background-color: #f8f9fa; font-family: Arial, Helvetica, sans-serif;">
-  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-    <tr>
-      <td align="center" style="padding: 20px 0;">
-        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="max-width: 600px; background-color: #ffffff;">
-          <tr>
-            <td style="padding: 40px; background-color: #333333; text-align: center;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 24px;">New Meeting Request</h1>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 40px;">
-              <h2 style="color: #333333; margin: 0 0 20px 0;">Meeting Request Details</h2>
-              <p><strong>From:</strong> ${meetingData.firstName} ${meetingData.lastName}</p>
-              <p><strong>Email:</strong> ${meetingData.email}</p>
-              <p><strong>Company:</strong> ${meetingData.company || 'Not specified'}</p>
-              <p><strong>Meeting Type:</strong> ${meetingData.meetingType}</p>
-              <p><strong>Message:</strong></p>
-              <div style="background-color: #f8f9fa; padding: 20px; border-radius: 6px; margin: 10px 0;">
-                ${meetingData.message || 'No message provided'}
-              </div>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>`;
-
-    const text = `
-New Meeting Request
-
-From: ${meetingData.firstName} ${meetingData.lastName}
-Email: ${meetingData.email}
-Company: ${meetingData.company || 'Not specified'}
-Meeting Type: ${meetingData.meetingType}
-Message: ${meetingData.message || 'No message provided'}
-
----
-Strive Tech Team
-    `.trim();
-
-    return {
-      subject,
-      html,
-      text,
-      success: true
-    };
-  }
-}
-
-/**
- * Meeting Request Confirmation Template - Sent to users who request meetings
- */
-class MeetingRequestConfirmationTemplate implements EmailTemplate {
-  async render(data: EmailTemplateData, options: TemplateRenderOptions = {}): Promise<TemplateResult> {
-    const meetingData = data as any; // Type as needed when MeetingRequestData is defined
-
-    const subject = `Meeting Request Confirmed - ${meetingData.firstName}!`;
-    const html = `
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Strive Tech - Meeting Request Confirmation</title>
-</head>
-<body style="margin: 0; padding: 0; background-color: #f8f9fa; font-family: Arial, Helvetica, sans-serif;">
-  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-    <tr>
-      <td align="center" style="padding: 20px 0;">
-        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="max-width: 600px; background-color: #ffffff;">
-          <tr>
-            <td style="padding: 40px; background: linear-gradient(135deg, #ff7033 0%, #9333ea 100%); text-align: center;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 24px;">Meeting Request Received</h1>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 40px;">
-              <h2 style="color: #333333; margin: 0 0 20px 0;">Thank you, ${meetingData.firstName}!</h2>
-              <p style="margin: 0 0 20px 0; line-height: 1.6;">We've received your meeting request and will get back to you within 24 hours to schedule your ${meetingData.meetingType}.</p>
-              
-              <div style="background-color: #f8f9fa; padding: 20px; border-radius: 6px; margin: 20px 0;">
-                <h3 style="color: #ff7033; margin: 0 0 15px 0;">Your Request Details:</h3>
-                <p style="margin: 5px 0;"><strong>Meeting Type:</strong> ${meetingData.meetingType}</p>
-                <p style="margin: 5px 0;"><strong>Company:</strong> ${meetingData.company || 'Individual'}</p>
-                ${meetingData.message ? `<p style="margin: 15px 0 5px 0;"><strong>Your Message:</strong></p><p style="margin: 5px 0; font-style: italic;">"${meetingData.message}"</p>` : ''}
-              </div>
-
-              <div style="background-color: #fff5f0; border-left: 4px solid #ff7033; padding: 20px; margin: 20px 0;">
-                <h3 style="color: #ff7033; margin: 0 0 10px 0;">What happens next?</h3>
-                <ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
-                  <li>Our team will review your request within 24 hours</li>
-                  <li>We'll send you a calendar invitation with available time slots</li>
-                  <li>You'll receive a personalized agenda before the meeting</li>
-                </ul>
-              </div>
-
-              <p style="margin: 20px 0; line-height: 1.6;">If you have any questions or need to make changes to your request, please reply to this email or contact us directly.</p>
-              
-              <div style="text-align: center; margin: 30px 0;">
-                <p style="margin: 0; color: #666; font-size: 14px;">Best regards,<br><strong style="color: #ff7033;">The Strive Tech Team</strong></p>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 20px; background-color: #f8f9fa; text-align: center; border-top: 1px solid #e9ecef;">
-              <p style="margin: 0; color: #666; font-size: 12px;">© 2024 Strive Tech. All rights reserved.</p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>`;
-
-    const text = `
-Meeting Request Confirmed
-
-Thank you, ${meetingData.firstName}!
-
-We've received your meeting request and will get back to you within 24 hours to schedule your ${meetingData.meetingType}.
-
-Your Request Details:
-- Meeting Type: ${meetingData.meetingType}
-- Company: ${meetingData.company || 'Individual'}
-${meetingData.message ? `- Your Message: "${meetingData.message}"` : ''}
-
-What happens next?
-• Our team will review your request within 24 hours
-• We'll send you a calendar invitation with available time slots  
-• You'll receive a personalized agenda before the meeting
-
-If you have any questions or need to make changes to your request, please reply to this email or contact us directly.
-
-Best regards,
-The Strive Tech Team
-
-© 2024 Strive Tech. All rights reserved.
-    `.trim();
-
-    return {
-      subject,
-      html,
-      text,
-      success: true
-    };
-  }
-}
-
-// ServiceRequestConfirmationTemplate and ServiceRequestNotificationTemplate
-// are now imported from EmailTemplateBase.ts
 
 /**
  * Template Factory - Creates and manages all enhanced template instances

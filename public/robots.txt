@@ -54,13 +54,13 @@ Allow: /resources
 Allow: /assessment
 
 # Sitemap location
-Sitemap: https://strive-tech-website.com/sitemap.xml
-Sitemap: https://strive-tech-website.com/api/sitemap
+Sitemap: https://strivetech.ai/sitemap.xml
+Sitemap: https://strivetech.ai/api/sitemap
 
 # Crawl-delay for heavy crawlers
 User-agent: *
 Crawl-delay: 1
 
 # Additional sitemaps for different content types
-Sitemap: https://strive-tech-website.com/sitemap-solutions.xml
-Sitemap: https://strive-tech-website.com/sitemap-pages.xml
+Sitemap: https://strivetech.ai/sitemap-solutions.xml
+Sitemap: https://strivetech.ai/sitemap-pages.xml

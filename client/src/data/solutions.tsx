@@ -11,7 +11,7 @@ export interface Solution {
   shortDescription: string;
   fullDescription: string;
   features: string[];
-  technologies: string[];
+  applicableIndustries: string[];
   hasDemo: boolean;
   demoType?: string;
   metrics: Record<string, string>;
@@ -66,7 +66,7 @@ export const solutions: Solution[] = [
       "Predictive Security Analytics and Risk Scoring",
       "Multi-Layer Defense and Real-Time Monitoring"
     ],
-    technologies: ["Financial Services", "Healthcare", "Manufacturing", "Government"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Manufacturing", "Government", "Technology", "Insurance", "Retail", "Education", "Legal"],
     hasDemo: false,
     metrics: { "Detection Accuracy": "98%+", "Response Time": "<5 minutes", "ROI": "513-879%" }
   },
@@ -84,7 +84,7 @@ export const solutions: Solution[] = [
       "Advanced Analytics and Risk Scoring with ML Models",
       "Cross-Channel Correlation and Network Analysis"
     ],
-    technologies: ["Banking", "E-commerce", "Insurance", "Healthcare"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Manufacturing", "Government", "Technology", "Insurance", "Retail", "Education", "Legal"],
     hasDemo: false,
     metrics: { "Fraud Detection": "95%+", "False Positives": "80% reduction", "ROI": "757-1,948%" }
   },
@@ -102,7 +102,7 @@ export const solutions: Solution[] = [
       "Security Operations Enhancement and Alert Correlation",
       "Investigation Tools and Performance Analytics"
     ],
-    technologies: ["Security Operations Centers", "Enterprise Cybersecurity", "Incident Response Teams"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Manufacturing", "Government", "Technology", "Insurance", "Retail", "Education", "Legal"],
     hasDemo: false,
     metrics: { "Threat ID Speed": "75% faster", "False Positives": "90% reduction", "ROI": "400-600%" }
   },
@@ -121,7 +121,7 @@ export const solutions: Solution[] = [
       "Quality Control and Defect Detection",
       "Custom Category Training and Real-Time Processing"
     ],
-    technologies: ["Retail", "Manufacturing", "Healthcare", "Security"],
+    applicableIndustries: ["Manufacturing", "Healthcare", "Retail", "Automotive", "Agriculture", "Security", "Transportation", "Government", "Smart Cities"],
     hasDemo: true,
     demoType: "Image Recognition",
     metrics: { "Processing Speed": "1000+ images/min", "Recognition Accuracy": "95%+", "ROI": "433-600%" }
@@ -140,7 +140,7 @@ export const solutions: Solution[] = [
       "Industrial Applications and Production Line Monitoring",
       "High-Speed Processing and Custom Object Training"
     ],
-    technologies: ["Manufacturing", "Security", "Retail", "Transportation"],
+    applicableIndustries: ["Manufacturing", "Healthcare", "Retail", "Automotive", "Agriculture", "Security", "Transportation", "Government", "Smart Cities"],
     hasDemo: true,
     demoType: "Object Detection",
     metrics: { "Video Analysis": "30+ FPS", "Detection Accuracy": "95%+", "ROI": "400-600%" }
@@ -159,7 +159,7 @@ export const solutions: Solution[] = [
       "Integration APIs and SDK Libraries",
       "Edge-Cloud Architecture and Auto-Scaling"
     ],
-    technologies: ["Manufacturing", "Healthcare", "Retail", "Smart Cities"],
+    applicableIndustries: ["Manufacturing", "Healthcare", "Retail", "Automotive", "Agriculture", "Security", "Transportation", "Government", "Smart Cities"],
     hasDemo: false,
     metrics: { "Processing Capacity": "10,000+ images/min", "Response Time": "<50ms", "ROI": "300-500%" }
   },
@@ -178,7 +178,7 @@ export const solutions: Solution[] = [
       "Enterprise Integration with CRM and Knowledge Base",
       "Context Awareness and Multi-Language Support"
     ],
-    technologies: ["E-commerce", "Financial Services", "Healthcare", "Technology"],
+    applicableIndustries: ["E-commerce", "Financial Services", "Healthcare", "Technology", "Executive Support", "Sales", "Education", "Customer Service"],
     hasDemo: true,
     demoType: "AI Chatbot",
     metrics: { "Availability": "24/7", "Resolution Rate": "80%", "ROI": "567-700%" }
@@ -197,7 +197,7 @@ export const solutions: Solution[] = [
       "Enterprise Integration with Office Suite and CRM",
       "Email Management and Task Automation"
     ],
-    technologies: ["Executive Support", "Sales", "Healthcare", "Legal Services"],
+    applicableIndustries: ["E-commerce", "Financial Services", "Healthcare", "Technology", "Executive Support", "Sales", "Education", "Customer Service"],
     hasDemo: false,
     metrics: { "Time Savings": "2-3 hours daily", "Task Speed": "50-70% faster", "ROI": "650-850%" }
   },
@@ -215,7 +215,7 @@ export const solutions: Solution[] = [
       "Conversational Intelligence and Intent Recognition",
       "Multi-Language Support and Noise Cancellation"
     ],
-    technologies: ["Healthcare", "Automotive", "Smart Home", "Financial Services"],
+    applicableIndustries: ["E-commerce", "Financial Services", "Healthcare", "Technology", "Executive Support", "Sales", "Education", "Customer Service"],
     hasDemo: false,
     metrics: { "Voice Accuracy": "95%+", "Multitasking": "70% improvement", "ROI": "380-600%" }
   },
@@ -234,7 +234,7 @@ export const solutions: Solution[] = [
       "Technical Documentation and API Documentation",
       "Creative and Brand Content with Thought Leadership"
     ],
-    technologies: ["Technology", "Healthcare", "Financial Services", "All Content-Driven Industries"],
+    applicableIndustries: ["Technology", "Healthcare", "Financial Services", "Media", "Marketing", "Content Creation", "Education", "Legal", "All Industries"],
     hasDemo: false,
     metrics: { "Production Speed": "10x faster", "Cost Reduction": "60-80%", "ROI": "800%" }
   },
@@ -252,7 +252,7 @@ export const solutions: Solution[] = [
       "Test Generation and Quality Assurance",
       "Documentation and Architecture Documentation"
     ],
-    technologies: ["Technology Companies", "Financial Services", "Healthcare", "All Software Development"],
+    applicableIndustries: ["Technology", "Healthcare", "Financial Services", "Media", "Marketing", "Content Creation", "Education", "Legal", "All Industries"],
     hasDemo: false,
     metrics: { "Development Speed": "42% faster", "Bug Reduction": "35%", "ROI": "740%" }
   },
@@ -270,7 +270,7 @@ export const solutions: Solution[] = [
       "Conversational Business Intelligence and Analytics",
       "Question-Answering and Knowledge Synthesis"
     ],
-    technologies: ["Financial Services", "Healthcare", "Manufacturing", "All Knowledge-Intensive Industries"],
+    applicableIndustries: ["Technology", "Healthcare", "Financial Services", "Media", "Marketing", "Content Creation", "Education", "Legal", "All Industries"],
     hasDemo: false,
     metrics: { "Content Speed": "70-85% faster", "Decision Speed": "40% faster", "ROI": "221%" }
   },
@@ -289,7 +289,7 @@ export const solutions: Solution[] = [
       "Performance Optimization and Custom Model Training",
       "Low Latency Inference and Unlimited Scaling"
     ],
-    technologies: ["Financial Services", "Healthcare", "Government", "Manufacturing"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Government", "Manufacturing", "Legal", "Technology", "Insurance", "Education"],
     hasDemo: false,
     metrics: { "Data Control": "100%", "Response Time": "<1ms", "ROI": "200-400%" }
   },
@@ -307,7 +307,7 @@ export const solutions: Solution[] = [
       "Specialized Hardware Integration with GPU Acceleration",
       "Autonomous Operation and Load Distribution"
     ],
-    technologies: ["Manufacturing", "Autonomous Vehicles", "Healthcare", "Smart Cities"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Government", "Manufacturing", "Legal", "Technology", "Insurance", "Education"],
     hasDemo: false,
     metrics: { "Inference Speed": "<1ms", "Data Transmission": "90% reduction", "ROI": "300-500%" }
   },
@@ -325,7 +325,7 @@ export const solutions: Solution[] = [
       "AI-Optimized Infrastructure with GPU Computing",
       "Custom Configurations and Elastic Scaling"
     ],
-    technologies: ["Financial Services", "Healthcare", "Technology", "Government"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Government", "Manufacturing", "Legal", "Technology", "Insurance", "Education"],
     hasDemo: false,
     metrics: { "Energy Efficiency": "30-50% reduction", "Compliance": "100%", "ROI": "233-433%" }
   },
@@ -344,7 +344,7 @@ export const solutions: Solution[] = [
       "Industry-Specific Models and Demand Forecasting",
       "Real-Time Predictions and Risk Assessment"
     ],
-    technologies: ["Retail", "Financial Services", "Healthcare", "Manufacturing", "Technology"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Retail", "Manufacturing", "Technology", "Energy", "Agriculture", "Insurance", "Government"],
     hasDemo: true,
     demoType: "Predictive Analytics",
     metrics: { "Prediction Accuracy": "85-95%", "Revenue Improvement": "15-25%", "ROI": "414-614%" }
@@ -363,7 +363,7 @@ export const solutions: Solution[] = [
       "Data Integration Platform with Multi-Source Connectivity",
       "Self-Service Analytics and Mobile Optimization"
     ],
-    technologies: ["Financial Services", "Healthcare", "Retail", "Manufacturing", "Technology"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Retail", "Manufacturing", "Technology", "Energy", "Agriculture", "Insurance", "Government"],
     hasDemo: false,
     metrics: { "Insight Speed": "60% faster", "Decision Quality": "40% improvement", "ROI": "400-600%" }
   },
@@ -381,7 +381,7 @@ export const solutions: Solution[] = [
       "Enterprise Integration and API Management",
       "Automated Training and Model Deployment"
     ],
-    technologies: ["Financial Services", "Healthcare", "Retail", "Manufacturing"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Retail", "Manufacturing", "Technology", "Energy", "Agriculture", "Insurance", "Government"],
     hasDemo: false,
     metrics: { "Deployment Speed": "70% faster", "Scientist Efficiency": "60% improvement", "ROI": "380-580%" }
   },
@@ -400,7 +400,7 @@ export const solutions: Solution[] = [
       "Workflow Automation and Batch Processing",
       "99%+ Accuracy and Layout Preservation"
     ],
-    technologies: ["Financial Services", "Healthcare", "Legal Services", "Government", "Manufacturing"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Legal Services", "Government", "Manufacturing", "Market Research", "Technology", "Content Media"],
     hasDemo: false,
     metrics: { "Processing Speed": "1000+ pages/hour", "Extraction Accuracy": "99%+", "ROI": "500-700%" }
   },
@@ -418,7 +418,7 @@ export const solutions: Solution[] = [
       "Content Intelligence and Named Entity Recognition",
       "Topic Modeling and Trend Analysis"
     ],
-    technologies: ["Market Research", "Healthcare", "Financial Services", "Government", "Technology"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Legal Services", "Government", "Manufacturing", "Market Research", "Technology", "Content Media"],
     hasDemo: false,
     metrics: { "Classification Accuracy": "92%+", "Language Support": "50+", "ROI": "460-700%" }
   },
@@ -436,7 +436,7 @@ export const solutions: Solution[] = [
       "Conversational APIs and Dialogue Management",
       "Entity Recognition and Language Detection"
     ],
-    technologies: ["Customer Service", "Content and Media", "Healthcare", "Financial Services", "E-commerce"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Legal Services", "Government", "Manufacturing", "Market Research", "Technology", "Content Media"],
     hasDemo: false,
     metrics: { "API Accuracy": "95%+", "Response Time": "<100ms", "ROI": "700-900%" }
   },
@@ -455,7 +455,7 @@ export const solutions: Solution[] = [
       "Digital Asset Management and Token Ecosystems",
       "Multi-Party Agreements and Conditional Execution"
     ],
-    technologies: ["Financial Services", "Supply Chain", "Healthcare", "Real Estate", "Government"],
+    applicableIndustries: ["Financial Services", "Supply Chain", "Healthcare", "Real Estate", "Government", "Technology", "E-commerce", "Manufacturing"],
     hasDemo: false,
     metrics: { "Record Security": "100% tamper-proof", "Cost Savings": "60-80%", "ROI": "300-500%" }
   },
@@ -473,7 +473,7 @@ export const solutions: Solution[] = [
       "Cloud Security and Compliance Framework",
       "Identity and Access Management"
     ],
-    technologies: ["Technology", "Financial Services", "Healthcare", "E-commerce", "Manufacturing"],
+    applicableIndustries: ["Financial Services", "Supply Chain", "Healthcare", "Real Estate", "Government", "Technology", "E-commerce", "Manufacturing"],
     hasDemo: false,
     metrics: { "Cost Reduction": "40-60%", "Deployment Speed": "90% faster", "ROI": "400-600%" }
   },
@@ -491,7 +491,7 @@ export const solutions: Solution[] = [
       "Automation and Control Systems with Predictive Maintenance",
       "Energy Optimization and Safety Systems"
     ],
-    technologies: ["Smart Manufacturing", "Smart Buildings", "Agriculture", "Healthcare", "Transportation", "Energy"],
+    applicableIndustries: ["Financial Services", "Supply Chain", "Healthcare", "Real Estate", "Government", "Technology", "E-commerce", "Manufacturing"],
     hasDemo: false,
     metrics: { "Operational Visibility": "100%", "Energy Reduction": "30-50%", "ROI": "357-567%" }
   },
@@ -510,7 +510,7 @@ export const solutions: Solution[] = [
       "Report Generation and Document Management",
       "Customer Service and Communication Automation"
     ],
-    technologies: ["Financial Services", "Healthcare", "Manufacturing", "Retail", "Government"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Manufacturing", "Legal Services", "Insurance", "Government", "Technology", "Retail"],
     hasDemo: false,
     metrics: { "Processing Speed": "10-20x faster", "Accuracy": "99.8%+", "ROI": "107-459%" }
   },
@@ -528,7 +528,7 @@ export const solutions: Solution[] = [
       "Predictive Process Analytics and Outcome Prediction",
       "Conversational Process Automation and Intent Recognition"
     ],
-    technologies: ["Financial Services", "Healthcare", "Manufacturing", "Legal Services", "Insurance"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Manufacturing", "Legal Services", "Insurance", "Government", "Technology", "Retail"],
     hasDemo: false,
     metrics: { "Process Efficiency": "50-75% improvement", "Document Accuracy": "95%+", "ROI": "271-723%" }
   },
@@ -546,7 +546,7 @@ export const solutions: Solution[] = [
       "Task Management and Skill-Based Assignment",
       "Document and Content Workflows with Version Control"
     ],
-    technologies: ["Financial Services", "Healthcare", "Manufacturing", "Government", "Technology"],
+    applicableIndustries: ["Financial Services", "Healthcare", "Manufacturing", "Legal Services", "Insurance", "Government", "Technology", "Retail"],
     hasDemo: false,
     metrics: { "Cycle Time Reduction": "60-80%", "Completion Rate": "85%+ improvement", "ROI": "250-642%" }
   }
@@ -561,10 +561,10 @@ export const getSolutionsByCategory = (category: string): Solution[] => {
   return solutions.filter(solution => solution.category === category);
 };
 
-export const getSolutionsByTechnology = (technology: string): Solution[] => {
-  return solutions.filter(solution => 
-    solution.technologies.some(tech => 
-      tech.toLowerCase().includes(technology.toLowerCase())
+export const getSolutionsByIndustry = (industry: string): Solution[] => {
+  return solutions.filter(solution =>
+    solution.applicableIndustries.some(ind =>
+      ind.toLowerCase().includes(industry.toLowerCase())
     )
   );
 };
