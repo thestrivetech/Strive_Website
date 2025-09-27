@@ -1,13 +1,6 @@
 # Last Update Sessions
 
 
-# 2 
-
-Remove the Featured Whitepaper Section from all pages except for the initial Resources page where all resource cards are being shown and the Whitepaper filtered page
-
-
-
-# All above has been "completed" -> Just needs review #
 
 
 # 3
@@ -60,8 +53,3 @@ Refactor entire codebase for easier maintenance. This is essential for when the 
     - Take this into accont for the dropdown menu on the solutions page how all of the "solution" cards will be changed to tools -> See if we need to update the Solution Types in order to take this pivot into account
 
 
-
-# Device Specific Formatting #
-
-- Laptop home screen formatting
-![alt text](image.png)
