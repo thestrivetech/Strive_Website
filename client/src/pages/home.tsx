@@ -142,22 +142,22 @@ const Home = () => {
       {/* ROI Calculator */}
       <ROICalculator />
       {/* Industry Solutions Selector - Moved from Solutions Page */}
-      <section className="py-16 hero-gradient">
+      <section className="py-12 sm:py-14 md:py-16 lg:py-20 hero-gradient">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
             <div
-              className="text-lg md:text-xl lg:text-2xl uppercase tracking-wide text-primary font-semibold mb-4"
+              className="text-sm sm:text-base md:text-lg lg:text-xl uppercase tracking-wide text-primary font-semibold mb-3 sm:mb-4"
               data-testid="text-industry-label"
             >
               AI SOLUTIONS TAILORED TO YOUR INDUSTRY'S BIGGEST CHALLENGES
             </div>
             <h2
-              className="text-xl md:text-2xl font-bold mb-4 text-white"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 text-white px-4"
               data-testid="text-industry-title"
             >
               No two industries are the same, which is why every solution we deliver is built around your goals
             </h2>
-            <p className="text-white/80 text-base md:text-lg max-w-2xl mx-auto">
+            <p className="text-white/80 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-4">
               Select your industry below to see proven strategies and results for companies just like yours.
             </p>
           </div>
@@ -174,18 +174,18 @@ const Home = () => {
           )}
 
           {/* Call to Action */}
-          <div className="text-center mt-12">
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-white mb-4">
+          <div className="text-center mt-8 sm:mt-10 md:mt-12">
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 sm:mb-4">
                 Ready to become your industry's next success story?
               </h3>
-              <p className="text-white/80 mb-6">
+              <p className="text-white/80 mb-4 sm:mb-6 text-sm sm:text-base">
                 Talk to an AI Expert to See What's Possible for Your Business.
               </p>
               <Link href="/request">
-                <Button 
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group
-                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 font-bold"
+                <Button
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 sm:px-8 py-3 sm:py-3.5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group
+                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 font-bold text-sm sm:text-base min-h-[44px]"
                   size="lg"
                   data-testid="button-get-custom-solution"
                 >
@@ -220,7 +220,7 @@ const Home = () => {
           </div>
 
           {/* Solution Cards with Modal */}
-          <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
             {solutions.map((solution, index) => (
               <Dialog key={index}>
                 <DialogTrigger asChild>
@@ -229,19 +229,19 @@ const Home = () => {
                     data-testid={`card-solution-${solution.title.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <CardContent className="p-2 sm:p-4 md:p-6 relative h-full flex flex-col">
-                      <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gradient-to-br from-primary/20 to-orange-500/20 rounded-xl flex items-center justify-center mb-2 sm:mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300 mx-auto">
-                        <div className="[&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-6 sm:[&>svg]:h-6">{solution.icon}</div>
+                    <CardContent className="p-4 sm:p-5 md:p-6 relative h-full flex flex-col">
+                      <div className="w-12 h-12 sm:w-13 sm:h-13 md:w-14 md:h-14 bg-gradient-to-br from-primary/20 to-orange-500/20 rounded-xl flex items-center justify-center mb-3 sm:mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300 mx-auto sm:mx-0">
+                        <div className="[&>svg]:w-6 [&>svg]:h-6 sm:[&>svg]:w-6 sm:[&>svg]:h-6">{solution.icon}</div>
                       </div>
-                      <h3 className="text-xs sm:text-lg md:text-xl font-bold text-[#020a1c] mb-1 sm:mb-2 md:mb-3 transition-colors duration-300 group-hover:text-[#ff7033] text-center sm:text-left">
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-[#020a1c] mb-2 sm:mb-2 md:mb-3 transition-colors duration-300 group-hover:text-[#ff7033] text-center sm:text-left">
                         {solution.title}
                       </h3>
-                      <p className="text-muted-foreground mb-2 sm:mb-3 md:mb-4 text-xs leading-relaxed flex-grow text-center sm:text-left">
+                      <p className="text-muted-foreground mb-3 sm:mb-3 md:mb-4 text-sm sm:text-sm leading-relaxed flex-grow text-center sm:text-left">
                         {solution.description}
                       </p>
-                      <div className="flex items-center text-[#020a1c] font-semibold transition-colors duration-300 group-hover:text-[#ff7033] mt-auto">
-                        <span className="text-xs md:text-sm">View Details</span>
-                        <ChevronRight className="ml-1 h-3 w-3 md:h-4 md:w-4" />
+                      <div className="flex items-center justify-center sm:justify-start text-[#020a1c] font-semibold transition-colors duration-300 group-hover:text-[#ff7033] mt-auto">
+                        <span className="text-sm md:text-sm">View Details</span>
+                        <ChevronRight className="ml-1 h-4 w-4 md:h-4 md:w-4" />
                       </div>
                     </CardContent>
                   </Card>
@@ -300,7 +300,7 @@ const Home = () => {
         </div>
       </section>
       {/* Why Us Section */}
-      <section className="py-12 sm:py-16 hero-gradient relative overflow-hidden">
+      <section className="py-10 sm:py-12 md:py-14 lg:py-16 hero-gradient relative overflow-hidden">
         {/* Parallax Background Elements */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-10 left-10 w-32 h-32 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
@@ -309,36 +309,36 @@ const Home = () => {
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <h2 
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white leading-tight"
+          <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+            <h2
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5 md:mb-6 text-white leading-tight px-4"
               data-testid="text-why-us-title"
             >
               <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">WHY INDUSTRY LEADERS CHOOSE STRIVE</span>
             </h2>
-            <div 
-              className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/90 mb-6"
+            <div
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-white/90 mb-4 sm:mb-5 md:mb-6 px-4"
               data-testid="text-why-us-subtitle"
             >
               You don't need another vendor; you need a strategic partner for sustainable growth
             </div>
-            <p className="text-white/80 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
+            <p className="text-white/80 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed px-4">
               Innovation Delivered: Always-outpacing the market. Unmatched Scalability: Solutions that evolve with you. Proven Results, Every Time.
             </p>
           </div>
 
           {/* Value Proposition Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
             {/* Innovative Tech */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-3 md:p-6 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
-                <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <LightBulbIcon className="h-4 w-4 sm:h-6 sm:w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-15 md:h-15 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-5 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <LightBulbIcon className="h-6 w-6 sm:h-7 sm:w-7 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
                 </div>
-                <h3 className="text-sm md:text-xl font-bold text-white mb-2 md:mb-4" data-testid="text-innovative-tech-title">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 md:mb-4" data-testid="text-innovative-tech-title">
                   Innovation Delivered
                 </h3>
-                <p className="text-white/80 text-xs leading-relaxed flex-grow">
+                <p className="text-white/80 text-sm sm:text-sm leading-relaxed flex-grow">
                   Always-outpacing the market with cutting-edge AI and automation technologies that keep you ahead.
                 </p>
               </div>
@@ -346,14 +346,14 @@ const Home = () => {
 
             {/* Scalable Solutions */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-3 md:p-6 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
-                <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <RocketLaunchIcon className="h-4 w-4 sm:h-6 sm:w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-15 md:h-15 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-5 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <RocketLaunchIcon className="h-6 w-6 sm:h-7 sm:w-7 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
                 </div>
-                <h3 className="text-sm md:text-xl font-bold text-white mb-2 md:mb-4" data-testid="text-scalable-solutions-title">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 md:mb-4" data-testid="text-scalable-solutions-title">
                   Unmatched Scalability
                 </h3>
-                <p className="text-white/80 text-xs leading-relaxed flex-grow">
+                <p className="text-white/80 text-sm sm:text-sm leading-relaxed flex-grow">
                   Solutions that evolve with you. Our architecture scales seamlessly from startup to enterprise, adapting as you grow.
                 </p>
               </div>
@@ -361,14 +361,14 @@ const Home = () => {
 
             {/* Future-Proof Design */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-3 md:p-6 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
-                <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <CpuChipIcon className="h-4 w-4 sm:h-6 sm:w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-15 md:h-15 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-5 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <CpuChipIcon className="h-6 w-6 sm:h-7 sm:w-7 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
                 </div>
-                <h3 className="text-sm md:text-xl font-bold text-white mb-2 md:mb-4" data-testid="text-future-proof-title">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 md:mb-4" data-testid="text-future-proof-title">
                   Future-Proof Design
                 </h3>
-                <p className="text-white/80 text-xs leading-relaxed flex-grow">
+                <p className="text-white/80 text-sm sm:text-sm leading-relaxed flex-grow">
                   Built to evolve. Our solutions integrate emerging technologies, ensuring your investment remains valuable for years.
                 </p>
               </div>
@@ -376,14 +376,14 @@ const Home = () => {
 
             {/* Proven Results */}
             <div className="group">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-3 md:p-6 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
-                <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <StarIcon className="h-4 w-4 sm:h-6 sm:w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 text-center transition-all duration-500 hover:bg-white/15 hover:border-primary/50 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-15 md:h-15 lg:w-16 lg:h-16 bg-gradient-to-br from-primary to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-5 md:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <StarIcon className="h-6 w-6 sm:h-7 sm:w-7 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
                 </div>
-                <h3 className="text-sm md:text-xl font-bold text-white mb-2 md:mb-4" data-testid="text-proven-results-title">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 md:mb-4" data-testid="text-proven-results-title">
                   Proven Results
                 </h3>
-                <p className="text-white/80 text-xs leading-relaxed flex-grow">
+                <p className="text-white/80 text-sm sm:text-sm leading-relaxed flex-grow">
                   Track record of success. Our clients see 3x faster processing, 60% cost reduction, and 24/7 automated efficiency.
                 </p>
               </div>
@@ -391,27 +391,27 @@ const Home = () => {
           </div>
 
           {/* Call to Action */}
-          <div className="text-center mt-8 sm:mt-12 lg:mt-16">
-            <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-4xl mx-auto">
-              <h3 className="text-2xl font-bold text-white mb-4">
+          <div className="text-center mt-8 sm:mt-10 md:mt-12 lg:mt-16">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 sm:p-7 md:p-8 max-w-4xl mx-auto">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 sm:mb-4">
                 Ready to become your industry's next success story?
               </h3>
-              <p className="text-white/80 mb-6 text-lg">
+              <p className="text-white/80 mb-5 sm:mb-6 text-sm sm:text-base md:text-lg">
                 See Customer Case Studies and discover what's possible for your business.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group
-                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                <Button
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group
+                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 min-h-[44px]"
                   size="lg"
                   onClick={() => window.location.href = "/contact"}
                   data-testid="button-get-started-why-us"
                 >
                   Let's Meet!
                 </Button>
-                <Button 
+                <Button
                   variant="outline"
-                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-3 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 text-base sm:text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl min-h-[44px]"
                   size="lg"
                   onClick={() => window.location.href = "/portfolio"}
                   data-testid="button-meet-team"
@@ -424,18 +424,18 @@ const Home = () => {
         </div>
       </section>
       {/* Resources Preview */}
-      <section className="py-12 sm:py-16 md:py-24 bg-[#ffffffeb]">
+      <section className="py-10 sm:py-12 md:py-16 lg:py-20 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#020a1c] leading-tight"
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-[#020a1c] leading-tight px-4"
               data-testid="text-resources-title"
             >
               Lead the AI Revolution in Your Industry
             </h2>
-            <a 
-              href="/resources" 
-              className="text-primary font-semibold hover:underline"
+            <a
+              href="/resources"
+              className="text-primary font-semibold hover:underline text-sm sm:text-base"
               data-testid="link-all-resources"
             >
               View all resources →
@@ -591,31 +591,31 @@ const Home = () => {
         </div>
       </section>
       {/* Get Started Section */}
-      <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-br from-[#ffffffeb] to-[#f8fafceb] relative overflow-hidden">
+      <section className="py-12 sm:py-14 md:py-16 lg:py-20 bg-gradient-to-br from-[#ffffffeb] to-[#f8fafceb] relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-5xl mx-auto">
             {/* Call to Action */}
-            <div className="bg-gradient-to-br from-white/70 to-white/50 backdrop-blur-sm border border-white/60 rounded-3xl p-8 lg:p-10 text-center shadow-xl">
-              <h3 className="text-xl lg:text-2xl font-bold text-[#020a1c] mb-4">
+            <div className="bg-gradient-to-br from-white/70 to-white/50 backdrop-blur-sm border border-white/60 rounded-3xl p-6 sm:p-7 md:p-8 lg:p-10 text-center shadow-xl">
+              <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-[#020a1c] mb-3 sm:mb-4 px-4">
                 Your Path to Results with AI: It's Simple
               </h3>
-              <p className="text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-muted-foreground mb-6 sm:mb-7 md:mb-8 max-w-2xl mx-auto leading-relaxed text-sm sm:text-base px-4">
                 Book Your Free Assessment → Receive Your Custom AI Solution Roadmap → Transform Operations and See Measurable Impact in Weeks. Ready to start? You're just one step away.
               </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button 
+
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+                <Button
                   variant="outline"
-                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[200px] relative overflow-hidden"
+                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 w-full sm:w-auto sm:min-w-[200px] relative overflow-hidden min-h-[44px]"
                   size="lg"
                   onClick={() => window.location.href = "/request"}
                   data-testid="button-request-demo"
                 >
                   Request Free Demo
                 </Button>
-                <Button 
+                <Button
                   variant="outline"
-                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 min-w-[200px] relative overflow-hidden"
+                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 w-full sm:w-auto sm:min-w-[200px] relative overflow-hidden min-h-[44px]"
                   size="lg"
                   onClick={() => window.location.href = "/portfolio"}
                   data-testid="button-view-case-studies"
@@ -623,8 +623,8 @@ const Home = () => {
                   View Our Work
                 </Button>
               </div>
-              
-              <p className="text-sm text-muted-foreground mt-6">
+
+              <p className="text-xs sm:text-sm text-muted-foreground mt-5 sm:mt-6 px-4">
                 ✓ No commitment required  •  ✓ Custom solution walkthrough  •  ✓ ROI analysis included
               </p>
             </div>
