@@ -1,0 +1,110 @@
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  clerkUserId   String   @unique @map("clerk_user_id")
+  email         String   @unique
+  name          String?
+  avatarUrl     String?  @map("avatar_url")
+  role          UserRole @default(CLIENT)
+  subscriptionTier SubscriptionTier @default(FREE) @map("subscription_tier")
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Relationships
+  organizationMembers OrganizationMember[]
+  assignedTasks      Task[]              @relation("TaskAssignee")
+  createdTasks       Task[]              @relation("TaskCreator")
+  managedProjects    Project[]           @relation("ProjectManager")
+  assignedCustomers  Customer[]          @relation("CustomerAssignee")
+  aiConversations    AiConversation[]
+  usageTracking      UsageTracking[]
+  createdAppointments Appointment[]      @relation("AppointmentCreator")
+  assignedAppointments Appointment[]     @relation("AppointmentAssignee")
+  authoredContent    Content[]           @relation("ContentAuthor")
+  activityLogs       ActivityLog[]
+
+  @@map("users")
+}
+
+model Organization {
+  id                String             @id @default(cuid())
+  name              String
+  slug              String             @unique
+  description       String?
+  settings          Json?              // Organization-specific configurations
+  subscriptionStatus SubscriptionStatus @default(TRIAL) @map("subscription_status")
+  billingEmail      String?            @map("billing_email")
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+
+  // Relationships
+  members           OrganizationMember[]
+  customers         Customer[]
+  projects          Project[]
+  aiConversations   AiConversation[]
+  subscriptions     Subscription[]
+  usageTracking     UsageTracking[]
+  appointments      Appointment[]
+  content           Content[]
+  activityLogs      ActivityLog[]
+
+  @@map("organizations")
+}
+
+// Enums
+enum UserRole {
+  ADMIN
+  MODERATOR
+  EMPLOYEE
+  CLIENT
+}
+
+enum SubscriptionTier {
+  FREE
+  BASIC
+  PRO
+  ENTERPRISE
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+  TRIAL
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  REVIEW
+  DONE
+  CANCELLED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
