@@ -1,0 +1,455 @@
+// Strive Tech SaaS Dashboard - Prisma Schema
+// Database: PostgreSQL via Supabase
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ==========================================
+// USER MANAGEMENT & AUTHENTICATION
+// ==========================================
+
+model User {
+  id            String   @id @default(uuid())
+  clerkUserId   String?  @unique @map("clerk_user_id")
+  email         String   @unique
+  name          String?
+  avatarUrl     String?  @map("avatar_url")
+  role          UserRole @default(EMPLOYEE)
+  subscriptionTier SubscriptionTier @default(FREE) @map("subscription_tier")
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  organizationMembers OrganizationMember[]
+  customers           Customer[] @relation("AssignedCustomers")
+  projects            Project[]  @relation("ProjectManager")
+  tasks               Task[]     @relation("AssignedTasks")
+  createdTasks        Task[]     @relation("CreatedTasks")
+  aiConversations     AIConversation[]
+  activityLogs        ActivityLog[]
+  appointments        Appointment[]
+  contentAuthored     Content[]
+
+  @@map("users")
+}
+
+enum UserRole {
+  ADMIN
+  MODERATOR
+  EMPLOYEE
+  CLIENT
+}
+
+enum SubscriptionTier {
+  FREE
+  BASIC
+  PRO
+  ENTERPRISE
+}
+
+// ==========================================
+// MULTI-TENANT ORGANIZATION MANAGEMENT
+// ==========================================
+
+model Organization {
+  id                 String              @id @default(uuid())
+  name               String
+  slug               String              @unique
+  description        String?
+  settings           Json?
+  subscriptionStatus SubscriptionStatus  @default(TRIAL) @map("subscription_status")
+  billingEmail       String?             @map("billing_email")
+  createdAt          DateTime            @default(now()) @map("created_at")
+  updatedAt          DateTime            @updatedAt @map("updated_at")
+
+  members            OrganizationMember[]
+  customers          Customer[]
+  projects           Project[]
+  aiConversations    AIConversation[]
+  subscription       Subscription?
+  usageTracking      UsageTracking[]
+  appointments       Appointment[]
+  content            Content[]
+  activityLogs       ActivityLog[]
+
+  @@map("organizations")
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+  TRIAL
+  PAST_DUE
+  CANCELLED
+}
+
+model OrganizationMember {
+  id             String       @id @default(uuid())
+  userId         String       @map("user_id")
+  organizationId String       @map("organization_id")
+  role           OrgRole      @default(MEMBER)
+  permissions    Json?
+  joinedAt       DateTime     @default(now()) @map("joined_at")
+  createdAt      DateTime     @default(now()) @map("created_at")
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, organizationId])
+  @@map("organization_members")
+}
+
+enum OrgRole {
+  OWNER
+  ADMIN
+  MEMBER
+  VIEWER
+}
+
+// ==========================================
+// CRM SYSTEM
+// ==========================================
+
+model Customer {
+  id             String         @id @default(uuid())
+  organizationId String         @map("organization_id")
+  name           String
+  email          String?
+  phone          String?
+  company        String?
+  status         CustomerStatus @default(LEAD)
+  source         CustomerSource @default(WEBSITE)
+  tags           String[]
+  customFields   Json?          @map("custom_fields")
+  assignedToId   String?        @map("assigned_to")
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  assignedTo   User?        @relation("AssignedCustomers", fields: [assignedToId], references: [id])
+  projects     Project[]
+  appointments Appointment[]
+
+  @@index([organizationId])
+  @@index([email])
+  @@index([status])
+  @@map("customers")
+}
+
+enum CustomerStatus {
+  LEAD
+  PROSPECT
+  ACTIVE
+  CHURNED
+}
+
+enum CustomerSource {
+  WEBSITE
+  REFERRAL
+  SOCIAL
+  EMAIL
+  OTHER
+}
+
+// ==========================================
+// PROJECT & TASK MANAGEMENT
+// ==========================================
+
+model Project {
+  id                 String        @id @default(uuid())
+  organizationId     String        @map("organization_id")
+  customerId         String?       @map("customer_id")
+  name               String
+  description        String?
+  status             ProjectStatus @default(PLANNING)
+  priority           Priority      @default(MEDIUM)
+  startDate          DateTime?     @map("start_date")
+  dueDate            DateTime?     @map("due_date")
+  completionDate     DateTime?     @map("completion_date")
+  budget             Decimal?      @db.Decimal(10, 2)
+  progressPercentage Int           @default(0) @map("progress_percentage")
+  projectManagerId   String        @map("project_manager_id")
+  createdAt          DateTime      @default(now()) @map("created_at")
+  updatedAt          DateTime      @updatedAt @map("updated_at")
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  customer       Customer?    @relation(fields: [customerId], references: [id])
+  projectManager User         @relation("ProjectManager", fields: [projectManagerId], references: [id])
+  tasks          Task[]
+
+  @@index([organizationId])
+  @@index([status])
+  @@map("projects")
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+model Task {
+  id             String     @id @default(uuid())
+  projectId      String     @map("project_id")
+  parentTaskId   String?    @map("parent_task_id")
+  title          String
+  description    String?
+  status         TaskStatus @default(TODO)
+  priority       Priority   @default(MEDIUM)
+  assignedToId   String?    @map("assigned_to")
+  createdById    String     @map("created_by")
+  dueDate        DateTime?  @map("due_date")
+  estimatedHours Decimal?   @map("estimated_hours") @db.Decimal(5, 2)
+  actualHours    Decimal?   @map("actual_hours") @db.Decimal(5, 2)
+  tags           String[]
+  position       Int
+  createdAt      DateTime   @default(now()) @map("created_at")
+  updatedAt      DateTime   @updatedAt @map("updated_at")
+
+  project      Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assignedTo   User?   @relation("AssignedTasks", fields: [assignedToId], references: [id])
+  createdBy    User    @relation("CreatedTasks", fields: [createdById], references: [id])
+  parentTask   Task?   @relation("Subtasks", fields: [parentTaskId], references: [id])
+  subtasks     Task[]  @relation("Subtasks")
+
+  @@index([projectId])
+  @@index([status])
+  @@index([assignedToId])
+  @@map("tasks")
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  REVIEW
+  DONE
+  CANCELLED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+// ==========================================
+// AI ASSISTANT (SAI)
+// ==========================================
+
+model AIConversation {
+  id               String             @id @default(uuid())
+  userId           String             @map("user_id")
+  organizationId   String             @map("organization_id")
+  title            String?
+  contextType      AIContextType      @default(GENERAL) @map("context_type")
+  contextId        String?            @map("context_id")
+  aiModel          AIModel            @default(OPENAI_GPT4) @map("ai_model")
+  conversationData Json               @map("conversation_data")
+  usageTokens      Int                @default(0) @map("usage_tokens")
+  isArchived       Boolean            @default(false) @map("is_archived")
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime           @updatedAt @map("updated_at")
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([organizationId])
+  @@index([createdAt])
+  @@map("ai_conversations")
+}
+
+enum AIContextType {
+  GENERAL
+  PROJECT
+  CUSTOMER
+  TASK
+}
+
+enum AIModel {
+  OPENAI_GPT4
+  CLAUDE_SONNET
+  GEMINI
+  GROK
+  KIMIK2
+}
+
+model AITool {
+  id              String   @id @default(uuid())
+  name            String
+  description     String?
+  toolType        ToolType
+  requiredTier    SubscriptionTier @map("required_tier")
+  configuration   Json?
+  isActive        Boolean  @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("ai_tools")
+}
+
+enum ToolType {
+  CHATBOT
+  ANALYSIS
+  AUTOMATION
+  INTEGRATION
+}
+
+// ==========================================
+// SUBSCRIPTION & BILLING
+// ==========================================
+
+model Subscription {
+  id                   String             @id @default(uuid())
+  organizationId       String             @unique @map("organization_id")
+  stripeSubscriptionId String?            @unique @map("stripe_subscription_id")
+  stripeCustomerId     String?            @map("stripe_customer_id")
+  status               SubscriptionStatus @default(TRIAL)
+  tier                 SubscriptionTier   @default(FREE)
+  currentPeriodStart   DateTime           @map("current_period_start")
+  currentPeriodEnd     DateTime           @map("current_period_end")
+  cancelAtPeriodEnd    Boolean            @default(false) @map("cancel_at_period_end")
+  metadata             Json?
+  createdAt            DateTime           @default(now()) @map("created_at")
+  updatedAt            DateTime           @updatedAt @map("updated_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+model UsageTracking {
+  id             String       @id @default(uuid())
+  organizationId String       @map("organization_id")
+  userId         String       @map("user_id")
+  resourceType   ResourceType @map("resource_type")
+  resourceName   String       @map("resource_name")
+  usageAmount    Int          @map("usage_amount")
+  billingPeriod  DateTime     @map("billing_period")
+  metadata       Json?
+  createdAt      DateTime     @default(now()) @map("created_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, billingPeriod])
+  @@map("usage_tracking")
+}
+
+enum ResourceType {
+  AI_TOKENS
+  API_CALLS
+  STORAGE
+  SEATS
+}
+
+// ==========================================
+// SCHEDULING & CALENDAR
+// ==========================================
+
+model Appointment {
+  id             String            @id @default(uuid())
+  organizationId String            @map("organization_id")
+  customerId     String?           @map("customer_id")
+  assignedToId   String            @map("assigned_to")
+  title          String
+  description    String?
+  startTime      DateTime          @map("start_time")
+  endTime        DateTime          @map("end_time")
+  status         AppointmentStatus @default(SCHEDULED)
+  location       String?
+  meetingUrl     String?           @map("meeting_url")
+  remindersSent  Json?             @map("reminders_sent")
+  createdAt      DateTime          @default(now()) @map("created_at")
+  updatedAt      DateTime          @updatedAt @map("updated_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  customer     Customer?    @relation(fields: [customerId], references: [id])
+  assignedTo   User         @relation(fields: [assignedToId], references: [id])
+
+  @@index([organizationId])
+  @@index([startTime])
+  @@map("appointments")
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+// ==========================================
+// CONTENT MANAGEMENT
+// ==========================================
+
+model Content {
+  id             String        @id @default(uuid())
+  organizationId String        @map("organization_id")
+  title          String
+  slug           String
+  contentType    ContentType   @map("content_type")
+  content        String
+  excerpt        String?
+  status         ContentStatus @default(DRAFT)
+  authorId       String        @map("author_id")
+  publishedAt    DateTime?     @map("published_at")
+  seoMeta        Json?         @map("seo_meta")
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  author       User         @relation(fields: [authorId], references: [id])
+
+  @@unique([organizationId, slug])
+  @@index([status])
+  @@map("content")
+}
+
+enum ContentType {
+  PAGE
+  BLOG_POST
+  DOCUMENTATION
+  TEMPLATE
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+// ==========================================
+// AUDIT LOGS
+// ==========================================
+
+model ActivityLog {
+  id             String   @id @default(uuid())
+  organizationId String   @map("organization_id")
+  userId         String?  @map("user_id")
+  action         String
+  resourceType   String   @map("resource_type")
+  resourceId     String?  @map("resource_id")
+  oldData        Json?    @map("old_data")
+  newData        Json?    @map("new_data")
+  ipAddress      String?  @map("ip_address")
+  userAgent      String?  @map("user_agent")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User?        @relation(fields: [userId], references: [id])
+
+  @@index([organizationId, createdAt])
+  @@index([userId])
+  @@map("activity_logs")
+}

@@ -1,6 +1,6 @@
-# SaaS Dashboard Build Plan
+# SaaS Application Build Plan
 
-**Project:** Strive Tech Dashboard (app.strivetech.ai)
+**Project:** Strive Tech SaaS Platform (app.strivetech.ai)
 **Framework:** Next.js 15 + App Router
 **Status:** 🚧 In Progress
 
@@ -10,22 +10,30 @@
 
 ### Deployment Structure
 - **Marketing Site:** `strivetech.ai` (existing React/Vite in `old/`)
-- **Dashboard:** `app.strivetech.ai` (new Next.js 15 app in `dashboard/`)
+- **SaaS Platform:** `app.strivetech.ai` (new Next.js 15 app in `app/`)
+  - Contains: Admin dashboard, client portal, employee workspace, CRM, projects, AI tools
 
 ### Authentication
 - Shared auth via cookies (domain: `.strivetech.ai`)
-- Login/signup on marketing site → redirects to dashboard
-- Dashboard validates JWT from marketing site
+- Login/signup on marketing site → redirects to app
+- App validates JWT from marketing site
 
 ### Databases
 - **Existing DB:** Marketing site (contact forms, analytics) - UNCHANGED
 - **New DB:** SaaS platform (organizations, projects, CRM, AI tools)
 - User sync on signup between both databases
 
+### Multiple Dashboard Types Within the APP
+The `app/` directory contains multiple dashboard experiences within the application:
+- **Admin Dashboard:** Full system access, user management, analytics
+- **Employee Dashboard:** Project management, CRM, time tracking
+- **Client Portal:** Project visibility, communication, invoices
+- All share the same database and infrastructure but have role-based views
+
 ### Design System
 - Reuse shadcn/ui components from `old/client/src/components/ui/`
 - Maintain consistent UI/UX with marketing site
-- Add new dashboard-specific components as needed
+- Add new app-specific components as needed (dashboards, CRM, project views)
 
 ---
 
@@ -44,15 +52,15 @@
 
 ### 📋 Pending Tasks
 - [ ] Configure environment variables (.env.local)
-- [ ] Setup Supabase client for dashboard
+- [ ] Setup Supabase client for the app
 - [ ] Create auth verification API route
-- [ ] Design dashboard routing structure
+- [ ] Design app routing structure
 - [ ] Implement user profile page
 - [ ] Create organization/workspace selector
 
 ---
 
-## Phase 2: Core Dashboard (Week 3-4)
+## Phase 2: Core Application Interface (Week 3-4)
 
 ### 📋 Tasks
 - [ ] Build main dashboard home page with widgets
@@ -84,11 +92,15 @@
 - [ ] Progress tracking and reporting
 
 ### 📋 AI Integration (Sai Assistant)
-- [ ] Chat interface in dashboard
+- [ ] Chat interface in the app
+- [ ] OpenRouter integration (multi-model support)
+- [ ] Groq integration (fast open-source models)
+- [ ] Model selection UI (tier-based)
 - [ ] Context-aware AI assistance
 - [ ] AI conversation history
 - [ ] Tool activation from chat
-- [ ] Usage tracking and limits
+- [ ] Usage tracking and limits (per tier)
+- [ ] Transparency: Show which model is being used
 
 ### 📋 Tool Marketplace
 - [ ] Tool browsing and discovery UI
@@ -116,7 +128,7 @@
 - [ ] Verify cookie sharing across subdomains
 
 ### 📋 Deployment & Infrastructure
-- [ ] Configure Vercel deployment for dashboard
+- [ ] Configure Vercel deployment for the app
 - [ ] Setup app.strivetech.ai subdomain DNS
 - [ ] Configure environment variables in production
 - [ ] Setup error tracking (Sentry)
@@ -154,40 +166,61 @@
 - **Auth Provider:** Shared from marketing site (consider Clerk migration later)
 - **Payments:** Stripe (Phase 3+)
 - **Email:** SMTP (shared service)
-- **AI:** OpenRouter API (Sai assistant)
+- **AI Providers:**
+  - **OpenRouter** - Primary gateway for 200+ models (proprietary & open-source)
+  - **Groq** - High-speed inference for open-source models (Llama, Mixtral, Gemma)
+  - Strategy: Mix of open-source (cost-effective) and proprietary (advanced) models
 - **Monitoring:** Vercel Analytics + Sentry
 
 ---
 
-## File Structure (Dashboard App)
+## File Structure (SaaS Platform - app/)
 
 ```
-dashboard/
-├── app/
+app/                             # SaaS Platform root directory
+├── app/                         # Next.js App Router
 │   ├── (auth)/                  # Auth-related routes
 │   │   ├── login/              # Fallback login page
 │   │   └── verify/             # Auth verification
-│   ├── (dashboard)/            # Main dashboard routes
-│   │   ├── layout.tsx          # Dashboard shell
-│   │   ├── page.tsx            # Dashboard home
+│   ├── (admin)/                # Admin dashboard routes
+│   │   ├── dashboard/          # Admin overview
+│   │   ├── users/              # User management
+│   │   ├── organizations/      # Org management
+│   │   └── settings/           # System settings
+│   ├── (employee)/             # Employee dashboard routes
+│   │   ├── dashboard/          # Employee home
 │   │   ├── projects/           # Project management
 │   │   ├── crm/                # CRM system
+│   │   ├── tasks/              # Task management
+│   │   └── time-tracking/      # Time tracking
+│   ├── (client)/               # Client portal routes
+│   │   ├── dashboard/          # Client overview
+│   │   ├── projects/           # View assigned projects
+│   │   ├── invoices/           # Billing & invoices
+│   │   └── support/            # Support tickets
+│   ├── (shared)/               # Shared across all roles
 │   │   ├── tools/              # Tool marketplace
 │   │   ├── ai/                 # Sai assistant
-│   │   ├── analytics/          # Analytics & reports
-│   │   └── settings/           # User/org settings
+│   │   ├── profile/            # User profile
+│   │   └── notifications/      # Notifications
 │   ├── api/                    # API routes
 │   │   ├── auth/               # Auth verification
 │   │   ├── users/              # User management
 │   │   ├── organizations/      # Org management
+│   │   ├── projects/           # Project CRUD
+│   │   ├── crm/                # CRM operations
 │   │   └── webhooks/           # Stripe, etc.
 │   ├── layout.tsx              # Root layout
 │   └── globals.css             # Global styles
 ├── components/
-│   ├── ui/                     # Copied from old/client/src/components/ui
-│   ├── dashboard/              # Dashboard-specific components
+│   ├── ui/                     # Copied from old/client/src/components/ui (56 components)
+│   ├── admin/                  # Admin dashboard components
+│   ├── employee/               # Employee dashboard components
+│   ├── client/                 # Client portal components
+│   ├── crm/                    # CRM-specific components
+│   ├── projects/               # Project management components
 │   ├── forms/                  # Form components
-│   └── layouts/                # Layout components
+│   └── layouts/                # Layout components (shell, sidebar, nav)
 ├── lib/
 │   ├── supabase.ts            # Supabase client
 │   ├── prisma.ts              # Prisma client
@@ -240,11 +273,11 @@ dashboard/
 ## Environment Variables Needed
 
 ```env
-# Dashboard App (.env.local)
+# SaaS App (.env.local)
 DATABASE_URL="postgresql://..."           # New Supabase DB
 DIRECT_URL="postgresql://..."             # Direct connection
 
-# Supabase (New Dashboard DB)
+# Supabase (New App DB)
 NEXT_PUBLIC_SUPABASE_URL="..."
 NEXT_PUBLIC_SUPABASE_ANON_KEY="..."
 SUPABASE_SERVICE_ROLE_KEY="..."
@@ -254,7 +287,8 @@ JWT_SECRET="..."                          # Same as marketing site
 NEXT_PUBLIC_MARKETING_URL="https://strivetech.ai"
 
 # API Keys
-OPENROUTER_API_KEY="..."                  # For AI features
+OPENROUTER_API_KEY="..."                  # Multi-model gateway (200+ models)
+GROQ_API_KEY="..."                        # Fast open-source inference
 STRIPE_SECRET_KEY="..."                   # For billing
 STRIPE_WEBHOOK_SECRET="..."
 
@@ -267,17 +301,20 @@ NODE_ENV="development"
 
 ## Key Decisions & Notes
 
-### Why Separate Next.js App?
+### Why Separate Next.js App in `app/` directory?
 - Zero risk to production marketing site
 - Independent deployment and scaling
-- Clear separation of concerns
+- Clear separation of concerns (marketing vs. application)
 - Easier to develop and test in isolation
+- Semantic naming: `app/` = SaaS application, not just "a dashboard"
+- Contains multiple dashboard types (admin, employee, client)
+- Future-proof for monorepo structure (web/ and app/)
 
 ### Why Keep Marketing Site in React/Vite?
 - Already production-ready and stable
 - Only needs minor tweaks (not a full rebuild)
 - Can migrate to Next.js later if needed
-- Focus effort on building new dashboard features
+- Focus effort on building new app features
 
 ### Why Dual Databases?
 - Marketing DB has existing data (forms, analytics)
@@ -305,9 +342,10 @@ NODE_ENV="development"
 ### Phase 2 Complete When:
 - [ ] Users can view their profile
 - [ ] Organizations can be created/managed
-- [ ] Team members can be invited
+- [ ] Team members can be invited with role assignment
 - [ ] Settings page is functional
-- [ ] Navigation works correctly
+- [ ] Role-based navigation works (admin/employee/client see different menus)
+- [ ] Basic admin, employee, and client dashboard layouts exist
 
 ### Phase 3 Complete When:
 - [ ] CRM system allows customer management
@@ -317,9 +355,10 @@ NODE_ENV="development"
 - [ ] Analytics dashboard shows real data
 
 ### Phase 4 Complete When:
-- [ ] Users can login on marketing site and access dashboard
+- [ ] Users can login on marketing site and access app
 - [ ] Authentication works seamlessly across domains
-- [ ] Dashboard is live at app.strivetech.ai
+- [ ] App is live at app.strivetech.ai
+- [ ] Role-based dashboards route correctly (admin → /admin/dashboard, etc.)
 - [ ] All core features are production-ready
 - [ ] Performance and security are verified
 
