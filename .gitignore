@@ -95,8 +95,6 @@ coverage/
 # nyc test coverage
 .nyc_output
 
-
-CLAUDE.md
 .vercel
 .vercel/
 .env.production

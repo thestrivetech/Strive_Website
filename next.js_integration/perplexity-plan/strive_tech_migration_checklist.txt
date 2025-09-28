@@ -44,7 +44,7 @@ PHASE 5: PROJECT & TASK MANAGEMENT
 □ Progress tracking and notifications
 
 PHASE 6: AI INTEGRATION
-□ Multi-AI chatbot system (OpenAI, Claude)
+□ Multi-AI chatbot system (Sai=Main Chatbot which uses KimiK2, OpenAI, Claude, Grok, and other models available on openrouter)
 □ Context-aware assistance
 □ AI tool marketplace
 □ Usage tracking and billing
