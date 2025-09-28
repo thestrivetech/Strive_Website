@@ -7,6 +7,7 @@ node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.production
 
 # Build outputs
 dist/
@@ -103,3 +104,5 @@ STRIVE_WEBSITE_INTEGRATION.md
 .env 2.vercel
 .env.vercel
 .env*.local
+
+old/
