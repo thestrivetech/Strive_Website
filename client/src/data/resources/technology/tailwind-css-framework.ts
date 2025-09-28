@@ -4,33 +4,32 @@ export const tailwindCssFramework: Resource = {
   id: 111,
   type: "TECH GUIDE",
   title: "Tailwind CSS Framework",
-  shortDescription: "Utility-first CSS framework for rapid UI development with consistent design systems.",
-  fullDescription: "Tailwind CSS revolutionizes frontend styling with its utility-first approach, enabling rapid development of beautiful, responsive interfaces. This guide covers core concepts, customization techniques, component extraction patterns, and integration with popular frameworks. Learn to build consistent design systems, implement responsive layouts, create custom themes, and optimize for production with purging and minification strategies.",
-  imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-  imageAlt: "Modern web design with Tailwind CSS",
+  shortDescription: "Tailwind CSS is a utility-first CSS framework for rapidly building custom user interfaces. It powers scalable, responsive web frontends—perfect for AI dashboards, admin panels, and dynamic data applications.",
+  fullDescription: "AI dashboards, admin portals, and product sites. Rapid MVP delivery for startups and internal tools. Custom web UI for data, ML/AI, and reporting products.",
+  imageUrl: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+  imageAlt: "Tailwind CSS framework design",
   metadata: "CSS Framework",
-  date: "Tailwind v3.x",
-  author: "Strive Design Team",
+  date: "Tailwind 3.4",
+  author: "Strive AI Team",
   readTime: "10 min",
-  tags: ["Tailwind CSS", "CSS", "UI Design", "Frontend"],
+  tags: ["Tailwind CSS", "CSS Framework", "UI Design", "Frontend", "Responsive Design"],
   content: {
     keyPoints: [
-      "Utility-first approach for rapid prototyping and development",
-      "Highly customizable design system with configuration files",
-      "Responsive design utilities for mobile-first development",
-      "Built-in purging for optimized production builds",
-      "Extensive plugin ecosystem for extended functionality"
+      "Compose any design using functional utility classes—no need for custom CSS",
+      "Built-in dark mode, responsive, and accessibility utilities",
+      "Rapid prototyping with consistent, maintainable design tokens",
+      "Ecosystem includes UI kits, plugins, and integrations for React, Vue, more",
+      "Small bundle size, fast compile, and simple config"
     ],
     insights: [
-      "Tailwind CSS reduces custom CSS writing by 80%",
-      "Design consistency improves across team members by 90%",
-      "Development speed increases by 50% with utility classes"
+      "Used by top SaaS and web teams for pixel-perfect, production UIs",
+      "2–4x faster dev cycles integrating with React, Next.js, and Remix",
+      "Favored for design systems, dark mode, and cross-device support"
     ],
     actionItems: [
-      "Install and configure Tailwind CSS in your project",
-      "Learn core utility classes and responsive modifiers",
-      "Create custom component patterns with @apply directive",
-      "Set up purging for optimized production builds"
+      "Layer on top of any web stack, or migrate legacy apps for modern UI/UX",
+      "Use with Headless UI or plugin suites for advanced controls",
+      "Apply design tokens and atomic classes for scale and theming"
     ]
   }
-};
+};;

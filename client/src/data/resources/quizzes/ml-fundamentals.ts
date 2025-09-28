@@ -5,7 +5,7 @@ export const mlFundamentals: Quiz = {
   title: "Machine Learning Fundamentals",
   description: "Test your understanding of core machine learning concepts, algorithms, and applications.",
   topic: "Machine Learning",
-  difficulty: "beginner",
+  difficulty: "intermediate",
   timeLimit: 15,
   passingScore: 70,
   questions: [
@@ -13,51 +13,51 @@ export const mlFundamentals: Quiz = {
       id: 1,
       question: "What is the primary difference between supervised and unsupervised learning?",
       options: [
-        "Supervised learning uses labeled data, unsupervised learning finds patterns in unlabeled data",
         "Supervised learning is faster than unsupervised learning",
-        "Supervised learning uses more data than unsupervised learning",
-        "There is no difference between them"
+        "Supervised learning uses labeled data, unsupervised learning finds patterns in unlabeled data",
+        "Supervised learning requires more computational power",
+        "Supervised learning only works with numerical data"
       ],
-      correctAnswer: 0,
+      correctAnswer: 1,
       explanation: "Supervised learning uses labeled training data to learn mappings from inputs to outputs, while unsupervised learning finds hidden patterns in data without labels.",
-      difficulty: "beginner"
+      difficulty: "intermediate"
     },
     {
       id: 2,
       question: "Which algorithm is commonly used for classification tasks?",
       options: [
         "Linear Regression",
+        "K-Means",
         "Random Forest",
-        "K-means Clustering",
-        "Principal Component Analysis"
+        "PCA"
       ],
-      correctAnswer: 1,
+      correctAnswer: 2,
       explanation: "Random Forest is a popular ensemble method used for both classification and regression tasks, known for its accuracy and ability to handle overfitting.",
-      difficulty: "beginner"
+      difficulty: "intermediate"
     },
     {
       id: 3,
       question: "What does 'overfitting' mean in machine learning?",
       options: [
-        "The model is too simple",
+        "The model is too simple for the data",
         "The model performs well on training data but poorly on new data",
-        "The model trains too quickly",
-        "The model uses too little data"
+        "The model takes too long to train",
+        "The model uses too much memory"
       ],
       correctAnswer: 1,
       explanation: "Overfitting occurs when a model learns the training data too well, including noise and outliers, resulting in poor generalization to new, unseen data.",
-      difficulty: "beginner"
+      difficulty: "intermediate"
     },
     {
       id: 4,
       question: "What is cross-validation used for?",
       options: [
-        "To increase training speed",
+        "To increase model complexity",
+        "To reduce training time",
         "To evaluate model performance and prevent overfitting",
-        "To clean the data",
-        "To visualize results"
+        "To clean the dataset"
       ],
-      correctAnswer: 1,
+      correctAnswer: 2,
       explanation: "Cross-validation is a technique to assess how well a model will generalize to independent data by partitioning data and testing on different subsets.",
       difficulty: "intermediate"
     },

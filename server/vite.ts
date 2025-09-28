@@ -44,6 +44,11 @@ export async function setupVite(app: Express, server: Server) {
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl;
 
+    // Don't serve SPA for API routes
+    if (url.startsWith("/api")) {
+      return next();
+    }
+
     try {
       const clientTemplate = path.resolve(
         import.meta.dirname,
@@ -86,8 +91,24 @@ export function serveStatic(app: Express) {
       const ext = path.extname(filePath).toLowerCase();
 
       if (ext === '.html') {
-        // HTML files - short cache to allow updates
-        res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=300'); // 5 minutes
+        // HTML files - MAXIMUM AGGRESSIVE no-cache headers
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, no-transform, max-age=0');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
+        res.setHeader('Surrogate-Control', 'no-store');
+        res.setHeader('Vary', '*');
+        res.setHeader('Last-Modified', new Date().toUTCString());
+
+        // Version information for debugging and cache busting
+        const version = `v2-${process.env.BUILD_TIMESTAMP || Date.now()}`;
+        const uniqueId = `${version}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        res.setHeader('X-App-Version', version);
+        res.setHeader('X-Build-Timestamp', process.env.BUILD_TIMESTAMP || Date.now().toString());
+        res.setHeader('ETag', `"html-${uniqueId}"`);
+
+        // Additional browser-specific cache prevention
+        res.setHeader('X-Accel-Expires', '0');
+        res.setHeader('X-Cache-Status', 'BYPASS');
       } else if (['.js', '.css', '.woff2', '.woff', '.ttf', '.otf'].includes(ext)) {
         // JS, CSS, and font files - long cache as they're usually versioned
         res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 year, immutable
@@ -111,7 +132,25 @@ export function serveStatic(app: Express) {
 
   // fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
-    res.setHeader('Cache-Control', 'public, max-age=300'); // 5 minutes for SPA fallback
+    // MAXIMUM AGGRESSIVE no-cache headers for SPA fallback
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, no-transform, max-age=0');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('Surrogate-Control', 'no-store');
+    res.setHeader('Vary', '*');
+    res.setHeader('Last-Modified', new Date().toUTCString());
+
+    // Version information for debugging and cache busting
+    const version = `v2-${process.env.BUILD_TIMESTAMP || Date.now()}`;
+    const uniqueId = `${version}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    res.setHeader('X-App-Version', version);
+    res.setHeader('X-Build-Timestamp', process.env.BUILD_TIMESTAMP || Date.now().toString());
+    res.setHeader('ETag', `"spa-fallback-${uniqueId}"`);
+
+    // Additional browser-specific cache prevention
+    res.setHeader('X-Accel-Expires', '0');
+    res.setHeader('X-Cache-Status', 'BYPASS');
+
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }

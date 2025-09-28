@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { 
   Users, Target, Calendar, Clock, CheckCircle, ChevronRight, Zap
 } from "lucide-react";
@@ -10,6 +10,114 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { validateEmail, validatePhone } from "@/lib/validation";
+import { CalendlyFallback } from "@/components/ui/calendly-fallback";
+import { useCalendlyIntegration } from "@/hooks/useCalendlyIntegration";
+import React from "react";
+
+// Enhanced Calendly Iframe Component with robust error handling
+const CalendlyIframe = React.memo(({
+  onError,
+  onLoad,
+  formData
+}: {
+  onError: (error: string) => void;
+  onLoad: () => void;
+  formData: any;
+}) => {
+  const [iframeStatus, setIframeStatus] = React.useState<'loading' | 'loaded' | 'error'>('loading');
+  const [loadTimeout, setLoadTimeout] = React.useState<NodeJS.Timeout | null>(null);
+
+  const handleIframeLoad = React.useCallback(() => {
+    console.log('[Calendly] Iframe loaded successfully');
+    setIframeStatus('loaded');
+    if (loadTimeout) {
+      clearTimeout(loadTimeout);
+      setLoadTimeout(null);
+    }
+    onLoad();
+  }, [onLoad, loadTimeout]);
+
+  const handleIframeError = React.useCallback(() => {
+    console.error('[Calendly] Iframe failed to load');
+    setIframeStatus('error');
+    if (loadTimeout) {
+      clearTimeout(loadTimeout);
+      setLoadTimeout(null);
+    }
+    onError('Iframe failed to load properly');
+  }, [onError, loadTimeout]);
+
+  // Build Calendly URL with prefilled data
+  const buildCalendlyUrl = React.useCallback(() => {
+    const baseUrl = "https://calendly.com/strivetech";
+    const params = new URLSearchParams();
+
+    if (formData.firstName && formData.lastName) {
+      params.append('name', `${formData.firstName} ${formData.lastName}`);
+    }
+    if (formData.email) {
+      params.append('email', formData.email);
+    }
+    if (formData.companyName) {
+      params.append('a1', formData.companyName);
+    }
+    if (formData.phone) {
+      params.append('a2', formData.phone);
+    }
+    if (formData.requestTypes && formData.requestTypes.length > 0) {
+      params.append('a3', formData.requestTypes.join(', '));
+    }
+
+    return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+  }, [formData]);
+
+  // Set a timeout for iframe loading
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (iframeStatus === 'loading') {
+        console.warn('[Calendly] Iframe loading timeout');
+        setIframeStatus('error');
+        onError('Calendar is taking too long to load');
+      }
+    }, 15000); // 15 second timeout for iframe
+
+    setLoadTimeout(timeout);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [iframeStatus, onError]);
+
+  return (
+    <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
+      {iframeStatus === 'loading' && (
+        <div className="absolute inset-0 bg-gray-50 flex items-center justify-center z-10">
+          <div className="text-center space-y-2">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary mx-auto"></div>
+            <p className="text-sm text-muted-foreground">Loading calendar...</p>
+          </div>
+        </div>
+      )}
+      <iframe
+        src={buildCalendlyUrl()}
+        width="100%"
+        height="500"
+        frameBorder="0"
+        title="Schedule Your Showcase - Strive Tech"
+        className="md:h-[630px]"
+        style={{ borderRadius: '0px' }}
+        onLoad={handleIframeLoad}
+        onError={handleIframeError}
+        allow="camera; microphone; geolocation"
+        referrerPolicy="strict-origin-when-cross-origin"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+        loading="lazy"
+      />
+    </div>
+  );
+});
+
+CalendlyIframe.displayName = 'CalendlyIframe';
 
 const Request = () => {
   const [formStep, setFormStep] = useState(1);
@@ -77,8 +185,7 @@ const Request = () => {
   ];
 
   const requestTypeOptions = [
-    { value: "demo", label: "Product Demo", description: "See our AI solutions in action with live demonstrations" },
-    { value: "showcase", label: "Solution Showcase", description: "Tailored presentation of AI solutions for your industry" },
+    { value: "showcase", label: "Solution Showcase", description: "Tailored presentation with personalized demo of AI solutions customized for your specific business needs" },
     { value: "assessment", label: "AI Assessment", description: "Comprehensive evaluation of your AI readiness and opportunities" }
   ];
 
@@ -99,20 +206,22 @@ const Request = () => {
   const isEmailValid = (email: string) => validateEmail(email).isValid;
   const isPhoneValid = (phone: string) => validatePhone(phone, true).isValid;
 
-  // Load Calendly script when component mounts
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    document.body.appendChild(script);
+  // Use the robust Calendly integration hook
+  const calendlyIntegration = useCalendlyIntegration();
 
-    return () => {
-      // Cleanup script when component unmounts
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
+  // Stable callback functions for CalendlyIframe to prevent unnecessary re-renders
+  const handleCalendlyError = useCallback((error: string) => {
+    console.error('[Calendly] Iframe error:', error);
+    // The hook manages the error state, but we can log additional context here
   }, []);
+
+  const handleCalendlyLoad = useCallback(() => {
+    console.log('[Calendly] Iframe loaded successfully');
+  }, []);
+
+
+
+
 
   const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -139,12 +248,21 @@ const Request = () => {
   };
 
   const handleCheckboxChange = (field: string, value: string, checked: boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: checked 
-        ? [...prev[field as keyof typeof prev] as string[], value]
-        : (prev[field as keyof typeof prev] as string[]).filter((item: string) => item !== value)
-    }));
+    setFormData(prev => {
+      const currentArray = prev[field as keyof typeof prev] as string[];
+      // Ensure we have a valid array
+      if (!Array.isArray(currentArray)) {
+        console.error(`Field ${field} is not an array:`, currentArray);
+        return prev;
+      }
+
+      return {
+        ...prev,
+        [field]: checked
+          ? [...currentArray, value]
+          : currentArray.filter((item: string) => item !== value)
+      };
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -155,16 +273,11 @@ const Request = () => {
       return;
     }
     
-    // Parse fullName into firstName and lastName
-    const nameParts = formData.fullName.split(' ');
-    const firstName = nameParts[0] || '';
-    const lastName = nameParts.slice(1).join(' ') || '';
-    
     // Include custom challenge text in the submission if "Other" is selected
     const submissionData = {
-      firstName,
-      lastName,
-      fullName: formData.fullName,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      fullName: `${formData.firstName} ${formData.lastName}`,
       email: formData.email,
       phone: formData.phone,
       company: formData.companyName,
@@ -197,6 +310,8 @@ const Request = () => {
       
       if (response.ok && result.success) {
         setIsSubmitted(true);
+        // Scroll to top to show success message
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         console.log("Request submitted successfully:", result);
       } else {
         console.error("Request submission failed:", result);
@@ -212,7 +327,8 @@ const Request = () => {
   const isStepComplete = (step: number) => {
     switch (step) {
       case 1:
-        return formData.fullName && 
+        return formData.firstName && 
+               formData.lastName && 
                formData.email && 
                isEmailValid(formData.email) &&
                formData.companyName &&
@@ -330,36 +446,49 @@ const Request = () => {
                     <div className="space-y-4 md:space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         <div>
-                          <Label htmlFor="fullName" className="text-white text-sm md:text-base">Full Name *</Label>
+                          <Label htmlFor="firstName" className="text-white text-sm md:text-base">First Name *</Label>
                           <Input
-                            id="fullName"
-                            value={formData.fullName}
-                            onChange={(e) => handleInputChange("fullName", e.target.value)}
-                            placeholder="John Doe"
+                            id="firstName"
+                            value={formData.firstName}
+                            onChange={(e) => handleInputChange("firstName", e.target.value)}
+                            placeholder="John"
                             className="h-11 md:h-10"
                             style={inputStyle}
                             required
                           />
                         </div>
                         <div>
-                          <Label htmlFor="email" className="text-white text-sm md:text-base">Email Address *</Label>
+                          <Label htmlFor="lastName" className="text-white text-sm md:text-base">Last Name *</Label>
                           <Input
-                            id="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => handleInputChange("email", e.target.value)}
-                            placeholder="john@company.com"
+                            id="lastName"
+                            value={formData.lastName}
+                            onChange={(e) => handleInputChange("lastName", e.target.value)}
+                            placeholder="Doe"
                             className="h-11 md:h-10"
-                            style={{
-                              ...inputStyle,
-                              borderColor: validationErrors.email ? '#ef4444' : '#ff7033'
-                            }}
+                            style={inputStyle}
                             required
                           />
-                          {validationErrors.email && (
-                            <p className="text-sm text-red-400 mt-1">{validationErrors.email}</p>
-                          )}
                         </div>
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor="email" className="text-white text-sm md:text-base">Email Address *</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => handleInputChange("email", e.target.value)}
+                          placeholder="john@company.com"
+                          className="h-11 md:h-10"
+                          style={{
+                            ...inputStyle,
+                            borderColor: validationErrors.email ? '#ef4444' : '#ff7033'
+                          }}
+                          required
+                        />
+                        {validationErrors.email && (
+                          <p className="text-sm text-red-400 mt-1">{validationErrors.email}</p>
+                        )}
                       </div>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
@@ -550,7 +679,10 @@ const Request = () => {
                         <Label className="text-white text-sm md:text-base">Services Requested * (Select all that apply)</Label>
                         <div className="grid grid-cols-1 gap-3 md:gap-4 mt-3">
                           {requestTypeOptions.map((option) => (
-                            <div key={option.value} className="border border-gray-300 rounded-lg p-3 md:p-4 bg-white/10 backdrop-blur-sm">
+                            <div
+                              key={option.value}
+                              className="border border-gray-300 rounded-lg p-3 md:p-4 bg-white/10 backdrop-blur-sm"
+                            >
                               <div className="flex items-center space-x-3">
                                 <Checkbox
                                   id={option.value}
@@ -560,10 +692,10 @@ const Request = () => {
                                   }}
                                   className="border-white data-[state=checked]:bg-[#ff7033] data-[state=checked]:border-[#ff7033]"
                                 />
-                                <div>
-                                  <Label 
-                                    htmlFor={option.value} 
-                                    className="text-white font-semibold cursor-pointer text-sm md:text-base"
+                                <div className="flex-1">
+                                  <Label
+                                    htmlFor={option.value}
+                                    className="text-white font-semibold cursor-pointer text-sm md:text-base block"
                                   >
                                     {option.label}
                                   </Label>
@@ -649,28 +781,34 @@ const Request = () => {
                             </p>
                           </div>
                           <div className="px-0 md:px-4 pb-3 md:pb-4">
-                            {/* Calendly Integration */}
-                            <div className="w-full rounded-none md:rounded-lg overflow-hidden" style={{ border: '1px solid #e5e7eb' }}>
-                              <iframe
-                                src="https://calendly.com/strivetech"
-                                width="100%"
-                                height="500"
-                                frameBorder="0"
-                                title="Schedule Your Showcase - Strive Tech"
-                                className="md:h-[630px]"
-                                style={{ borderRadius: '0px' }}
+                            {/* Enhanced Calendly Integration with Robust Error Handling */}
+                            {calendlyIntegration.status === 'loaded' ? (
+                              <CalendlyIframe
+                                onError={handleCalendlyError}
+                                onLoad={handleCalendlyLoad}
+                                formData={formData}
                               />
-                            </div>
-                            <div className="mt-3 md:mt-4 p-2 md:p-3 rounded-lg border border-gray-200 bg-off-white">
-                              <div className="space-y-1 md:space-y-2 text-xs">
-                                <p style={{ color: '#ff7033' }}><strong>Your Details:</strong></p>
-                                <p style={{ color: '#ff7033' }}>Contact: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.fullName}</span></p>
-                                <p style={{ color: '#ff7033' }}>Email: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.email}</span></p>
-                                <p style={{ color: '#ff7033' }}>Company: <span className="font-medium" style={{ color: '#020a1c' }}>{formData.companyName}</span></p>
+                            ) : (
+                              <CalendlyFallback 
+                                status={calendlyIntegration.status}
+                                error={calendlyIntegration.error}
+                                onRetry={calendlyIntegration.retry}
+                                retryCount={calendlyIntegration.retryCount}
+                              />
+                            )}
+                            <div className="mt-3 md:mt-4 p-3 md:p-4 rounded-lg border border-gray-200 bg-white shadow-sm">
+                              <div className="space-y-2 md:space-y-3 text-sm">
+                                <h4 className="text-center font-semibold text-lg mb-3" style={{ color: '#ff7033' }}>— Your Details —</h4>
+                                <div className="space-y-1">
+                                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Communication Method:</span> <span className="font-medium" style={{ color: '#020a1c' }}>Google Meet</span></p>
+                                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Contact:</span> <span className="font-medium" style={{ color: '#020a1c' }}>{formData.firstName} {formData.lastName}</span></p>
+                                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Email:</span> <span className="font-medium" style={{ color: '#020a1c' }}>{formData.email}</span></p>
+                                  <p><span className="font-medium" style={{ color: '#ff7033' }}>Company:</span> <span className="font-medium" style={{ color: '#020a1c' }}>{formData.companyName}</span></p>
+                                </div>
                               </div>
                             </div>
                             <p className="text-xs md:text-sm text-muted-foreground mt-2 text-center">
-                              * You'll receive a calendar invite and confirmation email after scheduling
+                              * You'll receive a calendar invite and confirmation email after scheduling, plus 3 reminders: 24 hours before, 2 hours before, and 15 minutes before your meeting
                             </p>
                           </div>
                         </div>
@@ -694,7 +832,16 @@ const Request = () => {
                       <Button
                         type="button"
                         className="ml-auto bg-primary hover:bg-primary/90"
-                        onClick={() => setFormStep(formStep + 1)}
+                        onClick={() => {
+                          const nextStep = formStep + 1;
+                          setFormStep(nextStep);
+                          // Scroll to top when reaching the Calendly step (step 3)
+                          if (nextStep === 3) {
+                            setTimeout(() => {
+                              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                            }, 100);
+                          }
+                        }}
                         disabled={!isStepComplete(formStep)}
                       >
                         Next

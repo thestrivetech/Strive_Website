@@ -43,7 +43,7 @@ export const StructuredData: React.FC<StructuredDataProps> = ({
               '@type': 'ListItem',
               position: index + 1,
               name: crumb.name,
-              item: crumb.url.startsWith('http') ? crumb.url : `https://strive-tech-website.com${crumb.url}`
+              item: crumb.url.startsWith('http') ? crumb.url : `https://strivetech.ai${crumb.url}`
             }))
           };
           return breadcrumbSchema;

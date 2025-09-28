@@ -23,4 +23,22 @@ export interface Resource {
     description?: string;
   }>;
   relatedSolutions?: string[];
+  // Full content structure for whitepapers with professional viewing
+  fullContent?: {
+    sections: Array<{
+      id: string;
+      title: string;
+      content: string;
+      subsections?: Array<{
+        id: string;
+        title: string;
+        content: string;
+      }>;
+    }>;
+    citations?: Array<{
+      number: string;
+      text: string;
+      url?: string;
+    }>;
+  };
 }

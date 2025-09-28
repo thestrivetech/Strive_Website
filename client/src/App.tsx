@@ -1,5 +1,6 @@
 import { Switch, Route } from "wouter";
 import { Suspense, lazy } from "react";
+import { useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,11 +9,14 @@ import { AuthProvider } from "@/lib/auth";
 import ScrollToTop from "@/components/scroll-to-top";
 import PageSkeleton from "@/components/ui/page-skeleton";
 import ErrorBoundary from "@/components/ui/error-boundary";
+import AnalyticsErrorBoundary from "@/components/ui/analytics-error-boundary";
+import { usePageTracking } from "@/hooks/usePageTracking";
 
 // Lazy load layout components for better performance
 const Navigation = lazy(() => import("@/components/layout/navigation"));
 const Footer = lazy(() => import("@/components/layout/footer"));
 const FloatingChat = lazy(() => import("@/components/ui/floating-chat"));
+const ConsentBanner = lazy(() => import("@/components/analytics/consent-banner").then(module => ({ default: module.ConsentBanner })));
 
 // Keep home page loaded immediately for best UX
 import Home from "@/pages/home";
@@ -48,8 +52,20 @@ const ComputerVision = lazy(() => import("@/pages/solutions/computer-vision"));
 const SecurityCompliance = lazy(() => import("@/pages/solutions/security-compliance"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 const PerformanceDashboard = lazy(() => import("@/pages/performance-dashboard"));
+const AnalyticsDashboard = lazy(() => import("@/pages/analytics-dashboard"));
 
 function Router() {
+  const [location] = useLocation();
+  const hideChatWidget = location === '/chatbot-sai' || location === '/';
+
+  // Enable automatic page tracking with error handling
+  try {
+    usePageTracking();
+  } catch (error) {
+    console.error('📊 Page tracking initialization failed:', error);
+    // Continue app execution - analytics failure shouldn't break the app
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <ScrollToTop />
@@ -87,6 +103,7 @@ function Router() {
             <Route path="/solutions/computer-vision" component={ComputerVision} />
             <Route path="/solutions/security-compliance" component={SecurityCompliance} />
             <Route path="/performance" component={PerformanceDashboard} />
+            <Route path="/analytics-dashboard" component={AnalyticsDashboard} />
             <Route component={NotFound} />
           </Switch>
         </Suspense>
@@ -94,8 +111,15 @@ function Router() {
       <Suspense fallback={<div className="h-20 w-full bg-muted/10 animate-pulse" />}>
         <Footer />
       </Suspense>
+      {!hideChatWidget && (
+        <Suspense fallback={null}>
+          <FloatingChat />
+        </Suspense>
+      )}
       <Suspense fallback={null}>
-        <FloatingChat />
+        <AnalyticsErrorBoundary componentName="ConsentBanner">
+          <ConsentBanner />
+        </AnalyticsErrorBoundary>
       </Suspense>
     </div>
   );

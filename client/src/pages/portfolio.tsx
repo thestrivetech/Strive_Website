@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 import { Bot, Code, Blocks, Brain, BrainCircuit, Database, Globe, Zap, Eye, Play, ExternalLink, X, Github, Monitor, Smartphone, ChevronRight, Filter, ChevronDown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -32,7 +33,7 @@ const Portfolio = () => {
     : projects.filter(project => project.type === selectedFilter);
 
   const getCategoryIcon = (category: string) => {
-    const iconMap: { [key: string]: JSX.Element } = {
+    const iconMap: { [key: string]: React.ReactElement } = {
       "AI Agent": <Bot className="h-5 w-5" />,
       "AI Model": <Brain className="h-5 w-5" />,
       "RAG Solution": <Database className="h-5 w-5" />,
@@ -55,7 +56,7 @@ const Portfolio = () => {
   return (
     <div className="pt-16">
       {/* Hero Section with AI-themed animated background */}
-      <section className="py-20 hero-gradient relative overflow-hidden">
+      <section className="py-12 sm:py-14 md:py-16 lg:py-20 hero-gradient relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 animate-pulse"></div>
           <div className="absolute top-0 left-0 w-full h-full">
@@ -76,38 +77,38 @@ const Portfolio = () => {
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <div className="flex items-center justify-center mb-6">
+            <div className="flex items-center justify-center mb-4 sm:mb-5 md:mb-6">
               <div className="relative">
-                <BrainCircuit className="text-primary h-16 w-16 animate-pulse" />
+                <BrainCircuit className="text-primary h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 animate-pulse" />
                 <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping"></div>
               </div>
             </div>
-            <h1 
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-white"
+            <h1
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold mb-4 sm:mb-5 md:mb-6 text-white px-4"
               data-testid="text-hero-title"
             >
               Unlock Time and Growth: <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">AI Solutions</span> for Ambitious Businesses
             </h1>
-            <p 
-              className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-8"
+            <p
+              className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-muted-foreground max-w-4xl mx-auto mb-6 sm:mb-7 md:mb-8 px-4"
               data-testid="text-hero-subtitle"
             >
               Struggling with slow processes or information overload? Discover AI-powered solutions tailored for your business that are purpose-built to drive efficiency, lower costs, and free your team to focus on what matters most.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
-                size="lg" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group
-                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
+              <Button
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group
+                  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 min-h-[44px] w-full sm:w-auto"
                 onClick={() => window.location.href = '/request'}
                 data-testid="button-view-work"
               >
                 Request Personalized Demo
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+              <Button
+                size="lg"
+                variant="outline"
+                className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl min-h-[44px] w-full sm:w-auto"
                 onClick={() => document.getElementById('showcase')?.scrollIntoView({ behavior: 'smooth' })}
                 data-testid="button-request-demo"
               >

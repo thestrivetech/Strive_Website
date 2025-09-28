@@ -60,7 +60,7 @@ const Navigation = () => {
     { name: "Home", path: "/" },
     { name: "Portfolio", path: "/portfolio" },
     { name: "Resources", path: "/resources" },
-    { name: "Company", path: "/about" },
+    { name: "Our Company", path: "/about" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -167,7 +167,7 @@ const Navigation = () => {
                     data-testid="mobile-nav-about-us"
                   >
                     <Building className="w-5 h-5 mr-3 text-[#ff7033]" />
-                    Company
+                    Our Company
                   </Link>
                   <Link
                     href="/contact"
@@ -345,7 +345,7 @@ const Navigation = () => {
               onClick={(e) => handleNavClick(e, "/about")}
               data-testid="nav-about"
             >
-              Company
+              Our Company
             </Link>
             <Link
               href="/contact"

@@ -8,9 +8,13 @@
  */
 
 import sharp from 'sharp';
+// @ts-ignore - No type definitions available
 import imagemin from 'imagemin';
+// @ts-ignore - No type definitions available
 import imageminAvif from 'imagemin-avif';
+// @ts-ignore - No type definitions available
 import imageminWebP from 'imagemin-webp';
+// @ts-ignore - No type definitions available
 import imageminMozjpeg from 'imagemin-mozjpeg';
 import fs from 'fs/promises';
 import path from 'path';
@@ -49,7 +53,7 @@ const IMAGE_CATEGORIES = {
     path: '',
     sizes: [200, 400, 800],
     formats: ['avif', 'webp', 'png'],
-    quality: { avif: 60, webp: 85, png: 100 }
+    quality: { avif: 60, webp: 85, jpeg: 100 }
   }
 };
 
@@ -189,8 +193,7 @@ class ImageOptimizer {
         case 'webp':
           pipeline = pipeline.webp({
             quality,
-            effort: 6,
-            method: 6
+            effort: 6
           });
           break;
         case 'jpeg':

@@ -191,7 +191,7 @@ export const sitemapPages: SitemapPage[] = [
   }
 ];
 
-export async function generateSitemap(baseUrl: string = 'https://strive-tech-website.com'): Promise<string> {
+export async function generateSitemap(baseUrl: string = 'https://strivetech.ai'): Promise<string> {
   // Create a stream to write to
   const stream = new SitemapStream({ hostname: baseUrl });
 
@@ -210,7 +210,7 @@ export async function generateSitemap(baseUrl: string = 'https://strive-tech-web
 }
 
 // Generate sitemap index for multiple sitemaps
-export async function generateSitemapIndex(baseUrl: string = 'https://strive-tech-website.com'): Promise<string> {
+export async function generateSitemapIndex(baseUrl: string = 'https://strivetech.ai'): Promise<string> {
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
@@ -227,7 +227,7 @@ export async function generateSitemapIndex(baseUrl: string = 'https://strive-tec
 }
 
 // Generate solution-specific sitemap
-export async function generateSolutionsSitemap(baseUrl: string = 'https://strive-tech-website.com'): Promise<string> {
+export async function generateSolutionsSitemap(baseUrl: string = 'https://strivetech.ai'): Promise<string> {
   const solutionPages = sitemapPages.filter(page => page.url.startsWith('/solutions'));
   
   const stream = new SitemapStream({ hostname: baseUrl });
@@ -244,7 +244,7 @@ export async function generateSolutionsSitemap(baseUrl: string = 'https://strive
 }
 
 // Generate main pages sitemap
-export async function generatePagesSitemap(baseUrl: string = 'https://strive-tech-website.com'): Promise<string> {
+export async function generatePagesSitemap(baseUrl: string = 'https://strivetech.ai'): Promise<string> {
   const mainPages = sitemapPages.filter(page => !page.url.startsWith('/solutions') || page.url === '/solutions');
   
   const stream = new SitemapStream({ hostname: baseUrl });

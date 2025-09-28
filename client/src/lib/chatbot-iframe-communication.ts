@@ -2,158 +2,217 @@
 // Handles secure postMessage communication between parent site and chatbot iframe
 
 export interface ChatbotMessage {
-  type: 'resize' | 'navigate' | 'analytics' | 'ready' | 'close' | 'minimize' | 'error';
+  type: 'resize' | 'navigate' | 'analytics' | 'ready' | 'close' | 'minimize' | 'error' | 'ping' | 'visibility' | 'mode';
   data?: {
+    // Ready event data
+    version?: string;
+    mode?: 'widget' | 'full';
+    capabilities?: string[];
+    
+    // Resize event data
     height?: number;
+    width?: number;
+    
+    // Navigate event data
     url?: string;
-    event?: string;
+    target?: '_blank' | '_self';
+    
+    // Analytics event data
+    event?: 'chat_opened' | 'message_sent' | 'chat_closed' | string;
     properties?: Record<string, any>;
+    
+    // Error event data
     error?: string;
+    code?: string;
+    recoverable?: boolean;
+    stack?: string;
+    
+    // Visibility/Mode control data
+    visible?: boolean;
+    
+    // General timestamp
+    timestamp?: number;
   };
   timestamp: number;
+  source?: string;
 }
 
 export class ChatbotIframeManager {
-  private iframe: HTMLIFrameElement | null = null;
   private chatbotOrigin: string;
-  private messageHandlers: Map<string, (data: any) => void> = new Map();
-  private isReady: boolean = false;
+  private eventHandlers: Map<string, (data: any, event?: MessageEvent) => void> = new Map();
+  private iframes: Set<HTMLIFrameElement> = new Set();
+  private isListening: boolean = false;
+  private messageLog: Array<{
+    time: string;
+    origin: string;
+    data: any;
+  }> = [];
 
-  constructor(chatbotOrigin: string = 'https://chat.strivetech.ai') {
-    this.chatbotOrigin = chatbotOrigin;
-    this.setupMessageListener();
+  constructor() {
+    // Use environment variable or default to production
+    this.chatbotOrigin = import.meta.env.VITE_CHATBOT_URL || 'https://chatbot.strivetech.ai';
+
+    // Start listening immediately
+    this.startListening();
   }
 
-  private setupMessageListener() {
-    window.addEventListener('message', (event) => {
-      // Security: Only accept messages from trusted chatbot origin
-      if (event.origin !== this.chatbotOrigin) {
-        console.warn('Ignored message from untrusted origin:', event.origin);
+  startListening() {
+    if (this.isListening) return;
+
+    window.addEventListener('message', this.handleMessage.bind(this));
+    this.isListening = true;
+
+    console.log('ChatbotIframeManager: Listening for messages from', this.chatbotOrigin);
+  }
+
+  stopListening() {
+    if (!this.isListening) return;
+
+    window.removeEventListener('message', this.handleMessage.bind(this));
+    this.isListening = false;
+  }
+
+  handleMessage(event: MessageEvent) {
+    // Security: validate origin with enhanced dev mode support
+    const allowedOrigins = [
+      this.chatbotOrigin,
+      'https://chatbot.strivetech.ai',
+      'http://localhost:5173', // Chatbot dev server
+      'http://localhost:3000',  // Common chatbot dev port
+      'http://localhost:3001',   // Alternative port
+      'http://127.0.0.1:5173',  // IPv4 localhost
+      'http://127.0.0.1:3000',  // IPv4 localhost
+      'http://127.0.0.1:3001'   // IPv4 localhost
+    ];
+
+    const isOriginAllowed = allowedOrigins.includes(event.origin);
+    const isDevelopment = import.meta.env.DEV;
+
+    if (!isOriginAllowed) {
+      if (isDevelopment) {
+        console.warn('⚠️ Message from unrecognized origin (allowing in dev mode):', {
+          receivedOrigin: event.origin,
+          allowedOrigins: allowedOrigins,
+          messageData: event.data
+        });
+        // Continue processing in dev mode for debugging
+      } else {
+        console.warn('🚫 Message rejected - untrusted origin:', {
+          receivedOrigin: event.origin,
+          allowedOrigins: allowedOrigins,
+          messageData: event.data
+        });
         return;
       }
-
-      try {
-        const message: ChatbotMessage = event.data;
-        this.handleMessage(message);
-      } catch (error) {
-        console.error('Error processing chatbot message:', error);
-      }
-    });
-  }
-
-  private handleMessage(message: ChatbotMessage) {
-    const { type, data } = message;
-
-    switch (type) {
-      case 'ready':
-        this.isReady = true;
-        this.executeHandler('ready', data);
-        break;
-
-      case 'resize':
-        if (data?.height && this.iframe) {
-          this.iframe.style.height = `${data.height}px`;
-        }
-        this.executeHandler('resize', data);
-        break;
-
-      case 'navigate':
-        if (data?.url) {
-          // Handle navigation requests from chatbot
-          window.location.href = data.url;
-        }
-        this.executeHandler('navigate', data);
-        break;
-
-      case 'analytics':
-        // Handle analytics events from chatbot
-        this.trackAnalytics(data?.event, data?.properties);
-        this.executeHandler('analytics', data);
-        break;
-
-      case 'close':
-        // Handle chatbot close request
-        this.executeHandler('close', data);
-        break;
-
-      case 'minimize':
-        // Handle chatbot minimize request
-        this.executeHandler('minimize', data);
-        break;
-
-      case 'error':
-        console.error('Chatbot error:', data?.error);
-        this.executeHandler('error', data);
-        break;
-
-      default:
-        console.warn('Unknown chatbot message type:', type);
     }
-  }
 
-  private executeHandler(type: string, data: any) {
-    const handler = this.messageHandlers.get(type);
+    if (isDevelopment || isOriginAllowed) {
+      console.log('✅ Origin validated:', event.origin);
+    }
+
+    // Log message for debugging
+    if (import.meta.env.DEV) {
+      console.log('📨 Received message in iframe manager:', event.data);
+      this.messageLog.push({
+        time: new Date().toISOString(),
+        origin: event.origin,
+        data: event.data
+      });
+    }
+
+    const { type, data, source } = event.data || {};
+
+    // Optional source validation with logging
+    if (source !== undefined && source !== 'sai-chatbot') {
+      if (import.meta.env.DEV) {
+        console.warn('⚠️ Message has unexpected source (allowing in dev mode):', {
+          receivedSource: source,
+          expectedSource: 'sai-chatbot',
+          messageType: type,
+          messageData: data
+        });
+      } else {
+        console.warn('🚫 Message rejected - wrong source:', {
+          receivedSource: source,
+          expectedSource: 'sai-chatbot',
+          messageType: type,
+          messageData: data
+        });
+        // In production, still reject unknown sources for security
+        // return;
+      }
+    }
+
+    if (import.meta.env.DEV) {
+      console.log('✅ Source validated:', source || 'undefined (accepted)');
+    }
+
+    // Call registered handlers
+    const handler = this.eventHandlers.get(type);
     if (handler) {
-      try {
-        handler(data);
-      } catch (error) {
-        console.error(`Error executing handler for ${type}:`, error);
-      }
+      handler(data, event);
+    }
+
+    // Call global handler if exists
+    const globalHandler = this.eventHandlers.get('*');
+    if (globalHandler) {
+      globalHandler({ type, data }, event);
     }
   }
 
-  private trackAnalytics(event?: string, properties?: Record<string, any>) {
-    // Integrate with your analytics service (Google Analytics, Mixpanel, etc.)
-    if (event) {
-      console.log('Chatbot Analytics:', event, properties);
-      // Example: gtag('event', event, properties);
-    }
+  registerIframe(iframe: HTMLIFrameElement) {
+    this.iframes.add(iframe);
+    return () => this.iframes.delete(iframe);
   }
 
-  // Public API methods
-  public setIframe(iframe: HTMLIFrameElement) {
-    this.iframe = iframe;
+  onMessage(type: string, handler: (data: any, event?: MessageEvent) => void) {
+    this.eventHandlers.set(type, handler);
+    return () => this.eventHandlers.delete(type);
   }
 
-  public sendMessage(type: string, data?: any) {
-    if (!this.iframe?.contentWindow) {
-      console.warn('Cannot send message: iframe not ready');
-      return;
-    }
+  offMessage(type: string) {
+    this.eventHandlers.delete(type);
+  }
 
-    const message: ChatbotMessage = {
-      type: type as any,
+  sendMessage(type: string, data = {}, targetIframe: HTMLIFrameElement | null = null) {
+    const message = {
+      type,
       data,
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      source: 'strivetech-website'
     };
 
-    this.iframe.contentWindow.postMessage(message, this.chatbotOrigin);
+    if (targetIframe && targetIframe.contentWindow) {
+      // Send to specific iframe
+      targetIframe.contentWindow.postMessage(message, this.chatbotOrigin);
+    } else {
+      // Send to all registered iframes
+      this.iframes.forEach(iframe => {
+        if (iframe.contentWindow) {
+          iframe.contentWindow.postMessage(message, this.chatbotOrigin);
+        }
+      });
+    }
   }
 
-  public onMessage(type: string, handler: (data: any) => void) {
-    this.messageHandlers.set(type, handler);
+  // Utility methods
+  ping(iframe?: HTMLIFrameElement) {
+    this.sendMessage('ping', { timestamp: Date.now() }, iframe);
   }
 
-  public offMessage(type: string) {
-    this.messageHandlers.delete(type);
+  getMessageLog() {
+    return this.messageLog;
   }
 
-  public isIframeReady(): boolean {
-    return this.isReady;
+  clearMessageLog() {
+    this.messageLog = [];
   }
 
-  public notifyVisibilityChange(isVisible: boolean) {
-    this.sendMessage('visibility', { visible: isVisible });
-  }
-
-  public notifyResize(width: number, height: number) {
-    this.sendMessage('container_resize', { width, height });
-  }
-
-  public destroy() {
-    this.messageHandlers.clear();
-    this.iframe = null;
-    this.isReady = false;
+  destroy() {
+    this.stopListening();
+    this.eventHandlers.clear();
+    this.iframes.clear();
+    this.messageLog = [];
   }
 }
 
@@ -244,12 +303,9 @@ export const createIframeWithFallback = (
   });
 };
 
-// Export singleton instance for global use
-export const chatbotManager = new ChatbotIframeManager();
+// Create singleton instance
+const chatbotManager = new ChatbotIframeManager();
 
-// Development mode configuration
-const devManager = process.env.NODE_ENV === 'development'
-  ? new ChatbotIframeManager('http://localhost:3001')
-  : chatbotManager;
-
-export { devManager as chatbotManagerDev };
+// Export for use in components
+export default chatbotManager;
+export { chatbotManager };

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import React from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
@@ -24,7 +25,7 @@ import { roiCalculator } from "@/lib/roi-calculator";
 import type { IndustryName } from "@/types/roi-calculator";
 
 // Industry icon mapping for UI display
-const industryIcons: Record<IndustryName, JSX.Element> = {
+const industryIcons: Record<IndustryName, React.ReactElement> = {
   'Healthcare': <Stethoscope className="h-4 w-4" />,
   'Financial Services': <CreditCard className="h-4 w-4" />,
   'Retail': <ShoppingCart className="h-4 w-4" />,
@@ -270,11 +271,6 @@ const ROICalculator = () => {
                               >
                                 <div className="flex items-center justify-between w-full">
                                   <span className="text-left">{solution}</span>
-                                  {solutionDetails && (
-                                    <span className="text-xs opacity-70 ml-2 hidden sm:inline">
-                                      {solutionDetails.timeSavingsPercent}% time saved
-                                    </span>
-                                  )}
                                 </div>
                               </Badge>
                             </TooltipTrigger>

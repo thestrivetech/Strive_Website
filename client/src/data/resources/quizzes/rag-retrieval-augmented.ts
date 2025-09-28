@@ -5,22 +5,22 @@ export const ragRetrievalAugmented: Quiz = {
   title: "RAG: Retrieval-Augmented Generation",
   description: "Explore RAG architecture, implementation strategies, and real-world applications.",
   topic: "RAG",
-  difficulty: "intermediate",
-  timeLimit: 20,
-  passingScore: 75,
+  difficulty: "advanced",
+  timeLimit: 25,
+  passingScore: 80,
   questions: [
     {
       id: 1,
       question: "What is the primary purpose of Retrieval-Augmented Generation (RAG)?",
       options: [
-        "To make language models faster",
-        "To combine retrieval of relevant information with text generation",
         "To reduce model size",
-        "To eliminate the need for training data"
+        "To combine retrieval of relevant information with text generation",
+        "To speed up training",
+        "To eliminate the need for large datasets"
       ],
       correctAnswer: 1,
       explanation: "RAG enhances language models by retrieving relevant external information and incorporating it into the generation process, improving accuracy and factual consistency.",
-      difficulty: "beginner"
+      difficulty: "advanced"
     },
     {
       id: 2,
@@ -33,31 +33,31 @@ export const ragRetrievalAugmented: Quiz = {
       ],
       correctAnswer: 2,
       explanation: "RAG systems typically include vector databases for storage, embedding models for encoding, and language models for generation. Image classifiers are not standard RAG components.",
-      difficulty: "intermediate"
+      difficulty: "advanced"
     },
     {
       id: 3,
       question: "What is the role of embeddings in RAG systems?",
       options: [
-        "To compress the data",
+        "To store the original text",
         "To convert text into numerical vectors for similarity search",
-        "To translate languages",
-        "To generate responses"
+        "To generate new text",
+        "To compress the database"
       ],
       correctAnswer: 1,
       explanation: "Embeddings convert text into high-dimensional vectors that capture semantic meaning, enabling efficient similarity search for relevant document retrieval.",
-      difficulty: "intermediate"
+      difficulty: "advanced"
     },
     {
       id: 4,
       question: "Which challenge is commonly addressed by RAG systems?",
       options: [
         "Slow inference speed",
+        "High memory usage",
         "Hallucination in language models",
-        "High computational costs",
-        "Limited vocabulary size"
+        "Complex model architectures"
       ],
-      correctAnswer: 1,
+      correctAnswer: 2,
       explanation: "RAG helps reduce hallucination by grounding language model responses in retrieved factual information from external knowledge sources.",
       difficulty: "advanced"
     },
@@ -65,14 +65,14 @@ export const ragRetrievalAugmented: Quiz = {
       id: 5,
       question: "What is chunking in the context of RAG systems?",
       options: [
+        "Combining multiple documents",
         "Dividing large documents into smaller, manageable pieces",
-        "Combining multiple responses",
-        "Reducing model parameters",
-        "Optimizing database queries"
+        "Removing irrelevant information",
+        "Compressing document size"
       ],
-      correctAnswer: 0,
+      correctAnswer: 1,
       explanation: "Chunking involves breaking down large documents into smaller segments that can be efficiently stored, indexed, and retrieved in RAG systems.",
-      difficulty: "intermediate"
+      difficulty: "advanced"
     }
   ]
 };

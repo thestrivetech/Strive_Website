@@ -20,13 +20,13 @@ export const MetaTags: React.FC<MetaTagsProps> = ({ seo }) => {
   } = seo;
 
   // Ensure absolute URLs for social media
-  const absoluteCanonical = canonical?.startsWith('http') 
-    ? canonical 
-    : `https://strive-tech-website.com${canonical || ''}`;
+  const absoluteCanonical = canonical?.startsWith('http')
+    ? canonical
+    : `https://strivetech.ai${canonical || ''}`;
     
-  const absoluteOgImage = ogImage.startsWith('http') 
-    ? ogImage 
-    : `https://strive-tech-website.com${ogImage}`;
+  const absoluteOgImage = ogImage.startsWith('http')
+    ? ogImage
+    : `https://strivetech.ai${ogImage}`;
 
   return (
     <Helmet>
