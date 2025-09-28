@@ -1,0 +1,278 @@
+
+=== STRIVE TECH DATABASE SCHEMA DESIGN ===
+
+This schema supports:
+- Multi-tenant architecture
+- User management with RBAC
+- CRM and customer management
+- Project and task management
+- AI assistant integration
+- Subscription and billing
+- Content management
+
+======================================================================
+DATABASE TABLES DESIGN:
+======================================================================
+
+USERS
+----------------------------------------
+Description: Core user management with authentication
+Columns:
+  • id (uuid, primary key)
+  • clerk_user_id (string, unique) - Integration with Clerk
+  • email (string, unique, not null)
+  • name (string)
+  • avatar_url (string)
+  • role (enum: admin, moderator, employee, client)
+  • subscription_tier (enum: free, basic, pro, enterprise)
+  • is_active (boolean, default true)
+  • created_at (timestamp)
+  • updated_at (timestamp)
+
+ORGANIZATIONS
+----------------------------------------
+Description: Multi-tenant organization management
+Columns:
+  • id (uuid, primary key)
+  • name (string, not null)
+  • slug (string, unique)
+  • description (text)
+  • settings (jsonb) - Organization-specific configurations
+  • subscription_status (enum: active, inactive, trial)
+  • billing_email (string)
+  • created_at (timestamp)
+  • updated_at (timestamp)
+
+ORGANIZATION_MEMBERS
+----------------------------------------
+Description: Many-to-many relationship between users and organizations
+Columns:
+  • id (uuid, primary key)
+  • user_id (uuid, foreign key -> users.id)
+  • organization_id (uuid, foreign key -> organizations.id)
+  • role (enum: owner, admin, member, viewer)
+  • permissions (jsonb) - Granular permissions
+  • joined_at (timestamp)
+  • created_at (timestamp)
+
+CUSTOMERS
+----------------------------------------
+Description: CRM customer management
+Columns:
+  • id (uuid, primary key)
+  • organization_id (uuid, foreign key -> organizations.id)
+  • name (string, not null)
+  • email (string)
+  • phone (string)
+  • company (string)
+  • status (enum: lead, prospect, active, churned)
+  • source (enum: website, referral, social, email, other)
+  • tags (string[]) - Searchable tags
+  • custom_fields (jsonb) - Flexible custom data
+  • assigned_to (uuid, foreign key -> users.id)
+  • created_at (timestamp)
+  • updated_at (timestamp)
+
+PROJECTS
+----------------------------------------
+Description: Project management and tracking
+Columns:
+  • id (uuid, primary key)
+  • organization_id (uuid, foreign key -> organizations.id)
+  • customer_id (uuid, foreign key -> customers.id, nullable)
+  • name (string, not null)
+  • description (text)
+  • status (enum: planning, active, on_hold, completed, cancelled)
+  • priority (enum: low, medium, high, critical)
+  • start_date (date)
+  • due_date (date)
+  • completion_date (date, nullable)
+  • budget (decimal)
+  • progress_percentage (integer, 0-100)
+  • project_manager_id (uuid, foreign key -> users.id)
+  • created_at (timestamp)
+  • updated_at (timestamp)
+
+TASKS
+----------------------------------------
+Description: Task management within projects
+Columns:
+  • id (uuid, primary key)
+  • project_id (uuid, foreign key -> projects.id)
+  • parent_task_id (uuid, foreign key -> tasks.id, nullable) - For subtasks
+  • title (string, not null)
+  • description (text)
+  • status (enum: todo, in_progress, review, done, cancelled)
+  • priority (enum: low, medium, high, critical)
+  • assigned_to (uuid, foreign key -> users.id, nullable)
+  • created_by (uuid, foreign key -> users.id)
+  • due_date (timestamp, nullable)
+  • estimated_hours (decimal, nullable)
+  • actual_hours (decimal, nullable)
+  • tags (string[])
+  • position (integer) - For kanban ordering
+  • created_at (timestamp)
+  • updated_at (timestamp)
+
+AI_CONVERSATIONS
+----------------------------------------
+Description: AI assistant conversation history
+Columns:
+  • id (uuid, primary key)
+  • user_id (uuid, foreign key -> users.id)
+  • organization_id (uuid, foreign key -> organizations.id)
+  • title (string)
+  • context_type (enum: general, project, customer, task)
+  • context_id (uuid, nullable) - Links to specific project/customer/task
+  • ai_model (enum: openai_gpt4, claude_sonnet, gemini)
+  • conversation_data (jsonb) - Full conversation history
+  • usage_tokens (integer) - For billing
+  • is_archived (boolean, default false)
+  • created_at (timestamp)
+  • updated_at (timestamp)
+
+AI_TOOLS
+----------------------------------------
+Description: Available AI tools and their configurations
+Columns:
+  • id (uuid, primary key)
+  • name (string, not null)
+  • description (text)
+  • tool_type (enum: chatbot, analysis, automation, integration)
+  • required_tier (enum: basic, pro, enterprise)
+  • configuration (jsonb) - Tool-specific settings
+  • is_active (boolean, default true)
+  • created_at (timestamp)
+  • updated_at (timestamp)
+
+SUBSCRIPTIONS
+----------------------------------------
+Description: Stripe subscription management
+Columns:
+  • id (uuid, primary key)
+  • organization_id (uuid, foreign key -> organizations.id)
+  • stripe_subscription_id (string, unique)
+  • stripe_customer_id (string)
+  • status (enum: active, past_due, cancelled, unpaid)
+  • tier (enum: free, basic, pro, enterprise)
+  • current_period_start (timestamp)
+  • current_period_end (timestamp)
+  • cancel_at_period_end (boolean, default false)
+  • metadata (jsonb)
+  • created_at (timestamp)
+  • updated_at (timestamp)
+
+USAGE_TRACKING
+----------------------------------------
+Description: Track usage for billing and limits
+Columns:
+  • id (uuid, primary key)
+  • organization_id (uuid, foreign key -> organizations.id)
+  • user_id (uuid, foreign key -> users.id)
+  • resource_type (enum: ai_tokens, api_calls, storage, seats)
+  • resource_name (string) - Specific resource identifier
+  • usage_amount (integer)
+  • billing_period (date) - Year-month for aggregation
+  • metadata (jsonb) - Additional usage details
+  • created_at (timestamp)
+
+APPOINTMENTS
+----------------------------------------
+Description: Scheduling and calendar management
+Columns:
+  • id (uuid, primary key)
+  • organization_id (uuid, foreign key -> organizations.id)
+  • customer_id (uuid, foreign key -> customers.id, nullable)
+  • assigned_to (uuid, foreign key -> users.id)
+  • title (string, not null)
+  • description (text)
+  • start_time (timestamp, not null)
+  • end_time (timestamp, not null)
+  • status (enum: scheduled, confirmed, completed, cancelled, no_show)
+  • location (string, nullable)
+  • meeting_url (string, nullable) - For virtual meetings
+  • reminders_sent (jsonb) - Track sent reminders
+  • created_at (timestamp)
+  • updated_at (timestamp)
+
+CONTENT
+----------------------------------------
+Description: CMS content management
+Columns:
+  • id (uuid, primary key)
+  • organization_id (uuid, foreign key -> organizations.id)
+  • title (string, not null)
+  • slug (string)
+  • content_type (enum: page, blog_post, documentation, template)
+  • content (text) - Markdown/HTML content
+  • excerpt (text)
+  • status (enum: draft, published, archived)
+  • author_id (uuid, foreign key -> users.id)
+  • published_at (timestamp, nullable)
+  • seo_meta (jsonb) - SEO metadata
+  • created_at (timestamp)
+  • updated_at (timestamp)
+
+ACTIVITY_LOGS
+----------------------------------------
+Description: Audit trail for all system activities
+Columns:
+  • id (uuid, primary key)
+  • organization_id (uuid, foreign key -> organizations.id)
+  • user_id (uuid, foreign key -> users.id, nullable)
+  • action (string) - Action performed
+  • resource_type (string) - Type of resource affected
+  • resource_id (string, nullable) - ID of affected resource
+  • old_data (jsonb, nullable) - Previous state
+  • new_data (jsonb, nullable) - New state
+  • ip_address (inet)
+  • user_agent (text)
+  • created_at (timestamp)
+
+
+=== KEY RELATIONSHIPS ===
+
+1. Users ↔ Organizations (Many-to-Many via organization_members)
+2. Organizations → Customers (One-to-Many)
+3. Organizations → Projects (One-to-Many)
+4. Customers → Projects (One-to-Many, optional)
+5. Projects → Tasks (One-to-Many)
+6. Users → Tasks (One-to-Many for assignment)
+7. Users → AI Conversations (One-to-Many)
+8. Organizations → Subscriptions (One-to-One)
+9. Organizations → Usage Tracking (One-to-Many)
+10. Organizations → Appointments (One-to-Many)
+11. Users → Activity Logs (One-to-Many)
+
+=== INDEXING STRATEGY ===
+
+Primary Indexes:
+- All primary keys (automatic)
+- Foreign key columns for join performance
+- clerk_user_id for authentication lookups
+- organization_id on all multi-tenant tables
+
+Secondary Indexes:
+- users.email for login
+- customers.email for CRM searches
+- tasks.status + tasks.assigned_to for dashboard queries
+- ai_conversations.user_id + ai_conversations.created_at
+- activity_logs.organization_id + activity_logs.created_at
+- usage_tracking.organization_id + usage_tracking.billing_period
+
+=== ROW-LEVEL SECURITY (RLS) POLICIES ===
+
+All tables with organization_id should have RLS policies ensuring:
+1. Users can only access data from their organization(s)
+2. Role-based permissions within organizations
+3. API keys and service accounts have appropriate access
+
+Example RLS Policy:
+CREATE POLICY "organization_isolation" ON customers
+FOR ALL USING (
+  organization_id IN (
+    SELECT organization_id FROM organization_members 
+    WHERE user_id = auth.uid()
+  )
+);
+
