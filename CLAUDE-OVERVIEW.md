@@ -50,7 +50,7 @@ Provider: Stripe
 Webhooks: Stripe CLI (dev) / Webhook endpoints (prod)
 
 # Testing
-Unit/Integration: Vitest + Testing Library
+Unit/Integration: Jest + React Testing Library
 E2E: Playwright
 Coverage: 80% minimum
 
@@ -401,7 +401,7 @@ E2E: Critical user flows
 ### Testing Patterns
 
 ```typescript
-// Unit test (Vitest)
+// Unit test (Jest)
 describe('CustomerService', () => {
   it('should create customer with valid data', async () => {
     const customer = await createCustomer({

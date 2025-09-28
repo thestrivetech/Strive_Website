@@ -29,7 +29,9 @@ build-test.log
 .claude/
 .serena/
 .local/
-vite.config.ts.*
+# Next.js build output
+.next/
+out/
 
 # Build test logs
 build-test.log

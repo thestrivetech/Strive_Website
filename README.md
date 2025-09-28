@@ -19,7 +19,7 @@
 
 **Legacy Marketing Website** (`old/`) → `strivetech.ai`
 - To be migrated/integrated with SaaS platform in future
-- Currently running React 19 + Vite + Express
+- Legacy React app (not actively developed)
 - **DO NOT MODIFY** unless explicitly requested
 
 ---
@@ -59,7 +59,7 @@ Provider: Stripe
 Webhooks: Stripe CLI (dev) / Webhook endpoints (prod)
 
 # Testing
-Unit/Integration: Vitest + Testing Library
+Unit/Integration: Jest + React Testing Library
 E2E: Playwright
 Coverage: 80% minimum
 
@@ -70,7 +70,7 @@ Logs: Structured JSON
 ```
 
 ### Legacy Marketing Website (old/) - MAINTENANCE ONLY
-- React 19 + Vite + Express.js
+- Legacy React + Express.js
 - PostgreSQL via Supabase (separate DB)
 - Drizzle ORM + Passport.js auth
 - To be migrated to match SaaS architecture
@@ -82,7 +82,7 @@ Logs: Structured JSON
 ### Root Directory
 ```
 /
-├── old/                 # Marketing website (React/Vite)
+├── old/                 # Legacy marketing website (React)
 ├── app/                 # SaaS platform (Next.js 15)
 ├── docs/                # Documentation (future)
 ├── .env                 # Environment variables (gitignored)
@@ -193,7 +193,7 @@ app/
 npm run dev              # Start dev server (tsx server/index.ts)
 
 # Building
-npm run build            # Build client + server (Vite + esbuild)
+npm run build            # Build React app + Express server
 npm run build:analyze    # Build with bundle analysis
 
 # Type Checking
@@ -205,7 +205,7 @@ npm run db:migrate       # Run Supabase migrations
 npm run supabase:start   # Start local Supabase
 
 # Testing
-npm run test             # Run Vitest
+npm run test             # Run tests
 npm run test:e2e         # Run Playwright e2e tests
 npm run test:coverage    # Generate coverage report
 
