@@ -3711,3 +3711,12 @@ Good luck! 🚀
 ---
 
 *For detailed implementation code examples for all phases, refer to the comprehensive technical specifications in the implementation guide.*
+
+
+# Additional Ideas from User #
+
+Offer different levels of the assistant and different packages where tools are already pre-selected for specific industries or use cases
+  - This allows Strive to use different open source models & proprietary models in different packages that can be priced differently.
+
+  - This also allows us to offer different tiers when it comes to tools as well since most tools will be managed by agents (models) and we can use different models for different tiers which will save on cost (company and client) 
+  

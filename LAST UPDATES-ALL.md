@@ -55,7 +55,9 @@ Change generic stock photos that don't match topics or categories (some cards st
 
 # 4
 
-Upload Whitepaper and finish resource page feature section
+Update whitepaper to take company pivot into account (product first (intelligent assistant) hybrid approach with still offering custom tools and solutions that can be integrated into existing systems or platforms -> Look at the following documents to gain more understanding of the new pivot: /Users/grant/Documents/GitHub/Strive_Website/STRATEGIC_PIVOT_PLAN_PRPLX.md & /Users/grant/Documents/GitHub/Strive_Website/STRATEGIC_PIVOT_ANALYSIS.md)
+    - This means we need to remove the current product offerings that are mentioned within the whitepaper
+    - Speak on competitive advantage (spoken about in the file paths mentioned earlier) with this new hybrid approach in the whitepaper
 
 Make sure email templates are good to go and database is fully operational on all form submissions
 
@@ -72,6 +74,7 @@ Fix home page hero section chatbot iframe (currently way too small and is not fo
 Fix chatbot-sai page, the window is small on laptop so try to make sure it's formatted/configured properly on all devices
 
 Change Chatbot-sai page to have chatbot be the center focus and maybe take out the hero section?
+
 # Final fixes
 
 Please go through all solutions and make adjustments, some of them need to be switched out (we currently have robotics -_-) 

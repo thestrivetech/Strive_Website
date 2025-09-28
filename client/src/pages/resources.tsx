@@ -15,8 +15,10 @@ import { useToast } from "@/hooks/use-toast";
 import { Resource, technologyCards, resources } from "@/data/resources";
 import { Quiz, QuizQuestion, QuizResult, allQuizzes } from "@/data/resources/quizzes";
 import { featuredResource } from "@/data/resources/featured";
+import { ethicalAIImplementation } from "@/data/resources/whitepapers";
 import { getSolutionById } from "@/data/solutions-mapping";
 import { SubFilterBar } from "@/components/ui/sub-filter-bar";
+import { WhitepaperViewer } from "@/components/resources/WhitepaperViewer";
 
 // Types are now imported from the modular structure
 
@@ -24,6 +26,7 @@ const Resources = () => {
   const { toast } = useToast();
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
+  const [showWhitepaperViewer, setShowWhitepaperViewer] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
   
@@ -855,9 +858,13 @@ const Resources = () => {
                     <Button
                       className="bg-orange-500 text-white hover:bg-orange-600 px-6 py-2"
                       data-testid="button-download-featured"
+                      onClick={() => {
+                        setSelectedResource(ethicalAIImplementation);
+                        setShowWhitepaperViewer(true);
+                      }}
                     >
                       <Download className="h-4 w-4 mr-2" />
-                      Download Now
+                      View Whitepaper
                     </Button>
                     <div className="text-sm text-slate-500 flex items-center">
                       <Download className="h-4 w-4 mr-1" />
@@ -1219,10 +1226,15 @@ const Resources = () => {
           {(activeFilter === "Blog Posts" || activeFilter === "Case Studies" || activeFilter === "Whitepapers" || activeFilter === "All") && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-6 lg:gap-8">
               {filteredResources.map((resource) => (
-              <Card 
+              <Card
                 key={resource.id}
                 className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 h-full flex flex-col"
-                onClick={() => setSelectedResource(resource)}
+                onClick={() => {
+                  setSelectedResource(resource);
+                  if (resource.type === "WHITEPAPER" && resource.fullContent) {
+                    setShowWhitepaperViewer(true);
+                  }
+                }}
                 data-testid={`card-resource-${resource.id}`}
               >
                 {/* Mobile: Horizontal Layout, Desktop: Vertical Layout */}
@@ -1384,8 +1396,26 @@ const Resources = () => {
         </div>
       </section>
 
+      {/* Whitepaper Viewer Modal */}
+      <Dialog open={showWhitepaperViewer} onOpenChange={(open) => {
+        if (!open) {
+          setShowWhitepaperViewer(false);
+          setSelectedResource(null);
+        }
+      }}>
+        {showWhitepaperViewer && selectedResource?.fullContent && (
+          <WhitepaperViewer
+            resource={selectedResource}
+            onClose={() => {
+              setShowWhitepaperViewer(false);
+              setSelectedResource(null);
+            }}
+          />
+        )}
+      </Dialog>
+
       {/* Resource Detail Modal */}
-      <Dialog open={!!selectedResource} onOpenChange={() => setSelectedResource(null)}>
+      <Dialog open={!!selectedResource && !showWhitepaperViewer} onOpenChange={() => setSelectedResource(null)}>
         <DialogPrimitive.Portal>
           <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
           <DialogPrimitive.Content className={cn(

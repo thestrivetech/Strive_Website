@@ -86,7 +86,10 @@
       "Read(//c/Users/zochr/.claude/**)",
       "Bash(claude auth status)",
       "Bash(sed:*)",
-      "Bash(npx tsx:*)"
+      "Bash(npx tsx:*)",
+      "Bash(xxd:*)",
+      "Bash(timeout 20 npm run dev)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []
