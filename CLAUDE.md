@@ -1,7 +1,7 @@
 # CLAUDE-CONCISE.md
 
 **Claude's Session Memory | v2.0 | Production Standards**
-
+ IMPORTANT!!! READ ANY FILE BEFORE YOU TRY TO EDIT OR UPDATE !!!!!!!
 ---
 
 ## 🎯 PROJECT: Strive Tech SaaS Platform
