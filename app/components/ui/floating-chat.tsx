@@ -243,7 +243,7 @@ const FloatingChat = () => {
 
   // Render error state
   const renderErrorState = () => (
-    <Card className="h-full flex flex-col bg-white/10 backdrop-blur-xl border-border shadow-2xl">
+    <Card className="h-full flex flex-col bg-white/10 backdrop-blur-xl border shadow-2xl">
       <div className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white p-4 rounded-t-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
@@ -306,7 +306,7 @@ const FloatingChat = () => {
 
   // Render loading state
   const renderLoadingState = () => (
-    <Card className="h-full flex flex-col bg-white/10 backdrop-blur-xl border-border shadow-2xl">
+    <Card className="h-full flex flex-col bg-white/10 backdrop-blur-xl border shadow-2xl">
       <div className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 text-white p-4 rounded-t-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">

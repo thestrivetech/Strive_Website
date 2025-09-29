@@ -26,31 +26,8 @@ AI: OpenRouter + Groq
 Payments: Stripe
 Testing: Jest + React Testing Library (80% min) + Playwright
 ```
-## 🎨 DESIGN SYSTEM (Must Match Old Site)
+## 🎨 DESIGN SYSTEM (Must Use Old Site Color Scheme)
 
-**CRITICAL: Use exact colors from `old/client/src/index.css`**
-
-```css
-/* Core Brand Colors */
---primary: hsl(18, 100%, 60%);        /* #FF7033 - Strive Orange */
---background: hsl(222, 84%, 4.9%);    /* #020A1C - Deep Navy */
---foreground: hsl(210, 40%, 98%);     /* Light text */
---card: hsl(222, 84%, 5.9%);
---accent: hsl(217, 32%, 17%);
---border: hsl(217, 32%, 17%);
---ring: hsl(18, 100%, 60%);           /* Orange focus */
-
-/* Gradient for CTAs */
-bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600
-```
-
-**Requirements:**
-- Dark navy background (#020A1C) by default
-- Orange (#FF7033) for all CTAs and primary actions
-- Copy ALL variables from old/client/src/index.css
-- Look at old sites hero section for gradient design if you can't match it with the above brand colors
-- Maintain brand consistency across both sites
----
 
 ## 📁 STRUCTURE
 

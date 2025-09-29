@@ -2,7 +2,7 @@
 
 ## Admins
 
-Admin dashboard
+Admin dashboard and all important app metrics and all other useful admin data
 
 ## Employee
 

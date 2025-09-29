@@ -69,7 +69,7 @@ Errors: Sentry
 Logs: Structured JSON
 ```
 
-### Legacy Marketing Website (old/) - MAINTENANCE ONLY
+### Legacy Marketing Website (old/) - MAINTENANCE ONLY - Will be integrated into the SaaS in the future after it's updated to fit with next.js and the SaaS
 - Legacy React + Express.js
 - PostgreSQL via Supabase (separate DB)
 - Drizzle ORM + Passport.js auth
@@ -472,22 +472,18 @@ NODE_ENV="development"
 
 ## Database Architecture
 
-### Marketing Website
-- **Database:** Existing Supabase DB
-- **ORM:** Drizzle (`shared/schema.ts`)
-- **Tables:** users, contact_submissions, newsletter_subscriptions, requests, page_views, user_sessions
+**Two Separate Supabase Databases:**
 
-### SaaS Platform (NEW Database)
-- **Database:** Separate Supabase DB
-- **ORM:** Prisma (`app/prisma/schema.prisma`)
-- **Tables:**
-  - Core: users, organizations, organization_members, subscriptions, usage_tracking
-  - CRM: customers, leads, contacts, notes
-  - Projects: projects, tasks, time_entries, milestones
-  - AI: ai_conversations, ai_tools, active_tools, tool_usage
-  - System: activity_logs, notifications, invitations
+1. **Marketing Site DB** (`old/`) - Existing production database
+   - ORM: Drizzle
+   - Purpose: Marketing site data (contacts, analytics)
 
-**IMPORTANT:** Two separate databases. User data synced on signup.
+2. **SaaS Platform DB** (`app/`) - New dedicated database ✅
+   - ORM: Prisma 6.16.2
+   - Schema: `app/prisma/schema.prisma`
+   - 13 Models: User, Organization, Customer, Project, Task, etc.
+   - Multi-tenant with RLS (Row Level Security)
+   - Connected and migrations complete
 
 ---
 

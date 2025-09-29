@@ -1,0 +1,13 @@
+react-dom-client.development.js:25630 Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+content.js:2 [Core Web Vitals] LCP 2.468 sec (good)
+content.js:2 [Core Web Vitals] FCP 2.464 sec (needs-improvement)
+content.js:2 [Core Web Vitals] TTFB 2.376 sec (poor)
+content.js:2 [Core Web Vitals] LCP 2.468 sec (good)
+content.js:2 [Core Web Vitals] FCP 2.464 sec (needs-improvement)
+content.js:2 [Core Web Vitals] TTFB 2.376 sec (poor)
+content.js:2 [Core Web Vitals] CLS 0.00 (good)
+content.js:2 [Core Web Vitals] CLS 0.00 (good)
+content.js:2 [Core Web Vitals] INP 0 ms (good)
+content.js:2 [Core Web Vitals] INP 0 ms (good)
+turbopack-hot-reloader-common.ts:43 [Fast Refresh] rebuilding
+report-hmr-latency.ts:26 [Fast Refresh] done in 333ms

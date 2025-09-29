@@ -11,6 +11,8 @@
 Use this prompt at the beginning of each development session:
 
 ```markdown
+
+
 I'm starting a new development session for the Strive Tech SaaS Platform. Please help me continue building this production-ready enterprise B2B platform.
 
 **First, load the project context:**
@@ -20,11 +22,11 @@ I'm starting a new development session for the Strive Tech SaaS Platform. Please
 
 **Next, identify the current session:**
 1. Check the `chat-logs/` directory to find the current session number
-2. Read the current session's task list (e.g., `chat-logs/Session2.md`)
+2. Read the current session's task list (e.g., `chat-logs/Session3.md`)
 3. Use TodoWrite tool to track today's tasks from the session file
 
 **Development priorities for this session:**
-1. Focus on completing Phase [X] tasks marked as Priority 1
+1. Focus on completing Phase [2] tasks marked as incomplete
 2. Follow the production standards from CLAUDE.md strictly:
    - Server Components by default (80% of components)
    - File size limits: Components 200 lines, Services 300 lines
@@ -43,7 +45,7 @@ I'm starting a new development session for the Strive Tech SaaS Platform. Please
 - Performance: Keep bundle under 500KB, Core Web Vitals targets
 - Multi-tenancy: Every query must filter by organization_id
 
-**What should we work on today?** Please review the session tasks and let me know when you're ready to begin.
+**Make sure to** Create a in depth to-do list for all tasks to ensure successful implementation and updates
 ```
 
 ---
@@ -53,6 +55,8 @@ I'm starting a new development session for the Strive Tech SaaS Platform. Please
 Use this prompt at the end of each development session:
 
 ```markdown
+
+
 We're ending the current development session. Please help me document progress and prepare for the next session.
 
 **Step 1 - Update Master Build Plan:**
@@ -70,6 +74,7 @@ We're ending the current development session. Please help me document progress a
    - ⚠️ Document any blockers or issues encountered
    - 💡 Include important decisions made
    - 🔗 Add references to files created/modified
+   - Explain why you did things the way you did and how everything functions for future reference.
 
 **Step 3 - Prepare Next Session:**
 1. Review updated `APP_BUILD_PLAN.md` to identify next priorities
@@ -113,7 +118,7 @@ We're ending the current development session. Please help me document progress a
 - [Next phase/milestone from build plan]
 ```
 
-**Quality checklist before ending:**
+**Quality checklist before ending:** - Unless already performed
 - [ ] APP_BUILD_PLAN.md updated with progress
 - [ ] All code committed to git (if requested)
 - [ ] TypeScript has zero errors (`npx tsc --noEmit`)
