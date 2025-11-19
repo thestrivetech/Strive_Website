@@ -2,6 +2,17 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 🚨 CRITICAL RULE: NEVER COMMIT
+
+**NEVER use `git commit` or `git add && git commit` commands.**
+
+The user will ALWAYS handle Git commits themselves. Claude should:
+- ✅ Create, edit, delete files as needed
+- ✅ Stage changes if explicitly requested
+- ❌ NEVER commit changes (user handles this)
+
+This rule supercedes all other Git-related instructions in this file.
+
 ## Project Overview
 
 Strive Tech website - full-stack TypeScript application for AI-powered business solutions company.
