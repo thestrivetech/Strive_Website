@@ -2,7 +2,37 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## 🚨 CRITICAL RULE: NEVER COMMIT
+---
+
+## 📑 TABLE OF CONTENTS
+
+**Essential Reading (Start Here):**
+- [🚨 Critical Rules](#-critical-rules) - Never commit, always check existing code
+- [🎯 Decision Tree](#-decision-tree---quick-reference) - Quick answers to common questions
+- [❌ Common Anti-Patterns](#-common-anti-patterns---avoid-these-mistakes) - Mistakes to avoid
+- [📋 Quick Reference Card](#-quick-reference-card) - Essential info at a glance
+- [🎯 Production Mindset](#-production-mindset) - Quality standards
+
+**Deep Dive Sections:**
+- [Project Overview](#project-overview) - Tech stack & structure
+- [Essential Commands](#essential-commands) - npm scripts
+- [Claude Code Tool Usage](#claude-code-tool-usage-patterns) - How to use tools effectively
+- [Code Conventions](#code-conventions) - TypeScript, React, styling rules
+- [React Best Practices](#react-best-practices) - Performance, hooks, composition
+- [Security Standards](#security-standards-non-negotiable) - XSS, CSRF, validation
+- [Testing Requirements](#testing-requirements) - Coverage, patterns, tools
+- [Performance Budgets](#performance-budgets) - Bundle size, Web Vitals
+- [Accessibility](#accessibility-wcag-21-aa) - WCAG compliance
+- [SEO Requirements](#seo-requirements) - Meta tags, structured data
+- [Error Handling](#error-handling) - Boundaries, API errors
+- [Content Creation Workflows](#content-creation-workflows) - Adding pages, blog posts
+- [Deployment](#deployment-vercel) - Vercel configuration
+
+---
+
+## 🚨 CRITICAL RULES
+
+### 1. NEVER COMMIT
 
 **NEVER use `git commit` or `git add && git commit` commands.**
 
@@ -12,6 +42,269 @@ The user will ALWAYS handle Git commits themselves. Claude should:
 - ❌ NEVER commit changes (user handles this)
 
 This rule supercedes all other Git-related instructions in this file.
+
+### 2. ALWAYS CHECK FOR EXISTING CODE BEFORE CREATING NEW FILES
+
+**BEFORE creating any new file, ALWAYS check if similar code already exists that should be edited instead.**
+
+This is CRITICAL to prevent duplicate code and maintain consistency:
+- ✅ Use `Glob` to search for existing files with similar names/patterns
+- ✅ Use `Grep` to search for existing code/components/functions
+- ✅ Read existing files to understand current implementation
+- ✅ EDIT existing files instead of creating duplicates whenever possible
+- ❌ NEVER blindly create new files without checking first
+- ❌ NEVER duplicate functionality that already exists
+
+**Process to Follow:**
+1. **Before creating:** Search for existing similar files/code
+2. **If exists:** Read the existing file and edit/update it
+3. **If doesn't exist:** Create new file following project conventions
+4. **Always prefer:** Editing existing code over creating new code
+
+**Example:**
+```bash
+# WRONG: Blindly create new file
+Write new-component.tsx
+
+# RIGHT: Check first, then decide
+Glob pattern="**/new-component*"  # Check if exists
+Grep pattern="NewComponent"       # Search codebase
+Read existing-file.tsx            # Read if found
+Edit existing-file.tsx            # Update existing OR
+Write new-component.tsx           # Create only if truly new
+```
+
+This prevents code duplication, maintains consistency, and respects existing architecture.
+
+---
+
+## 🎯 DECISION TREE - Quick Reference
+
+**Need to fetch data from server?**
+→ Use React Query (`useQuery`) for GET requests
+→ Server state managed automatically (caching, refetching, etc.)
+
+**Need to mutate/update data?**
+→ Use React Query mutation (`useMutation`)
+→ Invalidate queries after success to refresh UI
+
+**Need component state (form inputs, toggles)?**
+→ Use `useState` for local component state
+→ Use React Hook Form for complex forms
+
+**Need global state (auth, theme)?**
+→ Use React Context (but NEVER for frequently changing data)
+→ Auth example: `client/src/lib/auth-context.tsx`
+
+**Need to add a new page?**
+→ Create in `client/src/pages/`
+→ Add lazy import in `App.tsx`
+→ Add route with `<Route path="/path" component={Page} />`
+
+**Need to add UI component?**
+→ Check if shadcn/ui has it: `npx shadcn-ui@latest add [component]`
+→ If custom: Create in `client/src/components/` (named export)
+
+**Need to style something?**
+→ Use Tailwind classes (mobile-first: `class="p-4 md:p-8 lg:p-12"`)
+→ Use `cn()` utility for conditional classes
+→ NEVER inline styles (except dynamic transforms)
+
+**Need to optimize images?**
+→ Use WebP format in `assets/optimized/`
+→ MUST include width/height attributes
+→ Lazy load below fold
+
+**Need to handle errors?**
+→ Use Error Boundary for component errors
+→ Use try/catch in async functions
+→ Show user-friendly messages (toast notifications)
+
+**File getting too large?**
+→ Components: Split at 300 lines
+→ Extract hooks for reusable logic
+→ Extract utilities to `lib/`
+
+---
+
+## ❌ COMMON ANTI-PATTERNS - Avoid These Mistakes
+
+**Quick reference of the most common mistakes. For comprehensive list, see [Critical Anti-Patterns](#critical-anti-patterns-never-do-these) section below.**
+
+```typescript
+// ❌ WRONG: Creating objects/arrays in render
+<Component config={{ timeout: 1000 }} />  // Creates new object every render!
+
+// ✅ RIGHT: Define outside or use useMemo
+const config = useMemo(() => ({ timeout: 1000 }), []);
+<Component config={config} />
+```
+
+```typescript
+// ❌ WRONG: Mixing server state with local state
+const [users, setUsers] = useState([]);
+useEffect(() => {
+  fetch('/api/users').then(r => r.json()).then(setUsers);
+}, []);
+
+// ✅ RIGHT: Use React Query for server state
+const { data: users } = useQuery({
+  queryKey: ['users'],
+  queryFn: fetchUsers
+});
+```
+
+```typescript
+// ❌ WRONG: Using any type
+function process(data: any) { ... }
+
+// ✅ RIGHT: Use proper types or unknown
+function process(data: unknown) {
+  if (isValidData(data)) { ... }
+}
+```
+
+```typescript
+// ❌ WRONG: Default export
+export default function MyComponent() { ... }
+
+// ✅ RIGHT: Named export
+export function MyComponent() { ... }
+```
+
+```typescript
+// ❌ WRONG: Inline styles for static values
+<div style={{ padding: '20px', backgroundColor: '#fff' }}>
+
+// ✅ RIGHT: Use Tailwind classes
+<div className="p-5 bg-white">
+```
+
+```typescript
+// ❌ WRONG: Hardcoded colors
+<div className="bg-[#ffffff]">
+
+// ✅ RIGHT: Use theme tokens
+<div className="bg-background">
+```
+
+```typescript
+// ❌ WRONG: Missing accessibility
+<div onClick={handleClick}>Click me</div>
+
+// ✅ RIGHT: Use semantic HTML
+<button onClick={handleClick}>Click me</button>
+```
+
+```typescript
+// ❌ WRONG: Forgetting cleanup
+useEffect(() => {
+  const timer = setInterval(() => { ... }, 1000);
+}, []); // Memory leak!
+
+// ✅ RIGHT: Always cleanup
+useEffect(() => {
+  const timer = setInterval(() => { ... }, 1000);
+  return () => clearInterval(timer);
+}, []);
+```
+
+```typescript
+// ❌ WRONG: Prop drilling through multiple levels
+<A data={data}>
+  <B data={data}>
+    <C data={data}>  // 3 levels deep!
+
+// ✅ RIGHT: Use composition or context
+<DataContext.Provider value={data}>
+  <A><B><C /></B></A>
+```
+
+```typescript
+// ❌ WRONG: Not lazy loading routes
+import HomePage from '@/pages/home';
+import AboutPage from '@/pages/about';  // Loads everything upfront
+
+// ✅ RIGHT: Lazy load all routes (except home)
+const HomePage = lazy(() => import('@/pages/home'));
+const AboutPage = lazy(() => import('@/pages/about'));
+```
+
+---
+
+## 📋 QUICK REFERENCE CARD
+
+**Tech Stack:**
+- React 19 + TypeScript + Vite + Tailwind CSS
+- Express.js + Node.js 22 + PostgreSQL (Supabase)
+- Drizzle ORM + React Query + Wouter router
+
+**File Limits:**
+- Components: 300 lines max
+- Utilities: 200 lines max
+- Pages: 400 lines max
+
+**Path Aliases:**
+- `@/` → `client/src/`
+- `@shared/` → `shared/`
+- `@assets/` → `attached_assets/`
+
+**Key Directories:**
+- `client/src/components/ui/` → shadcn/ui components (56)
+- `client/src/pages/` → Route components (35 pages)
+- `client/src/data/` → Static content (104 files)
+- `client/src/lib/` → Utilities (21 files)
+- `server/` → Express backend (26 files)
+
+**Performance Budgets:**
+- Initial bundle: <200KB gzipped
+- Route chunks: <50KB each
+- Images: <200KB per image
+- LCP: <2.5s, FID: <100ms, CLS: <0.1
+
+**Coverage Requirements:**
+- Unit tests: 80% minimum
+- Critical paths: 100% coverage
+
+**Security Checklist:**
+- ✅ Validate all input with Zod
+- ✅ Sanitize user content (DOMPurify)
+- ✅ Use parameterized queries (Drizzle)
+- ✅ Never expose secrets in client
+- ✅ httpOnly cookies for JWT
+
+**Accessibility Requirements:**
+- ✅ Semantic HTML (button, nav, main)
+- ✅ ARIA labels for icon buttons
+- ✅ Color contrast: 4.5:1 minimum
+- ✅ Touch targets: 44px minimum
+- ✅ Keyboard navigation support
+
+---
+
+## 🎯 PRODUCTION MINDSET
+
+This is a **production marketing website** serving real users. Every decision should prioritize:
+
+1. **Security First** - Never trust user input, always validate
+2. **Performance Matters** - Users expect <3s load times
+3. **Accessibility Required** - WCAG 2.1 AA is non-negotiable
+4. **SEO Critical** - Every page needs proper meta tags
+5. **Type Safety** - TypeScript strict mode catches bugs early
+6. **Test Coverage** - 80% minimum prevents regressions
+7. **Mobile First** - 60%+ traffic is mobile
+8. **Code Quality** - Clean code is maintainable code
+
+**Before writing any code, ask:**
+- Is this secure? (XSS, CSRF, SQL injection)
+- Is this accessible? (keyboard nav, screen readers)
+- Is this performant? (bundle size, render time)
+- Is this tested? (unit tests, E2E tests)
+- Is this maintainable? (clear names, proper types)
+
+**Remember:** Shortcuts today = technical debt tomorrow.
+
+---
 
 ## Project Overview
 

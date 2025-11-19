@@ -14,7 +14,6 @@ import { LightBulbIcon, RocketLaunchIcon, CpuChipIcon, StarIcon } from "@heroico
 import HeroSection from "@/components/ui/hero-section";
 import SolutionCard from "@/components/ui/solution-card";
 import ResourceCard from "@/components/ui/resource-card";
-import ROICalculator from "@/components/ui/roi-calculator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -31,6 +30,12 @@ import { Link } from "wouter";
 // Import centralized data and components
 import { IndustrySelector } from "@/components/industry/industry-selector";
 import { IndustrySolutionsGrid } from "@/components/industry/industry-solutions-grid";
+
+// Import SAI Platform homepage components
+import { TrustSignalsBar } from "@/components/homepage/TrustSignalsBar";
+import { ModuleOverviewSection } from "@/components/homepage/ModuleOverviewSection";
+import { WhySAISection } from "@/components/homepage/WhySAISection";
+import { FinalCTASection } from "@/components/homepage/FinalCTASection";
 
 const Home = () => {
   const { seoConfig } = useSEO();
@@ -132,15 +137,22 @@ const Home = () => {
       <div className="pt-16">
       {/* Hero Section */}
       <HeroSection
-        title="Transform Your Business with AI to Lead Your Industry, Not Just Compete"
-        subtitle="Are you struggling to outpace your competition with manual processes and outdated tools? At Strive, we help you unlock the potential of artificial intelligence, so your business runs smarter, faster, and more profitably."
-        primaryButtonText="Get Started"
-        secondaryButtonText="Book Free Assessment"
-        onPrimaryClick={handleGetStarted}
-        onSecondaryClick={handleWatchDemo}
+        title="The All-in-One Platform Built for Real Estate Agents"
+        subtitle="Tired of juggling 10 different tools? SAI Platform combines CRM, transaction management, marketing automation, and AI—all for $49/month with unlimited contacts and users."
+        primaryButtonText="Start Free Trial"
+        secondaryButtonText="Schedule Demo"
+        onPrimaryClick={() => window.location.href = "#signup"}
+        onSecondaryClick={() => window.location.href = "#demo"}
       />
-      {/* ROI Calculator */}
-      <ROICalculator />
+
+      {/* Trust Signals Bar */}
+      <TrustSignalsBar />
+
+      {/* Module Overview Section */}
+      <ModuleOverviewSection />
+
+      {/* Why SAI Section */}
+      <WhySAISection />
       {/* Industry Solutions Selector - Moved from Solutions Page */}
       <section className="py-12 sm:py-14 md:py-16 lg:py-20 hero-gradient">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -590,47 +602,8 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {/* Get Started Section */}
-      <section className="py-12 sm:py-14 md:py-16 lg:py-20 bg-gradient-to-br from-[#ffffffeb] to-[#f8fafceb] relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-5xl mx-auto">
-            {/* Call to Action */}
-            <div className="bg-gradient-to-br from-white/70 to-white/50 backdrop-blur-sm border border-white/60 rounded-3xl p-6 sm:p-7 md:p-8 lg:p-10 text-center shadow-xl">
-              <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-[#020a1c] mb-3 sm:mb-4 px-4">
-                Your Path to Results with AI: It's Simple
-              </h3>
-              <p className="text-muted-foreground mb-6 sm:mb-7 md:mb-8 max-w-2xl mx-auto leading-relaxed text-sm sm:text-base px-4">
-                Book Your Free Assessment → Receive Your Custom AI Solution Roadmap → Transform Operations and See Measurable Impact in Weeks. Ready to start? You're just one step away.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-                <Button
-                  variant="outline"
-                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 w-full sm:w-auto sm:min-w-[200px] relative overflow-hidden min-h-[44px]"
-                  size="lg"
-                  onClick={() => window.location.href = "/request"}
-                  data-testid="button-request-demo"
-                >
-                  Request Free Demo
-                </Button>
-                <Button
-                  variant="outline"
-                  className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 w-full sm:w-auto sm:min-w-[200px] relative overflow-hidden min-h-[44px]"
-                  size="lg"
-                  onClick={() => window.location.href = "/portfolio"}
-                  data-testid="button-view-case-studies"
-                >
-                  View Our Work
-                </Button>
-              </div>
-
-              <p className="text-xs sm:text-sm text-muted-foreground mt-5 sm:mt-6 px-4">
-                ✓ No commitment required  •  ✓ Custom solution walkthrough  •  ✓ ROI analysis included
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Final CTA Section */}
+      <FinalCTASection />
     </div>
     </>
   );

@@ -94,7 +94,8 @@
       "WebFetch(domain:www.anthropic.com)",
       "WebFetch(domain:www.maxitect.blog)",
       "Bash(git checkout:*)",
-      "Bash(timeout 30 npm run check:*)"
+      "Bash(timeout 30 npm run check:*)",
+      "Bash(./node_modules/.bin/tsc:*)"
     ],
     "deny": [],
     "ask": []

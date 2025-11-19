@@ -42,7 +42,7 @@ const HeroSection = ({
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white"
                 data-testid="hero-title"
               >
-                Custom <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">AI Solutions</span> Built for Real World Performance
+                {title}
               </h1>
 
               <p
@@ -93,10 +93,10 @@ const HeroSection = ({
                 <div className="bg-gradient-to-r from-[#ff7033] to-orange-500 px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-white text-xs sm:text-sm font-medium">Chat with Sai AI Assistant</span>
+                    <span className="text-white text-xs sm:text-sm font-medium">Global SAI Assistant</span>
                   </div>
                   <div className="text-white text-xs opacity-75">
-                    Interactive Demo
+                    AI for Real Estate
                   </div>
                 </div>
 
@@ -110,10 +110,10 @@ const HeroSection = ({
                         </svg>
                       </div>
                       <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800 mb-2">
-                        Try Sai AI Assistant
+                        Try Global SAI Assistant
                       </h3>
                       <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6 px-2">
-                        Experience our AI-powered assistant that helps transform your business operations.
+                        Experience AI trained specifically for real estate—score leads, generate listings, and automate follow-ups instantly.
                       </p>
                     </div>
                     <Button
@@ -124,7 +124,7 @@ const HeroSection = ({
                       View Interactive Demo
                     </Button>
                     <p className="text-xs text-gray-500 mt-3 sm:mt-4">
-                      Try Sai now • Get instant AI assistance
+                      Try Global SAI now • Real estate AI at your fingertips
                     </p>
                   </div>
                 </div>
