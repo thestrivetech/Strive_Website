@@ -89,7 +89,12 @@
       "Bash(npx tsx:*)",
       "Bash(xxd:*)",
       "Bash(timeout 20 npm run dev)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:www.maxitect.blog)",
+      "Bash(git checkout:*)",
+      "Bash(timeout 30 npm run check:*)"
     ],
     "deny": [],
     "ask": []

@@ -4,194 +4,783 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is the Strive Tech website - a full-stack TypeScript application for an AI-powered business solutions company. The website showcases AI/ML services, resources, case studies, and provides client portals.
+Strive Tech website - full-stack TypeScript application for AI-powered business solutions company.
 
-**Tech Stack:**
-- Frontend: React 19 + TypeScript + Vite + Tailwind CSS + Wouter routing
-- Backend: Express.js + Node.js 22 + PostgreSQL (Supabase) + Drizzle ORM
-- UI: Radix UI + shadcn/ui components
-- Email: Custom template engine with sophisticated HTML email components
-- Testing: Vitest + Playwright + Testing Library
-- Deployment: Vercel
+**Tech Stack:** React 19 + TypeScript + Vite + Tailwind CSS + Wouter • Express.js + Node.js 22 + PostgreSQL (Supabase) + Drizzle ORM • Radix UI + shadcn/ui • Framer Motion • React Query • Vitest + Playwright • Vercel
 
 ## Essential Commands
 
-### Development
 ```bash
-npm run dev          # Start development server at localhost:3000
-npm run build        # Build for production (client + server via esbuild)
-npm run build:analyze # Build with rollup bundle analyzer → stats.html
-npm start           # Start production server
-npm run check       # TypeScript type checking (run before commits)
+npm run dev              # Start dev server (localhost:3000)
+npm run build            # Build production (client + server)
+npm run build:analyze    # Build with bundle analyzer
+npm start                # Start production server
+npm run check            # TypeScript check (REQUIRED before commits)
+npm run db:push          # Push schema to database
+npm run supabase:start   # Start local Supabase
+npm run test             # Vitest watch mode
+npm run test:run         # Run tests once
+npm run test:coverage    # Coverage report (80% minimum)
+npm run test:e2e         # Playwright E2E tests
 ```
 
-### Database (Supabase + Drizzle)
-```bash
-npm run db:push      # Push schema changes to database
-npm run db:migrate   # Push to Supabase database (alias: npx supabase db push)
-npm run db:reset     # Reset Supabase database (⚠️ DESTRUCTIVE)
-npm run supabase:start # Start local Supabase instance
-npm run supabase:stop  # Stop local Supabase
-npm run supabase:status # Check local Supabase status
+## Claude Code Tool Usage Patterns
+
+**File Operations:**
+- Use `Read` when you know exact file path
+- Use `Glob` for pattern-based discovery (`**/*.tsx`, `**/components/**`)
+- Use `Grep` for content search (supports regex, case-insensitive with `-i`)
+- NEVER use `cat`, `find`, or `grep` via Bash - use dedicated tools
+
+**Parallel Operations:**
+- Call multiple `Read` simultaneously for related files
+- Run `Glob` + `Grep` searches in parallel when investigating multiple patterns
+- Example: Read component + test + types in single message with 3 Read calls
+
+**Search Strategies (244 client files):**
+- Start broad: `Glob` for file discovery by pattern
+- Narrow down: `Grep` for specific code patterns
+- Deep dive: `Read` specific files found
+- Progressive refinement: Use results to guide next search
+
+**Error Recovery:**
+- If tool fails, try alternative approach (Glob → Grep → Read)
+- For large codebases: Limit scope with path parameter
+- Context management: Prioritize reading only essential files
+
+## Code Conventions
+
+**TypeScript Rules:**
+- ALWAYS use strict mode with full type coverage
+- NEVER use `any` - use `unknown` if type truly unknown
+- MUST include explicit return types for exported functions
+- Run `npm run check` before EVERY commit
+- Path aliases: `@/` → client/src/, `@shared/` → shared/, `@assets/` → attached_assets/
+
+**React Component Standards:**
+- ALWAYS use functional components (NEVER class components)
+- Components MUST be named exports (avoid default exports)
+- Props: Define interfaces with `ComponentNameProps` pattern
+- One component per file (except tiny related utilities)
+- Lazy loading: REQUIRED for all routes except home (`client/src/App.tsx:22-55`)
+
+**State Management:**
+- Local state: `useState` for component-specific state
+- Server state: ALWAYS use React Query (`client/src/lib/queryClient.ts`)
+- Global state: Context ONLY for auth, theme (NEVER for frequent updates)
+- Query keys format: `['entity', id, filters]`
+- NEVER store server data in useState - use React Query
+
+**UI Components:**
+- shadcn/ui components: MUST be used for all UI in `components/ui/`
+- Styling: Tailwind CSS with `cn()` utility from `client/src/lib/utils.ts`
+- Class merging: Use `clsx` + `tailwind-merge` via `cn()` function
+- NEVER use inline styles (except dynamic values like transforms)
+
+**Imports & Exports:**
+- Named exports PREFERRED over default exports
+- Import order: external → internal → types → styles
+- Type-only imports: Use `import type` for types
+- Example:
+```typescript
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import type { User } from '@shared/types';
 ```
 
-### Testing
-```bash
-npm run test         # Run Vitest tests in watch mode
-npm run test:run     # Run tests once
-npm run test:coverage # Run with coverage report
-npm run test:ui      # Open Vitest UI interface
-npm run test:watch   # Explicit watch mode
-npm run test:changed # Run tests for changed files only
-npm run test:e2e     # Run Playwright E2E tests
-npm run test:e2e:install # Install Playwright browsers
+**File Naming:**
+- Components: PascalCase (Button.tsx, ErrorBoundary.tsx)
+- Pages: kebab-case (analytics-dashboard.tsx, not-found.tsx)
+- Utilities: camelCase (utils.ts, queryClient.ts)
+- Data files: kebab-case (ai-trends-2025-analysis.ts)
+- Tests: *.test.ts or *.spec.ts (colocate with source)
+
+## React Best Practices
+
+**Performance Optimization:**
+- React.memo: Use ONLY for expensive renders with stable props (measure first!)
+- useMemo: ONLY for expensive computations taking >5ms
+- useCallback: ONLY when passing callbacks to memoized children
+- AVOID premature optimization - let React optimize naturally
+- Lazy load ALL routes except home (35 pages currently lazy-loaded)
+
+**useEffect Rules (STRICT):**
+- MUST include ALL dependencies in array (ESLint will catch)
+- ALWAYS return cleanup for subscriptions, timers, event listeners
+- NEVER use async function directly in useEffect:
+```typescript
+// ✅ CORRECT
+useEffect(() => {
+  const fetchData = async () => {
+    const data = await api.getData();
+    setData(data);
+  };
+  fetchData();
+}, []);
+
+// ❌ WRONG
+useEffect(async () => { ... }, []);
+```
+- Side effects ONLY - NEVER derive state (use useMemo instead)
+- Empty deps `[]`: runs once on mount
+- ALWAYS cleanup to prevent memory leaks
+
+**Component Composition:**
+- NEVER pass props through >2 levels (use composition or Context)
+- Use `children` prop for flexibility
+- Extract to custom hook when logic used in 2+ components
+- Prefer composition over complex prop drilling
+
+**Event Handlers:**
+- Extract handlers for logic >3 lines
+- Use inline arrow functions ONLY for simple cases
+- NEVER bind in render (use arrow functions or useCallback)
+```typescript
+// ✅ GOOD
+<Button onClick={() => handleClick(id)} />
+const handleSubmit = useCallback(() => { ... }, [deps]);
+
+// ❌ BAD
+<Button onClick={handleClick.bind(this, id)} />
 ```
 
-### Utility Scripts
-```bash
-npm run session:init # Initialize session (custom script)
-npm run map:directory # Directory mapping utility
+**List Rendering:**
+- MUST use stable keys (database id preferred)
+- NEVER use array index for dynamic lists (causes bugs)
+- Index acceptable ONLY for static lists that never reorder
+- Keys must be unique among siblings only
+
+**Controlled Components:**
+- Forms: ALWAYS use controlled components
+- Use React Hook Form for complex forms (validation, errors)
+- Uncontrolled: ONLY for file inputs or extreme performance needs
+
+**Custom Hooks:**
+- MUST start with "use" prefix
+- Extract when logic reused in 2+ components
+- Current hooks: usePageTracking, usePrefetch, useMobile, useSEO, useToast, useCalendlyIntegration, useDebounce
+- Return object or array (not mixed)
+
+**Context Best Practices:**
+- NEVER put frequently changing values in Context (causes re-renders)
+- Split contexts by update frequency
+- Use React Query for server state (NOT Context)
+- Memoize context value to prevent unnecessary renders:
+```typescript
+const value = useMemo(() => ({ user, login, logout }), [user]);
 ```
 
-## Architecture
+**Fragments:**
+- Use `<>` shorthand when no key needed
+- Use `<Fragment key={}>` for lists
+- Avoid wrapping in unnecessary divs
 
-### Project Structure
+## Critical Anti-Patterns (NEVER DO THESE)
+
+**React Performance Killers:**
+- NEVER create objects/arrays/functions inline in JSX (causes re-renders)
+```typescript
+// ❌ BAD - creates new object every render
+<Component user={{ id: 1, name: 'test' }} />
+
+// ✅ GOOD - stable reference
+const user = useMemo(() => ({ id: 1, name: 'test' }), []);
+<Component user={user} />
 ```
-client/src/          # React frontend
-├── components/ui/   # shadcn/ui components
-├── components/layout/ # Navigation, footer
-├── pages/          # Route components (lazy-loaded)
-├── hooks/          # Custom React hooks
-├── lib/            # Utilities, configs
-└── data/           # Static content, blog posts
+- NEVER define components inside components
+- NEVER use index as key for dynamic lists
+- NEVER do expensive work in render without useMemo
 
-server/             # Express.js backend
-├── index.ts        # Main server entry point
-├── routes/         # API handlers
-├── middleware/     # Express middleware
-├── services/       # Business logic (email, etc.)
-└── lib/            # Server utilities
+**Security Violations:**
+- NEVER use `dangerouslySetInnerHTML` without DOMPurify sanitization
+- NEVER expose secrets in client code (check build output!)
+- NEVER trust user input (validate with Zod on server)
+- NEVER use `eval()` or `new Function()`
+- NEVER log passwords, tokens, API keys, or PII
+- NEVER store JWT in localStorage (use httpOnly cookies)
 
-shared/             # Shared types and Drizzle schema
-├── schema.ts       # Drizzle database schema
-└── types.ts        # Shared TypeScript types
+**Accessibility Violations:**
+- NEVER remove focus outlines without replacement
+- NEVER use `<div onClick>` for buttons (use `<button>`)
+- NEVER omit alt text on images (empty string if decorative)
+- NEVER disable zoom (viewport meta tag)
+- NEVER use color alone to convey information
 
-scripts/            # Utility scripts
-api/                # Vercel serverless functions
-migrations/         # Database migrations
-supabase/           # Supabase configuration
+**SEO Violations:**
+- NEVER have pages without unique title and description
+- NEVER skip semantic HTML (use h1, nav, main, article)
+- NEVER have multiple h1 tags on one page
+- NEVER forget Open Graph tags for social sharing
+
+**Memory Leaks:**
+- NEVER forget useEffect cleanup (event listeners, timers, subscriptions)
+- NEVER leave intervals/timeouts running after unmount
+- NEVER forget to cancel async operations on unmount
+- ALWAYS abort fetch requests when component unmounts
+
+**State Management:**
+- NEVER derive state that can be computed
+- NEVER store server state in useState (use React Query)
+- NEVER duplicate data between state and props
+- NEVER mutate state directly (always create new objects/arrays)
+
+## CSS & Styling Best Practices
+
+**Tailwind Utility Organization:**
+- Order: layout → spacing → typography → colors → effects
+- Example: `flex items-center gap-4 px-6 py-3 text-lg font-semibold bg-primary hover:bg-primary/90`
+- ALWAYS use `cn()` for conditional classes
+- Max 8-10 utilities per element (extract component if more)
+
+**Custom CSS vs Tailwind:**
+- Use Tailwind FIRST - custom CSS only when:
+  - Complex animations (prefer Framer Motion)
+  - Browser-specific hacks
+  - Third-party component overrides
+- NEVER use inline styles (except dynamic values)
+
+**Responsive Design (Mobile-First):**
+- Default styles: mobile (≥320px)
+- Breakpoints: `md:` (≥768px), `lg:` (≥1024px), `xl:` (≥1280px)
+- Test mobile first, enhance for desktop
+- Touch targets: min 44px (`min-h-[44px] min-w-[44px]`)
+
+**Dark Mode:**
+- Uses class-based strategy (`darkMode: ["class"]` in tailwind.config)
+- NEVER hardcode colors - use design tokens
+- Colors: `bg-background`, `text-foreground`, `border`, etc.
+- Test both light and dark modes
+
+**Layout Patterns:**
+- Flexbox: 1D layouts (nav, button groups, inline elements)
+- Grid: 2D layouts (card grids, dashboards, galleries)
+- Prefer Flexbox for simpler layouts (better browser support)
+
+**Z-Index Management:**
+- Modals/Dialogs: z-50
+- Dropdowns/Popovers: z-40
+- Fixed Headers/Footers: z-30
+- Overlays: z-20
+- NEVER use arbitrary z-index >100
+
+**Animations (Framer Motion):**
+- Use for complex UI animations
+- Keep animations <300ms for UI feedback
+- Use `prefers-reduced-motion` media query
+- NEVER animate layout properties (width/height) - use transforms
+```typescript
+// ✅ GOOD - animates transform
+<motion.div animate={{ opacity: 1, y: 0 }} />
+
+// ❌ BAD - animates layout
+<motion.div animate={{ height: 'auto' }} />
 ```
 
-### Key Patterns
+## Security Standards (NON-NEGOTIABLE)
 
-**Frontend:**
-- Lazy loading for pages and non-critical components
-- Path aliases: `@/` → `client/src/`, `@shared/` → `shared/`
-- PWA with service workers and offline support via vite-plugin-pwa
-- Performance optimized with manual bundle chunking
-- Mobile-first responsive design with touch optimization
+**Input Validation:**
+- ALWAYS validate server-side with Zod schemas (`shared/schema.ts`)
+- NEVER trust client-side validation alone
+- Sanitize ALL user input before database operations
+- Rate limiting: 500 req/15min production (`server/middleware/security.ts:217`)
 
-**Backend:**
-- Express.js with comprehensive security middleware (Helmet, rate limiting)
-- Authentication via Passport.js with local strategy + JWT sessions
-- Drizzle ORM with PostgreSQL via Supabase
-- Winston structured logging
-- Custom email template engine with reusable HTML components
+**Authentication:**
+- JWT tokens: httpOnly cookies ONLY (NEVER localStorage)
+- Passport.js + local strategy (`server/auth.ts`)
+- Protected routes: Use `authenticateToken` middleware
+- Session management: Dual auth (Supabase + JWT)
 
-**Email System:**
-- Sophisticated template engine in `server/services/email/`
-- Reusable email components (intelligence dashboards, timelines, etc.)
-- 100% delivery rate confirmed for production emails
-- Templates for contact forms, newsletters, service requests
+**API Security:**
+- Helmet middleware: REQUIRED for all routes (`server/middleware/security.ts`)
+- SQL injection: ONLY use Drizzle ORM parameterized queries (NEVER string concat)
+- CORS: Configured in security middleware
+- NEVER expose internal errors to clients (generic messages only)
 
-**Database Schema (shared/schema.ts):**
-- Users, contact submissions, service requests, newsletter subscriptions
-- UUID primary keys with `gen_random_uuid()`
-- Proper TypeScript types auto-generated from Drizzle schema
-- Zod validation schemas for API endpoints
+**Secrets Management:**
+- NEVER commit secrets to git (.env in .gitignore)
+- Use environment variables for all secrets
+- Prefix client vars with VITE_ (auto-exposed to client)
+- Verify no secrets in build output before deploy
 
-## Development Notes
+## Testing Requirements
 
-### Environment Setup
-- Requires Node.js 22.x (specified in engines)
-- Environment variables: `DATABASE_URL`, `SMTP_*` for email service
-- Uses ES modules (`"type": "module"` in package.json)
-- Development server runs on port 3000 by default
+**Coverage Standards:**
+- Unit test coverage: 80% minimum REQUIRED
+- Critical paths: 100% coverage MANDATORY
+- Run `npm test` before commits
+- Run `npm run test:coverage` to check
 
-### Code Conventions
-- Strict TypeScript with full type coverage
-- All UI components follow shadcn/ui patterns in `components/ui/`
-- Pages are lazy-loaded (except home) for performance
-- Image assets optimized with multiple formats in `assets/optimized/`
-- Email templates use sophisticated HTML with inline CSS
+**Testing Tools:**
+- React: @testing-library/react (NEVER Enzyme)
+- Query priority: getByRole > getByLabelText > getByText > getByTestId
+- E2E: Playwright for critical user flows
+- Mocking: MSW for API mocks
 
-### Performance Optimizations
-- Manual bundle chunks: vendor, UI components, utilities
-- PWA with workbox caching strategies
-- Compression and security headers configured
-- Bundle analysis with rollup-plugin-visualizer
-- React 19 with concurrent features
+**What to Test:**
+- ALL exported functions MUST have tests
+- React components: user interactions, loading states, error states
+- API endpoints: success cases + error cases
+- Authentication flows: login, logout, protected routes
+- Form submissions and validation
+- Error boundaries
+- Critical user paths (E2E)
 
-### Email Development
-- Custom template engine with BaseTemplate class
-- EmailComponents library for reusable elements
-- Template factory pattern for email types
-- Comprehensive testing with curl commands available
+**Testing Patterns:**
+- Colocate tests: Component.test.tsx next to Component.tsx
+- Test behavior, not implementation
+- ALWAYS test accessibility (getByRole)
+- Mock external dependencies
+- Use fixtures for complex test data
 
-### Testing Strategy
-- Unit tests: Vitest + @testing-library/react + jsdom
-- E2E tests: Playwright with cross-browser support
-- MSW for API mocking in tests
-- Coverage reporting with @vitest/coverage-v8
+## Performance Budgets
 
-### Mobile Optimization
-- Touch targets ≥ 44px minimum
-- Keyboard-aware layouts (viewport adjustments)
-- Safe area support for notched devices
+**Bundle Size (STRICT):**
+- Initial bundle: <200KB gzipped
+- Route chunks: <50KB each
+- Run `npm run build:analyze` before major releases
+- Manual chunks: vendor, ui, router, utils, motion, charts, icons, forms, query, pwa (`vite.config.ts:96-139`)
+
+**React Performance:**
+- Lazy load ALL route components except home (35 pages lazy-loaded)
+- Images: WebP with fallbacks, lazy loading, width/height REQUIRED
+- Code split heavy libraries (recharts, framer-motion already split)
+- Virtual scrolling for lists >100 items
+
+**Web Vitals Targets:**
+- First Contentful Paint (FCP): <1.5s
+- Largest Contentful Paint (LCP): <2.5s
+- Time to Interactive (TTI): <3.5s
+- Cumulative Layout Shift (CLS): <0.1
+- First Input Delay (FID): <100ms
+- Monitor via `client/src/lib/web-vitals.ts`
+
+**Images:**
+- MUST be optimized (WebP + AVIF in `assets/optimized/`)
+- MUST include width and height attributes (prevents CLS)
+- MUST lazy load images below fold
+- Max size: 200KB per image (compress if larger)
+
+## Accessibility (WCAG 2.1 AA)
+
+**Keyboard Navigation:**
+- ALL interactive elements MUST be keyboard accessible
+- Visible focus indicators REQUIRED (never `outline: none` without replacement)
+- Tab order MUST be logical
+- Touch targets: ≥44px minimum
+- Skip links for main content REQUIRED
+
+**ARIA & Semantics:**
+- Use semantic HTML FIRST (button, nav, main, article, section)
+- ARIA labels: REQUIRED for icon-only buttons
+- Form inputs: MUST have associated labels
+- Dynamic content: Use aria-live regions
+- Landmark roles: Use semantic HTML instead of ARIA when possible
+
+**Visual:**
+- Color contrast: 4.5:1 minimum (normal text), 3:1 (large text)
+- Text resizable to 200% without breakage
+- NEVER rely on color alone for information
 - Responsive breakpoints: mobile → md → lg → xl
 
-### Common Development Tasks
+**Testing:**
+- Run manual keyboard testing for all interactive features
+- Use browser DevTools Lighthouse for accessibility audit
+- Test with screen reader for complex interactions
 
-**API Endpoint Testing:**
-```bash
-# Test contact form
-curl -X POST http://localhost:3000/api/contact \
-  -H "Content-Type: application/json" \
-  -d '{"firstName":"Test","lastName":"User","email":"test@example.com","company":"Test Corp","companySize":"50-100 employees","message":"Test message","privacyConsent":true}'
+## SEO Requirements
 
-# Health checks
-curl http://localhost:3000/api/health/database
-curl http://localhost:3000/api/debug/email
+**Meta Tags (REQUIRED on every page):**
+- Use `client/src/components/seo/meta-tags.tsx` component
+- MUST set unique title per page (format: "Page Title | Strive Tech")
+- MUST set unique description (150-160 chars)
+- MUST include Open Graph tags (title, description, image, url)
+- MUST include Twitter Card tags
+
+**Structured Data:**
+- Use `client/src/components/seo/structured-data.tsx`
+- JSON-LD format for rich snippets
+- Organization schema on homepage
+- Article schema for blog posts
+- BreadcrumbList for navigation
+
+**Semantic HTML:**
+- MUST have exactly one h1 per page
+- Heading hierarchy: h1 → h2 → h3 (no skipping)
+- Use nav for navigation, main for content, article for posts
+- Use section for thematic grouping
+
+**Performance (SEO Factor):**
+- Core Web Vitals affect rankings
+- Lazy load images below fold
+- Minimize bundle size for fast load
+
+## Error Handling
+
+**React Components:**
+- Error boundaries: REQUIRED for route-level components (`client/src/components/ui/error-boundary.tsx`)
+- Analytics errors: Use `AnalyticsErrorBoundary` (fails silently) (`client/src/components/ui/analytics-error-boundary.tsx`)
+- Fallback UI: REQUIRED for all error states
+- NEVER expose stack traces to users
+
+**API Calls:**
+- Handle both network errors AND server errors
+- Retry logic: transient failures only (network issues)
+- Loading states: REQUIRED for all async operations
+- Error messages: User-friendly (no technical jargon)
+- Display errors: Use toast notifications
+
+**Express Backend:**
+- Centralized error middleware (`server/index.ts:65-71`)
+- Consistent error format: `{ message: string }`
+- HTTP status codes: Use correctly (400, 401, 403, 404, 500)
+- NEVER expose internal errors (log internally, generic message to client)
+
+**Error Logging:**
+- Client errors: Log to console in dev, consider error service in prod
+- Server errors: Winston logger (`server/lib/logger.ts`)
+- NEVER log sensitive data in errors
+
+## Code Quality Standards
+
+**Git Commit Messages:**
+- Format: `<type>(<scope>): <message>`
+- Types: feat, fix, docs, style, refactor, test, chore
+- Examples:
+  - `feat(auth): add JWT token refresh`
+  - `fix(contact): resolve form validation error`
+  - `docs(readme): update deployment instructions`
+- Subject: 50 chars max, imperative mood
+- Body: 72 chars per line, explain WHY not WHAT
+
+**Pre-Commit Checklist (MANDATORY):**
+1. Run `npm run check` (TypeScript) - MUST pass
+2. Run `npm test` (unit tests) - MUST pass
+3. Manual testing of changes
+4. Code formatted (Prettier via editor)
+5. NEVER commit with TypeScript errors
+6. NEVER commit without tests for new features
+
+**Pull Request Requirements:**
+- [ ] All tests passing (`npm test`)
+- [ ] TypeScript errors resolved (`npm run check`)
+- [ ] Coverage ≥80% for new code
+- [ ] Manual testing completed
+- [ ] Screenshots for UI changes
+- [ ] Breaking changes documented
+- [ ] Reviewer assigned
+
+**Code Comments:**
+- Use JSDoc for exported functions and complex logic
+- Explain WHY, not WHAT
+- NEVER comment obvious code
+- Update comments when code changes
+- TODO format: `// TODO(TICKET-123): description`
+
+**Function Guidelines:**
+- Max 40 lines per function (extract if longer)
+- Max 4 parameters (use options object for more)
+- Single responsibility principle
+- Pure functions preferred
+- MUST have JSDoc for exported functions
+
+**File Size Limits:**
+- Components: 300 lines max
+- Utilities: 200 lines max
+- Pages: 400 lines max
+- If exceeded: split into logical modules
+- Current largest: `server/routes.ts` (835 lines - legacy, refactor later)
+
+**Magic Numbers:**
+- NEVER use unexplained numbers in code
+- Define constants: `const MAX_RETRIES = 3`
+- Use enums for related constants
+
+**Logging Standards:**
+- Development: console.log acceptable
+- Production: ONLY Winston logger (`server/lib/logger.ts`)
+- NEVER log: passwords, tokens, PII, API keys
+- Log levels:
+  - error: user-facing errors
+  - warn: degraded functionality
+  - info: key events (login, purchase)
+  - debug: verbose details
+
+## Project Structure
+
+```
+client/src/ (244 files)
+├── components/
+│   ├── ui/              # shadcn/ui (56 components)
+│   ├── layout/          # Navigation, Footer
+│   ├── analytics/       # ConsentBanner, Heatmap
+│   ├── seo/             # MetaTags, StructuredData
+│   └── resources/       # WhitepaperViewer
+├── pages/               # 35 routes (lazy-loaded)
+│   └── solutions/       # 17 industry/service pages
+├── hooks/               # 7 custom hooks
+├── lib/                 # 21 utilities (analytics, auth, validation, etc.)
+├── data/                # 104 static TypeScript files
+│   ├── portfolio/       # 8 project showcases
+│   └── resources/
+│       ├── blog-posts/      # 10 articles
+│       ├── case-studies/    # 22 case studies
+│       ├── quizzes/         # 12 interactive quizzes
+│       ├── technology/      # 35 tech resources
+│       └── whitepapers/     # 6 whitepapers
+└── assets/optimized/    # WebP + AVIF images
+
+server/ (26 files)
+├── routes/              # API handlers
+├── middleware/          # security.ts (Helmet, rate limiting, validation)
+├── services/email/      # Modular email system (20+ files)
+├── lib/                 # logger.ts (Winston)
+├── auth.ts              # Passport.js + JWT
+└── routes.ts            # Main route registration
 ```
 
-**Process Management:**
-```bash
-# Find process on port 3000 (Windows)
-netstat -ano | findstr :3000
-taskkill /PID [PID] /F
+## Tech Stack Deep Dive
 
-# Alternative port usage
+**React Query Patterns:**
+```typescript
+// Query
+const { data, isLoading, error } = useQuery({
+  queryKey: ['users', userId],
+  queryFn: () => fetchUser(userId),
+});
+
+// Mutation with optimistic update
+const mutation = useMutation({
+  mutationFn: updateUser,
+  onMutate: async (newUser) => {
+    await queryClient.cancelQueries({ queryKey: ['users'] });
+    const previous = queryClient.getQueryData(['users']);
+    queryClient.setQueryData(['users'], newUser);
+    return { previous };
+  },
+  onError: (err, newUser, context) => {
+    queryClient.setQueryData(['users'], context.previous);
+  },
+  onSettled: () => {
+    queryClient.invalidateQueries({ queryKey: ['users'] });
+  },
+});
+```
+
+**Wouter Routing:**
+```typescript
+// Route params
+<Route path="/blog/:slug" component={BlogPost} />
+// Access in component
+const [, params] = useRoute("/blog/:slug");
+const slug = params.slug;
+
+// Programmatic navigation
+const [, setLocation] = useLocation();
+setLocation('/dashboard');
+
+// Query strings
+const [location] = useLocation();
+const params = new URLSearchParams(location.split('?')[1]);
+```
+
+**Zod Validation:**
+```typescript
+// Schema composition
+const userSchema = z.object({
+  email: z.string().email(),
+  name: z.string().min(2),
+});
+
+// Custom error messages
+const schema = z.string().min(5, { message: "Must be 5+ chars" });
+
+// Transform
+const schema = z.string().transform(val => val.toLowerCase());
+```
+
+**Drizzle ORM Patterns:**
+```typescript
+// Query
+const users = await db.select().from(usersTable).where(eq(usersTable.id, userId));
+
+// Insert
+await db.insert(usersTable).values({ name, email });
+
+// Transaction
+await db.transaction(async (tx) => {
+  await tx.insert(users).values({ ... });
+  await tx.insert(posts).values({ ... });
+});
+```
+
+**Framer Motion Animations:**
+```typescript
+// Simple fade in
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.3 }}
+/>
+
+// Stagger children
+<motion.ul variants={containerVariants}>
+  {items.map(item => (
+    <motion.li key={item.id} variants={itemVariants} />
+  ))}
+</motion.ul>
+
+// Accessible animations (respect prefers-reduced-motion)
+const variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+```
+
+## Analytics System
+
+**Core Implementation (`client/src/lib/analytics-tracker.ts:423 lines`):**
+- Session management: unique IDs, duration, bounce rate
+- Auto-tracks: page views, clicks, form submits, scroll depth (25/50/75/90/100%), visibility changes
+- Data: device type, browser, OS, UTM params, referrer, geographic
+- Privacy-first: Consent via ConsentBanner (`client/src/components/analytics/consent-banner.tsx`)
+- Web Vitals: LCP, FID, CLS, FCP, TTFB (`client/src/lib/web-vitals.ts`)
+
+**Usage:**
+- `usePageTracking` hook: Auto-track page views
+- Error isolation: `AnalyticsErrorBoundary` (never breaks UX)
+- Consent: localStorage + IndexedDB
+
+**API Endpoints:**
+- POST /api/analytics/session
+- POST /api/analytics/pageview
+- POST /api/analytics/event
+- POST /api/analytics/web-vitals
+
+**Database:** pageViews, userSessions, analyticsEvents, webVitalsMetrics, analyticsGoals, goalConversions
+
+## Development Workflows
+
+**First-Time Setup:**
+1. Verify Node.js 22.x: `node --version`
+2. Install: `npm install`
+3. Copy env: `cp .env.example .env`
+4. Configure .env with credentials
+5. Start Supabase: `npm run supabase:start`
+6. Push schema: `npm run db:push`
+7. Start dev: `npm run dev`
+8. Open http://localhost:3000
+
+**Common Issues:**
+
+Port 3000 in use:
+```bash
+lsof -ti:3000 | xargs kill
+# OR
 cross-env PORT=3001 npm run dev
 ```
 
-Always run `npm run check` before committing to ensure TypeScript compliance.
+Hot reload not working:
+```bash
+# Stop server, clear cache, restart
+rm -rf node_modules/.vite
+npm run dev
+```
 
-## Additional Configuration Notes
+TypeScript errors:
+```bash
+npm run check  # View all
+# Fix issues
+npm run check  # Verify
+```
 
-### Build & Bundle Analysis
-- Bundle analyzer available via `npm run build:analyze` → generates `dist/bundle-analyzer.html`
-- Sophisticated manual chunk splitting for optimal caching and performance
-- Asset optimization with organized directory structure (images, fonts, js, css)
+Service Worker issues:
+```
+DevTools → Application → Service Workers → Unregister → Hard refresh
+```
 
-### PWA Configuration
-- Service Worker with `injectManifest` strategy via vite-plugin-pwa
-- Workbox caching with glob patterns for static assets
-- Strict HTML exclusion from service worker manifest
+**Debugging:**
+- React DevTools: Component tree, props, state
+- Browser DevTools: Network, Console, Sources
+- Source maps: Enabled in dev mode
+- Vite HMR: Check console for HMR errors
 
-### Vercel Deployment
-- Comprehensive caching headers configured in `vercel.json`:
-  - Static assets: 1 year immutable cache
-  - Images: 90 days cache
-  - HTML/API: no-cache policy
-- Security headers with CSP for iframe embedding support
-- API routes under `/api/` with no-cache headers
+## Content Creation Workflows
+
+**Adding Blog Post:**
+1. Create: `client/src/data/resources/blog-posts/your-slug.ts`
+2. Follow pattern in existing posts (export default BlogPost object)
+3. Add to `blog-posts/index.ts` exports
+4. Images: `assets/optimized/blog/` (WebP + fallback)
+
+**Adding Case Study:**
+1. Create: `client/src/data/resources/case-studies/industry-company.ts`
+2. Match CaseStudy type interface
+3. Add to `case-studies/index.ts`
+
+**Adding Route/Page:**
+1. Create: `client/src/pages/your-route.tsx`
+2. Lazy load in `App.tsx`: `const YourRoute = lazy(() => import("@/pages/your-route"))`
+3. Add route: `<Route path="/your-route" component={YourRoute} />`
+4. Add navigation link in `Navigation.tsx` if needed
+
+**Adding API Endpoint:**
+1. Create handler: `server/routes/your-feature.ts`
+2. Define Zod schema: `shared/schema.ts`
+3. Register in `server/routes.ts`
+4. Add validation middleware
+5. Test with curl
+
+**Adding Images:**
+1. Original: `client/src/assets/images/`
+2. Optimize: WebP + AVIF formats
+3. Save to: `assets/optimized/`
+4. Use with width/height attributes
+5. Lazy load below fold
+
+**Adding shadcn/ui Component:**
+```bash
+npx shadcn-ui@latest add component-name
+# Adds to client/src/components/ui/
+```
+
+## Deployment (Vercel)
+
+**Environment Variables REQUIRED:**
+```bash
+DATABASE_URL=postgresql://...
+SUPABASE_URL=https://...
+SUPABASE_ANON_KEY=...
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=user@example.com
+SMTP_PASS=password
+SMTP_FROM=noreply@strivetech.ai
+NODE_ENV=production
+```
+
+**Build Process:**
+- Client: Vite → `dist/public/`
+- Server: esbuild → `dist/index.js`
+- PWA: Service worker → `dist/public/sw.js`
+- Assets: Hashed filenames for cache busting
+
+**Caching (`vercel.json`):**
+- HTML/API: no-cache
+- JS/CSS: 1 year immutable
+- Images: 90 days
+- Service Worker: no-cache + `Service-Worker-Allowed: /`
+
+**Security Headers:**
+- Helmet CSP (iframe support for Calendly, chatbot)
+- HSTS: 1 year max-age
+- X-Content-Type-Options: nosniff
+
+**Preview Deployments:**
+- Auto-deploy on PR creation
+- URL: project-git-branch-user.vercel.app
+- Test before merging
+
+**Troubleshooting:**
+- Build failures: Check Vercel dashboard logs
+- 404 errors: Verify vercel.json rewrites
+- Slow builds: Run `npm run build:analyze`
