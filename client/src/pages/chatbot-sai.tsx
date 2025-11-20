@@ -460,7 +460,7 @@ const ChatBotSai = () => {
                 }}
                 frameBorder="0"
                 allow="microphone; camera; clipboard-write; autoplay"
-                title="Chat with Sai - Strive Tech AI Assistant"
+                title="Chat with Sai - SAI Platform AI Assistant"
                 onLoad={handleIframeLoad}
                 onError={handleIframeError}
                 data-testid="chatbot-full-iframe"

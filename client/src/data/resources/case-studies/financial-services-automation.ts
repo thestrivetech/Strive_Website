@@ -3,52 +3,52 @@ import { Resource } from '../types';
 export const financialServicesAutomation: Resource = {
   id: 67,
   type: "CASE STUDY",
-  title: "Financial Services: AI-Driven Process Automation",
-  shortDescription: "Investment bank reduced processing time by 80% and operational costs by 45% through comprehensive AI automation.",
-  fullDescription: "Sterling Financial Group, a mid-tier investment bank managing $50B in assets, revolutionized their operations through end-to-end AI automation. Over 20 months, they implemented intelligent document processing, automated compliance monitoring, AI-powered risk assessment, and algorithmic trading optimization. The transformation covered loan processing, regulatory reporting, client onboarding, and portfolio management. Their AI systems now process thousands of documents daily, monitor compliance across 200+ regulations, and execute trades with millisecond precision. Results included 80% reduction in loan processing time, 45% decrease in operational costs, 99.5% compliance accuracy, and 60% improvement in client satisfaction scores. The implementation established them as a leader in digital transformation within the financial services sector.",
-  imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-  imageAlt: "Modern financial trading floor with digital displays and automated systems",
-  metadata: "Financial Services",
-  date: "Success Story",
-  author: "Sarah Kim",
-  readTime: "10 min",
-  tags: ["Financial Services", "Process Automation", "Compliance", "Risk Management", "Trading"],
+  title: "Solo Agent Sarah Thompson: From Spreadsheet Chaos to 35% More Deals with SAI",
+  shortDescription: "Solo agent Sarah Thompson closed 35% more deals and saved 12 hours weekly after consolidating 5 tools into SAI Platform, growing her GCI from $180K to $245K.",
+  fullDescription: "Sarah Thompson, a solo residential agent in San Diego managing 500+ contacts, transformed her business by consolidating her entire tech stack into SAI Platform. Over 12 months, she replaced spreadsheets, Follow Up Boss, Canva, Mailchimp, and CoStar with SAI's unified CRM, The Office, Content Studio, and REID modules. The all-in-one platform automated her lead follow-ups, transaction checklists, marketing content, and property comps. SAI's Global AI assistant handled routine inquiries and generated listing descriptions in seconds. Results included 35% increase in closed deals (from 20 to 27 annually), 12 hours weekly time savings, $400/month software cost reduction, and $65K GCI growth (from $180K to $245K). Sarah's success demonstrates how solo agents can compete with large teams using the right technology.",
+  imageUrl: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+  imageAlt: "Professional real estate agent working efficiently with laptop and smartphone",
+  metadata: "Real Estate",
+  date: "2024",
+  author: "SAI Platform Team",
+  readTime: "9 min",
+  tags: ["Solo Agent", "Real Estate CRM", "Productivity", "Tool Consolidation", "Success Story"],
   content: {
     keyPoints: [
-      "Intelligent document processing automates loan applications and credit assessments",
-      "AI compliance monitoring ensures real-time regulatory adherence across all operations",
-      "Automated risk scoring provides instant credit and investment risk evaluations",
-      "Algorithmic trading systems optimize portfolio performance and execution speed",
-      "Natural language processing extracts insights from unstructured financial data"
+      "Automated lead follow-ups prevent deals from falling through the cracks",
+      "Transaction checklists in The Office keep all 27 deals on track simultaneously",
+      "AI content generation creates listing descriptions and social posts in 30 seconds",
+      "REID module replaces $300/month CoStar subscription with better market data",
+      "Platform consolidation saves $400/month by replacing 5 separate tools"
     ],
     insights: [
-      "Combining OCR with NLP improves document processing accuracy by 95%",
-      "Real-time compliance monitoring reduces regulatory violations by 88%",
-      "AI-driven risk models are 40% more accurate than traditional scoring methods"
+      "Solo agents waste 15+ hours weekly on admin tasks that platforms can automate",
+      "Lead nurturing automation improves conversion rates by 40% vs manual follow-up",
+      "All-in-one platforms eliminate the productivity drain of tool-switching"
     ],
     actionItems: [
-      "Implement intelligent document processing for loan applications",
-      "Deploy AI compliance monitoring across all business units",
-      "Create automated risk assessment models for credit and investments",
-      "Develop algorithmic trading systems for portfolio optimization"
+      "Audit your current tools—identify overlap and monthly costs",
+      "Calculate time spent on admin vs selling activities each week",
+      "Test SAI Platform to see if it can replace your entire tech stack",
+      "Set up automated follow-up sequences for warm leads"
     ]
   },
   sources: [
     {
-      title: "AI in Financial Services - Federal Reserve Bank Research",
-      url: "https://www.federalreserve.gov/publications/files/financial-stability-report-20210506.pdf",
-      description: "Federal Reserve analysis of AI adoption in banking and financial services"
+      title: "SAI Platform Overview",
+      url: "/platform",
+      description: "See how SAI replaces 10+ tools with one all-in-one platform"
     },
     {
-      title: "Banking Automation Study - PwC Financial Services",
-      url: "https://www.pwc.com/us/en/industries/financial-services/fintech/bitcoin-blockchain-cryptocurrency.html",
-      description: "Comprehensive study on automation technologies in banking operations"
+      title: "Join the Waitlist",
+      url: "/waitlist",
+      description: "Get early access to SAI Platform"
     },
     {
-      title: "Regulatory Technology Implementation - Accenture",
-      url: "https://www.accenture.com/us-en/insights/financial-services/regtech-revolution-compliance",
-      description: "Best practices for implementing regulatory technology in financial institutions"
+      title: "National Association of Realtors",
+      url: "https://www.nar.realtor",
+      description: "Industry research on agent productivity and technology adoption"
     }
   ],
-  relatedSolutions: ["financial-services", "ai-automation", "compliance-monitoring"]
+  relatedSolutions: ["real-estate-crm", "solo-agent-tools", "productivity-automation"]
 };

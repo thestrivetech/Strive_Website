@@ -1,18 +1,31 @@
-# SESSION 2 START PROMPT - SAI Platform Transformation
+# SESSION 2 START PROMPT - SAI Platform Transformation (REVISED!)
 
 **Use this prompt to start Session 2 of the SAI Platform transformation.**
 
 ---
 
-## CONTEXT
+## ⚠️ CRITICAL UPDATE: MOST COMPONENTS ALREADY EXIST!
 
-We are transforming the Strive Tech website (AI consulting) into SAI Platform (real estate SaaS). Session 1 completed all SAI data files. Now we need to create the homepage components that will consume this data.
+**THIS PROMPT HAS BEEN REVISED! The original assumption was WRONG - most components already exist!**
+
+**BEFORE starting Session 2:**
+1. **AUDIT FIRST:** Check `client/src/components/homepage/` - 7 components already exist!
+2. **CHECK DATA:** Check `client/src/data/sai/` - 8 data files already exist!
+3. **READ MASTER PLAN:** See `MASTER-TRANSFORMATION-PLAN.md` "Existing Code Inventory"
+4. **EDIT, DON'T CREATE:** Session 2 should UPDATE existing components, not create new ones!
+
+---
+
+## CONTEXT (REVISED!)
+
+We are transforming the Strive Tech website (AI consulting) into SAI Platform (real estate SaaS). Session 1 completed all SAI data files. **Session 2 should UPDATE existing homepage components that are already built.**
 
 **What's Already Done (Session 1):**
 - ✅ Full backup created at `/backups/pre-sai-transformation/`
 - ✅ Git branch created: `feature/sai-platform-transformation`
 - ✅ 17 solution pages deleted (non-real-estate industries)
 - ✅ Portfolio page and data deleted
+- ✅ **DISCOVERY:** 7 homepage components ALREADY EXIST (don't recreate!)
 - ✅ SAI data folder structure created at `client/src/data/sai/`
 - ✅ **8 SAI data files created and ready** (modules, pricing, roadmap, competitors, use-cases, faqs, success-stories, index)
 

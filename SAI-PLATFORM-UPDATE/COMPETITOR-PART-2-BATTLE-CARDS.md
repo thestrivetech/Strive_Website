@@ -6,6 +6,19 @@ This file provides sales battle cards, migration guides, objection handling scri
 
 ---
 
+## ⚠️ NOTE: THIS IS SALES/MARKETING REFERENCE MATERIAL
+
+**Use these battle cards to inform website content - not for direct implementation.**
+
+1. Use objection handling to improve FAQ content
+2. Use positioning statements to update VALUE PROPS in existing components
+3. May inform content for comparison/migration pages
+4. This is strategic reference for sales teams and content writers
+
+**This is competitive selling strategy, not website implementation specs.**
+
+---
+
 ## Table of Contents
 
 1. [Battle Cards (One-Page Summaries)](#battle-cards)

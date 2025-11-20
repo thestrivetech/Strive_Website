@@ -9,6 +9,20 @@
 
 ---
 
+## ⚠️ NOTE: THIS IS A REFERENCE GUIDE
+
+**This document provides messaging guidelines for UPDATING existing components and pages.**
+
+When implementing:
+1. Use this messaging to UPDATE content in existing components
+2. Don't create new components - edit existing ones first
+3. Check `client/src/components/homepage/` and `client/src/data/sai/` for existing content
+4. This guide helps maintain consistent voice across all updates
+
+**See `MASTER-TRANSFORMATION-PLAN.md` for list of existing components to update with this messaging.**
+
+---
+
 ## Table of Contents
 
 1. [Overview](#overview)

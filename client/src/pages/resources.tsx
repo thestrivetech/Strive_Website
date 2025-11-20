@@ -16,7 +16,6 @@ import { Resource, technologyCards, resources } from "@/data/resources";
 import { Quiz, QuizQuestion, QuizResult, allQuizzes } from "@/data/resources/quizzes";
 import { featuredResource } from "@/data/resources/featured";
 import { ethicalAIImplementation } from "@/data/resources/whitepapers";
-import { getSolutionById } from "@/data/solutions-mapping";
 import { SubFilterBar } from "@/components/ui/sub-filter-bar";
 import { WhitepaperViewer } from "@/components/resources/WhitepaperViewer";
 
@@ -55,10 +54,7 @@ const Resources = () => {
   const filters = [
     { name: "All", icon: null },
     { name: "Blog Posts", icon: <BookOpen className="h-4 w-4 mr-2" /> },
-    { name: "Whitepapers", icon: <FileText className="h-4 w-4 mr-2" /> },
     { name: "Case Studies", icon: <BarChart3 className="h-4 w-4 mr-2" /> },
-    { name: "Tools & Tech", icon: <Wrench className="h-4 w-4 mr-2" /> },
-    { name: "Quizzes", icon: <BrainCircuit className="h-4 w-4 mr-2" /> },
   ];
   
   // featuredResource is now imported from @/data/featured
@@ -765,23 +761,23 @@ const Resources = () => {
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-5 md:mb-6 text-white px-4"
               data-testid="text-hero-title"
             >
-              Business <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block pb-2">Intelligence</span> Hub
+              Real Estate <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block pb-2">Resources</span> & Insights
             </h1>
             <p
               className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#94a3b8] max-w-4xl mx-auto mb-6 sm:mb-7 md:mb-8 px-4"
               data-testid="text-hero-subtitle"
             >
-              Gain exclusive strategies, actionable research, and expert insights to guide your team through every stage of digital transformation.
+              Discover how real estate professionals are transforming their businesses with SAI Platform—the all-in-one CRM built for agents, teams, and brokerages.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
               <Button
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group
                   before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 min-h-[44px] w-full sm:w-auto"
-                onClick={() => window.location.href = '/contact'}
+                onClick={() => window.location.href = '/waitlist'}
                 data-testid="button-explore-resources"
               >
-                Unlock Actionable Insights
+                Join Waitlist
               </Button>
               <Button
                 size="lg"
@@ -790,7 +786,7 @@ const Resources = () => {
                 onClick={() => document.getElementById('resource-library')?.scrollIntoView({ behavior: 'smooth' })}
                 data-testid="button-get-insights"
               >
-                Let's Learn
+                Explore Resources
               </Button>
             </div>
           </div>
@@ -804,88 +800,22 @@ const Resources = () => {
           {activeFilter === "All" && (
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold mb-4 text-slate-800" data-testid="text-library-title">
-                Explore Our Resource Library
+                Real Estate Success Stories & Insights
               </h2>
               <p className="text-slate-600 text-lg" data-testid="text-library-subtitle">
-                Find tailored playbooks, case studies, and guides, each designed to help you solve your top business challenges with AI.
+                Learn how real estate professionals are closing more deals, saving time, and growing their business with SAI Platform.
               </p>
             </div>
           )}
 
-          {/* Featured Resource - Only show on All or Whitepapers view */}
-          {(activeFilter === "All" || activeFilter === "Whitepapers") && (
-            <div className="bg-off-white rounded-2xl overflow-hidden mb-16 shadow-lg border border-slate-100">
-              <div className="md:flex">
-                <div className="md:w-1/2">
-                  <div className="relative">
-                    <img
-                      src={featuredResource.imageUrl}
-                      alt={featuredResource.imageAlt}
-                      className="w-full h-64 md:h-full object-cover"
-                      data-testid="img-featured-resource"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span
-                        className="bg-slate-800 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center"
-                        data-testid="text-trending-badge"
-                      >
-                        📈 TRENDING
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="md:w-1/2 p-8 md:p-12">
-                  <div
-                    className="text-sm text-orange-500 uppercase tracking-wide font-semibold mb-4 flex items-center"
-                    data-testid="text-featured-type"
-                  >
-                    <Sparkles className="h-4 w-4 mr-2" />
-                    {featuredResource.type}
-                  </div>
-                  <h3
-                    className="text-2xl md:text-3xl font-bold mb-4 text-slate-800"
-                    data-testid="text-featured-title"
-                  >
-                    {featuredResource.title}
-                  </h3>
-                  <p
-                    className="text-slate-600 mb-6 leading-relaxed"
-                    data-testid="text-featured-description"
-                  >
-                    {featuredResource.description}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <Button
-                      className="bg-orange-500 text-white hover:bg-orange-600 px-6 py-2"
-                      data-testid="button-download-featured"
-                      onClick={() => {
-                        setSelectedResource(ethicalAIImplementation);
-                        setShowWhitepaperViewer(true);
-                      }}
-                    >
-                      <Download className="h-4 w-4 mr-2" />
-                      View Whitepaper
-                    </Button>
-                    <div className="text-sm text-slate-500 flex items-center">
-                      <Download className="h-4 w-4 mr-1" />
-                      <span data-testid="text-download-count">
-                        {featuredResource.downloads} downloads
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Section Descriptions - Moved before filter buttons */}
+          {/* Section Descriptions */}
           {activeFilter === "All" && (
             <div className="text-center mb-12">
               <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                Complete Resource <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Collection</span>
+                Real Estate <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Resources</span>
               </h3>
               <p className="text-slate-600 text-lg">
-                Browse our full library of blog posts, case studies, whitepapers, tools, and interactive quizzes.
+                Browse our collection of real estate insights and success stories from agents using SAI Platform.
               </p>
             </div>
           )}
@@ -893,10 +823,10 @@ const Resources = () => {
           {activeFilter === "Blog Posts" && (
             <div className="text-center mb-12">
               <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                Expert Insights & <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Tutorials</span>
+                Agent Insights & <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Guides</span>
               </h3>
               <p className="text-slate-600 text-lg">
-                Stay ahead with the latest AI trends, practical tutorials, and expert analysis from industry leaders.
+                Practical guides, CRM strategies, and productivity tips for real estate professionals.
               </p>
             </div>
           )}
@@ -904,32 +834,10 @@ const Resources = () => {
           {activeFilter === "Case Studies" && (
             <div className="text-center mb-12">
               <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                Success Stories & <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Impact</span>
+                Success Stories & <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Results</span>
               </h3>
               <p className="text-slate-600 text-lg">
-                Real, verified case studies from documented implementations with published results you can trust.
-              </p>
-            </div>
-          )}
-
-          {activeFilter === "Whitepapers" && (
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                Research & Deep <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Dives</span>
-              </h3>
-              <p className="text-slate-600 text-lg">
-                Access comprehensive guides, technical frameworks, and strategic insights for enterprise AI adoption.
-              </p>
-            </div>
-          )}
-
-          {activeFilter === "Tools & Tech" && (
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                Technology <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Stack</span>
-              </h3>
-              <p className="text-slate-600 text-lg">
-                Explore the cutting-edge technologies powering our solutions and learn how to implement them.
+                Real results from real estate agents and teams who transformed their business with SAI Platform.
               </p>
             </div>
           )}
@@ -1345,17 +1253,17 @@ const Resources = () => {
               <Sparkles className="h-4 w-4 mr-2" />
               EXCLUSIVE CONTENT
             </div>
-            <h2 
+            <h2
               className="text-3xl md:text-4xl font-bold mb-4 text-slate-800"
               data-testid="text-newsletter-title"
             >
-              Stay Ahead of the <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Curve</span>
+              Get Real Estate <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Insights</span>
             </h2>
-            <p 
+            <p
               className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto"
               data-testid="text-newsletter-description"
             >
-              Get premium insights, exclusive resources, and industry trends delivered directly to your inbox. Join 10,000+ business leaders.
+              Agent productivity tips, CRM strategies, and SAI Platform updates delivered to your inbox. Join real estate professionals growing their business.
             </p>
             <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto">
               <div className="flex gap-4">
@@ -1503,30 +1411,7 @@ const Resources = () => {
                     </ul>
                   </div>
                 </div>
-                
-                {selectedResource.type === "CASE STUDY" && selectedResource.relatedSolutions && (
-                  <div>
-                    <h3 className="text-lg font-semibold mb-3">Solutions</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedResource.relatedSolutions?.map((solutionId: string, index: number) => {
-                        const solution = getSolutionById(solutionId);
-                        return solution ? (
-                          <Badge 
-                            key={index} 
-                            variant="secondary" 
-                            className="px-3 py-1 cursor-pointer hover:bg-[#ff7033] hover:text-white transition-colors"
-                            onClick={() => {
-                              window.location.href = `/solutions?solution=${solutionId}`;
-                            }}
-                          >
-                            {solution.title}
-                          </Badge>
-                        ) : null;
-                      })}
-                    </div>
-                  </div>
-                )}
-                
+
                 <div>
                   <h3 className="text-lg font-semibold mb-3">Sources</h3>
                   <div className="space-y-2">

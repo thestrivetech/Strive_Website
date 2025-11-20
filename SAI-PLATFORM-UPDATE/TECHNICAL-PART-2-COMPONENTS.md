@@ -9,6 +9,30 @@
 
 ---
 
+## ⚠️ CRITICAL WARNING - READ FIRST!
+
+**🔴 MANY COMPONENTS ALREADY EXIST - AUDIT BEFORE CREATING!**
+
+Before implementing components in this document:
+
+1. **AUDIT FIRST:** Check if similar components exist in `client/src/components/`
+2. **REUSE EXISTING:** 40+ UI components already available (SolutionCard, ResourceCard, etc.)
+3. **EDIT, DON'T DUPLICATE:** Adapt existing components instead of creating new ones
+4. **CHECK HOMEPAGE:** 7 homepage components already built in `client/src/components/homepage/`
+
+**Existing Components to Reuse:**
+- ✅ `components/ui/solution-card.tsx` - Use for feature cards
+- ✅ `components/ui/resource-card.tsx` - Use for content cards
+- ✅ `components/ui/hero-section.tsx` - Use for page heroes
+- ✅ `components/ui/dialog.tsx` - Use for modals
+- ✅ Plus 56 shadcn/ui components
+
+**This document is a REFERENCE GUIDE. Always check existing code first before creating new components!**
+
+See `MASTER-TRANSFORMATION-PLAN.md` "Existing Code Inventory" section for full component list.
+
+---
+
 ## Table of Contents
 
 1. [Overview](#overview)

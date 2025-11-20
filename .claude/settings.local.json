@@ -99,5 +99,8 @@
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "disabledMcpjsonServers": [
+    "supabase"
+  ]
 }

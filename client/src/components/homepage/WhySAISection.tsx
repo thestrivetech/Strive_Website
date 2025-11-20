@@ -17,11 +17,11 @@ export function WhySAISection() {
     },
     {
       icon: DollarSign,
-      title: "Transparent Pricing",
+      title: "Simple, Transparent Pricing",
       description:
-        "Pay $49/month for UNLIMITED contacts, deals, and users. No per-contact fees, no surprise charges, no contracts. Most competitors charge $99-299/month AND hit you with per-contact fees that add up fast.",
+        "UNLIMITED contacts, deals, and users. No per-contact fees, no surprise charges, no contracts. Unlike competitors who charge per user or per contact, our straightforward pricing means your costs stay predictable as you grow.",
       benefit:
-        "Save $1,000+ per year compared to competitors like Follow Up Boss or LionDesk.",
+        "Scale your business without worrying about skyrocketing software costs.",
     },
     {
       icon: Shield,

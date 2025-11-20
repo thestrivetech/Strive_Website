@@ -9,6 +9,19 @@ Complete technical implementation guide for routing, URL structure, 301 redirect
 
 ---
 
+## ⚠️ CRITICAL WARNING - READ FIRST!
+
+**🔴 ROUTING ALREADY CONFIGURED - EDIT App.tsx, DON'T REBUILD!**
+
+1. **App.tsx EXISTS:** Check `client/src/App.tsx` - routing already set up!
+2. **ADD ROUTES:** Only add new routes for new pages (not recreate entire routing)
+3. **USER NOTE:** Only SAI standalone marketing page needs creation - most pages already exist!
+4. **EDIT NAVIGATION:** Update navigation links, don't rebuild navigation system
+
+**This document is a REFERENCE GUIDE. Make surgical updates to existing routing, don't rebuild from scratch!**
+
+---
+
 ## Table of Contents
 
 1. [Routing Strategy Overview](#1-routing-strategy-overview)

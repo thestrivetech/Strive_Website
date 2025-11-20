@@ -76,6 +76,25 @@ Write new-component.tsx           # Create only if truly new
 
 This prevents code duplication, maintains consistency, and respects existing architecture.
 
+### 3. WEBSITE PURPOSE & CONTEXT
+
+**This is a marketing website for SAI Platform - an all-in-one real estate CRM.**
+
+Key Context:
+- ✅ **100% SAI Platform focused** - No generic "Strive Tech" business solutions content
+- ✅ **Marketing/Lead Capture Only** - Website visitors fill out forms to contact sales team
+- ✅ **Waitlist/MVP Stage** - Do NOT show specific pricing (use "Join Waitlist" CTAs pointing to `/waitlist`)
+- ✅ **Minimal TypeScript Typing** - Use TypeScript inference naturally, avoid heavy type annotations
+- ❌ **NEVER use `any` type** - Let TypeScript infer or use inline annotations only when needed
+- ✅ **Existing UI Components** - 40+ shadcn/ui components available in `client/src/components/ui/`
+- ✅ **SAI Data Files** - Use existing data in `client/src/data/sai/` (modules, faqs, use-cases, roadmap, etc.)
+
+Navigation Structure:
+- Home → 100% SAI Platform content
+- Platform → `/platform` (detailed product showcase)
+- Portfolio, Resources, About, Contact (supporting pages)
+- Waitlist → `/waitlist` (form for early access requests)
+
 ---
 
 ## 🎯 DECISION TREE - Quick Reference

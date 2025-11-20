@@ -9,6 +9,32 @@
 
 ---
 
+## ⚠️ CRITICAL WARNING - READ FIRST!
+
+**🔴 MOST COMPONENTS ALREADY EXIST - DO NOT RECREATE!**
+
+Before implementing anything in this document:
+
+1. **AUDIT FIRST:** Check `client/src/components/homepage/` - 7 components already exist!
+2. **EDIT, DON'T CREATE:** Most components listed here are already built and working
+3. **VERIFY EXISTING CODE:** Read existing files to understand current implementation
+4. **UPDATE CONTENT ONLY:** Focus on updating messaging, not recreating components
+
+**What Already Exists:**
+- ✅ HeroSection.tsx (140 lines)
+- ✅ TrustSignalsBar.tsx (56 lines)
+- ✅ ModuleCard.tsx (~80 lines)
+- ✅ ModuleOverviewSection.tsx (40 lines)
+- ✅ ValuePropCard.tsx (74 lines)
+- ✅ WhySAISection.tsx (~90 lines)
+- ✅ FinalCTASection.tsx (~70 lines)
+
+**This document describes ideal implementations. Use it for REFERENCE and UPDATING existing code, not for creating everything from scratch!**
+
+See `MASTER-TRANSFORMATION-PLAN.md` "Existing Code Inventory" section for full list.
+
+---
+
 ## Table of Contents
 
 1. [Overview](#overview)

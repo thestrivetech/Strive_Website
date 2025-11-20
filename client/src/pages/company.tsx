@@ -23,17 +23,17 @@ const Company = () => {
     {
       icon: <Target className="text-primary text-2xl" />,
       title: "Our Mission",
-      description: "Help you boost revenues, cut costs, and outpace your competitors through the right AI, delivered at the right time."
+      description: "Empower real estate professionals to close more deals, manage transactions effortlessly, and scale their business with one unified platform."
     },
     {
       icon: <Eye className="text-primary text-2xl" />,
-      title: "Our Vision", 
-      description: "To be the trusted partner B2B leaders call for transformation and breakthrough growth."
+      title: "Our Vision",
+      description: "To become the industry-standard platform that every modern real estate professional relies on to grow their business."
     },
     {
       icon: <Heart className="text-primary text-2xl" />,
       title: "Our Values",
-      description: "Your success is our standard through excellence, integrity, bold innovation, and relentless commitment."
+      description: "Agent success is our success. We build with real estate professionals, for real estate professionals—through innovation, simplicity, and relentless support."
     }
   ];
 
@@ -41,67 +41,67 @@ const Company = () => {
     {
       name: "Garrett Holland",
       title: "Founder & CEO",
-      description: "Visionary leader transforming businesses through strategic AI innovation and operational excellence.",
+      description: "Real estate tech entrepreneur building the all-in-one platform that replaces fragmented tools with unified workflows.",
       imageUrl: GarrettHeadshot,
       imageAlt: "Garrett Holland - CEO & Founder headshot"
     },
     {
       name: "Grant Ramey",
-      title: "Co-Founder, VP",
-      description: "Operational excellence architect scaling breakthrough solutions and delivering measurable results.",
+      title: "Co-Founder, VP of Product",
+      description: "Product visionary designing intuitive real estate solutions that agents actually want to use every day.",
       imageUrl: GrantHeadshot,
-      imageAlt: "Grant Ramey - Co-Founder, VP headshot"
+      imageAlt: "Grant Ramey - Co-Founder, VP of Product headshot"
     },
     {
       name: "Jeff Meyer",
-      title: "Co-Founder, Head of Sales",
-      description: "Expert relationship builder driving exponential growth through strategic partnerships and client success.",
+      title: "Co-Founder, Head of Growth",
+      description: "Real estate industry expert connecting with agents, teams, and brokerages to understand their biggest challenges.",
       imageUrl: JeffHeadshot,
-      imageAlt: "Jeff Meyer - Co-Founder, Head of Sales headshot"
+      imageAlt: "Jeff Meyer - Co-Founder, Head of Growth headshot"
     }
   ];
 
   const stats = [
-    { number: "203", label: "Total Projects Completed" },
-    { number: "12", label: "Fortune 500 Clients" },
-    { number: "95%", label: "Retention Rate, Year After Year" },
-    { number: "24/7", label: "Always-On Support for Your Success" }
+    { number: "10+", label: "Tools Replaced by One Platform" },
+    { number: "500+", label: "Early Access Waitlist Members" },
+    { number: "5", label: "Integrated Modules for Complete Workflow" },
+    { number: "24/7", label: "Global SAI AI Assistant Available" }
   ];
 
   // Vision Timeline Data
   const visionMilestones = [
     {
-      year: "Q4 2026",
-      title: "AI Platform Beta Launch",
-      description: "Rolling out beta version of our next-gen AI automation platform to select enterprise clients",
+      year: "Q1 2025",
+      title: "SAI Platform MVP Launch",
+      description: "Launching the all-in-one real estate platform that replaces 10+ tools with a unified CRM, transaction management, and AI assistant",
       icon: <CpuChipIcon className="h-6 w-6" />,
       status: "current"
     },
     {
-      year: "Q1 2027",
-      title: "50 Custom Solutions Delivered",
-      description: "Reaching our first 50 successful AI implementations, helping 40 businesses streamline key processes and save an average of 15 hours per week",
+      year: "Q2 2025",
+      title: "500 Real Estate Professionals Onboarded",
+      description: "Empowering 500 agents, teams, and brokerages to close more deals faster with our integrated platform and AI-powered workflows",
       icon: <ArrowTrendingUpIcon className="h-6 w-6" />,
       status: "upcoming"
     },
     {
-      year: "Q2 2027",
-      title: "100 Businesses Transformed",
-      description: "Celebrating 100 businesses enhanced with custom AI solutions, achieving 95% client satisfaction and expanding to 10 industry verticals",
+      year: "Q3 2025",
+      title: "10,000 Transactions Managed",
+      description: "Facilitating 10,000 real estate transactions through The Office module, streamlining compliance, communication, and closing processes",
       icon: <GlobeAltIcon className="h-6 w-6" />,
       status: "future"
     },
     {
-      year: "Q3 2027",
-      title: "10,000 Hours Saved Monthly",
-      description: "Saving clients 10,000+ hours monthly through 200 intelligent workflow solutions, equivalent to 60+ full-time employees focused on strategic work",
+      year: "Q4 2025",
+      title: "Global SAI AI Assistant Evolution",
+      description: "Launching advanced AI capabilities including predictive lead scoring, market insights, and automated content generation for real estate professionals",
       icon: <LightBulbIcon className="h-6 w-6" />,
       status: "future"
     },
     {
-      year: "Q4 2027",
-      title: "$50M in Client Savings Generated",
-      description: "Achieving $50 million in documented cost savings and efficiency gains for our clients through 300+ deployed AI solutions",
+      year: "Q1 2026",
+      title: "Industry Standard Platform",
+      description: "Becoming the go-to platform for modern real estate professionals, with 5,000+ active users and partnerships with major brokerages",
       icon: <ArrowTrendingUpIcon className="h-6 w-6" />,
       status: "future"
     }
@@ -113,20 +113,20 @@ const Company = () => {
       <section className="py-20 hero-gradient relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div 
+            <div
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-vision-label"
             >
-              OUR VISION
+              OUR ROADMAP
             </div>
-            <h1 
+            <h1
               className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white"
               data-testid="text-vision-title"
             >
-              Roadmap to the <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Future</span>
+              Building the <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Future of Real Estate</span>
             </h1>
             <p className="text-[#94a3b8] text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-              What's Ahead for Us and For You: Continuous innovation in AI & emerging tech, so you're always a step ahead.
+              From MVP to industry standard: Our journey to empower every real estate professional with the all-in-one platform they deserve.
             </p>
           </div>
 
@@ -214,54 +214,54 @@ const Company = () => {
               >
                 OUR JOURNEY
               </div>
-              <h2 
+              <h2
                 className="text-3xl md:text-4xl font-bold mb-6 text-[#020a1c]"
                 data-testid="text-story-title"
               >
-                A Story of Friendship and Innovation
+                Built by Real Estate Professionals, For Real Estate Professionals
               </h2>
               <div className="space-y-4 md:space-y-6 text-muted-foreground">
                 <p data-testid="text-story-paragraph-1" className="text-base md:text-lg leading-relaxed">
-                  STRIVE TECH wasn't born in a boardroom or pitched to venture capitalists. It started where the best partnerships do: among friends who've shared victories, defeats, and countless hours perfecting their craft together.
+                  SAI Platform wasn't born from a tech team trying to understand real estate—it was built by people who lived the daily frustrations of juggling 10+ disconnected tools just to run a real estate business.
                 </p>
                 <p data-testid="text-story-paragraph-2" className="text-base md:text-lg leading-relaxed">
-                  Our story begins with six friends who grew up pushing boundaries. We traveled the world competing in professional esports tournaments together. In that process, we learned something invaluable: the difference between good and great isn't just skill, it's trust, communication, and knowing your team inside and out. Those late-night strategy sessions and split-second coordinated plays taught us that when you truly sync with your teammates, you can achieve the impossible.
+                  Our founders spent years watching talented agents waste hours switching between CRMs, transaction management systems, marketing tools, MLS platforms, and communication apps. They saw deals slip through the cracks because critical information was scattered across platforms. They experienced the pain of paying $500-$1,000/month for a fragmented tech stack that should work together seamlessly—but doesn't.
                 </p>
-                
-                <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">The Convergence</h3>
+
+                <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">The Vision</h3>
                 <p data-testid="text-story-paragraph-3" className="text-base md:text-lg leading-relaxed">
-                  As we evolved from competitive gaming into our respective tech careers, each of us developed deep expertise in different corners of the technology landscape. Garrett brought us together with a vision: combine our diverse technical backgrounds to build AI solutions that solve real-world problems. Not just impressive tech demos, but practical applications that transform how businesses operate.
+                  We asked a simple question: What if there was one platform that handled everything? CRM to nurture leads. The Office to manage transactions. Content Studio to create marketing materials. REID for instant market data. And Global SAI—your AI assistant that works 24/7 to help you close more deals.
                 </p>
 
                 <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">Why This Matters to You</h3>
                 <p data-testid="text-story-paragraph-4" className="text-base md:text-lg leading-relaxed">
-                  When you work with STRIVE TECH, you're not hiring a vendor. You're partnering with a team that's been pressure-tested in environments where milliseconds matter and trust is everything. We approach your challenges the way we approached competition: with complete dedication, strategic thinking, and seamless execution.
+                  Real estate is relationship-driven, fast-paced, and unforgiving. You don't have time to log into 5 different platforms to check if a client responded. You can't afford to miss a closing deadline because your transaction manager didn't sync with your CRM.
                 </p>
                 <p data-testid="text-story-paragraph-5" className="text-base md:text-lg leading-relaxed">
-                  Our gaming background isn't just unconventional; it's our secret weapon. We've spent years optimizing performance, identifying patterns, and making rapid decisions based on incomplete information. Skills that translate directly into building intelligent systems that work in the real world.
+                  SAI Platform eliminates the chaos. Everything in one place. One login. One monthly fee ($999 for unlimited everything—no per-user costs, no hidden fees). Built specifically for real estate workflows, not generic business processes.
                 </p>
                 <p data-testid="text-story-paragraph-6" className="text-base md:text-lg leading-relaxed">
-                  Today, we're channeling that same competitive drive and team synergy into helping businesses harness the power of AI. We're growing fast, not because we're chasing growth, but because our clients keep telling their peers about the team that actually delivers. On time. On spec. Beyond expectations.
+                  We're in early access right now, refining the platform with feedback from agents, team leads, and brokers who share our vision. Join our waitlist to be among the first to experience the all-in-one platform that replaces your entire tech stack.
                 </p>
 
-                <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">Moving Forward Together</h3>
+                <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">Join the Movement</h3>
                 <p data-testid="text-story-paragraph-7" className="text-base md:text-lg leading-relaxed">
-                  We believe the best technology comes from teams who genuinely enjoy working together, who challenge each other to be better, and who never settle for "good enough." That's who we are at STRIVE TECH. Six friends who became co-founders, teammates who became innovative partners, and most importantly, a team that's ready to help you win.
+                  This isn't just software—it's a movement to give real estate professionals the tools they deserve. Tools that work together. Tools that save time. Tools that help you close more deals and grow your business without complexity.
                 </p>
                 <div className="mt-4 md:mt-6 p-4 bg-primary/5 border-l-4 border-primary rounded-r-lg">
                   <p data-testid="text-story-paragraph-8" className="text-base md:text-lg leading-relaxed italic font-medium text-primary">
-                    Ready to see what a truly synchronized team can do for your business? Let's connect and explore how STRIVE TECH can turn your AI ambitions into reality.
+                    Ready to replace 10+ tools with one powerful platform? Join the SAI Platform waitlist and be part of the future of real estate technology.
                   </p>
                 </div>
               </div>
               <div className="mt-8">
-                <Button 
+                <Button
                   className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg"
                   size="lg"
-                  onClick={() => window.location.href = "/contact"}
+                  onClick={() => window.location.href = "/waitlist"}
                   data-testid="button-learn-more"
                 >
-                  Partner With Us
+                  Join Waitlist
                 </Button>
               </div>
             </div>

@@ -9,6 +9,19 @@
 
 ---
 
+## ⚠️ CRITICAL WARNING - READ FIRST!
+
+**🔴 MOST FILES LISTED HERE ALREADY EXIST - EDIT, DON'T CREATE!**
+
+1. **AUDIT FIRST:** Check if file exists before creating
+2. **DATA FILES EXIST:** 8 files in `client/src/data/sai/` already exist!
+3. **COMPONENTS EXIST:** 7 homepage components already built!
+4. **EDIT, DON'T DUPLICATE:** Saves 40-50 hours of wasted work
+
+**See `MASTER-TRANSFORMATION-PLAN.md` "Existing Code Inventory" for full list of existing files.**
+
+---
+
 ## Table of Contents
 
 1. [Overview](#overview)

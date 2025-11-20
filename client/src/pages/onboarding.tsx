@@ -331,18 +331,18 @@ const Onboarding = () => {
             <div className="text-center mb-8">
               <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
               <h2 className="text-2xl font-bold mb-2" data-testid="step-title">
-                Welcome to Strive!
+                Welcome to SAI Platform!
               </h2>
               <p className="text-muted-foreground">
                 Your profile has been completed successfully.
               </p>
             </div>
-            
+
             <div className="bg-card rounded-lg p-6">
               <div className="text-center mb-6">
                 <h3 className="text-xl font-semibold mb-2">Your Account is Ready</h3>
                 <p className="text-muted-foreground">
-                  You now have full access to Strive's AI solutions platform
+                  You now have full access to SAI Platform's all-in-one real estate system
                 </p>
               </div>
               

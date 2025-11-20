@@ -42,7 +42,7 @@ export const pricingTiers: PricingTier[] = [
     price: '$0',
     priceNumeric: 0,
     billingInfo: 'Forever free • No credit card required',
-    description: 'Try SAI with real leads and deals to see if it's right for your business. Upgrade to Elite when you're ready for unlimited everything.',
+    description: "Try SAI with real leads and deals to see if it's right for your business. Upgrade to Elite when you're ready for unlimited everything.",
     features: [
       '1 user account',
       'Up to 100 contacts',

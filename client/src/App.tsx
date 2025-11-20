@@ -22,8 +22,6 @@ const ConsentBanner = lazy(() => import("@/components/analytics/consent-banner")
 import Home from "@/pages/home";
 
 // Lazy load all other pages for optimal performance
-const Portfolio = lazy(() => import("@/pages/portfolio"));
-const Solutions = lazy(() => import("@/pages/solutions"));
 const Resources = lazy(() => import("@/pages/resources"));
 const Company = lazy(() => import("@/pages/company"));
 const Contact = lazy(() => import("@/pages/contact"));
@@ -36,20 +34,8 @@ const Privacy = lazy(() => import("@/pages/privacy"));
 const Terms = lazy(() => import("@/pages/terms"));
 const Cookies = lazy(() => import("@/pages/cookies"));
 const ChatBotSai = lazy(() => import("@/pages/chatbot-sai"));
-
-// Lazy load solution pages (most likely to be large)
-const Healthcare = lazy(() => import("@/pages/solutions/healthcare"));
-const Financial = lazy(() => import("@/pages/solutions/financial"));
-const Manufacturing = lazy(() => import("@/pages/solutions/manufacturing"));
-const Retail = lazy(() => import("@/pages/solutions/retail"));
-const Technology = lazy(() => import("@/pages/solutions/technology"));
-const Education = lazy(() => import("@/pages/solutions/education"));
-const AIAutomation = lazy(() => import("@/pages/solutions/ai-automation"));
-const DataAnalytics = lazy(() => import("@/pages/solutions/data-analytics"));
-const Blockchain = lazy(() => import("@/pages/solutions/blockchain"));
-const SmartBusiness = lazy(() => import("@/pages/solutions/smart-business"));
-const ComputerVision = lazy(() => import("@/pages/solutions/computer-vision"));
-const SecurityCompliance = lazy(() => import("@/pages/solutions/security-compliance"));
+const Waitlist = lazy(() => import("@/pages/waitlist"));
+const Platform = lazy(() => import("@/pages/platform"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 const PerformanceDashboard = lazy(() => import("@/pages/performance-dashboard"));
 const AnalyticsDashboard = lazy(() => import("@/pages/analytics-dashboard"));
@@ -76,12 +62,11 @@ function Router() {
         <Suspense fallback={<PageSkeleton />}>
           <Switch>
             <Route path="/" component={Home} />
-            <Route path="/portfolio" component={Portfolio} />
-            <Route path="/solutions" component={Solutions} />
+            <Route path="/solutions" component={Platform} />
             <Route path="/resources" component={Resources} />
             <Route path="/about" component={Company} />
             <Route path="/contact" component={Contact} />
-            <Route path="/assessment" component={Assessment} />
+            <Route path="/assessment" component={Platform} />
             <Route path="/onboarding" component={Onboarding} />
             <Route path="/request" component={Request} />
             <Route path="/login" component={Login} />
@@ -90,18 +75,8 @@ function Router() {
             <Route path="/terms" component={Terms} />
             <Route path="/cookies" component={Cookies} />
             <Route path="/chatbot-sai" component={ChatBotSai} />
-            <Route path="/solutions/healthcare" component={Healthcare} />
-            <Route path="/solutions/financial" component={Financial} />
-            <Route path="/solutions/manufacturing" component={Manufacturing} />
-            <Route path="/solutions/retail" component={Retail} />
-            <Route path="/solutions/technology" component={Technology} />
-            <Route path="/solutions/education" component={Education} />
-            <Route path="/solutions/ai-automation" component={AIAutomation} />
-            <Route path="/solutions/data-analytics" component={DataAnalytics} />
-            <Route path="/solutions/blockchain" component={Blockchain} />
-            <Route path="/solutions/smart-business" component={SmartBusiness} />
-            <Route path="/solutions/computer-vision" component={ComputerVision} />
-            <Route path="/solutions/security-compliance" component={SecurityCompliance} />
+            <Route path="/waitlist" component={Waitlist} />
+            <Route path="/platform" component={Platform} />
             <Route path="/performance" component={PerformanceDashboard} />
             <Route path="/analytics-dashboard" component={AnalyticsDashboard} />
             <Route component={NotFound} />

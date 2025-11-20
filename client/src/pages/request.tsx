@@ -185,14 +185,14 @@ const Request = () => {
   ];
 
   const requestTypeOptions = [
-    { value: "showcase", label: "Solution Showcase", description: "Tailored presentation with personalized demo of AI solutions customized for your specific business needs" },
-    { value: "assessment", label: "AI Assessment", description: "Comprehensive evaluation of your AI readiness and opportunities" }
+    { value: "showcase", label: "Platform Demo", description: "Live demo of SAI Platform showing how it replaces 10+ tools with one unified system for real estate professionals" },
+    { value: "assessment", label: "Needs Assessment", description: "Discuss your current tech stack and how SAI Platform can streamline your workflow" }
   ];
 
   const demoFocusOptions = [
-    "AI-Powered Dashboard", "Team Collaboration Tools", "Business Intelligence",
-    "Security & Compliance", "Automation Solutions", "Analytics & Reporting",
-    "Custom AI Models", "Integration Capabilities", "Other"
+    "CRM - Contact & Lead Management", "The Office - Transaction Management", "Content Studio - Marketing Automation",
+    "REID - Market Data & Analytics", "Global SAI - AI Assistant", "Team Collaboration & Visibility",
+    "Platform Migration Strategy", "Pricing & Implementation Timeline", "Other"
   ];
 
   // Repeated input styling
@@ -352,25 +352,25 @@ const Request = () => {
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
             <h2 className="text-3xl font-bold text-[#ff7033] mb-4">
-              Request Received - Showcase Preparation Begins!
+              Demo Request Received!
             </h2>
             <p className="text-lg text-white/80 mb-8">
-              Thank you for choosing Strive. Our solution architects are now preparing your personalized AI showcase. Within 24 hours, you'll receive a detailed showcase agenda tailored to your specific requirements and industry challenges.
+              Thank you for your interest in SAI Platform. Our team is now reviewing your request and will reach out within 24 hours to schedule your personalized platform demo.
             </p>
             <div className="bg-gray-50 rounded-lg p-6 mb-8">
-              <h3 className="font-semibold text-[#020a1c] mb-3">Your Showcase Timeline:</h3>
+              <h3 className="font-semibold text-[#020a1c] mb-3">What's Next:</h3>
               <ul className="text-left space-y-2 text-muted-foreground">
                 <li className="flex items-start">
                   <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                  <span><strong>Within 2 hours:</strong> Our solution architects begin reviewing your specific requirements</span>
+                  <span><strong>Within 2 hours:</strong> Our team reviews your specific needs and current tech stack</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                  <span><strong>Within 24 hours:</strong> You'll receive a personalized showcase agenda and calendar invitation</span>
+                  <span><strong>Within 24 hours:</strong> You'll receive a calendar invitation for your personalized SAI Platform demo</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                  <span><strong>Showcase session:</strong> Live demonstration of AI solutions tailored to your business challenges</span>
+                  <span><strong>Demo session:</strong> Live walkthrough of how SAI Platform can transform your real estate business</span>
                 </li>
               </ul>
             </div>

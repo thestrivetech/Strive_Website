@@ -9,6 +9,19 @@
 
 ---
 
+## ⚠️ NOTE: THIS IS A COPY REFERENCE LIBRARY
+
+**Use this copy to UPDATE existing components - don't create duplicate content.**
+
+1. These headlines/CTAs are for UPDATING existing components
+2. Check `client/src/components/homepage/` for existing components to update
+3. Use this library to refresh content in existing HeroSection, CTAs, ValueProps
+4. Don't create new components - edit existing ones with better copy
+
+**This is a reference library for improving existing content, not for creating new components.**
+
+---
+
 ## Table of Contents
 
 1. [Overview](#overview)

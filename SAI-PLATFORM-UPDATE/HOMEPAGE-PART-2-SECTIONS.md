@@ -8,6 +8,19 @@
 
 ---
 
+## ⚠️ CRITICAL WARNING - READ FIRST!
+
+**🔴 ALL HOMEPAGE SECTIONS ALREADY EXIST - EDIT, DON'T RECREATE!**
+
+1. **COMPONENTS EXIST:** ModuleOverviewSection, ValuePropCard, WhySAISection, FinalCTASection ALREADY BUILT!
+2. **DATA EXISTS:** `client/src/data/sai/modules.ts` already has all 5 modules!
+3. **EDIT CONTENT:** Update messaging and copy - don't rebuild components from scratch
+4. **CHECK home.tsx:** Verify it's using these components correctly
+
+**This document describes ideal implementations. Use it to UPDATE existing components, not recreate them!**
+
+---
+
 ## TABLE OF CONTENTS
 
 1. [Section Overview](#section-overview)

@@ -8,6 +8,19 @@
 
 ---
 
+## ⚠️ CRITICAL WARNING - READ FIRST!
+
+**🔴 HERO COMPONENT ALREADY EXISTS - EDIT, DON'T RECREATE!**
+
+1. **CHECK FIRST:** `client/src/components/homepage/HeroSection.tsx` ALREADY EXISTS (140 lines)!
+2. **EDIT CONTENT:** Update headline, subheadline, CTA text - don't rebuild component
+3. **VERIFY STRUCTURE:** Read existing component to understand current implementation
+4. **UPDATE home.tsx:** Verify it's using the HeroSection component correctly
+
+**This document is for REFERENCE and MESSAGING GUIDANCE. Edit the existing HeroSection component!**
+
+---
+
 ## TABLE OF CONTENTS
 
 1. [Current State Analysis](#current-state-analysis)

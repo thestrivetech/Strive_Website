@@ -213,7 +213,7 @@ const Contact = () => {
       if (response.ok && result.success) {
         toast({
           title: "Message sent successfully!",
-          description: result.message || "We'll get back to you within one business day. If you schedule a meeting, you'll receive 3 reminders: 24 hours before, 2 hours before, and 15 minutes before your scheduled meeting time.",
+          description: result.message || "Thank you for contacting SAI Platform! We'll get back to you within one business day to discuss how we can help you grow your real estate business.",
         });
 
         // Clear localStorage
@@ -277,12 +277,12 @@ const Contact = () => {
       });
 
       await generateProfessionalBrochurePDF({
-        filename: 'Strive-Business-Solutions-Brochure.pdf'
+        filename: 'SAI-Platform-Brochure.pdf'
       });
 
       toast({
         title: "Brochure Downloaded!",
-        description: "The Strive brochure has been downloaded to your device."
+        description: "The SAI Platform brochure has been downloaded to your device."
       });
     } catch (error) {
       console.error('Error downloading brochure:', error);
@@ -303,17 +303,17 @@ const Contact = () => {
       <section className="hero-gradient pt-16 md:pt-20 pb-12 md:pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16">
-            <h1 
+            <h1
               className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight"
               data-testid="text-contact-title"
             >
-              Accelerate Your <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Business Success</span> with AI
+              Let's Talk About <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Your Real Estate Business</span>
             </h1>
-            <p 
+            <p
               className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
               data-testid="text-contact-subtitle"
             >
-              Your challenges are unique, so let's talk about how custom AI solutions can unlock your next level of performance. Tell us where you want to go, and we'll help you get there.
+              Ready to replace 10+ tools with one unified platform? Have questions about SAI Platform? We're here to help you streamline your real estate workflow and close more deals.
             </p>
           </div>
 
@@ -321,12 +321,12 @@ const Contact = () => {
             {/* Contact Form */}
             <Card className="p-6 md:p-8" style={{ backgroundColor: '#ffffffeb' }}>
               <CardContent className="p-0">
-                <h2 
+                <h2
                   className="text-xl md:text-2xl font-bold mb-4 md:mb-6"
                   style={{ color: '#ff7033' }}
                   data-testid="text-form-title"
                 >
-                  Begin Your AI Transformation
+                  Get in Touch
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">

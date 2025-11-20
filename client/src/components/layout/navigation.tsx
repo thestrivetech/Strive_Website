@@ -14,7 +14,6 @@ import retailIcon from "@assets/generated_images/Retail_industry_icon_5c33f611.p
 import technologyIcon from "@assets/generated_images/Technology_industry_icon_e199aae4.png";
 import educationIcon from "@assets/generated_images/Education_industry_icon_b1549875.png";
 import resourcesIcon from "@assets/generated_images/Business_resources_gradient_icons_b8398c2d.png";
-import portfolioIcon from "@assets/generated_images/Portfolio_categories_gradient_icons_d4012d22.png";
 
 const Navigation = () => {
   const [location] = useLocation();
@@ -58,7 +57,6 @@ const Navigation = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Portfolio", path: "/portfolio" },
     { name: "Resources", path: "/resources" },
     { name: "Our Company", path: "/about" },
     { name: "Contact", path: "/contact" },
@@ -119,32 +117,19 @@ const Navigation = () => {
                     Home
                   </Link>
                   
-                  {/* Solutions - Simple Link */}
+                  {/* Platform - Simple Link */}
                   <Link
-                    href="/solutions"
+                    href="/platform"
                     className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 font-medium ${
-                      isActive("/solutions") ? "text-primary bg-white/10 font-medium" : ""
+                      isActive("/platform") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
-                    onClick={(e) => { handleNavClick(e, "/solutions"); setMobileMenuOpen(false); }}
-                    data-testid="mobile-nav-solutions"
+                    onClick={(e) => { handleNavClick(e, "/platform"); setMobileMenuOpen(false); }}
+                    data-testid="mobile-nav-platform"
                   >
                     <Cpu className="w-5 h-5 mr-3 text-[#ff7033]" />
-                    Solutions
+                    Platform
                   </Link>
-                  
-                  {/* Portfolio - Simple Link */}
-                  <Link
-                    href="/portfolio"
-                    className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 font-medium ${
-                      isActive("/portfolio") ? "text-primary bg-white/10 font-medium" : ""
-                    }`}
-                    onClick={(e) => { handleNavClick(e, "/portfolio"); setMobileMenuOpen(false); }}
-                    data-testid="mobile-nav-portfolio"
-                  >
-                    <FolderOpen className="w-5 h-5 mr-3 text-[#ff7033]" />
-                    Portfolio
-                  </Link>
-                  
+
                   {/* Resources - Simple Link */}
                   <Link
                     href="/resources"
@@ -219,13 +204,13 @@ const Navigation = () => {
                             Login
                           </Button>
                         </Link>
-                        <Link href="/request">
-                          <Button 
+                        <Link href="/waitlist">
+                          <Button
                             className="w-full bg-primary text-white hover:bg-primary/90 transition-all duration-300 rounded-xl shadow-lg"
-                            data-testid="mobile-button-get-started"
+                            data-testid="mobile-button-join-waitlist"
                             onClick={() => setMobileMenuOpen(false)}
                           >
-                            Get Started
+                            Join Waitlist
                           </Button>
                         </Link>
                       </>
@@ -300,28 +285,16 @@ const Navigation = () => {
               Home
             </Link>
             
-            {/* Solutions - Simple Link */}
+            {/* Platform - Simple Link */}
             <Link
-              href="/solutions"
+              href="/platform"
               className={`nav-link text-foreground hover:text-primary transition-colors ${
-                isActive("/solutions") ? "active" : ""
+                isActive("/platform") ? "active" : ""
               }`}
-              onClick={(e) => handleNavClick(e, "/solutions")}
-              data-testid="nav-solutions"
+              onClick={(e) => handleNavClick(e, "/platform")}
+              data-testid="nav-platform"
             >
-              Solutions
-            </Link>
-
-            {/* Portfolio - Simple Link */}
-            <Link
-              href="/portfolio"
-              className={`nav-link text-foreground hover:text-primary transition-colors ${
-                isActive("/portfolio") ? "active" : ""
-              }`}
-              onClick={(e) => handleNavClick(e, "/portfolio")}
-              data-testid="nav-portfolio"
-            >
-              Portfolio
+              Platform
             </Link>
 
             {/* Resources - Simple Link */}
@@ -394,12 +367,12 @@ const Navigation = () => {
                     Login
                   </Button>
                 </Link>
-                <Link href="/request">
-                  <Button 
+                <Link href="/waitlist">
+                  <Button
                     className="bg-primary text-primary-foreground hover:bg-primary/90"
-                    data-testid="button-get-started"
+                    data-testid="button-join-waitlist"
                   >
-                    Get Started
+                    Join Waitlist
                   </Button>
                 </Link>
               </>

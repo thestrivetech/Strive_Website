@@ -6,6 +6,19 @@ This file provides comprehensive on-page SEO optimization specifications for all
 
 ---
 
+## ⚠️ NOTE: UPDATE EXISTING PAGES' SEO - DON'T REBUILD
+
+**Use this guide to UPDATE SEO on existing pages.**
+
+1. **EDIT EXISTING:** Update meta tags in existing pages (home.tsx, solutions.tsx, etc.)
+2. **DON'T REBUILD:** Pages already exist - just update their metadata
+3. **USER NOTE:** Only SAI standalone page needs creation - rest are SEO updates
+4. **CHECK FIRST:** Read existing `<MetaTags>` components before updating
+
+**This is an SEO optimization guide for existing pages, not a page creation guide.**
+
+---
+
 ## Table of Contents
 
 1. [Meta Tags for All Pages](#meta-tags-for-all-pages)

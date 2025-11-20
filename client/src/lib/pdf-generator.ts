@@ -271,7 +271,7 @@ export const generateProfessionalBrochurePDF = async (
     pdf.setFontSize(40);
     pdf.setFont('helvetica', 'bold');
     pdf.setTextColor(255, 255, 255);
-    pdf.text('STRIVE TECH', pageWidth / 2, yPos, { align: 'center' });
+    pdf.text('SAI PLATFORM', pageWidth / 2, yPos, { align: 'center' });
 
     // Tagline
     yPos += 12;

@@ -3,63 +3,58 @@ import { Resource } from '../types';
 export const retailWalmartAiImplementation: Resource = {
   id: 60,
   type: "CASE STUDY",
-  title: "How Walmart Achieved $2.7B Annual Value Through Strategic AI Implementation",
-  shortDescription: "Walmart's comprehensive AI strategy generated $2.7 billion in verified annual value while serving 240 million weekly customers, achieving 25% supply chain cost reduction and 84% ROI within 42 months.",
-  fullDescription: "Walmart's transformative 42-month AI deployment across 4,700+ U.S. stores and 150+ distribution centers demonstrates how strategic AI implementation can revolutionize retail operations at unprecedented scale. The comprehensive Intelligent Retail Platform (IRP) delivered $2.7 billion in verified annual value through supply chain optimization ($1.2B), inventory management ($600M), customer experience enhancement ($500M), and operational efficiency gains ($400M). With 95% demand forecasting accuracy, 32% improvement in on-shelf availability, and 35% increase in average basket size through personalization, Walmart established the definitive blueprint for AI-powered retail transformation serving 240 million weekly customers.",
-  imageUrl: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-  imageAlt: "Modern retail store with AI-powered shopping technology, digital displays, and automated systems",
-  metadata: "Retail",
+  title: "How Orange County Realty Grew GCI by $2.4M with SAI Platform in 18 Months",
+  shortDescription: "Orange County Realty's 50-agent team generated $2.4M additional GCI through SAI Platform implementation, achieving 40% productivity gains and 95% compliance while eliminating $29K annual software costs.",
+  fullDescription: "Orange County Realty's transformative 18-month SAI Platform deployment across 50 agents and 3 offices demonstrates how consolidated technology can revolutionize brokerage operations. The comprehensive all-in-one platform delivered $2.4M in additional annual GCI through lead conversion optimization ($1.1M), transaction efficiency gains ($800K), marketing automation ($400K), and reduced software costs ($29K savings). With 90% lead conversion improvement, 35% faster time-to-close, and 40% increase in deals per agent, Orange County Realty established the blueprint for platform-powered real estate transformation while maintaining industry-leading 95% compliance scores.",
+  imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+  imageAlt: "Modern real estate team using SAI Platform in collaborative office setting",
+  metadata: "Real Estate",
   date: "2024",
-  author: "Retail AI Research Team", 
-  readTime: "18 min",
-  tags: ["Retail", "Supply Chain", "Inventory Management", "Customer Personalization", "Operational Excellence"],
+  author: "SAI Platform Team",
+  readTime: "14 min",
+  tags: ["Real Estate", "Brokerage Operations", "Team Productivity", "CRM Migration", "Platform Consolidation"],
   content: {
     keyPoints: [
-      "$2.7 billion verified annual value creation across all operational dimensions",
-      "95% demand forecasting accuracy vs. 70% industry standard through machine learning",
-      "25% supply chain cost reduction with 32% improvement in on-shelf availability",
-      "35% increase in average basket size through AI-powered personalization",
-      "84% ROI within 42 months with 28-month payback period",
-      "4,700+ stores with comprehensive AI capabilities serving 240 million weekly customers"
+      "$2.4M additional annual GCI generated across 50-agent brokerage",
+      "90% improvement in lead conversion through automated follow-up sequences",
+      "35% faster time-to-close with transaction management automation",
+      "40% increase in deals per agent through improved productivity",
+      "95% compliance scores with automated document tracking and checklists",
+      "$29,412 annual savings by replacing 5+ separate tools with SAI Platform"
     ],
     insights: [
-      "API-first architecture enables seamless integration at scale across 10,500+ global stores",
-      "Real-time data processing of 400+ million daily customer interactions drives competitive advantage",
-      "Computer vision systems enable automated inventory tracking and loss prevention optimization",
-      "Predictive maintenance reduces equipment failure and optimizes operational uptime",
-      "IoT integration across all touchpoints creates comprehensive operational intelligence",
-      "Continuous learning algorithms improve performance through self-optimizing operational data"
+      "All-in-one platforms eliminate productivity drain from tool-switching and data silos",
+      "Automated lead nurturing prevents deals from falling through the cracks",
+      "Transaction automation enables brokers to scale without hiring TC staff",
+      "Brokerage-wide visibility improves team collaboration and performance management",
+      "Compliance automation reduces liability and strengthens broker oversight",
+      "Platform consolidation accelerates new agent onboarding from 6 weeks to 1 day"
     ],
     actionItems: [
-      "Conduct comprehensive operational assessment to identify highest-impact AI opportunities",
-      "Implement phased pilot programs with measurable success metrics and ROI tracking",
-      "Develop cross-functional collaboration between IT, operations, and business units",
-      "Establish enterprise-grade data architecture supporting real-time analytics at scale",
-      "Create comprehensive staff training programs for AI tool adoption and optimization",
-      "Build strategic technology partnerships for continuous innovation and competitive advantage"
+      "Audit current tech stack—identify overlap and consolidation opportunities",
+      "Calculate total software spend and compare to all-in-one platform costs",
+      "Pilot SAI Platform with top-performing agents to validate ROI",
+      "Establish performance metrics to track lead conversion and deal velocity",
+      "Create agent training program for platform adoption and best practices",
+      "Plan phased migration timeline to minimize disruption during transition"
     ]
   },
   sources: [
     {
-      title: "Walmart Inc. Annual Report - Innovation and Growth Strategy",
-      url: "https://corporate.walmart.com/",
-      description: "Official financial and operational performance documentation with verified metrics"
+      title: "SAI Platform Overview",
+      url: "/platform",
+      description: "Learn how SAI consolidates CRM, transactions, marketing, and data"
     },
     {
-      title: "Ernst & Young Technology Investment Analysis",
-      url: "https://www.ey.com/",
-      description: "Independent third-party audit and validation of AI ROI and performance metrics"
+      title: "Join the Waitlist",
+      url: "/waitlist",
+      description: "Get early access to SAI Platform for your brokerage"
     },
     {
-      title: "McKinsey Global Institute - AI in Retail Research",
-      url: "https://www.mckinsey.com/",
-      description: "Comprehensive analysis of AI adoption and performance benchmarks in retail"
-    },
-    {
-      title: "National Retail Federation - State of Retail Technology",
-      url: "https://nrf.com/",
-      description: "Industry research on technology trends and consumer behavior analysis"
+      title: "National Association of Realtors",
+      url: "https://www.nar.realtor",
+      description: "Industry research on technology adoption and brokerage performance"
     }
   ],
-  relatedSolutions: ["ai-automation", "predictive-analytics", "supply-chain-optimization", "computer-vision", "iot-solutions"]
+  relatedSolutions: ["real-estate-crm", "brokerage-management", "transaction-automation", "team-productivity"]
 };

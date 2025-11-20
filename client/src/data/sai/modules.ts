@@ -44,7 +44,7 @@ export const saiModules: SAIModule[] = [
       'Team managing shared pipeline with lead assignment',
       'Brokerage with 50+ agents and territory management',
     ],
-    ctaHref: '/platform#crm',
+    ctaHref: '/platform',
   },
   {
     id: 'office',
@@ -73,7 +73,7 @@ export const saiModules: SAIModule[] = [
       'Team with shared deal visibility and TC assignment',
       'Investor agent managing 15 rental properties',
     ],
-    ctaHref: '/platform#office',
+    ctaHref: '/platform',
   },
   {
     id: 'studio',
@@ -102,7 +102,7 @@ export const saiModules: SAIModule[] = [
       'Team with branded drip campaigns and templates',
       'Brokerage with company-wide campaigns and agent toolkits',
     ],
-    ctaHref: '/platform#studio',
+    ctaHref: '/platform',
   },
   {
     id: 'reid',
@@ -131,7 +131,7 @@ export const saiModules: SAIModule[] = [
       'Listing agent pulling comps for CMAs',
       "Buyer's agent showing clients market trends",
     ],
-    ctaHref: '/platform#reid',
+    ctaHref: '/platform',
   },
   {
     id: 'sai',
@@ -160,6 +160,6 @@ export const saiModules: SAIModule[] = [
       'Team: "Which deals close this week?"',
       'Brokerage: "Draft a contract clause for seller financing"',
     ],
-    ctaHref: '/platform#sai',
+    ctaHref: '/platform',
   },
 ];

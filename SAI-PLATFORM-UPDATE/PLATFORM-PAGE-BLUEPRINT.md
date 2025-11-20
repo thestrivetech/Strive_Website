@@ -9,6 +9,29 @@ Complete implementation guide for the SAI Platform page (`/platform`) - the core
 
 ---
 
+## ⚠️ CRITICAL WARNING - READ FIRST!
+
+**🔴 ADAPT EXISTING SOLUTIONS PAGE - DON'T CREATE FROM SCRATCH!**
+
+Before implementing this Platform page:
+
+1. **AUDIT FIRST:** Check `client/src/pages/solutions.tsx` (1,170 lines) - Already has filtering, modals, grid layouts!
+2. **ADAPT, DON'T CREATE:** Copy solutions.tsx and modify for Platform features instead of building from zero
+3. **REUSE COMPONENTS:** Use existing SolutionCard components for module/feature cards
+4. **REUSE FILTERS:** Adapt UnifiedFilterDropdown for platform feature filtering
+
+**What to Reuse from Solutions Page:**
+- ✅ Filter system (industry + category filters)
+- ✅ Modal system for detail views
+- ✅ Grid layouts and responsive design
+- ✅ SolutionCard component (rename to FeatureCard)
+
+**This blueprint describes the IDEAL page. Use it as a REFERENCE while adapting the existing solutions.tsx page!**
+
+See `client/src/pages/solutions.tsx` for the existing page template to adapt.
+
+---
+
 ## Table of Contents
 
 1. [Page Overview & Strategic Goals](#1-page-overview--strategic-goals)

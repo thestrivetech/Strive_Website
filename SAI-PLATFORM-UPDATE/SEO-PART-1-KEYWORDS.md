@@ -11,6 +11,19 @@ Complete keyword research and SEO strategy for the SAI Platform - 200+ keywords 
 
 ---
 
+## ⚠️ NOTE: THIS IS A REFERENCE GUIDE
+
+**Use these keywords to UPDATE existing pages' meta tags and content.**
+
+1. **EDIT EXISTING:** Update meta tags in existing pages (home.tsx, solutions.tsx, resources.tsx)
+2. **DON'T REBUILD:** Pages already exist - just update their SEO metadata
+3. **CHECK FIRST:** Read existing meta tags before updating
+4. **USER NOTE:** Only SAI standalone page needs full creation - rest are updates
+
+**This is a keyword reference for optimizing existing pages, not for creating new pages from scratch.**
+
+---
+
 ## Table of Contents
 
 1. [Keyword Research Overview](#1-keyword-research-overview)

@@ -6,6 +6,19 @@ This file provides comprehensive competitive analysis comparing SAI Platform to 
 
 ---
 
+## ⚠️ NOTE: THIS IS A REFERENCE GUIDE FOR CONTENT
+
+**Use this competitive analysis to inform content updates - not for creating new pages.**
+
+1. Use competitor insights to UPDATE messaging in existing components
+2. May inform content for comparison page (if creating one)
+3. Check if `client/src/data/sai/competitors.ts` exists - may need to create or update
+4. This is strategic reference, not implementation spec
+
+**This is competitive intelligence for informing content strategy, not a build guide.**
+
+---
+
 ## Table of Contents
 
 1. [Competitive Landscape Overview](#competitive-landscape-overview)

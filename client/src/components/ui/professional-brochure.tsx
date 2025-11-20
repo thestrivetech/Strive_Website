@@ -131,13 +131,13 @@ const ProfessionalBrochure: React.FC<ProfessionalBrochureProps> = ({ onDownload 
             />
           </div>
           <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}>
-            STRIVE TECH
+            SAI PLATFORM
           </h1>
           <p className="text-xl md:text-2xl font-bold mb-2" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}>
-            Transforming Business Through AI Innovation
+            The All-in-One Real Estate Platform
           </p>
           <p className="text-lg font-medium max-w-2xl mx-auto" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.2)' }}>
-            Empowering organizations with cutting-edge AI solutions that drive growth, efficiency, and competitive advantage
+            Empowering real estate professionals to close more deals, manage transactions effortlessly, and scale their business with one unified platform
           </p>
         </div>
       </div>

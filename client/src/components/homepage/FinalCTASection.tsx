@@ -9,18 +9,18 @@ export function FinalCTASection() {
   const steps = [
     {
       icon: UserPlus,
-      label: "Sign Up Free",
-      description: "Create your account in 60 seconds",
+      label: "Join Waitlist",
+      description: "Request early access in under 60 seconds",
     },
     {
       icon: CalendarDays,
-      label: "Get Onboarded",
-      description: "Connect your tools and customize your workspace",
+      label: "Schedule a Demo",
+      description: "See SAI Platform in action with our team",
     },
     {
       icon: Rocket,
-      label: "Start Closing",
-      description: "Close more deals with AI-powered workflows",
+      label: "Get Started",
+      description: "Launch your real estate business to the next level",
     },
   ];
 
@@ -33,25 +33,17 @@ export function FinalCTASection() {
             Ready to Transform Your Real Estate Business?
           </h2>
           <p className="text-lg sm:text-xl text-white/90 mb-8 sm:mb-10">
-            Join thousands of agents already using SAI Platform to close more deals and save hours every week.
+            Be among the first to experience the future of real estate CRM. Request early access today.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 sm:mb-16">
+          <div className="flex justify-center mb-12 sm:mb-16">
             <Button
               size="lg"
               className="bg-white text-primary hover:bg-white/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 min-h-[44px] px-8 py-6 text-lg font-semibold"
-              onClick={() => window.location.href = "#signup"}
+              onClick={() => window.location.href = "/waitlist"}
             >
-              Start Free Trial
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-primary shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 min-h-[44px] px-8 py-6 text-lg font-semibold"
-              onClick={() => window.location.href = "#demo"}
-            >
-              Schedule Demo
+              Join Waitlist
             </Button>
           </div>
 

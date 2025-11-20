@@ -9,6 +9,19 @@ Complete implementation guide for the SAI Platform pricing page (`/pricing`) - t
 
 ---
 
+## ⚠️ CRITICAL WARNING - READ FIRST!
+
+**🔴 REUSE EXISTING COMPONENTS & DATA - DON'T START FROM ZERO!**
+
+1. **DATA EXISTS:** `client/src/data/sai/pricing-tiers.ts` ALREADY EXISTS! Edit it, don't recreate.
+2. **REUSE COMPONENTS:** Use existing Card, ValuePropCard, comparison table patterns
+3. **ADAPT LAYOUTS:** Copy structure from existing pages (solutions.tsx has comparison grids)
+4. **ROI CALCULATOR:** May already exist in homepage components - check first!
+
+**This blueprint is a REFERENCE. Build efficiently by reusing existing code!**
+
+---
+
 ## Table of Contents
 
 1. [Page Overview & Strategic Goals](#1-page-overview--strategic-goals)

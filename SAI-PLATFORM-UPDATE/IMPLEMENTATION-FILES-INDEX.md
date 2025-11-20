@@ -5,6 +5,17 @@
 
 ---
 
+## ⚠️ CRITICAL UPDATE: ALL DOCS NOW HAVE "EDIT FIRST" WARNINGS!
+
+**ALL 17 implementation documents have been updated with critical warnings:**
+- 🔴 Most components and data files ALREADY EXIST
+- 🔴 EDIT existing code, don't recreate
+- 🔴 Saves 40-50 hours by not duplicating work
+
+**Before using ANY document below, read its warning section first!**
+
+---
+
 ## ✅ CREATED FILES (3/17)
 
 ### 1. MASTER-TRANSFORMATION-PLAN.md

@@ -1,363 +1,245 @@
-# SAI Platform Transformation - Session 2 Plan
+# SAI Platform Transformation - Session 2 Plan (REVISED v2.0)
 
 **Target Session:** Session 2
-**Focus:** Phase 2 - Create Homepage Components
-**Estimated Time:** 4-6 hours
-**Complexity:** Medium
+**Focus:** Phase 2 - UPDATE Existing Homepage Components (NOT CREATE!)
+**Estimated Time:** 2-3 hours (REDUCED - components already exist!)
+**Complexity:** Low-Medium (just content updates)
 **Dependencies:** Session 1 data files (✅ Complete)
 
 ---
 
-## Session Objectives
+## 🔴 CRITICAL CHANGE: COMPONENTS ALREADY EXIST!
 
-Create all 12 homepage components that will consume the SAI data files created in Session 1. These components will be used to build the new SAI-focused homepage.
+**The original plan to "create 12 components" was WRONG.**
 
-**Success Criteria:**
-- ✅ All 12 homepage components created with full TypeScript
-- ✅ Components properly import data from `@/data/sai`
-- ✅ Responsive design (mobile-first)
-- ✅ Accessibility compliance (WCAG 2.1 AA)
+After auditing the codebase, we discovered that **7 homepage components already exist** in `client/src/components/homepage/`:
+1. ✅ HeroSection.tsx (140 lines) - Already built!
+2. ✅ TrustSignalsBar.tsx (56 lines) - Already built!
+3. ✅ ModuleCard.tsx (~80 lines) - Already built!
+4. ✅ ModuleOverviewSection.tsx (40 lines) - Already built!
+5. ✅ ValuePropCard.tsx (74 lines) - Already built!
+6. ✅ WhySAISection.tsx (~90 lines) - Already built!
+7. ✅ FinalCTASection.tsx (~70 lines) - Already built!
+
+**This session will EDIT these existing components, not recreate them.**
+
+---
+
+## Session Objectives (REVISED)
+
+**EDIT** the 7 existing homepage components to ensure they have the latest SAI messaging and content. Verify data imports work correctly. NO COMPONENT CREATION unless audit reveals missing functionality.
+
+**Success Criteria (REVISED):**
+- ✅ All 7 existing homepage components audited and updated
+- ✅ Components properly import data from `@/data/sai` (verify, don't recreate)
+- ✅ Content updated with latest messaging
+- ✅ No duplicate components created
 - ✅ No TypeScript errors (`npm run check` passes)
 - ✅ Components follow project conventions (CLAUDE.md)
 
 ---
 
-## Components to Create (12 Total)
+## Components to EDIT (7 Existing Components)
 
-### 1. HeroSection.tsx (150-200 lines) - CRITICAL
-**Location:** `client/src/components/homepage/HeroSection.tsx`
+### 1. HeroSection.tsx - UPDATE CONTENT ONLY
+**Location:** `client/src/components/homepage/HeroSection.tsx` (✅ Already exists - 140 lines)
 **Priority:** HIGH (first component users see)
+**Action:** EDIT existing file, don't recreate
 
-**Props:**
-```typescript
-interface HeroSectionProps {
-  variant: 'A' | 'B' | 'C' | 'D' | 'E'; // A/B test variations
-}
-```
+**What to Update:**
+- ✅ **Verify** headline is current for latest SAI messaging
+- ✅ **Update** subheadline if needed (real estate focus)
+- ✅ **Check** CTA button text and links are correct
+- ✅ **Update** trust signal text if needed
+- ✅ **Verify** screenshot/demo widget is current
 
-**Content:**
-- 5 headline variations for A/B testing
-- Subheadline emphasizing real estate focus
-- Dual CTAs: "Start Free Trial" (primary) and "Book Demo" (secondary)
-- Trust signals: "Join 5,000+ agents • No credit card required"
-- Real platform screenshot (user confirmed available)
+**Reference:** `HOMEPAGE-PART-1-HERO.md` for latest messaging
 
-**Reference:** `HOMEPAGE-PART-1-HERO.md` for 5 A/B variations
-
-**Implementation Notes:**
-- Use shadcn/ui Button component
-- Framer Motion for fade-in animation
-- Responsive: Full-width on mobile, max-width container on desktop
-- External links for CTAs (user confirmed)
+**Do NOT:**
+- ❌ Recreate component from scratch
+- ❌ Change component structure unless necessary
+- ❌ Modify props interface unless adding new functionality
 
 ---
 
-### 2. TrustSignalsBar.tsx (40-60 lines) - SIMPLE
-**Location:** `client/src/components/homepage/TrustSignalsBar.tsx`
+### 2. TrustSignalsBar.tsx - UPDATE METRICS
+**Location:** `client/src/components/homepage/TrustSignalsBar.tsx` (✅ Already exists - 56 lines)
 **Priority:** MEDIUM
+**Action:** EDIT existing file to update metrics
 
-**Content:**
-- Display 4 trust metrics:
-  - "5,000+ agents using SAI"
-  - "50,000+ deals closed"
-  - "$100M+ in commissions tracked"
-  - "99.9% uptime"
+**What to Update:**
+- ✅ **Update** metric values (agents, deals, commissions, uptime)
+- ✅ **Verify** icons are appropriate
+- ✅ **Check** that formatting is consistent
 
-**Design:**
-- Horizontal bar with icons (lucide-react: Users, CheckCircle, DollarSign, Shield)
-- Light background (bg-gray-50)
-- Simple grid layout (4 columns on desktop, 2 on mobile)
+**Current Metrics (verify these are up-to-date):**
+- "X,XXX+ agents using SAI"
+- "XX,XXX+ deals closed"
+- "$XXXM+ in commissions tracked"
+- "99.9% uptime"
 
-**Implementation Notes:**
-- No external data import needed (static content)
-- Simple presentational component
-- Easy win to build momentum
-
----
-
-### 3. ModuleCard.tsx (100-120 lines) - MEDIUM
-**Location:** `client/src/components/homepage/ModuleCard.tsx`
-**Priority:** HIGH (reusable)
-
-**Props:**
-```typescript
-import type { SAIModule } from '@/data/sai';
-
-interface ModuleCardProps {
-  module: SAIModule;
-}
-```
-
-**Content:**
-- Module icon (from lucide-react)
-- Module title
-- Tagline (one-liner value prop)
-- 3-5 key features (truncated list)
-- CTA: "Learn More →" linking to module.ctaHref
-
-**Design:**
-- Card with hover effect (border highlight, slight scale)
-- Icon in primary color circle
-- Clean typography hierarchy
-- Click entire card or button to navigate
-
-**Implementation Notes:**
-- Import SAIModule type from `@/data/sai`
-- Use shadcn/ui Card component
-- Framer Motion for hover animation
-- Use Link from wouter for navigation
+**Do NOT:**
+- ❌ Recreate component
+- ❌ Change layout structure
+- ❌ Modify styling unless there's a specific need
 
 ---
 
-### 4. ModuleOverviewSection.tsx (40-60 lines) - SIMPLE
-**Location:** `client/src/components/homepage/ModuleOverviewSection.tsx`
+### 3. ModuleCard.tsx - VERIFY IMPORTS
+**Location:** `client/src/components/homepage/ModuleCard.tsx` (✅ Already exists - ~80 lines)
 **Priority:** HIGH
+**Action:** VERIFY data imports work correctly
 
-**Content:**
-- Section heading: "One Platform. Five Powerful Modules."
-- Subheading: "Everything you need to run your real estate business"
-- Grid of 5 ModuleCard components
-- Import modules from `@/data/sai`
+**What to Verify:**
+- ✅ **Check** imports from `@/data/sai` work correctly
+- ✅ **Verify** component displays module icon, title, description correctly
+- ✅ **Test** hover effects work
+- ✅ **Check** CTA links navigate correctly
 
-**Design:**
-- Grid: 3 columns on desktop, 2 on tablet, 1 on mobile
-- Responsive gap spacing
-- Full-width section with container max-width
-
-**Implementation:**
-```typescript
-import { saiModules } from '@/data/sai';
-import { ModuleCard } from './ModuleCard';
-
-export function ModuleOverviewSection() {
-  return (
-    <section className="py-20 bg-background">
-      <div className="container">
-        <h2>One Platform. Five Powerful Modules.</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {saiModules.map(module => (
-            <ModuleCard key={module.id} module={module} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-```
+**Do NOT:**
+- ❌ Recreate component
+- ❌ Change component structure
 
 ---
 
-### 5. ROICalculator.tsx (200-250 lines) - COMPLEX
-**Location:** `client/src/components/homepage/ROICalculator.tsx`
-**Priority:** MEDIUM (interactive, high value)
-
-**Props:** None (self-contained)
-
-**Features:**
-- **Input Section:**
-  - Checkboxes for current tools used:
-    - [ ] CRM ($69/mo avg)
-    - [ ] Transaction Management ($49/mo)
-    - [ ] Content Creation ($49/mo)
-    - [ ] Email Marketing ($29/mo)
-    - [ ] Social Scheduler ($29/mo)
-    - [ ] Market Data ($150/mo)
-  - Number input: "How many users/agents on your team?" (default: 1)
-
-- **Output Section:**
-  - Current monthly cost: $XXX
-  - SAI Platform cost: $999/mo (or $0 if team size = 1 and using Free tier)
-  - Monthly savings: $XXX (green if saving, red if more expensive)
-  - Annual savings: $XXX
-  - Break-even analysis
-
-**Reference:** `HOMEPAGE-PART-2-SECTIONS.md` lines 404-811 for complete specs
-
-**Implementation Notes:**
-- Use React state for checkbox selections and team size
-- Calculate in real-time as user interacts
-- Use shadcn/ui Checkbox and Input components
-- Display results with clear typography (large numbers, color-coded)
-- Responsive: Stack on mobile, side-by-side on desktop
-
----
-
-### 6. ROICalculatorSection.tsx (50-70 lines) - SIMPLE
-**Location:** `client/src/components/homepage/ROICalculatorSection.tsx`
-**Priority:** MEDIUM
-
-**Content:**
-- Section heading: "See How Much You'll Save"
-- Subheading: "Most agents pay $500-800/month across 5+ tools. SAI replaces them all for $999/month."
-- ROICalculator component
-- Trust signal: "Join agents saving $6,000+/year"
-
-**Design:**
-- Light background (bg-gray-50)
-- Centered content, max-width 1200px
-- Calculator in white card with shadow
-
----
-
-### 7. ValuePropCard.tsx (80-100 lines) - MEDIUM
-**Location:** `client/src/components/homepage/ValuePropCard.tsx`
-**Priority:** MEDIUM
-
-**Props:**
-```typescript
-interface ValuePropCardProps {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  benefit: string;
-}
-```
-
-**Content:**
-- Icon in circle (primary color)
-- Title (e.g., "All-in-One Platform")
-- Description (2-3 sentences)
-- Benefit statement (bold, highlighted)
-
-**Design:**
-- Clean card with subtle shadow
-- Icon top-left or centered
-- Hierarchy: Icon → Title → Description → Benefit
-
-**Implementation Notes:**
-- Reusable for different value props
-- No external data (props passed in)
-
----
-
-### 8. WhySAISection.tsx (80-100 lines) - MEDIUM
-**Location:** `client/src/components/homepage/WhySAISection.tsx`
-**Priority:** MEDIUM
-
-**Content:**
-- Section heading: "Why Real Estate Agents Choose SAI"
-- 4 ValuePropCard components in 2x2 grid:
-  1. **All-in-One:** "Replace 5+ tools with one platform"
-  2. **Cost Savings:** "Save $6,000+/year vs. separate tools"
-  3. **Time Savings:** "Automated workflows save 10+ hours/week"
-  4. **Real Estate Specific:** "Built for agents, by real estate experts"
-
-**Icons:**
-- Package (All-in-One)
-- DollarSign (Cost Savings)
-- Clock (Time Savings)
-- Home (Real Estate Specific)
-
-**Design:**
-- Grid: 2x2 on desktop, 1 column on mobile
-- Responsive gap spacing
-
----
-
-### 9. ResourcesPreviewSection.tsx (80-100 lines) - SIMPLE
-**Location:** `client/src/components/homepage/ResourcesPreviewSection.tsx`
-**Priority:** LOW (nice to have)
-
-**Content:**
-- Section heading: "Learn More About Real Estate Technology"
-- Preview 3 resources:
-  1. Blog post (latest from blog-posts data)
-  2. Case study (featured case study)
-  3. Guide/Whitepaper (featured whitepaper)
-- CTA: "View All Resources →" linking to /resources
-
-**Implementation:**
-- Import from existing `client/src/data/resources/` files
-- Display: Image, title, excerpt, "Read More" link
-- Grid: 3 columns on desktop, 1 on mobile
-
-**Note:** May skip if time constrained - not critical for MVP
-
----
-
-### 10. FinalCTASection.tsx (60-80 lines) - SIMPLE
-**Location:** `client/src/components/homepage/FinalCTASection.tsx`
+### 4. ModuleOverviewSection.tsx - VERIFY MODULE DISPLAY
+**Location:** `client/src/components/homepage/ModuleOverviewSection.tsx` (✅ Already exists - 40 lines)
 **Priority:** HIGH
+**Action:** VERIFY section displays all 5 modules
 
-**Content:**
-- Headline: "Ready to Transform Your Real Estate Business?"
-- Subheadline: "Join 5,000+ agents using SAI to close more deals"
-- Dual CTAs:
-  - Primary: "Start Free Trial →"
-  - Secondary: "Schedule Demo"
-- 3-step visual: "1. Sign Up Free → 2. Import Contacts → 3. Close More Deals"
+**What to Verify:**
+- ✅ **Check** imports `saiModules` from `@/data/sai`
+- ✅ **Verify** all 5 modules display (CRM, Office, Content Studio, REID, Global SAI)
+- ✅ **Test** grid layout is responsive
+- ✅ **Update** section heading/subheading if needed
 
-**Design:**
-- Full-width section with primary color background
-- White text on dark background
-- Large, prominent CTAs
-- 3-step process with icons (UserPlus, Upload, TrendingUp)
-
-**Implementation Notes:**
-- Simple presentational component
-- External CTA links (user confirmed)
+**Do NOT:**
+- ❌ Recreate component
+- ❌ Modify grid structure unless needed
 
 ---
 
-## Components NOT Created (Skipped per User Request)
+### 5. ValuePropCard.tsx - UPDATE VALUE PROPS
+**Location:** `client/src/components/homepage/ValuePropCard.tsx` (✅ Already exists - 74 lines)
+**Priority:** MEDIUM
+**Action:** VERIFY component structure, use for WhySAISection
 
-### TestimonialCard.tsx - SKIPPED
+**What to Verify:**
+- ✅ **Check** props interface is correct
+- ✅ **Verify** styling matches design system
+- ✅ **Test** hover effects work
+
+**Do NOT:**
+- ❌ Recreate component
+
+---
+
+### 6. WhySAISection.tsx - UPDATE VALUE PROPOSITIONS
+**Location:** `client/src/components/homepage/WhySAISection.tsx` (✅ Already exists - ~90 lines)
+**Priority:** MEDIUM
+**Action:** UPDATE value proposition content
+
+**What to Update:**
+- ✅ **Verify** 4 value props are current:
+  1. Innovation / All-in-One
+  2. Cost Savings
+  3. Time Savings / Productivity
+  4. Real Estate Specific / Future-Proof
+- ✅ **Update** prop content if messaging has changed
+- ✅ **Check** CTAs are correct
+
+**Do NOT:**
+- ❌ Recreate component
+- ❌ Change grid structure
+
+---
+
+### 7. FinalCTASection.tsx - UPDATE CTA TEXT
+**Location:** `client/src/components/homepage/FinalCTASection.tsx` (✅ Already exists - ~70 lines)
+**Priority:** HIGH
+**Action:** UPDATE CTA text and links
+
+**What to Update:**
+- ✅ **Update** headline if needed
+- ✅ **Verify** CTA button text is current ("Start Free Trial", "Book Demo")
+- ✅ **Check** CTA links point to correct destinations
+- ✅ **Update** trust signals if needed
+
+**Do NOT:**
+- ❌ Recreate component
+- ❌ Change layout structure
+
+---
+
+## Components NOT in Scope (May or May Not Exist)
+
+### ROICalculator.tsx - CHECK IF EXISTS
+**If exists:** Update calculator logic and values
+**If doesn't exist:** Consider creating (only if truly needed for this session)
+**Priority:** MEDIUM
+
+### ResourcesPreviewSection.tsx - CHECK IF EXISTS
+**If exists:** Update to show latest resources
+**If doesn't exist:** Skip for now (not critical)
+**Priority:** LOW
+
+### TestimonialCard.tsx & SocialProofSection.tsx - SKIPPED
 - User requested to skip testimonials for now
-- Success stories page will show "Coming soon"
-- Data structure created but no content
-
-### SocialProofSection.tsx - SKIPPED
-- Depends on TestimonialCard
-- Will be added in future session when real testimonials available
+- Will be added in future session
 
 ---
 
-## Implementation Checklist
+## Implementation Checklist (REVISED - AUDIT FIRST!)
 
-### Before Starting
-- [ ] Verify Session 1 data files are committed (or at least available)
-- [ ] Test import: `import { saiModules } from '@/data/sai'` works
-- [ ] Check existing `client/src/components/homepage/` directory (may not exist - create it)
-- [ ] Review shadcn/ui components available in `client/src/components/ui/`
+### Step 1: AUDIT EXISTING COMPONENTS (MANDATORY!)
+- [ ] **READ** `client/src/components/homepage/` directory to see what exists
+- [ ] **LIST** all existing components (expected: 7+ components)
+- [ ] **READ** each component file to understand current implementation
+- [ ] **VERIFY** imports from `@/data/sai` work
+- [ ] **TEST** components render correctly in dev environment
+- [ ] **IDENTIFY** what needs updating vs. what's already correct
 
-### Component Creation Order (Dependency-Based)
-1. ✅ Create base components first (no dependencies):
-   - TrustSignalsBar.tsx
-   - ValuePropCard.tsx
-   - FinalCTASection.tsx
+**DO NOT SKIP THIS STEP!** Editing existing code is faster and safer than recreating.
 
-2. ✅ Create data-dependent components:
-   - ModuleCard.tsx (imports SAIModule type)
-   - ROICalculator.tsx (standalone)
+### Step 2: UPDATE EXISTING COMPONENTS (Priority Order)
+1. ✅ **EDIT** high-priority components first:
+   - HeroSection.tsx (update headline, CTAs)
+   - TrustSignalsBar.tsx (update metrics)
+   - FinalCTASection.tsx (update CTAs)
 
-3. ✅ Create section wrappers:
-   - ModuleOverviewSection.tsx (uses ModuleCard)
-   - ROICalculatorSection.tsx (uses ROICalculator)
-   - WhySAISection.tsx (uses ValuePropCard)
+2. ✅ **VERIFY** data-dependent components:
+   - ModuleCard.tsx (verify imports)
+   - ModuleOverviewSection.tsx (verify all 5 modules display)
 
-4. ✅ Create hero and complex components:
-   - HeroSection.tsx (most important, save for when confident)
-   - ResourcesPreviewSection.tsx (optional)
+3. ✅ **UPDATE** content components:
+   - ValuePropCard.tsx (verify structure)
+   - WhySAISection.tsx (update value props)
 
-### During Creation
+### Step 3: CHECK FOR MISSING COMPONENTS (Only if Needed)
+- [ ] **CHECK** if ROICalculator.tsx exists
+- [ ] **CHECK** if ResourcesPreviewSection.tsx exists
+- [ ] **DECIDE** if missing components are truly needed for this session
+- [ ] **CREATE** only if component is missing AND critical
+
+### During Editing
 - [ ] Use strict TypeScript (no `any` types)
-- [ ] Follow mobile-first responsive design
-- [ ] Use shadcn/ui components from `@/components/ui/`
-- [ ] Use lucide-react icons
-- [ ] Add proper accessibility (ARIA labels, semantic HTML)
-- [ ] Use Framer Motion sparingly (only for subtle effects)
-- [ ] Follow naming conventions (PascalCase components, camelCase props)
+- [ ] Maintain existing code style and patterns
+- [ ] Keep mobile-first responsive design
+- [ ] Preserve existing accessibility features
+- [ ] Update content, not structure (unless necessary)
+- [ ] Follow CLAUDE.md conventions
 
-### After Creating Each Component
-- [ ] Test import: `import { ComponentName } from '@/components/homepage/ComponentName'`
+### After Editing Each Component
 - [ ] Run TypeScript check: `npm run check`
+- [ ] Test component in dev environment
 - [ ] Fix any type errors immediately
+- [ ] Verify no regressions in functionality
 
-### After All Components Created
+### After All Components Updated
 - [ ] Run full TypeScript check: `npm run check` (must pass with 0 errors)
-- [ ] Create barrel export (optional): `client/src/components/homepage/index.ts`
-- [ ] Test all components compile without errors
-- [ ] Prepare for Session 3 (update home.tsx to use new components)
+- [ ] Test all components render correctly
+- [ ] Verify data imports work from `@/data/sai`
+- [ ] Prepare for Session 3 (verify home.tsx uses updated components)
 
 ---
 
@@ -393,25 +275,24 @@ interface ValuePropCardProps {
 
 ---
 
-## File Structure After Session 2
+## File Structure After Session 2 (REVISED)
 
 ```
 client/src/components/homepage/
-├── HeroSection.tsx
-├── TrustSignalsBar.tsx
-├── ModuleCard.tsx
-├── ModuleOverviewSection.tsx
-├── ROICalculator.tsx
-├── ROICalculatorSection.tsx
-├── ValuePropCard.tsx
-├── WhySAISection.tsx
-├── ResourcesPreviewSection.tsx (optional)
-├── FinalCTASection.tsx
-└── index.ts (optional barrel export)
+├── HeroSection.tsx (✅ EDITED, not created)
+├── TrustSignalsBar.tsx (✅ EDITED, not created)
+├── ModuleCard.tsx (✅ VERIFIED, minor edits)
+├── ModuleOverviewSection.tsx (✅ VERIFIED, minor edits)
+├── ValuePropCard.tsx (✅ VERIFIED, minor edits)
+├── WhySAISection.tsx (✅ EDITED content)
+├── FinalCTASection.tsx (✅ EDITED CTAs)
+├── ROICalculator.tsx (⚠️ CHECK IF EXISTS, create if needed)
+├── ResourcesPreviewSection.tsx (⚠️ CHECK IF EXISTS, skip if not)
+└── index.ts (✅ Update exports if needed)
 ```
 
-**Total Components:** 10-11 files (12 planned - 2 skipped)
-**Estimated Lines:** ~1,200-1,500 lines total
+**Total Files Changed:** 7-9 files (EDITED, not created from scratch)
+**Estimated Lines Changed:** ~200-400 lines total (content updates, not full rewrites)
 
 ---
 
@@ -486,37 +367,42 @@ import type { SAIModule } from '@/data/sai';
 
 ---
 
-## Session 2 Success Criteria
+## Session 2 Success Criteria (REVISED)
 
 **Definition of Done:**
-- ✅ All 10-11 homepage components created
+- ✅ All 7 existing homepage components audited and updated
 - ✅ TypeScript check passes: `npm run check` → 0 errors
-- ✅ All components properly import SAI data
-- ✅ Responsive design works on mobile/tablet/desktop
-- ✅ Accessibility: semantic HTML, keyboard navigation, ARIA labels
-- ✅ Components ready to be integrated into home.tsx (Session 3)
+- ✅ All components properly import SAI data (verified, not recreated)
+- ✅ Content updated with latest messaging
+- ✅ No duplicate components created
+- ✅ Responsive design still works on mobile/tablet/desktop
+- ✅ Accessibility preserved (semantic HTML, keyboard navigation, ARIA labels)
+- ✅ Components ready for home.tsx (Session 3)
 
 **Deliverables:**
-- 10-11 `.tsx` files in `client/src/components/homepage/`
-- Optional: `index.ts` barrel export
-- Documentation: Component props documented with JSDoc comments
+- 7-9 edited `.tsx` files in `client/src/components/homepage/`
+- Updated content with latest SAI messaging
+- Verified data imports from `@/data/sai`
+- Documentation: Updated JSDoc comments if needed
 
-**Ready for Session 3:** Update home.tsx to use new components (Phase 4)
+**Ready for Session 3:** Verify home.tsx uses updated components correctly
 
 ---
 
-## Session 2 Plan Complete
+## Session 2 Plan Complete (REVISED v2.0)
 
-**Next Steps:**
-1. Start with simple components (TrustSignalsBar, ValuePropCard, FinalCTASection)
-2. Build up to complex components (ModuleCard, ROICalculator)
-3. Create section wrappers
-4. Finish with HeroSection (most critical)
+**Next Steps (REVISED):**
+1. **AUDIT FIRST:** Read all existing components in `client/src/components/homepage/`
+2. **UPDATE** high-priority content (HeroSection, TrustSignalsBar, FinalCTASection)
+3. **VERIFY** data-dependent components (ModuleCard, ModuleOverviewSection)
+4. **TEST** all components work correctly
 5. Run final TypeScript check
-6. Prepare for Session 3 (home.tsx update)
+6. Prepare for Session 3 (verify home.tsx integration)
 
-**Estimated Duration:** 4-6 hours
-**Complexity:** Medium (UI components with some interactivity)
-**Blockers:** None (all dependencies from Session 1 complete)
+**Estimated Duration:** 2-3 hours (REDUCED from 4-6 hours - editing is faster!)
+**Complexity:** Low-Medium (content updates, not component creation)
+**Blockers:** None (components already exist, just need updates)
 
-Good luck! 🚀
+**Key Takeaway:** Always audit existing code before creating new files!
+
+🚀
