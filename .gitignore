@@ -104,3 +104,6 @@ STRIVE_WEBSITE_INTEGRATION.md
 .env 2.vercel
 .env.vercel
 .env*.local
+
+# Claude
+.claude
