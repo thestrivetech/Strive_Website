@@ -107,7 +107,7 @@ export default function Waitlist() {
               "Thank you for joining the SAI Platform waitlist. We'll contact you soon to schedule your personalized demo.",
           }}
         />
-        <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-primary/10 flex items-center justify-center px-4 pt-24 pb-12">
+        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-gray-50 flex items-center justify-center px-4 pt-24 pb-12">
           <Card className="max-w-2xl w-full shadow-2xl border-primary/20">
             <CardContent className="p-8 sm:p-12 text-center">
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -181,7 +181,7 @@ export default function Waitlist() {
             "Request early access to SAI Platform - the all-in-one real estate CRM built for modern agents. Get a personalized demo and discover how SAI can transform your business.",
         }}
       />
-      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-primary/10 pt-24 pb-12 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-gray-50 pt-24 pb-12 px-4">
         <div className="container mx-auto max-w-6xl">
           {/* Header Section */}
           <div className="text-center mb-12">
@@ -194,7 +194,7 @@ export default function Waitlist() {
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Be among the first real estate agents to experience the future of
-              CRM. Request your personalized demo and see how SAI Platform can
+              AI in the Real Estate industry. Request your personalized demo and see how SAI Platform can
               transform your business.
             </p>
           </div>
@@ -214,7 +214,7 @@ export default function Waitlist() {
                     <CheckCircle2 className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="font-semibold text-foreground">
-                        Personalized Demo
+                        Personalized Showcase Demo
                       </p>
                       <p className="text-sm text-muted-foreground">
                         1-on-1 walkthrough tailored to your business

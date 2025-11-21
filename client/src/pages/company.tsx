@@ -71,35 +71,35 @@ const Company = () => {
   // Vision Timeline Data
   const visionMilestones = [
     {
-      year: "Q1 2025",
+      year: "December 1st, 2025",
       title: "SAI Platform MVP Launch",
       description: "Launching the all-in-one real estate platform that replaces 10+ tools with a unified CRM, transaction management, and AI assistant",
       icon: <CpuChipIcon className="h-6 w-6" />,
       status: "current"
     },
     {
-      year: "Q2 2025",
+      year: "Q1 2026",
       title: "500 Real Estate Professionals Onboarded",
       description: "Empowering 500 agents, teams, and brokerages to close more deals faster with our integrated platform and AI-powered workflows",
       icon: <ArrowTrendingUpIcon className="h-6 w-6" />,
       status: "upcoming"
     },
     {
-      year: "Q3 2025",
+      year: "Q2 2026",
       title: "10,000 Transactions Managed",
       description: "Facilitating 10,000 real estate transactions through The Office module, streamlining compliance, communication, and closing processes",
       icon: <GlobeAltIcon className="h-6 w-6" />,
       status: "future"
     },
     {
-      year: "Q4 2025",
+      year: "Q3 2026",
       title: "Global SAI AI Assistant Evolution",
       description: "Launching advanced AI capabilities including predictive lead scoring, market insights, and automated content generation for real estate professionals",
       icon: <LightBulbIcon className="h-6 w-6" />,
       status: "future"
     },
     {
-      year: "Q1 2026",
+      year: "Q4 2026",
       title: "Industry Standard Platform",
       description: "Becoming the go-to platform for modern real estate professionals, with 5,000+ active users and partnerships with major brokerages",
       icon: <ArrowTrendingUpIcon className="h-6 w-6" />,
@@ -550,17 +550,17 @@ const Company = () => {
               Book a free custom automation assessment and discover your roadmap to stronger growth, efficiency, and market leadership starting today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
+              <Button
+                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-200 relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                 size="lg"
                 onClick={() => window.location.href = "/contact"}
                 data-testid="button-get-started-cta"
               >
                 Start Your Journey
               </Button>
-              <Button 
+              <Button
                 variant="outline"
-                className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                className="hero-gradient border-2 border-[#ff7033] text-white hover:text-[#ff7033] px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
                 size="lg"
                 onClick={() => window.location.href = "/contact"}
                 data-testid="button-join-team"

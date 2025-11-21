@@ -5,8 +5,8 @@ import HeroSection from "@/components/ui/hero-section";
 
 // Import SAI Platform homepage components
 import { TrustSignalsBar } from "@/components/homepage/TrustSignalsBar";
+import { PlatformDemoSection } from "@/components/homepage/PlatformDemoSection";
 import { ModuleOverviewSection } from "@/components/homepage/ModuleOverviewSection";
-import { WhySAISection } from "@/components/homepage/WhySAISection";
 import { FinalCTASection } from "@/components/homepage/FinalCTASection";
 
 const Home = () => {
@@ -25,8 +25,8 @@ const Home = () => {
       <div className="pt-16">
       {/* Hero Section */}
       <HeroSection
-        title="The All-in-One Real Estate CRM Built for Agents"
-        subtitle="Stop juggling 10 different tools. SAI Platform combines CRM, transaction management, marketing automation, and AI—everything you need to grow your real estate business in one powerful platform."
+        title="One Platform. Everything You Need to Sell Real Estate."
+        subtitle="Replace 5+ daily apps with the SAI Platform. The all-in-one Real Estate solution for agents and brokers. Manage leads, deals, marketing, transactions, and AI automation in one place."
         primaryButtonText="Join Waitlist"
         secondaryButtonText=""
         onPrimaryClick={() => window.location.href = "/waitlist"}
@@ -36,11 +36,12 @@ const Home = () => {
       {/* Trust Signals Bar */}
       <TrustSignalsBar />
 
-      {/* Module Overview Section */}
-      <ModuleOverviewSection />
+      {/* Platform Demo Video */}
+      <PlatformDemoSection />
 
-      {/* Why SAI Section */}
-      <WhySAISection />
+      {/* Module Overview Section - Compact cards that link to Platform page */}
+      <ModuleOverviewSection linkToPlatform={true} compact={true} />
+
       {/* Final CTA Section */}
       <FinalCTASection />
     </div>

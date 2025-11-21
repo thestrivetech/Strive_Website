@@ -39,7 +39,7 @@ export function ValuePropCard({
   return (
     <Card
       className={cn(
-        "group hover:shadow-2xl transition-all duration-300 hover:scale-105 border-2",
+        "group hover:shadow-xl transition-all duration-200 border-2",
         className
       )}
     >

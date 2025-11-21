@@ -40,7 +40,7 @@ export function FinalCTASection() {
           <div className="flex justify-center mb-12 sm:mb-16">
             <Button
               size="lg"
-              className="bg-white text-primary hover:bg-white/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 min-h-[44px] px-8 py-6 text-lg font-semibold"
+              className="bg-white text-primary hover:bg-white/90 shadow-lg hover:shadow-xl transition-all duration-200 min-h-[44px] px-8 py-6 text-lg font-semibold"
               onClick={() => window.location.href = "/waitlist"}
             >
               Join Waitlist

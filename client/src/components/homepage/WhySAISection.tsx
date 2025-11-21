@@ -42,14 +42,14 @@ export function WhySAISection() {
   ];
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-muted/30">
+    <section className="py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 sm:mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
             Why Top Agents Choose SAI Platform
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground">
+          <p className="text-lg sm:text-xl text-gray-700">
             We're not just another CRM. We're the all-in-one operating system for modern real estate professionals.
           </p>
         </div>
@@ -69,7 +69,7 @@ export function WhySAISection() {
 
         {/* Optional: Add a CTA */}
         <div className="text-center mt-12 sm:mt-16">
-          <p className="text-base sm:text-lg text-muted-foreground mb-4">
+          <p className="text-base sm:text-lg text-gray-600 mb-4">
             Join 5,000+ agents already using SAI Platform to grow their business.
           </p>
         </div>
