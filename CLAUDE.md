@@ -4,32 +4,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ---
 
-## 📑 TABLE OF CONTENTS
-
-**Essential Reading (Start Here):**
-- [🚨 Critical Rules](#-critical-rules) - Never commit, always check existing code
-- [🎯 Decision Tree](#-decision-tree---quick-reference) - Quick answers to common questions
-- [❌ Common Anti-Patterns](#-common-anti-patterns---avoid-these-mistakes) - Mistakes to avoid
-- [📋 Quick Reference Card](#-quick-reference-card) - Essential info at a glance
-- [🎯 Production Mindset](#-production-mindset) - Quality standards
-
-**Deep Dive Sections:**
-- [Project Overview](#project-overview) - Tech stack & structure
-- [Essential Commands](#essential-commands) - npm scripts
-- [Claude Code Tool Usage](#claude-code-tool-usage-patterns) - How to use tools effectively
-- [Code Conventions](#code-conventions) - TypeScript, React, styling rules
-- [React Best Practices](#react-best-practices) - Performance, hooks, composition
-- [Security Standards](#security-standards-non-negotiable) - XSS, CSRF, validation
-- [Testing Requirements](#testing-requirements) - Coverage, patterns, tools
-- [Performance Budgets](#performance-budgets) - Bundle size, Web Vitals
-- [Accessibility](#accessibility-wcag-21-aa) - WCAG compliance
-- [SEO Requirements](#seo-requirements) - Meta tags, structured data
-- [Error Handling](#error-handling) - Boundaries, API errors
-- [Content Creation Workflows](#content-creation-workflows) - Adding pages, blog posts
-- [Deployment](#deployment-vercel) - Vercel configuration
-
----
-
 ## 🚨 CRITICAL RULES
 
 ### 1. NEVER COMMIT
@@ -89,11 +63,503 @@ Key Context:
 - ✅ **Existing UI Components** - 40+ shadcn/ui components available in `client/src/components/ui/`
 - ✅ **SAI Data Files** - Use existing data in `client/src/data/sai/` (modules, faqs, use-cases, roadmap, etc.)
 
-Navigation Structure:
-- Home → 100% SAI Platform content
-- Platform → `/platform` (detailed product showcase)
-- Portfolio, Resources, About, Contact (supporting pages)
-- Waitlist → `/waitlist` (form for early access requests)
+---
+
+## 🎨 UI QUALITY & TEXT CONTRAST STANDARDS (CRITICAL)
+
+**HIGHEST PRIORITY: Visual quality and text readability are non-negotiable.**
+
+### **Text Contrast - NEVER Blend Text with Background**
+
+**CRITICAL RULE: ALWAYS use explicit text colors. NEVER use theme-dependent colors on fixed backgrounds.**
+
+❌ **NEVER DO THIS:**
+```tsx
+// BAD: Theme colors blend with backgrounds
+<div className="bg-gray-50">
+  <p className="text-foreground">...</p>          // Blends!
+  <p className="text-muted-foreground">...</p>    // Blends!
+</div>
+
+<div className="hero-gradient">
+  <p className="text-muted-foreground">...</p>    // WCAG violation!
+</div>
+```
+
+✅ **ALWAYS DO THIS:**
+```tsx
+// GOOD: Explicit colors for guaranteed contrast
+<div className="bg-gray-50">
+  <p className="text-gray-900">...</p>      // Dark on light
+  <p className="text-gray-600">...</p>      // Muted on light
+</div>
+
+<div className="hero-gradient">
+  <p className="text-white">...</p>         // White on dark
+  <p className="text-white/95">...</p>      // Subtle white on dark
+</div>
+```
+
+### **Text Color Standards by Background**
+
+**On Dark Backgrounds** (`hero-gradient`, dark sections):
+- Headings: `text-white`
+- Body text: `text-white/95` or `text-white/90`
+- Muted text: `text-white/80` minimum
+- ❌ NEVER: `text-foreground`, `text-muted-foreground`, `text-gray-*`
+
+**On Light Backgrounds** (`bg-white`, `bg-gray-50`, `bg-[#ffffffeb]`):
+- Headings: `text-gray-900`
+- Body text: `text-gray-700`
+- Muted text: `text-gray-600`
+- ❌ NEVER: `text-foreground`, `text-muted-foreground` (unless background is guaranteed light)
+
+**On Badges/Buttons:**
+- Always specify explicit text color
+- Test against background color
+- Minimum contrast ratio: 4.5:1 for normal text, 3:1 for large text (WCAG AA)
+
+### **Before Implementing ANY UI Component:**
+
+**1. Check Text Contrast:**
+- Is the text color explicitly set?
+- Does it have 4.5:1 contrast ratio against background?
+- Does it work in both light and dark sections?
+
+**2. Test Visual Hierarchy:**
+- Can users scan the content in 3 seconds?
+- Is the most important content visually prominent?
+- Are badges/labels sized appropriately (not overwhelming)?
+
+**3. Verify Layout Quality:**
+- Is content centered or left-aligned consistently?
+- Is spacing uniform (no random gaps)?
+- Do cards have clear visual boundaries?
+- Is text never awkwardly positioned or cut off?
+
+**4. Check for Overlapping Elements:**
+- Do hover states cover existing content?
+- Are absolutely positioned elements responsive?
+- Do badges overlap with text?
+
+### **Professional UI Standards**
+
+**Layout Philosophy:**
+- **Vertical stacking** > horizontal cramming (easier to scan)
+- **Center-aligned** for simple cards (icon + title + text)
+- **Left-aligned** for text-heavy content (easier to read)
+- **Consistent spacing** - use multiples of 4px (mb-4, mb-6, mb-8)
+
+**Card Design:**
+- Clear visual hierarchy: Icon → Title → Metadata → Description → Action
+- Badges at top or bottom, never overlapping main content
+- Borders/shadows for depth, not both (avoid over-styling)
+- Hover states: subtle shadow/border changes only (NO scale transforms)
+
+**Badge/Label Design:**
+- Sized proportionally (text-xs for small badges, not text-lg)
+- Explicit colors: `text-gray-700`, `text-orange-600`, NOT `text-foreground`
+- Grouped logically (all badges together, not scattered)
+- Never cover important content
+
+**Animation Standards:**
+- Transitions: 200ms for UI feedback, 300ms max
+- ❌ NEVER `hover:scale-*` on cards (causes layout shift)
+- ✅ OK: `hover:shadow-lg`, `hover:border-color`, `hover:bg-color`
+- Icons can scale: `hover:scale-110` on small icons only
+
+### **Quality Checklist - Run Before Every Component**
+
+```bash
+□ Text has explicit color (no text-foreground on fixed backgrounds)
+□ Contrast ratio ≥ 4.5:1 verified (use browser DevTools)
+□ Layout is clean (center or left-aligned, not mixed randomly)
+□ No overlapping elements (hover states, badges, absolute positioning)
+□ Badges/labels are appropriately sized (not dominating the card)
+□ Spacing is consistent (use mb-4, mb-6, mb-8 - not random values)
+□ Visual hierarchy is clear (title > body > metadata)
+□ Animations are subtle (shadow/color only, no scale on large elements)
+□ Responsive design works (test mobile, tablet, desktop)
+□ Tested with real content (not just placeholder text)
+```
+
+### **Common Text Contrast Mistakes to Avoid**
+
+❌ `text-muted-foreground` on `hero-gradient` → Use `text-white/80`
+❌ `text-foreground` on `bg-gray-50` → Use `text-gray-900`
+❌ White badges on light backgrounds → Use `text-gray-700 border-gray-300`
+❌ Light gray text on white → Use minimum `text-gray-600`
+❌ Transparent overlays covering text → Remove overlay or move text
+
+**Remember: If you can't read it easily, users can't either.**
+
+---
+
+## 🎯 PRODUCTION MINDSET
+
+This is a **production marketing website** serving real users. Every decision should prioritize:
+
+1. **Security First** - Never trust user input, always validate
+2. **Performance Matters** - Users expect <3s load times
+3. **Accessibility Required** - WCAG 2.1 AA is non-negotiable
+4. **SEO Critical** - Every page needs proper meta tags
+5. **Type Safety** - TypeScript strict mode catches bugs early
+6. **Test Coverage** - 80% minimum prevents regressions
+7. **Mobile First** - 60%+ traffic is mobile
+8. **Code Quality** - Clean code is maintainable code
+
+**Before writing any code, ask:**
+- Is this secure? (XSS, CSRF, SQL injection)
+- Is this accessible? (keyboard nav, screen readers)
+- Is this performant? (bundle size, render time)
+- Is this tested? (unit tests, E2E tests)
+- Is this maintainable? (clear names, proper types)
+
+**Remember:** Shortcuts today = technical debt tomorrow.
+
+---
+
+## 📢 B2B MARKETING & BRAND STORY GUIDELINES
+
+**This website targets B2B decision-makers (real estate teams, investors). Every page must grab attention and build trust.**
+
+### **Core Brand Positioning - SAI Platform**
+
+**What SAI Platform Is:**
+- All-in-one real estate CRM for modern teams
+- AI-powered automation that saves 15+ hours/week
+- Built for agents, teams, and brokerages
+
+**What SAI Platform Is NOT:**
+- Generic business solutions platform
+- Consumer product (this is B2B SaaS)
+- Another basic CRM (emphasize AI-powered differentiation)
+
+### **Content Strategy for B2B SaaS**
+
+**Hero Sections (First 3 seconds):**
+- Lead with **outcome, not features**: "Close 30% More Deals" > "CRM with AI"
+- **Quantify results**: "Save 15 hours/week" > "Automate your workflow"
+- **Social proof immediately**: "Trusted by 500+ real estate teams"
+- **Clear CTA**: "Join Waitlist" (not "Learn More" - we're pre-launch)
+
+**Problem-Solution Framework:**
+```
+1. Agitate pain point: "Drowning in spreadsheets and missed follow-ups?"
+2. Show consequence: "Losing deals to faster competitors"
+3. Introduce solution: "SAI Platform automates lead nurturing, follow-ups, and pipeline management"
+4. Prove it works: Case study, metric, testimonial
+5. Remove friction: "Join Waitlist - No Credit Card Required"
+```
+
+**Tone & Voice:**
+- **Professional but conversational**: B2B doesn't mean boring
+- **Confidence without arrogance**: "The AI-powered CRM for real estate" (not "might be useful")
+- **Jargon-free**: Avoid "synergy," "leverage," "ecosystem" - use plain language
+- **Action-oriented**: Use verbs: "Close more deals," "Automate follow-ups," "Scale your team"
+
+### **Investor-Focused Messaging**
+
+**When content targets investors (About, Platform pages):**
+- **Market size**: "Real estate CRM market: $10B+ and growing"
+- **Traction**: "500+ teams on waitlist," "15,000 hours saved in beta"
+- **Differentiation**: "First AI-native CRM purpose-built for real estate"
+- **Team credibility**: Highlight expertise in AI, real estate, SaaS
+- **Vision**: "Building the operating system for modern real estate teams"
+
+### **Conversion Optimization**
+
+**Every page must have:**
+- **One primary CTA** per section (not 3 competing CTAs)
+- **Waitlist forms** as primary conversion (not "Contact Us")
+- **Trust signals**: Logos, testimonials, metrics, awards
+- **Risk reversal**: "No credit card," "Cancel anytime," "14-day trial"
+
+**A/B Testing Priorities:**
+1. Hero headline (outcome vs feature)
+2. CTA copy ("Join Waitlist" vs "Get Early Access" vs "Start Free Trial")
+3. Social proof placement (above fold vs below fold)
+4. Form length (email only vs email + company)
+
+### **SEO for B2B SaaS**
+
+**Keyword Strategy:**
+- **Primary**: "real estate CRM," "AI CRM for real estate," "real estate automation"
+- **Long-tail**: "best CRM for real estate agents," "real estate lead management software"
+- **Intent-based**: "how to automate real estate follow-ups," "real estate CRM comparison"
+
+**Content Pillars:**
+1. **Product pages**: Feature-driven ("AI Lead Scoring," "Automated Follow-ups")
+2. **Use cases**: Role-driven ("CRM for Real Estate Teams," "CRM for Brokerages")
+3. **Comparisons**: "SAI vs [Competitor]" (capture high-intent searches)
+4. **Educational**: "Ultimate Guide to Real Estate CRM" (build authority)
+
+**Meta Description Formula:**
+```
+[Primary Keyword] - [Key Benefit] | [Social Proof] | [CTA]
+Example: "Real estate CRM with AI automation - Save 15+ hours/week | Trusted by 500+ teams | Join waitlist"
+```
+
+### **Messaging Anti-Patterns (NEVER DO THIS)**
+
+❌ **Vague value props**: "Transform your business" → ✅ "Close 30% more deals with AI automation"
+❌ **Feature dumps**: "We have 47 features" → ✅ "Automate follow-ups, score leads, track pipeline"
+❌ **Generic CTAs**: "Learn More" → ✅ "Join 500+ Teams on Waitlist"
+❌ **Boring headlines**: "Welcome to SAI Platform" → ✅ "The AI-Powered CRM for Modern Real Estate Teams"
+❌ **No social proof**: Empty testimonial sections → ✅ "15,000 hours saved by beta users"
+❌ **Passive voice**: "Can be used for..." → ✅ "Close more deals, automate busywork, scale faster"
+
+### **Content Quality Standards**
+
+**Headlines:**
+- Max 10 words (mobile-friendly)
+- Lead with benefit or outcome
+- Use numbers when possible ("Save 15 hours" not "Save time")
+
+**Body Copy:**
+- Max 3 sentences per paragraph (scannability)
+- **Bolded keywords** for skimmers
+- Bullet points > paragraphs for features/benefits
+
+**CTAs:**
+- Action verbs: "Join," "Start," "Get," "See"
+- Urgency: "Join 500+ teams," "Limited beta spots"
+- Specificity: "Join Waitlist" > "Sign Up"
+
+---
+
+## ⚡ ESSENTIAL BEST PRACTICES
+
+### **React Patterns**
+
+**Performance Optimization:**
+- React.memo: Use ONLY for expensive renders with stable props (measure first!)
+- useMemo: ONLY for expensive computations taking >5ms
+- useCallback: ONLY when passing callbacks to memoized children
+- AVOID premature optimization - let React optimize naturally
+- Lazy load ALL routes except home (35 pages currently lazy-loaded)
+
+**useEffect Rules (STRICT):**
+- MUST include ALL dependencies in array (ESLint will catch)
+- ALWAYS return cleanup for subscriptions, timers, event listeners
+- NEVER use async function directly in useEffect:
+```typescript
+// ✅ CORRECT
+useEffect(() => {
+  const fetchData = async () => {
+    const data = await api.getData();
+    setData(data);
+  };
+  fetchData();
+}, []);
+
+// ❌ WRONG
+useEffect(async () => { ... }, []);
+```
+- Side effects ONLY - NEVER derive state (use useMemo instead)
+- Empty deps `[]`: runs once on mount
+- ALWAYS cleanup to prevent memory leaks
+
+**State Management:**
+- Local state: `useState` for component-specific state
+- Server state: ALWAYS use React Query (`client/src/lib/queryClient.ts`)
+- Global state: Context ONLY for auth, theme (NEVER for frequent updates)
+- Query keys format: `['entity', id, filters]`
+- NEVER store server data in useState - use React Query
+
+**Component Composition:**
+- NEVER pass props through >2 levels (use composition or Context)
+- Use `children` prop for flexibility
+- Extract to custom hook when logic used in 2+ components
+- Prefer composition over complex prop drilling
+
+**List Rendering:**
+- MUST use stable keys (database id preferred)
+- NEVER use array index for dynamic lists (causes bugs)
+- Index acceptable ONLY for static lists that never reorder
+
+### **CSS & Styling Standards**
+
+**Tailwind Utility Organization:**
+- Order: layout → spacing → typography → colors → effects
+- Example: `flex items-center gap-4 px-6 py-3 text-lg font-semibold bg-primary hover:bg-primary/90`
+- ALWAYS use `cn()` for conditional classes
+- Max 8-10 utilities per element (extract component if more)
+
+**Responsive Design (Mobile-First):**
+- Default styles: mobile (≥320px)
+- Breakpoints: `md:` (≥768px), `lg:` (≥1024px), `xl:` (≥1280px)
+- Test mobile first, enhance for desktop
+- Touch targets: min 44px (`min-h-[44px] min-w-[44px]`)
+
+**Dark Mode:**
+- Uses class-based strategy (`darkMode: ["class"]` in tailwind.config)
+- NEVER hardcode colors - use design tokens
+- Colors: `bg-background`, `text-foreground`, `border`, etc.
+- Test both light and dark modes
+
+**Layout Patterns:**
+- Flexbox: 1D layouts (nav, button groups, inline elements)
+- Grid: 2D layouts (card grids, dashboards, galleries)
+- Prefer Flexbox for simpler layouts (better browser support)
+
+**NEVER:**
+- ❌ Use inline styles (except dynamic values like transforms)
+- ❌ Hardcode arbitrary colors (`bg-[#ffffff]` - use `bg-white` or `bg-background`)
+- ❌ Arbitrary z-index >100
+- ❌ Animate layout properties (width/height) - use transforms instead
+
+### **Accessibility (WCAG 2.1 AA)**
+
+**Keyboard Navigation:**
+- ALL interactive elements MUST be keyboard accessible
+- Visible focus indicators REQUIRED (never `outline: none` without replacement)
+- Tab order MUST be logical
+- Touch targets: ≥44px minimum
+- Skip links for main content REQUIRED
+
+**ARIA & Semantics:**
+- Use semantic HTML FIRST (button, nav, main, article, section)
+- ARIA labels: REQUIRED for icon-only buttons
+- Form inputs: MUST have associated labels
+- Dynamic content: Use aria-live regions
+- Landmark roles: Use semantic HTML instead of ARIA when possible
+
+**Visual:**
+- Color contrast: 4.5:1 minimum (normal text), 3:1 (large text)
+- Text resizable to 200% without breakage
+- NEVER rely on color alone for information
+- Responsive breakpoints: mobile → md → lg → xl
+
+**Never:**
+- ❌ Remove focus outlines without replacement
+- ❌ Use `<div onClick>` for buttons (use `<button>`)
+- ❌ Omit alt text on images (empty string if decorative)
+- ❌ Disable zoom (viewport meta tag)
+
+### **Performance Budgets**
+
+**Bundle Size (STRICT):**
+- Initial bundle: <200KB gzipped
+- Route chunks: <50KB each
+- Run `npm run build:analyze` before major releases
+- Manual chunks: vendor, ui, router, utils, motion, charts, icons, forms, query, pwa
+
+**Web Vitals Targets:**
+- First Contentful Paint (FCP): <1.5s
+- Largest Contentful Paint (LCP): <2.5s
+- Time to Interactive (TTI): <3.5s
+- Cumulative Layout Shift (CLS): <0.1
+- First Input Delay (FID): <100ms
+- Monitor via `client/src/lib/web-vitals.ts`
+
+**Images:**
+- MUST be optimized (WebP + AVIF in `assets/optimized/`)
+- MUST include width and height attributes (prevents CLS)
+- MUST lazy load images below fold
+- Max size: 200KB per image (compress if larger)
+
+### **Security Standards (NON-NEGOTIABLE)**
+
+**Input Validation:**
+- ALWAYS validate server-side with Zod schemas (`shared/schema.ts`)
+- NEVER trust client-side validation alone
+- Sanitize ALL user input before database operations
+- Rate limiting: 500 req/15min production
+
+**Authentication:**
+- JWT tokens: httpOnly cookies ONLY (NEVER localStorage)
+- Passport.js + local strategy (`server/auth.ts`)
+- Protected routes: Use `authenticateToken` middleware
+
+**API Security:**
+- Helmet middleware: REQUIRED for all routes
+- SQL injection: ONLY use Drizzle ORM parameterized queries (NEVER string concat)
+- CORS: Configured in security middleware
+- NEVER expose internal errors to clients (generic messages only)
+
+**Never:**
+- ❌ Use `dangerouslySetInnerHTML` without DOMPurify sanitization
+- ❌ Expose secrets in client code (check build output!)
+- ❌ Use `eval()` or `new Function()`
+- ❌ Log passwords, tokens, API keys, or PII
+- ❌ Store JWT in localStorage (use httpOnly cookies)
+
+### **Testing Requirements**
+
+**Coverage Standards:**
+- Unit test coverage: 80% minimum REQUIRED
+- Critical paths: 100% coverage MANDATORY
+- Run `npm test` before commits
+- Run `npm run test:coverage` to check
+
+**Testing Tools:**
+- React: @testing-library/react (NEVER Enzyme)
+- Query priority: getByRole > getByLabelText > getByText > getByTestId
+- E2E: Playwright for critical user flows
+- Mocking: MSW for API mocks
+
+**What to Test:**
+- ALL exported functions MUST have tests
+- React components: user interactions, loading states, error states
+- API endpoints: success cases + error cases
+- Authentication flows, form submissions, error boundaries
+- Critical user paths (E2E)
+
+### **SEO Requirements**
+
+**Meta Tags (REQUIRED on every page):**
+- Use `client/src/components/seo/meta-tags.tsx` component
+- MUST set unique title per page (format: "Page Title | Strive Tech")
+- MUST set unique description (150-160 chars)
+- MUST include Open Graph tags (title, description, image, url)
+- MUST include Twitter Card tags
+
+**Structured Data:**
+- Use `client/src/components/seo/structured-data.tsx`
+- JSON-LD format for rich snippets
+- Organization schema on homepage
+- Article schema for blog posts
+- BreadcrumbList for navigation
+
+**Semantic HTML:**
+- MUST have exactly one h1 per page
+- Heading hierarchy: h1 → h2 → h3 (no skipping)
+- Use nav for navigation, main for content, article for posts
+- Use section for thematic grouping
+
+**Performance (SEO Factor):**
+- Core Web Vitals affect rankings
+- Lazy load images below fold
+- Minimize bundle size for fast load
+
+---
+
+## 🔧 TECH STACK PATTERNS
+
+**React Query:**
+```typescript
+// Fetch
+const { data, isLoading, error } = useQuery({
+  queryKey: ['users', userId],
+  queryFn: () => fetchUser(userId)
+});
+
+// Mutate
+const mutation = useMutation({
+  mutationFn: updateUser,
+  onSuccess: () => queryClient.invalidateQueries({ queryKey: ['users'] })
+});
+```
+
+**Wouter:**
+```typescript
+// Route params
+const [, params] = useRoute("/blog/:slug");
+// Navigate
+const [, setLocation] = useLocation();
+setLocation('/dashboard');
+```
 
 ---
 
@@ -101,19 +567,16 @@ Navigation Structure:
 
 **Need to fetch data from server?**
 → Use React Query (`useQuery`) for GET requests
-→ Server state managed automatically (caching, refetching, etc.)
 
 **Need to mutate/update data?**
 → Use React Query mutation (`useMutation`)
-→ Invalidate queries after success to refresh UI
 
 **Need component state (form inputs, toggles)?**
-→ Use `useState` for local component state
+→ Use `useState` for local state
 → Use React Hook Form for complex forms
 
 **Need global state (auth, theme)?**
 → Use React Context (but NEVER for frequently changing data)
-→ Auth example: `client/src/lib/auth-context.tsx`
 
 **Need to add a new page?**
 → Create in `client/src/pages/`
@@ -147,8 +610,6 @@ Navigation Structure:
 ---
 
 ## ❌ COMMON ANTI-PATTERNS - Avoid These Mistakes
-
-**Quick reference of the most common mistakes. For comprehensive list, see [Critical Anti-Patterns](#critical-anti-patterns-never-do-these) section below.**
 
 ```typescript
 // ❌ WRONG: Creating objects/arrays in render
@@ -200,14 +661,6 @@ export function MyComponent() { ... }
 ```
 
 ```typescript
-// ❌ WRONG: Hardcoded colors
-<div className="bg-[#ffffff]">
-
-// ✅ RIGHT: Use theme tokens
-<div className="bg-background">
-```
-
-```typescript
 // ❌ WRONG: Missing accessibility
 <div onClick={handleClick}>Click me</div>
 
@@ -229,17 +682,6 @@ useEffect(() => {
 ```
 
 ```typescript
-// ❌ WRONG: Prop drilling through multiple levels
-<A data={data}>
-  <B data={data}>
-    <C data={data}>  // 3 levels deep!
-
-// ✅ RIGHT: Use composition or context
-<DataContext.Provider value={data}>
-  <A><B><C /></B></A>
-```
-
-```typescript
 // ❌ WRONG: Not lazy loading routes
 import HomePage from '@/pages/home';
 import AboutPage from '@/pages/about';  // Loads everything upfront
@@ -248,6 +690,18 @@ import AboutPage from '@/pages/about';  // Loads everything upfront
 const HomePage = lazy(() => import('@/pages/home'));
 const AboutPage = lazy(() => import('@/pages/about'));
 ```
+
+**Security Violations:**
+- NEVER define components inside components
+- NEVER use index as key for dynamic lists
+- NEVER do expensive work in render without useMemo
+- NEVER trust user input (validate with Zod on server)
+- NEVER skip semantic HTML (use h1, nav, main, article)
+- NEVER have multiple h1 tags on one page
+- NEVER forget useEffect cleanup (event listeners, timers, subscriptions)
+- NEVER derive state that can be computed
+- NEVER store server state in useState (use React Query)
+- NEVER mutate state directly (always create new objects/arrays)
 
 ---
 
@@ -301,77 +755,9 @@ const AboutPage = lazy(() => import('@/pages/about'));
 
 ---
 
-## 🎯 PRODUCTION MINDSET
+## 🛠️ DEVELOPMENT GUIDE
 
-This is a **production marketing website** serving real users. Every decision should prioritize:
-
-1. **Security First** - Never trust user input, always validate
-2. **Performance Matters** - Users expect <3s load times
-3. **Accessibility Required** - WCAG 2.1 AA is non-negotiable
-4. **SEO Critical** - Every page needs proper meta tags
-5. **Type Safety** - TypeScript strict mode catches bugs early
-6. **Test Coverage** - 80% minimum prevents regressions
-7. **Mobile First** - 60%+ traffic is mobile
-8. **Code Quality** - Clean code is maintainable code
-
-**Before writing any code, ask:**
-- Is this secure? (XSS, CSRF, SQL injection)
-- Is this accessible? (keyboard nav, screen readers)
-- Is this performant? (bundle size, render time)
-- Is this tested? (unit tests, E2E tests)
-- Is this maintainable? (clear names, proper types)
-
-**Remember:** Shortcuts today = technical debt tomorrow.
-
----
-
-## Project Overview
-
-Strive Tech website - full-stack TypeScript application for AI-powered business solutions company.
-
-**Tech Stack:** React 19 + TypeScript + Vite + Tailwind CSS + Wouter • Express.js + Node.js 22 + PostgreSQL (Supabase) + Drizzle ORM • Radix UI + shadcn/ui • Framer Motion • React Query • Vitest + Playwright • Vercel
-
-## Essential Commands
-
-```bash
-npm run dev              # Start dev server (localhost:3000)
-npm run build            # Build production (client + server)
-npm run build:analyze    # Build with bundle analyzer
-npm start                # Start production server
-npm run check            # TypeScript check (REQUIRED before commits)
-npm run db:push          # Push schema to database
-npm run supabase:start   # Start local Supabase
-npm run test             # Vitest watch mode
-npm run test:run         # Run tests once
-npm run test:coverage    # Coverage report (80% minimum)
-npm run test:e2e         # Playwright E2E tests
-```
-
-## Claude Code Tool Usage Patterns
-
-**File Operations:**
-- Use `Read` when you know exact file path
-- Use `Glob` for pattern-based discovery (`**/*.tsx`, `**/components/**`)
-- Use `Grep` for content search (supports regex, case-insensitive with `-i`)
-- NEVER use `cat`, `find`, or `grep` via Bash - use dedicated tools
-
-**Parallel Operations:**
-- Call multiple `Read` simultaneously for related files
-- Run `Glob` + `Grep` searches in parallel when investigating multiple patterns
-- Example: Read component + test + types in single message with 3 Read calls
-
-**Search Strategies (244 client files):**
-- Start broad: `Glob` for file discovery by pattern
-- Narrow down: `Grep` for specific code patterns
-- Deep dive: `Read` specific files found
-- Progressive refinement: Use results to guide next search
-
-**Error Recovery:**
-- If tool fails, try alternative approach (Glob → Grep → Read)
-- For large codebases: Limit scope with path parameter
-- Context management: Prioritize reading only essential files
-
-## Code Conventions
+### **Code Conventions**
 
 **TypeScript Rules:**
 - ALWAYS use strict mode with full type coverage
@@ -385,14 +771,7 @@ npm run test:e2e         # Playwright E2E tests
 - Components MUST be named exports (avoid default exports)
 - Props: Define interfaces with `ComponentNameProps` pattern
 - One component per file (except tiny related utilities)
-- Lazy loading: REQUIRED for all routes except home (`client/src/App.tsx:22-55`)
-
-**State Management:**
-- Local state: `useState` for component-specific state
-- Server state: ALWAYS use React Query (`client/src/lib/queryClient.ts`)
-- Global state: Context ONLY for auth, theme (NEVER for frequent updates)
-- Query keys format: `['entity', id, filters]`
-- NEVER store server data in useState - use React Query
+- Lazy loading: REQUIRED for all routes except home
 
 **UI Components:**
 - shadcn/ui components: MUST be used for all UI in `components/ui/`
@@ -404,12 +783,6 @@ npm run test:e2e         # Playwright E2E tests
 - Named exports PREFERRED over default exports
 - Import order: external → internal → types → styles
 - Type-only imports: Use `import type` for types
-- Example:
-```typescript
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import type { User } from '@shared/types';
-```
 
 **File Naming:**
 - Components: PascalCase (Button.tsx, ErrorBoundary.tsx)
@@ -418,330 +791,36 @@ import type { User } from '@shared/types';
 - Data files: kebab-case (ai-trends-2025-analysis.ts)
 - Tests: *.test.ts or *.spec.ts (colocate with source)
 
-## React Best Practices
+### **Essential Commands**
 
-**Performance Optimization:**
-- React.memo: Use ONLY for expensive renders with stable props (measure first!)
-- useMemo: ONLY for expensive computations taking >5ms
-- useCallback: ONLY when passing callbacks to memoized children
-- AVOID premature optimization - let React optimize naturally
-- Lazy load ALL routes except home (35 pages currently lazy-loaded)
-
-**useEffect Rules (STRICT):**
-- MUST include ALL dependencies in array (ESLint will catch)
-- ALWAYS return cleanup for subscriptions, timers, event listeners
-- NEVER use async function directly in useEffect:
-```typescript
-// ✅ CORRECT
-useEffect(() => {
-  const fetchData = async () => {
-    const data = await api.getData();
-    setData(data);
-  };
-  fetchData();
-}, []);
-
-// ❌ WRONG
-useEffect(async () => { ... }, []);
-```
-- Side effects ONLY - NEVER derive state (use useMemo instead)
-- Empty deps `[]`: runs once on mount
-- ALWAYS cleanup to prevent memory leaks
-
-**Component Composition:**
-- NEVER pass props through >2 levels (use composition or Context)
-- Use `children` prop for flexibility
-- Extract to custom hook when logic used in 2+ components
-- Prefer composition over complex prop drilling
-
-**Event Handlers:**
-- Extract handlers for logic >3 lines
-- Use inline arrow functions ONLY for simple cases
-- NEVER bind in render (use arrow functions or useCallback)
-```typescript
-// ✅ GOOD
-<Button onClick={() => handleClick(id)} />
-const handleSubmit = useCallback(() => { ... }, [deps]);
-
-// ❌ BAD
-<Button onClick={handleClick.bind(this, id)} />
+```bash
+npm run dev              # Start dev server (localhost:3000)
+npm run build            # Build production (client + server)
+npm run check            # TypeScript check (REQUIRED before commits)
+npm start                # Start production server
+npm run test             # Vitest watch mode
+npm run test:coverage    # Coverage report (80% minimum)
+npm run test:e2e         # Playwright E2E tests
 ```
 
-**List Rendering:**
-- MUST use stable keys (database id preferred)
-- NEVER use array index for dynamic lists (causes bugs)
-- Index acceptable ONLY for static lists that never reorder
-- Keys must be unique among siblings only
+### **Claude Code Tool Usage Patterns**
 
-**Controlled Components:**
-- Forms: ALWAYS use controlled components
-- Use React Hook Form for complex forms (validation, errors)
-- Uncontrolled: ONLY for file inputs or extreme performance needs
+**File Operations:**
+- Use `Read` when you know exact file path
+- Use `Glob` for pattern-based discovery (`**/*.tsx`, `**/components/**`)
+- Use `Grep` for content search (supports regex, case-insensitive with `-i`)
+- NEVER use `cat`, `find`, or `grep` via Bash - use dedicated tools
 
-**Custom Hooks:**
-- MUST start with "use" prefix
-- Extract when logic reused in 2+ components
-- Current hooks: usePageTracking, usePrefetch, useMobile, useSEO, useToast, useCalendlyIntegration, useDebounce
-- Return object or array (not mixed)
+**Search Strategies:**
+- Start broad: `Glob` for file discovery by pattern
+- Narrow down: `Grep` for specific code patterns
+- Deep dive: `Read` specific files found
+- Progressive refinement: Use results to guide next search
 
-**Context Best Practices:**
-- NEVER put frequently changing values in Context (causes re-renders)
-- Split contexts by update frequency
-- Use React Query for server state (NOT Context)
-- Memoize context value to prevent unnecessary renders:
-```typescript
-const value = useMemo(() => ({ user, login, logout }), [user]);
-```
-
-**Fragments:**
-- Use `<>` shorthand when no key needed
-- Use `<Fragment key={}>` for lists
-- Avoid wrapping in unnecessary divs
-
-## Critical Anti-Patterns (NEVER DO THESE)
-
-**React Performance Killers:**
-- NEVER create objects/arrays/functions inline in JSX (causes re-renders)
-```typescript
-// ❌ BAD - creates new object every render
-<Component user={{ id: 1, name: 'test' }} />
-
-// ✅ GOOD - stable reference
-const user = useMemo(() => ({ id: 1, name: 'test' }), []);
-<Component user={user} />
-```
-- NEVER define components inside components
-- NEVER use index as key for dynamic lists
-- NEVER do expensive work in render without useMemo
-
-**Security Violations:**
-- NEVER use `dangerouslySetInnerHTML` without DOMPurify sanitization
-- NEVER expose secrets in client code (check build output!)
-- NEVER trust user input (validate with Zod on server)
-- NEVER use `eval()` or `new Function()`
-- NEVER log passwords, tokens, API keys, or PII
-- NEVER store JWT in localStorage (use httpOnly cookies)
-
-**Accessibility Violations:**
-- NEVER remove focus outlines without replacement
-- NEVER use `<div onClick>` for buttons (use `<button>`)
-- NEVER omit alt text on images (empty string if decorative)
-- NEVER disable zoom (viewport meta tag)
-- NEVER use color alone to convey information
-
-**SEO Violations:**
-- NEVER have pages without unique title and description
-- NEVER skip semantic HTML (use h1, nav, main, article)
-- NEVER have multiple h1 tags on one page
-- NEVER forget Open Graph tags for social sharing
-
-**Memory Leaks:**
-- NEVER forget useEffect cleanup (event listeners, timers, subscriptions)
-- NEVER leave intervals/timeouts running after unmount
-- NEVER forget to cancel async operations on unmount
-- ALWAYS abort fetch requests when component unmounts
-
-**State Management:**
-- NEVER derive state that can be computed
-- NEVER store server state in useState (use React Query)
-- NEVER duplicate data between state and props
-- NEVER mutate state directly (always create new objects/arrays)
-
-## CSS & Styling Best Practices
-
-**Tailwind Utility Organization:**
-- Order: layout → spacing → typography → colors → effects
-- Example: `flex items-center gap-4 px-6 py-3 text-lg font-semibold bg-primary hover:bg-primary/90`
-- ALWAYS use `cn()` for conditional classes
-- Max 8-10 utilities per element (extract component if more)
-
-**Custom CSS vs Tailwind:**
-- Use Tailwind FIRST - custom CSS only when:
-  - Complex animations (prefer Framer Motion)
-  - Browser-specific hacks
-  - Third-party component overrides
-- NEVER use inline styles (except dynamic values)
-
-**Responsive Design (Mobile-First):**
-- Default styles: mobile (≥320px)
-- Breakpoints: `md:` (≥768px), `lg:` (≥1024px), `xl:` (≥1280px)
-- Test mobile first, enhance for desktop
-- Touch targets: min 44px (`min-h-[44px] min-w-[44px]`)
-
-**Dark Mode:**
-- Uses class-based strategy (`darkMode: ["class"]` in tailwind.config)
-- NEVER hardcode colors - use design tokens
-- Colors: `bg-background`, `text-foreground`, `border`, etc.
-- Test both light and dark modes
-
-**Layout Patterns:**
-- Flexbox: 1D layouts (nav, button groups, inline elements)
-- Grid: 2D layouts (card grids, dashboards, galleries)
-- Prefer Flexbox for simpler layouts (better browser support)
-
-**Z-Index Management:**
-- Modals/Dialogs: z-50
-- Dropdowns/Popovers: z-40
-- Fixed Headers/Footers: z-30
-- Overlays: z-20
-- NEVER use arbitrary z-index >100
-
-**Animations (Framer Motion):**
-- Use for complex UI animations
-- Keep animations <300ms for UI feedback
-- Use `prefers-reduced-motion` media query
-- NEVER animate layout properties (width/height) - use transforms
-```typescript
-// ✅ GOOD - animates transform
-<motion.div animate={{ opacity: 1, y: 0 }} />
-
-// ❌ BAD - animates layout
-<motion.div animate={{ height: 'auto' }} />
-```
-
-## Security Standards (NON-NEGOTIABLE)
-
-**Input Validation:**
-- ALWAYS validate server-side with Zod schemas (`shared/schema.ts`)
-- NEVER trust client-side validation alone
-- Sanitize ALL user input before database operations
-- Rate limiting: 500 req/15min production (`server/middleware/security.ts:217`)
-
-**Authentication:**
-- JWT tokens: httpOnly cookies ONLY (NEVER localStorage)
-- Passport.js + local strategy (`server/auth.ts`)
-- Protected routes: Use `authenticateToken` middleware
-- Session management: Dual auth (Supabase + JWT)
-
-**API Security:**
-- Helmet middleware: REQUIRED for all routes (`server/middleware/security.ts`)
-- SQL injection: ONLY use Drizzle ORM parameterized queries (NEVER string concat)
-- CORS: Configured in security middleware
-- NEVER expose internal errors to clients (generic messages only)
-
-**Secrets Management:**
-- NEVER commit secrets to git (.env in .gitignore)
-- Use environment variables for all secrets
-- Prefix client vars with VITE_ (auto-exposed to client)
-- Verify no secrets in build output before deploy
-
-## Testing Requirements
-
-**Coverage Standards:**
-- Unit test coverage: 80% minimum REQUIRED
-- Critical paths: 100% coverage MANDATORY
-- Run `npm test` before commits
-- Run `npm run test:coverage` to check
-
-**Testing Tools:**
-- React: @testing-library/react (NEVER Enzyme)
-- Query priority: getByRole > getByLabelText > getByText > getByTestId
-- E2E: Playwright for critical user flows
-- Mocking: MSW for API mocks
-
-**What to Test:**
-- ALL exported functions MUST have tests
-- React components: user interactions, loading states, error states
-- API endpoints: success cases + error cases
-- Authentication flows: login, logout, protected routes
-- Form submissions and validation
-- Error boundaries
-- Critical user paths (E2E)
-
-**Testing Patterns:**
-- Colocate tests: Component.test.tsx next to Component.tsx
-- Test behavior, not implementation
-- ALWAYS test accessibility (getByRole)
-- Mock external dependencies
-- Use fixtures for complex test data
-
-## Performance Budgets
-
-**Bundle Size (STRICT):**
-- Initial bundle: <200KB gzipped
-- Route chunks: <50KB each
-- Run `npm run build:analyze` before major releases
-- Manual chunks: vendor, ui, router, utils, motion, charts, icons, forms, query, pwa (`vite.config.ts:96-139`)
-
-**React Performance:**
-- Lazy load ALL route components except home (35 pages lazy-loaded)
-- Images: WebP with fallbacks, lazy loading, width/height REQUIRED
-- Code split heavy libraries (recharts, framer-motion already split)
-- Virtual scrolling for lists >100 items
-
-**Web Vitals Targets:**
-- First Contentful Paint (FCP): <1.5s
-- Largest Contentful Paint (LCP): <2.5s
-- Time to Interactive (TTI): <3.5s
-- Cumulative Layout Shift (CLS): <0.1
-- First Input Delay (FID): <100ms
-- Monitor via `client/src/lib/web-vitals.ts`
-
-**Images:**
-- MUST be optimized (WebP + AVIF in `assets/optimized/`)
-- MUST include width and height attributes (prevents CLS)
-- MUST lazy load images below fold
-- Max size: 200KB per image (compress if larger)
-
-## Accessibility (WCAG 2.1 AA)
-
-**Keyboard Navigation:**
-- ALL interactive elements MUST be keyboard accessible
-- Visible focus indicators REQUIRED (never `outline: none` without replacement)
-- Tab order MUST be logical
-- Touch targets: ≥44px minimum
-- Skip links for main content REQUIRED
-
-**ARIA & Semantics:**
-- Use semantic HTML FIRST (button, nav, main, article, section)
-- ARIA labels: REQUIRED for icon-only buttons
-- Form inputs: MUST have associated labels
-- Dynamic content: Use aria-live regions
-- Landmark roles: Use semantic HTML instead of ARIA when possible
-
-**Visual:**
-- Color contrast: 4.5:1 minimum (normal text), 3:1 (large text)
-- Text resizable to 200% without breakage
-- NEVER rely on color alone for information
-- Responsive breakpoints: mobile → md → lg → xl
-
-**Testing:**
-- Run manual keyboard testing for all interactive features
-- Use browser DevTools Lighthouse for accessibility audit
-- Test with screen reader for complex interactions
-
-## SEO Requirements
-
-**Meta Tags (REQUIRED on every page):**
-- Use `client/src/components/seo/meta-tags.tsx` component
-- MUST set unique title per page (format: "Page Title | Strive Tech")
-- MUST set unique description (150-160 chars)
-- MUST include Open Graph tags (title, description, image, url)
-- MUST include Twitter Card tags
-
-**Structured Data:**
-- Use `client/src/components/seo/structured-data.tsx`
-- JSON-LD format for rich snippets
-- Organization schema on homepage
-- Article schema for blog posts
-- BreadcrumbList for navigation
-
-**Semantic HTML:**
-- MUST have exactly one h1 per page
-- Heading hierarchy: h1 → h2 → h3 (no skipping)
-- Use nav for navigation, main for content, article for posts
-- Use section for thematic grouping
-
-**Performance (SEO Factor):**
-- Core Web Vitals affect rankings
-- Lazy load images below fold
-- Minimize bundle size for fast load
-
-## Error Handling
+### **Error Handling**
 
 **React Components:**
 - Error boundaries: REQUIRED for route-level components (`client/src/components/ui/error-boundary.tsx`)
-- Analytics errors: Use `AnalyticsErrorBoundary` (fails silently) (`client/src/components/ui/analytics-error-boundary.tsx`)
 - Fallback UI: REQUIRED for all error states
 - NEVER expose stack traces to users
 
@@ -758,24 +837,8 @@ const user = useMemo(() => ({ id: 1, name: 'test' }), []);
 - HTTP status codes: Use correctly (400, 401, 403, 404, 500)
 - NEVER expose internal errors (log internally, generic message to client)
 
-**Error Logging:**
-- Client errors: Log to console in dev, consider error service in prod
-- Server errors: Winston logger (`server/lib/logger.ts`)
-- NEVER log sensitive data in errors
+### **Pre-Commit Checklist (MANDATORY)**
 
-## Code Quality Standards
-
-**Git Commit Messages:**
-- Format: `<type>(<scope>): <message>`
-- Types: feat, fix, docs, style, refactor, test, chore
-- Examples:
-  - `feat(auth): add JWT token refresh`
-  - `fix(contact): resolve form validation error`
-  - `docs(readme): update deployment instructions`
-- Subject: 50 chars max, imperative mood
-- Body: 72 chars per line, explain WHY not WHAT
-
-**Pre-Commit Checklist (MANDATORY):**
 1. Run `npm run check` (TypeScript) - MUST pass
 2. Run `npm test` (unit tests) - MUST pass
 3. Manual testing of changes
@@ -783,327 +846,63 @@ const user = useMemo(() => ({ id: 1, name: 'test' }), []);
 5. NEVER commit with TypeScript errors
 6. NEVER commit without tests for new features
 
-**Pull Request Requirements:**
-- [ ] All tests passing (`npm test`)
-- [ ] TypeScript errors resolved (`npm run check`)
-- [ ] Coverage ≥80% for new code
-- [ ] Manual testing completed
-- [ ] Screenshots for UI changes
-- [ ] Breaking changes documented
-- [ ] Reviewer assigned
+### **Git Commit Messages**
 
-**Code Comments:**
-- Use JSDoc for exported functions and complex logic
-- Explain WHY, not WHAT
-- NEVER comment obvious code
-- Update comments when code changes
-- TODO format: `// TODO(TICKET-123): description`
+Format: `<type>(<scope>): <message>`
 
-**Function Guidelines:**
-- Max 40 lines per function (extract if longer)
-- Max 4 parameters (use options object for more)
-- Single responsibility principle
-- Pure functions preferred
-- MUST have JSDoc for exported functions
+Types: feat, fix, docs, style, refactor, test, chore
 
-**File Size Limits:**
-- Components: 300 lines max
-- Utilities: 200 lines max
-- Pages: 400 lines max
-- If exceeded: split into logical modules
-- Current largest: `server/routes.ts` (835 lines - legacy, refactor later)
+Examples:
+- `feat(auth): add JWT token refresh`
+- `fix(contact): resolve form validation error`
+- `docs(readme): update deployment instructions`
 
-**Magic Numbers:**
-- NEVER use unexplained numbers in code
-- Define constants: `const MAX_RETRIES = 3`
-- Use enums for related constants
+Subject: 50 chars max, imperative mood
 
-**Logging Standards:**
-- Development: console.log acceptable
-- Production: ONLY Winston logger (`server/lib/logger.ts`)
-- NEVER log: passwords, tokens, PII, API keys
-- Log levels:
-  - error: user-facing errors
-  - warn: degraded functionality
-  - info: key events (login, purchase)
-  - debug: verbose details
+---
 
-## Project Structure
+## 📚 APPENDIX
+
+### **Project Structure**
 
 ```
-client/src/ (244 files)
-├── components/
-│   ├── ui/              # shadcn/ui (56 components)
-│   ├── layout/          # Navigation, Footer
-│   ├── analytics/       # ConsentBanner, Heatmap
-│   ├── seo/             # MetaTags, StructuredData
-│   └── resources/       # WhitepaperViewer
+client/src/
+├── components/ui/       # shadcn/ui (56 components)
 ├── pages/               # 35 routes (lazy-loaded)
-│   └── solutions/       # 17 industry/service pages
 ├── hooks/               # 7 custom hooks
-├── lib/                 # 21 utilities (analytics, auth, validation, etc.)
+├── lib/                 # 21 utilities
 ├── data/                # 104 static TypeScript files
-│   ├── portfolio/       # 8 project showcases
-│   └── resources/
-│       ├── blog-posts/      # 10 articles
-│       ├── case-studies/    # 22 case studies
-│       ├── quizzes/         # 12 interactive quizzes
-│       ├── technology/      # 35 tech resources
-│       └── whitepapers/     # 6 whitepapers
 └── assets/optimized/    # WebP + AVIF images
 
-server/ (26 files)
+server/
 ├── routes/              # API handlers
-├── middleware/          # security.ts (Helmet, rate limiting, validation)
-├── services/email/      # Modular email system (20+ files)
-├── lib/                 # logger.ts (Winston)
+├── middleware/          # security.ts
 ├── auth.ts              # Passport.js + JWT
 └── routes.ts            # Main route registration
 ```
 
-## Tech Stack Deep Dive
+### **Tech Stack Overview**
 
-**React Query Patterns:**
-```typescript
-// Query
-const { data, isLoading, error } = useQuery({
-  queryKey: ['users', userId],
-  queryFn: () => fetchUser(userId),
-});
+**Frontend:** React 19 + TypeScript + Vite + Tailwind CSS + Wouter router
+**Backend:** Express.js + Node.js 22 + PostgreSQL (Supabase) + Drizzle ORM
+**UI:** Radix UI + shadcn/ui + Framer Motion
+**State:** React Query for server state, Context for auth/theme
+**Testing:** Vitest + Playwright + @testing-library/react
+**Deployment:** Vercel
 
-// Mutation with optimistic update
-const mutation = useMutation({
-  mutationFn: updateUser,
-  onMutate: async (newUser) => {
-    await queryClient.cancelQueries({ queryKey: ['users'] });
-    const previous = queryClient.getQueryData(['users']);
-    queryClient.setQueryData(['users'], newUser);
-    return { previous };
-  },
-  onError: (err, newUser, context) => {
-    queryClient.setQueryData(['users'], context.previous);
-  },
-  onSettled: () => {
-    queryClient.invalidateQueries({ queryKey: ['users'] });
-  },
-});
-```
+### **Adding Content Workflows**
 
-**Wouter Routing:**
-```typescript
-// Route params
-<Route path="/blog/:slug" component={BlogPost} />
-// Access in component
-const [, params] = useRoute("/blog/:slug");
-const slug = params.slug;
-
-// Programmatic navigation
-const [, setLocation] = useLocation();
-setLocation('/dashboard');
-
-// Query strings
-const [location] = useLocation();
-const params = new URLSearchParams(location.split('?')[1]);
-```
-
-**Zod Validation:**
-```typescript
-// Schema composition
-const userSchema = z.object({
-  email: z.string().email(),
-  name: z.string().min(2),
-});
-
-// Custom error messages
-const schema = z.string().min(5, { message: "Must be 5+ chars" });
-
-// Transform
-const schema = z.string().transform(val => val.toLowerCase());
-```
-
-**Drizzle ORM Patterns:**
-```typescript
-// Query
-const users = await db.select().from(usersTable).where(eq(usersTable.id, userId));
-
-// Insert
-await db.insert(usersTable).values({ name, email });
-
-// Transaction
-await db.transaction(async (tx) => {
-  await tx.insert(users).values({ ... });
-  await tx.insert(posts).values({ ... });
-});
-```
-
-**Framer Motion Animations:**
-```typescript
-// Simple fade in
-<motion.div
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 0.3 }}
-/>
-
-// Stagger children
-<motion.ul variants={containerVariants}>
-  {items.map(item => (
-    <motion.li key={item.id} variants={itemVariants} />
-  ))}
-</motion.ul>
-
-// Accessible animations (respect prefers-reduced-motion)
-const variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-};
-```
-
-## Analytics System
-
-**Core Implementation (`client/src/lib/analytics-tracker.ts:423 lines`):**
-- Session management: unique IDs, duration, bounce rate
-- Auto-tracks: page views, clicks, form submits, scroll depth (25/50/75/90/100%), visibility changes
-- Data: device type, browser, OS, UTM params, referrer, geographic
-- Privacy-first: Consent via ConsentBanner (`client/src/components/analytics/consent-banner.tsx`)
-- Web Vitals: LCP, FID, CLS, FCP, TTFB (`client/src/lib/web-vitals.ts`)
-
-**Usage:**
-- `usePageTracking` hook: Auto-track page views
-- Error isolation: `AnalyticsErrorBoundary` (never breaks UX)
-- Consent: localStorage + IndexedDB
-
-**API Endpoints:**
-- POST /api/analytics/session
-- POST /api/analytics/pageview
-- POST /api/analytics/event
-- POST /api/analytics/web-vitals
-
-**Database:** pageViews, userSessions, analyticsEvents, webVitalsMetrics, analyticsGoals, goalConversions
-
-## Development Workflows
-
-**First-Time Setup:**
-1. Verify Node.js 22.x: `node --version`
-2. Install: `npm install`
-3. Copy env: `cp .env.example .env`
-4. Configure .env with credentials
-5. Start Supabase: `npm run supabase:start`
-6. Push schema: `npm run db:push`
-7. Start dev: `npm run dev`
-8. Open http://localhost:3000
-
-**Common Issues:**
-
-Port 3000 in use:
-```bash
-lsof -ti:3000 | xargs kill
-# OR
-cross-env PORT=3001 npm run dev
-```
-
-Hot reload not working:
-```bash
-# Stop server, clear cache, restart
-rm -rf node_modules/.vite
-npm run dev
-```
-
-TypeScript errors:
-```bash
-npm run check  # View all
-# Fix issues
-npm run check  # Verify
-```
-
-Service Worker issues:
-```
-DevTools → Application → Service Workers → Unregister → Hard refresh
-```
-
-**Debugging:**
-- React DevTools: Component tree, props, state
-- Browser DevTools: Network, Console, Sources
-- Source maps: Enabled in dev mode
-- Vite HMR: Check console for HMR errors
-
-## Content Creation Workflows
-
-**Adding Blog Post:**
-1. Create: `client/src/data/resources/blog-posts/your-slug.ts`
-2. Follow pattern in existing posts (export default BlogPost object)
-3. Add to `blog-posts/index.ts` exports
-4. Images: `assets/optimized/blog/` (WebP + fallback)
-
-**Adding Case Study:**
-1. Create: `client/src/data/resources/case-studies/industry-company.ts`
-2. Match CaseStudy type interface
-3. Add to `case-studies/index.ts`
-
-**Adding Route/Page:**
+**Adding a Page:**
 1. Create: `client/src/pages/your-route.tsx`
 2. Lazy load in `App.tsx`: `const YourRoute = lazy(() => import("@/pages/your-route"))`
 3. Add route: `<Route path="/your-route" component={YourRoute} />`
-4. Add navigation link in `Navigation.tsx` if needed
 
-**Adding API Endpoint:**
-1. Create handler: `server/routes/your-feature.ts`
-2. Define Zod schema: `shared/schema.ts`
-3. Register in `server/routes.ts`
-4. Add validation middleware
-5. Test with curl
+**Adding a Component:**
+1. Check if shadcn/ui has it: `npx shadcn-ui@latest add [component]`
+2. If custom: Create in `client/src/components/` (named export)
 
-**Adding Images:**
-1. Original: `client/src/assets/images/`
-2. Optimize: WebP + AVIF formats
-3. Save to: `assets/optimized/`
-4. Use with width/height attributes
-5. Lazy load below fold
-
-**Adding shadcn/ui Component:**
-```bash
-npx shadcn-ui@latest add component-name
-# Adds to client/src/components/ui/
-```
-
-## Deployment (Vercel)
-
-**Environment Variables REQUIRED:**
-```bash
-DATABASE_URL=postgresql://...
-SUPABASE_URL=https://...
-SUPABASE_ANON_KEY=...
-SMTP_HOST=smtp.example.com
-SMTP_PORT=587
-SMTP_USER=user@example.com
-SMTP_PASS=password
-SMTP_FROM=noreply@strivetech.ai
-NODE_ENV=production
-```
-
-**Build Process:**
-- Client: Vite → `dist/public/`
-- Server: esbuild → `dist/index.js`
-- PWA: Service worker → `dist/public/sw.js`
-- Assets: Hashed filenames for cache busting
-
-**Caching (`vercel.json`):**
-- HTML/API: no-cache
-- JS/CSS: 1 year immutable
-- Images: 90 days
-- Service Worker: no-cache + `Service-Worker-Allowed: /`
-
-**Security Headers:**
-- Helmet CSP (iframe support for Calendly, chatbot)
-- HSTS: 1 year max-age
-- X-Content-Type-Options: nosniff
-
-**Preview Deployments:**
-- Auto-deploy on PR creation
-- URL: project-git-branch-user.vercel.app
-- Test before merging
-
-**Troubleshooting:**
-- Build failures: Check Vercel dashboard logs
-- 404 errors: Verify vercel.json rewrites
-- Slow builds: Run `npm run build:analyze`
+**Adding an Image:**
+1. Optimize to WebP + AVIF formats
+2. Save to: `assets/optimized/`
+3. Use with width/height attributes
+4. Lazy load below fold
