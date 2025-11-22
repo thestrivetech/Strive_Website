@@ -29,8 +29,13 @@ export default function Platform() {
   // Get a subset of FAQs for the page (first 6)
   const displayFaqs = faqs.slice(0, 6);
 
-  // Get upcoming features from roadmap (Q1-2025 only)
-  const upcomingFeatures = roadmapFeatures.filter((item) => item.phase === "Q1-2025");
+  // Get upcoming features from roadmap (Q1-Q4 2025)
+  // Show consolidated integrations + key features, excluding individual integration cards
+  const excludedFeatureIds = ['docusign', 'social-media-publishing', 'mls-integration', 'quickbooks-integration', 'google-workspace'];
+  const upcomingFeatures = roadmapFeatures.filter((item) =>
+    (item.phase === "Q1-2025" || item.phase === "Q2-2025" || item.phase === "Q3-2025" || item.phase === "Q4-2025") &&
+    !excludedFeatureIds.includes(item.id)
+  );
 
   // Get featured use cases (first 3)
   const featuredUseCases = useCases.slice(0, 3);
@@ -72,7 +77,7 @@ export default function Platform() {
                 <div className="space-y-3 mb-8">
                   {[
                     "Unlimited contacts, deals, and users",
-                    "5 integrated modules (CRM, The Office, Content Studio, REID, Global SAI)",
+                    "5 integrated modules (CRM, The Office, Content Studio, REID, SAI Assistant)",
                     "Built specifically for real estate workflows",
                     "AI-powered lead scoring and deal insights",
                   ].map((benefit, index) => (
@@ -272,7 +277,7 @@ export default function Platform() {
                 What's Next for SAI Platform
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-                We're constantly improving SAI with features our users request. Here's what's launching in Q1 2025.
+                We're constantly improving SAI with features our users request. Here's what's launching throughout 2025.
               </p>
             </div>
 

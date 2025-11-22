@@ -191,7 +191,7 @@ const Request = () => {
 
   const demoFocusOptions = [
     "CRM - Contact & Lead Management", "The Office - Transaction Management", "Content Studio - Marketing Automation",
-    "REID - Market Data & Analytics", "Global SAI - AI Assistant", "Team Collaboration & Visibility",
+    "REID - Market Data & Analytics", "SAI Assistant - AI Assistant", "Team Collaboration & Visibility",
     "Platform Migration Strategy", "Pricing & Implementation Timeline", "Other"
   ];
 

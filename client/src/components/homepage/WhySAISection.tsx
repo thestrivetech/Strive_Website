@@ -35,7 +35,7 @@ export function WhySAISection() {
       icon: Sparkles,
       title: "AI That Actually Works",
       description:
-        "Global SAI isn't just a chatbot—it's an AI assistant trained on real estate workflows. It auto-scores leads, generates listing descriptions, schedules social posts, and predicts which deals are at risk of falling through.",
+        "SAI Assistant isn't just a chatbot—it's an AI assistant trained on real estate workflows. It auto-scores leads, generates listing descriptions, schedules social posts, and predicts which deals are at risk of falling through.",
       benefit:
         "Save 10+ hours per week on repetitive tasks. Close 20% more deals with AI insights.",
     },

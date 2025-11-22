@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { SAIModule } from "@/data/sai";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, CheckCircle2, TrendingUp, Users as UsersIcon } from "lucide-react";
+import { ChevronRight, CheckCircle2, TrendingUp, Users as UsersIcon, X, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -54,12 +54,12 @@ export function ModuleCard({ module, className, variant = "light", linkToPlatfor
     }
   };
 
-  // Compact homepage version - simple icon + title + tagline
+  // Compact homepage version - enhanced with badge, pain points, and outcomes
   if (compact && linkToPlatform) {
     return (
       <Card
         className={cn(
-          "group cursor-pointer transition-all duration-200 hover:shadow-lg hover:border-orange-400",
+          "group cursor-pointer transition-all duration-200 hover:shadow-2xl hover:border-orange-400/50 h-full",
           isDark
             ? "bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:bg-white/15"
             : "bg-white border-2 border-gray-200",
@@ -75,25 +75,35 @@ export function ModuleCard({ module, className, variant = "light", linkToPlatfor
           }
         }}
       >
-        <CardContent className="p-6 text-center">
+        <CardContent className="p-6 flex flex-col h-full">
+          {/* Badge - Outcome Focused */}
+          <div className="flex justify-center mb-4">
+            <Badge className={cn(
+              "px-3 py-1 text-xs font-bold border-2 shadow-sm",
+              isDark
+                ? "bg-gradient-to-r from-orange-400/20 to-orange-500/20 text-orange-200 border-orange-400/40"
+                : "bg-gradient-to-r from-orange-50 to-orange-100 text-orange-700 border-orange-300"
+            )}>
+              {module.badge}
+            </Badge>
+          </div>
+
           {/* Icon */}
           <div className="flex justify-center mb-4">
             <div className={cn(
-              "w-16 h-16 rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110",
-              isDark
-                ? "bg-gradient-to-br from-orange-100/20 to-orange-200/20"
-                : "bg-gradient-to-br from-orange-100 to-orange-200"
+              "w-20 h-20 rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110",
+              `bg-gradient-to-br ${module.accentColor}`
             )}>
               <Icon className={cn(
-                "w-8 h-8",
-                isDark ? "text-orange-400" : "text-orange-600"
+                "w-10 h-10",
+                isDark ? "text-white" : "text-gray-900"
               )} />
             </div>
           </div>
 
           {/* Title */}
           <h3 className={cn(
-            "text-xl font-bold mb-2 transition-colors duration-200",
+            "text-xl font-bold mb-3 text-center transition-colors duration-200",
             isDark ? "text-white group-hover:text-orange-300" : "text-gray-900 group-hover:text-orange-600"
           )}>
             {module.title}
@@ -101,18 +111,66 @@ export function ModuleCard({ module, className, variant = "light", linkToPlatfor
 
           {/* Tagline */}
           <p className={cn(
-            "text-sm leading-relaxed mb-4",
-            isDark ? "text-white/70" : "text-gray-600"
+            "text-sm leading-relaxed mb-6 text-center",
+            isDark ? "text-white/80" : "text-gray-700"
           )}>
             {module.tagline}
           </p>
 
-          {/* View Details Hint */}
+          {/* Pain Points - "Without SAI" */}
+          <div className="mb-4 space-y-2">
+            <h4 className={cn(
+              "text-xs font-bold uppercase tracking-wide mb-2",
+              isDark ? "text-white/60" : "text-gray-500"
+            )}>
+              Without SAI:
+            </h4>
+            {module.painPoints.map((pain, index) => (
+              <div key={index} className="flex items-start text-xs">
+                <X className={cn(
+                  "w-4 h-4 flex-shrink-0 mr-2 mt-0.5",
+                  isDark ? "text-red-400" : "text-red-500"
+                )} />
+                <span className={cn(
+                  "leading-relaxed",
+                  isDark ? "text-white/70" : "text-gray-600"
+                )}>
+                  {pain}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Outcomes - "With SAI" */}
+          <div className="mb-6 space-y-2 flex-grow">
+            <h4 className={cn(
+              "text-xs font-bold uppercase tracking-wide mb-2",
+              isDark ? "text-white/60" : "text-gray-500"
+            )}>
+              With SAI:
+            </h4>
+            {module.outcomes.map((outcome, index) => (
+              <div key={index} className="flex items-start text-xs">
+                <Check className={cn(
+                  "w-4 h-4 flex-shrink-0 mr-2 mt-0.5",
+                  isDark ? "text-green-400" : "text-green-600"
+                )} />
+                <span className={cn(
+                  "leading-relaxed font-medium",
+                  isDark ? "text-white/90" : "text-gray-900"
+                )}>
+                  {outcome}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* View Details CTA */}
           <div className={cn(
-            "flex items-center justify-center gap-1 text-xs font-semibold transition-colors duration-200",
-            isDark ? "text-orange-300" : "text-orange-600"
+            "flex items-center justify-center gap-1 text-sm font-semibold transition-colors duration-200 mt-auto pt-4 border-t-2",
+            isDark ? "text-orange-300 border-white/10" : "text-orange-600 border-gray-200"
           )}>
-            <span>View Details</span>
+            <span>Explore This Module</span>
             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
           </div>
         </CardContent>
@@ -142,18 +200,26 @@ export function ModuleCard({ module, className, variant = "light", linkToPlatfor
         }}
       >
         <CardHeader>
+          {/* Badge */}
+          <Badge className={cn(
+            "mb-4 px-3 py-1 text-xs font-bold border-2 shadow-sm w-fit",
+            isDark
+              ? "bg-gradient-to-r from-orange-400/20 to-orange-500/20 text-orange-200 border-orange-400/40"
+              : "bg-gradient-to-r from-orange-50 to-orange-100 text-orange-700 border-orange-300"
+          )}>
+            {module.badge}
+          </Badge>
+
           {/* Icon */}
           <div className="mb-4">
             <div className={cn(
               "rounded-lg flex items-center justify-center transition-colors duration-300",
               "w-14 h-14 sm:w-16 sm:h-16",
-              isDark
-                ? "bg-gradient-to-br from-orange-100/20 to-orange-200/20 group-hover:from-orange-200/30 group-hover:to-orange-300/30"
-                : "bg-gradient-to-br from-orange-100 to-orange-200 group-hover:from-orange-200 group-hover:to-orange-300"
+              `bg-gradient-to-br ${module.accentColor}`
             )}>
               <Icon className={cn(
                 "w-7 h-7 sm:w-8 sm:h-8",
-                isDark ? "text-orange-400" : "text-orange-600"
+                isDark ? "text-white" : "text-gray-900"
               )} />
             </div>
           </div>

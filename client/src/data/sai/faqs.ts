@@ -65,7 +65,7 @@ export const faqs: FAQ[] = [
   {
     id: 'features-02',
     category: 'features',
-    question: 'What AI models does Global SAI include?',
+    question: 'What AI models does SAI Assistant include?',
     answer: 'Elite plan includes all 12+ AI models: Claude 3.5 Sonnet, Claude 3 Opus, GPT-4 Turbo, GPT-4, GPT-3.5 Turbo, Gemini 2.0 Flash, Gemini 1.5 Pro, Llama 3.3 70B, Llama 3.1 405B, Groq (Llama 3 70B), Groq (Mixtral 8x7B), and more. Free plan includes 3 basic models with 100 queries/month.',
   },
   {
@@ -78,7 +78,7 @@ export const faqs: FAQ[] = [
     id: 'features-04',
     category: 'features',
     question: 'Can I use SAI for commercial real estate?',
-    answer: 'Absolutely. SAI supports two commercial deal types: COMMERCIAL_SALE and COMMERCIAL_LEASE, with fields specific to commercial transactions (cap rate, NOI, CAM charges, TI allowances, etc.). Many commercial agents use REID for investment analysis and Global SAI for property research.',
+    answer: 'Absolutely. SAI supports two commercial deal types: COMMERCIAL_SALE and COMMERCIAL_LEASE, with fields specific to commercial transactions (cap rate, NOI, CAM charges, TI allowances, etc.). Many commercial agents use REID for investment analysis and SAI Assistant for property research.',
   },
   {
     id: 'features-05',

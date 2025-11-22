@@ -149,7 +149,7 @@ export const useCases: UseCase[] = [
       { metric: 'Compliance Issues', value: '95% reduction' },
       { metric: 'Brokerage GCI', value: '+$500,000 (agent productivity gains)' },
     ],
-    modules: ['CRM', 'The Office', 'Content Studio', 'REID', 'Global SAI'],
+    modules: ['CRM', 'The Office', 'Content Studio', 'REID', 'SAI Assistant'],
     workflow: 'Broker reviews brokerage dashboard daily → Identifies agents needing support → Compliance team monitors deal checklists → Marketing team creates branded content → Agents close more deals with better tools',
   },
   {
@@ -181,7 +181,7 @@ export const useCases: UseCase[] = [
       { metric: 'Positioning', value: 'Investment Property Specialist' },
       { metric: 'Annual GCI Increase', value: '+$90,000' },
     ],
-    modules: ['REID', 'CRM', 'The Office', 'Global SAI'],
+    modules: ['REID', 'CRM', 'The Office', 'SAI Assistant'],
   },
   {
     id: 'team-marketing-automation',
@@ -213,7 +213,7 @@ export const useCases: UseCase[] = [
       { metric: 'Sphere Engagement', value: '3x increase' },
       { metric: 'Referral Deals', value: '+18 deals/year from sphere' },
     ],
-    modules: ['Content Studio', 'CRM', 'Global SAI'],
+    modules: ['Content Studio', 'CRM', 'SAI Assistant'],
   },
 ];
 

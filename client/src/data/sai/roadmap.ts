@@ -25,23 +25,23 @@ export interface RoadmapPeriod {
 export const roadmapFeatures: RoadmapFeature[] = [
   // Q1 2025 - Integrations & Communications
   {
-    id: 'docusign',
-    title: 'DocuSign Integration',
-    description: 'Seamless e-signature workflows directly from The Office module. Send documents for signature, track progress, and automatically save signed documents to transaction records.',
+    id: 'third-party-integrations',
+    title: 'Third-Party Integrations',
+    description: 'Seamless integrations with DocuSign (e-signatures), Google Workspace (Calendar, Drive, Gmail, Meet), QuickBooks (accounting/tax), MLS (property data), and social media platforms (Facebook, Instagram, LinkedIn, Twitter, TikTok, YouTube).',
     status: 'in-development',
     phase: 'Q1-2025',
     category: 'Integrations',
     benefits: [
-      'No more switching between platforms',
-      'Reduce closing times',
-      'Eliminate paper processes',
-      'Complete audit trail for compliance',
+      'Eliminate switching between multiple platforms',
+      'Automatic data sync across all your tools',
+      'Save 10+ hours per week on manual data entry',
+      'Professional workflows without the complexity',
     ],
     useCases: [
-      'Purchase agreements and addendums',
-      'Listing agreements',
-      'Disclosure forms',
-      'Lease agreements',
+      'Sign documents with DocuSign from SAI',
+      'Auto-sync calendar events with Google Calendar',
+      'Export expenses to QuickBooks automatically',
+      'Publish listings to MLS and social media simultaneously',
     ],
   },
   {

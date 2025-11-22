@@ -97,7 +97,17 @@
       "Bash(timeout 30 npm run check:*)",
       "Bash(./node_modules/.bin/tsc:*)",
       "Bash(git ls-tree:*)",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "WebFetch(domain:procreator.design)",
+      "WebFetch(domain:www.joinamply.com)",
+      "WebFetch(domain:adamfard.com)",
+      "WebFetch(domain:saaswebsites.com)",
+      "WebFetch(domain:drewl.com)",
+      "WebFetch(domain:baymard.com)",
+      "WebFetch(domain:duck.design)",
+      "WebFetch(domain:www.theceshop.com)",
+      "WebFetch(domain:realtybiznews.com)",
+      "Bash(git stash:*)"
     ],
     "deny": [],
     "ask": []

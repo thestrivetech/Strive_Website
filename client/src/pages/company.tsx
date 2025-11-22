@@ -65,7 +65,7 @@ const Company = () => {
     { number: "10+", label: "Tools Replaced by One Platform" },
     { number: "500+", label: "Early Access Waitlist Members" },
     { number: "5", label: "Integrated Modules for Complete Workflow" },
-    { number: "24/7", label: "Global SAI AI Assistant Available" }
+    { number: "24/7", label: "SAI Assistant AI Assistant Available" }
   ];
 
   // Vision Timeline Data
@@ -93,7 +93,7 @@ const Company = () => {
     },
     {
       year: "Q3 2026",
-      title: "Global SAI AI Assistant Evolution",
+      title: "SAI Assistant AI Assistant Evolution",
       description: "Launching advanced AI capabilities including predictive lead scoring, market insights, and automated content generation for real estate professionals",
       icon: <LightBulbIcon className="h-6 w-6" />,
       status: "future"
@@ -230,7 +230,7 @@ const Company = () => {
 
                 <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">The Vision</h3>
                 <p data-testid="text-story-paragraph-3" className="text-base md:text-lg leading-relaxed">
-                  We asked a simple question: What if there was one platform that handled everything? CRM to nurture leads. The Office to manage transactions. Content Studio to create marketing materials. REID for instant market data. And Global SAI—your AI assistant that works 24/7 to help you close more deals.
+                  We asked a simple question: What if there was one platform that handled everything? CRM to nurture leads. The Office to manage transactions. Content Studio to create marketing materials. REID for instant market data. And SAI Assistant—your AI assistant that works 24/7 to help you close more deals.
                 </p>
 
                 <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">Why This Matters to You</h3>
