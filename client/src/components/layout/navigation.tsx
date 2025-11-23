@@ -161,17 +161,6 @@ const Navigation = () => {
                   <div className="space-y-3 mt-8 pt-6 border-t border-white/20">
                     {isAuthenticated ? (
                       <>
-                        <Link href="/dashboard">
-                          <Button
-                            variant="ghost"
-                            className="w-full bg-white/10 text-white hover:bg-primary hover:text-white transition-all duration-300 rounded-xl"
-                            data-testid="mobile-button-dashboard"
-                            onClick={() => setMobileMenuOpen(false)}
-                          >
-                            <User className="mr-2 h-4 w-4" />
-                            Dashboard
-                          </Button>
-                        </Link>
                         <Button
                           variant="outline"
                           className="w-full bg-white/10 text-white hover:bg-red-500 hover:text-white transition-all duration-300 rounded-xl"
@@ -227,16 +216,14 @@ const Navigation = () => {
           {/* Right: Login/User Icon */}
           <div className="flex items-center flex-1 justify-end">
             {isAuthenticated ? (
-              <Link href="/dashboard">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-foreground hover:text-primary"
-                  data-testid="mobile-button-user-icon"
-                >
-                  <User className="h-6 w-6" />
-                </Button>
-              </Link>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-foreground hover:text-primary"
+                data-testid="mobile-button-user-icon"
+              >
+                <User className="h-6 w-6" />
+              </Button>
             ) : (
               <Link href="/login">
                 <Button
@@ -329,17 +316,7 @@ const Navigation = () => {
           <div className="hidden md:flex items-center space-x-4">
             {isAuthenticated ? (
               <>
-                <Link href="/dashboard">
-                  <Button 
-                    variant="ghost"
-                    className="text-foreground hover:text-primary hover:bg-transparent"
-                    data-testid="button-dashboard"
-                  >
-                    <User className="mr-2 h-4 w-4" />
-                    {user?.username || 'Dashboard'}
-                  </Button>
-                </Link>
-                <Button 
+                <Button
                   variant="outline"
                   onClick={handleLogout}
                   className="text-foreground hover:text-primary"

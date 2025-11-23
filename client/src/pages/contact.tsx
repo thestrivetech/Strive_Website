@@ -521,23 +521,12 @@ const Contact = () => {
                       Ready to Take the Next Step?
                     </h3>
                     <p className="text-muted-foreground text-sm md:text-base" style={{ color: '#666' }}>
-                      Book your free strategy assessment and explore our resources
+                      Explore our resources and get in touch with our team
                     </p>
                   </div>
-                  
+
                   <div className="space-y-3 md:space-y-4">
-                    {/* Primary assessment button */}
-                    <Button
-                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-2 sm:py-3 md:py-4 px-3 sm:px-4 text-sm sm:text-base md:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group hover:scale-105 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 min-h-[2.75rem] sm:min-h-[3rem]"
-                      onClick={() => window.location.href = '/assessment'}
-                      data-testid="button-schedule-assessment"
-                    >
-                      <Calendar className="mr-1 sm:mr-2 w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                      <span className="hidden sm:inline">Book Free Strategy Assessment</span>
-                      <span className="sm:hidden text-center leading-tight">Book Free Assessment</span>
-                    </Button>
-                    
-                    {/* Secondary actions */}
+                    {/* Quick action buttons */}
                     <div className="grid grid-cols-1 gap-3">
                       {quickActions.slice(0, 2).map((action, index) => (
                         <Button

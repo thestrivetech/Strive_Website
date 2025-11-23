@@ -25,17 +25,14 @@ import Home from "@/pages/home";
 const Resources = lazy(() => import("@/pages/resources"));
 const Company = lazy(() => import("@/pages/company"));
 const Contact = lazy(() => import("@/pages/contact"));
-const Assessment = lazy(() => import("@/pages/assessment"));
 const Onboarding = lazy(() => import("@/pages/onboarding"));
 const Login = lazy(() => import("@/pages/login"));
-const Dashboard = lazy(() => import("@/pages/dashboard"));
 const Privacy = lazy(() => import("@/pages/privacy"));
 const Terms = lazy(() => import("@/pages/terms"));
 const Cookies = lazy(() => import("@/pages/cookies"));
 const ChatBotSai = lazy(() => import("@/pages/chatbot-sai"));
 const Pricing = lazy(() => import("@/pages/pricing"));
 const NotFound = lazy(() => import("@/pages/not-found"));
-const PerformanceDashboard = lazy(() => import("@/pages/performance-dashboard"));
 const AnalyticsDashboard = lazy(() => import("@/pages/analytics-dashboard"));
 
 // Import redirect component for deprecated routes
@@ -74,13 +71,11 @@ function Router() {
             <Route path="/contact" component={Contact} />
             <Route path="/onboarding" component={Onboarding} />
             <Route path="/login" component={Login} />
-            <Route path="/dashboard" component={Dashboard} />
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />
             <Route path="/cookies" component={Cookies} />
             <Route path="/chatbot-sai" component={ChatBotSai} />
             <Route path="/pricing" component={Pricing} />
-            <Route path="/performance" component={PerformanceDashboard} />
             <Route path="/analytics-dashboard" component={AnalyticsDashboard} />
             <Route component={NotFound} />
           </Switch>

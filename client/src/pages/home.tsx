@@ -119,14 +119,14 @@ const Home = () => {
               </div>
 
               {/* Key Benefits List */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 {[
                   "Unlimited contacts, deals, and users",
                   "6 integrated modules (SAI Assistant, CRM, The Office, Content Studio, REID, Taxes & Expenses)",
                   "Built specifically for real estate workflows",
                   "AI-powered lead scoring and deal insights",
                 ].map((benefit, index) => (
-                  <div key={index} className="flex items-start gap-3 bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                  <div key={index} className="flex items-start gap-3 bg-white rounded-lg p-4 sm:p-6 shadow-sm border border-gray-200">
                     <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
                     <span className="text-gray-800">{benefit}</span>
                   </div>
@@ -302,7 +302,7 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {upcomingFeatures.map((feature, index) => {
                 // Category color config
                 const categoryConfig: Record<string, { color: string; bgColor: string; borderColor: string; icon: typeof Zap }> = {
@@ -334,7 +334,7 @@ const Home = () => {
                       {/* Top accent bar */}
                       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${config.color}`}></div>
 
-                      <CardContent className="p-6">
+                      <CardContent className="p-6 sm:p-8">
                         {/* Icon centered at top */}
                         <div className="flex justify-center mb-4">
                           <div className={`w-16 h-16 bg-gradient-to-br ${config.bgColor} to-white rounded-xl flex items-center justify-center shadow-md`}>
@@ -377,11 +377,11 @@ const Home = () => {
 
                         {/* Key Benefits */}
                         <div className="pt-4 border-t border-gray-100">
-                          <p className="text-xs font-semibold text-gray-700 mb-3 uppercase tracking-wide text-center">Key Benefits</p>
+                          <p className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide text-center">Key Benefits</p>
                           <ul className="space-y-2">
                             {feature.benefits.slice(0, 2).map((benefit, i) => (
-                              <li key={i} className="text-xs text-gray-600 flex items-start gap-2">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-green-500 mt-0.5 flex-shrink-0" />
+                              <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                                 <span className="leading-relaxed">{benefit}</span>
                               </li>
                             ))}
