@@ -43,9 +43,9 @@ export const aiForBeginnersCompleteGuide: Resource = {
       description: "See how SAI replaces 10+ tools with one all-in-one platform"
     },
     {
-      title: "Join the Waitlist",
-      url: "/waitlist",
-      description: "Get early access to SAI Platform"
+      title: "Get Started",
+      url: "/contact",
+      description: "Contact us to learn more about SAI Platform"
     },
     {
       title: "National Association of Realtors",

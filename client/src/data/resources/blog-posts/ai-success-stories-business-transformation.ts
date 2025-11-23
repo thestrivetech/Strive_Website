@@ -33,19 +33,19 @@ export const aiSuccessStoriesBusinessTransformation: Resource = {
       "Track how much time you spend on admin work vs revenue-generating activities",
       "Test SAI Platform to see if it can replace your entire tech stack",
       "Talk to agents who've consolidated tools—ask about their ROI and time savings",
-      "Join the SAI waitlist to get early access and lock in founding member pricing"
+      "Get started with SAI Platform—schedule a demo and begin your onboarding process"
     ]
   },
   sources: [
     {
       title: "SAI Platform Success Stories",
       url: "/platform",
-      description: "See how all 5 SAI modules work together"
+      description: "See how all 6 SAI modules work together"
     },
     {
-      title: "Join the Waitlist",
-      url: "/waitlist",
-      description: "Get early access to SAI Platform"
+      title: "Get Started",
+      url: "/contact",
+      description: "Schedule a demo and begin onboarding"
     },
     {
       title: "Schedule a Demo",

@@ -63,7 +63,7 @@ const Company = () => {
 
   const stats = [
     { number: "10+", label: "Tools Replaced by One Platform" },
-    { number: "500+", label: "Early Access Waitlist Members" },
+    { number: "500+", label: "Real Estate Professionals Interested" },
     { number: "5", label: "Integrated Modules for Complete Workflow" },
     { number: "24/7", label: "SAI Assistant AI Assistant Available" }
   ];
@@ -241,7 +241,7 @@ const Company = () => {
                   SAI Platform eliminates the chaos. Everything in one place. One login. One monthly fee ($999 for unlimited everything—no per-user costs, no hidden fees). Built specifically for real estate workflows, not generic business processes.
                 </p>
                 <p data-testid="text-story-paragraph-6" className="text-base md:text-lg leading-relaxed">
-                  We're in early access right now, refining the platform with feedback from agents, team leads, and brokers who share our vision. Join our waitlist to be among the first to experience the all-in-one platform that replaces your entire tech stack.
+                  We're refining the platform with feedback from agents, team leads, and brokers who share our vision. Contact us to experience the all-in-one platform that replaces your entire tech stack.
                 </p>
 
                 <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">Join the Movement</h3>
@@ -250,7 +250,7 @@ const Company = () => {
                 </p>
                 <div className="mt-4 md:mt-6 p-4 bg-primary/5 border-l-4 border-primary rounded-r-lg">
                   <p data-testid="text-story-paragraph-8" className="text-base md:text-lg leading-relaxed italic font-medium text-primary">
-                    Ready to replace 10+ tools with one powerful platform? Join the SAI Platform waitlist and be part of the future of real estate technology.
+                    Ready to replace 10+ tools with one powerful platform? Get started with SAI Platform and be part of the future of real estate technology.
                   </p>
                 </div>
               </div>
@@ -258,10 +258,10 @@ const Company = () => {
                 <Button
                   className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg"
                   size="lg"
-                  onClick={() => window.location.href = "/waitlist"}
+                  onClick={() => window.location.href = "/contact"}
                   data-testid="button-learn-more"
                 >
-                  Join Waitlist
+                  Get Started
                 </Button>
               </div>
             </div>

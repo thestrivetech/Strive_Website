@@ -71,8 +71,10 @@ export const securityHeaders = helmet({
       frameSrc: [
         "'self'",
         "https://calendly.com",
-        "https://*.calendly.com", 
-        "https://assets.calendly.com"
+        "https://*.calendly.com",
+        "https://assets.calendly.com",
+        "https://www.youtube.com",
+        "https://youtube.com"
       ],
       objectSrc: ["'none'"],
       baseUri: ["'self'"],

@@ -52,7 +52,7 @@ export default function Platform() {
           ...seoConfig,
           title: "SAI Platform | All-in-One Real Estate platform for Agents and Brokers",
           description:
-            "The complete real estate app built to save Agents and Brokers time and maximize their revenue. SAI allows you to Manage contacts, close deals, automate marketing, and leverage AI - all in one powerful platform. Request your demo today.",
+            "The complete real estate app built to save Agents and Brokers time and maximize their revenue. SAI allows you to Manage contacts, close deals, automate marketing, track expenses with QuickBooks sync, and leverage AI - all in one powerful platform. Request your demo today.",
         }}
       />
 
@@ -70,14 +70,14 @@ export default function Platform() {
                   Replace 10+ Apps with One Platform Built for Real Estate
                 </h1>
                 <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-                  SAI Platform combines CRM, transaction management, marketing automation, AI insights, and market data—everything real estate agents need to close more deals and save 15+ hours per week.
+                  SAI Platform combines CRM, transaction management, marketing automation, AI insights, market data, and automated tax tracking with QuickBooks sync—everything real estate agents need to close more deals and save 15+ hours per week.
                 </p>
 
                 {/* Key Benefits List */}
                 <div className="space-y-3 mb-8">
                   {[
                     "Unlimited contacts, deals, and users",
-                    "5 integrated modules (CRM, The Office, Content Studio, REID, SAI Assistant)",
+                    "6 integrated modules (SAI Assistant, CRM, The Office, Content Studio, REID, Taxes & Expenses)",
                     "Built specifically for real estate workflows",
                     "AI-powered lead scoring and deal insights",
                   ].map((benefit, index) => (
@@ -93,9 +93,9 @@ export default function Platform() {
                   <Button
                     size="lg"
                     className="min-h-[44px] px-8 text-lg font-semibold"
-                    onClick={() => window.location.href = "/waitlist"}
+                    onClick={() => window.location.href = "/contact"}
                   >
-                    Join Waitlist
+                    Get Started
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                   <Button
@@ -112,23 +112,22 @@ export default function Platform() {
                 </div>
               </div>
 
-              {/* Right Column - Demo Placeholder */}
+              {/* Right Column - Demo Video */}
               <div>
                 <Card className="overflow-hidden shadow-2xl border-orange-200 bg-white">
                   <CardContent className="p-0">
-                    {/* Video Placeholder */}
-                    <div className="aspect-video bg-gradient-to-br from-orange-100 via-orange-50 to-white flex items-center justify-center relative">
-                      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgwLDAsMCwwLjAzKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30"></div>
-                      <div className="relative z-10 text-center">
-                        <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                          <PlayCircle className="w-12 h-12 text-primary" />
-                        </div>
-                        <p className="text-lg font-semibold text-gray-900 mb-2">
-                          Product Demo Coming Soon
-                        </p>
-                        <p className="text-sm text-gray-600 max-w-xs mx-auto">
-                          Join the waitlist to get a personalized demo from our team
-                        </p>
+                    {/* SAI Platform Demo Video */}
+                    <div className="relative rounded-lg overflow-hidden bg-black">
+                      {/* 16:9 Aspect Ratio Container */}
+                      <div className="relative pb-[56.25%] h-0">
+                        <iframe
+                          className="absolute top-0 left-0 w-full h-full"
+                          src="https://www.youtube.com/embed/psE2sshwsVM?rel=0&modestbranding=1"
+                          title="SAI Platform Demo Video"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                          loading="lazy"
+                        />
                       </div>
                     </div>
                   </CardContent>
@@ -138,7 +137,7 @@ export default function Platform() {
           </div>
         </section>
 
-        {/* 5 Modules Section */}
+        {/* 6 Modules Section */}
         <div id="modules">
           <ModuleOverviewSection />
         </div>

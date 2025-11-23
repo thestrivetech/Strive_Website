@@ -373,9 +373,9 @@ export function ModuleCard({ module, className, variant = "light", linkToPlatfor
               <Button
                 size="lg"
                 className="w-full sm:w-auto bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white font-bold px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                onClick={() => window.location.href = "/waitlist"}
+                onClick={() => window.location.href = "/contact"}
               >
-                Join Waitlist to Get Early Access
+                Get Started Today
               </Button>
               <p className="text-xs text-gray-500 mt-3 text-center sm:text-left font-medium">
                 <span className="text-orange-600">✓</span> All modules included •

@@ -46,9 +46,9 @@ export const retailWalmartAiImplementation: Resource = {
       description: "Learn how SAI consolidates CRM, transactions, marketing, and data"
     },
     {
-      title: "Join the Waitlist",
-      url: "/waitlist",
-      description: "Get early access to SAI Platform for your brokerage"
+      title: "Get Started",
+      url: "/contact",
+      description: "Schedule a demo and begin onboarding"
     },
     {
       title: "National Association of Realtors",

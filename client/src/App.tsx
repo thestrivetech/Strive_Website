@@ -27,18 +27,19 @@ const Company = lazy(() => import("@/pages/company"));
 const Contact = lazy(() => import("@/pages/contact"));
 const Assessment = lazy(() => import("@/pages/assessment"));
 const Onboarding = lazy(() => import("@/pages/onboarding"));
-const Request = lazy(() => import("@/pages/request"));
 const Login = lazy(() => import("@/pages/login"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
 const Privacy = lazy(() => import("@/pages/privacy"));
 const Terms = lazy(() => import("@/pages/terms"));
 const Cookies = lazy(() => import("@/pages/cookies"));
 const ChatBotSai = lazy(() => import("@/pages/chatbot-sai"));
-const Waitlist = lazy(() => import("@/pages/waitlist"));
-const Platform = lazy(() => import("@/pages/platform"));
+const Pricing = lazy(() => import("@/pages/pricing"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 const PerformanceDashboard = lazy(() => import("@/pages/performance-dashboard"));
 const AnalyticsDashboard = lazy(() => import("@/pages/analytics-dashboard"));
+
+// Import redirect component for deprecated routes
+import { Redirect } from "@/components/Redirect";
 
 function Router() {
   const [location] = useLocation();
@@ -62,21 +63,23 @@ function Router() {
         <Suspense fallback={<PageSkeleton />}>
           <Switch>
             <Route path="/" component={Home} />
-            <Route path="/solutions" component={Platform} />
+
+            {/* Redirect deprecated routes to consolidated homepage */}
+            <Route path="/platform">{() => <Redirect to="/" />}</Route>
+            <Route path="/solutions">{() => <Redirect to="/" />}</Route>
+            <Route path="/assessment">{() => <Redirect to="/" />}</Route>
+
             <Route path="/resources" component={Resources} />
             <Route path="/about" component={Company} />
             <Route path="/contact" component={Contact} />
-            <Route path="/assessment" component={Platform} />
             <Route path="/onboarding" component={Onboarding} />
-            <Route path="/request" component={Request} />
             <Route path="/login" component={Login} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />
             <Route path="/cookies" component={Cookies} />
             <Route path="/chatbot-sai" component={ChatBotSai} />
-            <Route path="/waitlist" component={Waitlist} />
-            <Route path="/platform" component={Platform} />
+            <Route path="/pricing" component={Pricing} />
             <Route path="/performance" component={PerformanceDashboard} />
             <Route path="/analytics-dashboard" component={AnalyticsDashboard} />
             <Route component={NotFound} />

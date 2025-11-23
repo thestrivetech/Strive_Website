@@ -40,9 +40,9 @@ export const financialServicesAutomation: Resource = {
       description: "See how SAI replaces 10+ tools with one all-in-one platform"
     },
     {
-      title: "Join the Waitlist",
-      url: "/waitlist",
-      description: "Get early access to SAI Platform"
+      title: "Get Started",
+      url: "/contact",
+      description: "Schedule a demo and begin onboarding"
     },
     {
       title: "National Association of Realtors",

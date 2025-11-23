@@ -34,40 +34,6 @@ export const newsletterSubscriptions = pgTable("newsletter_subscriptions", {
   subscribedAt: timestamp("subscribed_at").defaultNow().notNull(),
 });
 
-export const requests = pgTable("requests", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  // Contact Information
-  firstName: text("first_name").notNull(),
-  lastName: text("last_name").notNull(),
-  fullName: text("full_name").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone"),
-  company: text("company").notNull(),
-  jobTitle: text("job_title"),
-
-  // Business Information
-  industry: text("industry"),
-  companySize: text("company_size"),
-  currentChallenges: text("current_challenges"), // JSON array as text
-  projectTimeline: text("project_timeline"),
-  budgetRange: text("budget_range"),
-
-  // Request Information
-  requestTypes: text("request_types").notNull(), // Comma-separated: 'demo,showcase,assessment'
-  demoFocusAreas: text("demo_focus_areas"), // JSON array as text
-  additionalRequirements: text("additional_requirements"),
-
-  // Status and Assignment (Production Features)
-  status: text("status").notNull().default("pending"), // pending, contacted, scheduled, completed, cancelled
-  priority: text("priority").notNull().default("normal"), // low, normal, high, urgent
-
-  // Audit Trail
-  submittedAt: timestamp("submitted_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-
-  // Analytics and Tracking
-  source: text("source").notNull().default("website"), // website, referral, social, etc.
-});
 // Analytics Tables
 export const pageViews = pgTable("page_views", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -197,32 +163,12 @@ export const insertNewsletterSubscriptionSchema = createInsertSchema(newsletterS
   email: true,
 });
 
-export const insertRequestSchema = createInsertSchema(requests).pick({
-  firstName: true,
-  lastName: true,
-  fullName: true,
-  email: true,
-  phone: true,
-  company: true,
-  jobTitle: true,
-  industry: true,
-  companySize: true,
-  currentChallenges: true,
-  projectTimeline: true,
-  budgetRange: true,
-  requestTypes: true,
-  demoFocusAreas: true,
-  additionalRequirements: true,
-});
-
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 export type InsertContactSubmission = z.infer<typeof insertContactSubmissionSchema>;
 export type ContactSubmission = typeof contactSubmissions.$inferSelect;
 export type InsertNewsletterSubscription = z.infer<typeof insertNewsletterSubscriptionSchema>;
 export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect;
-export type InsertRequest = z.infer<typeof insertRequestSchema>;
-export type Request = typeof requests.$inferSelect;
 // Analytics Schema Types
 export const insertPageViewSchema = createInsertSchema(pageViews).pick({
   sessionId: true,

@@ -1,7 +1,7 @@
 // SAI Platform Modules - Core functionality breakdown
-// 5 modules: CRM, The Office, Content Studio, REID, SAI Assistant
+// 6 modules: SAI Assistant, CRM, The Office, Content Studio, REID, Taxes & Expenses
 
-import { Users, Building2, Mail, TrendingUp, Sparkles, Target, Clock, DollarSign, Zap, BarChart, FileText } from 'lucide-react';
+import { Users, Building2, Mail, TrendingUp, Sparkles, Target, Clock, DollarSign, Zap, BarChart, FileText, Calculator, Camera, Receipt } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 export interface ModuleFeature {
@@ -30,6 +30,75 @@ export interface SAIModule {
 }
 
 export const saiModules: SAIModule[] = [
+  {
+    id: 'sai',
+    icon: Sparkles,
+    title: 'SAI Assistant',
+    tagline: 'Work Smarter, Not Harder—Your AI Assistant Handles Scheduling, Research, and Insights',
+    description: 'SAI Assistant is your AI assistant powered by 12+ models (Llama 3.3 70B, GPT-4o, Claude 3.5, Gemini 2.0). It can update deals ("Mark the Johnson deal as under contract"), draft emails, search listings, and answer questions—all conversationally. Real estate trained.',
+    features: [
+      '12+ AI models (Llama, GPT, Claude, Gemini)',
+      'Tool calling (update CRM, schedule tasks, search listings)',
+      'Conversational interface (voice or text)',
+      'Real estate trained (knows MLS, contracts, commissions)',
+      'Multi-turn conversations (context-aware)',
+      'Code interpreter (run calculations)',
+      'Web search (up-to-date info)',
+      'Privacy-first (your data never trains models)',
+    ],
+    benefits: [
+      'Update deals hands-free while driving',
+      'Draft emails in seconds (AI-generated)',
+      'Get answers without searching docs',
+      '12 models vs. 1 (choose best for task)',
+    ],
+    useCases: [
+      'Solo agent: "Update the Johnson deal to under contract"',
+      'Team: "Which deals close this week?"',
+      'Brokerage: "Draft a contract clause for seller financing"',
+    ],
+    ctaHref: '/platform',
+    painPoints: [
+      'Constantly switching between apps to update deals and check data',
+      'Spending hours researching contract clauses and market questions',
+    ],
+    outcomes: [
+      'Update CRM, schedule tasks, and search listings hands-free via voice',
+      'AI drafts emails, answers questions, and runs calculations instantly',
+    ],
+    badge: 'Your 24/7 Assistant',
+    accentColor: 'from-amber-500/20 to-amber-600/20',
+    detailedFeatures: [
+      {
+        name: 'Voice-Activated CRM Updates',
+        icon: Zap,
+        painPoint: 'Agents waste 13.1 hours per week manually updating CRM between appointments—"I forgot to update the CRM" is a common excuse',
+        solution: 'Update deals hands-free while driving with voice commands: "Update the Johnson deal to under contract"—saves 13+ hours/week',
+        sourceUrl: 'https://followupace.com/blog/ultimate-guide-to-voice-and-video-features-in-follow-up-boss'
+      },
+      {
+        name: '12+ AI Models',
+        icon: Target,
+        painPoint: 'Single-model AI tools (ChatGPT, Claude) limit agents to one approach—different tasks need different AI strengths',
+        solution: 'Access 12+ AI models (Llama 3.3 70B, GPT-4o, Claude 3.5, Gemini 2.0) and choose the best model for each task',
+        sourceUrl: 'https://ascendix.com/blog/ai-real-estate-agents'
+      },
+      {
+        name: 'Real Estate Trained',
+        icon: FileText,
+        painPoint: "Generic AI tools don't understand real estate terminology (MLS, contracts, commissions, escrow)—agents waste time explaining basics",
+        solution: 'AI assistant trained on real estate workflows knows MLS, contracts, and commissions—no explaining required',
+        sourceUrl: 'https://realoffice360.com/article/ai-impact-on-real-estate-crm'
+      },
+      {
+        name: 'Tool Calling & Integration',
+        icon: BarChart,
+        painPoint: 'Agents constantly switch between apps to update deals, schedule tasks, and search listings—15+ hours/week lost to context switching',
+        solution: 'AI directly updates CRM, schedules tasks, and searches listings via tool calling—eliminate app-switching entirely',
+        sourceUrl: 'https://voagents.ai/real-estate'
+      }
+    ]
+  },
   {
     id: 'crm',
     icon: Users,
@@ -307,71 +376,72 @@ export const saiModules: SAIModule[] = [
     ]
   },
   {
-    id: 'sai',
-    icon: Sparkles,
-    title: 'SAI Assistant',
-    tagline: 'Work Smarter, Not Harder—Your AI Assistant Handles Scheduling, Research, and Insights',
-    description: 'SAI Assistant is your AI assistant powered by 12+ models (Llama 3.3 70B, GPT-4o, Claude 3.5, Gemini 2.0). It can update deals ("Mark the Johnson deal as under contract"), draft emails, search listings, and answer questions—all conversationally. Real estate trained.',
+    id: 'taxes',
+    icon: Calculator,
+    title: 'Taxes & Expenses',
+    tagline: 'QuickBooks Sync—Track Every Deduction and Eliminate Tax Season Stress',
+    description: 'Never miss a tax deduction again. SAI Taxes & Expenses includes 14 IRS-aligned expense categories, automatic receipt management, quarterly reports, and one-click export to QuickBooks or your CPA. Track mileage, categorize expenses, and generate year-end tax packages in minutes. Built for 1099 contractors and self-employed real estate professionals.',
     features: [
-      '12+ AI models (Llama, GPT, Claude, Gemini)',
-      'Tool calling (update CRM, schedule tasks, search listings)',
-      'Conversational interface (voice or text)',
-      'Real estate trained (knows MLS, contracts, commissions)',
-      'Multi-turn conversations (context-aware)',
-      'Code interpreter (run calculations)',
-      'Web search (up-to-date info)',
-      'Privacy-first (your data never trains models)',
+      '14 IRS-aligned expense categories (VEHICLE, MARKETING, OFFICE, MEALS, TRAVEL, etc.)',
+      'Receipt photo upload and cloud storage',
+      'QuickBooks Online sync (coming Q2 2025)',
+      'Automatic category totals and monthly analysis',
+      'Quarterly summary reports and tax estimates',
+      'Year-end tax package (Schedule C ready)',
+      'Mileage logging and tracking',
+      'Bulk operations (batch uploads, categorization)',
+      'CSV export for accountants',
     ],
     benefits: [
-      'Update deals hands-free while driving',
-      'Draft emails in seconds (AI-generated)',
-      'Get answers without searching docs',
-      '12 models vs. 1 (choose best for task)',
+      'Save $2,000+/year by maximizing deductions',
+      'Reduce tax prep time by 80% (vs. shoebox method)',
+      'Eliminate manual receipt organization',
+      'QuickBooks sync eliminates double data entry (Q2 2025)',
     ],
     useCases: [
-      'Solo agent: "Update the Johnson deal to under contract"',
-      'Team: "Which deals close this week?"',
-      'Brokerage: "Draft a contract clause for seller financing"',
+      'Solo agent tracking $30K+ in annual expenses',
+      'Team managing shared business expenses',
+      'Broker preparing year-end 1099s for agents',
     ],
     ctaHref: '/platform',
     painPoints: [
-      'Constantly switching between apps to update deals and check data',
-      'Spending hours researching contract clauses and market questions',
+      'Scrambling to find receipts at tax time costs hours and money',
+      'Missing deductions costs agents $2,000-$5,000/year in overpaid taxes',
     ],
     outcomes: [
-      'Update CRM, schedule tasks, and search listings hands-free via voice',
-      'AI drafts emails, answers questions, and runs calculations instantly',
+      'All expenses categorized and receipts stored in one place',
+      'Automatic quarterly reports keep you tax-ready year-round',
     ],
-    badge: 'Your 24/7 Assistant',
-    accentColor: 'from-amber-500/20 to-amber-600/20',
+    badge: 'QuickBooks Sync—1099-Ready',
+    accentColor: 'from-emerald-500/20 to-emerald-600/20',
     detailedFeatures: [
       {
-        name: 'Voice-Activated CRM Updates',
-        icon: Zap,
-        painPoint: 'Agents waste 13.1 hours per week manually updating CRM between appointments—"I forgot to update the CRM" is a common excuse',
-        solution: 'Update deals hands-free while driving with voice commands: "Update the Johnson deal to under contract"—saves 13+ hours/week',
-        sourceUrl: 'https://followupace.com/blog/ultimate-guide-to-voice-and-video-features-in-follow-up-boss'
-      },
-      {
-        name: '12+ AI Models',
-        icon: Target,
-        painPoint: 'Single-model AI tools (ChatGPT, Claude) limit agents to one approach—different tasks need different AI strengths',
-        solution: 'Access 12+ AI models (Llama 3.3 70B, GPT-4o, Claude 3.5, Gemini 2.0) and choose the best model for each task',
-        sourceUrl: 'https://ascendix.com/blog/ai-real-estate-agents'
-      },
-      {
-        name: 'Real Estate Trained',
+        name: 'IRS-Aligned Categories',
         icon: FileText,
-        painPoint: "Generic AI tools don't understand real estate terminology (MLS, contracts, commissions, escrow)—agents waste time explaining basics",
-        solution: 'AI assistant trained on real estate workflows knows MLS, contracts, and commissions—no explaining required',
-        sourceUrl: 'https://realoffice360.com/article/ai-impact-on-real-estate-crm'
+        painPoint: 'Real estate agents miss 20-30% of eligible deductions due to poor expense categorization, overpaying taxes by $2,000-$5,000 annually',
+        solution: '14 IRS-aligned categories (VEHICLE, MARKETING, OFFICE, etc.) ensure you capture every deductible expense correctly',
+        sourceUrl: 'https://www.irs.gov/businesses/small-businesses-self-employed/real-estate-agents'
       },
       {
-        name: 'Tool Calling & Integration',
-        icon: BarChart,
-        painPoint: 'Agents constantly switch between apps to update deals, schedule tasks, and search listings—15+ hours/week lost to context switching',
-        solution: 'AI directly updates CRM, schedules tasks, and searches listings via tool calling—eliminate app-switching entirely',
-        sourceUrl: 'https://voagents.ai/real-estate'
+        name: 'Receipt Management',
+        icon: Camera,
+        painPoint: 'Agents waste 15-20 hours at tax time searching for lost receipts, and 1 in 3 lose critical documentation',
+        solution: 'Photo upload stores all receipts in the cloud, searchable by category, date, or vendor—never lose a receipt again',
+        sourceUrl: 'https://www.nar.realtor/taxes'
+      },
+      {
+        name: 'Quarterly Tax Reports',
+        icon: Calculator,
+        painPoint: 'Unexpected quarterly tax bills cause cash flow crises—agents underestimate by 30-40% without tracking',
+        solution: 'Automated quarterly summary reports with tax estimate calculations prevent surprises and improve cash flow planning',
+        sourceUrl: 'https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes'
+      },
+      {
+        name: 'QuickBooks Integration',
+        icon: DollarSign,
+        painPoint: 'CPAs charge $500-$1,500 extra to organize disorganized expense records—many agents pay premium fees and waste hours on double data entry',
+        solution: 'QuickBooks Online sync (Q2 2025) eliminates double entry. One-click CSV export or Schedule C-ready tax package saves $500-$1,500 in CPA fees',
+        sourceUrl: 'https://www.nar.realtor/taxes'
       }
     ]
   },

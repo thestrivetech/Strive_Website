@@ -418,7 +418,7 @@ export const competitivePositioning: CompetitivePosition = {
   saiDifferentiators: [
     'Unlimited Users at Flat Pricing - Only SAI offers this in real estate CRM market',
     'AI-Native (12+ Models) - Built with AI from day one, not bolted on',
-    'All-in-One Platform - 5 modules replace 5+ separate tools with 100% data sync',
+    'All-in-One Platform - 6 modules replace 6+ separate tools with 100% data sync',
     'Real Estate Specialized - 6 deal types, MLS-ready content, investment analysis (REID)',
   ],
   saiWinsWhen: [

@@ -774,10 +774,10 @@ const Resources = () => {
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group
                   before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 min-h-[44px] w-full sm:w-auto"
-                onClick={() => window.location.href = '/waitlist'}
+                onClick={() => window.location.href = '/contact'}
                 data-testid="button-explore-resources"
               >
-                Join Waitlist
+                Get Started
               </Button>
               <Button
                 size="lg"

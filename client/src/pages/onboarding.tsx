@@ -369,10 +369,10 @@ const Onboarding = () => {
                 >
                   Explore Solutions
                 </Button>
-                <Button 
+                <Button
                   variant="outline"
                   className="flex-1"
-                  onClick={() => window.location.href = "/request"}
+                  onClick={() => window.location.href = "/contact"}
                   data-testid="button-schedule-assessment"
                 >
                   Schedule Assessment

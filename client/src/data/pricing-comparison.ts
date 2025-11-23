@@ -202,7 +202,7 @@ export const agentProfiles: AgentProfile[] = [
   },
 ];
 
-// SAI Platform pricing tiers (waitlist/TBD)
+// SAI Platform pricing tiers
 export interface SAIPricingTier {
   tierName: string;
   description: string;
@@ -220,9 +220,9 @@ export const saiPricingTiers: SAIPricingTier[] = [
   {
     tierName: 'Solo Agent',
     description: 'Perfect for individual agents building their business',
-    estimatedMonthly: 'Join Waitlist',
+    estimatedMonthly: 'Get Started',
     features: [
-      'All 5 modules included',
+      'All 6 modules included',
       'Unlimited contacts',
       '10,000 emails/month',
       'AI content generation',
@@ -239,9 +239,9 @@ export const saiPricingTiers: SAIPricingTier[] = [
   {
     tierName: 'Active Agent',
     description: 'For busy agents who need advanced automation',
-    estimatedMonthly: 'Join Waitlist',
+    estimatedMonthly: 'Get Started',
     features: [
-      'All 5 modules included',
+      'All 6 modules included',
       'Unlimited contacts',
       'Unlimited emails',
       'Advanced AI features',
@@ -258,9 +258,9 @@ export const saiPricingTiers: SAIPricingTier[] = [
   {
     tierName: 'Team/Brokerage',
     description: 'Scalable solution for teams and brokerages',
-    estimatedMonthly: 'Join Waitlist',
+    estimatedMonthly: 'Get Started',
     features: [
-      'All 5 modules included',
+      'All 6 modules included',
       'Unlimited everything',
       'Enterprise automation',
       'Dedicated support',

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MapPin, Phone, Mail, Clock, Calendar, Download, MessageCircle, ChevronDown, ChevronUp, Users, Eye, FileText } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Download, MessageCircle, ChevronDown, ChevronUp, Users, Eye, FileText, Calendar } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -110,7 +110,6 @@ const Contact = () => {
   ];
 
   const quickActions = [
-    { icon: <Calendar className="mr-2" />, text: "Request Personalized Demo", action: "demo" },
     {
       icon: <Eye className="mr-1 sm:mr-2 flex-shrink-0" />,
       text: (
@@ -256,9 +255,6 @@ const Contact = () => {
 
   const handleQuickAction = (action: string) => {
     switch (action) {
-      case "demo":
-        setLocation('/request');
-        break;
       case "brochure":
         setIsBrochureModalOpen(true);
         break;

@@ -1,19 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, User, LogOut, Home, Cpu, FolderOpen, BookOpen, Building, Mail } from "lucide-react";
+import { Menu, User, LogOut, Home, DollarSign, BookOpen, Building, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
 import LazyImage from "@/components/ui/lazy-image";
 import logoImage from "@assets/STRIVE_Orange_Text_Transparent_1483 x 320px.webp";
-import healthcareIcon from "@assets/generated_images/Healthcare_industry_icon_f2723fd3.png";
-import financialIcon from "@assets/generated_images/Financial_services_icon_6bb00680.png";
-import manufacturingIcon from "@assets/generated_images/Manufacturing_industry_icon_f22de001.png";
-import retailIcon from "@assets/generated_images/Retail_industry_icon_5c33f611.png";
-import technologyIcon from "@assets/generated_images/Technology_industry_icon_e199aae4.png";
-import educationIcon from "@assets/generated_images/Education_industry_icon_b1549875.png";
-import resourcesIcon from "@assets/generated_images/Business_resources_gradient_icons_b8398c2d.png";
 
 const Navigation = () => {
   const [location] = useLocation();
@@ -73,13 +66,13 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 hero-gradient border-b border-white/20 shadow-lg" style={{ overflow: 'visible' }}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8" style={{ overflow: 'visible' }}>
+    <nav className="fixed top-0 left-0 right-0 z-50 hero-gradient border-b border-white/20 shadow-lg overflow-visible">
+      <div className="w-full px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 overflow-visible">
         
         {/* Mobile Layout */}
-        <div className="md:hidden flex items-center justify-between h-16">
+        <div className="md:hidden flex items-center h-16">
           {/* Left: Mobile Menu */}
-          <div className="flex items-center">
+          <div className="flex items-center flex-1">
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button
@@ -96,9 +89,9 @@ const Navigation = () => {
                   {/* Logo in mobile menu */}
                   <div className="mb-8 text-center">
                     <Link href="/" onClick={(e) => { handleLogoClick(e); setMobileMenuOpen(false); }}>
-                      <LazyImage 
-                        src={logoImage} 
-                        alt="Strive" 
+                      <LazyImage
+                        src={logoImage}
+                        alt="Strive"
                         className="h-12 w-auto max-w-[240px] mx-auto"
                         loading="eager"
                       />
@@ -116,18 +109,18 @@ const Navigation = () => {
                     <Home className="w-5 h-5 mr-3 text-[#ff7033]" />
                     Home
                   </Link>
-                  
-                  {/* Platform - Simple Link */}
+
+                  {/* Pricing - Simple Link */}
                   <Link
-                    href="/platform"
+                    href="/pricing"
                     className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 font-medium ${
-                      isActive("/platform") ? "text-primary bg-white/10 font-medium" : ""
+                      isActive("/pricing") ? "text-primary bg-white/10 font-medium" : ""
                     }`}
-                    onClick={(e) => { handleNavClick(e, "/platform"); setMobileMenuOpen(false); }}
-                    data-testid="mobile-nav-platform"
+                    onClick={(e) => { handleNavClick(e, "/pricing"); setMobileMenuOpen(false); }}
+                    data-testid="mobile-nav-pricing"
                   >
-                    <Cpu className="w-5 h-5 mr-3 text-[#ff7033]" />
-                    Platform
+                    <DollarSign className="w-5 h-5 mr-3 text-[#ff7033]" />
+                    Pricing
                   </Link>
 
                   {/* Resources - Simple Link */}
@@ -142,7 +135,7 @@ const Navigation = () => {
                     <BookOpen className="w-5 h-5 mr-3 text-[#ff7033]" />
                     Resources
                   </Link>
-                  
+
                   <Link
                     href="/about"
                     className={`flex items-center text-white hover:text-primary transition-all duration-300 p-4 rounded-xl hover:bg-white/10 ${
@@ -169,7 +162,7 @@ const Navigation = () => {
                     {isAuthenticated ? (
                       <>
                         <Link href="/dashboard">
-                          <Button 
+                          <Button
                             variant="ghost"
                             className="w-full bg-white/10 text-white hover:bg-primary hover:text-white transition-all duration-300 rounded-xl"
                             data-testid="mobile-button-dashboard"
@@ -179,7 +172,7 @@ const Navigation = () => {
                             Dashboard
                           </Button>
                         </Link>
-                        <Button 
+                        <Button
                           variant="outline"
                           className="w-full bg-white/10 text-white hover:bg-red-500 hover:text-white transition-all duration-300 rounded-xl"
                           onClick={() => {
@@ -195,7 +188,7 @@ const Navigation = () => {
                     ) : (
                       <>
                         <Link href="/login">
-                          <Button 
+                          <Button
                             variant="ghost"
                             className="w-full bg-white/10 text-white hover:bg-primary hover:text-white transition-all duration-300 rounded-xl"
                             data-testid="mobile-button-login"
@@ -204,13 +197,13 @@ const Navigation = () => {
                             Login
                           </Button>
                         </Link>
-                        <Link href="/waitlist">
+                        <Link href="/contact">
                           <Button
                             className="w-full bg-primary text-white hover:bg-primary/90 transition-all duration-300 rounded-xl shadow-lg"
-                            data-testid="mobile-button-join-waitlist"
+                            data-testid="mobile-button-get-started"
                             onClick={() => setMobileMenuOpen(false)}
                           >
-                            Join Waitlist
+                            Get Started
                           </Button>
                         </Link>
                       </>
@@ -220,22 +213,22 @@ const Navigation = () => {
               </SheetContent>
             </Sheet>
           </div>
-          
+
           {/* Center: Logo */}
-          <Link href="/" className="flex items-center absolute left-1/2 transform -translate-x-1/2" onClick={handleLogoClick}>
-            <LazyImage 
-              src={logoImage} 
-              alt="Strive" 
+          <Link href="/" className="flex items-center flex-1 justify-center" onClick={handleLogoClick}>
+            <LazyImage
+              src={logoImage}
+              alt="Strive"
               className="h-10 w-auto max-w-[200px]"
               loading="eager"
             />
           </Link>
-          
+
           {/* Right: Login/User Icon */}
-          <div className="flex items-center">
+          <div className="flex items-center flex-1 justify-end">
             {isAuthenticated ? (
               <Link href="/dashboard">
-                <Button 
+                <Button
                   variant="ghost"
                   size="icon"
                   className="text-foreground hover:text-primary"
@@ -246,7 +239,7 @@ const Navigation = () => {
               </Link>
             ) : (
               <Link href="/login">
-                <Button 
+                <Button
                   variant="ghost"
                   size="sm"
                   className="text-foreground hover:text-primary text-sm px-3"
@@ -260,19 +253,19 @@ const Navigation = () => {
         </div>
         
         {/* Desktop Layout */}
-        <div className="hidden md:flex justify-between items-center h-16" style={{ overflow: 'visible' }}>
+        <div className="hidden md:flex justify-between items-center h-16 overflow-visible">
           {/* Logo */}
           <Link href="/" className="flex items-center" onClick={handleLogoClick}>
-            <LazyImage 
-              src={logoImage} 
-              alt="Strive" 
-              className="h-10 w-auto"
+            <LazyImage
+              src={logoImage}
+              alt="Strive"
+              className="h-10 w-auto max-w-[180px]"
               loading="eager"
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8" style={{ overflow: 'visible' }}>
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-6 xl:space-x-8 overflow-visible">
             {/* Home */}
             <Link
               href="/"
@@ -285,16 +278,16 @@ const Navigation = () => {
               Home
             </Link>
             
-            {/* Platform - Simple Link */}
+            {/* Pricing - Simple Link */}
             <Link
-              href="/platform"
+              href="/pricing"
               className={`nav-link text-foreground hover:text-primary transition-colors ${
-                isActive("/platform") ? "active" : ""
+                isActive("/pricing") ? "active" : ""
               }`}
-              onClick={(e) => handleNavClick(e, "/platform")}
-              data-testid="nav-platform"
+              onClick={(e) => handleNavClick(e, "/pricing")}
+              data-testid="nav-pricing"
             >
-              Platform
+              Pricing
             </Link>
 
             {/* Resources - Simple Link */}
@@ -367,12 +360,12 @@ const Navigation = () => {
                     Login
                   </Button>
                 </Link>
-                <Link href="/waitlist">
+                <Link href="/contact">
                   <Button
                     className="bg-primary text-primary-foreground hover:bg-primary/90"
-                    data-testid="button-join-waitlist"
+                    data-testid="button-get-started"
                   >
-                    Join Waitlist
+                    Get Started
                   </Button>
                 </Link>
               </>

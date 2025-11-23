@@ -23,8 +23,10 @@ interface ModuleSelectorProps {
 
 /**
  * Module selector component for SAI Platform modules
- * Desktop: 5-column grid with icons and names
- * Mobile: Searchable dropdown
+ * Mobile (< 768px): Searchable dropdown
+ * Tablet (768-1024px): 2-column grid
+ * Large (1024-1280px): 3-column grid
+ * Desktop (>= 1280px): 6-column grid (all modules in one row)
  */
 export function ModuleSelector({ selectedModuleId, onSelectModule }: ModuleSelectorProps) {
   const [open, setOpen] = useState(false);
@@ -87,7 +89,7 @@ export function ModuleSelector({ selectedModuleId, onSelectModule }: ModuleSelec
       </div>
 
       {/* Desktop: Grid selector */}
-      <div className="hidden md:grid grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
+      <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-12">
         {saiModules.map((module) => {
           const Icon = module.icon;
           const isSelected = selectedModuleId === module.id;

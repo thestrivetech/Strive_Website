@@ -9,8 +9,8 @@ export function FinalCTASection() {
   const steps = [
     {
       icon: UserPlus,
-      label: "Join Waitlist",
-      description: "Request early access in under 60 seconds",
+      label: "Get Started",
+      description: "Contact us to begin your journey in under 60 seconds",
     },
     {
       icon: CalendarDays,
@@ -19,8 +19,8 @@ export function FinalCTASection() {
     },
     {
       icon: Rocket,
-      label: "Get Started",
-      description: "Launch your real estate business to the next level",
+      label: "Launch",
+      description: "Transform your real estate business to the next level",
     },
   ];
 
@@ -33,7 +33,7 @@ export function FinalCTASection() {
             Ready to Transform Your Real Estate Business?
           </h2>
           <p className="text-lg sm:text-xl text-white/90 mb-8 sm:mb-10">
-            Be among the first to experience the future of real estate CRM. Request early access today.
+            Experience the future of real estate CRM. Get started today.
           </p>
 
           {/* CTA Buttons */}
@@ -41,9 +41,9 @@ export function FinalCTASection() {
             <Button
               size="lg"
               className="bg-white text-primary hover:bg-white/90 shadow-lg hover:shadow-xl transition-all duration-200 min-h-[44px] px-8 py-6 text-lg font-semibold"
-              onClick={() => window.location.href = "/waitlist"}
+              onClick={() => window.location.href = "/contact"}
             >
-              Join Waitlist
+              Get Started
             </Button>
           </div>
 

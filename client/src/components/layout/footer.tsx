@@ -123,8 +123,8 @@ const Footer = () => {
             <h3 className="font-semibold text-white mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link 
-                  href="/" 
+                <Link
+                  href="/"
                   className="text-white/70 hover:text-white transition-colors"
                   data-testid="footer-link-home"
                 >
@@ -132,26 +132,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/portfolio" 
-                  className="text-white/70 hover:text-white transition-colors"
-                  data-testid="footer-link-portfolio"
-                >
-                  Portfolio
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/solutions" 
-                  className="text-white/70 hover:text-white transition-colors"
-                  data-testid="footer-link-solutions"
-                >
-                  Solutions
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/resources" 
+                <Link
+                  href="/resources"
                   className="text-white/70 hover:text-white transition-colors"
                   data-testid="footer-link-resources"
                 >
@@ -159,17 +141,17 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/about" 
+                <Link
+                  href="/about"
                   className="text-white/70 hover:text-white transition-colors"
                   data-testid="footer-link-about"
                 >
-                  Company
+                  About
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/contact" 
+                <Link
+                  href="/contact"
                   className="text-white/70 hover:text-white transition-colors"
                   data-testid="footer-link-contact"
                 >

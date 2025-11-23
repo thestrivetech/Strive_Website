@@ -33,19 +33,19 @@ export const chatgptClaudeGrokComparison: Resource = {
       "List features you're missing with your current CRM (transaction mgmt, marketing, data)",
       "Test SAI Platform to see if it can replace your entire tech stack",
       "Consider the hidden costs of managing multiple logins, integrations, and data syncing",
-      "Join the SAI waitlist to lock in early access pricing"
+      "Get started with SAI Platform—schedule a demo and begin your onboarding process"
     ]
   },
   sources: [
     {
       title: "SAI Platform Overview",
       url: "/platform",
-      description: "See all 5 SAI modules and how they work together"
+      description: "See all 6 SAI modules and how they work together"
     },
     {
-      title: "Join the Waitlist",
-      url: "/waitlist",
-      description: "Get early access to SAI Platform"
+      title: "Get Started",
+      url: "/contact",
+      description: "Schedule a demo and begin onboarding"
     },
     {
       title: "CRM Comparison Guide",

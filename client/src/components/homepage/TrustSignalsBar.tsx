@@ -8,7 +8,7 @@ export function TrustSignalsBar() {
     {
       icon: Users,
       value: "500+",
-      label: "Waitlist Members",
+      label: "Early Adopters",
     },
     {
       icon: CheckCircle,

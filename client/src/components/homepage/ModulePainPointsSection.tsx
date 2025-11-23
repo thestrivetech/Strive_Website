@@ -59,17 +59,17 @@ export function ModulePainPointsSection() {
               Join 500+ real estate agents who've eliminated the chaos of juggling 12 different tools.
             </p>
 
-            <Link href="/waitlist">
+            <Link href="/contact">
               <Button
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 sm:px-8 py-3 sm:py-3.5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 font-bold text-sm sm:text-base min-h-[44px]"
                 size="lg"
               >
-                Join Waitlist — Get Early Access
+                Get Started Today
               </Button>
             </Link>
 
             <p className="text-xs text-white/60 mt-4">
-              <span className="text-green-400">✓</span> All 5 modules included •{" "}
+              <span className="text-green-400">✓</span> All 6 modules included •{" "}
               <span className="text-green-400">✓</span> Unlimited contacts •{" "}
               <span className="text-green-400">✓</span> No per-contact fees
             </p>

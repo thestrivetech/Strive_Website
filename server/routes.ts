@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage, MemStorage } from "./storage";
-import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertUserSchema, insertRequestSchema } from "@shared/schema";
+import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertUserSchema } from "@shared/schema";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { supabase, db } from "./supabase";
@@ -188,64 +188,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Demo/Showcase request submission
-  app.post("/api/request", async (req, res) => {
-    try {
-      const validatedData = insertRequestSchema.parse(req.body);
-      
-      // Store request in database (if available)
-      let databaseStored = true;
-      try {
-        await storage.createRequest(validatedData);
-      } catch (dbError) {
-        databaseStored = false;
-        log.warn('Database unavailable, continuing without storing request', dbError);
-      }
-      
-      // Send email notifications to team (if email service is configured)
-      try {
-        const emailSent = await emailService.sendRequestNotification(validatedData);
-        if (!emailSent) {
-          log.email('Request notification not sent - email service not configured', false);
-        }
-      } catch (emailError) {
-        log.email('Request notification email failed', false, emailError);
-      }
-
-      // Send confirmation email to user
-      try {
-        const confirmationSent = await emailService.sendRequestConfirmation(validatedData);
-        if (!confirmationSent) {
-          log.email('Request confirmation email could not be sent', false);
-        }
-      } catch (confirmationError) {
-        log.email('Request confirmation email failed', false, confirmationError);
-      }
-      
-      res.json({ 
-        success: true, 
-        message: databaseStored
-          ? "Thank you for your request! We'll contact you within one business day to schedule your demo."
-          : "Thank you for your request! We'll contact you within one business day to schedule your demo. Note: Your request was sent but there was a temporary database issue.",
-        databaseStored
-      });
-    } catch (error) {
-      log.error('Request submission error', error);
-      if (error instanceof z.ZodError) {
-        res.status(400).json({ 
-          success: false, 
-          message: "Invalid form data", 
-          errors: error.errors 
-        });
-      } else {
-        res.status(500).json({ 
-          success: false, 
-          message: "Failed to submit request. Please try again or contact us directly."
-        });
-      }
-    }
-  });
-
   // Get contact submissions (admin endpoint)
   app.get("/api/admin/contacts", async (req, res) => {
     try {
@@ -327,19 +269,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
             passConfigured: !!process.env.SMTP_PASS
           }
         }
-      });
-    }
-  });
-
-  // Get all requests (admin endpoint) - Demo, Assessment, Solution Showcase
-  app.get("/api/admin/requests", async (req, res) => {
-    try {
-      const requests = await storage.getRequests();
-      res.json(requests);
-    } catch (error) {
-      res.status(500).json({
-        success: false,
-        message: "Failed to fetch requests"
       });
     }
   });

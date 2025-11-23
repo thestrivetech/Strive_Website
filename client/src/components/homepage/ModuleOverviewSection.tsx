@@ -13,8 +13,8 @@ interface ModuleOverviewSectionProps {
 }
 
 /**
- * Displays all 5 SAI Platform modules in a responsive grid
- * Shows CRM, The Office, Content Studio, REID, and SAI Assistant
+ * Displays all 6 SAI Platform modules in a responsive grid
+ * Shows SAI Assistant, CRM, The Office, Content Studio, REID, and Taxes & Expenses
  */
 export function ModuleOverviewSection({ linkToPlatform = false, compact = false }: ModuleOverviewSectionProps) {
   return (
@@ -24,7 +24,7 @@ export function ModuleOverviewSection({ linkToPlatform = false, compact = false 
         <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
           {/* Eyebrow Label */}
           <div className="text-sm uppercase tracking-wide text-orange-300 font-semibold mb-4">
-            5 Powerful Modules, One Unified Platform
+            6 Powerful Modules, One Unified Platform
           </div>
 
           {/* Main Headline with Gradient Accent */}
@@ -59,7 +59,7 @@ export function ModuleOverviewSection({ linkToPlatform = false, compact = false 
         <div className="text-center mt-12 sm:mt-16 max-w-3xl mx-auto">
           <div className="bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-xl p-6 sm:p-8">
             <h3 className="text-lg font-bold text-white mb-3">
-              All 5 Modules Share One Database
+              All 6 Modules Share One Database
             </h3>
             <p className="text-sm sm:text-base text-white/90 leading-relaxed">
               Update a contact in <span className="font-semibold text-orange-300">CRM</span>, and it instantly

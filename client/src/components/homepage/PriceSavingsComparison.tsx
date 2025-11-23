@@ -58,9 +58,9 @@ const calculateAnnualSavings = (profile: AgentProfile): string => {
  *
  * REDESIGNED: Interactive profile selector, honest pricing, credible claims, full transparency
  * - Interactive: 3 agent profile tabs update both cards dynamically
- * - Honest: "Join Waitlist" CTA matches destination, no false social proof
+ * - Honest: "Get Started" CTA directs to contact form
  * - Credible: Source links for all competitor pricing, clear savings calculation
- * - Transparent: Explains methodology, admits final pricing TBD
+ * - Transparent: Explains methodology, pricing available on request
  * - Accessible: WCAG AA contrast, ARIA labels, no layout shift animations
  */
 export function PriceSavingsComparison() {
@@ -217,7 +217,7 @@ export function PriceSavingsComparison() {
               <CardTitle className="text-2xl font-bold text-gray-900 mb-2">
                 All-in-One Solution
               </CardTitle>
-              <p className="text-sm text-gray-700">5 integrated modules replace your entire stack</p>
+              <p className="text-sm text-gray-700">6 integrated modules replace your entire stack</p>
             </CardHeader>
 
             <CardContent className="space-y-4">
@@ -287,10 +287,10 @@ export function PriceSavingsComparison() {
                   EXCLUSIVE LAUNCH PRICING
                 </p>
                 <p className="text-4xl font-bold text-orange-600 mb-1">
-                  Join Waitlist
+                  Get Started
                 </p>
                 <p className="text-xs text-orange-800">
-                  Get notified of early access pricing when we launch
+                  Contact us to learn about our pricing options
                 </p>
               </div>
 
@@ -341,13 +341,13 @@ export function PriceSavingsComparison() {
                 </div>
               </div>
 
-              {/* CTA Button - Honest Text */}
-              <Link href="/waitlist">
+              {/* CTA Button */}
+              <Link href="/contact">
                 <Button
                   className="w-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white font-bold py-6 shadow-lg hover:shadow-xl transition-shadow duration-300 min-h-[44px]"
                   size="lg"
                 >
-                  Join Waitlist
+                  Get Started
                   <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
                 </Button>
               </Link>

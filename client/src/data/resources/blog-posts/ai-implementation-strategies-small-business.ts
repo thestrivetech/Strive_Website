@@ -43,9 +43,9 @@ export const aiImplementationStrategiesSmallBusiness: Resource = {
       description: "Automated transaction management for real estate agents"
     },
     {
-      title: "Join the Waitlist",
-      url: "/waitlist",
-      description: "Get early access to SAI Platform"
+      title: "Get Started",
+      url: "/contact",
+      description: "Contact us to learn more about SAI Platform"
     },
     {
       title: "Real Estate Transaction Resources",

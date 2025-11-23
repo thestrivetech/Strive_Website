@@ -107,7 +107,8 @@
       "WebFetch(domain:duck.design)",
       "WebFetch(domain:www.theceshop.com)",
       "WebFetch(domain:realtybiznews.com)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(git log:*)"
     ],
     "deny": [],
     "ask": []

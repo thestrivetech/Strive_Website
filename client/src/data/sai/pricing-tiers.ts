@@ -47,7 +47,7 @@ export const pricingTiers: PricingTier[] = [
       '1 user account',
       'Up to 100 contacts',
       'Up to 10 active deals',
-      'All 5 modules (CRM, The Office, Content Studio, REID, SAI Assistant)',
+      'All 6 modules (SAI Assistant, CRM, The Office, Content Studio, REID, Taxes & Expenses)',
       'Smart lead scoring (HOT/WARM/COLD)',
       'Basic automation (3 automations max)',
       'Content generation (50 pieces/month)',
@@ -63,8 +63,8 @@ export const pricingTiers: PricingTier[] = [
       '3 automations max (vs. unlimited on Elite)',
     ],
     cta: {
-      text: 'Start Free →',
-      href: '/signup?plan=free',
+      text: 'Get Started →',
+      href: '/contact',
       subtext: 'No credit card required',
       variant: 'secondary',
     },
@@ -81,7 +81,7 @@ export const pricingTiers: PricingTier[] = [
       'Unlimited users',
       'Unlimited contacts',
       'Unlimited deals',
-      'All 5 modules with full access',
+      'All 6 modules with full access',
       'Advanced automation (unlimited workflows)',
       'Unlimited content generation',
       'REID market data (10 CA markets + custom imports)',
@@ -114,8 +114,8 @@ export const pricingTiers: PricingTier[] = [
       'SAI Elite: $999/mo for EVERYTHING',
     ],
     cta: {
-      text: 'Start Free Trial →',
-      href: '/signup?plan=elite&trial=true',
+      text: 'Get Started →',
+      href: '/contact',
       subtext: '14-day free trial • No credit card required • Upgrade anytime',
       variant: 'primary',
     },
@@ -224,7 +224,7 @@ export const featureComparison: FeatureComparison[] = [
     ],
   },
   {
-    category: 'GLOBAL SAI (AI ASSISTANT)',
+    category: 'SAI ASSISTANT',
     features: [
       { name: 'AI queries per month', free: '100', elite: 'Unlimited', custom: 'Unlimited' },
       { name: 'AI models available', free: '3 basic', elite: 'All 12+', custom: 'All 12+' },
