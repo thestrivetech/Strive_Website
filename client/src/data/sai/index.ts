@@ -35,12 +35,32 @@ export {
 export {
   competitors,
   competitivePositioning,
-  positioningStatements,
+  featureComparison as competitorFeatureComparison,
+  costToReplicateScenarios,
+  saiCompetitiveAdvantages,
   getCompetitorById,
-  getCompetitorsByPricingModel,
+  getCompetitorsByAiNative,
+  getCostScenarioById,
+  getPositiveSavingsScenarios,
   type Competitor,
-  type CompetitivePosition,
+  type CompetitorFeatureRow,
+  type CostToReplicateScenario,
+  type ToolCost,
+  type FeatureValue,
 } from './competitors';
+
+// Market Statistics
+export {
+  marketStats,
+  keyStats,
+  getStatsByCategory,
+  getStatById,
+  getPainPointStats,
+  getMarketSizeStats,
+  getCompetitiveStats,
+  type MarketStat,
+  type MarketStatCategory,
+} from './market-stats';
 
 // Use Cases
 export {

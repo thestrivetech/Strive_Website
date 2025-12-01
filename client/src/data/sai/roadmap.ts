@@ -2,7 +2,7 @@
 // Q1 2025 → 2026+ feature timeline
 
 export type RoadmapStatus = 'in-development' | 'planned' | 'coming-soon' | 'future';
-export type RoadmapPhase = 'Q1-2025' | 'Q2-2025' | 'Q3-2025' | 'Q4-2025' | '2026' | '2026+';
+export type RoadmapPhase = 'Q1-2025' | 'Q2-2025' | 'Q3-2025' | 'Q4-2025' | 'Q1-2026' | 'Q2-2026' | '2026' | '2026+';
 
 export interface RoadmapFeature {
   id: string;
@@ -85,7 +85,7 @@ export const roadmapFeatures: RoadmapFeature[] = [
     title: 'MLS Integration',
     description: 'Official Multiple Listing Service data integration with automatic property data sync, listing synchronization, and comprehensive market data access.',
     status: 'planned',
-    phase: 'Q2-2025',
+    phase: 'Q2-2026',
     category: 'Integrations',
     benefits: [
       'Eliminate manual MLS searches',
@@ -158,13 +158,13 @@ export const roadmapFeatures: RoadmapFeature[] = [
     ],
   },
 
-  // Q4 2025 - Mobile & Client Experience
+  // Q1 2026 - Mobile & Client Experience
   {
     id: 'mobile-apps',
     title: 'Mobile Apps (iOS & Android)',
     description: 'Native mobile apps with offline mode, push notifications, mobile document signing, and voice-to-text notes.',
     status: 'coming-soon',
-    phase: 'Q4-2025',
+    phase: 'Q1-2026',
     category: 'Mobile',
     benefits: [
       'Run your business from anywhere',
@@ -412,8 +412,20 @@ export const roadmapPeriods: RoadmapPeriod[] = [
   {
     period: 'Q4-2025',
     title: 'Q4 2025',
-    focusArea: 'Mobile Apps & Client Experience',
+    focusArea: 'Platform Refinement',
     features: roadmapFeatures.filter(f => f.phase === 'Q4-2025'),
+  },
+  {
+    period: 'Q1-2026',
+    title: 'Q1 2026',
+    focusArea: 'Mobile Apps & Client Experience',
+    features: roadmapFeatures.filter(f => f.phase === 'Q1-2026'),
+  },
+  {
+    period: 'Q2-2026',
+    title: 'Q2 2026',
+    focusArea: 'MLS & Advanced Integrations',
+    features: roadmapFeatures.filter(f => f.phase === 'Q2-2026'),
   },
   {
     period: '2026',

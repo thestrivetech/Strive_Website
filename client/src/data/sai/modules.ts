@@ -35,9 +35,9 @@ export const saiModules: SAIModule[] = [
     icon: Sparkles,
     title: 'SAI Assistant',
     tagline: 'Work Smarter, Not Harder—Your AI Assistant Handles Scheduling, Research, and Insights',
-    description: 'SAI Assistant is your AI assistant powered by 12+ models (Llama 3.3 70B, GPT-4o, Claude 3.5, Gemini 2.0). It can update deals ("Mark the Johnson deal as under contract"), draft emails, search listings, and answer questions—all conversationally. Real estate trained.',
+    description: 'SAI Assistant is your AI-powered assistant that handles it all. It can update deals ("Mark the Johnson deal as under contract"), draft emails, search listings, and answer questions—all conversationally. Real estate trained.',
     features: [
-      '12+ AI models (Llama, GPT, Claude, Gemini)',
+      'Multiple advanced AI models for every task',
       'Tool calling (update CRM, schedule tasks, search listings)',
       'Conversational interface (voice or text)',
       'Real estate trained (knows MLS, contracts, commissions)',
@@ -50,7 +50,7 @@ export const saiModules: SAIModule[] = [
       'Update deals hands-free while driving',
       'Draft emails in seconds (AI-generated)',
       'Get answers without searching docs',
-      '12 models vs. 1 (choose best for task)',
+      'Best AI model selected for each task',
     ],
     useCases: [
       'Solo agent: "Update the Johnson deal to under contract"',
@@ -77,10 +77,10 @@ export const saiModules: SAIModule[] = [
         sourceUrl: 'https://followupace.com/blog/ultimate-guide-to-voice-and-video-features-in-follow-up-boss'
       },
       {
-        name: '12+ AI Models',
+        name: 'Advanced AI Technology',
         icon: Target,
-        painPoint: 'Single-model AI tools (ChatGPT, Claude) limit agents to one approach—different tasks need different AI strengths',
-        solution: 'Access 12+ AI models (Llama 3.3 70B, GPT-4o, Claude 3.5, Gemini 2.0) and choose the best model for each task',
+        painPoint: 'Single-model AI tools limit agents to one approach—different tasks need different AI strengths',
+        solution: 'Access advanced AI technology that automatically selects the optimal model for each task',
         sourceUrl: 'https://ascendix.com/blog/ai-real-estate-agents'
       },
       {

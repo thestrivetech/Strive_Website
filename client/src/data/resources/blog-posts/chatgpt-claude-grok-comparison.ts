@@ -17,7 +17,7 @@ export const chatgptClaudeGrokComparison: Resource = {
     keyPoints: [
       "Follow Up Boss: $69/user/month, excellent lead nurturing, no transaction management",
       "LionDesk: $25/user/month, affordable, limited automation and no deal tracking",
-      "SAI Platform: $999/month unlimited users, includes CRM + transactions + marketing + data",
+      "SAI Platform: $499/month unlimited users, includes CRM + transactions + marketing + data",
       "All-in-one platforms save agents $300-500/month by replacing 5+ separate tools",
       "SAI Platform rated 4.8/5 for ease of use vs 4.2 Follow Up Boss, 3.9 LionDesk"
     ],

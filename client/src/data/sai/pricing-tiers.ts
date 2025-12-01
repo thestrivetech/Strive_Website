@@ -1,5 +1,5 @@
 // SAI Platform Pricing Tiers
-// 3 tiers: Free, Elite ($999/mo), Custom
+// 3 tiers: Free, Elite ($499/mo), Custom
 // Complete feature comparison matrix
 
 export interface PricingTier {
@@ -73,9 +73,9 @@ export const pricingTiers: PricingTier[] = [
     id: 'elite',
     name: 'Elite',
     badge: 'Most Popular',
-    price: '$999',
-    priceNumeric: 999,
-    billingInfo: 'Billed monthly or $9,990/year (save $1,998)',
+    price: '$499',
+    priceNumeric: 499,
+    billingInfo: 'Billed monthly or $4,990/year (save $998)',
     description: 'Everything you need to run your entire real estate business from one platform. No limits, no add-ons, no surprises.',
     features: [
       'Unlimited users',
@@ -85,33 +85,33 @@ export const pricingTiers: PricingTier[] = [
       'Advanced automation (unlimited workflows)',
       'Unlimited content generation',
       'REID market data (10 CA markets + custom imports)',
-      'SAI Assistant (unlimited AI queries, all 12+ models)',
+      'SAI Assistant (unlimited AI queries, advanced AI)',
       'Priority email support (24-hour response)',
       'Phone support (business hours)',
       'Dedicated onboarding session (1 hour)',
       'Advanced analytics & reporting',
       'Team collaboration tools',
-      'API access (coming Q2 2025)',
+      'API access (coming soon)',
       'Quarterly strategy sessions',
     ],
     additionalBenefits: [
       'Unlimited document storage',
       'Advanced lead scoring with custom rules',
       'A/B testing for emails and social content',
-      'White-label content (coming Q3 2025)',
-      'Mobile app access (coming Q3 2025)',
-      'SMS/WhatsApp integration (coming Q2 2025)',
-      'DocuSign integration (coming Q1 2025)',
-      'MLS integration (coming Q1 2025)',
+      'White-label content (coming soon)',
+      'Mobile app access (coming Q1 2026)',
+      'SMS/WhatsApp integration (coming soon)',
+      'DocuSign integration (coming soon)',
+      'MLS integration (coming Q2 2026)',
     ],
     valueComparison: [
       'Follow Up Boss: $69/user/mo = $828/year for 1 user (CRM only)',
       'Dotloop: $29/mo (transaction management only)',
       'Jasper AI: $49/mo (content creation only)',
-      'BoomTown: $750-1,500/mo (CRM + leads)',
+      'BoldTrail: $499+/mo (CRM + marketing)',
       '',
-      'Total: $800-1,500/mo for separate tools',
-      'SAI Elite: $999/mo for EVERYTHING',
+      'Total: $600-1,000+/mo for separate tools',
+      'SAI Elite: $499/mo for EVERYTHING',
     ],
     cta: {
       text: 'Get Started →',
@@ -202,7 +202,7 @@ export const featureComparison: FeatureComparison[] = [
     features: [
       { name: 'Content pieces generated/month', free: '50', elite: 'Unlimited', custom: 'Unlimited' },
       { name: 'Content types supported', free: 'All 13', elite: 'All 13', custom: 'All 13' },
-      { name: 'AI models available', free: '3', elite: 'All 12+', custom: 'All 12+' },
+      { name: 'AI capabilities', free: 'Basic', elite: 'Advanced', custom: 'Advanced' },
       { name: 'Custom content templates', free: '5', elite: 'Unlimited', custom: 'Unlimited' },
       { name: 'Brand voice customization', free: 'Basic', elite: 'Advanced', custom: 'Advanced' },
       { name: 'A/B testing for emails', free: false, elite: true, custom: true },
@@ -227,7 +227,7 @@ export const featureComparison: FeatureComparison[] = [
     category: 'SAI ASSISTANT',
     features: [
       { name: 'AI queries per month', free: '100', elite: 'Unlimited', custom: 'Unlimited' },
-      { name: 'AI models available', free: '3 basic', elite: 'All 12+', custom: 'All 12+' },
+      { name: 'AI capabilities', free: 'Basic', elite: 'Advanced', custom: 'Advanced' },
       { name: 'Model selection', free: 'Auto', elite: 'Manual', custom: 'Manual' },
       { name: 'Custom AI prompts', free: '5', elite: 'Unlimited', custom: 'Unlimited' },
       { name: 'Document analysis', free: false, elite: true, custom: true },
@@ -272,7 +272,7 @@ export const featureComparison: FeatureComparison[] = [
     category: 'INTEGRATIONS',
     features: [
       { name: 'DocuSign (coming Q1 2025)', free: false, elite: true, custom: true },
-      { name: 'MLS integration (coming Q1 2025)', free: false, elite: true, custom: true },
+      { name: 'MLS integration (coming Q2 2026)', free: false, elite: true, custom: true },
       { name: 'QuickBooks (coming Q2 2025)', free: false, elite: true, custom: true },
       { name: 'SMS/WhatsApp (coming Q2 2025)', free: false, elite: true, custom: true },
       { name: 'API access (coming Q2 2025)', free: false, elite: true, custom: true },

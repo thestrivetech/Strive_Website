@@ -108,7 +108,8 @@
       "WebFetch(domain:www.theceshop.com)",
       "WebFetch(domain:realtybiznews.com)",
       "Bash(git stash:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(yarn list:*)"
     ],
     "deny": [],
     "ask": []

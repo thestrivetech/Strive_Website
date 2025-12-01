@@ -64,8 +64,8 @@ const Company = () => {
   const stats = [
     { number: "10+", label: "Tools Replaced by One Platform" },
     { number: "500+", label: "Real Estate Professionals Interested" },
-    { number: "5", label: "Integrated Modules for Complete Workflow" },
-    { number: "24/7", label: "SAI Assistant AI Assistant Available" }
+    { number: "6", label: "Integrated Modules for Complete Workflow" },
+    { number: "24/7", label: "AI Assistant Available" }
   ];
 
   // Vision Timeline Data
@@ -218,19 +218,19 @@ const Company = () => {
                 className="text-3xl md:text-4xl font-bold mb-6 text-[#020a1c]"
                 data-testid="text-story-title"
               >
-                Built by Real Estate Professionals, For Real Estate Professionals
+                From Family Roots to Real Estate Revolution
               </h2>
               <div className="space-y-4 md:space-y-6 text-muted-foreground">
                 <p data-testid="text-story-paragraph-1" className="text-base md:text-lg leading-relaxed">
-                  SAI Platform wasn't born from a tech team trying to understand real estate—it was built by people who lived the daily frustrations of juggling 10+ disconnected tools just to run a real estate business.
+                  SAI Platform wasn't born in a boardroom—it started at family dinner tables. Garrett's mom spent over 20 years navigating the complexities of the mortgage industry. Grant's grandmother dedicated more than two decades to residential real estate. Growing up, we didn't just observe real estate from the outside. We lived it through weekend open houses, late-night phone calls about deals falling through, and countless conversations about an industry we came to love.
                 </p>
                 <p data-testid="text-story-paragraph-2" className="text-base md:text-lg leading-relaxed">
-                  Our founders spent years watching talented agents waste hours switching between CRMs, transaction management systems, marketing tools, MLS platforms, and communication apps. They saw deals slip through the cracks because critical information was scattered across platforms. They experienced the pain of paying $500-$1,000/month for a fragmented tech stack that should work together seamlessly—but doesn't.
+                  We watched talented professionals juggle 10+ disconnected tools daily. Saw deals slip through the cracks because critical information was scattered across platforms. Experienced the frustration when a simple task required logging into five different systems. The technology was supposed to help—instead, it was draining the joy from an industry built on relationships.
                 </p>
 
-                <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">The Vision</h3>
+                <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">The Convergence</h3>
                 <p data-testid="text-story-paragraph-3" className="text-base md:text-lg leading-relaxed">
-                  We asked a simple question: What if there was one platform that handled everything? CRM to nurture leads. The Office to manage transactions. Content Studio to create marketing materials. REID for instant market data. And SAI Assistant—your AI assistant that works 24/7 to help you close more deals.
+                  As we pursued careers in technology—machine learning, full-stack development, AI systems—we kept coming back to the same question: Why hasn't someone fixed this? Why are the people we grew up watching still fighting the same battles with fragmented software? The answer was clear—we needed to build it ourselves, with the perspective only family experience could provide.
                 </p>
 
                 <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">Why This Matters to You</h3>
@@ -238,19 +238,19 @@ const Company = () => {
                   Real estate is relationship-driven, fast-paced, and unforgiving. You don't have time to log into 5 different platforms to check if a client responded. You can't afford to miss a closing deadline because your transaction manager didn't sync with your CRM.
                 </p>
                 <p data-testid="text-story-paragraph-5" className="text-base md:text-lg leading-relaxed">
-                  SAI Platform eliminates the chaos. Everything in one place. One login. One monthly fee ($999 for unlimited everything—no per-user costs, no hidden fees). Built specifically for real estate workflows, not generic business processes.
+                  SAI Platform eliminates the chaos. Everything in one place. One login. One monthly fee ($499/month for unlimited everything). Built specifically for real estate workflows by people who understand the industry isn't just business—it's personal.
                 </p>
                 <p data-testid="text-story-paragraph-6" className="text-base md:text-lg leading-relaxed">
-                  We're refining the platform with feedback from agents, team leads, and brokers who share our vision. Contact us to experience the all-in-one platform that replaces your entire tech stack.
+                  We're refining the platform with feedback from agents, team leads, and brokers who share our vision. Contact us to experience the all-in-one platform designed by people who grew up watching this industry firsthand.
                 </p>
 
                 <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">Join the Movement</h3>
                 <p data-testid="text-story-paragraph-7" className="text-base md:text-lg leading-relaxed">
-                  This isn't just software—it's a movement to give real estate professionals the tools they deserve. Tools that work together. Tools that save time. Tools that help you close more deals and grow your business without complexity.
+                  This isn't just software—it's a long-overdue answer to decades of industry frustration. For Garrett, it's honoring his mom's 20+ years of navigating mortgage complexity. For Grant, it's building what his grandmother deserved all those years ago. For all of us, it's proving that technology should empower real estate professionals, not exhaust them.
                 </p>
                 <div className="mt-4 md:mt-6 p-4 bg-primary/5 border-l-4 border-primary rounded-r-lg">
                   <p data-testid="text-story-paragraph-8" className="text-base md:text-lg leading-relaxed italic font-medium text-primary">
-                    Ready to replace 10+ tools with one powerful platform? Get started with SAI Platform and be part of the future of real estate technology.
+                    Ready to experience a platform built by people who understand real estate isn't just business—it's family? Join us and be part of the future of real estate technology.
                   </p>
                 </div>
               </div>

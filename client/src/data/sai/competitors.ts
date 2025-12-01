@@ -1,447 +1,478 @@
-// SAI Platform Competitor Analysis
-// 6 major competitors in real estate CRM/software market
+// SAI Platform Competitor Analysis - Verified Data
+// Source: SAI-Competitive-Analysis-Verified.md (November 26, 2025)
+// All pricing and features verified from GetApp, Capterra, G2, AgentAdvice, and official websites
 
 export interface Competitor {
   id: string;
   name: string;
   description: string;
-  founded: number;
-  headquarters: string;
-  customers?: string;
+  formerlyKnownAs?: string;
   pricing: {
-    model: string; // 'per-user' | 'flat-rate' | 'tiered'
+    model: 'per-user' | 'flat-rate' | 'tiered';
     startingPrice: string;
+    priceRange: string;
     details: string[];
   };
-  target: string; // Target customer segment
+  aiNative: 'yes' | 'no' | 'partial';
+  aiNativeNotes: string;
+  features: {
+    crm: boolean;
+    transactionManagement: boolean | 'partial';
+    transactionNotes?: string;
+    aiContentCreation: boolean | 'basic';
+    expenseTracking: boolean;
+    aiCommandCenter: boolean | 'partial';
+    idxWebsite: boolean;
+    leadGeneration: boolean;
+    mobileApp: boolean;
+  };
   strengths: string[];
   weaknesses: string[];
-  features: {
-    category: string;
-    hasFeature: boolean;
-    notes?: string;
-  }[];
-  whenTheyWin: string[]; // Scenarios where competitor is better choice
-  whenSAIWins: string[]; // Scenarios where SAI is better choice
-  migrationPath?: string;
+  userSentiment: {
+    pros: string[];
+    cons: string[];
+  };
+  competitivePosition: string;
 }
 
 export const competitors: Competitor[] = [
   {
+    id: 'boldtrail',
+    name: 'BoldTrail',
+    description: 'Enterprise real estate platform formerly known as kvCORE, focused on CRM and marketing automation for teams and brokerages.',
+    formerlyKnownAs: 'kvCORE',
+    pricing: {
+      model: 'tiered',
+      startingPrice: '$499/month',
+      priceRange: '$499+',
+      details: [
+        '$499/month for solo agents (verified)',
+        'Scales up for teams and brokerages',
+        'Additional onboarding fee: $999 (some sources)',
+        'Back Office module required for full transaction management',
+      ],
+    },
+    aiNative: 'no',
+    aiNativeNotes: 'Legacy platform retrofitted with AI features. Built on older kvCORE architecture, NOT AI-native from ground up.',
+    features: {
+      crm: true,
+      transactionManagement: 'partial',
+      transactionNotes: 'Requires BoldTrail Back Office (separate product/module) or third-party tools like dotloop',
+      aiContentCreation: 'basic',
+      expenseTracking: false,
+      aiCommandCenter: false,
+      idxWebsite: true,
+      leadGeneration: true,
+      mobileApp: true,
+    },
+    strengths: [
+      'Comprehensive feature set',
+      'Good for teams',
+      'Centralized platform',
+      'IDX websites with customization',
+      'Campaign management and automation',
+      'Integrations with Meta, dotloop, Zapier',
+    ],
+    weaknesses: [
+      'Steep learning curve',
+      'Can be clunky',
+      'Customer support inconsistent',
+      'Expensive for solo agents',
+      'Requires additional modules for full functionality',
+      'Not AI-native architecture',
+    ],
+    userSentiment: {
+      pros: ['Comprehensive feature set', 'Good for teams', 'Centralized platform'],
+      cons: ['Steep learning curve', 'Clunky interface', 'Customer support inconsistent', 'Expensive'],
+    },
+    competitivePosition: 'Strong CRM with marketing automation, but NOT AI-native and requires additional modules for transaction management.',
+  },
+  {
+    id: 'lofty',
+    name: 'Lofty.ai',
+    description: 'AI-integrated real estate platform with CRM, lead generation, and transaction management. More AI features than most competitors.',
+    formerlyKnownAs: 'Chime',
+    pricing: {
+      model: 'tiered',
+      startingPrice: '$449/month',
+      priceRange: '$449-$700',
+      details: [
+        'Core Plan: $449/month (verified)',
+        'Premier Plan: $700/month (verified)',
+        'Enterprise Plan: Up to $1,500/month (verified)',
+        'Special pricing for Real Brokerage agents: $50/month (partnership)',
+      ],
+    },
+    aiNative: 'partial',
+    aiNativeNotes: 'Originally Chime, rebranded as Lofty with added AI capabilities. More AI-integrated than BoldTrail, but not originally built AI-native.',
+    features: {
+      crm: true,
+      transactionManagement: true,
+      transactionNotes: 'Complete transaction management integrated into platform',
+      aiContentCreation: 'basic',
+      expenseTracking: false,
+      aiCommandCenter: 'partial',
+      idxWebsite: true,
+      leadGeneration: true,
+      mobileApp: true,
+    },
+    strengths: [
+      'AI-powered CRM with predictive insights',
+      '33+ lead generation methods',
+      'Social Studio (automated social media)',
+      'Dynamic CMA tool',
+      'Built-in transaction management',
+      '360° cross-platform marketing',
+    ],
+    weaknesses: [
+      'Expensive',
+      'Customer support declined after India move',
+      'Learning curve',
+      'Limited customization on website',
+      'Quality of leads varies',
+      'AI features are additions, not core architecture',
+    ],
+    userSentiment: {
+      pros: ['User-friendly', 'Comprehensive features', 'Good lead generation', 'AI features helpful'],
+      cons: ['Expensive', 'Customer support issues', 'Learning curve', 'Limited website customization'],
+    },
+    competitivePosition: 'Strong AI-integrated platform with transaction management, but expensive and AI features are additions rather than core architecture.',
+  },
+  {
     id: 'follow-up-boss',
     name: 'Follow Up Boss',
-    description: 'The most popular real estate CRM in the U.S., known for simple lead management and automated follow-ups.',
-    founded: 2011,
-    headquarters: 'Charlotte, NC',
-    customers: '25,000+ agents',
+    description: 'Focused CRM for lead management with strong automation. Entry-level pricing but CRM-only with no transaction management.',
     pricing: {
       model: 'per-user',
-      startingPrice: '$69/user/month',
+      startingPrice: '$58/month per user',
+      priceRange: '$58-$833',
       details: [
-        'Standard: $69/user/month',
-        'Premium: $99/user/month (includes text messaging)',
-        'Annual discount: 10% (2 months free)',
-        'Pay per contact after 5,000 contacts',
+        'Grow Plan: $58-$69/month per user (verified)',
+        'Pro Plan: $416/month for teams (verified)',
+        'Platform Plan: $833/month for large brokerages (30 users included)',
+        'Dialer add-on: +$33/user/month',
+        'Additional Pro users: +$41/user/month',
       ],
     },
-    target: 'Solo agents and small teams (1-5 agents)',
+    aiNative: 'no',
+    aiNativeNotes: 'Traditional CRM platform with no AI-native features. Focused purely on CRM functionality.',
+    features: {
+      crm: true,
+      transactionManagement: false,
+      transactionNotes: 'CRM only - requires integration with Open To Close, Dotloop, or Skyslope',
+      aiContentCreation: false,
+      expenseTracking: false,
+      aiCommandCenter: false,
+      idxWebsite: false,
+      leadGeneration: false,
+      mobileApp: true,
+    },
     strengths: [
-      'Clean UI and user-friendly',
+      'Simple and easy to use',
       'Reliable and proven (14+ years)',
-      'Strong email/SMS automation',
-      'Extensive integrations (Zapier)',
-      '24/7 live chat support',
-      'Excellent email campaign builder',
+      'Good for lead follow-up',
+      'Affordable entry price',
+      'No contracts',
+      'Strong integrations with lead sources (Zillow, Realtor.com, Facebook)',
     ],
     weaknesses: [
-      'CRM-only (no transaction management)',
+      'CRM only - no transaction management',
       'No AI content generation',
-      'No market intelligence/data',
-      'No social media scheduling',
-      'Per-user pricing scales expensively',
-      'Per-contact fees after 5,000',
+      'No AI assistant features',
+      'Missing batch texting',
+      'Expensive once you add features/users',
+      'Requires multiple additional tools',
     ],
-    features: [
-      { category: 'CRM & Lead Management', hasFeature: true },
-      { category: 'Transaction Management', hasFeature: false },
-      { category: 'AI Content Generation', hasFeature: false },
-      { category: 'Social Media Scheduling', hasFeature: false },
-      { category: 'Market Intelligence', hasFeature: false },
-      { category: 'AI Assistant', hasFeature: false },
-      { category: 'Zapier Integration', hasFeature: true },
-    ],
-    whenTheyWin: [
-      "You're a solo agent on a tight budget ($69/mo vs. $999/mo)",
-      'You only need CRM (no transaction mgmt, no marketing)',
-      'You already have a tech stack you love and don\'t want to consolidate',
-      'You need Zapier today (SAI coming Q2 2025)',
-      'You want 10+ years of proven reliability',
-      'You prioritize 24/7 live chat support',
-    ],
-    whenSAIWins: [
-      "You're a team of 2+ agents (flat pricing saves money vs. per-user costs)",
-      'You need transaction management (Follow Up Boss has no deal pipeline)',
-      'You want all-in-one consolidation (tired of logging into 5+ tools)',
-      'You need AI content generation',
-      'You need market intelligence (REID)',
-      "You're investor-focused (SAI's REID module built for investment properties)",
-      'You want unlimited users without scaling costs',
-    ],
-    migrationPath: 'Export contacts to CSV from Follow Up Boss → Import to SAI CRM → Recreate automated workflows → Train team (1-hour onboarding) → Run parallel for 30 days. Estimated timeline: 2-3 weeks.',
+    userSentiment: {
+      pros: ['Simple', 'Easy to use', 'Good for lead follow-up', 'Affordable entry', 'No contracts'],
+      cons: ['Limited features', 'Missing transaction management', 'Lacks AI', 'Gets expensive with add-ons'],
+    },
+    competitivePosition: 'Entry-level CRM focused solely on lead management. NOT a comprehensive platform - requires multiple other tools to match SAI functionality.',
   },
   {
-    id: 'boomtown',
-    name: 'BoomTown',
-    description: 'Enterprise real estate platform focused on lead generation and team management, popular with large brokerages.',
-    founded: 2006,
-    headquarters: 'Charleston, SC',
-    customers: '100,000+ agents (mostly enterprise)',
+    id: 'cinc',
+    name: 'CINC',
+    description: 'Enterprise-level platform focused on done-for-you lead generation and CRM automation. Highest price point with included advertising.',
     pricing: {
       model: 'tiered',
-      startingPrice: '$1,000/month',
+      startingPrice: '$899/month',
+      priceRange: '$899+',
       details: [
-        'Essential: $1,000/month (up to 10 agents)',
-        'Advanced: $1,500/month (up to 20 agents)',
-        'Premium: $2,000-2,500/month (20+ agents)',
-        '12-24 month contracts (early termination fees apply)',
-        'Lead generation included (budget varies by plan)',
+        'Starting at $899-$900/month (verified - SelectHub, HousingWire 2025)',
+        'Pricing INCLUDES done-for-you lead generation (Google/Facebook ads)',
+        'Cannot purchase CINC without included lead generation service',
+        'Scales up based on team size and ad spend',
       ],
     },
-    target: 'Large teams (10-100+ agents), brokerages',
+    aiNative: 'no',
+    aiNativeNotes: 'Legacy platform with added AI features. Has "CINC AI" but not built AI-native.',
+    features: {
+      crm: true,
+      transactionManagement: 'partial',
+      transactionNotes: 'Basic transaction tracking, e-signature, document storage. Often requires dotloop or Skyslope for full functionality.',
+      aiContentCreation: 'basic',
+      expenseTracking: false,
+      aiCommandCenter: false,
+      idxWebsite: true,
+      leadGeneration: true,
+      mobileApp: true,
+    },
     strengths: [
-      'Lead generation included (IDX website, Facebook ads, Google ads)',
-      'Advanced team management features',
-      'Leaderboards and performance tracking',
-      'Team goals tracking',
-      'Mature platform (18+ years)',
-      'Strong for large teams/brokerages',
+      'Excellent lead quality',
+      'Done-for-you advertising ($30M+ annual ad spend managed)',
+      'Powerful CRM automation ("Autotracks")',
+      'Comprehensive training and success coaching',
+      'Strong for teams',
+      'Dedicated support team',
     ],
     weaknesses: [
-      'Expensive ($1,000-2,500/month)',
-      'Long contracts (12-24 months)',
+      'VERY expensive',
       'Steep learning curve',
-      'No AI content generation',
-      'No investment analysis tools',
-      'Requires ad spend for lead gen ($500-2,000/mo typical)',
+      'Clunky interface',
+      'Frequent price increases reported',
+      "Can't buy without lead gen service",
+      'Forced ongoing ad spend investment',
     ],
-    features: [
-      { category: 'CRM & Lead Management', hasFeature: true },
-      { category: 'Lead Generation (IDX, Facebook/Google Ads)', hasFeature: true },
-      { category: 'Transaction Management', hasFeature: true, notes: 'Basic' },
-      { category: 'AI Content Generation', hasFeature: false },
-      { category: 'Investment Analysis', hasFeature: false },
-      { category: 'Team Performance Tracking', hasFeature: true, notes: 'Advanced' },
-      { category: 'AI Assistant', hasFeature: false },
-    ],
-    whenTheyWin: [
-      'You need lead generation included (IDX website, Facebook/Google ads)',
-      "You're a large team or brokerage (20+ agents)",
-      'You want advanced team performance tracking (leaderboards, goals, scorecards)',
-      'You have a dedicated marketing budget for lead gen ($500-2,000/mo)',
-      'You need an IDX website (SAI doesn\'t include website builder yet)',
-    ],
-    whenSAIWins: [
-      'You want lower cost ($999/mo vs. $1,000-2,500/mo)',
-      'You don\'t need lead generation included (handle your own ads or get referrals)',
-      'You need AI content creation (BoomTown has none)',
-      'You need investment analysis tools (SAI\'s REID module)',
-      'You want month-to-month flexibility (no 12-24 month contracts)',
-      'You have a small team (1-10 agents) - BoomTown may be overkill',
-      'You want faster onboarding (SAI: 1-hour vs. BoomTown: 2-4 weeks)',
-    ],
+    userSentiment: {
+      pros: ['Excellent lead quality', 'Powerful CRM automation', 'Comprehensive training', 'Strong for teams', 'Done-for-you advertising'],
+      cons: ['Very expensive', 'Steep learning curve', 'Clunky interface', 'Frequent price increases', 'Forced ad spend'],
+    },
+    competitivePosition: 'Enterprise-level platform focused on lead generation and CRM automation. Strong competitor but 2-3X price of SAI and requires ongoing ad spend investment.',
+  },
+];
+
+// Feature comparison for pricing page table
+export type FeatureValue = boolean | 'partial' | 'basic' | string;
+
+export interface CompetitorFeatureRow {
+  feature: string;
+  sai: FeatureValue;
+  boldtrail: FeatureValue;
+  lofty: FeatureValue;
+  followUpBoss: FeatureValue;
+  cinc: FeatureValue;
+}
+
+export const featureComparison: CompetitorFeatureRow[] = [
+  {
+    feature: 'Monthly Price',
+    sai: '$499',
+    boldtrail: '$499+',
+    lofty: '$449-$700',
+    followUpBoss: '$58-$833',
+    cinc: '$899+'
   },
   {
-    id: 'liondesk',
-    name: 'LionDesk',
-    description: 'Budget-friendly real estate CRM with video email and text messaging capabilities.',
-    founded: 2013,
-    headquarters: 'Plano, TX',
-    pricing: {
-      model: 'per-user',
-      startingPrice: '$50/user/month',
-      details: [
-        'Pro: $50/user/month',
-        'Team: $99/user/month (includes team features)',
-        'Annual discount: 20% off',
-        'Includes text messaging and video email',
-      ],
-    },
-    target: 'Solo agents and small teams on a budget',
-    strengths: [
-      'Affordable pricing ($50/user)',
-      'Video email capabilities',
-      'Text messaging included',
-      'Good for budget-conscious agents',
-      'Transaction coordinator features',
-      'Mobile app available',
-    ],
-    weaknesses: [
-      'CRM-only (no comprehensive transaction management)',
-      'No AI content generation',
-      'No market intelligence',
-      'Limited automation',
-      'Per-user pricing scales with team',
-      'Basic feature set compared to all-in-one platforms',
-    ],
-    features: [
-      { category: 'CRM & Lead Management', hasFeature: true },
-      { category: 'Video Email', hasFeature: true },
-      { category: 'Text Messaging', hasFeature: true },
-      { category: 'Transaction Management', hasFeature: false, notes: 'Basic TC features only' },
-      { category: 'AI Content Generation', hasFeature: false },
-      { category: 'Market Intelligence', hasFeature: false },
-      { category: 'AI Assistant', hasFeature: false },
-    ],
-    whenTheyWin: [
-      "You're a solo agent needing only CRM ($50/mo vs. $999/mo)",
-      'You prioritize video email capabilities',
-      'You want text messaging included without extra cost',
-      'You have a very tight budget',
-      'You don\'t need transaction management or marketing tools',
-    ],
-    whenSAIWins: [
-      "You're a team of 2+ agents ($100/mo for 2 users vs. $999/mo unlimited)",
-      'You need all-in-one platform (CRM + transactions + marketing + AI)',
-      'You need AI content generation (LionDesk has none)',
-      'You need market intelligence (REID)',
-      'You want unlimited users without per-user costs',
-      "You're investor-focused (need ROI calculators)",
-    ],
+    feature: 'AI-Native Architecture',
+    sai: true,
+    boldtrail: false,
+    lofty: 'partial',
+    followUpBoss: false,
+    cinc: false
   },
   {
-    id: 'salesforce',
-    name: 'Salesforce Real Estate Cloud',
-    description: 'Enterprise CRM powerhouse with real estate customizations, built on the world\'s #1 CRM platform.',
-    founded: 1999,
-    headquarters: 'San Francisco, CA',
-    pricing: {
-      model: 'per-user',
-      startingPrice: '$150/user/month',
-      details: [
-        'Professional: $150/user/month',
-        'Enterprise: $225/user/month',
-        'Unlimited: $300/user/month',
-        'Implementation costs: $20,000-50,000+',
-        'Annual contracts required',
-      ],
-    },
-    target: 'Large enterprises, national brokerages (100+ agents)',
-    strengths: [
-      'Most powerful CRM platform globally',
-      'Infinite customization possibilities',
-      'Advanced automation (Flow, Process Builder)',
-      'Massive ecosystem of integrations',
-      'Enterprise-grade security and compliance',
-      'Dedicated account management',
-    ],
-    weaknesses: [
-      'Extremely expensive ($150-300/user + $20-50k implementation)',
-      'Overkill for most real estate teams',
-      'Requires Salesforce admin/developer',
-      'Steep learning curve',
-      'No real estate features out-of-the-box',
-      'Long implementation (6-12 months)',
-    ],
-    features: [
-      { category: 'CRM & Lead Management', hasFeature: true, notes: 'Most advanced' },
-      { category: 'Customization', hasFeature: true, notes: 'Infinite' },
-      { category: 'Transaction Management', hasFeature: true, notes: 'Requires custom build' },
-      { category: 'AI Content Generation', hasFeature: false },
-      { category: 'Real Estate Features Out-of-Box', hasFeature: false },
-      { category: 'Market Intelligence', hasFeature: false },
-    ],
-    whenTheyWin: [
-      "You're a national brokerage with 100+ agents",
-      'You have a dedicated Salesforce admin team',
-      'You need infinite customization',
-      'You have $50,000+ for implementation',
-      'You require enterprise security/compliance (SOC 2, HIPAA)',
-      'You want to build a completely custom platform',
-    ],
-    whenSAIWins: [
-      'You need real estate features out-of-the-box (6 deal types, MLS content, ROI calculators)',
-      "You don't want a $20-50k implementation project",
-      'You want to start in hours, not months',
-      'You have a team <100 agents',
-      "You don't have a dedicated Salesforce admin",
-      'You need AI content generation and market intelligence built-in',
-    ],
+    feature: 'CRM',
+    sai: true,
+    boldtrail: true,
+    lofty: true,
+    followUpBoss: true,
+    cinc: true
   },
   {
-    id: 'kvcore',
-    name: 'kvCORE',
-    description: 'All-in-one real estate platform by Inside Real Estate with lead generation, CRM, and IDX websites.',
-    founded: 2014,
-    headquarters: 'Calgary, Canada',
-    pricing: {
-      model: 'tiered',
-      startingPrice: '$1,500/month',
-      details: [
-        'Team plan: $1,500+/month (pricing varies by team size)',
-        'Brokerage plan: Custom pricing',
-        '12-month contracts required',
-        'Setup fees apply',
-      ],
-    },
-    target: 'Medium to large teams (10-100+ agents)',
-    strengths: [
-      'All-in-one platform (CRM + website + lead gen)',
-      'IDX website included',
-      'Lead generation tools',
-      'Mobile app',
-      'Advanced automation',
-      'Good for medium-large teams',
-    ],
-    weaknesses: [
-      'Expensive ($1,500+ with 12-month contract)',
-      'Complex platform with steep learning curve',
-      'No AI content generation',
-      'No AI assistant',
-      'No investment analysis tools (REID)',
-      'Lock-in contracts',
-    ],
-    features: [
-      { category: 'CRM & Lead Management', hasFeature: true },
-      { category: 'IDX Website', hasFeature: true },
-      { category: 'Lead Generation', hasFeature: true },
-      { category: 'Transaction Management', hasFeature: true },
-      { category: 'AI Content Generation', hasFeature: false },
-      { category: 'AI Assistant', hasFeature: false },
-      { category: 'Investment Analysis', hasFeature: false },
-    ],
-    whenTheyWin: [
-      'You need IDX website included',
-      "You're a medium-large team (20-50 agents)",
-      'You want proven all-in-one platform (10+ years)',
-      'You need advanced website customization',
-      'You can commit to 12-month contract',
-    ],
-    whenSAIWins: [
-      'You want month-to-month flexibility (no 12-month lock-in)',
-      'You want lower cost ($999/mo vs. $1,500+/mo)',
-      'You need AI features (AI assistant, AI content generation)',
-      'You need investment analysis tools (REID)',
-      "You're a smaller team (1-20 agents)",
-      'You want faster onboarding and simpler interface',
-    ],
+    feature: 'Transaction Management',
+    sai: true,
+    boldtrail: 'partial',
+    lofty: true,
+    followUpBoss: false,
+    cinc: 'partial'
   },
   {
-    id: 'wise-agent',
-    name: 'Wise Agent',
-    description: 'Budget-friendly CRM designed specifically for real estate agents with transaction management features.',
-    founded: 2009,
-    headquarters: 'Glendale, AZ',
-    pricing: {
-      model: 'per-user',
-      startingPrice: '$39/user/month',
-      details: [
-        'Standard: $39/user/month',
-        'Annual discount: $29/user/month (save $120/year)',
-        'Unlimited contacts',
-        '14-day free trial',
-      ],
-    },
-    target: 'Solo agents on tight budgets',
-    strengths: [
-      'Most affordable ($39/user)',
-      'Real estate-specific from day one',
-      'Transaction management included',
-      'Unlimited contacts',
-      'Easy to learn',
-      'Good for solo agents',
+    feature: 'Predictive Market Intelligence',
+    sai: true,
+    boldtrail: false,
+    lofty: false,
+    followUpBoss: false,
+    cinc: false
+  },
+  {
+    feature: 'AI Content Creation',
+    sai: true,
+    boldtrail: 'basic',
+    lofty: 'basic',
+    followUpBoss: false,
+    cinc: 'basic'
+  },
+  {
+    feature: 'Expense & Tax Tracking',
+    sai: true,
+    boldtrail: false,
+    lofty: false,
+    followUpBoss: false,
+    cinc: false
+  },
+  {
+    feature: 'AI Command Center',
+    sai: true,
+    boldtrail: false,
+    lofty: 'partial',
+    followUpBoss: false,
+    cinc: false
+  },
+  {
+    feature: 'IDX Website',
+    sai: true,
+    boldtrail: true,
+    lofty: true,
+    followUpBoss: false,
+    cinc: true
+  },
+  {
+    feature: 'Mobile App',
+    sai: true,
+    boldtrail: true,
+    lofty: true,
+    followUpBoss: true,
+    cinc: true
+  },
+];
+
+// Cost to replicate SAI with competitor stacks
+export interface ToolCost {
+  name: string;
+  monthlyPrice: number;
+  purpose: string;
+}
+
+export interface CostToReplicateScenario {
+  id: string;
+  name: string;
+  description: string;
+  tools: ToolCost[];
+  totalMonthlyLow: number;
+  totalMonthlyHigh: number;
+  saiPrice: number;
+  monthlySavingsLow: number;
+  monthlySavingsHigh: number;
+}
+
+export const costToReplicateScenarios: CostToReplicateScenario[] = [
+  {
+    id: 'boldtrail-stack',
+    name: 'BoldTrail Stack',
+    description: 'BoldTrail CRM with required add-ons for full functionality',
+    tools: [
+      { name: 'BoldTrail CRM', monthlyPrice: 499, purpose: 'CRM & Marketing' },
+      { name: 'Back Office Module', monthlyPrice: 75, purpose: 'Transaction Management' },
+      { name: 'QuickBooks', monthlyPrice: 30, purpose: 'Expense Tracking' },
+      { name: 'ChatGPT Plus', monthlyPrice: 20, purpose: 'AI Assistance' },
+      { name: 'Canva Pro', monthlyPrice: 13, purpose: 'Content Creation' },
     ],
-    weaknesses: [
-      'Dated interface',
-      'Limited AI/automation',
-      'No AI content generation',
-      'No market intelligence',
-      'Basic feature set',
-      'Per-user pricing (not good for teams)',
+    totalMonthlyLow: 612,
+    totalMonthlyHigh: 662,
+    saiPrice: 499,
+    monthlySavingsLow: 113,
+    monthlySavingsHigh: 163,
+  },
+  {
+    id: 'fub-stack',
+    name: 'Follow Up Boss Stack',
+    description: 'Follow Up Boss with tools to match SAI functionality',
+    tools: [
+      { name: 'Follow Up Boss Pro', monthlyPrice: 416, purpose: 'CRM' },
+      { name: 'Dotloop', monthlyPrice: 59, purpose: 'Transaction Management' },
+      { name: 'QuickBooks', monthlyPrice: 30, purpose: 'Expense Tracking' },
+      { name: 'ChatGPT Plus', monthlyPrice: 20, purpose: 'AI Assistance' },
+      { name: 'Canva Pro', monthlyPrice: 13, purpose: 'Content Creation' },
+      { name: 'Lead Gen Tool', monthlyPrice: 200, purpose: 'Lead Generation' },
     ],
-    features: [
-      { category: 'CRM & Lead Management', hasFeature: true },
-      { category: 'Transaction Management', hasFeature: true, notes: 'Basic' },
-      { category: 'AI Content Generation', hasFeature: false },
-      { category: 'Market Intelligence', hasFeature: false },
-      { category: 'AI Assistant', hasFeature: false },
-      { category: 'Social Media Scheduling', hasFeature: false },
+    totalMonthlyLow: 738,
+    totalMonthlyHigh: 1038,
+    saiPrice: 499,
+    monthlySavingsLow: 239,
+    monthlySavingsHigh: 539,
+  },
+  {
+    id: 'cinc-stack',
+    name: 'CINC Alternative',
+    description: 'CINC with additional tools for missing features',
+    tools: [
+      { name: 'CINC (includes leads)', monthlyPrice: 899, purpose: 'CRM & Lead Gen' },
+      { name: 'QuickBooks', monthlyPrice: 30, purpose: 'Expense Tracking' },
+      { name: 'ChatGPT Plus', monthlyPrice: 20, purpose: 'Advanced AI' },
     ],
-    whenTheyWin: [
-      "You're a solo agent on a very tight budget ($39/mo)",
-      'You only need basic CRM + transaction tracking',
-      "You don't need AI, market data, or advanced features",
-      'You want the absolute lowest price',
-      'You prefer simplicity over features',
+    totalMonthlyLow: 949,
+    totalMonthlyHigh: 949,
+    saiPrice: 499,
+    monthlySavingsLow: 450,
+    monthlySavingsHigh: 450,
+  },
+  {
+    id: 'entry-level-stack',
+    name: 'Entry-Level Stack',
+    description: 'Budget option (missing AI, advanced features, lead gen)',
+    tools: [
+      { name: 'Follow Up Boss Grow', monthlyPrice: 58, purpose: 'Basic CRM' },
+      { name: 'Open To Close', monthlyPrice: 35, purpose: 'Transaction Management' },
+      { name: 'QuickBooks', monthlyPrice: 30, purpose: 'Expense Tracking' },
+      { name: 'Basic Tools', monthlyPrice: 20, purpose: 'Content' },
     ],
-    whenSAIWins: [
-      "You're growing a team (Wise Agent: $39 × 10 = $390/mo vs. SAI: $999 unlimited)",
-      'You need AI content generation',
-      'You need market intelligence (REID)',
-      'You need modern UI and advanced automation',
-      'You want all-in-one platform with social scheduling, email marketing, AI',
-      "You're investor-focused (need ROI calculators)",
-    ],
+    totalMonthlyLow: 143,
+    totalMonthlyHigh: 143,
+    saiPrice: 499,
+    monthlySavingsLow: -356, // This scenario costs less but is missing key features
+    monthlySavingsHigh: -356,
   },
 ];
 
 // Helper functions
 export const getCompetitorById = (id: string): Competitor | undefined => {
-  return competitors.find(c => c.id === id);
+  return competitors.find((c) => c.id === id);
 };
 
-export const getCompetitorsByPricingModel = (model: string): Competitor[] => {
-  return competitors.filter(c => c.pricing.model === model);
+export const getCompetitorsByAiNative = (aiNative: 'yes' | 'no' | 'partial'): Competitor[] => {
+  return competitors.filter((c) => c.aiNative === aiNative);
 };
 
-// Competitive positioning
-export interface CompetitivePosition {
-  saiSweetSpot: {
-    teamSize: string;
-    budget: string;
-    useCase: string;
-    painPoint: string;
-    valueProp: string;
-  };
-  saiDifferentiators: string[];
-  saiWinsWhen: string[];
-  saiLosesWhen: string[];
-}
+export const getCostScenarioById = (id: string): CostToReplicateScenario | undefined => {
+  return costToReplicateScenarios.find((s) => s.id === id);
+};
 
-export const competitivePositioning: CompetitivePosition = {
-  saiSweetSpot: {
-    teamSize: '2-50 agents (unlimited users is key differentiator)',
-    budget: '$1,000-2,000/month for software',
-    useCase: 'Need all-in-one (CRM + transactions + marketing + data + AI)',
-    painPoint: 'Tool fragmentation, high per-user costs',
-    valueProp: 'Replace 5+ tools with one platform. Save $6,000+/year.',
+export const getPositiveSavingsScenarios = (): CostToReplicateScenario[] => {
+  return costToReplicateScenarios.filter((s) => s.monthlySavingsLow > 0);
+};
+
+// Key competitive advantages for messaging
+export const saiCompetitiveAdvantages = [
+  {
+    title: 'True AI-Native Architecture',
+    description: 'SAI is built from the ground up with AI at the core. Competitors retrofitted AI onto legacy platforms.',
+    advantage: '3-5 year technological head start',
   },
-  saiDifferentiators: [
-    'Unlimited Users at Flat Pricing - Only SAI offers this in real estate CRM market',
-    'AI-Native (12+ Models) - Built with AI from day one, not bolted on',
-    'All-in-One Platform - 6 modules replace 6+ separate tools with 100% data sync',
-    'Real Estate Specialized - 6 deal types, MLS-ready content, investment analysis (REID)',
-  ],
-  saiWinsWhen: [
-    'Team size: 2+ agents (flat pricing advantage)',
-    'Need: All-in-one consolidation',
-    'Pain: Tool fragmentation, high costs',
-    'Vertical: Investment-focused agents',
-  ],
-  saiLosesWhen: [
-    'Solo agent on tight budget ($39-69/mo competitors)',
-    'Need: IDX website (BoomTown, kvCORE)',
-    'Need: Lead generation included (BoomTown, kvCORE)',
-    'Need: Zapier today (Q2 2025 for SAI)',
-    'Enterprise: 100+ agents (Salesforce\'s advanced features)',
-  ],
-};
+  {
+    title: 'Proprietary AI Models',
+    description: 'Market Velocity Intelligence (~10 day accuracy) and Precision Valuation Intelligence (~7% accuracy). NO competitor offers predictive market timing.',
+    advantage: 'Exclusive predictive capabilities',
+  },
+  {
+    title: 'Complete All-in-One Platform',
+    description: 'Only SAI includes CRM + Transaction Mgmt + Expense Tracking + AI Command Center in one platform.',
+    advantage: 'True consolidation, not partial solutions',
+  },
+  {
+    title: 'Price-to-Value Ratio',
+    description: 'SAI at $499/month matches BoldTrail but with more features. Building equivalent stack costs $612-$1,038/month.',
+    advantage: 'Save $100-$500+/month',
+  },
+  {
+    title: 'No Hidden Costs',
+    description: 'BoldTrail has onboarding fees, Lofty requires premium tiers, Follow Up Boss needs add-ons, CINC forces ad spend. SAI is all-inclusive.',
+    advantage: 'Transparent, predictable pricing',
+  },
+];
 
-// Positioning statements vs. each competitor
-export const positioningStatements: Record<string, string> = {
-  'follow-up-boss': 'Follow Up Boss is a great CRM, but it\'s just a CRM. SAI gives you CRM + transaction management + AI content + market data in one platform, at a flat rate for your entire team.',
-  'boomtown': 'BoomTown costs $1,000-2,500/month and requires lead gen ad spend. SAI is $999/month all-in, with AI content generation that often outperforms BoomTown\'s templates.',
-  'liondesk': 'LionDesk is affordable at $50/user, but multiply that by your team size and add tools for transactions, marketing, and data—you\'re at $400+/month per agent. SAI is $999 flat for unlimited users.',
-  'salesforce': 'Salesforce is powerful but overkill for most real estate teams. SAI gives you real estate features out-of-the-box—6 deal types, MLS-ready content, ROI calculators—without a $50,000 implementation project.',
-  'kvcore': 'kvCORE costs $1,500+ with a 12-month contract. SAI is $999 month-to-month, with AI features kvCORE doesn\'t have (AI assistant, AI content generation, investment analysis).',
-  'wise-agent': 'Wise Agent is great for solo agents on a budget. But if you need AI content, market data, or you\'re growing a team, SAI\'s $999 flat rate for unlimited users is a better long-term investment.',
+// Positioning statement
+export const competitivePositioning = {
+  headline: 'No competitor offers SAI\'s combination of AI-native architecture, predictive intelligence, and complete all-in-one functionality',
+  subheadline: 'While competitors retrofit AI onto legacy platforms, SAI was built AI-first from day one. This architectural advantage gives us a 3-5 year head start that cannot be easily replicated.',
+  costSummary: 'Cost to Replicate SAI with Competitors: $600-$1,000+/month across 3-5 platforms. SAI delivers everything for $499/month.',
 };

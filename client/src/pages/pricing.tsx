@@ -3,13 +3,14 @@ import { MetaTags } from "@/components/seo/meta-tags";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, ArrowRight, ChevronDown, Users, Building2, Sparkles } from "lucide-react";
+import { CheckCircle2, ArrowRight, ChevronDown, Users, Building2, Sparkles, Check, X, AlertCircle, Calculator, DollarSign, Layers } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { cn } from "@/lib/utils";
 
-// Import pricing FAQs
+// Import pricing FAQs and competitor data
 import { faqs } from "@/data/sai/faqs";
+import { featureComparison, costToReplicateScenarios, competitivePositioning, getPositiveSavingsScenarios } from "@/data/sai/competitors";
 
 /**
  * Pricing Page - Seat-based pricing model
@@ -76,13 +77,36 @@ export default function Pricing() {
   const coreFeatures = [
     'All 6 integrated modules (SAI Assistant, CRM, The Office, Content Studio, REID, Taxes & Expenses)',
     'Unlimited contacts, deals, and content generation',
-    'Advanced AI automation with 12+ AI models',
+    'Advanced AI-powered automation',
     'Priority support and dedicated onboarding',
     'All future features and updates at no additional cost',
     'Market intelligence and analytics',
     'Team collaboration tools',
     'API access and integrations',
   ];
+
+  // Helper function to render feature comparison values
+  const renderFeatureValue = (value: boolean | string | 'partial' | 'basic', isSai = false) => {
+    if (typeof value === 'string') {
+      // It's a string like "$499" or "partial" or "basic"
+      if (value === 'partial' || value === 'basic') {
+        return (
+          <span className="inline-flex items-center gap-1">
+            <AlertCircle className="w-4 h-4 text-yellow-400" />
+            <span className={cn("text-xs", isSai ? "text-white/70" : "text-white/60")}>
+              {value.charAt(0).toUpperCase() + value.slice(1)}
+            </span>
+          </span>
+        );
+      }
+      // It's a price string
+      return <span className={cn("text-sm font-semibold", isSai ? "text-green-400" : "text-white/80")}>{value}</span>;
+    }
+    if (value === true) {
+      return <Check className={cn("w-5 h-5 mx-auto", isSai ? "text-green-400" : "text-green-400")} />;
+    }
+    return <X className="w-5 h-5 text-red-400 mx-auto" />;
+  };
 
   return (
     <>
@@ -105,7 +129,7 @@ export default function Pricing() {
                 Simple, Transparent Pricing for Real Estate Teams
               </h1>
               <p className="text-xl sm:text-2xl text-white/95 mb-10 leading-relaxed max-w-3xl mx-auto">
-                <span className="font-bold text-white"></span> Everything included. No hidden fees, no feature gates, no surprises.
+                Everything included. No hidden fees, no feature gates, no surprises.
               </p>
 
               {/* Combined Promotional Card */}
@@ -165,42 +189,15 @@ export default function Pricing() {
           </div>
         </section>
 
-        {/* Base Price Section - Matching homepage style */}
-        <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-orange-50 via-white to-orange-50/50">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center">
-              <Badge className="mb-6 bg-gradient-to-r from-orange-100 to-orange-200 text-orange-700 border-orange-300 font-semibold">
-                Straightforward Pricing
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                One Platform. One Price. Everything Included.
-              </h2>
-              <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-                Volume discounts for teams. Additional savings for annual commitment.
-              </p>
-
-              {/* Base Price Display */}
-              <div className="inline-block bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-300 rounded-2xl px-10 py-8 mb-8">
-                <p className="text-lg text-gray-700 mb-2">Base Price</p>
-                <div className="flex items-baseline justify-center gap-2 mb-2">
-                  <span className="text-6xl sm:text-7xl font-bold text-orange-600">$499</span>
-                  <span className="text-2xl text-gray-700">/seat</span>
-                </div>
-                <p className="text-gray-600">per month</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Pricing Tiers - Matching homepage use cases style */}
-        <section id="pricing-tiers" className="py-16 sm:py-20 lg:py-24 bg-gray-50">
+        {/* Pricing Tiers */}
+        <section id="pricing-tiers" className="py-16 sm:py-20 lg:py-24 bg-white">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Volume Discounts for Teams
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-                The more seats you need, the more you save. All plans include everything.
+                The more seats you need, the more you save. <span className="font-bold bg-gradient-to-r from-orange-600 to-purple-600 bg-clip-text text-transparent">All plans include everything.</span>
               </p>
             </div>
 
@@ -217,7 +214,7 @@ export default function Pricing() {
                     transition={{ delay: index * 0.1, duration: 0.5 }}
                   >
                     <Card className={cn(
-                      "group relative overflow-hidden hover:shadow-xl transition-all duration-200 border-2 bg-white h-full",
+                      "group relative overflow-hidden hover:shadow-xl transition-all duration-200 border-2 bg-white h-full flex flex-col",
                       tier.highlighted ? "border-orange-500 shadow-xl" : "border-gray-200 hover:border-orange-300"
                     )}>
                       {/* Decorative gradient background */}
@@ -230,7 +227,7 @@ export default function Pricing() {
                         </div>
                       )}
 
-                      <CardContent className="p-6 relative z-10">
+                      <CardContent className="p-6 relative z-10 flex flex-col flex-1">
                         {/* Icon */}
                         <div className="flex justify-center mb-4">
                           <div className="w-16 h-16 bg-gradient-to-br from-orange-100 via-orange-200 to-purple-200 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-300">
@@ -244,24 +241,25 @@ export default function Pricing() {
                         </h3>
                         <p className="text-gray-600 text-center font-medium mb-6">{tier.seats}</p>
 
-                        {/* Monthly Pricing */}
+                        {/* Monthly Pricing - fixed height for badge area */}
                         <div className="mb-6 pb-6 border-b-2 border-gray-100">
                           <p className="text-sm text-gray-600 mb-2 text-center font-semibold uppercase tracking-wide">Monthly</p>
                           <div className="flex items-baseline justify-center gap-2 mb-2">
                             <span className="text-4xl font-bold text-gray-900">${tier.monthlyPrice}</span>
                             <span className="text-gray-600">/seat</span>
                           </div>
-                          {tier.monthlySavings && (
-                            <div className="text-center">
+                          {/* Fixed height container for badge to ensure alignment */}
+                          <div className="text-center h-6">
+                            {tier.monthlySavings && (
                               <Badge className="bg-green-100 text-green-700 border-green-300 font-semibold">
                                 {tier.monthlySavings}
                               </Badge>
-                            </div>
-                          )}
+                            )}
+                          </div>
                         </div>
 
                         {/* Annual Pricing */}
-                        <div className="mb-6">
+                        <div className="mb-6 flex-1">
                           <p className="text-sm text-gray-600 mb-2 text-center font-semibold uppercase tracking-wide">Annual (Best Value)</p>
                           <div className="flex items-baseline justify-center gap-2 mb-2">
                             <span className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">
@@ -279,8 +277,8 @@ export default function Pricing() {
                           </div>
                         </div>
 
-                        {/* CTA Button */}
-                        <Link href="/contact">
+                        {/* CTA Button - pushed to bottom */}
+                        <Link href="/contact" className="mt-auto">
                           <Button
                             className="w-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white font-bold py-6 shadow-lg hover:shadow-xl transition-all duration-300 min-h-[44px]"
                             size="lg"
@@ -296,36 +294,232 @@ export default function Pricing() {
               })}
             </div>
 
-            {/* Pricing Note */}
-            <div className="text-center mt-12 max-w-3xl mx-auto">
-              <p className="text-gray-700 leading-relaxed">
-                <span className="font-bold text-gray-900">All plans include everything.</span> Every seat gets full access to all 6 modules, unlimited features, and all future updates at no additional cost.
+          </div>
+        </section>
+
+        {/* Competitor Comparison Section */}
+        <section className="py-16 sm:py-20 lg:py-24 hero-gradient relative overflow-hidden">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-6xl mx-auto">
+              {/* Section Header */}
+              <div className="text-center mb-12">
+                <Badge className="mb-6 bg-white/10 text-orange-300 border-orange-400/50 font-semibold backdrop-blur-sm">
+                  Competitive Analysis
+                </Badge>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                  How SAI Compares to Competitors
+                </h2>
+                <p className="text-xl text-white/90 mb-4 leading-relaxed max-w-4xl mx-auto">
+                  {competitivePositioning.headline}
+                </p>
+              </div>
+
+              {/* Comparison Table */}
+              <div className="overflow-x-auto rounded-xl">
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr className="bg-white/10 backdrop-blur-sm">
+                      <th className="text-left py-4 px-4 text-white font-semibold border-b border-white/20">Feature</th>
+                      <th className="text-center py-4 px-3 text-white font-bold border-b border-white/20 bg-orange-500/20">
+                        <span className="text-orange-300">SAI</span>
+                      </th>
+                      <th className="text-center py-4 px-3 text-white/80 font-medium border-b border-white/20">BoldTrail</th>
+                      <th className="text-center py-4 px-3 text-white/80 font-medium border-b border-white/20">Lofty.ai</th>
+                      <th className="text-center py-4 px-3 text-white/80 font-medium border-b border-white/20">Follow Up Boss</th>
+                      <th className="text-center py-4 px-3 text-white/80 font-medium border-b border-white/20">CINC</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {featureComparison.map((row, index) => (
+                      <tr
+                        key={row.feature}
+                        className={cn(
+                          "border-b border-white/10",
+                          index % 2 === 0 ? "bg-white/5" : "bg-transparent"
+                        )}
+                      >
+                        <td className="py-3 px-4 text-white/90 font-medium text-sm">{row.feature}</td>
+                        <td className="py-3 px-3 text-center bg-orange-500/10">
+                          {renderFeatureValue(row.sai, true)}
+                        </td>
+                        <td className="py-3 px-3 text-center">
+                          {renderFeatureValue(row.boldtrail)}
+                        </td>
+                        <td className="py-3 px-3 text-center">
+                          {renderFeatureValue(row.lofty)}
+                        </td>
+                        <td className="py-3 px-3 text-center">
+                          {renderFeatureValue(row.followUpBoss)}
+                        </td>
+                        <td className="py-3 px-3 text-center">
+                          {renderFeatureValue(row.cinc)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* AI-Native Advantage Callout */}
+              <div className="mt-10 bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Sparkles className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-2">AI-Native Advantage</h3>
+                    <p className="text-white/85 leading-relaxed">
+                      {competitivePositioning.subheadline}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footnote */}
+              <p className="text-white/60 text-sm mt-6 text-center">
+                * Requires additional modules or integrations. Pricing verified November 2025.
               </p>
             </div>
           </div>
         </section>
 
-        {/* What's Included Section - Matching homepage style */}
-        <section className="py-16 sm:py-20 lg:py-24 bg-white">
+        {/* Cost to Replicate Section */}
+        <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-6xl mx-auto">
+              {/* Section Header */}
+              <div className="text-center mb-12">
+                <Badge className="mb-6 bg-orange-100 text-orange-700 border-orange-300 font-semibold">
+                  Cost Comparison
+                </Badge>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                  The Real Cost of Going Without SAI
+                </h2>
+                <p className="text-xl text-gray-700 mb-4 leading-relaxed max-w-4xl mx-auto">
+                  Building an equivalent tech stack costs <span className="font-bold text-orange-600">$600-$1,000+/month</span> across multiple disconnected platforms.
+                </p>
+              </div>
+
+              {/* Cost Scenarios Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                {getPositiveSavingsScenarios().map((scenario, index) => (
+                  <motion.div
+                    key={scenario.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.4 }}
+                  >
+                    <Card className="h-full border-2 border-red-200 bg-white hover:border-red-300 transition-colors duration-200">
+                      <CardContent className="p-6">
+                        {/* Scenario Header */}
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                            <Layers className="w-5 h-5 text-red-600" />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-gray-900">{scenario.name}</h3>
+                            <p className="text-sm text-gray-600">{scenario.tools.length} tools required</p>
+                          </div>
+                        </div>
+
+                        {/* Tools List */}
+                        <div className="space-y-2 mb-4">
+                          {scenario.tools.map((tool) => (
+                            <div key={tool.name} className="flex justify-between items-center text-sm">
+                              <span className="text-gray-700">{tool.name}</span>
+                              <span className="text-gray-600 font-medium">${tool.monthlyPrice}/mo</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Total Cost */}
+                        <div className="pt-4 border-t border-gray-200">
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="font-semibold text-gray-900">Monthly Total:</span>
+                            <span className="text-xl font-bold text-red-600">
+                              ${scenario.totalMonthlyLow === scenario.totalMonthlyHigh
+                                ? scenario.totalMonthlyLow
+                                : `${scenario.totalMonthlyLow}-${scenario.totalMonthlyHigh}`}
+                            </span>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* SAI Value Box */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <Card className="border-4 border-green-500 bg-gradient-to-br from-green-50 via-white to-emerald-50 shadow-xl">
+                  <CardContent className="p-8">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                      {/* Left: SAI Value */}
+                      <div className="flex items-center gap-4">
+                        <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                          <DollarSign className="w-8 h-8 text-white" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-green-700 uppercase tracking-wide mb-1">SAI Platform</p>
+                          <p className="text-4xl font-bold text-gray-900">$499<span className="text-lg font-medium text-gray-600">/month</span></p>
+                          <p className="text-gray-700">Everything included. No add-ons.</p>
+                        </div>
+                      </div>
+
+                      {/* Right: Savings */}
+                      <div className="text-center md:text-right">
+                        <p className="text-sm font-semibold text-gray-600 mb-1">You Save</p>
+                        <p className="text-3xl font-bold text-green-600">$100-$500+<span className="text-base font-medium text-gray-600">/month</span></p>
+                        <p className="text-gray-600 text-sm">vs equivalent competitor stacks</p>
+                      </div>
+                    </div>
+
+                    {/* CTA */}
+                    <div className="mt-6 pt-6 border-t border-green-200 text-center">
+                      <Link href="/waitlist">
+                        <Button
+                          size="lg"
+                          className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300 min-h-[44px]"
+                        >
+                          Join Waitlist - Lock In $499/month
+                          <ArrowRight className="ml-2 w-5 h-5" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* What's Included Section - Dark contrast section */}
+        <section className="py-16 sm:py-20 lg:py-24 hero-gradient relative overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
-                <Badge className="mb-6 bg-gradient-to-r from-orange-100 to-orange-200 text-orange-700 border-orange-300 font-semibold">
+                <Badge className="mb-6 bg-white/10 text-orange-300 border-orange-400/50 font-semibold backdrop-blur-sm">
                   Everything Included
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
                   What's Included in Every Seat
                 </h2>
-                <p className="text-xl text-gray-700 mb-8 leading-relaxed">
+                <p className="text-xl text-white/90 mb-8 leading-relaxed">
                   No feature gates. No tiers. No add-ons. Just everything you need to succeed.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {coreFeatures.map((feature, index) => (
-                  <div key={index} className="flex items-start gap-3 bg-white rounded-lg p-4 shadow-sm border border-gray-200">
-                    <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-800">{feature}</span>
+                  <div key={index} className="flex items-start gap-3 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 hover:bg-white/15 transition-colors duration-200">
+                    <CheckCircle2 className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-white/95">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -333,8 +527,8 @@ export default function Pricing() {
           </div>
         </section>
 
-        {/* Pricing FAQs Section - Matching homepage FAQ style */}
-        <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-orange-50 via-white to-orange-50/50">
+        {/* Pricing FAQs Section */}
+        <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
@@ -412,7 +606,7 @@ export default function Pricing() {
                         <motion.div
                           initial={{ scaleX: 0 }}
                           animate={{ scaleX: 1 }}
-                          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-600 to-green-500 origin-left"
+                          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-600 to-orange-500 origin-left"
                         />
                       )}
                     </Card>
@@ -421,50 +615,27 @@ export default function Pricing() {
               })}
             </div>
 
-            <div className="text-center mt-12">
-              <p className="text-gray-700 mb-4">
-                Have more questions about pricing?
-              </p>
-              <Link href="/contact">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="min-h-[44px]"
-                >
-                  Contact Our Team
-                </Button>
-              </Link>
-            </div>
           </div>
         </section>
 
-        {/* Final CTA Section - Matching homepage style */}
-        <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-orange-600 via-orange-500 to-orange-600">
+        {/* Final CTA Section */}
+        <section className="py-16 sm:py-20 lg:py-24 hero-gradient">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
                 Ready to Transform Your Real Estate Business?
               </h2>
-              <p className="text-xl text-white/95 mb-8 leading-relaxed">
-                Join the first 100 legacy clients and lock in <span className="font-bold">$499/seat pricing forever.</span> Plus get a free month with your first payment (until Feb 1, 2026).
+              <p className="text-xl text-white/90 mb-8 leading-relaxed">
+                Join the first 100 legacy clients and lock in <span className="font-bold text-white">$499/seat pricing forever.</span> Plus get a free month with your first payment (until Feb 1, 2026).
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex justify-center">
                 <Link href="/contact">
                   <Button
                     size="lg"
-                    className="min-h-[44px] px-8 text-lg font-semibold bg-white text-orange-600 hover:bg-gray-100 shadow-xl hover:shadow-2xl transition-all duration-300"
+                    className="min-h-[44px] px-8 py-6 text-lg font-semibold bg-white text-primary hover:bg-white/90 shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     Get Started
                     <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
-                </Link>
-                <Link href="/contact">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="min-h-[44px] px-8 text-lg font-semibold border-2 border-white text-white hover:bg-white/10"
-                  >
-                    Contact Sales
                   </Button>
                 </Link>
               </div>
