@@ -200,7 +200,7 @@ export default function Pricing() {
 
                     {/* CTA Button */}
                     <Button
-                      className="w-full bg-gradient-to-r from-orange-600 via-purple-600 to-orange-600 hover:from-orange-700 hover:via-purple-700 hover:to-orange-700 text-white font-bold py-4 text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 min-h-[44px]"
+                      className="w-full bg-gradient-to-r from-orange-600 via-purple-600 to-orange-600 hover:from-orange-700 hover:via-purple-700 hover:to-orange-700 text-white font-bold py-4 text-base shadow-lg hover:shadow-xl transition-all duration-300 min-h-[44px]"
                       onClick={() => document.getElementById('pricing-tiers')?.scrollIntoView({ behavior: 'smooth' })}
                     >
                       Join now and secure your spot before we reach 10 clients in December
@@ -214,7 +214,7 @@ export default function Pricing() {
         </section>
 
         {/* Pricing Tiers */}
-        <section id="pricing-tiers" className="py-16 sm:py-20 lg:py-24 bg-white">
+        <section id="pricing-tiers" className="py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
@@ -339,8 +339,9 @@ export default function Pricing() {
               </div>
 
               {/* Comparison Table */}
-              <div className="overflow-x-auto rounded-xl">
-                <table className="w-full border-collapse">
+              <div className="relative">
+                <div className="overflow-x-auto rounded-xl">
+                  <table className="w-full border-collapse">
                   <thead>
                     <tr className="bg-white/10 backdrop-blur-sm">
                       <th className="text-left py-4 px-4 text-white font-semibold border-b border-white/20">Feature</th>
@@ -381,7 +382,10 @@ export default function Pricing() {
                       </tr>
                     ))}
                   </tbody>
-                </table>
+                  </table>
+                </div>
+                {/* Mobile scroll hint - gradient fade on right edge */}
+                <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#020a1c] to-transparent pointer-events-none md:hidden rounded-r-xl" />
               </div>
 
               {/* AI-Native Advantage Callout */}
@@ -408,7 +412,7 @@ export default function Pricing() {
         </section>
 
         {/* Tool Replacement Calculator */}
-        <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
+        <section className="py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto">
               {/* Header */}
@@ -603,7 +607,7 @@ export default function Pricing() {
         </section>
 
         {/* Pricing FAQs Section */}
-        <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
+        <section className="py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">

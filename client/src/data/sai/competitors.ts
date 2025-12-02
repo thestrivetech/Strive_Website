@@ -438,7 +438,7 @@ export const saiCompetitiveAdvantages = [
   {
     title: 'True AI-Native Architecture',
     description: 'SAI is built from the ground up with AI at the core. Competitors retrofitted AI onto legacy platforms.',
-    advantage: '3-5 year technological head start',
+    advantage: '1-2 year technological head start',
   },
   {
     title: 'Proprietary AI Models',

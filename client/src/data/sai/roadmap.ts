@@ -160,9 +160,9 @@ export const roadmapFeatures: RoadmapFeature[] = [
 
   // Q1 2026 - Mobile & Client Experience
   {
-    id: 'mobile-apps',
-    title: 'Mobile Apps (iOS & Android)',
-    description: 'Native mobile apps with offline mode, push notifications, mobile document signing, and voice-to-text notes.',
+    id: 'mobile-app',
+    title: 'Mobile App (iOS & Android)',
+    description: 'Native mobile app with push notifications, mobile document signing, voice-to-text notes, and so much more.',
     status: 'in-development',
     phase: 'Q1-2026',
     category: 'Mobile',
@@ -296,7 +296,7 @@ export const roadmapFeatures: RoadmapFeature[] = [
   {
     id: 'white-label-platform',
     title: 'White-Label Platform & Reseller Program',
-    description: 'Custom branding, custom domain, reseller revenue sharing, and branded mobile apps. Perfect for brokerages and enterprises.',
+    description: 'Custom branding, custom domain, reseller revenue sharing, and branded mobile app. Perfect for brokerages and enterprises.',
     status: 'future',
     phase: '2026',
     category: 'Enterprise',
@@ -424,7 +424,7 @@ export const roadmapPeriods: RoadmapPeriod[] = [
   {
     period: 'Q1-2026',
     title: 'Q1 2026',
-    focusArea: 'Mobile Apps & Client Experience',
+    focusArea: 'Mobile & Client Experience',
     features: roadmapFeatures.filter(f => f.phase === 'Q1-2026'),
   },
   {

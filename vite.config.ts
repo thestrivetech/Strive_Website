@@ -3,12 +3,10 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { VitePWA } from "vite-plugin-pwa";
-import { vitePluginVersion } from "./client/src/lib/vite-plugin-version";
 
 export default defineConfig({
   plugins: [
     react(),
-    vitePluginVersion(),
 
     // PWA Plugin with basic configuration
     VitePWA({

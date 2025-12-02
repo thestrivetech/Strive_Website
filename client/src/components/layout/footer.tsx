@@ -117,7 +117,7 @@ const Footer = () => {
         </div>
 
         {/* Quick Links and Contact - Side by Side on Mobile, Grid on Desktop */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {/* Quick Links */}
           <div>
             <h3 className="font-semibold text-white mb-4">Quick Links</h3>

@@ -5,7 +5,7 @@ import { useSEO } from "@/hooks/use-seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, ArrowRight, TrendingUp, Target, Users, Sparkles, Zap, DollarSign, Shield, UserPlus, CalendarDays, Rocket, ExternalLink, Check, X } from "lucide-react";
+import { CheckCircle2, ArrowRight, TrendingUp, Target, Users, User, Sparkles, Zap, DollarSign, Shield, UserPlus, CalendarDays, Rocket, ExternalLink, Check, X, Blocks, Smartphone, MessageSquare, Video, Brain, LayoutDashboard, GitBranch, Landmark, type LucideIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { cn } from "@/lib/utils";
@@ -38,7 +38,7 @@ const Home = () => {
   // Curated journey features for Coming Soon section (8 highlights)
   const journeyFeatures = [
     roadmapFeatures.find(f => f.id === 'third-party-integrations'),
-    roadmapFeatures.find(f => f.id === 'mobile-apps'),
+    roadmapFeatures.find(f => f.id === 'mobile-app'),
     roadmapFeatures.find(f => f.id === 'sms-communications'),
     roadmapFeatures.find(f => f.id === 'ai-video-tours'),
     roadmapFeatures.find(f => f.id === 'predictive-lead-scoring'),
@@ -47,14 +47,26 @@ const Home = () => {
     roadmapFeatures.find(f => f.id === 'mortgage-lender-module'),
   ].filter(Boolean);
 
+  // Icon mapping for Coming Soon features
+  const featureIcons: Record<string, LucideIcon> = {
+    'third-party-integrations': Blocks,
+    'mobile-app': Smartphone,
+    'sms-communications': MessageSquare,
+    'ai-video-tours': Video,
+    'predictive-lead-scoring': Brain,
+    'client-portal': LayoutDashboard,
+    'visual-workflow-builder': GitBranch,
+    'mortgage-lender-module': Landmark,
+  };
+
   // Global page navigation sections
   const navSections = [
     { id: 'hero', label: 'Home' },
     { id: 'benefits', label: 'Benefits' },
     { id: 'modules', label: 'Modules' },
+    { id: 'why-sai', label: 'Why SAI' },
     { id: 'pain-points', label: 'Challenges' },
     { id: 'use-cases', label: 'Use Cases' },
-    { id: 'why-sai', label: 'Why SAI' },
     { id: 'cta', label: 'Get Started' },
   ];
 
@@ -63,9 +75,9 @@ const Home = () => {
     'hero': 'dark',        // hero-gradient
     'benefits': 'light',   // orange-50/white gradient
     'modules': 'dark',     // hero-gradient
+    'why-sai': 'light',    // bg-[#ffffffeb]
     'pain-points': 'dark', // hero-gradient
     'use-cases': 'light',  // bg-gray-50
-    'why-sai': 'light',    // bg-[#ffffffeb]
     'cta': 'dark',         // hero-gradient
   };
 
@@ -172,10 +184,10 @@ const Home = () => {
               {/* Key Benefits List */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 {[
-                  "Unlimited contacts, deals, and users",
-                  "6 integrated modules (SAI Assistant, CRM, The Office, Content Studio, REID, Taxes & Expenses)",
+                  "Unlimited contacts, deals, content creation for marketing & social media, and fully capable AI assistance ",
+                  "6 integrated modules (SaiBot Assistant, CRM, The Office, Content Studio, REID, Taxes & Expenses)",
                   "Built specifically for daily real estate workflows",
-                  "AI-powered lead scoring and deal insights",
+                  "Industry leading AI",
                 ].map((benefit, index) => (
                   <div key={index} className="flex items-start gap-3 bg-white rounded-lg p-4 sm:p-6 shadow-sm border border-gray-200">
                     <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
@@ -217,9 +229,10 @@ const Home = () => {
             <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
               {/* Main Headline with Gradient Accent */}
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
-                Everything You Need in{" "}
-                <span className="bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent">
-                  SAI Platform
+                Everything You Need,
+                <br />
+                <span className="bg-gradient-to-r from-orange-600 to-purple-600 bg-clip-text text-transparent">
+                  One Platform
                 </span>
               </h2>
 
@@ -315,6 +328,114 @@ const Home = () => {
           </div>
         </section>
 
+        {/* Why SAI Section - Value Propositions */}
+        <section id="why-sai" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Section Header */}
+            <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
+                Why Top Agents Choose SAI
+              </h2>
+              <p className="text-lg sm:text-xl text-gray-700">
+                We're not just another CRM. We're the all-in-one operating system for modern real estate professionals.
+              </p>
+            </div>
+
+            {/* Value Props Grid (2x2) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
+              {[
+                {
+                  icon: Zap,
+                  title: "Built for Real Estate",
+                  description: "Unlike generic CRMs, SAI Platform is purpose-built for real estate agents. Every feature, from deal types (home buying, home selling, property rentals) to lead scoring, SAI is designed specifically for how you work.",
+                  benefit: "No wasted features or confusing menus. Just the tools you actually need.",
+                },
+                {
+                  icon: DollarSign,
+                  title: "Simple, Transparent Pricing",
+                  description: "UNLIMITED contacts, deals, and users. No per-contact fees, no surprise charges, no contracts. Our straightforward pricing means your costs stay predictable as you grow.",
+                  benefit: "Scale your business without worrying about skyrocketing software costs.",
+                },
+                {
+                  icon: Shield,
+                  title: "Data You Own",
+                  description: "Your data stays yours. Export anytime (CSV, Excel, API). No data lock-in, no hostage situations. We earn your business every month by being the best tool, not by trapping your data.",
+                  benefit: "Switch tools anytime without losing years of contact history and deal data.",
+                },
+                {
+                  icon: Sparkles,
+                  title: "AI That Actually Works",
+                  description: "SaiBot isn't just a chatbot—it's an AI assistant that's trained specifically for the platform and on the real estate industry.",
+                  benefit: "Save 10+ hours per week on repetitive tasks. Close 20% more deals with AI insights.",
+                },
+              ].map((prop, index) => {
+                const Icon = prop.icon;
+                return (
+                  <Card key={index} className="group hover:shadow-xl transition-all duration-200 border-2 bg-white border-gray-200 h-full">
+                    <CardContent className="p-6 sm:p-8 h-full flex flex-col">
+                      {/* Icon */}
+                      <div className="mb-4 sm:mb-6">
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+                          <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-primary" />
+                        </div>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
+                        {prop.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6 leading-relaxed flex-grow">
+                        {prop.description}
+                      </p>
+
+                      {/* Benefit Statement */}
+                      <div className="pt-4 border-t border-gray-200 mt-auto">
+                        <p className="text-sm sm:text-base font-semibold text-primary flex items-start">
+                          <span className="mr-2 mt-0.5">✓</span>
+                          <span>{prop.benefit}</span>
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+
+            {/* AI-Native Advantage Callout */}
+            <div className="mt-12 sm:mt-16 bg-gradient-to-r from-orange-50 via-white to-purple-50 border-2 border-orange-200 rounded-xl p-6 sm:p-8 max-w-4xl mx-auto">
+              <div className="flex flex-col md:flex-row items-start gap-6">
+                <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="w-7 h-7 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                    AI-Native From Day One
+                  </h3>
+                  <p className="text-gray-700 mb-4 leading-relaxed">
+                    While competitors retrofit AI onto legacy platforms, SAI was built AI-first from the ground up. Our proprietary AI technologies give agents a 1-2 year technological advantage:
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="bg-white border border-gray-200 rounded-lg p-3">
+                      <p className="text-sm font-semibold text-orange-600">Market Velocity Intelligence</p>
+                      <p className="text-xs text-gray-600">Predict transaction timing</p>
+                    </div>
+                    <div className="bg-white border border-gray-200 rounded-lg p-3">
+                      <p className="text-sm font-semibold text-purple-600">Price Precision Valuation</p>
+                      <p className="text-xs text-gray-600">Institutional-grade analysis</p>
+                    </div>
+                    <div className="bg-white border border-gray-200 rounded-lg p-3">
+                      <p className="text-sm font-semibold text-primary">SaiBot</p>
+                      <p className="text-xs text-gray-600">Specialized AI Assistant</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Module Pain Points Section - Shows researched pain points with sources */}
         <section id="pain-points" className="scroll-mt-20 py-12 sm:py-14 md:py-16 lg:py-20 hero-gradient">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -394,7 +515,7 @@ const Home = () => {
                     key={module.id}
                     onClick={() => setSelectedModuleId(module.id)}
                     className={cn(
-                      "p-4 rounded-xl border-2 bg-[#020a1c] backdrop-blur-sm text-white transition-all duration-300 hover:scale-105 text-center shadow-lg hover:shadow-orange-500/20 min-h-[44px]",
+                      "p-4 rounded-xl border-2 bg-[#020a1c] backdrop-blur-sm text-white transition-all duration-300 text-center shadow-lg hover:shadow-orange-500/20 min-h-[44px]",
                       isSelected
                         ? "border-orange-400 bg-[#020a1c]/70"
                         : "border-orange-500 hover:bg-[#020a1c]/90 hover:border-orange-400"
@@ -481,28 +602,28 @@ const Home = () => {
         </section>
 
         {/* Use Cases Section */}
-        <section id="use-cases" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 bg-gray-50">
+        <section id="use-cases" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Built for Every Real Estate Professional
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-                Whether you're a solo agent, team leader, or brokerage owner, SAI scales with your business.
+                Whether you're a solo agent, brokerage owner, or Real Estate investor, SAI scales with your business.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredUseCases.map((useCase, index) => {
-                // Agent type badge config
+                // Agent type badge config with consistent theming
                 const agentTypeConfig = {
-                  solo: { label: 'Solo Agent', color: 'from-blue-500 to-blue-600', bgColor: 'from-blue-50 to-blue-100', icon: Target },
-                  team: { label: 'Broker/Owner', color: 'from-purple-500 to-purple-600', bgColor: 'from-purple-50 to-purple-100', icon: Users },
-                  investor: { label: 'Investment Specialist', color: 'from-green-500 to-green-600', bgColor: 'from-green-50 to-green-100', icon: TrendingUp },
-                  broker: { label: 'Brokerage', color: 'from-orange-500 to-orange-600', bgColor: 'from-orange-50 to-orange-100', icon: TrendingUp },
+                  solo: { label: 'Solo Agent', color: 'from-blue-500 to-blue-600', bgColor: 'from-blue-50 to-blue-100', iconColor: 'text-blue-600', badgeIcon: Target, borderColor: 'border-blue-200', hoverBorder: 'hover:border-blue-400', challengeAccent: 'from-blue-400 to-blue-600', resultAccent: 'from-blue-100 to-blue-200', resultBorder: 'border-blue-200 group-hover:border-blue-300', resultText: 'from-blue-600 to-blue-500', hoverTextColor: 'group-hover:text-blue-600', cornerAccent: 'from-blue-100', hoverBgGradient: 'from-blue-50' },
+                  team: { label: 'Broker/Owner', color: 'from-purple-500 to-purple-600', bgColor: 'from-purple-50 to-purple-100', iconColor: 'text-purple-600', badgeIcon: Users, borderColor: 'border-purple-200', hoverBorder: 'hover:border-purple-400', challengeAccent: 'from-purple-400 to-purple-600', resultAccent: 'from-purple-100 to-purple-200', resultBorder: 'border-purple-200 group-hover:border-purple-300', resultText: 'from-purple-600 to-purple-500', hoverTextColor: 'group-hover:text-purple-600', cornerAccent: 'from-purple-100', hoverBgGradient: 'from-purple-50' },
+                  investor: { label: 'Investment Specialist', color: 'from-green-500 to-green-600', bgColor: 'from-green-50 to-green-100', iconColor: 'text-green-600', badgeIcon: TrendingUp, borderColor: 'border-green-200', hoverBorder: 'hover:border-green-400', challengeAccent: 'from-green-400 to-green-600', resultAccent: 'from-green-100 to-green-200', resultBorder: 'border-green-200 group-hover:border-green-300', resultText: 'from-green-600 to-green-500', hoverTextColor: 'group-hover:text-green-600', cornerAccent: 'from-green-100', hoverBgGradient: 'from-green-50' },
+                  broker: { label: 'Brokerage', color: 'from-orange-500 to-orange-600', bgColor: 'from-orange-50 to-orange-100', iconColor: 'text-orange-600', badgeIcon: TrendingUp, borderColor: 'border-orange-200', hoverBorder: 'hover:border-orange-400', challengeAccent: 'from-orange-400 to-orange-600', resultAccent: 'from-orange-100 to-orange-200', resultBorder: 'border-orange-200 group-hover:border-orange-300', resultText: 'from-orange-600 to-orange-500', hoverTextColor: 'group-hover:text-orange-600', cornerAccent: 'from-orange-100', hoverBgGradient: 'from-orange-50' },
                 };
                 const config = agentTypeConfig[useCase.agentType];
-                const IconComponent = config.icon;
+                const BadgeIconComponent = config.badgeIcon;
 
                 return (
                   <motion.div
@@ -512,18 +633,18 @@ const Home = () => {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1, duration: 0.5 }}
                   >
-                    <Card className="group relative overflow-hidden hover:shadow-xl transition-all duration-200 border-2 border-gray-200 bg-white hover:border-orange-300 h-full flex flex-col">
+                    <Card className={cn("group relative overflow-hidden hover:shadow-xl transition-all duration-200 border-2 bg-white h-full flex flex-col", config.borderColor, config.hoverBorder)}>
                       {/* Decorative gradient background */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className={`absolute inset-0 bg-gradient-to-br ${config.hoverBgGradient} via-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
 
                       {/* Decorative corner accent */}
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-100 to-transparent rounded-bl-full opacity-30"></div>
+                      <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${config.cornerAccent} to-transparent rounded-bl-full opacity-30`}></div>
 
                       <CardContent className="p-6 relative z-10 flex flex-col flex-1">
                         {/* Agent Type Badge */}
                         <div className="mb-4">
-                          <Badge className={`bg-gradient-to-r ${config.bgColor} text-gray-700 border-0 font-semibold text-xs px-3 py-1`}>
-                            <IconComponent className="w-3 h-3 mr-1" />
+                          <Badge className={`bg-gradient-to-r ${config.bgColor} ${config.iconColor} border-0 font-semibold text-xs px-3 py-1`}>
+                            <BadgeIconComponent className="w-3 h-3 mr-1" />
                             {config.label}
                           </Badge>
                         </div>
@@ -531,17 +652,14 @@ const Home = () => {
                         {/* Persona Info with Avatar */}
                         <div className="flex items-start gap-4 mb-6">
                           <div className={`w-16 h-16 bg-gradient-to-br ${config.bgColor} rounded-xl flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-shadow duration-300`}>
-                            <IconComponent className={`w-8 h-8 bg-gradient-to-br ${config.color} bg-clip-text text-transparent`} style={{ WebkitTextFillColor: 'transparent', WebkitBackgroundClip: 'text', backgroundClip: 'text' }} />
+                            <User className={`w-8 h-8 ${config.iconColor}`} />
                           </div>
                           <div className="flex-1">
-                            <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-orange-600 transition-colors duration-300">
+                            <h3 className={cn("text-xl font-bold text-gray-900 mb-1 transition-colors duration-300", config.hoverTextColor)}>
                               {useCase.persona.name}
                             </h3>
                             <p className="text-sm font-medium text-gray-600">
                               {useCase.persona.role}
-                            </p>
-                            <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
-                              <span>📍</span> {useCase.persona.location}
                             </p>
                           </div>
                         </div>
@@ -549,7 +667,7 @@ const Home = () => {
                         {/* Challenges Section - flex-1 to take available space */}
                         <div className="mb-5 flex-1">
                           <div className="flex items-center gap-2 mb-3">
-                            <div className="w-1 h-4 bg-gradient-to-b from-red-400 to-red-600 rounded-full"></div>
+                            <div className={`w-1 h-4 bg-gradient-to-b ${config.challengeAccent} rounded-full`}></div>
                             <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wide">
                               Challenges
                             </h4>
@@ -565,9 +683,9 @@ const Home = () => {
                         </div>
 
                         {/* Results Section - Always at bottom with mt-auto */}
-                        <div className="mt-auto bg-gradient-to-br from-green-50 via-emerald-50 to-white rounded-xl p-4 border-2 border-green-200 group-hover:border-green-300 transition-colors duration-300">
+                        <div className={cn("mt-auto bg-gradient-to-br from-white to-gray-50 rounded-xl p-4 border-2 transition-colors duration-300", config.resultBorder)}>
                           <div className="flex items-center gap-2 mb-3">
-                            <div className="w-1 h-4 bg-gradient-to-b from-green-400 to-green-600 rounded-full"></div>
+                            <div className={`w-1 h-4 bg-gradient-to-b ${config.challengeAccent} rounded-full`}></div>
                             <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wide">
                               Results with SAI
                             </h4>
@@ -575,11 +693,11 @@ const Home = () => {
                           <div className="grid grid-cols-1 gap-3">
                             {useCase.results.slice(0, 2).map((result, i) => (
                               <div key={i} className="flex items-center gap-3 bg-white rounded-lg p-3 shadow-sm">
-                                <div className="w-10 h-10 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center flex-shrink-0">
-                                  <TrendingUp className="w-5 h-5 text-green-600" />
+                                <div className={`w-10 h-10 bg-gradient-to-br ${config.resultAccent} rounded-full flex items-center justify-center flex-shrink-0`}>
+                                  <TrendingUp className={`w-5 h-5 ${config.iconColor}`} />
                                 </div>
                                 <div className="flex-1">
-                                  <p className="text-lg font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
+                                  <p className={`text-lg font-bold bg-gradient-to-r ${config.resultText} bg-clip-text text-transparent`}>
                                     {result.value}
                                   </p>
                                   <p className="text-xs text-gray-600 font-medium">{result.metric}</p>
@@ -597,114 +715,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Why SAI Section - Value Propositions */}
-        <section id="why-sai" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Section Header */}
-            <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-                Why Top Agents Choose SAI Platform
-              </h2>
-              <p className="text-lg sm:text-xl text-gray-700">
-                We're not just another CRM. We're the all-in-one operating system for modern real estate professionals.
-              </p>
-            </div>
-
-            {/* Value Props Grid (2x2) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
-              {[
-                {
-                  icon: Zap,
-                  title: "Built for Real Estate",
-                  description: "Unlike generic CRMs, SAI Platform is purpose-built for real estate agents. Every feature, from deal types (home buying, home selling, property rentals) to lead scoring, SAI is designed specifically for how you work.",
-                  benefit: "No wasted features or confusing menus. Just the tools you actually need.",
-                },
-                {
-                  icon: DollarSign,
-                  title: "Simple, Transparent Pricing",
-                  description: "UNLIMITED contacts, deals, and users. No per-contact fees, no surprise charges, no contracts. Our straightforward pricing means your costs stay predictable as you grow.",
-                  benefit: "Scale your business without worrying about skyrocketing software costs.",
-                },
-                {
-                  icon: Shield,
-                  title: "Data You Own",
-                  description: "Your data stays yours. Export anytime (CSV, Excel, API). No data lock-in, no hostage situations. We earn your business every month by being the best tool, not by trapping your data.",
-                  benefit: "Switch tools anytime without losing years of contact history and deal data.",
-                },
-                {
-                  icon: Sparkles,
-                  title: "AI That Actually Works",
-                  description: "SaiBot isn't just a chatbot—it's an AI assistant that's trained specifically for the platform and on the real estate industry.",
-                  benefit: "Save 10+ hours per week on repetitive tasks. Close 20% more deals with AI insights.",
-                },
-              ].map((prop, index) => {
-                const Icon = prop.icon;
-                return (
-                  <Card key={index} className="group hover:shadow-xl transition-all duration-200 border-2 bg-white border-gray-200">
-                    <CardContent className="p-6 sm:p-8">
-                      {/* Icon */}
-                      <div className="mb-4 sm:mb-6">
-                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                          <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-primary" />
-                        </div>
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
-                        {prop.title}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6 leading-relaxed">
-                        {prop.description}
-                      </p>
-
-                      {/* Benefit Statement */}
-                      <div className="pt-4 border-t border-gray-200">
-                        <p className="text-sm sm:text-base font-semibold text-primary flex items-start">
-                          <span className="mr-2 mt-0.5">✓</span>
-                          <span>{prop.benefit}</span>
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-
-            {/* AI-Native Advantage Callout */}
-            <div className="mt-12 sm:mt-16 bg-gradient-to-r from-orange-50 via-white to-purple-50 border-2 border-orange-200 rounded-xl p-6 sm:p-8 max-w-4xl mx-auto">
-              <div className="flex flex-col md:flex-row items-start gap-6">
-                <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Sparkles className="w-7 h-7 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
-                    AI-Native From Day One
-                  </h3>
-                  <p className="text-gray-700 mb-4 leading-relaxed">
-                    While competitors retrofit AI onto legacy platforms, SAI was built AI-first from the ground up. Our proprietary AI technologies give agents a 3-5 year technological advantage:
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="bg-white border border-gray-200 rounded-lg p-3">
-                      <p className="text-sm font-semibold text-orange-600">Market Velocity Intelligence</p>
-                      <p className="text-xs text-gray-600">Predict transaction timing</p>
-                    </div>
-                    <div className="bg-white border border-gray-200 rounded-lg p-3">
-                      <p className="text-sm font-semibold text-purple-600">Price Precision Valuation</p>
-                      <p className="text-xs text-gray-600">Institutional-grade analysis</p>
-                    </div>
-                    <div className="bg-white border border-gray-200 rounded-lg p-3">
-                      <p className="text-sm font-semibold text-primary">SaiBot</p>
-                      <p className="text-xs text-gray-600">Specialized AI Assistant</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Final CTA Section - Combined with Coming Soon */}
         <section id="cta" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 hero-gradient">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
@@ -714,7 +724,7 @@ const Home = () => {
                 Coming Soon
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-                What's Next for SAI Platform
+                What's Next for the SAI Platform
               </h2>
               <p className="text-white/80 text-lg max-w-2xl mx-auto">
                 Exciting features on our roadmap to make your real estate business even more powerful
@@ -754,9 +764,14 @@ const Home = () => {
                     </span>
 
                     {/* Icon */}
-                    <div className="w-12 h-12 rounded-lg bg-orange-500/20 flex items-center justify-center mb-4">
-                      <Rocket className="w-6 h-6 text-orange-400" />
-                    </div>
+                    {(() => {
+                      const FeatureIcon = featureIcons[feature.id] || Rocket;
+                      return (
+                        <div className="w-12 h-12 rounded-lg bg-orange-500/20 flex items-center justify-center mb-4">
+                          <FeatureIcon className="w-6 h-6 text-orange-400" />
+                        </div>
+                      );
+                    })()}
 
                     {/* Content */}
                     <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
@@ -867,14 +882,18 @@ const Home = () => {
             <button
               key={section.id}
               onClick={() => scrollToSection(section.id)}
-              className={cn(
-                "w-2 h-2 rounded-full transition-all duration-300",
-                activeSection === section.id
-                  ? "bg-orange-500 scale-150"
-                  : "bg-white/30"
-              )}
+              className="p-2 -m-1 flex items-center justify-center"
               aria-label={`Navigate to ${section.label}`}
-            />
+            >
+              <span
+                className={cn(
+                  "w-2.5 h-2.5 rounded-full transition-all duration-300",
+                  activeSection === section.id
+                    ? "bg-orange-500 scale-150"
+                    : "bg-white/30 hover:bg-white/50"
+                )}
+              />
+            </button>
           ))}
         </div>
       </div>

@@ -109,7 +109,12 @@
       "WebFetch(domain:realtybiznews.com)",
       "Bash(git stash:*)",
       "Bash(git log:*)",
-      "Bash(yarn list:*)"
+      "Bash(yarn list:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(for component in \"FinalCTASection\" \"PlatformDemoSection\" \"PriceSavingsComparison\" \"TrustSignalsBar\" \"WhySAISection\" \"ModuleOverviewSection\" \"ModulePainPointsSection\" \"UnifiedFilterDropdown\" \"PortfolioCard\" \"PrefetchLink\")",
+      "Bash(do echo \"=== $component ===\")",
+      "Bash(done)",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []
