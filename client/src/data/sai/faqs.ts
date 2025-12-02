@@ -22,7 +22,7 @@ export const faqs: FAQ[] = [
     id: 'pricing-01',
     category: 'pricing',
     question: 'What is the Free Month offer?',
-    answer: 'When you purchase your first month of SAI Platform, you get one additional month completely free! This means you pay for one month and get two months of full access to all features. This launch special is valid until February 1, 2026, and is available to all new customers as part of our first 100 legacy clients program.',
+    answer: 'When you purchase your first month of SAI Platform, you get the month of December for free! This means you pay for one month and get two months of full access to all features. This launch special is valid until January 1, 2026, and is available to all new customers as part of our first 10 legacy clients program.',
   },
   {
     id: 'pricing-02',

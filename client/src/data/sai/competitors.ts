@@ -295,7 +295,7 @@ export const featureComparison: CompetitorFeatureRow[] = [
     cinc: false
   },
   {
-    feature: 'AI Content Creation',
+    feature: 'Content Creation',
     sai: true,
     boldtrail: 'basic',
     lofty: 'basic',
@@ -317,14 +317,6 @@ export const featureComparison: CompetitorFeatureRow[] = [
     lofty: 'partial',
     followUpBoss: false,
     cinc: false
-  },
-  {
-    feature: 'IDX Website',
-    sai: true,
-    boldtrail: true,
-    lofty: true,
-    followUpBoss: false,
-    cinc: true
   },
   {
     feature: 'Mobile App',

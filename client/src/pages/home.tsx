@@ -38,13 +38,13 @@ const Home = () => {
   // Curated journey features for Coming Soon section (8 highlights)
   const journeyFeatures = [
     roadmapFeatures.find(f => f.id === 'third-party-integrations'),
-    roadmapFeatures.find(f => f.id === 'sms-communications'),
     roadmapFeatures.find(f => f.id === 'mobile-apps'),
+    roadmapFeatures.find(f => f.id === 'sms-communications'),
     roadmapFeatures.find(f => f.id === 'ai-video-tours'),
     roadmapFeatures.find(f => f.id === 'predictive-lead-scoring'),
     roadmapFeatures.find(f => f.id === 'client-portal'),
     roadmapFeatures.find(f => f.id === 'visual-workflow-builder'),
-    roadmapFeatures.find(f => f.id === 'ai-moe-team'),
+    roadmapFeatures.find(f => f.id === 'mortgage-lender-module'),
   ].filter(Boolean);
 
   // Global page navigation sections
@@ -135,17 +135,17 @@ const Home = () => {
               {/* Hero Content Below Video */}
               <div className="text-center space-y-4 sm:space-y-6 lg:space-y-8">
                 <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/95 leading-relaxed max-w-4xl mx-auto px-2 sm:px-0">
-                  One Platform. One Price. Powerful AI. Everything you need to be competitive as a Real Estate Professional
+                  One Platform. One Price. Powerful AI. Everything you need to be competitive as a Real Estate Professional.
                 </p>
 
-                {/* Get Started Button */}
+                {/* Schedule a Showcase Button */}
                 <div className="pt-2 sm:pt-4">
                   <Button
                     onClick={() => window.location.href = "/contact"}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 sm:px-10 lg:px-16 py-4 sm:py-5 lg:py-7 text-base sm:text-lg lg:text-2xl min-h-[48px] sm:min-h-[56px] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 sm:px-10 lg:px-16 py-4 sm:py-5 lg:py-7 text-base sm:text-lg lg:text-2xl min-h-[48px] sm:min-h-[56px] relative overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                     size="lg"
                   >
-                    Get Started
+                    Schedule a Showcase
                   </Button>
                 </div>
               </div>
@@ -236,16 +236,7 @@ const Home = () => {
                 return (
                   <Card
                     key={module.id}
-                    className="group cursor-pointer transition-all duration-200 hover:shadow-2xl hover:border-orange-400/50 h-full bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:bg-white/15"
-                    onClick={() => window.location.href = "/platform"}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        window.location.href = "/platform";
-                      }
-                    }}
+                    className="group transition-all duration-200 hover:shadow-2xl hover:border-orange-400/50 h-full bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:bg-white/15"
                   >
                     <CardContent className="p-6 flex flex-col h-full">
                       {/* Badge */}
@@ -301,11 +292,6 @@ const Home = () => {
                         ))}
                       </div>
 
-                      {/* View Details CTA */}
-                      <div className="flex items-center justify-center gap-1 text-sm font-semibold transition-colors duration-200 mt-auto pt-4 border-t-2 text-orange-300 border-white/10">
-                        <span>Explore This Module</span>
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                      </div>
                     </CardContent>
                   </Card>
                 );
@@ -471,17 +457,17 @@ const Home = () => {
             <div className="text-center mt-8 sm:mt-10 md:mt-12">
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
                 <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 sm:mb-4">
-                  Ready to Save 28-41 Hours Per Week?
+                  Ready to Save 10+ Hours Per Week?
                 </h3>
                 <p className="text-white/80 mb-4 sm:mb-6 text-sm sm:text-base">
-                  Set up a meeting with or
+                  Ready to set Up a Meeting?
                 </p>
                 <Link href="/contact">
                   <Button
                     className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 sm:px-8 py-3 sm:py-3.5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 font-bold text-sm sm:text-base min-h-[44px]"
                     size="lg"
                   >
-                    Get Started Today
+                    Contact Sales
                   </Button>
                 </Link>
                 <p className="text-xs text-white/60 mt-4">
@@ -511,7 +497,7 @@ const Home = () => {
                 // Agent type badge config
                 const agentTypeConfig = {
                   solo: { label: 'Solo Agent', color: 'from-blue-500 to-blue-600', bgColor: 'from-blue-50 to-blue-100', icon: Target },
-                  team: { label: 'Team Lead', color: 'from-purple-500 to-purple-600', bgColor: 'from-purple-50 to-purple-100', icon: Users },
+                  team: { label: 'Broker/Owner', color: 'from-purple-500 to-purple-600', bgColor: 'from-purple-50 to-purple-100', icon: Users },
                   investor: { label: 'Investment Specialist', color: 'from-green-500 to-green-600', bgColor: 'from-green-50 to-green-100', icon: TrendingUp },
                   broker: { label: 'Brokerage', color: 'from-orange-500 to-orange-600', bgColor: 'from-orange-50 to-orange-100', icon: TrendingUp },
                 };
@@ -630,13 +616,13 @@ const Home = () => {
                 {
                   icon: Zap,
                   title: "Built for Real Estate",
-                  description: "Unlike generic CRMs, SAI Platform is purpose-built for real estate agents. Every feature—from deal types (HOME_BUYING, HOME_SELLING, RENTAL) to lead scoring—is designed specifically for how you work.",
+                  description: "Unlike generic CRMs, SAI Platform is purpose-built for real estate agents. Every feature, from deal types (home buying, home selling, property rentals) to lead scoring, SAI is designed specifically for how you work.",
                   benefit: "No wasted features or confusing menus. Just the tools you actually need.",
                 },
                 {
                   icon: DollarSign,
                   title: "Simple, Transparent Pricing",
-                  description: "UNLIMITED contacts, deals, and users. No per-contact fees, no surprise charges, no contracts. Unlike competitors who charge per user or per contact, our straightforward pricing means your costs stay predictable as you grow.",
+                  description: "UNLIMITED contacts, deals, and users. No per-contact fees, no surprise charges, no contracts. Our straightforward pricing means your costs stay predictable as you grow.",
                   benefit: "Scale your business without worrying about skyrocketing software costs.",
                 },
                 {
@@ -648,7 +634,7 @@ const Home = () => {
                 {
                   icon: Sparkles,
                   title: "AI That Actually Works",
-                  description: "SAI Assistant isn't just a chatbot—it's an AI assistant trained on real estate workflows. It auto-scores leads, generates listing descriptions, schedules social posts, and predicts which deals are at risk of falling through.",
+                  description: "SaiBot isn't just a chatbot—it's an AI assistant that's trained specifically for the platform and on the real estate industry.",
                   benefit: "Save 10+ hours per week on repetitive tasks. Close 20% more deals with AI insights.",
                 },
               ].map((prop, index) => {
@@ -705,12 +691,12 @@ const Home = () => {
                       <p className="text-xs text-gray-600">Predict transaction timing</p>
                     </div>
                     <div className="bg-white border border-gray-200 rounded-lg p-3">
-                      <p className="text-sm font-semibold text-purple-600">Precision Valuation</p>
+                      <p className="text-sm font-semibold text-purple-600">Price Precision Valuation</p>
                       <p className="text-xs text-gray-600">Institutional-grade analysis</p>
                     </div>
                     <div className="bg-white border border-gray-200 rounded-lg p-3">
-                      <p className="text-sm font-semibold text-primary">AI Command Center</p>
-                      <p className="text-xs text-gray-600">Natural language automation</p>
+                      <p className="text-sm font-semibold text-primary">SaiBot</p>
+                      <p className="text-xs text-gray-600">Specialized AI Assistant</p>
                     </div>
                   </div>
                 </div>
@@ -786,7 +772,7 @@ const Home = () => {
                 Ready to Transform Your Real Estate Business?
               </h3>
               <p className="text-lg sm:text-xl text-white/90 mb-8 sm:mb-10">
-                Experience the future of real estate CRM. Get started today.
+                Experience the future of Real Estate. Get started today.
               </p>
 
               {/* Single CTA Button */}

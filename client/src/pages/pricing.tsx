@@ -3,14 +3,15 @@ import { MetaTags } from "@/components/seo/meta-tags";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, ArrowRight, ChevronDown, Users, Building2, Sparkles, Check, X, AlertCircle, Calculator, DollarSign, Layers } from "lucide-react";
+import { CheckCircle2, ArrowRight, ChevronDown, Users, Building2, Sparkles, Check, X, AlertCircle, DollarSign } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { cn } from "@/lib/utils";
 
 // Import pricing FAQs and competitor data
 import { faqs } from "@/data/sai/faqs";
-import { featureComparison, costToReplicateScenarios, competitivePositioning, getPositiveSavingsScenarios } from "@/data/sai/competitors";
+import { featureComparison, competitivePositioning } from "@/data/sai/competitors";
+import { replacementTools, calculateTotalCost, getPopularToolIds, SAI_MONTHLY_PRICE } from "@/data/sai/tool-replacements";
 
 /**
  * Pricing Page - Seat-based pricing model
@@ -24,11 +25,26 @@ import { featureComparison, costToReplicateScenarios, competitivePositioning, ge
  * - 11+ seats: $399/seat (monthly - 20% off) or $279/seat (annual - 30% off)
  *
  * Special Promotion (until Feb 1, 2026): Free month when you pay for first month
- * First 100 Legacy Clients: Locked-in pricing forever
+ * First 10 Legacy Clients: $299 and the month of December for free
  */
 export default function Pricing() {
   // FAQ accordion state
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  // Tool calculator state
+  const [selectedTools, setSelectedTools] = useState<string[]>(getPopularToolIds());
+
+  const toggleTool = (toolId: string) => {
+    setSelectedTools((prev) =>
+      prev.includes(toolId)
+        ? prev.filter((id) => id !== toolId)
+        : [...prev, toolId]
+    );
+  };
+
+  const totals = calculateTotalCost(selectedTools);
+  const savingsLow = totals.low - SAI_MONTHLY_PRICE;
+  const savingsHigh = totals.high - SAI_MONTHLY_PRICE;
 
   // Get pricing FAQs
   const pricingFaqs = faqs.filter(faq => faq.category === 'pricing').slice(0, 6);
@@ -86,7 +102,7 @@ export default function Pricing() {
   ];
 
   // Helper function to render feature comparison values
-  const renderFeatureValue = (value: boolean | string | 'partial' | 'basic', isSai = false) => {
+  const renderFeatureValue = (value: boolean | string | 'partial' | 'basic', isSai = false, featureName = '') => {
     if (typeof value === 'string') {
       // It's a string like "$499" or "partial" or "basic"
       if (value === 'partial' || value === 'basic') {
@@ -103,7 +119,15 @@ export default function Pricing() {
       return <span className={cn("text-sm font-semibold", isSai ? "text-green-400" : "text-white/80")}>{value}</span>;
     }
     if (value === true) {
-      return <Check className={cn("w-5 h-5 mx-auto", isSai ? "text-green-400" : "text-green-400")} />;
+      // Only show "Coming Soon" for Mobile App in SAI column
+      if (isSai && featureName === 'Mobile App') {
+        return (
+          <Badge className="bg-orange-500/20 text-orange-300 border-orange-400/50 text-xs font-semibold">
+            Coming Soon
+          </Badge>
+        );
+      }
+      return <Check className="w-5 h-5 mx-auto text-green-400" />;
     }
     return <X className="w-5 h-5 text-red-400 mx-auto" />;
   };
@@ -114,7 +138,7 @@ export default function Pricing() {
       <MetaTags
         seo={{
           title: "Pricing | SAI Platform - One Platform, One Price",
-          description: "$499/seat for complete real estate platform. First 100 legacy clients get locked-in pricing forever. Special offer: free month until Feb 1, 2026.",
+          description: "$299/seat for complete real estate platform. First 10 legacy clients get locked-in pricing forever. Special offer: free month until Feb 1, 2026.",
           keywords: ["real estate CRM pricing", "agent CRM cost", "real estate platform pricing", "SAI Platform pricing", "team pricing"],
           canonical: "https://strive.tech/pricing",
         }}
@@ -146,12 +170,12 @@ export default function Pricing() {
 
                     {/* Main Heading */}
                     <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-                      First 100 Legacy Clients
+                      First 10 Legacy Clients in December
                     </h3>
 
                     {/* Main Value Proposition */}
                     <p className="text-base sm:text-lg text-gray-800 mb-4 leading-relaxed">
-                      Lock in <span className="font-bold bg-gradient-to-r from-orange-600 to-purple-600 bg-clip-text text-transparent">$499/seat pricing forever.</span> Lifetime access to all current and future features—no matter what we add.
+                      Lock in <span className="font-bold bg-gradient-to-r from-orange-600 to-purple-600 bg-clip-text text-transparent">$299/seat pricing forever.</span> Lifetime access to all current and future features—no matter what we add.
                     </p>
 
                     {/* Divider */}
@@ -164,13 +188,13 @@ export default function Pricing() {
                     {/* Bonus Promotion */}
                     <div className="bg-gradient-to-r from-orange-50 to-purple-50 backdrop-blur-sm border border-orange-300 rounded-lg px-4 py-3 mb-5">
                       <p className="text-sm font-semibold text-orange-700 mb-1">
-                        🎁 Launch Special
+                        🎁 Christmas Launch Special
                       </p>
                       <p className="text-base font-bold text-gray-900">
                         Free Month with First Payment
                       </p>
                       <p className="text-xs text-gray-600 mt-1">
-                        Valid until February 1, 2026
+                        Valid until January 1, 2026
                       </p>
                     </div>
 
@@ -179,7 +203,7 @@ export default function Pricing() {
                       className="w-full bg-gradient-to-r from-orange-600 via-purple-600 to-orange-600 hover:from-orange-700 hover:via-purple-700 hover:to-orange-700 text-white font-bold py-4 text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 min-h-[44px]"
                       onClick={() => document.getElementById('pricing-tiers')?.scrollIntoView({ behavior: 'smooth' })}
                     >
-                      Join now and secure your spot before we reach 100 clients
+                      Join now and secure your spot before we reach 10 clients in December
                       <ArrowRight className="ml-2 w-5 h-5" />
                     </Button>
                   </CardContent>
@@ -340,7 +364,7 @@ export default function Pricing() {
                       >
                         <td className="py-3 px-4 text-white/90 font-medium text-sm">{row.feature}</td>
                         <td className="py-3 px-3 text-center bg-orange-500/10">
-                          {renderFeatureValue(row.sai, true)}
+                          {renderFeatureValue(row.sai, true, row.feature)}
                         </td>
                         <td className="py-3 px-3 text-center">
                           {renderFeatureValue(row.boldtrail)}
@@ -383,118 +407,169 @@ export default function Pricing() {
           </div>
         </section>
 
-        {/* Cost to Replicate Section */}
+        {/* Tool Replacement Calculator */}
         <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-6xl mx-auto">
-              {/* Section Header */}
-              <div className="text-center mb-12">
+            <div className="max-w-5xl mx-auto">
+              {/* Header */}
+              <div className="text-center mb-10">
                 <Badge className="mb-6 bg-orange-100 text-orange-700 border-orange-300 font-semibold">
-                  Cost Comparison
+                  Tool Calculator
                 </Badge>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                  The Real Cost of Going Without SAI
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                  What Are You Currently Paying?
                 </h2>
-                <p className="text-xl text-gray-700 mb-4 leading-relaxed max-w-4xl mx-auto">
-                  Building an equivalent tech stack costs <span className="font-bold text-orange-600">$600-$1,000+/month</span> across multiple disconnected platforms.
+                <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+                  Select the tools you use today. See how SAI replaces them all.
                 </p>
               </div>
 
-              {/* Cost Scenarios Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                {getPositiveSavingsScenarios().map((scenario, index) => (
-                  <motion.div
-                    key={scenario.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1, duration: 0.4 }}
-                  >
-                    <Card className="h-full border-2 border-red-200 bg-white hover:border-red-300 transition-colors duration-200">
-                      <CardContent className="p-6">
-                        {/* Scenario Header */}
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-                            <Layers className="w-5 h-5 text-red-600" />
-                          </div>
-                          <div>
-                            <h3 className="font-bold text-gray-900">{scenario.name}</h3>
-                            <p className="text-sm text-gray-600">{scenario.tools.length} tools required</p>
-                          </div>
+              {/* Quick Actions */}
+              <div className="flex justify-center gap-3 mb-8">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSelectedTools(replacementTools.map((t) => t.id))}
+                  className="text-sm"
+                >
+                  Select All
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSelectedTools([])}
+                  className="text-sm"
+                >
+                  Clear All
+                </Button>
+              </div>
+
+              {/* Tool Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+                {replacementTools.map((tool) => {
+                  const IconComponent = tool.icon;
+                  const isSelected = selectedTools.includes(tool.id);
+                  const priceDisplay =
+                    tool.monthlyPriceLow === tool.monthlyPriceHigh
+                      ? `$${tool.monthlyPriceLow}`
+                      : `$${tool.monthlyPriceLow}-${tool.monthlyPriceHigh}`;
+
+                  return (
+                    <button
+                      key={tool.id}
+                      onClick={() => toggleTool(tool.id)}
+                      className={cn(
+                        "p-4 rounded-xl border-2 text-left transition-all duration-200 min-h-[44px]",
+                        isSelected
+                          ? "border-orange-500 bg-orange-50 shadow-md"
+                          : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm"
+                      )}
+                      aria-pressed={isSelected}
+                    >
+                      <div className="flex items-start gap-3">
+                        {/* Checkbox indicator */}
+                        <div
+                          className={cn(
+                            "w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors",
+                            isSelected
+                              ? "bg-orange-500 border-orange-500"
+                              : "border-gray-300 bg-white"
+                          )}
+                        >
+                          {isSelected && <Check className="w-3 h-3 text-white" />}
                         </div>
 
-                        {/* Tools List */}
-                        <div className="space-y-2 mb-4">
-                          {scenario.tools.map((tool) => (
-                            <div key={tool.name} className="flex justify-between items-center text-sm">
-                              <span className="text-gray-700">{tool.name}</span>
-                              <span className="text-gray-600 font-medium">${tool.monthlyPrice}/mo</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Total Cost */}
-                        <div className="pt-4 border-t border-gray-200">
-                          <div className="flex justify-between items-center mb-2">
-                            <span className="font-semibold text-gray-900">Monthly Total:</span>
-                            <span className="text-xl font-bold text-red-600">
-                              ${scenario.totalMonthlyLow === scenario.totalMonthlyHigh
-                                ? scenario.totalMonthlyLow
-                                : `${scenario.totalMonthlyLow}-${scenario.totalMonthlyHigh}`}
+                        {/* Tool info */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <IconComponent
+                              className={cn(
+                                "w-4 h-4 flex-shrink-0",
+                                isSelected ? "text-orange-600" : "text-gray-500"
+                              )}
+                            />
+                            <span
+                              className={cn(
+                                "font-semibold text-sm truncate",
+                                isSelected ? "text-gray-900" : "text-gray-700"
+                              )}
+                            >
+                              {tool.name}
+                            </span>
+                          </div>
+                          <p className="text-xs text-gray-600 mb-2">{tool.description}</p>
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs text-gray-500">{tool.category}</span>
+                            <span
+                              className={cn(
+                                "text-sm font-bold",
+                                isSelected ? "text-orange-600" : "text-gray-600"
+                              )}
+                            >
+                              {priceDisplay}/mo
                             </span>
                           </div>
                         </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
 
-              {/* SAI Value Box */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <Card className="border-4 border-green-500 bg-gradient-to-br from-green-50 via-white to-emerald-50 shadow-xl">
-                  <CardContent className="p-8">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                      {/* Left: SAI Value */}
-                      <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
-                          <DollarSign className="w-8 h-8 text-white" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-green-700 uppercase tracking-wide mb-1">SAI Platform</p>
-                          <p className="text-4xl font-bold text-gray-900">$499<span className="text-lg font-medium text-gray-600">/month</span></p>
-                          <p className="text-gray-700">Everything included. No add-ons.</p>
-                        </div>
-                      </div>
+              {/* Summary Comparison - NO CTA */}
+              <div className="bg-white border-2 border-gray-200 rounded-2xl p-6 shadow-lg">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                  {/* Your Current Stack */}
+                  <div className="text-center md:text-left">
+                    <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                      Your Current Stack
+                    </p>
+                    <p className="text-3xl font-bold text-red-600">
+                      {totals.low === 0
+                        ? "$0"
+                        : totals.low === totals.high
+                          ? `$${totals.low}`
+                          : `$${totals.low}-${totals.high}`}
+                      <span className="text-base font-medium text-gray-600">/mo</span>
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {selectedTools.length} tools selected
+                    </p>
+                  </div>
 
-                      {/* Right: Savings */}
-                      <div className="text-center md:text-right">
-                        <p className="text-sm font-semibold text-gray-600 mb-1">You Save</p>
-                        <p className="text-3xl font-bold text-green-600">$100-$500+<span className="text-base font-medium text-gray-600">/month</span></p>
-                        <p className="text-gray-600 text-sm">vs equivalent competitor stacks</p>
-                      </div>
+                  {/* VS Divider */}
+                  <div className="hidden md:flex justify-center">
+                    <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                      <span className="text-sm font-bold text-gray-500">VS</span>
                     </div>
+                  </div>
 
-                    {/* CTA */}
-                    <div className="mt-6 pt-6 border-t border-green-200 text-center">
-                      <Link href="/waitlist">
-                        <Button
-                          size="lg"
-                          className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300 min-h-[44px]"
-                        >
-                          Join Waitlist - Lock In $499/month
-                          <ArrowRight className="ml-2 w-5 h-5" />
-                        </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                  {/* SAI Platform */}
+                  <div className="text-center md:text-right">
+                    <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                      SAI Platform
+                    </p>
+                    <p className="text-3xl font-bold text-green-600">
+                      $499
+                      <span className="text-base font-medium text-gray-600">/mo</span>
+                    </p>
+                    <p className="text-sm text-gray-500">Everything included</p>
+                  </div>
+                </div>
+
+                {/* Savings Message (only show if positive) */}
+                {savingsHigh > 0 && (
+                  <div className="mt-6 pt-6 border-t border-gray-100 text-center">
+                    <p className="text-lg font-semibold text-green-700">
+                      You could save{" "}
+                      {savingsLow === savingsHigh
+                        ? `$${savingsLow}`
+                        : `$${Math.max(0, savingsLow)}-${savingsHigh}`}
+                      /month with SAI
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </section>
@@ -626,7 +701,7 @@ export default function Pricing() {
                 Ready to Transform Your Real Estate Business?
               </h2>
               <p className="text-xl text-white/90 mb-8 leading-relaxed">
-                Join the first 100 legacy clients and lock in <span className="font-bold text-white">$499/seat pricing forever.</span> Plus get a free month with your first payment (until Feb 1, 2026).
+                Join the first 10 legacy clients and lock in <span className="font-bold text-white">$299/seat pricing forever.</span> Plus get the entire month of December for free with your first payment (until Jan 1, 2026).
               </p>
               <div className="flex justify-center">
                 <Link href="/contact">
