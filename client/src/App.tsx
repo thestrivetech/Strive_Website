@@ -1,6 +1,5 @@
 import { Switch, Route } from "wouter";
 import { Suspense, lazy } from "react";
-import { useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -15,7 +14,6 @@ import { usePageTracking } from "@/hooks/usePageTracking";
 // Lazy load layout components for better performance
 const Navigation = lazy(() => import("@/components/layout/navigation"));
 const Footer = lazy(() => import("@/components/layout/footer"));
-const FloatingChat = lazy(() => import("@/components/ui/floating-chat"));
 const ConsentBanner = lazy(() => import("@/components/analytics/consent-banner").then(module => ({ default: module.ConsentBanner })));
 
 // Keep home page loaded immediately for best UX
@@ -39,9 +37,6 @@ const AnalyticsDashboard = lazy(() => import("@/pages/analytics-dashboard"));
 import { Redirect } from "@/components/Redirect";
 
 function Router() {
-  const [location] = useLocation();
-  const hideChatWidget = location === '/chatbot-sai' || location === '/';
-
   // Enable automatic page tracking with error handling
   try {
     usePageTracking();
@@ -84,11 +79,6 @@ function Router() {
       <Suspense fallback={<div className="h-20 w-full bg-muted/10 animate-pulse" />}>
         <Footer />
       </Suspense>
-      {!hideChatWidget && (
-        <Suspense fallback={null}>
-          <FloatingChat />
-        </Suspense>
-      )}
       <Suspense fallback={null}>
         <AnalyticsErrorBoundary componentName="ConsentBanner">
           <ConsentBanner />
