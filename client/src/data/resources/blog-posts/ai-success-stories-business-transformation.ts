@@ -38,19 +38,19 @@ export const aiSuccessStoriesBusinessTransformation: Resource = {
   },
   sources: [
     {
-      title: "SAI Platform Success Stories",
-      url: "/platform",
-      description: "See how all 6 SAI modules work together"
+      title: "NAR 2024 Member Profile: Technology Usage Statistics",
+      url: "https://www.nar.realtor/blogs/economists-outlook/the-top-10-highlights-from-nars-2024-profile-of-home-buyers-and-sellers",
+      description: "NAR research on agent technology adoption and productivity metrics"
     },
     {
-      title: "Get Started",
-      url: "/contact",
-      description: "Schedule a demo and begin onboarding"
+      title: "HousingWire AI Summit 2024 Key Takeaways",
+      url: "https://foxyai.com/2024/07/30/top-three-takeaways-from-the-housingwire-ai-summit-2024/",
+      description: "Industry insights on AI-powered tools reducing administrative burdens for agents"
     },
     {
-      title: "Schedule a Demo",
-      url: "/contact",
-      description: "See SAI Platform in action with a personalized demo"
+      title: "Zillow CEO: Technology for Real Estate Professionals",
+      url: "https://www.housingwire.com/articles/zillow-ceo-jeremy-wacksman-technology-real-estate/",
+      description: "How technology empowers 'super agents' to deliver better client outcomes"
     }
   ],
   relatedSolutions: ["real-estate-crm", "platform-migration", "agent-productivity"]

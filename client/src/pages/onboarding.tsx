@@ -6,8 +6,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, ArrowRight, Calendar, Clock, Users } from "lucide-react";
+import { MetaTags } from "@/components/seo/meta-tags";
+import { useSEO } from "@/hooks/use-seo";
 
 const Onboarding = () => {
+  const { seoConfig } = useSEO();
   const [formStep, setFormStep] = useState(1);
   const [formData, setFormData] = useState({
     // Basic Info
@@ -388,7 +391,9 @@ const Onboarding = () => {
   };
 
   return (
-    <div className="pt-16 min-h-screen bg-gradient-to-br from-background to-background/80">
+    <>
+      <MetaTags seo={seoConfig} />
+      <div className="pt-16 min-h-screen bg-gradient-to-br from-background to-background/80">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-2xl mx-auto">
           {/* Header */}
@@ -477,6 +482,7 @@ const Onboarding = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -12,6 +12,8 @@ import { useToast } from "@/hooks/use-toast";
 import { insertUserSchema } from "@shared/schema";
 import { useAuth } from "@/lib/auth";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
+import { MetaTags } from "@/components/seo/meta-tags";
+import { useSEO } from "@/hooks/use-seo";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username or email is required"),
@@ -30,6 +32,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 type SignupFormData = z.infer<typeof signupSchema>;
 
 const Login = () => {
+  const { seoConfig } = useSEO();
   const [activeTab, setActiveTab] = useState("login");
   const { toast } = useToast();
   const { login, signup, isAuthenticated, isLoading } = useAuth();
@@ -99,7 +102,9 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen hero-gradient flex items-center justify-center pt-16">
+    <>
+      <MetaTags seo={seoConfig} />
+      <div className="min-h-screen hero-gradient flex items-center justify-center pt-16">
       <div className="w-full max-w-md p-4">
         <Card className="shadow-2xl border border-gray-100 rounded-2xl overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
           <CardHeader className="text-center pb-4 pt-8">
@@ -335,6 +340,7 @@ const Login = () => {
         </Card>
       </div>
     </div>
+    </>
   );
 };
 

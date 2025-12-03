@@ -38,19 +38,19 @@ export const aiTrends2025Analysis: Resource = {
   },
   sources: [
     {
-      title: "SAI Platform Overview",
-      url: "/platform",
-      description: "Learn how SAI Platform consolidates 10+ tools into one system"
+      title: "NAR 2024 Technology Survey Report",
+      url: "https://www.nar.realtor/sites/default/files/documents/2024-technology-survey-report-08-08-2024.pdf",
+      description: "National Association of REALTORS® annual survey on technology adoption, AI usage, and productivity tools among 1,007 agents"
     },
     {
-      title: "Get Started",
-      url: "/contact",
-      description: "Contact us to learn more about SAI Platform"
+      title: "McKinsey: Generative AI Can Transform Real Estate",
+      url: "https://www.mckinsey.com/industries/real-estate/our-insights/generative-ai-can-change-real-estate-but-the-industry-must-change-to-reap-the-benefits",
+      description: "McKinsey Global Institute analysis on $110-180B value potential of AI in real estate"
     },
     {
-      title: "National Association of Realtors",
-      url: "https://www.nar.realtor",
-      description: "Real estate industry trends and data"
+      title: "Inman: 2024 Will Be The Year Of The Automated Agent",
+      url: "https://www.inman.com/2024/05/14/2024-will-be-the-year-of-the-automated-agent/",
+      description: "Industry analysis on automation adoption and technology utilization trends"
     }
   ],
   relatedSolutions: ["real-estate-crm", "transaction-management", "market-analytics"]

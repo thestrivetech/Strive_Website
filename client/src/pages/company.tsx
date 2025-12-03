@@ -7,8 +7,12 @@ import { useEffect, useRef, useState } from "react";
 import GarrettHeadshot from "@/assets/Garrett-Headshot.webp";
 import JeffHeadshot from "@/assets/Jeff-Headshot.webp";
 import GrantHeadshot from "@/assets/Grant-Headshot.webp";
+import { MetaTags } from "@/components/seo/meta-tags";
+import { OrganizationStructuredData } from "@/components/seo/structured-data";
+import { useSEO } from "@/hooks/use-seo";
 
 const Company = () => {
+  const { seoConfig } = useSEO();
   const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
   
   const nextTeamMember = () => {
@@ -108,7 +112,10 @@ const Company = () => {
   ];
 
   return (
-    <div className="pt-16">
+    <>
+      <MetaTags seo={seoConfig} />
+      <OrganizationStructuredData />
+      <div className="pt-16">
       {/* Hero Section - Our Vision & Roadmap to the Future */}
       <section className="py-20 hero-gradient relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -572,6 +579,7 @@ const Company = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

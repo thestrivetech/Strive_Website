@@ -41,19 +41,19 @@ export const retailWalmartAiImplementation: Resource = {
   },
   sources: [
     {
-      title: "SAI Platform Overview",
-      url: "/platform",
-      description: "Learn how SAI consolidates CRM, transactions, marketing, and data"
+      title: "Inman: 90% of Homebuyers Would Use Agent Again, Only 6% Follow Up",
+      url: "https://www.inman.com/2024/05/14/2024-will-be-the-year-of-the-automated-agent/",
+      description: "Industry data on lead nurturing gaps and automation opportunities"
     },
     {
-      title: "Get Started",
-      url: "/contact",
-      description: "Schedule a demo and begin onboarding"
+      title: "HousingWire: AI Brokerage Adoption Survey 2024-2025",
+      url: "https://www.housingwire.com/articles/ai-in-real-estate-assessing-current-and-future-use-cases/",
+      description: "Survey showing 87% of broker agents actively using AI tools in their workflow"
     },
     {
-      title: "National Association of Realtors",
-      url: "https://www.nar.realtor",
-      description: "Industry research on technology adoption and brokerage performance"
+      title: "NAR Research: REALTOR Technology Survey 2024",
+      url: "https://www.nar.realtor/research-and-statistics/research-reports/realtor-technology-survey",
+      description: "Annual survey on technology adoption rates and productivity impacts across 1,007 agents"
     }
   ],
   relatedSolutions: ["real-estate-crm", "brokerage-management", "transaction-automation", "team-productivity"]

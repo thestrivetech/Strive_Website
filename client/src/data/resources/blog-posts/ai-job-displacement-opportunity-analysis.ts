@@ -38,19 +38,19 @@ export const aiJobDisplacementOpportunityAnalysis: Resource = {
   },
   sources: [
     {
-      title: "Responsible AI Implementation",
-      url: "/services/responsible-ai",
-      description: "Ethical AI strategies that enhance human potential"
+      title: "Deloitte: State of Generative AI in the Enterprise 2024",
+      url: "https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-generative-ai-in-enterprise.html",
+      description: "Quarterly survey of 2,773 enterprise leaders on AI adoption, ROI, and workforce impact"
     },
     {
-      title: "AI Strategy Consulting",
-      url: "/services/ai-strategy",
-      description: "Navigate AI transformation while protecting workforce"
+      title: "Gartner: Top 10 Strategic Technology Trends for 2024",
+      url: "https://www.gartner.com/en/articles/gartner-top-10-strategic-technology-trends-for-2024",
+      description: "AI leads strategic trends with predictions on workforce augmentation and automation"
     },
     {
-      title: "Ethical AI Specialists",
-      url: "/contact",
-      description: "Human-centered AI development and governance support"
+      title: "McKinsey: Generative AI and the Future of Work",
+      url: "https://www.mckinsey.com/mgi/our-research/generative-ai-and-the-future-of-work-in-america",
+      description: "Analysis of AI's impact on workforce transformation and new job creation"
     }
   ],
   relatedSolutions: ["ai-automation", "smart-business", "security-compliance"]

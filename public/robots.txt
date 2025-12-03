@@ -1,5 +1,6 @@
-# Strive Tech - Robots.txt
-# AI-Powered Business Solutions
+# SAI Platform by Strive Tech - Robots.txt
+# All-in-One AI Operating System for Real Estate
+# https://strivetech.ai
 
 User-agent: *
 Allow: /
@@ -45,22 +46,19 @@ Disallow: /api/
 Disallow: /_next/
 Disallow: /static/
 
-# Allow important pages
-Allow: /solutions/
-Allow: /company
+# Allow important public pages
+Allow: /about
 Allow: /contact
-Allow: /portfolio
+Allow: /pricing
 Allow: /resources
-Allow: /assessment
+Allow: /privacy
+Allow: /terms
+Allow: /cookies
 
-# Sitemap location
+# Sitemap locations
 Sitemap: https://strivetech.ai/sitemap.xml
-Sitemap: https://strivetech.ai/api/sitemap
+Sitemap: https://strivetech.ai/api/sitemap.xml
 
 # Crawl-delay for heavy crawlers
 User-agent: *
 Crawl-delay: 1
-
-# Additional sitemaps for different content types
-Sitemap: https://strivetech.ai/sitemap-solutions.xml
-Sitemap: https://strivetech.ai/sitemap-pages.xml

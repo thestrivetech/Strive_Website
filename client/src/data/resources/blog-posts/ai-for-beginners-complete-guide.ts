@@ -38,19 +38,19 @@ export const aiForBeginnersCompleteGuide: Resource = {
   },
   sources: [
     {
-      title: "SAI Platform Overview",
-      url: "/platform",
-      description: "See how SAI replaces 10+ tools with one all-in-one platform"
+      title: "NAR REALTOR Technology Survey 2024",
+      url: "https://www.nar.realtor/research-and-statistics/research-reports/realtor-technology-survey",
+      description: "Annual survey showing 79% of agents use eSignature and 75% use social media tools"
     },
     {
-      title: "Get Started",
-      url: "/contact",
-      description: "Contact us to learn more about SAI Platform"
+      title: "HousingWire: 21 Indispensable AI Tools for Real Estate Agents",
+      url: "https://www.housingwire.com/articles/ai-tools-real-estate/",
+      description: "Comprehensive guide to AI-powered CRM and productivity tools for agents"
     },
     {
-      title: "National Association of Realtors",
-      url: "https://www.nar.realtor",
-      description: "Industry research on CRM adoption and ROI"
+      title: "RealTrends: Best Real Estate Marketing Software Options",
+      url: "https://www.realtrends.com/blog/2024/12/17/real-estate-marketing-software/",
+      description: "2024 analysis of top CRM and marketing platforms for real estate professionals"
     }
   ],
   relatedSolutions: ["real-estate-crm", "lead-management", "transaction-automation"]

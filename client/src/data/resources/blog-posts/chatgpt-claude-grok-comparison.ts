@@ -38,19 +38,19 @@ export const chatgptClaudeGrokComparison: Resource = {
   },
   sources: [
     {
-      title: "SAI Platform Overview",
-      url: "/platform",
-      description: "See all 6 SAI modules and how they work together"
+      title: "HousingWire: AI in Real Estate - Current and Future Use Cases",
+      url: "https://www.housingwire.com/articles/ai-in-real-estate-assessing-current-and-future-use-cases/",
+      description: "Analysis of AI-powered CRM capabilities and adoption trends among brokerages"
     },
     {
-      title: "Get Started",
-      url: "/contact",
-      description: "Schedule a demo and begin onboarding"
+      title: "Inman: AI Adoption In Real Estate Might End Up Freeing Agents",
+      url: "https://www.inman.com/2025/11/03/ai-adoption-in-real-estate-might-end-up-freeing-agents/",
+      description: "Industry perspective on how AI tools are transforming agent workflows"
     },
     {
-      title: "CRM Comparison Guide",
-      url: "/contact",
-      description: "Schedule a demo to see SAI vs your current tools"
+      title: "RealTrends Verified Agent Rankings 2024",
+      url: "https://www.housingwire.com/articles/realtrends-verified-agent-and-team-rankings-2024/",
+      description: "Data on technology adoption among top-performing real estate agents and teams"
     }
   ],
   relatedSolutions: ["real-estate-crm", "transaction-management", "all-in-one-platform"]

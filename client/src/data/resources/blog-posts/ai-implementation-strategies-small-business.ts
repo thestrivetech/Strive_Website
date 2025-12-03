@@ -38,19 +38,19 @@ export const aiImplementationStrategiesSmallBusiness: Resource = {
   },
   sources: [
     {
-      title: "SAI Platform - The Office Module",
-      url: "/platform",
-      description: "Automated transaction management for real estate agents"
+      title: "NAR Research & Statistics: Real Estate Transaction Data",
+      url: "https://www.nar.realtor/research-and-statistics",
+      description: "Industry benchmarks on transaction timelines, compliance, and agent productivity"
     },
     {
-      title: "Get Started",
-      url: "/contact",
-      description: "Contact us to learn more about SAI Platform"
+      title: "Inman: Technology for Real Estate Transactions",
+      url: "https://www.inman.com/category/technology/",
+      description: "Latest news and analysis on transaction management tools and automation"
     },
     {
-      title: "Real Estate Transaction Resources",
-      url: "/contact",
-      description: "Expert guidance for transaction management optimization"
+      title: "HousingWire: The Real Estate Agent's New Job Description",
+      url: "https://www.housingwire.com/articles/the-real-estate-agents-new-job-description-what-ai-cant-replace/",
+      description: "Analysis of how AI automates tasks while preserving human-centered agent roles"
     }
   ],
   relatedSolutions: ["transaction-management", "deal-tracking", "compliance-automation"]

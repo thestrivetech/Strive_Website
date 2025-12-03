@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useState, useRef, useEffect, useCallback } from "react";
 import chatbotManager from "@/lib/chatbot-iframe-communication";
 import performanceMonitor from "@/lib/chatbot-performance-monitor";
+import { MetaTags } from "@/components/seo/meta-tags";
+import { useSEO } from "@/hooks/use-seo";
 
 // Responsive viewport detection hook
 const useViewport = () => {
@@ -77,6 +79,7 @@ const useDynamicChatHeight = () => {
 };
 
 const ChatBotSai = () => {
+  const { seoConfig } = useSEO();
   const [isIframeVisible, setIsIframeVisible] = useState(false);
   const [showLoadingOverlay, setShowLoadingOverlay] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -390,7 +393,9 @@ const ChatBotSai = () => {
   );
 
   return (
-    <div className={`pt-16 min-h-screen hero-gradient flex flex-col ${viewport.isMobile ? 'pb-16' : ''}`}>
+    <>
+      <MetaTags seo={seoConfig} />
+      <div className={`pt-16 min-h-screen hero-gradient flex flex-col ${viewport.isMobile ? 'pb-16' : ''}`}>
       {/* Header */}
       <div className={`relative ${viewport.isMobile ? 'py-6' : viewport.isTablet ? 'py-8' : 'py-12'} overflow-hidden flex-shrink-0`}>
         <div className="absolute inset-0 bg-gradient-to-br from-[#ff7033]/10 via-transparent to-purple-600/10"></div>
@@ -536,6 +541,7 @@ const ChatBotSai = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

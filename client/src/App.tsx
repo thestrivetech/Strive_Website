@@ -28,7 +28,6 @@ const Login = lazy(() => import("@/pages/login"));
 const Privacy = lazy(() => import("@/pages/privacy"));
 const Terms = lazy(() => import("@/pages/terms"));
 const Cookies = lazy(() => import("@/pages/cookies"));
-const ChatBotSai = lazy(() => import("@/pages/chatbot-sai"));
 const Pricing = lazy(() => import("@/pages/pricing"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 const AnalyticsDashboard = lazy(() => import("@/pages/analytics-dashboard"));
@@ -69,7 +68,6 @@ function Router() {
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />
             <Route path="/cookies" component={Cookies} />
-            <Route path="/chatbot-sai" component={ChatBotSai} />
             <Route path="/pricing" component={Pricing} />
             <Route path="/analytics-dashboard" component={AnalyticsDashboard} />
             <Route component={NotFound} />

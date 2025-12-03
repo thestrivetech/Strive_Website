@@ -41,19 +41,19 @@ export const realEstateAiTransformation: Resource = {
   },
   sources: [
     {
-      title: "National Association of Realtors - Technology Impact Report",
-      url: "https://www.nar.realtor/research-and-statistics",
-      description: "Industry research on AI adoption and performance benchmarks in real estate"
+      title: "NAR 2024 Technology Survey: AI Usage Statistics",
+      url: "https://www.nar.realtor/sites/default/files/documents/2024-technology-survey-report-08-08-2024.pdf",
+      description: "NAR research showing 17% of agents now use AI weekly for lead scoring and market analysis"
     },
     {
-      title: "MIT Real Estate Lab - Predictive Analytics Research",
-      url: "https://mitsloan.mit.edu/",
-      description: "Academic validation of AI effectiveness in property valuation and market prediction"
+      title: "McKinsey: $110-180B AI Value Potential in Real Estate",
+      url: "https://www.mckinsey.com/industries/real-estate/our-insights/generative-ai-can-change-real-estate-but-the-industry-must-change-to-reap-the-benefits",
+      description: "McKinsey Global Institute analysis of AI's transformative impact on real estate operations"
     },
     {
-      title: "Ernst & Young Real Estate Technology Assessment",
-      url: "https://www.ey.com/",
-      description: "Independent third-party verification of AI platform performance and ROI"
+      title: "Zillow Research: 2024 Housing Market Technology Trends",
+      url: "https://www.zillow.com/research/2024-housing-predictions-33447/",
+      description: "Zillow's predictions on AI tools streamlining home-shopping and agent productivity"
     }
   ],
   relatedSolutions: ["predictive-analytics", "ai-automation", "computer-vision", "data-analytics"]

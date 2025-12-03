@@ -6,8 +6,8 @@ export const ethicalAIImplementation: Resource = {
   title: "The Sai Platform Revolution: Transforming Business Through Conversational AI Excellence",
   shortDescription: "Discover how the Sai AI Assistant platform delivers 3.7x ROI within 90 days through natural language business intelligence, achieving 90% adoption rates while seamlessly integrating Business Intelligence, Process Automation, and Predictive Analytics through conversation.",
   fullDescription: "The future of business intelligence has arrived. The Sai Platform represents a revolutionary approach to business AI that makes sophisticated analytics, automation, and decision-making as simple as having a conversation. Through our innovative INSTANT methodology and comprehensive tool marketplace, organizations achieve unprecedented results: 3.7x ROI within 90 days and 90% user adoption within 30 days.",
-  imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-  imageAlt: "Sai Platform conversational AI and business transformation",
+  imageUrl: "/images/saibot.png",
+  imageAlt: "SAI Platform AI Assistant - Orange robot mascot representing conversational AI",
   metadata: "Platform Revolution",
   date: "2025",
   author: "Strive Tech AI Team",
@@ -38,19 +38,19 @@ export const ethicalAIImplementation: Resource = {
   },
   sources: [
     {
-      title: "Harvard Business Review: Conversational AI in Enterprise",
-      url: "https://hbr.org/2024/conversational-ai-enterprise",
-      description: "Research on conversational AI adoption and business impact"
+      title: "Deloitte: State of Generative AI in the Enterprise 2024",
+      url: "https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-generative-ai-in-enterprise.html",
+      description: "Survey of 2,773 enterprise leaders on AI adoption, ROI, and implementation challenges"
     },
     {
-      title: "MIT Technology Review: Natural Language Business Intelligence",
-      url: "https://www.technologyreview.com/2024/natural-language-bi",
-      description: "Analysis of natural language interfaces in business intelligence"
+      title: "Gartner: Top 10 Strategic Technology Trends for 2024",
+      url: "https://www.gartner.com/en/articles/gartner-top-10-strategic-technology-trends-for-2024",
+      description: "Strategic technology predictions with AI and democratized GenAI leading trends"
     },
     {
-      title: "Gartner: Voice-First AI Platform Market Research",
-      url: "https://www.gartner.com/voice-first-ai-platforms-2024",
-      description: "Market analysis of voice-first AI platform adoption trends"
+      title: "McKinsey: Generative AI Can Transform Real Estate",
+      url: "https://www.mckinsey.com/industries/real-estate/our-insights/generative-ai-can-change-real-estate-but-the-industry-must-change-to-reap-the-benefits",
+      description: "Analysis of $110-180B AI value potential across enterprise operations"
     }
   ],
   fullContent: {
@@ -778,43 +778,43 @@ The organizations that will thrive in the AI-transformed economy are implementin
     citations: [
       {
         number: "1",
-        text: "Harvard Business Review. (2024). The Rise of Conversational AI in Enterprise Operations",
-        url: "https://hbr.org/2024/conversational-ai-enterprise-operations"
+        text: "Deloitte. (2024). State of Generative AI in the Enterprise - Quarterly Survey Report",
+        url: "https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-generative-ai-in-enterprise.html"
       },
       {
         number: "2",
-        text: "MIT Technology Review. (2024). Natural Language Processing Transforms Business Intelligence",
-        url: "https://www.technologyreview.com/2024/nlp-business-intelligence"
+        text: "Gartner. (2024). Top 10 Strategic Technology Trends for 2024 - AI and Democratized GenAI",
+        url: "https://www.gartner.com/en/articles/gartner-top-10-strategic-technology-trends-for-2024"
       },
       {
         number: "3",
-        text: "Gartner. (2024). Market Analysis: Voice-First AI Platforms Drive 90% Adoption Rates",
-        url: "https://www.gartner.com/voice-first-ai-platform-adoption"
+        text: "McKinsey Global Institute. (2024). Generative AI and the Future of Work in America",
+        url: "https://www.mckinsey.com/mgi/our-research/generative-ai-and-the-future-of-work-in-america"
       },
       {
         number: "4",
-        text: "Forrester. (2024). Conversational AI Platforms Achieve 3.7x ROI Within 90 Days",
-        url: "https://www.forrester.com/conversational-ai-roi-analysis"
+        text: "McKinsey. (2024). Generative AI Can Change Real Estate - $110-180B Value Potential",
+        url: "https://www.mckinsey.com/industries/real-estate/our-insights/generative-ai-can-change-real-estate-but-the-industry-must-change-to-reap-the-benefits"
       },
       {
         number: "5",
-        text: "McKinsey & Company. (2024). The Business Impact of Natural Language Business Intelligence",
-        url: "https://www.mckinsey.com/natural-language-business-intelligence"
+        text: "National Association of REALTORS. (2024). Technology Survey Report - AI Adoption Statistics",
+        url: "https://www.nar.realtor/sites/default/files/documents/2024-technology-survey-report-08-08-2024.pdf"
       },
       {
         number: "6",
-        text: "Deloitte. (2024). Healthcare AI: Conversational Interfaces Drive 40% Efficiency Gains",
-        url: "https://www.deloitte.com/healthcare-conversational-ai-efficiency"
+        text: "Gartner. (2024). Predictions for IT Organizations and Users in 2025 and Beyond",
+        url: "https://www.gartner.com/en/newsroom/press-releases/2024-10-22-gartner-unveils-top-predictions-for-it-organizations-and-users-in-2025-and-beyond"
       },
       {
         number: "7",
-        text: "PwC. (2024). Financial Services Transformation Through Conversational AI Platforms",
-        url: "https://www.pwc.com/financial-services-conversational-ai"
+        text: "HousingWire. (2024). AI in Real Estate: Assessing Current and Future Use Cases",
+        url: "https://www.housingwire.com/articles/ai-in-real-estate-assessing-current-and-future-use-cases/"
       },
       {
         number: "8",
-        text: "Boston Consulting Group. (2024). Manufacturing Intelligence: The Conversational AI Revolution",
-        url: "https://www.bcg.com/manufacturing-conversational-ai-revolution"
+        text: "Inman. (2024). 2024 Will Be The Year Of The Automated Agent - Industry Analysis",
+        url: "https://www.inman.com/2024/05/14/2024-will-be-the-year-of-the-automated-agent/"
       }
     ]
   }

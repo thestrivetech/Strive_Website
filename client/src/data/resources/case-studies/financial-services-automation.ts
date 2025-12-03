@@ -35,19 +35,19 @@ export const financialServicesAutomation: Resource = {
   },
   sources: [
     {
-      title: "SAI Platform Overview",
-      url: "/platform",
-      description: "See how SAI replaces 10+ tools with one all-in-one platform"
+      title: "NAR 2024 Technology Survey: eSignature & CRM Adoption",
+      url: "https://www.nar.realtor/sites/default/files/documents/2024-technology-survey-report-08-08-2024.pdf",
+      description: "Survey showing 79% of agents use eSignature, 75% use social media in their workflow"
     },
     {
-      title: "Get Started",
-      url: "/contact",
-      description: "Schedule a demo and begin onboarding"
+      title: "HouseWhisper: AI Agent Assistant Tackles Administrative Overload",
+      url: "https://www.prweb.com/releases/former-zillow-executives-launch-ai-powered-real-estate-agent-assistant-housewhisper-company-raises-nearly-10m-to-transform-agent-productivity-302384292.html",
+      description: "Industry research on how AI assistants help agents save time and nurture clients"
     },
     {
-      title: "National Association of Realtors",
-      url: "https://www.nar.realtor",
-      description: "Industry research on agent productivity and technology adoption"
+      title: "Inman: CRM Utilization Gaps - 88% of Conversations Never Enter CRM",
+      url: "https://www.inman.com/2024/05/14/2024-will-be-the-year-of-the-automated-agent/",
+      description: "Research on how automation closes lead nurturing gaps for solo agents"
     }
   ],
   relatedSolutions: ["real-estate-crm", "solo-agent-tools", "productivity-automation"]

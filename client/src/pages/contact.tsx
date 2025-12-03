@@ -13,8 +13,11 @@ import { useLocation } from "wouter";
 import { validatePhone } from "@/lib/validation";
 import ProfessionalBrochure from "@/components/ui/professional-brochure";
 import { generatePDF, generateProfessionalBrochurePDF } from "@/lib/pdf-generator";
+import { MetaTags } from "@/components/seo/meta-tags";
+import { useSEO } from "@/hooks/use-seo";
 
 const Contact = () => {
+  const { seoConfig } = useSEO();
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const [formData, setFormData] = useState({
@@ -295,7 +298,9 @@ const Contact = () => {
   };
 
   return (
-    <div className="pt-16">
+    <>
+      <MetaTags seo={seoConfig} />
+      <div className="pt-16">
       <section className="hero-gradient pt-16 md:pt-20 pb-12 md:pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16">
@@ -625,6 +630,7 @@ const Contact = () => {
         </DialogContent>
       </Dialog>
     </div>
+    </>
   );
 };
 
