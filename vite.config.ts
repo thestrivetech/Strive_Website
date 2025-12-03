@@ -133,7 +133,7 @@ export default defineConfig({
           // Query and state management
           query: ['@tanstack/react-query'],
           // PWA and Service Worker
-          pwa: ['workbox-window', 'idb']
+          pwa: ['workbox-window']
         },
         // Optimize asset file names for better caching
         assetFileNames: (assetInfo) => {

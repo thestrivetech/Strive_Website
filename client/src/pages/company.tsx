@@ -1,5 +1,5 @@
 import { Target, Eye, Heart, CheckCircle, Calendar, Rocket, Zap, Users, ChevronLeft, ChevronRight } from "lucide-react";
-import { ArrowTrendingUpIcon, LightBulbIcon, GlobeAltIcon, CpuChipIcon } from "@heroicons/react/24/outline";
+import { ArrowTrendingUpIcon, LightBulbIcon, GlobeAltIcon, CpuChipIcon, DevicePhoneMobileIcon } from "@heroicons/react/24/outline";
 import TeamMember from "@/components/ui/team-member";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -79,23 +79,23 @@ const Company = () => {
     },
     {
       year: "Q1 2026",
-      title: "500 Real Estate Professionals Onboarded",
-      description: "Empowering 500 agents, teams, and brokerages to close more deals faster with our integrated platform and AI-powered workflows",
-      icon: <ArrowTrendingUpIcon className="h-6 w-6" />,
+      title: "Mobile App Release",
+      description: "Native iOS and Android apps bringing the complete SAI Platform to your pocket—all 6 modules, AI assistant, document signing, and real-time notifications",
+      icon: <DevicePhoneMobileIcon className="h-6 w-6" />,
       status: "upcoming"
     },
     {
       year: "Q2 2026",
-      title: "10,000 Transactions Managed",
-      description: "Facilitating 10,000 real estate transactions through The Office module, streamlining compliance, communication, and closing processes",
+      title: "Complete MLS Integration",
+      description: "Full MLS data access with automatic property sync, real-time market insights, and one-click CMA generation for faster, smarter listings",
       icon: <GlobeAltIcon className="h-6 w-6" />,
       status: "future"
     },
     {
       year: "Q3 2026",
-      title: "SAI Assistant AI Assistant Evolution",
-      description: "Launching advanced AI capabilities including predictive lead scoring, market insights, and automated content generation for real estate professionals",
-      icon: <LightBulbIcon className="h-6 w-6" />,
+      title: "3,000 Daily Active Users",
+      description: "Growing our community of real estate professionals who rely on SAI daily to manage leads, transactions, and client relationships",
+      icon: <ArrowTrendingUpIcon className="h-6 w-6" />,
       status: "future"
     },
     {

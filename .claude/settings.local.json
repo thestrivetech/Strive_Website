@@ -114,7 +114,8 @@
       "Bash(for component in \"FinalCTASection\" \"PlatformDemoSection\" \"PriceSavingsComparison\" \"TrustSignalsBar\" \"WhySAISection\" \"ModuleOverviewSection\" \"ModulePainPointsSection\" \"UnifiedFilterDropdown\" \"PortfolioCard\" \"PrefetchLink\")",
       "Bash(do echo \"=== $component ===\")",
       "Bash(done)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
