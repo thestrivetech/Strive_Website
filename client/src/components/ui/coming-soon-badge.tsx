@@ -34,7 +34,7 @@ export function ComingSoonBadge({
         className
       )}
     >
-      Coming September 19th
+      Coming Soon
     </span>
   );
 }

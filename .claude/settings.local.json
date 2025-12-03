@@ -115,7 +115,8 @@
       "Bash(do echo \"=== $component ===\")",
       "Bash(done)",
       "Bash(xargs:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git grep:*)"
     ],
     "deny": [],
     "ask": []

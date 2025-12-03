@@ -149,7 +149,7 @@ export default function Pricing() {
         <section className="hero-gradient py-20 sm:py-24 lg:py-32 relative overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto text-center">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight tracking-wide">
                 Simple, Transparent Pricing for Real Estate Teams
               </h1>
               <p className="text-xl sm:text-2xl text-white/95 mb-10 leading-relaxed max-w-3xl mx-auto">
@@ -327,7 +327,7 @@ export default function Pricing() {
             <div className="max-w-6xl mx-auto">
               {/* Section Header */}
               <div className="text-center mb-12">
-                <Badge className="mb-6 bg-white/10 text-orange-300 border-orange-400/50 font-semibold backdrop-blur-sm">
+                <Badge className="mb-6 bg-white/10 text-orange-300 border-orange-400/50 font-semibold backdrop-blur-sm text-base px-4 py-1.5">
                   Competitive Analysis
                 </Badge>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
@@ -417,7 +417,7 @@ export default function Pricing() {
             <div className="max-w-5xl mx-auto">
               {/* Header */}
               <div className="text-center mb-10">
-                <Badge className="mb-6 bg-orange-100 text-orange-700 border-orange-300 font-semibold">
+                <Badge className="mb-6 bg-orange-100 text-orange-700 border-orange-300 font-semibold text-base px-4 py-1.5">
                   Tool Calculator
                 </Badge>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">

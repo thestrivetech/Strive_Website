@@ -461,7 +461,7 @@ const Resources = () => {
               className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#94a3b8] max-w-4xl mx-auto mb-6 sm:mb-7 md:mb-8 px-4"
               data-testid="text-hero-subtitle"
             >
-              Discover how real estate professionals are transforming their businesses with SAI Platform—the all-in-one CRM built for agents, teams, and brokerages.
+              Industry research, AI trends, and expert insights on how technology is transforming real estate.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
               <Button
@@ -491,17 +491,6 @@ const Resources = () => {
       <section id="resource-library" className="py-16 bg-[#ffffffeb] shadow-lg">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Descriptions */}
-          {activeFilter === "All" && (
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold mb-4 text-slate-800">
-                Real Estate <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Resources</span>
-              </h3>
-              <p className="text-slate-600 text-lg">
-                Browse our collection of real estate insights and success stories from agents using SAI Platform.
-              </p>
-            </div>
-          )}
-
           {activeFilter === "Blog Posts" && (
             <div className="text-center mb-12">
               <h3 className="text-3xl font-bold mb-4 text-slate-800">

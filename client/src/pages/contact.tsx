@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MapPin, Phone, Mail, Clock, Download, MessageCircle, ChevronDown, ChevronUp, Users, Eye, FileText, Calendar } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Download, MessageCircle, Users, Eye, FileText, Calendar } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -34,7 +34,6 @@ const Contact = () => {
     phone: ""
   });
   
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -135,24 +134,6 @@ const Contact = () => {
     }
   ];
 
-  const faqs = [
-    {
-      question: "How quickly can we start seeing results with Strive's AI solutions?",
-      answer: "Most clients launch their first AI-powered project in as little as 2 to 4 weeks with measurable business value soon after."
-    },
-    {
-      question: "What support can we expect after implementation?",
-      answer: "Our experts guide you from onboarding through ongoing optimization. You'll have a dedicated success manager, proactive monitoring, and 24/7 support."
-    },
-    {
-      question: "Which industries have you helped?",
-      answer: "We empower teams in real estate, dental practices, finance, logistics, healthcare, and beyond. If your industry isn't listed, chances are, we can help."
-    },
-    {
-      question: "How does Strive protect our data?",
-      answer: "Your data security is our top priority. Strive adheres to leading compliance standards and uses advanced encryption to keep your information safe."
-    }
-  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -293,10 +274,6 @@ const Contact = () => {
     }
   };
 
-  const toggleFaq = (index: number) => {
-    setExpandedFaq(expandedFaq === index ? null : index);
-  };
-
   return (
     <>
       <MetaTags seo={seoConfig} />
@@ -308,13 +285,13 @@ const Contact = () => {
               className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight"
               data-testid="text-contact-title"
             >
-              Let's Talk About <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">Your Real Estate Business</span>
+              Get Started with <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">SAI Platform</span>
             </h1>
             <p
               className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
               data-testid="text-contact-subtitle"
             >
-              Ready to replace 10+ tools with one unified platform? Have questions about SAI Platform? We're here to help you streamline your real estate workflow and close more deals.
+              Fill out the form below and schedule a meeting with our team. We'll walk you through the platform and help you get set up.
             </p>
           </div>
 
@@ -327,7 +304,7 @@ const Contact = () => {
                   style={{ color: '#ff7033' }}
                   data-testid="text-form-title"
                 >
-                  Get in Touch
+                  Tell Us About You
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
@@ -564,55 +541,31 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* FAQ Section */}
-          <div className="mt-16 md:mt-20">
-            <div className="text-center mb-8 md:mb-12">
-              <h2 
-                className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4"
-                data-testid="text-faq-title"
-              >
-                Frequently Asked Questions
-              </h2>
-              <p 
-                className="text-lg md:text-xl text-muted-foreground"
-                data-testid="text-faq-subtitle"
-              >
-                Quick answers to common questions.
-              </p>
-            </div>
-
-            <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
-              {faqs.map((faq, index) => (
-                <Card key={index} className="overflow-hidden" style={{ backgroundColor: '#ffffffeb' }}>
-                  <button
-                    className="w-full text-left p-5 sm:p-4 md:p-6 flex items-center justify-between hover:bg-muted/50 transition-colors min-h-[64px] sm:min-h-[60px] md:min-h-auto"
-                    onClick={() => toggleFaq(index)}
-                    data-testid={`button-faq-${index}`}
-                  >
-                    <span className="font-medium text-sm md:text-base pr-4" data-testid={`text-faq-question-${index}`} style={{ color: '#020a1c' }}>
-                      {faq.question}
-                    </span>
-                    <div className="flex-shrink-0">
-                      {expandedFaq === index ? (
-                        <ChevronUp className="text-primary w-5 h-5 md:w-6 md:h-6" />
-                      ) : (
-                        <ChevronDown className="text-primary w-5 h-5 md:w-6 md:h-6" />
-                      )}
-                    </div>
-                  </button>
-                  {expandedFaq === index && (
-                    <div 
-                      className="px-4 md:px-6 pb-4 md:pb-6 text-sm md:text-base leading-relaxed"
-                      style={{ color: '#666' }}
-                      data-testid={`text-faq-answer-${index}`}
-                    >
-                      {faq.answer}
-                    </div>
-                  )}
-                </Card>
-              ))}
+          {/* Calendly Scheduling Section */}
+          <div className="mt-12 md:mt-16">
+            <h3
+              className="text-xl md:text-2xl font-semibold mb-6 text-center"
+              style={{ color: '#020a1c' }}
+              data-testid="text-calendly-title"
+            >
+              Schedule Your Onboarding Call
+            </h3>
+            <div className="max-w-4xl mx-auto rounded-lg overflow-hidden shadow-lg" style={{ border: '1px solid #e5e7eb' }}>
+              <iframe
+                src="https://calendly.com/strivetech?hide_gdpr_banner=1"
+                width="100%"
+                height="630"
+                frameBorder="0"
+                title="Schedule Your Onboarding Call - SAI Platform"
+                className="w-full"
+                style={{ minHeight: '630px' }}
+                allow="camera; microphone; geolocation"
+                referrerPolicy="strict-origin-when-cross-origin"
+                loading="lazy"
+              />
             </div>
           </div>
+
         </div>
       </section>
 

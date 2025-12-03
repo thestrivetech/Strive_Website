@@ -170,7 +170,7 @@ const Home = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
-                <Badge className="mb-6 bg-gradient-to-r from-orange-100 to-orange-200 text-orange-700 border-orange-300 font-semibold">
+                <Badge className="mb-6 bg-gradient-to-r from-orange-100 to-orange-200 text-orange-700 border-orange-300 font-semibold text-base px-4 py-1.5">
                   The All-in-One Real Estate Platform
                 </Badge>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
@@ -184,10 +184,10 @@ const Home = () => {
               {/* Key Benefits List */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 {[
-                  "Unlimited contacts, deals, content creation for marketing & social media, and fully capable AI assistance ",
+                  "Unlimited contacts, deals, content creation for marketing & social media, and fully capable AI assistance",
                   "6 integrated modules (SaiBot Assistant, CRM, The Office, Content Studio, REID, Taxes & Expenses)",
-                  "Built specifically for daily real estate workflows",
-                  "Industry leading AI",
+                  "Built specifically for daily real estate workflows, from lead capture to closing",
+                  "Industry-leading AI trained on real estate best practices and market insights",
                 ].map((benefit, index) => (
                   <div key={index} className="flex items-start gap-3 bg-white rounded-lg p-4 sm:p-6 shadow-sm border border-gray-200">
                     <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
@@ -196,8 +196,8 @@ const Home = () => {
                 ))}
               </div>
 
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              {/* CTA */}
+              <div className="flex justify-center mt-8">
                 <Button
                   size="lg"
                   className="min-h-[44px] px-8 text-lg font-semibold"
@@ -205,17 +205,6 @@ const Home = () => {
                 >
                   Get Started
                   <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="min-h-[44px] px-8 text-lg font-semibold"
-                  onClick={() => {
-                    const modulesSection = document.getElementById("modules");
-                    modulesSection?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                >
-                  Explore Features
                 </Button>
               </div>
             </div>
@@ -228,7 +217,7 @@ const Home = () => {
             {/* Section Header */}
             <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
               {/* Main Headline with Gradient Accent */}
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 tracking-wide">
                 Everything You Need,
                 <br />
                 <span className="bg-gradient-to-r from-orange-600 to-purple-600 bg-clip-text text-transparent">
@@ -581,7 +570,7 @@ const Home = () => {
                   Ready to Save 10+ Hours Per Week?
                 </h3>
                 <p className="text-white/80 mb-4 sm:mb-6 text-sm sm:text-base">
-                  Ready to set Up a Meeting?
+                  Ready to set up a meeting?
                 </p>
                 <Link href="/contact">
                   <Button
@@ -720,13 +709,13 @@ const Home = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             {/* Coming Soon Header */}
             <div className="text-center mb-12 lg:mb-16">
-              <span className="inline-block px-3 py-1 text-xs font-medium bg-orange-500/20 text-orange-400 rounded-full mb-4">
+              <span className="inline-block px-4 py-1.5 text-sm font-medium bg-orange-500/20 text-orange-400 rounded-full mb-4">
                 Coming Soon
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
                 What's Next for the SAI Platform
               </h2>
-              <p className="text-white/80 text-lg max-w-2xl mx-auto">
+              <p className="text-white/80 text-lg sm:text-xl max-w-2xl mx-auto">
                 Exciting features on our roadmap to make your real estate business even more powerful
               </p>
             </div>
@@ -794,7 +783,7 @@ const Home = () => {
               <div className="flex justify-center mb-12 sm:mb-16">
                 <Button
                   size="lg"
-                  className="bg-white text-primary hover:bg-white/90 shadow-lg hover:shadow-xl transition-all duration-200 min-h-[44px] px-8 py-6 text-lg font-semibold"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200 min-h-[44px] px-8 py-6 text-lg font-semibold"
                   onClick={() => window.location.href = "/contact"}
                 >
                   Get Started

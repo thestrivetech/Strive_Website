@@ -122,10 +122,7 @@ const Login = () => {
                 </>
               )}
             </CardTitle>
-            <div className="flex justify-center mt-2 mb-2">
-              <ComingSoonBadge size="md" variant="hero" />
-            </div>
-            <CardDescription className="text-gray-600">
+            <CardDescription className="text-gray-600 mt-2">
               {activeTab === "login" 
                 ? "Sign in to your account to access your dashboard"
                 : "Join us and watch your business thrive"
@@ -135,23 +132,23 @@ const Login = () => {
           <CardContent className="px-8 pb-8">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger 
-                  value="login" 
+                <TabsTrigger
+                  value="login"
                   data-testid="tab-login"
-                  className="data-[state=active]:bg-[#ff7033] data-[state=active]:text-white"
+                  className="data-[state=active]:bg-[#ff7033] data-[state=active]:text-white transition-all duration-200"
                 >
                   Login
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="signup" 
+                <TabsTrigger
+                  value="signup"
                   data-testid="tab-signup"
-                  className="data-[state=active]:bg-[#ff7033] data-[state=active]:text-white"
+                  className="data-[state=active]:bg-[#ff7033] data-[state=active]:text-white transition-all duration-200"
                 >
                   Sign Up
                 </TabsTrigger>
               </TabsList>
               
-              <TabsContent value="login" className="space-y-4 min-h-[280px]">
+              <TabsContent value="login" className="space-y-4 min-h-[280px] data-[state=active]:animate-in data-[state=active]:fade-in-0 data-[state=active]:slide-in-from-bottom-2 duration-200">
                 <Form {...loginForm}>
                   <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4">
                     <FormField
@@ -208,7 +205,7 @@ const Login = () => {
                 </Form>
               </TabsContent>
               
-              <TabsContent value="signup" className="space-y-4 min-h-[450px]">
+              <TabsContent value="signup" className="space-y-4 min-h-[450px] data-[state=active]:animate-in data-[state=active]:fade-in-0 data-[state=active]:slide-in-from-bottom-2 duration-200">
                 <Form {...signupForm}>
                   <form onSubmit={signupForm.handleSubmit(onSignupSubmit)} className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
