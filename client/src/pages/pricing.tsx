@@ -3,6 +3,7 @@ import { MetaTags } from "@/components/seo/meta-tags";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { PageNavigation, type NavSection } from "@/components/ui/page-navigation";
 import { CheckCircle2, ArrowRight, ChevronDown, Users, Building2, Sparkles, Check, X, AlertCircle, DollarSign } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
@@ -89,6 +90,17 @@ export default function Pricing() {
     },
   ];
 
+  // Page navigation sections
+  const navSections: NavSection[] = [
+    { id: 'pricing-hero', label: 'Overview', background: 'dark' },
+    { id: 'pricing-tiers', label: 'Pricing', background: 'light' },
+    { id: 'pricing-comparison', label: 'Compare', background: 'dark' },
+    { id: 'pricing-calculator', label: 'Calculator', background: 'light' },
+    { id: 'pricing-included', label: 'Features', background: 'dark' },
+    { id: 'pricing-faqs', label: 'FAQs', background: 'light' },
+    { id: 'pricing-cta', label: 'Get Started', background: 'dark' },
+  ];
+
   // Core features (everyone gets everything)
   const coreFeatures = [
     'All 6 integrated modules (SAI Assistant, CRM, The Office, Content Studio, REID, Taxes & Expenses)',
@@ -146,7 +158,7 @@ export default function Pricing() {
 
       <div className="pt-16">
         {/* Hero Section - Matching homepage style */}
-        <section className="hero-gradient py-20 sm:py-24 lg:py-32 relative overflow-hidden">
+        <section id="pricing-hero" className="scroll-mt-20 hero-gradient py-4 sm:py-8 lg:py-12 relative overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto text-center">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight tracking-wide">
@@ -175,7 +187,7 @@ export default function Pricing() {
 
                     {/* Main Value Proposition */}
                     <p className="text-base sm:text-lg text-gray-800 mb-4 leading-relaxed">
-                      Lock in <span className="font-bold bg-gradient-to-r from-orange-600 to-purple-600 bg-clip-text text-transparent">$299/seat pricing forever.</span> Lifetime access to all current and future features—no matter what we add.
+                      Lock in <span className="font-bold bg-gradient-to-r from-orange-600 to-purple-600 bg-clip-text text-transparent">$299/seat pricing forever.</span> Lifetime access to all current and future features, no matter what we add.
                     </p>
 
                     {/* Divider */}
@@ -214,7 +226,7 @@ export default function Pricing() {
         </section>
 
         {/* Pricing Tiers */}
-        <section id="pricing-tiers" className="py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
+        <section id="pricing-tiers" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
@@ -322,7 +334,7 @@ export default function Pricing() {
         </section>
 
         {/* Competitor Comparison Section */}
-        <section className="py-16 sm:py-20 lg:py-24 hero-gradient relative overflow-hidden">
+        <section id="pricing-comparison" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 hero-gradient relative overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
               {/* Section Header */}
@@ -412,7 +424,7 @@ export default function Pricing() {
         </section>
 
         {/* Tool Replacement Calculator */}
-        <section className="py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
+        <section id="pricing-calculator" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto">
               {/* Header */}
@@ -579,7 +591,7 @@ export default function Pricing() {
         </section>
 
         {/* What's Included Section - Dark contrast section */}
-        <section className="py-16 sm:py-20 lg:py-24 hero-gradient relative overflow-hidden">
+        <section id="pricing-included" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 hero-gradient relative overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
@@ -607,7 +619,7 @@ export default function Pricing() {
         </section>
 
         {/* Pricing FAQs Section */}
-        <section className="py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
+        <section id="pricing-faqs" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
@@ -698,7 +710,7 @@ export default function Pricing() {
         </section>
 
         {/* Final CTA Section */}
-        <section className="py-16 sm:py-20 lg:py-24 hero-gradient">
+        <section id="pricing-cta" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 hero-gradient">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
@@ -711,7 +723,7 @@ export default function Pricing() {
                 <Link href="/contact">
                   <Button
                     size="lg"
-                    className="min-h-[44px] px-8 py-6 text-lg font-semibold bg-white text-primary hover:bg-white/90 shadow-lg hover:shadow-xl transition-all duration-200"
+                    className="min-h-[44px] px-8 py-6 text-lg font-semibold bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     Get Started
                     <ArrowRight className="ml-2 w-5 h-5" />
@@ -721,6 +733,9 @@ export default function Pricing() {
             </div>
           </div>
         </section>
+
+        {/* Page Navigation */}
+        <PageNavigation sections={navSections} />
       </div>
     </>
   );

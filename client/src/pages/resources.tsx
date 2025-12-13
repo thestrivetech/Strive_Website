@@ -3,6 +3,7 @@ import React from "react";
 import { Download, FileText, BookOpen, BarChart3, Sparkles, Eye, X, ExternalLink, Clock, User, Calendar, Filter, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PageNavigation, type NavSection } from "@/components/ui/page-navigation";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { cn } from "@/lib/utils";
@@ -23,6 +24,12 @@ import { WhitepaperViewer } from "@/components/resources/WhitepaperViewer";
 const Resources = () => {
   const { seoConfig } = useSEO();
   const { toast } = useToast();
+
+  // Page navigation sections
+  const navSections: NavSection[] = [
+    { id: 'resources-hero', label: 'Overview', background: 'dark' },
+    { id: 'resource-library', label: 'Library', background: 'light' },
+  ];
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
   const [showWhitepaperViewer, setShowWhitepaperViewer] = useState(false);
@@ -424,7 +431,7 @@ const Resources = () => {
       <MetaTags seo={seoConfig} />
       <div className="pt-16">
       {/* Hero Section with AI-themed animated background */}
-      <section className="py-12 sm:py-14 md:py-16 lg:py-20 hero-gradient relative overflow-hidden">
+      <section id="resources-hero" className="scroll-mt-20 py-4 sm:py-8 lg:py-12 hero-gradient relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 animate-pulse"></div>
           <div className="absolute top-0 left-0 w-full h-full">
@@ -445,12 +452,6 @@ const Resources = () => {
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <div className="flex items-center justify-center mb-4 sm:mb-5 md:mb-6">
-              <div className="relative">
-                <BookOpen className="text-primary h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 animate-pulse" />
-                <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping"></div>
-              </div>
-            </div>
             <h1
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-5 md:mb-6 text-white px-4"
               data-testid="text-hero-title"
@@ -516,23 +517,21 @@ const Resources = () => {
           {/* Featured Whitepaper - Only show on All filter */}
           {activeFilter === "All" && (
             <div className="bg-off-white rounded-2xl overflow-hidden mb-16 shadow-lg border border-slate-100">
-              <div className="md:flex">
-                <div className="md:w-1/2">
-                  <div className="relative">
-                    <img
-                      src={featuredResource.imageUrl}
-                      alt={featuredResource.imageAlt}
-                      className="w-full h-64 md:h-full object-cover"
-                      data-testid="img-featured-resource"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span
-                        className="bg-slate-800 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center"
-                        data-testid="text-trending-badge"
-                      >
-                        <Sparkles className="h-3 w-3 mr-1" /> FEATURED
-                      </span>
-                    </div>
+              <div className="md:flex md:items-stretch">
+                <div className="md:w-1/2 relative">
+                  <img
+                    src={featuredResource.imageUrl}
+                    alt={featuredResource.imageAlt}
+                    className="w-full h-64 md:h-full md:absolute md:inset-0 object-cover object-[center_30%]"
+                    data-testid="img-featured-resource"
+                  />
+                  <div className="absolute top-4 left-4 z-10">
+                    <span
+                      className="bg-slate-800 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center"
+                      data-testid="text-trending-badge"
+                    >
+                      <Sparkles className="h-3 w-3 mr-1" /> FEATURED
+                    </span>
                   </div>
                 </div>
                 <div className="md:w-1/2 p-8 md:p-12">
@@ -719,7 +718,7 @@ const Resources = () => {
                     <img
                       src={resource.imageUrl}
                       alt={resource.imageAlt}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover object-[center_25%] transition-transform duration-500 group-hover:scale-110"
                       data-testid={`img-resource-${resource.id}`}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -1022,6 +1021,9 @@ const Resources = () => {
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
       </Dialog>
+
+      {/* Page Navigation */}
+      <PageNavigation sections={navSections} />
     </div>
     </>
   );

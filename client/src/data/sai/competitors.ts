@@ -442,7 +442,7 @@ export const saiCompetitiveAdvantages = [
   },
   {
     title: 'Proprietary AI Models',
-    description: 'Market Velocity Intelligence (~10 day accuracy) and Precision Valuation Intelligence (~7% accuracy). NO competitor offers predictive market timing.',
+    description: 'Market Velocity Intelligence and Precision Valuation Intelligence provide predictive market insights. NO competitor offers predictive market timing.',
     advantage: 'Exclusive predictive capabilities',
   },
   {

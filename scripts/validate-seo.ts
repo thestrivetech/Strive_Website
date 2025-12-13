@@ -134,23 +134,8 @@ async function validateTechnicalSEO(): Promise<{ file: string; exists: boolean; 
         }
         return issues;
       }
-    },
-    {
-      file: 'public/sitemap.xml',
-      validator: (content: string) => {
-        const issues: string[] = [];
-        if (!content.includes('<?xml')) {
-          issues.push('Not a valid XML file');
-        }
-        if (!content.includes('<urlset')) {
-          issues.push('Missing urlset element');
-        }
-        if (!content.includes('<loc>')) {
-          issues.push('No URLs found in sitemap');
-        }
-        return issues;
-      }
     }
+    // Note: sitemap.xml is now served dynamically via /api/sitemap.xml
   ];
   
   const results = [];

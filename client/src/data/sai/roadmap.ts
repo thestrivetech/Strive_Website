@@ -34,7 +34,7 @@ export const roadmapFeatures: RoadmapFeature[] = [
     benefits: [
       'Eliminate switching between multiple platforms',
       'Automatic data sync across all your tools',
-      'Save 10+ hours per week on manual data entry',
+      'Reduce time spent on manual data entry',
       'Professional workflows without the complexity',
     ],
     useCases: [
@@ -97,7 +97,7 @@ export const roadmapFeatures: RoadmapFeature[] = [
   {
     id: 'quickbooks-integration',
     title: 'QuickBooks & Intuit Tax Integration',
-    description: 'QuickBooks Online sync with automatic expense tracking, tax-ready reports, and quarterly tax estimates. Reduce tax preparation time by 80%.',
+    description: 'QuickBooks Online sync with automatic expense tracking, tax-ready reports, and quarterly tax estimates. Significantly reduce tax preparation time.',
     status: 'planned',
     phase: 'Q2-2025',
     category: 'Financial',
@@ -119,7 +119,7 @@ export const roadmapFeatures: RoadmapFeature[] = [
     category: 'AI',
     benefits: [
       'Focus time on leads most likely to close',
-      'Increase conversion rates by 35-50%',
+      'Improve conversion rates with smarter prioritization',
       'AI learns from your specific market',
       'Automated lead qualification via chat',
     ],
@@ -181,10 +181,10 @@ export const roadmapFeatures: RoadmapFeature[] = [
     phase: 'Q4-2025',
     category: 'Client Experience',
     benefits: [
-      'Reduce "Where do we stand?" calls by 90%',
+      'Reduce "Where do we stand?" calls significantly',
       'Clients feel informed and in control',
       'Professional experience sets you apart',
-      'Automated document collection saves hours',
+      'Automated document collection saves time',
     ],
   },
   {
@@ -232,7 +232,7 @@ export const roadmapFeatures: RoadmapFeature[] = [
       'Position yourself as the market authority',
       'Share data-driven insights clients can\'t get elsewhere',
       'Win listings by demonstrating market expertise',
-      'Automated content saves 5-10 hours per week',
+      'Automated content saves significant time',
     ],
   },
   {

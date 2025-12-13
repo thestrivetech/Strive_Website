@@ -46,13 +46,13 @@ export const faqs: FAQ[] = [
     id: 'pricing-05',
     category: 'pricing',
     question: 'Are there any limits on contacts or deals?',
-    answer: 'No. All SAI Platform plans include unlimited contacts, unlimited deals, and unlimited content generation. You get full access to all 6 modules and every feature we offer—no limits, no hidden caps, no surprises.',
+    answer: 'No. All SAI Platform plans include unlimited contacts, unlimited deals, and unlimited content generation. You get full access to all 6 modules and every feature we offer: no limits, no hidden caps, no surprises.',
   },
   {
     id: 'pricing-06',
     category: 'pricing',
     question: 'Can I get a refund if I\'m not satisfied?',
-    answer: 'Yes. We offer a 30-day money-back guarantee on all SAI Platform subscriptions. If you\'re not satisfied within the first 30 days, contact support for a full refund—no questions asked.',
+    answer: 'Yes. We offer a 30-day money-back guarantee on all SAI Platform subscriptions. If you\'re not satisfied within the first 30 days, contact support for a full refund, no questions asked.',
   },
 
   // FEATURES & CAPABILITIES
@@ -60,13 +60,13 @@ export const faqs: FAQ[] = [
     id: 'features-01',
     category: 'features',
     question: 'Can SAI really replace all my current tools?',
-    answer: 'For most agents, yes. SAI replaces CRM, transaction management, content creation, email marketing, market intelligence, and basic project management. The tools it may NOT replace: specialized accounting software (QuickBooks integration coming soon), video editing software, or highly specialized niche tools. But for 90% of agents, SAI eliminates 5-8 separate subscriptions.',
+    answer: 'For most agents, yes. SAI replaces CRM, transaction management, content creation, email marketing, market intelligence, and basic project management. The tools it may NOT replace: specialized accounting software (QuickBooks integration coming soon), video editing software, or highly specialized niche tools. For many agents, SAI eliminates 5-8 separate subscriptions.',
   },
   {
     id: 'features-02',
     category: 'features',
     question: 'What AI models does SAI Assistant include?',
-    answer: 'SAI Platform includes access to multiple advanced AI models to handle any task. Our AI automatically selects the best model for each request—whether you\'re drafting emails, analyzing market data, or managing your CRM. All customers get unlimited access to our full AI capabilities.',
+    answer: 'SAI Platform includes access to multiple advanced AI models to handle any task. Our AI automatically selects the best model for each request, whether you\'re drafting emails, analyzing market data, or managing your CRM. All customers get unlimited access to our full AI capabilities.',
   },
   {
     id: 'features-03',
@@ -84,13 +84,13 @@ export const faqs: FAQ[] = [
     id: 'features-05',
     category: 'features',
     question: 'Does SAI work for teams and brokerages?',
-    answer: 'Yes. SAI Platform supports unlimited users per account, so teams of any size can collaborate on contacts, deals, and content. We offer volume discounts for larger teams—the more seats you need, the more you save.',
+    answer: 'Yes. SAI Platform supports unlimited users per account, so teams of any size can collaborate on contacts, deals, and content. We offer volume discounts for larger teams: the more seats you need, the more you save.',
   },
   {
     id: 'features-06',
     category: 'features',
     question: 'Can I customize SAI to match my brand?',
-    answer: 'Yes! All users can customize email templates, content templates, and document templates with their branding. White-label branding (custom logo, colors, domain) is available for larger teams—contact us for details.',
+    answer: 'Yes! All users can customize email templates, content templates, and document templates with their branding. White-label branding (custom logo, colors, domain) is available for larger teams. Contact us for details.',
   },
 
   // DATA & MIGRATION
@@ -124,7 +124,7 @@ export const faqs: FAQ[] = [
     id: 'support-02',
     category: 'support',
     question: 'Do you offer training for my team?',
-    answer: 'Yes! All SAI Platform customers get access to quarterly group training webinars (live Q&A sessions). For larger teams, we offer custom training sessions tailored to your needs—we\'ll train your entire brokerage if needed. We also provide a comprehensive knowledge base and video tutorials for self-service learning.',
+    answer: 'Yes! All SAI Platform customers get access to quarterly group training webinars (live Q&A sessions). For larger teams, we offer custom training sessions tailored to your needs. We\'ll train your entire brokerage if needed. We also provide a comprehensive knowledge base and video tutorials for self-service learning.',
   },
   {
     id: 'support-03',
@@ -138,7 +138,7 @@ export const faqs: FAQ[] = [
     id: 'technical-01',
     category: 'technical',
     question: 'Does SAI have a mobile app?',
-    answer: 'Native mobile apps (iOS and Android) are coming in Q1 2026. In the meantime, SAI is fully mobile-responsive and works great in your phone\'s web browser—you can access everything from your phone today.',
+    answer: 'Native mobile apps (iOS and Android) are coming in Q1 2026. In the meantime, SAI is fully mobile-responsive and works great in your phone\'s web browser. You can access everything from your phone today.',
   },
   {
     id: 'technical-02',

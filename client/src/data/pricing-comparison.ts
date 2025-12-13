@@ -172,7 +172,7 @@ export const agentProfiles: AgentProfile[] = [
     painPoints: [
       '8 different platforms to manage',
       'Data syncing nightmares',
-      '15+ hours/week on admin tasks',
+      '10+ hours/week on admin tasks',
       'Overlapping features being paid for',
     ],
   },

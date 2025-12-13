@@ -55,8 +55,7 @@ Allow: /privacy
 Allow: /terms
 Allow: /cookies
 
-# Sitemap locations
-Sitemap: https://strivetech.ai/sitemap.xml
+# Sitemap location
 Sitemap: https://strivetech.ai/api/sitemap.xml
 
 # Crawl-delay for heavy crawlers

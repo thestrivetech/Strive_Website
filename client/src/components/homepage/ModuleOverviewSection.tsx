@@ -38,7 +38,7 @@ export function ModuleOverviewSection({ linkToPlatform = false, compact = false 
           {/* Supporting Copy */}
           <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
             From lead capture to closing, SAI Platform handles every aspect of your real estate business
-            with AI-powered automation—all in one place.
+            with AI-powered automation, all in one place.
           </p>
         </div>
 

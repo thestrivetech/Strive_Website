@@ -6,7 +6,7 @@ export const aiImplementationStrategiesSmallBusiness: Resource = {
   title: "Transaction Management Mastery: Complete Guide for Real Estate Agents in 2025",
   shortDescription: "Step-by-step guide to managing real estate transactions efficiently. Learn how to avoid deal delays, stay compliant, and close more deals with proven transaction management strategies.",
   fullDescription: "Transaction management separates top agents from everyone else. While most agents scramble through closing checklists and miss deadlines, top producers use systematic processes that keep deals on track from contract to close. This comprehensive roadmap provides actionable strategies for implementing professional transaction management without hiring a full-time TC. Learn how to create bulletproof checklists, automate compliance tracking, manage deadlines across multiple deals, and leverage technology to reduce transaction time from 45 to 30 days. Includes real-world workflows, template libraries, and step-by-step implementation guide designed specifically for solo agents and small teams.",
-  imageUrl: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+  imageUrl: "https://t3.ftcdn.net/jpg/18/23/46/88/360_F_1823468831_trGKANWa2dAKK7DMqC62h9gSUBYyYa9y.jpg",
   imageAlt: "Real estate agent managing multiple transactions with organized digital workflow",
   metadata: "15 min read",
   date: "Feb 5, 2025",
@@ -29,7 +29,7 @@ export const aiImplementationStrategiesSmallBusiness: Resource = {
       "Transaction visibility improves client communication and referral rates"
     ],
     actionItems: [
-      "Audit your current transaction process—where do delays typically occur?",
+      "Audit your current transaction process: where do delays typically occur?",
       "Create standardized checklists for each deal type (buyer, seller, dual agency)",
       "Implement digital transaction tracking instead of email and spreadsheets",
       "Set up automated deadline reminders for all parties (clients, lenders, escrow)",

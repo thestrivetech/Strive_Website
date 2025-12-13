@@ -116,7 +116,10 @@
       "Bash(done)",
       "Bash(xargs:*)",
       "Bash(git push:*)",
-      "Bash(git grep:*)"
+      "Bash(git grep:*)",
+      "WebFetch(domain:stock.adobe.com)",
+      "WebFetch(domain:www.nar.realtor)",
+      "WebFetch(domain:www.bls.gov)"
     ],
     "deny": [],
     "ask": []

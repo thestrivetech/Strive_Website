@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { MapPin, Phone, Mail, Clock, Download, MessageCircle, Users, Eye, FileText, Calendar } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { PageNavigation, type NavSection } from "@/components/ui/page-navigation";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +20,12 @@ import { useSEO } from "@/hooks/use-seo";
 const Contact = () => {
   const { seoConfig } = useSEO();
   const { toast } = useToast();
+
+  // Page navigation sections
+  const navSections: NavSection[] = [
+    { id: 'contact-form', label: 'Contact Form', background: 'dark' },
+    { id: 'contact-schedule', label: 'Schedule Call', background: 'dark' },
+  ];
   const [, setLocation] = useLocation();
   const [formData, setFormData] = useState({
     firstName: "",
@@ -196,7 +203,7 @@ const Contact = () => {
       if (response.ok && result.success) {
         toast({
           title: "Message sent successfully!",
-          description: result.message || "Thank you for contacting SAI Platform! We'll get back to you within one business day to discuss how we can help you grow your real estate business.",
+          description: result.message || "Thank you for contacting Strive Tech! We'll get back to you within one business day to discuss how we can help you grow your real estate business.",
         });
 
         // Clear localStorage
@@ -278,14 +285,14 @@ const Contact = () => {
     <>
       <MetaTags seo={seoConfig} />
       <div className="pt-16">
-      <section className="hero-gradient pt-16 md:pt-20 pb-12 md:pb-16">
+      <section id="contact-form" className="scroll-mt-20 hero-gradient py-4 sm:py-8 lg:py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16">
             <h1
               className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight"
               data-testid="text-contact-title"
             >
-              Get Started with <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">SAI Platform</span>
+              Get Started with <span className="bg-gradient-to-br from-[#ff7033] via-orange-500 to-purple-600 bg-clip-text text-transparent inline-block">SAI</span>
             </h1>
             <p
               className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
@@ -488,8 +495,8 @@ const Contact = () => {
                 </CardContent>
               </Card>
 
-              {/* Quick Actions - Enhanced */}
-              <Card className="p-6 md:p-8 shadow-xl" style={{ backgroundColor: '#ffffffeb', border: '1px solid #ff7033' }}>
+              {/* Quick Actions */}
+              <Card className="p-6 md:p-8 " style={{ backgroundColor: '#ffffffeb' }}>
                 <CardContent className="p-0">
                   <div className="text-center mb-4 md:mb-6">
                     <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2 md:mb-3">
@@ -542,7 +549,7 @@ const Contact = () => {
           </div>
 
           {/* Calendly Scheduling Section */}
-          <div className="mt-12 md:mt-16">
+          <div id="contact-schedule" className="scroll-mt-20 mt-12 md:mt-16">
             <h3
               className="text-xl md:text-2xl font-semibold mb-6 text-center"
               style={{ color: '#020a1c' }}
@@ -582,6 +589,9 @@ const Contact = () => {
           <ProfessionalBrochure onDownload={handleDownloadBrochure} />
         </DialogContent>
       </Dialog>
+
+      {/* Page Navigation */}
+      <PageNavigation sections={navSections} />
     </div>
     </>
   );

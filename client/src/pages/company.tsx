@@ -3,7 +3,8 @@ import { ArrowTrendingUpIcon, LightBulbIcon, GlobeAltIcon, CpuChipIcon, DevicePh
 import TeamMember from "@/components/ui/team-member";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useEffect, useRef, useState } from "react";
+import { PageNavigation, type NavSection } from "@/components/ui/page-navigation";
+import { useState } from "react";
 import GarrettHeadshot from "@/assets/Garrett-Headshot.webp";
 import JeffHeadshot from "@/assets/Jeff-Headshot.webp";
 import GrantHeadshot from "@/assets/Grant-Headshot.webp";
@@ -14,6 +15,16 @@ import { useSEO } from "@/hooks/use-seo";
 const Company = () => {
   const { seoConfig } = useSEO();
   const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
+
+  // Page navigation sections
+  const navSections: NavSection[] = [
+    { id: 'company-roadmap', label: 'Roadmap', background: 'dark' },
+    { id: 'company-stats', label: 'Stats', background: 'light' },
+    { id: 'company-story', label: 'Our Story', background: 'light' },
+    { id: 'company-values', label: 'Values', background: 'light' },
+    { id: 'company-team', label: 'Team', background: 'light' },
+    { id: 'company-cta', label: 'Get Started', background: 'dark' },
+  ];
   
   const nextTeamMember = () => {
     setCurrentTeamIndex((prev) => (prev + 1) % teamMembers.length);
@@ -37,7 +48,7 @@ const Company = () => {
     {
       icon: <Heart className="text-primary text-2xl" />,
       title: "Our Values",
-      description: "Agent success is our success. We build with real estate professionals, for real estate professionals—through innovation, simplicity, and relentless support."
+      description: "Agent success is our success. We build with real estate professionals, for real estate professionals, through innovation, simplicity, and relentless support."
     }
   ];
 
@@ -62,6 +73,27 @@ const Company = () => {
       description: "Real estate industry expert connecting with agents, teams, and brokerages to understand their biggest challenges.",
       imageUrl: JeffHeadshot,
       imageAlt: "Jeff Meyer - Co-Founder, Head of Growth headshot"
+    },
+    {
+      name: "Jdub",
+      title: "[Title TBD]",
+      description: "[Description TBD]",
+      imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+      imageAlt: "Jdub headshot"
+    },
+    {
+      name: "Josh",
+      title: "[Title TBD]",
+      description: "[Description TBD]",
+      imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+      imageAlt: "Josh headshot"
+    },
+    {
+      name: "Eldo",
+      title: "[Title TBD]",
+      description: "[Description TBD]",
+      imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
+      imageAlt: "Eldo headshot"
     }
   ];
 
@@ -84,7 +116,7 @@ const Company = () => {
     {
       year: "Q1 2026",
       title: "Mobile App Release",
-      description: "Native iOS and Android apps bringing the complete SAI Platform to your pocket—all 6 modules, AI assistant, document signing, and real-time notifications",
+      description: "Native iOS and Android apps bringing the complete SAI Platform to your pocket: all 6 modules, AI assistant, document signing, and real-time notifications",
       icon: <DevicePhoneMobileIcon className="h-6 w-6" />,
       status: "upcoming"
     },
@@ -117,7 +149,7 @@ const Company = () => {
       <OrganizationStructuredData />
       <div className="pt-16">
       {/* Hero Section - Our Vision & Roadmap to the Future */}
-      <section className="py-20 hero-gradient relative overflow-hidden">
+      <section id="company-roadmap" className="scroll-mt-20 py-4 sm:py-8 lg:py-12 hero-gradient relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div
@@ -183,7 +215,7 @@ const Company = () => {
       </section>
 
       {/* Stats Section - Moved outside hero */}
-      <section className="py-12 bg-[#ffffffeb]">
+      <section id="company-stats" className="scroll-mt-20 py-12 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Mobile & Tablet: 2x2 Grid layout */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
@@ -211,7 +243,7 @@ const Company = () => {
       </section>
 
       {/* Company Story Section */}
-      <section id="our-story" className="py-16 md:py-24 bg-[#ffffffeb]">
+      <section id="company-story" className="scroll-mt-20 py-16 md:py-24 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -229,15 +261,15 @@ const Company = () => {
               </h2>
               <div className="space-y-4 md:space-y-6 text-muted-foreground">
                 <p data-testid="text-story-paragraph-1" className="text-base md:text-lg leading-relaxed">
-                  SAI Platform wasn't born in a boardroom—it started at family dinner tables. Garrett's mom spent over 20 years navigating the complexities of the mortgage industry. Grant's grandmother dedicated more than two decades to residential real estate. Growing up, we didn't just observe real estate from the outside. We lived it through weekend open houses, late-night phone calls about deals falling through, and countless conversations about an industry we came to love.
+                  SAI Platform wasn't born in a boardroom. It started at family dinner tables. Garrett's mom spent over 20 years navigating the complexities of the mortgage industry. Grant's grandmother dedicated more than two decades to residential real estate. Growing up, we didn't just observe real estate from the outside. We lived it through weekend open houses, late-night phone calls about deals falling through, and countless conversations about an industry we came to love.
                 </p>
                 <p data-testid="text-story-paragraph-2" className="text-base md:text-lg leading-relaxed">
-                  We watched talented professionals juggle 10+ disconnected tools daily. Saw deals slip through the cracks because critical information was scattered across platforms. Experienced the frustration when a simple task required logging into five different systems. The technology was supposed to help—instead, it was draining the joy from an industry built on relationships.
+                  We watched talented professionals juggle 10+ disconnected tools daily. Saw deals slip through the cracks because critical information was scattered across platforms. Experienced the frustration when a simple task required logging into five different systems. The technology was supposed to help. Instead, it was draining the joy from an industry built on relationships.
                 </p>
 
                 <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">The Convergence</h3>
                 <p data-testid="text-story-paragraph-3" className="text-base md:text-lg leading-relaxed">
-                  As we pursued careers in technology—machine learning, full-stack development, AI systems—we kept coming back to the same question: Why hasn't someone fixed this? Why are the people we grew up watching still fighting the same battles with fragmented software? The answer was clear—we needed to build it ourselves, with the perspective only family experience could provide.
+                  As we pursued careers in technology (machine learning, full-stack development, AI systems), we kept coming back to the same question: Why hasn't someone fixed this? Why are the people we grew up watching still fighting the same battles with fragmented software? The answer was clear: we needed to build it ourselves, with the perspective only family experience could provide.
                 </p>
 
                 <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">Why This Matters to You</h3>
@@ -245,7 +277,7 @@ const Company = () => {
                   Real estate is relationship-driven, fast-paced, and unforgiving. You don't have time to log into 5 different platforms to check if a client responded. You can't afford to miss a closing deadline because your transaction manager didn't sync with your CRM.
                 </p>
                 <p data-testid="text-story-paragraph-5" className="text-base md:text-lg leading-relaxed">
-                  SAI Platform eliminates the chaos. Everything in one place. One login. One monthly fee ($499/month for unlimited everything). Built specifically for real estate workflows by people who understand the industry isn't just business—it's personal.
+                  SAI Platform eliminates the chaos. Everything in one place. One login. One monthly fee ($499/month for unlimited everything). Built specifically for real estate workflows by people who understand the industry isn't just business; it's personal.
                 </p>
                 <p data-testid="text-story-paragraph-6" className="text-base md:text-lg leading-relaxed">
                   We're refining the platform with feedback from agents, team leads, and brokers who share our vision. Contact us to experience the all-in-one platform designed by people who grew up watching this industry firsthand.
@@ -253,11 +285,11 @@ const Company = () => {
 
                 <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">Join the Movement</h3>
                 <p data-testid="text-story-paragraph-7" className="text-base md:text-lg leading-relaxed">
-                  This isn't just software—it's a long-overdue answer to decades of industry frustration. For Garrett, it's honoring his mom's 20+ years of navigating mortgage complexity. For Grant, it's building what his grandmother deserved all those years ago. For all of us, it's proving that technology should empower real estate professionals, not exhaust them.
+                  This isn't just software; it's a long-overdue answer to decades of industry frustration. For Garrett, it's honoring his mom's 20+ years of navigating mortgage complexity. For Grant, it's building what his grandmother deserved all those years ago. For all of us, it's proving that technology should empower real estate professionals, not exhaust them.
                 </p>
                 <div className="mt-4 md:mt-6 p-4 bg-primary/5 border-l-4 border-primary rounded-r-lg">
                   <p data-testid="text-story-paragraph-8" className="text-base md:text-lg leading-relaxed italic font-medium text-primary">
-                    Ready to experience a platform built by people who understand real estate isn't just business—it's family? Join us and be part of the future of real estate technology.
+                    Ready to experience a platform built by people who understand real estate isn't just business; it's family? Join us and be part of the future of real estate technology.
                   </p>
                 </div>
               </div>
@@ -287,10 +319,10 @@ const Company = () => {
 
 
       {/* Mission, Vision, Values */}
-      <section className="py-16 md:py-24 bg-[#ffffffeb]">
+      <section id="company-values" className="scroll-mt-20 py-16 md:py-24 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div 
+            <div
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-mvv-label"
             >
@@ -403,10 +435,10 @@ const Company = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 md:py-24 bg-[#ffffffeb]">
+      <section id="company-team" className="scroll-mt-20 py-16 md:py-24 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div 
+            <div
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-team-label"
             >
@@ -547,7 +579,7 @@ const Company = () => {
       </section>
       
       {/* Call to Action */}
-      <section className="py-16 hero-gradient">
+      <section id="company-cta" className="scroll-mt-20 py-16 hero-gradient">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
@@ -578,6 +610,9 @@ const Company = () => {
           </div>
         </div>
       </section>
+
+      {/* Page Navigation */}
+      <PageNavigation sections={navSections} />
     </div>
     </>
   );

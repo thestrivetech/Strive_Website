@@ -3,10 +3,10 @@ import { Resource } from '../types';
 export const aiSuccessStoriesBusinessTransformation: Resource = {
   id: 5,
   type: "BLOG POST",
-  title: "Real Agent Success Stories: How 3 Agents Transformed Their Business with SAI Platform",
-  shortDescription: "Meet 3 real estate agents who closed 40% more deals, saved 12 hours weekly, and grew their GCI by $90K using SAI Platform. See actual results and implementation strategies.",
-  fullDescription: "Meet Sarah, the solo agent who went from managing 500 contacts in spreadsheets to closing 35% more deals with SAI's CRM automation. Follow Marcus, the team lead who consolidated 8 agents onto SAI and saved $2,400/year in software costs. Learn from David, the investor-focused agent who grew his GCI by $90K using REID's market data and ROI calculators. These aren't theoretical case studies—they're real agents whose businesses have been transformed by consolidating onto one all-in-one platform. Their stories reveal how the right technology amplifies agent capabilities while eliminating the chaos of juggling 10+ disconnected tools. Discover the practical lessons, measurable results, and real-world workflows that make SAI Platform successful.",
-  imageUrl: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+  title: "How Real Estate Agents Transform Their Business with SAI Platform",
+  shortDescription: "Discover how real estate agents are closing more deals, saving hours weekly, and growing their business using SAI Platform. See practical implementation strategies.",
+  fullDescription: "Real estate agents across the country are discovering how consolidating their tech stack onto SAI Platform transforms their daily workflow. Solo agents go from managing contacts in spreadsheets to closing more deals with CRM automation. Teams consolidate multiple agents onto one platform and reduce software costs. Investment-focused agents unlock new market segments using REID's market data and ROI calculators. These aren't theoretical possibilities—they're the outcomes agents experience when they replace disconnected tools with one all-in-one platform. The right technology amplifies agent capabilities while eliminating the chaos of juggling multiple disconnected tools. Discover the practical lessons and real-world workflows that make SAI Platform successful.",
+  imageUrl: "https://t3.ftcdn.net/jpg/18/20/94/32/360_F_1820943201_wj2xbz35756JVArirVjZvoqv9CBikySy.jpg",
   imageAlt: "Successful real estate agents using SAI Platform on laptops and tablets",
   metadata: "13 min read",
   date: "Feb 1, 2025",
@@ -15,15 +15,15 @@ export const aiSuccessStoriesBusinessTransformation: Resource = {
   tags: ["Success Stories", "Real Estate CRM", "Agent Productivity", "Case Studies", "ROI", "Platform Migration"],
   content: {
     keyPoints: [
-      "Sarah (solo agent) increased closed deals by 35% and saved $400/month on tools",
-      "Marcus (team lead) consolidated 8 agents onto SAI and cut software costs by $2,400/year",
-      "David (investor agent) grew annual GCI by $90K using REID's investment analysis tools",
-      "All three agents reclaimed 12+ hours per week through automation",
-      "Each agent saw ROI within their first 2-3 closed deals after switching to SAI"
+      "Solo agents increase closed deals and save on monthly tool costs by consolidating",
+      "Teams consolidate multiple agents onto SAI and reduce software expenses",
+      "Investment-focused agents grow GCI using REID's investment analysis tools",
+      "Agents reclaim significant hours per week through automation",
+      "Platform consolidation often pays for itself within the first few closed deals"
     ],
     insights: [
       "All-in-one platforms eliminate the productivity drain of tool-switching and data entry",
-      "CRM automation prevents leads from falling through the cracks—the #1 cause of lost deals",
+      "CRM automation prevents leads from falling through the cracks, the #1 cause of lost deals",
       "Specialized tools (like REID for investors) unlock new market segments and higher commissions",
       "Platform consolidation reduces training time and improves team collaboration",
       "Time saved through automation compounds into more client meetings and referrals"
@@ -32,8 +32,8 @@ export const aiSuccessStoriesBusinessTransformation: Resource = {
       "Calculate your current monthly spend on all real estate tools combined",
       "Track how much time you spend on admin work vs revenue-generating activities",
       "Test SAI Platform to see if it can replace your entire tech stack",
-      "Talk to agents who've consolidated tools—ask about their ROI and time savings",
-      "Get started with SAI Platform—schedule a demo and begin your onboarding process"
+      "Talk to agents who've consolidated tools and ask about their ROI and time savings",
+      "Get started with SAI Platform: schedule a demo and begin your onboarding process"
     ]
   },
   sources: [

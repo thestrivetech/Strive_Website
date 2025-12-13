@@ -176,7 +176,7 @@ const Navigation = () => {
                       </>
                     ) : (
                       <>
-                        <Link href="/login">
+                        <Link href="/contact">
                           <Button
                             variant="ghost"
                             className="w-full bg-white/10 text-white hover:bg-primary hover:text-white transition-all duration-300 rounded-xl"
@@ -225,7 +225,7 @@ const Navigation = () => {
                 <User className="h-6 w-6" />
               </Button>
             ) : (
-              <Link href="/login">
+              <Link href="/contact">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -328,8 +328,8 @@ const Navigation = () => {
               </>
             ) : (
               <>
-                <Link href="/login">
-                  <Button 
+                <Link href="/contact">
+                  <Button
                     variant="ghost"
                     className="text-foreground hover:text-primary hover:bg-transparent"
                     data-testid="button-login"

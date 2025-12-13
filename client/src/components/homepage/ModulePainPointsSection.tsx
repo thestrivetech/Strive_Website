@@ -25,7 +25,7 @@ export function ModulePainPointsSection() {
         <div className="text-center mb-8 sm:mb-10 md:mb-12">
           {/* Eyebrow Label */}
           <div className="text-sm sm:text-base md:text-lg lg:text-xl uppercase tracking-wide text-primary font-semibold mb-3 sm:mb-4">
-            SAI PLATFORM — SOLVING YOUR BIGGEST CHALLENGES
+            SAI PLATFORM: SOLVING YOUR BIGGEST CHALLENGES
           </div>
 
           {/* Main Headline */}
@@ -56,7 +56,7 @@ export function ModulePainPointsSection() {
             </h3>
 
             <p className="text-white/80 mb-4 sm:mb-6 text-sm sm:text-base">
-              Join 500+ real estate agents who've eliminated the chaos of juggling 12 different tools.
+              Join real estate professionals who've eliminated the chaos of juggling 12 different tools.
             </p>
 
             <Link href="/contact">

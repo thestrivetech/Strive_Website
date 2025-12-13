@@ -1,6 +1,6 @@
 // SAI Platform Market Statistics
-// Verified data from SAI-PITCH-DECK-CONTEXT.md
-// Source: NAR Statistics, Inman Reports, CB Insights, Gartner
+// Verified data from NAR, BLS, and industry research
+// Sources: NAR 2025 Technology Survey, NAR 2025 Member Profile, BLS, McKinsey, T3 Sixty
 
 export type MarketStatCategory = 'pain-point' | 'market-size' | 'opportunity' | 'competitive';
 
@@ -10,116 +10,145 @@ export interface MarketStat {
   stat: string;
   context: string;
   source?: string;
+  sourceUrl?: string;
   year?: number;
 }
 
 export const marketStats: MarketStat[] = [
-  // Pain Points - Industry Problems
+  // Pain Points - Industry Problems (Verified)
   {
     id: 'agent-churn',
     category: 'pain-point',
-    stat: '87%',
-    context: 'of agents leave the industry within 5 years',
-    source: 'NAR Statistics',
-  },
-  {
-    id: 'tool-spend',
-    category: 'pain-point',
-    stat: '$15,000+',
-    context: 'annual software spend per agent on disconnected tools',
-    source: 'Industry Research',
-  },
-  {
-    id: 'inefficiency',
-    category: 'pain-point',
-    stat: '$2.3B',
-    context: 'lost annually to industry inefficiency',
-    source: 'CB Insights',
-  },
-  {
-    id: 'admin-waste',
-    category: 'pain-point',
-    stat: '40%',
-    context: 'of top performer time wasted on administrative tasks',
-    source: 'NAR Statistics',
-  },
-  {
-    id: 'daily-waste',
-    category: 'pain-point',
-    stat: '3+ hours',
-    context: 'daily wasted on manual data entry and app switching',
-    source: 'Industry Research',
+    stat: '75%',
+    context: 'of real estate agents fail within the first year (87% within 5 years)',
+    source: 'Industry Analysis',
+    sourceUrl: 'https://www.tomferry.com/blog/87-of-all-agents-fail-in-real-estate/',
   },
   {
     id: 'tool-fragmentation',
     category: 'pain-point',
-    stat: '5-7',
-    context: 'disconnected tools used by the average real estate agent',
-    source: 'Industry Research',
+    stat: '23',
+    context: 'average technology tools in a brokerage agent tech stack',
+    source: 'T3 Sixty Research',
+    sourceUrl: 'https://agently.substack.com/p/23-tools-per-agent-or-why-is-real',
+    year: 2025,
   },
-
-  // Market Size - Opportunity
   {
-    id: 'market-size',
-    category: 'market-size',
-    stat: '$9.0B+',
-    context: 'US Real Estate Tech Market (2024)',
-    source: 'Gartner',
+    id: 'tech-spend',
+    category: 'pain-point',
+    stat: '24%',
+    context: 'of agents spend $500+/month on technology tools',
+    source: 'NAR 2025 Technology Survey',
+    sourceUrl: 'https://www.nar.realtor/research-and-statistics/research-reports/realtor-technology-survey',
+    year: 2025,
+  },
+  {
+    id: 'lead-response',
+    category: 'pain-point',
+    stat: '47 hours',
+    context: 'average lead response time (only 27% of leads get contacted at all)',
+    source: 'Industry Research',
+    sourceUrl: 'https://theclose.com/real-estate-lead-generation-statistics/',
     year: 2024,
   },
+  {
+    id: 'conversion-rate',
+    category: 'pain-point',
+    stat: '0.4-1.2%',
+    context: 'average real estate lead conversion rate',
+    source: 'Industry Research',
+    sourceUrl: 'https://www.realgeeks.com/blog/how-much-do-real-estate-leads-convert',
+    year: 2024,
+  },
+  {
+    id: 'follow-up-gap',
+    category: 'pain-point',
+    stat: '48%',
+    context: 'of agents do not follow up after their first call',
+    source: 'Industry Research',
+    sourceUrl: 'https://www.followupboss.com/blog/real-estate-lead-follow-up',
+    year: 2024,
+  },
+
+  // Market Size & Opportunity (Verified)
   {
     id: 'licensed-agents',
     category: 'market-size',
-    stat: '2.1M+',
-    context: 'licensed real estate agents in the US',
-    source: 'NAR Statistics',
+    stat: '532,000+',
+    context: 'real estate agents and brokers in the US',
+    source: 'Bureau of Labor Statistics',
+    sourceUrl: 'https://www.bls.gov/ooh/sales/real-estate-brokers-and-sales-agents.htm',
     year: 2024,
   },
   {
-    id: 'market-growth',
+    id: 'crm-market',
     category: 'market-size',
-    stat: '12-15%',
-    context: 'CAGR for real estate tech market',
+    stat: '$25.7B',
+    context: 'CRM sales software market (12.2% growth in 2024)',
     source: 'Gartner',
+    sourceUrl: 'https://www.gartner.com/en/documents/7029598',
+    year: 2024,
   },
   {
-    id: 'avg-software-spend',
+    id: 'ai-adoption',
     category: 'market-size',
-    stat: '$3,000-$15,000',
-    context: 'annual software spend per agent',
-    source: 'Industry Research',
+    stat: '68%',
+    context: 'of real estate agents have adopted AI tools',
+    source: 'NAR 2025 Technology Survey',
+    sourceUrl: 'https://www.nar.realtor/research-and-statistics/research-reports/realtor-technology-survey',
+    year: 2025,
+  },
+  {
+    id: 'ai-content',
+    category: 'market-size',
+    stat: '46%',
+    context: 'of agents use AI-generated content',
+    source: 'NAR 2025 Technology Survey',
+    sourceUrl: 'https://www.housingwire.com/articles/nar-2025-technology-survey-realtor-tech-usage-trends/',
+    year: 2025,
   },
 
-  // Competitive Advantages
+  // Competitive Advantages (Qualitative - Internal Claims)
   {
-    id: 'ai-advantage',
+    id: 'platform-consolidation',
     category: 'competitive',
-    stat: '3-5 years',
-    context: 'head start from AI-native architecture vs retrofitted competitors',
-    source: 'SAI Analysis',
+    stat: 'All-in-One',
+    context: 'replaces 5+ separate tools with one integrated platform',
+    source: 'SAI Platform',
   },
   {
-    id: 'cost-savings',
+    id: 'ai-native',
     category: 'competitive',
-    stat: '$100-$500+',
-    context: 'monthly savings vs equivalent competitor tool stacks',
-    source: 'Verified Competitor Analysis',
+    stat: 'AI-Native',
+    context: 'built with AI from the ground up, not retrofitted',
+    source: 'SAI Platform',
   },
   {
-    id: 'time-savings',
+    id: 'unlimited-users',
     category: 'competitive',
-    stat: '15+ hours',
-    context: 'saved per week through platform consolidation',
-    source: 'SAI Analysis',
+    stat: 'Unlimited',
+    context: 'users at flat monthly rate (no per-seat fees)',
+    source: 'SAI Platform',
   },
 
-  // Opportunity Stats
+  // Opportunity Stats (Verified)
   {
-    id: 'target-agents',
+    id: 'crm-lead-gen',
     category: 'opportunity',
-    stat: '500,000+',
-    context: 'tech-forward agents at top-performing brokerages',
-    source: 'SAI Analysis',
+    stat: '23%',
+    context: 'of agents say CRM is their top lead-generating tool',
+    source: 'NAR 2025 Technology Survey',
+    sourceUrl: 'https://www.nar.realtor/research-and-statistics/research-reports/realtor-technology-survey',
+    year: 2025,
+  },
+  {
+    id: 'buyer-interview',
+    category: 'opportunity',
+    stat: '75%',
+    context: 'of buyers interview only one real estate agent during their home search',
+    source: 'Industry Research',
+    sourceUrl: 'https://theclose.com/real-estate-lead-generation-statistics/',
+    year: 2024,
   },
 ];
 
@@ -144,16 +173,14 @@ export const getCompetitiveStats = (): MarketStat[] => {
   return getStatsByCategory('competitive');
 };
 
-// Key statistics for quick access
+// Key statistics for quick access (Verified)
 export const keyStats = {
-  agentChurn: '87%',
-  toolSpend: '$15,000+',
-  inefficiency: '$2.3B',
-  adminWaste: '40%',
-  dailyWaste: '3+ hours',
-  marketSize: '$9.0B+',
-  licensedAgents: '2.1M+',
-  aiAdvantage: '3-5 years',
-  monthlySavings: '$100-$500+',
-  timeSavings: '15+ hours',
+  agentChurn: '75%',
+  toolFragmentation: '23 tools',
+  techSpend: '24% spend $500+/mo',
+  leadResponse: '47 hours avg',
+  conversionRate: '0.4-1.2%',
+  aiAdoption: '68%',
+  aiContent: '46%',
+  crmLeadGen: '23%',
 };

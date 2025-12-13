@@ -3,7 +3,7 @@ import { SEOConfig, OrganizationSchema } from '@/types/seo';
 // Base SEO configuration - SAI Platform: All-in-One AI Operating System for Real Estate
 export const baseSEO: SEOConfig = {
   title: 'SAI Platform - The All-in-One AI Operating System for Real Estate',
-  description: 'Replace 8+ tools with one platform. SAI combines AI assistant, CRM, transaction management, marketing automation, market data, and tax tracking—built for modern real estate professionals.',
+  description: 'Replace 8+ tools with one platform. SAI combines AI assistant, CRM, transaction management, marketing automation, market data, and tax tracking. Built for modern real estate professionals.',
   keywords: [
     'real estate software',
     'AI real estate',
@@ -30,7 +30,7 @@ export const baseSEO: SEOConfig = {
 export const pageSEO: Record<string, SEOConfig> = {
   '/': {
     title: 'SAI Platform - The All-in-One AI Operating System for Real Estate',
-    description: 'Replace 8+ tools with one platform. AI assistant, CRM, transaction management, marketing, market data & tax tracking—$499/month unlimited. Free tier available.',
+    description: 'Replace 8+ tools with one platform. AI assistant, CRM, transaction management, marketing, market data & tax tracking. $499/month unlimited. Free tier available.',
     keywords: ['real estate operating system', 'AI real estate platform', 'all-in-one real estate software', 'SAI Platform'],
     ogType: 'website',
     structuredData: 'organization'
@@ -110,7 +110,7 @@ export const organizationSchema: OrganizationSchema = {
   name: 'SAI Platform by Strive Tech',
   url: 'https://strivetech.ai',
   logo: 'https://strivetech.ai/logo.png',
-  description: 'All-in-one AI operating system for real estate professionals. SAI Platform combines 6 powerful modules—AI Assistant, CRM, Transaction Management, Marketing Automation, Market Intelligence, and Tax Tracking—into one unified platform.',
+  description: 'All-in-one AI operating system for real estate professionals. SAI Platform combines 6 powerful modules (AI Assistant, CRM, Transaction Management, Marketing Automation, Market Intelligence, and Tax Tracking) into one unified platform.',
   address: {
     '@type': 'PostalAddress',
     streetAddress: '',
@@ -152,7 +152,7 @@ export const faqSchema = {
       name: 'What is SAI Platform?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'SAI Platform is an all-in-one AI operating system built specifically for real estate professionals. It combines 6 powerful modules—SAI Assistant, CRM & Lead Management, The Office (transaction management), Content Studio (marketing), REID (market data), and Taxes & Expenses—into one unified platform that replaces 8+ separate tools.'
+        text: 'SAI Platform is an all-in-one AI operating system built specifically for real estate professionals. It combines 6 powerful modules (SAI Assistant, CRM & Lead Management, The Office (transaction management), Content Studio (marketing), REID (market data), and Taxes & Expenses) into one unified platform that replaces 8+ separate tools.'
       }
     },
     {
@@ -168,7 +168,7 @@ export const faqSchema = {
       name: 'How much does SAI cost?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'SAI Platform offers a Free tier with all 6 modules (limited usage) forever, and an Elite tier at $499/month with unlimited everything—unlimited users, contacts, deals, content, and AI queries. The Elite tier replaces $600-1,000+ per month in separate tools.'
+        text: 'SAI Platform offers a Free tier with all 6 modules (limited usage) forever, and an Elite tier at $499/month with unlimited everything: unlimited users, contacts, deals, content, and AI queries. The Elite tier replaces $600-1,000+ per month in separate tools.'
       }
     },
     {

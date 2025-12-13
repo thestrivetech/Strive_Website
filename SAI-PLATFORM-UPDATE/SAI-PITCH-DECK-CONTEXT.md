@@ -172,7 +172,7 @@ SAI is powered by proprietary AI technology that understands real estate the way
 
 ---
 
-### 3. PRECISION VALUATION INTELLIGENCE
+### 3. PRICE VALUATION INTELLIGENCE
 *"Institutional-Grade Analysis for Every Agent"*
 
 **What it does:** Our advanced property analysis system delivers valuation insights that were previously only available to Wall Street hedge funds and institutional investors. We've democratized high-precision property intelligence.

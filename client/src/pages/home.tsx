@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { MetaTags } from "@/components/seo/meta-tags";
 import { OrganizationStructuredData } from "@/components/seo/structured-data";
 import { useSEO } from "@/hooks/use-seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { PageNavigation, type NavSection } from "@/components/ui/page-navigation";
 import { CheckCircle2, ArrowRight, TrendingUp, Target, Users, User, Sparkles, Zap, DollarSign, Shield, UserPlus, CalendarDays, Rocket, ExternalLink, Check, X, Blocks, Smartphone, MessageSquare, Video, Brain, LayoutDashboard, GitBranch, Landmark, type LucideIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
@@ -26,6 +27,9 @@ import {
 import { saiModules } from "@/data/sai";
 import { useCases } from "@/data/sai/use-cases";
 import { roadmapFeatures } from "@/data/sai/roadmap";
+
+// Import homepage components
+import { SAIAdvantageSection } from "@/components/homepage/SAIAdvantageSection";
 
 const Home = () => {
   const { seoConfig } = useSEO();
@@ -60,56 +64,15 @@ const Home = () => {
   };
 
   // Global page navigation sections
-  const navSections = [
-    { id: 'hero', label: 'Home' },
-    { id: 'benefits', label: 'Benefits' },
-    { id: 'modules', label: 'Modules' },
-    { id: 'why-sai', label: 'Why SAI' },
-    { id: 'pain-points', label: 'Challenges' },
-    { id: 'use-cases', label: 'Use Cases' },
-    { id: 'cta', label: 'Get Started' },
+  const navSections: NavSection[] = [
+    { id: 'hero', label: 'Home', background: 'dark' },
+    { id: 'benefits', label: 'Benefits', background: 'light' },
+    { id: 'modules', label: 'Modules', background: 'dark' },
+    { id: 'why-sai', label: 'Why SAI', background: 'light' },
+    { id: 'pain-points', label: 'Challenges', background: 'dark' },
+    { id: 'use-cases', label: 'Use Cases', background: 'light' },
+    { id: 'cta', label: 'Get Started', background: 'dark' },
   ];
-
-  // Track section background types for navigation dot contrast
-  const sectionBackgrounds: Record<string, 'light' | 'dark'> = {
-    'hero': 'dark',        // hero-gradient
-    'benefits': 'light',   // orange-50/white gradient
-    'modules': 'dark',     // hero-gradient
-    'why-sai': 'light',    // bg-[#ffffffeb]
-    'pain-points': 'dark', // hero-gradient
-    'use-cases': 'light',  // bg-gray-50
-    'cta': 'dark',         // hero-gradient
-  };
-
-  // Track active section for global navigation
-  const [activeSection, setActiveSection] = useState('hero');
-
-  // Determine if current section has light background (for nav dot contrast)
-  const isLightBackground = sectionBackgrounds[activeSection] === 'light';
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
-
-      for (let i = navSections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(navSections[i].id);
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(navSections[i].id);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    section?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   // Get featured use cases (first 3)
   const featuredUseCases = useCases.slice(0, 3);
@@ -165,51 +128,8 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Key Benefits Section */}
-        <section id="benefits" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-orange-50 via-white to-orange-50/50">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-12">
-                <Badge className="mb-6 bg-gradient-to-r from-orange-100 to-orange-200 text-orange-700 border-orange-300 font-semibold text-base px-4 py-1.5">
-                  The All-in-One Real Estate Platform
-                </Badge>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                  Replace 10+ Apps with One Platform Built for Real Estate
-                </h2>
-                <p className="text-xl text-gray-700 mb-8 leading-relaxed max-w-3xl mx-auto">
-                  SAI combines CRM, transaction management, marketing automation, AI insights, market data, and automated tax tracking with QuickBooks sync—everything real estate agents need to close more deals and save 15+ hours per week.
-                </p>
-              </div>
-
-              {/* Key Benefits List */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                {[
-                  "Unlimited contacts, deals, content creation for marketing & social media, and fully capable AI assistance",
-                  "6 integrated modules (SaiBot Assistant, CRM, The Office, Content Studio, REID, Taxes & Expenses)",
-                  "Built specifically for daily real estate workflows, from lead capture to closing",
-                  "Industry-leading AI trained on real estate best practices and market insights",
-                ].map((benefit, index) => (
-                  <div key={index} className="flex items-start gap-3 bg-white rounded-lg p-4 sm:p-6 shadow-sm border border-gray-200">
-                    <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-800">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTA */}
-              <div className="flex justify-center mt-8">
-                <Button
-                  size="lg"
-                  className="min-h-[44px] px-8 text-lg font-semibold"
-                  onClick={() => window.location.href = "/contact"}
-                >
-                  Get Started
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* SAI Advantage Section - Combined Why SAI + AI Comparison */}
+        <SAIAdvantageSection />
 
         {/* 6 Modules Overview Section */}
         <section id="modules" className="scroll-mt-20 py-16 sm:py-20 lg:py-24 hero-gradient relative overflow-hidden">
@@ -347,14 +267,14 @@ const Home = () => {
                 },
                 {
                   icon: Shield,
-                  title: "Data You Own",
-                  description: "Your data stays yours. Export anytime (CSV, Excel, API). No data lock-in, no hostage situations. We earn your business every month by being the best tool, not by trapping your data.",
-                  benefit: "Switch tools anytime without losing years of contact history and deal data.",
+                  title: "Your Data is Secure",
+                  description: "Your client relationships are your business. Export anytime (CSV, Excel, API). No data lock-in, no hostage situations. We earn your business every month by being the best tool, not by trapping your data.",
+                  benefit: "Your data, your control. Always.",
                 },
                 {
                   icon: Sparkles,
                   title: "AI That Actually Works",
-                  description: "SaiBot isn't just a chatbot—it's an AI assistant that's trained specifically for the platform and on the real estate industry.",
+                  description: "SaiBot isn't just a chatbot; it's an AI assistant that's trained specifically for the platform and on the real estate industry.",
                   benefit: "Save 10+ hours per week on repetitive tasks. Close 20% more deals with AI insights.",
                 },
               ].map((prop, index) => {
@@ -411,7 +331,7 @@ const Home = () => {
                       <p className="text-xs text-gray-600">Predict transaction timing</p>
                     </div>
                     <div className="bg-white border border-gray-200 rounded-lg p-3">
-                      <p className="text-sm font-semibold text-purple-600">Price Precision Valuation</p>
+                      <p className="text-sm font-semibold text-purple-600">Price Valuation Intelligence</p>
                       <p className="text-xs text-gray-600">Institutional-grade analysis</p>
                     </div>
                     <div className="bg-white border border-gray-200 rounded-lg p-3">
@@ -431,7 +351,7 @@ const Home = () => {
             {/* Section Header */}
             <div className="text-center mb-8 sm:mb-10 md:mb-12">
               <div className="text-sm sm:text-base md:text-lg lg:text-xl uppercase tracking-wide text-primary font-semibold mb-3 sm:mb-4">
-                SAI PLATFORM — SOLVING YOUR BIGGEST CHALLENGES
+                SAI PLATFORM: SOLVING YOUR BIGGEST CHALLENGES
               </div>
               <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 text-white px-4">
                 Built for Real Estate Agents, By Real Estate Professionals
@@ -562,31 +482,6 @@ const Home = () => {
                 })}
               </div>
             )}
-
-            {/* CTA Footer */}
-            <div className="text-center mt-8 sm:mt-10 md:mt-12">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 sm:mb-4">
-                  Ready to Save 10+ Hours Per Week?
-                </h3>
-                <p className="text-white/80 mb-4 sm:mb-6 text-sm sm:text-base">
-                  Ready to set up a meeting?
-                </p>
-                <Link href="/contact">
-                  <Button
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 sm:px-8 py-3 sm:py-3.5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 font-bold text-sm sm:text-base min-h-[44px]"
-                    size="lg"
-                  >
-                    Contact Sales
-                  </Button>
-                </Link>
-                <p className="text-xs text-white/60 mt-4">
-                  <span className="text-green-400">✓</span> All 6 modules included •{" "}
-                  <span className="text-green-400">✓</span> Unlimited contacts •{" "}
-                  <span className="text-green-400">✓</span> No per-contact fees
-                </p>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -834,57 +729,8 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Global Page Navigation - Desktop */}
-        <div className="hidden lg:flex fixed left-6 xl:left-10 top-1/2 -translate-y-1/2 flex-col gap-2 z-40">
-          {navSections.map((section) => (
-            <button
-              key={section.id}
-              onClick={() => scrollToSection(section.id)}
-              className="group relative flex items-center"
-              aria-label={`Navigate to ${section.label}`}
-            >
-              <div
-                className={cn(
-                  "w-3 h-3 rounded-full transition-all duration-300 cursor-pointer",
-                  activeSection === section.id
-                    ? "bg-orange-500 scale-125"
-                    : isLightBackground
-                      ? "bg-gray-800/50 hover:bg-gray-800/80"
-                      : "bg-white/30 hover:bg-white/60"
-                )}
-              />
-              <span className={cn(
-                "absolute left-6 whitespace-nowrap text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none",
-                isLightBackground
-                  ? "bg-white/95 text-gray-900 shadow-lg border border-gray-200"
-                  : "bg-gray-900/90 text-white"
-              )}>
-                {section.label}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        {/* Global Page Navigation - Mobile */}
-        <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-40 bg-gray-900/80 backdrop-blur-sm rounded-full px-3 py-2">
-          {navSections.map((section) => (
-            <button
-              key={section.id}
-              onClick={() => scrollToSection(section.id)}
-              className="p-2 -m-1 flex items-center justify-center"
-              aria-label={`Navigate to ${section.label}`}
-            >
-              <span
-                className={cn(
-                  "w-2.5 h-2.5 rounded-full transition-all duration-300",
-                  activeSection === section.id
-                    ? "bg-orange-500 scale-150"
-                    : "bg-white/30 hover:bg-white/50"
-                )}
-              />
-            </button>
-          ))}
-        </div>
+        {/* Page Navigation */}
+        <PageNavigation sections={navSections} />
       </div>
     </>
   );

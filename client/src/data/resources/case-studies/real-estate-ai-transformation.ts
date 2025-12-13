@@ -6,7 +6,7 @@ export const realEstateAiTransformation: Resource = {
   title: "How AI is Transforming Real Estate: Industry Research & Trends",
   shortDescription: "Research shows AI adoption in real estate is accelerating, with 17% of agents now using AI weekly. Industry analysts project $110-180B in AI value potential across real estate operations.",
   fullDescription: "Artificial intelligence is reshaping how real estate professionals work, from lead generation to property valuation. According to NAR's 2024 Technology Survey, 17% of agents now use AI tools weekly for tasks like lead scoring, market analysis, and automated communications. McKinsey projects $110-180B in potential AI value across real estate, with the biggest opportunities in automated property valuation, predictive analytics for market timing, and streamlined transaction management. This industry insight explores the current state of AI adoption in real estate and what leading brokerages are prioritizing.",
-  imageUrl: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+  imageUrl: "https://t3.ftcdn.net/jpg/15/47/41/80/360_F_1547418065_aiGiykJcxfwKIud5LMyWEO3lR7ssWyJE.jpg",
   imageAlt: "Modern real estate technology with digital property analytics",
   metadata: "Real Estate",
   date: "2024",
@@ -23,7 +23,7 @@ export const realEstateAiTransformation: Resource = {
       "Generative AI streamlining listing descriptions and marketing content"
     ],
     insights: [
-      "AI adoption remains in early stages—most agents still rely on traditional methods",
+      "AI adoption remains in early stages. Most agents still rely on traditional methods",
       "Biggest barrier to adoption is lack of training and unclear ROI expectations",
       "Brokerages investing in AI tools report improved agent retention and productivity",
       "Integration challenges remain as most agents use 5+ disconnected tools",

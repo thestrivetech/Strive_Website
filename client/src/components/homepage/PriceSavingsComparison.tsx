@@ -80,7 +80,7 @@ export function PriceSavingsComparison() {
           <p className="text-lg sm:text-xl text-gray-700">
             Real estate agents waste{" "}
             <span className="font-bold text-gray-900">${selectedProfile.totalMonthly}/month</span> and{" "}
-            <span className="font-bold text-gray-900">15+ hours/week</span> managing fragmented software stacks.
+            <span className="font-bold text-gray-900">10+ hours/week</span> managing fragmented software stacks.
           </p>
         </div>
 
@@ -198,7 +198,7 @@ export function PriceSavingsComparison() {
               {/* Time Waste */}
               <div className="bg-red-50 border-2 border-red-300 rounded-xl p-4">
                 <p className="text-sm text-red-900">
-                  <span className="font-bold">15+ hours/week</span> wasted managing multiple logins and manual data entry between platforms
+                  <span className="font-bold">10+ hours/week</span> wasted managing multiple logins and manual data entry between platforms
                 </p>
               </div>
             </CardContent>
@@ -324,13 +324,13 @@ export function PriceSavingsComparison() {
                 <div className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" aria-label="Included" />
                   <span className="text-sm text-gray-700 font-medium">
-                    <span className="font-bold text-gray-900">Automatic sync</span> — no manual data entry between tools
+                    <span className="font-bold text-gray-900">Automatic sync</span>, no manual data entry between tools
                   </span>
                 </div>
                 <div className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" aria-label="Included" />
                   <span className="text-sm text-gray-700 font-medium">
-                    <span className="font-bold text-gray-900">Save 15+ hours/week</span> on admin and context switching
+                    <span className="font-bold text-gray-900">Save 10+ hours/week</span> on admin and context switching
                   </span>
                 </div>
                 <div className="flex items-start gap-2">
@@ -373,7 +373,7 @@ export function PriceSavingsComparison() {
         {/* Honest Social Proof (Conditional) */}
         <div className="text-center mt-8">
           <p className="text-sm text-gray-600">
-            <span className="font-semibold text-gray-900">Join 500+ real estate professionals</span> who could save an average of{" "}
+            <span className="font-semibold text-gray-900">Join real estate professionals</span> who could save an average of{" "}
             <span className="font-semibold text-green-700">$3,000-5,400/year</span> with SAI Platform
           </p>
         </div>
