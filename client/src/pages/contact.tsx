@@ -551,8 +551,7 @@ const Contact = () => {
           {/* Calendly Scheduling Section */}
           <div id="contact-schedule" className="scroll-mt-20 mt-12 md:mt-16">
             <h3
-              className="text-xl md:text-2xl font-semibold mb-6 text-center"
-              style={{ color: '#020a1c' }}
+              className="text-xl md:text-2xl font-semibold mb-6 text-center text-white"
               data-testid="text-calendly-title"
             >
               Schedule Your Onboarding Call

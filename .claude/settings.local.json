@@ -126,5 +126,9 @@
   },
   "disabledMcpjsonServers": [
     "supabase"
-  ]
+  ],
+  "enabledMcpjsonServers": [
+    "supabase"
+  ],
+  "enableAllProjectMcpServers": true
 }

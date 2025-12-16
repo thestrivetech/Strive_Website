@@ -56,44 +56,44 @@ const Company = () => {
     {
       name: "Garrett Holland",
       title: "Founder & CEO",
-      description: "Real estate tech entrepreneur building the all-in-one platform that replaces fragmented tools with unified workflows.",
+      description: "",
       imageUrl: GarrettHeadshot,
       imageAlt: "Garrett Holland - CEO & Founder headshot"
     },
     {
       name: "Grant Ramey",
       title: "Co-Founder, VP of Product",
-      description: "Product visionary designing intuitive real estate solutions that agents actually want to use every day.",
+      description: "",
       imageUrl: GrantHeadshot,
       imageAlt: "Grant Ramey - Co-Founder, VP of Product headshot"
     },
     {
       name: "Jeff Meyer",
       title: "Co-Founder, Head of Growth",
-      description: "Real estate industry expert connecting with agents, teams, and brokerages to understand their biggest challenges.",
+      description: "",
       imageUrl: JeffHeadshot,
       imageAlt: "Jeff Meyer - Co-Founder, Head of Growth headshot"
     },
     {
-      name: "Jdub",
-      title: "[Title TBD]",
-      description: "[Description TBD]",
-      imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-      imageAlt: "Jdub headshot"
+      name: "Joshua Hunt",
+      title: "Sales Associate",
+      description: "",
+      imageUrl: "",
+      imageAlt: "Joshua Hunt headshot"
     },
     {
-      name: "Josh",
-      title: "[Title TBD]",
-      description: "[Description TBD]",
-      imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-      imageAlt: "Josh headshot"
+      name: "Joshua Shiller",
+      title: "Content Creator & Sales Associate",
+      description: "",
+      imageUrl: "",
+      imageAlt: "Joshua Shiller headshot"
     },
     {
-      name: "Eldo",
-      title: "[Title TBD]",
-      description: "[Description TBD]",
-      imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
-      imageAlt: "Eldo headshot"
+      name: "Jacob Eldridge",
+      title: "Sales Associate",
+      description: "",
+      imageUrl: "",
+      imageAlt: "Jacob Eldridge headshot"
     }
   ];
 
@@ -471,18 +471,26 @@ const Company = () => {
                       {/* Gradient overlay on hover */}
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
                       
-                      <div className="relative overflow-hidden">
-                        <img 
-                          src={member.imageUrl}
-                          alt={member.imageAlt}
-                          className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        
-                        {/* Decorative border effect */}
-                        <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-t-3xl transition-colors duration-500"></div>
-                      </div>
-                      
+                      {member.imageUrl ? (
+                        <div className="relative overflow-hidden">
+                          <img
+                            src={member.imageUrl}
+                            alt={member.imageAlt}
+                            className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                          {/* Decorative border effect */}
+                          <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-t-3xl transition-colors duration-500"></div>
+                        </div>
+                      ) : (
+                        <div className="w-full h-80 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-orange-500/20 flex items-center justify-center">
+                            <span className="text-4xl font-bold text-primary">{member.name.split(' ').map(n => n.charAt(0)).join('')}</span>
+                          </div>
+                        </div>
+                      )}
+
                       <div className="p-6 relative z-10">
                         <h3 className="text-xl font-bold mb-3 text-[#020a1c] group-hover:text-primary transition-colors duration-300">
                           {member.name}
@@ -490,9 +498,11 @@ const Company = () => {
                         <p className="text-primary font-bold mb-3 text-base tracking-wide">
                           {member.title}
                         </p>
-                        <p className="text-muted-foreground leading-relaxed text-sm">
-                          {member.description}
-                        </p>
+                        {member.description && (
+                          <p className="text-muted-foreground leading-relaxed text-sm">
+                            {member.description}
+                          </p>
+                        )}
                         
                         {/* Decorative accent */}
                         <div className="absolute bottom-0 left-6 right-6 h-1 bg-gradient-to-r from-primary to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
@@ -545,18 +555,26 @@ const Company = () => {
                   {/* Gradient overlay on hover */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
                   
-                  <div className="relative overflow-hidden">
-                    <img 
-                      src={member.imageUrl}
-                      alt={member.imageAlt}
-                      className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    
-                    {/* Decorative border effect */}
-                    <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-t-3xl transition-colors duration-500"></div>
-                  </div>
-                  
+                  {member.imageUrl ? (
+                    <div className="relative overflow-hidden">
+                      <img
+                        src={member.imageUrl}
+                        alt={member.imageAlt}
+                        className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                      {/* Decorative border effect */}
+                      <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-t-3xl transition-colors duration-500"></div>
+                    </div>
+                  ) : (
+                    <div className="w-full h-80 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                      <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-orange-500/20 flex items-center justify-center">
+                        <span className="text-4xl font-bold text-primary">{member.name.split(' ').map(n => n.charAt(0)).join('')}</span>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="p-8 relative z-10 flex-grow flex flex-col">
                     <h3 className="text-2xl font-bold mb-3 text-[#020a1c] group-hover:text-primary transition-colors duration-300">
                       {member.name}
@@ -564,9 +582,11 @@ const Company = () => {
                     <p className="text-primary font-bold mb-4 text-lg tracking-wide">
                       {member.title}
                     </p>
-                    <p className="text-muted-foreground leading-relaxed text-base flex-grow">
-                      {member.description}
-                    </p>
+                    {member.description && (
+                      <p className="text-muted-foreground leading-relaxed text-base flex-grow">
+                        {member.description}
+                      </p>
+                    )}
                     
                     {/* Decorative accent */}
                     <div className="absolute bottom-0 left-8 right-8 h-1 bg-gradient-to-r from-primary to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
