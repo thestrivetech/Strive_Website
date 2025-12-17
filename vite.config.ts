@@ -124,8 +124,6 @@ export default defineConfig({
           ],
           // Animation and motion
           motion: ['framer-motion'],
-          // Data visualization
-          charts: ['recharts'],
           // Icons and visual assets
           icons: ['lucide-react', '@heroicons/react'],
           // Form handling

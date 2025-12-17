@@ -117,7 +117,7 @@ const Home = () => {
                 <div className="pt-2 sm:pt-4">
                   <Button
                     onClick={() => window.location.href = "/contact"}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 sm:px-10 lg:px-16 py-4 sm:py-5 lg:py-7 text-base sm:text-lg lg:text-2xl min-h-[48px] sm:min-h-[56px] relative overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 sm:px-10 lg:px-16 py-4 sm:py-5 lg:py-7 text-base sm:text-lg lg:text-2xl min-h-[48px] sm:min-h-[56px] relative overflow-hidden group shadow-lg hover:shadow-xl transition-all duration-300 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/15 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500"
                     size="lg"
                   >
                     Schedule a Showcase
@@ -312,36 +312,6 @@ const Home = () => {
               })}
             </div>
 
-            {/* AI-Native Advantage Callout */}
-            <div className="mt-12 sm:mt-16 bg-gradient-to-r from-orange-50 via-white to-purple-50 border-2 border-orange-200 rounded-xl p-6 sm:p-8 max-w-4xl mx-auto">
-              <div className="flex flex-col md:flex-row items-start gap-6">
-                <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Sparkles className="w-7 h-7 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
-                    AI-Native From Day One
-                  </h3>
-                  <p className="text-gray-700 mb-4 leading-relaxed">
-                    While competitors retrofit AI onto legacy platforms, SAI was built AI-first from the ground up. Our proprietary AI technologies give agents a 1-2 year technological advantage:
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="bg-white border border-gray-200 rounded-lg p-3">
-                      <p className="text-sm font-semibold text-orange-600">Market Velocity Intelligence</p>
-                      <p className="text-xs text-gray-600">Predict transaction timing</p>
-                    </div>
-                    <div className="bg-white border border-gray-200 rounded-lg p-3">
-                      <p className="text-sm font-semibold text-purple-600">Price Valuation Intelligence</p>
-                      <p className="text-xs text-gray-600">Institutional-grade analysis</p>
-                    </div>
-                    <div className="bg-white border border-gray-200 rounded-lg p-3">
-                      <p className="text-sm font-semibold text-primary">SaiBot</p>
-                      <p className="text-xs text-gray-600">Specialized AI Assistant</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 

@@ -1,5 +1,5 @@
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+// PDF libraries are loaded dynamically to reduce initial bundle size (~80KB saved)
+// html2canvas and jsPDF are only loaded when PDF generation is triggered
 
 export interface PDFOptions {
   filename?: string;
@@ -20,6 +20,12 @@ export const generatePDF = async (
   } = options;
 
   try {
+    // Dynamically import PDF libraries
+    const [{ default: html2canvas }, { default: jsPDF }] = await Promise.all([
+      import('html2canvas'),
+      import('jspdf')
+    ]);
+
     const element = document.getElementById(elementId);
     if (!element) {
       throw new Error(`Element with id "${elementId}" not found`);
@@ -183,6 +189,9 @@ export const downloadAsPDF = async (
   filename: string = 'document.pdf'
 ): Promise<void> => {
   try {
+    // Dynamically import jsPDF
+    const { default: jsPDF } = await import('jspdf');
+
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
@@ -214,6 +223,9 @@ export const generateProfessionalBrochurePDF = async (
   } = options;
 
   try {
+    // Dynamically import jsPDF
+    const { default: jsPDF } = await import('jspdf');
+
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
@@ -277,14 +289,14 @@ export const generateProfessionalBrochurePDF = async (
     yPos += 12;
     pdf.setFontSize(16);
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Transforming Business Through AI Innovation', pageWidth / 2, yPos, { align: 'center' });
+    pdf.text('The All-in-One Real Estate Platform', pageWidth / 2, yPos, { align: 'center' });
 
     // Description
     yPos += 10;
     pdf.setFontSize(11);
     pdf.setFont('helvetica', 'normal');
     const description = pdf.splitTextToSize(
-      'Empowering organizations with cutting-edge AI solutions that drive growth, efficiency, and competitive advantage',
+      'Empowering real estate professionals to close more deals, manage transactions effortlessly, and scale their business with one unified platform',
       contentWidth - 40
     );
     pdf.text(description, pageWidth / 2, yPos, { align: 'center' });
@@ -307,7 +319,7 @@ export const generateProfessionalBrochurePDF = async (
     pdf.setFont('helvetica', 'normal');
     pdf.setTextColor(80, 80, 80);
     const companyDesc = pdf.splitTextToSize(
-      'Strive is a leading provider of AI-powered business solutions, helping organizations across industries transform their operations, improve efficiency, and drive sustainable growth. Our comprehensive suite of services combines cutting-edge artificial intelligence with deep industry expertise to deliver measurable results.',
+      'SAI Platform is the all-in-one solution for modern real estate professionals. We combine CRM, transaction management, marketing automation, market intelligence, and AI assistance into a single unified platform. Built specifically for real estate, SAI eliminates the chaos of managing multiple disconnected tools while providing institutional-grade capabilities to every agent, team, and brokerage.',
       contentWidth
     );
     pdf.text(companyDesc, margin, yPos);

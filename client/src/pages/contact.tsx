@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MapPin, Phone, Mail, Clock, Download, MessageCircle, Users, Eye, FileText, Calendar } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Download, Users, Eye, FileText, Calendar } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { PageNavigation, type NavSection } from "@/components/ui/page-navigation";
@@ -10,7 +10,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { useLocation } from "wouter";
 import { validatePhone } from "@/lib/validation";
 import ProfessionalBrochure from "@/components/ui/professional-brochure";
 import { generatePDF, generateProfessionalBrochurePDF } from "@/lib/pdf-generator";
@@ -26,7 +25,6 @@ const Contact = () => {
     { id: 'contact-form', label: 'Contact Form', background: 'dark' },
     { id: 'contact-schedule', label: 'Schedule Call', background: 'dark' },
   ];
-  const [, setLocation] = useLocation();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -128,16 +126,6 @@ const Contact = () => {
         </span>
       ),
       action: "brochure"
-    },
-    {
-      icon: <MessageCircle className="mr-1 sm:mr-2 flex-shrink-0" />,
-      text: (
-        <span className="flex items-center gap-1 sm:gap-2">
-          <span className="hidden sm:inline">Chat Live with AI Specialist</span>
-          <span className="sm:hidden text-xs leading-tight">Chat with AI</span>
-        </span>
-      ),
-      action: "chat"
     }
   ];
 
@@ -248,10 +236,6 @@ const Contact = () => {
     switch (action) {
       case "brochure":
         setIsBrochureModalOpen(true);
-        break;
-      case "chat":
-        // Navigate to the full Sai chatbot page
-        setLocation('/chatbot-sai');
         break;
     }
   };
@@ -554,7 +538,7 @@ const Contact = () => {
               className="text-xl md:text-2xl font-semibold mb-6 text-center text-white"
               data-testid="text-calendly-title"
             >
-              Schedule Your Onboarding Call
+              Schedule Your Showcase
             </h3>
             <div className="max-w-4xl mx-auto rounded-lg overflow-hidden shadow-lg" style={{ border: '1px solid #e5e7eb' }}>
               <iframe
@@ -562,7 +546,7 @@ const Contact = () => {
                 width="100%"
                 height="630"
                 frameBorder="0"
-                title="Schedule Your Onboarding Call - SAI Platform"
+                title="Schedule Your Showcase - SAI Platform"
                 className="w-full"
                 style={{ minHeight: '630px' }}
                 allow="camera; microphone; geolocation"

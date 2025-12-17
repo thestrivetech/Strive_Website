@@ -1,10 +1,12 @@
-import { onCLS, onFCP, onLCP, onTTFB } from 'web-vitals';
+import { onCLS, onFCP, onLCP, onTTFB, onINP } from 'web-vitals';
 import { trackWebVitals } from './analytics-tracker';
-// FID is deprecated in favor of INP, but we'll still track it if available
-let onFID: any;
+// FID is deprecated in favor of INP, but we'll still track it for older browsers
+let onFID: ((callback: (metric: any) => void) => void) | null = null;
 try {
-  onFID = require('web-vitals').onFID;
-} catch (e) {
+  // onFID may not be available in newer versions of web-vitals
+  const webVitals = require('web-vitals');
+  onFID = webVitals.onFID || null;
+} catch {
   // FID not available, use fallback
   onFID = null;
 }
@@ -67,16 +69,15 @@ export function initWebVitals() {
   // Monitor all Core Web Vitals
   onCLS(reportMetric);
   onFCP(reportMetric);
-  if (onFID) {
-    onFID(reportMetric);
-  }
   onLCP(reportMetric);
   onTTFB(reportMetric);
 
-  // Also measure INP if supported (newer metric replacing FID)
-  if ('requestIdleCallback' in window) {
-    // INP monitoring logic would go here
-    // For now, FID provides similar insights
+  // INP is the current Core Web Vital for responsiveness (replaced FID in March 2024)
+  onINP(reportMetric);
+
+  // FID is deprecated but track it for older browser compatibility if available
+  if (onFID) {
+    onFID(reportMetric);
   }
 }
 
@@ -107,7 +108,8 @@ export function getPerformanceScore(): {
   });
 
   // Calculate overall score (weighted average)
-  const weights = { LCP: 0.25, FID: 0.25, CLS: 0.25, FCP: 0.15, TTFB: 0.10 };
+  // INP replaces FID as the primary responsiveness metric
+  const weights = { LCP: 0.25, INP: 0.25, CLS: 0.25, FCP: 0.15, TTFB: 0.10 };
   let overall = 0;
   let totalWeight = 0;
 

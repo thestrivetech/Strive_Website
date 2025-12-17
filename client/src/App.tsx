@@ -11,9 +11,11 @@ import ErrorBoundary from "@/components/ui/error-boundary";
 import AnalyticsErrorBoundary from "@/components/ui/analytics-error-boundary";
 import { usePageTracking } from "@/hooks/usePageTracking";
 
-// Lazy load layout components for better performance
-const Navigation = lazy(() => import("@/components/layout/navigation"));
-const Footer = lazy(() => import("@/components/layout/footer"));
+// Critical layout components - loaded immediately (needed on every page)
+import Navigation from "@/components/layout/navigation";
+import Footer from "@/components/layout/footer";
+
+// Consent banner can be lazy-loaded since it appears after user interaction
 const ConsentBanner = lazy(() => import("@/components/analytics/consent-banner").then(module => ({ default: module.ConsentBanner })));
 
 // Keep home page loaded immediately for best UX
@@ -47,9 +49,7 @@ function Router() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <ScrollToTop />
-      <Suspense fallback={<div className="h-16 w-full bg-background border-b animate-pulse" />}>
-        <Navigation />
-      </Suspense>
+      <Navigation />
       <main>
         <Suspense fallback={<PageSkeleton />}>
           <Switch>
@@ -74,9 +74,7 @@ function Router() {
           </Switch>
         </Suspense>
       </main>
-      <Suspense fallback={<div className="h-20 w-full bg-muted/10 animate-pulse" />}>
-        <Footer />
-      </Suspense>
+      <Footer />
       <Suspense fallback={null}>
         <AnalyticsErrorBoundary componentName="ConsentBanner">
           <ConsentBanner />

@@ -119,16 +119,17 @@
       "Bash(git grep:*)",
       "WebFetch(domain:stock.adobe.com)",
       "WebFetch(domain:www.nar.realtor)",
-      "WebFetch(domain:www.bls.gov)"
+      "WebFetch(domain:www.bls.gov)",
+      "Bash(npm uninstall:*)"
     ],
     "deny": [],
     "ask": []
   },
-  "disabledMcpjsonServers": [
-    "supabase"
-  ],
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "supabase"
   ],
-  "enableAllProjectMcpServers": true
+  "disabledMcpjsonServers": [
+    "supabase"
+  ]
 }

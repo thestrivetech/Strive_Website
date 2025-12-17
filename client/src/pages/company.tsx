@@ -1,4 +1,5 @@
-import { Target, Eye, Heart, CheckCircle, Calendar, Rocket, Zap, Users, ChevronLeft, ChevronRight } from "lucide-react";
+import { Target, Eye, Heart, CheckCircle, Calendar, Rocket, Zap, Users, ChevronLeft, ChevronRight, Clock, Bot, LayoutGrid, type LucideIcon } from "lucide-react";
+import { motion } from "framer-motion";
 import { ArrowTrendingUpIcon, LightBulbIcon, GlobeAltIcon, CpuChipIcon, DevicePhoneMobileIcon } from "@heroicons/react/24/outline";
 import TeamMember from "@/components/ui/team-member";
 import { Card, CardContent } from "@/components/ui/card";
@@ -75,18 +76,18 @@ const Company = () => {
       imageAlt: "Jeff Meyer - Co-Founder, Head of Growth headshot"
     },
     {
-      name: "Joshua Hunt",
-      title: "Sales Associate",
-      description: "",
-      imageUrl: "",
-      imageAlt: "Joshua Hunt headshot"
-    },
-    {
       name: "Joshua Shiller",
       title: "Content Creator & Sales Associate",
       description: "",
       imageUrl: "",
       imageAlt: "Joshua Shiller headshot"
+    },
+    {
+      name: "Joshua Hunt",
+      title: "Sales Associate",
+      description: "",
+      imageUrl: "",
+      imageAlt: "Joshua Hunt headshot"
     },
     {
       name: "Jacob Eldridge",
@@ -97,11 +98,11 @@ const Company = () => {
     }
   ];
 
-  const stats = [
-    { number: "10+", label: "Tools Replaced by One Platform" },
-    { number: "500+", label: "Real Estate Professionals Interested" },
-    { number: "6", label: "Integrated Modules for Complete Workflow" },
-    { number: "24/7", label: "AI Assistant Available" }
+  const stats: { number: string; label: string; icon: LucideIcon }[] = [
+    { number: "10+", label: "Tools Replaced by One Platform", icon: CheckCircle },
+    { number: "6", label: "Integrated Modules for Complete Workflow", icon: LayoutGrid },
+    { number: "10+", label: "Hours Saved Per Week", icon: Clock },
+    { number: "24/7", label: "AI Assistant Available", icon: Bot }
   ];
 
   // Vision Timeline Data
@@ -214,30 +215,41 @@ const Company = () => {
         </div>
       </section>
 
-      {/* Stats Section - Moved outside hero */}
-      <section id="company-stats" className="scroll-mt-20 py-12 bg-[#ffffffeb]">
+      {/* Stats Section */}
+      <section id="company-stats" className="scroll-mt-20 py-16 md:py-20 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Mobile & Tablet: 2x2 Grid layout */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            {stats.map((stat, index) => (
-              <div 
-                key={index}
-                className="text-center group"
-                data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}
-              >
-                <div className="text-2xl md:text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300" 
-                  data-testid={`text-stat-number-${index}`}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+            {stats.map((stat, index) => {
+              const IconComponent = stat.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
-                  {stat.number}
-                </div>
-                <div 
-                  className="text-muted-foreground font-medium text-sm md:text-base leading-tight"
-                  data-testid={`text-stat-label-${index}`}
-                >
-                  {stat.label}
-                </div>
-              </div>
-            ))}
+                  <Card className="text-center p-4 md:p-6 border border-gray-100 bg-white hover:shadow-lg transition-shadow duration-300 h-full">
+                    <div className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                      <IconComponent className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                    </div>
+                    <div
+                      className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-1 md:mb-2"
+                      data-testid={`text-stat-number-${index}`}
+                    >
+                      {stat.number}
+                    </div>
+                    <div
+                      className="text-gray-600 font-medium text-xs md:text-sm lg:text-base leading-tight"
+                      data-testid={`text-stat-label-${index}`}
+                    >
+                      {stat.label}
+                    </div>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -254,12 +266,12 @@ const Company = () => {
                 OUR JOURNEY
               </div>
               <h2
-                className="text-3xl md:text-4xl font-bold mb-6 text-[#020a1c]"
+                className="text-3xl md:text-4xl font-bold mb-6 text-gray-900"
                 data-testid="text-story-title"
               >
                 From Family Roots to Real Estate Revolution
               </h2>
-              <div className="space-y-4 md:space-y-6 text-muted-foreground">
+              <div className="space-y-4 md:space-y-6 text-gray-700">
                 <p data-testid="text-story-paragraph-1" className="text-base md:text-lg leading-relaxed">
                   SAI Platform wasn't born in a boardroom. It started at family dinner tables. Garrett's mom spent over 20 years navigating the complexities of the mortgage industry. Grant's grandmother dedicated more than two decades to residential real estate. Growing up, we didn't just observe real estate from the outside. We lived it through weekend open houses, late-night phone calls about deals falling through, and countless conversations about an industry we came to love.
                 </p>
@@ -267,12 +279,12 @@ const Company = () => {
                   We watched talented professionals juggle 10+ disconnected tools daily. Saw deals slip through the cracks because critical information was scattered across platforms. Experienced the frustration when a simple task required logging into five different systems. The technology was supposed to help. Instead, it was draining the joy from an industry built on relationships.
                 </p>
 
-                <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">The Convergence</h3>
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mt-6 md:mt-8 mb-3 md:mb-4">The Convergence</h3>
                 <p data-testid="text-story-paragraph-3" className="text-base md:text-lg leading-relaxed">
                   As we pursued careers in technology (machine learning, full-stack development, AI systems), we kept coming back to the same question: Why hasn't someone fixed this? Why are the people we grew up watching still fighting the same battles with fragmented software? The answer was clear: we needed to build it ourselves, with the perspective only family experience could provide.
                 </p>
 
-                <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">Why This Matters to You</h3>
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mt-6 md:mt-8 mb-3 md:mb-4">Why This Matters to You</h3>
                 <p data-testid="text-story-paragraph-4" className="text-base md:text-lg leading-relaxed">
                   Real estate is relationship-driven, fast-paced, and unforgiving. You don't have time to log into 5 different platforms to check if a client responded. You can't afford to miss a closing deadline because your transaction manager didn't sync with your CRM.
                 </p>
@@ -283,7 +295,7 @@ const Company = () => {
                   We're refining the platform with feedback from agents, team leads, and brokers who share our vision. Contact us to experience the all-in-one platform designed by people who grew up watching this industry firsthand.
                 </p>
 
-                <h3 className="text-lg md:text-xl font-semibold text-[#020a1c] mt-6 md:mt-8 mb-3 md:mb-4">Join the Movement</h3>
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mt-6 md:mt-8 mb-3 md:mb-4">Join the Movement</h3>
                 <p data-testid="text-story-paragraph-7" className="text-base md:text-lg leading-relaxed">
                   This isn't just software; it's a long-overdue answer to decades of industry frustration. For Garrett, it's honoring his mom's 20+ years of navigating mortgage complexity. For Grant, it's building what his grandmother deserved all those years ago. For all of us, it's proving that technology should empower real estate professionals, not exhaust them.
                 </p>
@@ -321,114 +333,53 @@ const Company = () => {
       {/* Mission, Vision, Values */}
       <section id="company-values" className="scroll-mt-20 py-16 md:py-24 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12 md:mb-16">
             <div
               className="text-sm uppercase tracking-wide text-primary font-semibold mb-4"
               data-testid="text-mvv-label"
             >
               OUR FOUNDATION
             </div>
-            <h2 
-              className="text-3xl md:text-4xl font-bold mb-6 text-[#020a1c]"
+            <h2
+              className="text-3xl md:text-4xl font-bold mb-6 text-gray-900"
               data-testid="text-mvv-title"
             >
               Mission, Vision & Values
             </h2>
           </div>
-          
-          {/* Mobile: 1x2 Layout - Values on top, Mission and Vision below */}
-          <div className="block md:hidden">
-            <div className="space-y-6">
-              {/* Values card first */}
-              {missionVisionValues.filter(item => item.title === "Our Values").map((item, index) => (
-                <div 
-                  key={index} 
-                  className="group"
-                  data-testid={`card-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                  <div className="bg-white rounded-2xl p-5 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
-                    <div className="w-14 h-14 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
-                      <div className="text-primary text-lg">
-                        {item.icon}
-                      </div>
-                    </div>
-                    <h3 
-                      className="text-base font-bold mb-2 text-[#020a1c]"
-                      data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-title`}
-                    >
-                      {item.title}
-                    </h3>
-                    <p 
-                      className="text-sm text-muted-foreground leading-relaxed"
-                      data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-description`}
-                    >
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-              
-              {/* Mission and Vision in a 2-column grid */}
-              <div className="grid grid-cols-2 gap-4">
-                {missionVisionValues.filter(item => item.title !== "Our Values").map((item, index) => (
-                  <div 
-                    key={index} 
-                    className="group"
-                    data-testid={`card-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
-                  >
-                    <div className="bg-white rounded-2xl p-4 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
-                      <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
-                        <div className="text-primary text-lg">
-                          {item.icon}
-                        </div>
-                      </div>
-                      <h3 
-                        className="text-base font-bold mb-2 text-[#020a1c]"
-                        data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-title`}
-                      >
-                        {item.title}
-                      </h3>
-                      <p 
-                        className="text-xs text-muted-foreground leading-relaxed"
-                        data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-description`}
-                      >
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          
-          {/* Desktop: Original 3-column grid */}
-          <div className="hidden md:grid grid-cols-3 gap-8">
+
+          {/* Unified responsive grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
             {missionVisionValues.map((item, index) => (
-              <div 
-                key={index} 
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
                 className="group"
                 data-testid={`card-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100 h-full flex flex-col">
-                  <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <div className="text-primary text-2xl">
+                <Card className="bg-white rounded-2xl p-6 md:p-8 text-center border border-gray-100 hover:shadow-xl transition-shadow duration-300 h-full">
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:bg-primary/20 transition-colors duration-300">
+                    <div className="text-primary">
                       {item.icon}
                     </div>
                   </div>
-                  <h3 
-                    className="text-xl font-bold mb-4 text-[#020a1c]"
+                  <h3
+                    className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-gray-900"
                     data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-title`}
                   >
                     {item.title}
                   </h3>
-                  <p 
-                    className="text-base text-muted-foreground leading-relaxed flex-grow"
+                  <p
+                    className="text-sm md:text-base text-gray-600 leading-relaxed"
                     data-testid={`text-${item.title.toLowerCase().replace(/\s+/g, "-")}-description`}
                   >
                     {item.description}
                   </p>
-                </div>
-              </div>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -444,14 +395,14 @@ const Company = () => {
             >
               OUR LEADERSHIP
             </div>
-            <h2 
-              className="text-3xl md:text-4xl font-bold mb-6 text-[#020a1c]"
+            <h2
+              className="text-3xl md:text-4xl font-bold mb-6 text-gray-900"
               data-testid="text-team-title"
             >
               Meet Your Transformation Partners
             </h2>
-            <p 
-              className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
+            <p
+              className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
               data-testid="text-team-subtitle"
             >
               Trusted advisors to global enterprises, delivering proven growth with every partnership.
@@ -499,11 +450,11 @@ const Company = () => {
                           {member.title}
                         </p>
                         {member.description && (
-                          <p className="text-muted-foreground leading-relaxed text-sm">
+                          <p className="text-gray-600 leading-relaxed text-sm">
                             {member.description}
                           </p>
                         )}
-                        
+
                         {/* Decorative accent */}
                         <div className="absolute bottom-0 left-6 right-6 h-1 bg-gradient-to-r from-primary to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                       </div>
@@ -512,7 +463,7 @@ const Company = () => {
                 ))}
               </div>
             </div>
-            
+
             {/* Navigation Arrows */}
             <button
               onClick={prevTeamMember}
@@ -547,20 +498,20 @@ const Company = () => {
             </div>
           </div>
 
-          {/* Desktop: Original Grid Layout */}
+          {/* Desktop: Grid Layout */}
           <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {teamMembers.map((member, index) => (
               <div key={index} className="group">
-                <div className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-gray-100 overflow-hidden relative h-full flex flex-col">
+                <div className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-shadow duration-500 border border-gray-100 overflow-hidden relative h-full flex flex-col">
                   {/* Gradient overlay on hover */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
-                  
+
                   {member.imageUrl ? (
                     <div className="relative overflow-hidden">
                       <img
                         src={member.imageUrl}
                         alt={member.imageAlt}
-                        className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
@@ -576,18 +527,18 @@ const Company = () => {
                   )}
 
                   <div className="p-8 relative z-10 flex-grow flex flex-col">
-                    <h3 className="text-2xl font-bold mb-3 text-[#020a1c] group-hover:text-primary transition-colors duration-300">
+                    <h3 className="text-2xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors duration-300">
                       {member.name}
                     </h3>
                     <p className="text-primary font-bold mb-4 text-lg tracking-wide">
                       {member.title}
                     </p>
                     {member.description && (
-                      <p className="text-muted-foreground leading-relaxed text-base flex-grow">
+                      <p className="text-gray-600 leading-relaxed text-base flex-grow">
                         {member.description}
                       </p>
                     )}
-                    
+
                     {/* Decorative accent */}
                     <div className="absolute bottom-0 left-8 right-8 h-1 bg-gradient-to-r from-primary to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                   </div>
@@ -599,14 +550,14 @@ const Company = () => {
       </section>
       
       {/* Call to Action */}
-      <section id="company-cta" className="scroll-mt-20 py-16 hero-gradient">
+      <section id="company-cta" className="scroll-mt-20 py-16 md:py-20 hero-gradient">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              Ready to See AI Work For You?
+              Experience the All-in-One Real Estate Platform
             </h2>
-            <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-              Book a free custom automation assessment and discover your roadmap to stronger growth, efficiency, and market leadership starting today.
+            <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
+              See how SAI Platform can replace 10+ tools and save your team 10+ hours per week with one unified solution.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -615,7 +566,7 @@ const Company = () => {
                 onClick={() => window.location.href = "/contact"}
                 data-testid="button-get-started-cta"
               >
-                Start Your Journey
+                Schedule a Showcase
               </Button>
               <Button
                 variant="outline"

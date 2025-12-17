@@ -17,6 +17,8 @@ class ServiceWorkerManager {
   private workbox: Workbox | null = null;
   private registration: ServiceWorkerRegistration | null = null;
   private updateAvailable = false;
+  private updateIntervalId: ReturnType<typeof setInterval> | null = null;
+  private visibilityHandler: (() => void) | null = null;
 
   async initialize(options: ServiceWorkerOptions = {}) {
     if ('serviceWorker' in navigator) {
@@ -83,19 +85,44 @@ class ServiceWorkerManager {
   }
 
   private setupUpdateCheck() {
+    // Clean up any existing handlers first
+    this.cleanupUpdateCheck();
+
     // Check for updates every 60 seconds
-    setInterval(async () => {
+    this.updateIntervalId = setInterval(async () => {
       if (this.registration) {
         await this.registration.update();
       }
     }, 60000);
 
     // Also check when the page becomes visible
-    document.addEventListener('visibilitychange', async () => {
+    this.visibilityHandler = async () => {
       if (!document.hidden && this.registration) {
         await this.registration.update();
       }
-    });
+    };
+    document.addEventListener('visibilitychange', this.visibilityHandler);
+  }
+
+  private cleanupUpdateCheck() {
+    if (this.updateIntervalId) {
+      clearInterval(this.updateIntervalId);
+      this.updateIntervalId = null;
+    }
+    if (this.visibilityHandler) {
+      document.removeEventListener('visibilitychange', this.visibilityHandler);
+      this.visibilityHandler = null;
+    }
+  }
+
+  /**
+   * Cleanup service worker manager (call when unmounting)
+   */
+  cleanup() {
+    this.cleanupUpdateCheck();
+    this.workbox = null;
+    this.registration = null;
+    this.updateAvailable = false;
   }
 
   /**
@@ -190,7 +217,8 @@ export function useServiceWorker() {
     update: () => serviceWorkerManager.update(),
     isOffline: serviceWorkerManager.isOffline,
     getCacheInfo: () => serviceWorkerManager.getCacheInfo(),
-    clearCaches: () => serviceWorkerManager.clearCaches()
+    clearCaches: () => serviceWorkerManager.clearCaches(),
+    cleanup: () => serviceWorkerManager.cleanup()
   };
 }
 

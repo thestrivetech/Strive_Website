@@ -75,7 +75,7 @@ export function SAIAdvantageSection() {
             {heroStats.map((stat, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-primary/5 to-orange-500/5 border border-primary/20 rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-200"
+                className="bg-white border-2 border-gray-300 rounded-2xl p-6 text-center hover:shadow-lg hover:border-primary transition-all duration-300"
               >
                 <div className="text-4xl sm:text-5xl font-bold text-primary mb-2">
                   {stat.value}
@@ -142,7 +142,7 @@ export function SAIAdvantageSection() {
       </div>
 
       {/* Part 2: Agent AI Insights Comparison */}
-      <div className="py-16 sm:py-20 lg:py-24 bg-gray-50">
+      <div className="py-16 sm:py-20 lg:py-24 bg-[#ffffffeb]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-12">
