@@ -44,8 +44,8 @@ export async function setupVite(app: Express, server: Server) {
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl;
 
-    // Don't serve SPA for API routes or legal documents
-    if (url.startsWith("/api") || url.startsWith("/legal")) {
+    // Don't serve SPA for API routes
+    if (url.startsWith("/api")) {
       return next();
     }
 

@@ -100,6 +100,20 @@ export const pageSEO: Record<string, SEOConfig> = {
     description: 'SAI Platform cookie policy. Learn about how we use cookies to improve your experience.',
     keywords: ['cookie policy', 'cookies', 'SAI Platform cookies'],
     ogType: 'website'
+  },
+
+  '/legal/privacy-policy': {
+    title: 'Privacy Policy | SAI Platform',
+    description: 'SAI Platform privacy policy. Learn how Strive Tech LLC collects, uses, and protects your personal information when using our real estate AI platform.',
+    keywords: ['privacy policy', 'data protection', 'SAI Platform privacy', 'Strive Tech LLC'],
+    ogType: 'website'
+  },
+
+  '/legal/terms-of-service-agreement': {
+    title: 'Terms of Service Agreement | SAI Platform',
+    description: 'SAI Platform terms of service agreement. Read the complete terms and conditions for using our AI-powered real estate platform.',
+    keywords: ['terms of service', 'terms and conditions', 'SAI Platform terms', 'Strive Tech LLC', 'service agreement'],
+    ogType: 'website'
   }
 };
 

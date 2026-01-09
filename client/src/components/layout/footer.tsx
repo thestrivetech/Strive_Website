@@ -189,26 +189,22 @@ const Footer = () => {
             © {currentYear} Strive Tech LLC. All rights reserved.
           </div>
           <div className="flex space-x-6 text-sm">
-            <a
+            <Link
               href="/legal/privacy-policy"
-              target="_blank"
-              rel="noopener noreferrer"
               className="text-white/70 hover:text-white transition-colors"
               data-testid="link-privacy"
             >
               Privacy Policy
-            </a>
-            <a
+            </Link>
+            <Link
               href="/legal/terms-of-service-agreement"
-              target="_blank"
-              rel="noopener noreferrer"
               className="text-white/70 hover:text-white transition-colors"
               data-testid="link-terms"
             >
               Terms of Service
-            </a>
-            <Link 
-              href="/cookies" 
+            </Link>
+            <Link
+              href="/cookies"
               className="text-white/70 hover:text-white transition-colors"
               data-testid="link-cookies"
             >

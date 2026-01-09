@@ -34,6 +34,10 @@ const Pricing = lazy(() => import("@/pages/pricing"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 const AnalyticsDashboard = lazy(() => import("@/pages/analytics-dashboard"));
 
+// Legal pages
+const LegalPrivacyPolicy = lazy(() => import("@/pages/legal/privacy-policy"));
+const LegalTermsOfService = lazy(() => import("@/pages/legal/terms-of-service"));
+
 // Import redirect component for deprecated routes
 import { Redirect } from "@/components/Redirect";
 
@@ -70,6 +74,11 @@ function Router() {
             <Route path="/cookies" component={Cookies} />
             <Route path="/pricing" component={Pricing} />
             <Route path="/analytics-dashboard" component={AnalyticsDashboard} />
+
+            {/* Legal pages - proper webpages for Google OAuth verification */}
+            <Route path="/legal/privacy-policy" component={LegalPrivacyPolicy} />
+            <Route path="/legal/terms-of-service-agreement" component={LegalTermsOfService} />
+
             <Route component={NotFound} />
           </Switch>
         </Suspense>
