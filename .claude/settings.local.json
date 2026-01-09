@@ -120,7 +120,8 @@
       "WebFetch(domain:stock.adobe.com)",
       "WebFetch(domain:www.nar.realtor)",
       "WebFetch(domain:www.bls.gov)",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(copy \"C:\\\\Users\\\\zochr\\\\Desktop\\\\GitHub\\\\Strive_Website\\\\Strive-Tech-SAI-Privacy-Policy.pdf\" \"C:\\\\Users\\\\zochr\\\\Desktop\\\\GitHub\\\\Strive_Website\\\\client\\\\public\\\\legal\"\" && copy \"C:UserszochrDesktopGitHubStrive_WebsiteStrive-Tech-SAI-ToS-Agreement.pdf\" \"C:UserszochrDesktopGitHubStrive_Websiteclientpubliclegal\"\")"
     ],
     "deny": [],
     "ask": []

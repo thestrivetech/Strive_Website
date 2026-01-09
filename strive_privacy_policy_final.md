@@ -1,0 +1,489 @@
+# PRIVACY POLICY
+
+# STRIVE TECH LLC. – SAI PLATFORM
+
+**Last Updated:** January 9, 2026  
+---
+
+## 1\. Introduction
+
+This Privacy Policy describes how Strive Tech LLC ("Strive," "we," "us," or "our") collects, uses, shares, and protects personal information when you use our SAI platform, an AI-powered enterprise real estate operating system for professionals (the "Platform" or "Services").
+
+**Company Information:**  
+Strive Tech LLC  
+700 Arbor Trace Circle  
+Nashville, TN 37207  
+Email: [contact@strivetech.ai](mailto:contact@strivetech.ai)  
+Phone: (731) 431-2320  
+Website: [https://strivetech.ai](https://strivetech.ai)
+
+By using our Services, you acknowledge that you have read and understood this Privacy Policy. If you do not agree, please discontinue use of the Services.
+
+## 2\. Information We Collect
+
+### 2.1 Information You Provide
+
+**Account Information:**
+
+- Name, email, phone number, business address  
+- Real estate license number, licensing state, brokerage affiliation  
+- Professional credentials, headshot, bio, website, social media links
+
+**Billing Information:**
+
+- Payment card details (processed by Stripe)  
+- Billing address and tax identification numbers
+
+**CRM and Client Data:**
+
+- Contact information for your leads, clients, and prospects  
+- Property preferences, financial qualifications, transaction details  
+- Information about third parties in transactions (lenders, attorneys, title companies, etc.)
+
+**Content and Communications:**
+
+- Messages sent through the Platform  
+- Conversations with our AI assistant (SaiBot)  
+- Documents uploaded (DocuSign documents stored by DocuSign; we store only metadata)  
+- QuickBooks financial data accessed via API (not stored locally)  
+- Customer support inquiries
+
+**Third-Party Integration Credentials:**
+
+- OAuth tokens for connected accounts (encrypted using AES-256)
+
+**Important:** You are responsible for ensuring appropriate authority and consent when entering information about third parties.
+
+### 2.2 Information Collected Automatically
+
+**Technical Information:**
+
+- IP address and approximate geolocation  
+- Device type, operating system, browser type  
+- Usage data: pages viewed, features used, time spent, search queries  
+- Property search criteria and saved favorites  
+- Error logs (retained 90 days for troubleshooting)
+
+**Location Information:**
+
+- Approximate location from IP address  
+- Precise geolocation (with consent) for mileage tracking
+
+**Marketing Data:**
+
+- Email campaign engagement metrics  
+- Social media post performance
+
+**Activity Logs:**
+
+- Actions within the Platform (creating, updating, and deleting records)  
+- Transaction history (retained 7 years for real estate compliance)
+
+### 2.3 Third-Party Data Sources
+
+- We use third-party services for infrastructure, AI, market data, mapping, and analytics. Some of these providers only supply public market data to us and do not receive your personal information.
+
+### 2.4 What We Do NOT Collect
+
+We explicitly do **not** collect:
+
+- Biometric information  
+- Racial/ethnic origin, religious beliefs, genetic data, or health information (except incidentally in free-text fields)  
+- Information from children under 18
+
+## 3\. How We Use Your Information
+
+**Service Delivery:**
+
+- Provide Platform features (CRM, AI assistant, analytics, content tools)  
+- Process billing via Stripe  
+- Enable third-party integrations  
+- Customer support
+
+**AI and Predictive Features:**
+
+- Power SaiBot AI assistant for personalized responses  
+- Generate market predictions and property valuations  
+- Create AI-generated marketing content  
+- Convert content to searchable embeddings for improved search
+
+**Communications:**
+
+- Transactional emails (receipts, confirmations, password resets)  
+- Service announcements  
+- Marketing communications (with consent; unsubscribe anytime)
+
+**Security and Compliance:**
+
+- Detect fraud and security threats  
+- Comply with legal obligations (real estate licensing, Fair Housing Act, privacy laws)  
+- Enforce Terms of Service  
+- Protect rights and safety
+
+**Analytics:**
+
+- Analyze usage to improve the Platform  
+- Develop new features  
+- Conduct market research
+
+## 4\. How We Share Your Information
+
+### 4.1 Service Providers
+
+We engage third-party service providers who process data on our behalf under their own data policies and agreements:
+
+**Infrastructure:** Vercel (hosting), Supabase (database/storage), Railway (ML hosting)
+
+**AI & Machine Learning:** xAI/Grok, Google/Vertex, Anthropic, and Moonshot (LLMs accessed via OpenRouter, Vercel, or Groq as model providers), OpenAI & Qwen (embeddings), Cohere (search)
+
+**Business Tools:** DocuSign (Document Signatures), Adobe (Document Signatures), Intuit (Taxes & Expenses), Stripe (Payment Processing)
+
+**Communications:** Resend (email delivery) and iPlum (Texting Services)
+
+**Background Processing:** Upstash (job scheduling)
+
+These providers are contractually obligated to protect your data, and their privacy policies govern their processing. All service providers' privacy policies can be found below:
+
+Vercel – [https://vercel.com/legal/privacy-policy](https://vercel.com/legal/privacy-policy)  
+Supabase – [https://supabase.com/privacy](https://supabase.com/privacy)  
+Railway – [https://railway.app/legal/privacy](https://railway.app/legal/privacy)  
+Groq – [https://groq.com/privacy-policy](https://groq.com/privacy-policy)  
+xAI / Grok – [https://x.ai/legal/privacy-policy](https://x.ai/legal/privacy-policy)  
+Google Cloud / Vertex AI – [https://cloud.google.com/terms/cloud-privacy-notice](https://cloud.google.com/terms/cloud-privacy-notice) & [https://policies.google.com/privacy](https://policies.google.com/privacy)  
+Anthropic (Claude) – [https://www.anthropic.com/legal/privacy](https://www.anthropic.com/legal/privacy)  
+Moonshot AI – [https://moonshot-ai.com/privacy-policy](https://moonshot-ai.com/privacy-policy)  
+OpenRouter (model gateway) – [https://openrouter.ai/privacy](https://openrouter.ai/privacy)  
+OpenAI – [https://openai.com/policies/privacy-policy](https://openai.com/policies/privacy-policy)  
+Qwen – [https://chat.qwen.ai/legal-agreement/privacy-policy?spm=a2ty\_o01.29997169.0.0.3d4d51718CSEXd](https://chat.qwen.ai/legal-agreement/privacy-policy?spm=a2ty_o01.29997169.0.0.3d4d51718CSEXd)  
+Cohere (LLMs/search) – [https://cohere.com/privacy](https://cohere.com/privacy)  
+DocuSign – [https://www.docusign.com/privacy](https://www.docusign.com/privacy)  
+​Adobe – [https://www.adobe.com/privacy/policy.html](https://www.adobe.com/privacy/policy.html)  
+Intuit (QuickBooks, etc.) – [https://www.intuit.com/privacy/statement/](https://www.intuit.com/privacy/statement/)  
+Stripe – [https://stripe.com/privacy](https://stripe.com/privacy)  
+Resend –[https://resend.com/legal/privacy-policy](https://resend.com/legal/privacy-policy)  
+iPlum – [https://www.iplum.com/privacy](https://www.iplum.com/privacy)  
+Upstash – [https://upstash.com/trust/privacy.pdf](https://upstash.com/trust/privacy.pdf)
+
+### 4.2 MLS Data Sharing
+
+When you access MLS data through our Platform via IDX (Internet Data Exchange) or VOW (Virtual Office Website) functionality:
+
+- MLS data is provided for your professional use in accordance with MLS rules  
+- You must comply with MLS policies regarding data use and display  
+- MLS data may not be used for unauthorized purposes  
+- We maintain audit trails as required by MLS policies  
+- Sellers may opt out of having their listings displayed online
+
+### 4.3 Within Your Organization
+
+If you're part of a brokerage or team:
+
+**Organization Admins Can See:**
+
+- Your profile, role, and usage statistics  
+- Activity logs for shared resources
+
+**Organization Admins Cannot See:**
+
+- Your passwords or OAuth tokens  
+- Content marked as private  
+- Your personal (non-organization) activity
+
+You maintain ownership of your "book of business" (contacts, leads, client relationships).
+
+### 4.4 Real Estate Industry Partners
+
+We may share information with:
+
+- Other real estate professionals involved in transactions (with authorization)  
+- Title companies, escrow services, closing agents  
+- Mortgage lenders (at your discretion)
+
+### 4.5 Legal Disclosures
+
+We may disclose information when required by law:
+
+- To comply with legal process (subpoena, court order)  
+- To respond to government requests  
+- To cooperate with law enforcement  
+- To protect rights, property, or safety
+
+### 4.6 Business Transfers
+
+In the event of a merger, acquisition, or sale of assets, your information may be transferred. We will notify you of any such change in order to give you the ability to opt out of the data transfer.
+
+### 4.7 No Sale of Personal Information
+
+**We do not sell your personal information.** We do not exchange personal information for monetary consideration or share it for cross-context behavioral advertising.
+
+### 4.8 Data Processing for Business Customers
+
+When you use our Platform to manage client data, Strive acts as a service provider/processor. We:
+
+- Process data only as necessary to provide Services  
+- Do not sell or share client data  
+- Implement appropriate security measures  
+- Notify you of data breaches within 72 hours  
+- Maintain a list of subprocessors
+
+**To obtain a Data Processing Addendum (DPA):** Contact [contact@strivetech.ai](mailto:contact@strivetech.ai) with "DPA Request" in the subject line.
+
+## 5\. AI and Automated Processing
+
+### 5.1 AI Features
+
+**SaiBot (AI Assistant):** Powered by xAI's Grok model via OpenRouter; processes your queries and contextual data to generate responses.
+
+**Predictive Market Analytics:** AI forecasting of market trends and property values using publicly accessible and licensed market data.
+
+**Content Generation:** AI-assisted creation of property descriptions and marketing materials.
+
+### 5.2 How AI Processes Your Data
+
+**AI Providers and Their Privacy Policies:**
+
+- xAI (Grok): Processes SaiBot conversations  
+- OpenAI: Text embeddings for semantic search  
+- Cohere: Search result reranking  
+- OpenRouter: AI request routing
+
+We selected these providers based on their data security commitments and willingness to use only input and output prompts for model training, which excludes any personal data. Their privacy policies govern their data processing procedures.
+
+**Embeddings:** Text converted to numerical representations for intelligent search; stored in our database and scoped to your account.
+
+**Conversation Summaries:** AI-powered summaries of SaiBot history to improve responses; private to your account.
+
+### 5.3 Profiling and Automated Decision-Making
+
+**Property Search Alerts:** Automated matching based on your specified criteria.
+
+**Investment Analytics:** Automated scoring and ranking of investment opportunities (advisory only, not a replacement for professional judgment).
+
+**Your Rights:**
+
+- Be informed about automated decision-making  
+- Opt out of profiling for decisions with legal or significant effects  
+- Request human review of automated decisions  
+- Contest automated decisions
+
+**Important:** Our systems are advisory tools that assist, not replace, human decision-making.
+
+### 5.4 AI Usage Tracking
+
+We track:
+
+- SaiBot message volume and token usage  
+- AI model selection and tool invocations  
+- Feature usage frequency
+
+This data is used for billing, resource allocation, and platform improvement.
+
+### 5.5 Applicable Law, Regulation, and MLS Rules
+
+You acknowledge and agree you shall comply with all applicable laws, rules, and regulations related to your use of Workspace, including but not limited to any applicable MLS Rules.
+
+## 6\. Cookies and Tracking
+
+### 6.1 Cookies We Use
+
+| Cookie Name | Purpose | Type | Duration |
+| :---- | :---- | :---- | :---- |
+| sb-access-token | Authentication | Strictly Necessary | Session |
+| sb-refresh-token | Token refresh | Strictly Necessary | 7 days |
+| sb-auth-token | User authentication | Strictly Necessary | Session |
+| theme | UI theme preference | Functional | 1 year |
+| locale | Language preference | Functional | 1 year |
+
+**Strictly Necessary Cookies:** Essential for Platform operation (cannot opt out).
+
+**Functional Cookies:** Remember your preferences.
+
+We do not use advertising or third-party tracking cookies.
+
+### 6.2 Managing Cookies
+
+You can manage cookies through browser settings. Note that disabling necessary cookies may prevent Platform use.
+
+**Do Not Track:** We do not currently respond to DNT signals. You may exercise privacy rights under Section 8\.
+
+## 7\. Data Security and Retention
+
+### 7.1 Security Measures
+
+**Technical Safeguards:**
+
+- Encryption in transit (TLS) and at rest (AES-256, where confirmed)  
+- Role-based access control (RBAC)  
+- Secure authentication via Supabase Auth  
+- Network security (firewalls, intrusion detection, DDoS protection)  
+- Multi-tenant data isolation
+
+**Administrative Safeguards:**
+
+- Information security policies  
+- Employee confidentiality agreements  
+- Security awareness training  
+- Incident response plan  
+- Vendor security assessments
+
+**Your Responsibility:** Use strong passwords, keep credentials confidential, and report unauthorized access to [contact@strivetech.ai](mailto:contact@strivetech.ai) immediately.
+
+### 7.2 Data Retention
+
+| Data Category | Retention Period | Justification |
+| :---- | :---- | :---- |
+| Account Information | Duration of account \+ 3 years | Service provision, legal defense |
+| Transaction Records | 7 years | Tax/accounting, real estate regulations |
+| CRM/Client Data | Duration of account \+ 3 years | Service provision, compliance |
+| SaiBot Chat History | 2 years | Service improvement |
+| Usage/Analytics Data | 26 months | Analytics |
+| Security Logs | 1-2 years | Security, fraud investigation |
+| Error Logs | 90 days | Troubleshooting |
+
+**Real Estate Records:** Transaction records are retained minimum of **7 years** to accommodate state requirements. Tennessee requires 3 years (Tenn. Code Ann. §62-13-309). You are responsible for ensuring that deletions comply with your state licensing obligations.
+
+**Data Clarification:** “**Operational**” account data: deletable or exportable within 30 days post-termination (self-service tools), subject to exceptions.
+
+“**Regulatory**” and audit records (real estate, tax, security logs): retained for specified periods (e.g., 7 years) and expressly carved out from early deletion.
+
+## 8\. Your Privacy Rights
+
+### 8.1 Rights for All Users
+
+- **Access:** Request information about personal information we hold  
+- **Update:** Correct inaccurate information via account settings  
+- **Delete:** Request deletion (subject to legal retention requirements)  
+- **Opt Out:** Unsubscribe from marketing emails anytime
+
+### 8.2 Rights for External Parties
+
+If your information was entered by a real estate professional, you have rights to:
+
+- Know what information we hold  
+- Correct inaccuracies  
+- Request deletion (subject to legal requirements and legitimate business needs)  
+- Opt out of communications
+
+**Contact:** [contact@strivetech.ai](mailto:contact@strivetech.ai) with "External Party Privacy Request" in the subject line.
+
+### 8.3 Tennessee Residents (TIPA)
+
+Effective July 1, 2025, Tennessee residents have rights to:
+
+- Access and obtain a copy of personal information  
+- Delete personal information  
+- Correct inaccuracies  
+- Opt out of targeted advertising, sales, and profiling
+
+### 8.4 Data Portability Format
+
+**Export Formats:** JSON (technical users) or CSV (spreadsheet analysis)
+
+**Data Included:**
+
+- Account information  
+- Contacts, leads, deals, transactions  
+- Calendar events, activity history  
+- AI conversation transcripts & usage  
+- User preferences
+
+**Data NOT Included (obtain from third parties):**
+
+- DocuSign documents (contact DocuSign)  
+- QuickBooks data (contact Intuit)  
+- Social media content on third-party platforms
+
+**Delivery:** Secure download link valid 7 days; generation takes 1-3 business days after verification.
+
+### 8.5 Exercising Your Rights
+
+**Contact Methods:**
+
+- **Email:** [contact@strivetech.ai](mailto:contact@strivetech.ai) with "Privacy Request" in the subject line  
+- **Phone:** (731) 431-2320  
+- **Mail:** Strive Tech LLC, Attn: Privacy Team, 700 Arbor Trace Circle, Nashville, TN 37207
+
+**Verification:** We will verify your identity before processing requests.
+
+**Response Time:** 45 days (may extend an additional 45 days if needed).
+
+### 8.6 Appeals
+
+**Internal Appeal:** Contact [contact@strivetech.ai](mailto:contact@strivetech.ai) with "Privacy Appeal" in the subject line. Response within 60 days.
+
+**External Complaints:**
+
+- **California:** oag.ca.gov/privacy | (916) 210-6276  
+- **Tennessee:** tn.gov/attorneygeneral | (615) 741-3491
+
+## 9\. Children's Privacy
+
+Our Platform is **not directed to children under 18\.** Users must be at least 18 years old to create an account. We do not knowingly collect information from children.
+
+If we learn we have collected information from a child, we will delete it immediately. Contact us at [contact@strivetech.ai](mailto:contact@strivetech.ai) if you believe we have collected information from a child.
+
+**Note:** Real estate professionals may input client data, including information about minors (e.g., household dependents). Professionals are responsible for obtaining appropriate consent and legal basis.
+
+## 10\. Data Location
+
+Strive Tech is headquartered in Nashville, Tennessee. **Our Services are intended solely for users in the United States.** All information is stored and processed in the United States using infrastructure from Supabase (AWS), Vercel, and Railway.
+
+We do not knowingly collect information from individuals outside the U.S.
+
+## 11\. Third-Party Links
+
+Our Platform may link to third-party websites or services. We are not responsible for their privacy practices. Review their privacy policies.
+
+Third-party integrations collect information directly from you or receive information pursuant to your authorization:
+
+- **DocuSign:** [https://www.docusign.com/privacy](https://www.docusign.com/privacy)  
+- **QuickBooks/Intuit:** [https://www.intuit.com/privacy/](https://www.intuit.com/privacy/)
+
+## 12\. Data Breach Notification
+
+In the event of a data breach, we will:
+
+- Investigate and contain the breach immediately  
+- Assess nature, scope, and consequences  
+- Report to relevant authorities within timeframes required by law (Tennessee: 45 days)  
+- Notify you if a breach is likely to result in a risk to your rights  
+- Offer appropriate remedial measures  
+- Document and implement improvements
+
+## 13\. Changes to This Policy
+
+We may update this Privacy Policy to reflect changes in practices, technology, or legal requirements.
+
+**Notification:**
+
+- Posting updated policy on strivetech.ai with new "Last Updated" date  
+- Email notification to your account address  
+- Prominent notice within the Platform
+
+**Effective Date:** Material changes effective 30 days after notification (unless legal requirement necessitates immediate effectiveness).
+
+**Continued Use:** Continued use after the effective date constitutes acceptance of the revised policy.
+
+## 14\. Contact Us
+
+**STRIVE TECH LLC**  
+**Attn: Privacy Team**  
+700 Arbor Trace Circle  
+Nashville, TN 37207  
+United States
+
+**Email:** [contact@strivetech.ai](mailto:contact@strivetech.ai)  
+**Phone:** (731) 431-2320  
+**Website:** [https://strivetech.ai](https://strivetech.ai)
+
+We will respond to inquiries within 30 days.
+
+**Accessibility:** If you need this policy in an alternative format or require accommodations to exercise privacy rights, contact us with "Accessibility Accommodation" in the subject line.
+
+## 15\. Governing Law
+
+This Privacy Policy is governed by the laws of the State of Tennessee, without regard to conflict of law principles, except where preempted by U.S. federal law. Disputes will be resolved in state or federal courts in Davidson County, Tennessee, or as otherwise required by law.
+
+---
+
+**© 2026 STRIVE TECH LLC. All rights reserved.**  

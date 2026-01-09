@@ -4,6 +4,14 @@
   "outputDirectory": "dist/public",
   "rewrites": [
     {
+      "source": "/legal/privacy-policy",
+      "destination": "/legal/privacy-policy.pdf"
+    },
+    {
+      "source": "/legal/terms-of-service-agreement",
+      "destination": "/legal/terms-of-service-agreement.pdf"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
@@ -137,6 +145,23 @@
         {
           "key": "Cache-Control",
           "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/legal/(.*)\\.pdf",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
         }
       ]
     },

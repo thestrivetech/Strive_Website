@@ -1,5 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import path from "path";
 import { storage, MemStorage } from "./storage";
 import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertUserSchema } from "@shared/schema";
 import { z } from "zod";
@@ -13,6 +14,39 @@ import { sitemapRouter } from "./routes/sitemap";
 import analyticsRouter from "./routes/analytics";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Legal document routes - serve PDFs at clean URLs
+  app.get("/legal/privacy-policy", (req, res) => {
+    log.info("Serving privacy policy PDF");
+    const pdfPath = path.resolve(import.meta.dirname, "..", "client", "public", "legal", "privacy-policy.pdf");
+    log.info(`PDF path: ${pdfPath}`);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", "inline; filename=privacy-policy.pdf");
+    res.sendFile(pdfPath, (err) => {
+      if (err) {
+        log.error(`Error serving privacy policy: ${err.message}`);
+        if (!res.headersSent) {
+          res.status(404).json({ error: "File not found", path: pdfPath });
+        }
+      }
+    });
+  });
+
+  app.get("/legal/terms-of-service-agreement", (req, res) => {
+    log.info("Serving terms of service PDF");
+    const pdfPath = path.resolve(import.meta.dirname, "..", "client", "public", "legal", "terms-of-service-agreement.pdf");
+    log.info(`PDF path: ${pdfPath}`);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", "inline; filename=terms-of-service-agreement.pdf");
+    res.sendFile(pdfPath, (err) => {
+      if (err) {
+        log.error(`Error serving terms of service: ${err.message}`);
+        if (!res.headersSent) {
+          res.status(404).json({ error: "File not found", path: pdfPath });
+        }
+      }
+    });
+  });
+
   // Health check endpoint for production monitoring
   app.get("/api/health/database", async (req, res) => {
     const checks = {

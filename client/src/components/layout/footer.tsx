@@ -186,23 +186,27 @@ const Footer = () => {
 
         <div className="border-t border-white/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-sm text-white/60 mb-4 md:mb-0" data-testid="text-copyright">
-            © {currentYear} STRIVE. All rights reserved.
+            © {currentYear} Strive Tech LLC. All rights reserved.
           </div>
           <div className="flex space-x-6 text-sm">
-            <Link 
-              href="/privacy" 
+            <a
+              href="/legal/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-white/70 hover:text-white transition-colors"
               data-testid="link-privacy"
             >
               Privacy Policy
-            </Link>
-            <Link 
-              href="/terms" 
+            </a>
+            <a
+              href="/legal/terms-of-service-agreement"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-white/70 hover:text-white transition-colors"
               data-testid="link-terms"
             >
               Terms of Service
-            </Link>
+            </a>
             <Link 
               href="/cookies" 
               className="text-white/70 hover:text-white transition-colors"
